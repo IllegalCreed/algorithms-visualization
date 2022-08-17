@@ -1,0 +1,69 @@
+// 行布局
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+// 列布局
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+// 行内水平垂直（上下）居中
+.row-center {
+  .row();
+  align-items: center;
+}
+
+// 行内两端对齐
+.row-between {
+  .row();
+  justify-content: space-between;
+}
+
+// 自动换行
+.row-wrap {
+  .row();
+  flex-wrap: wrap;
+}
+
+// 列内水平（左右）居中
+.column-center {
+  .column();
+  align-items: center;
+}
+
+// 类内元素向两边拉伸
+.column-stretch {
+  .column();
+  align-items: stretch;
+}
+
+// 水平垂直同时剧中
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 用来撑起剩余空间
+.blank {
+  flex: 1;
+}
+
+// 吸顶
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+// 吸底
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
