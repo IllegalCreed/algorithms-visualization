@@ -9,7 +9,7 @@
 <style scoped lang='less'>
 #footer {
   height: 100px;
-  .neumorphism-pressed (5px, 0px);
+  .neumorphism-flat (5px, 0px);
   .center();
 }
 </style>
