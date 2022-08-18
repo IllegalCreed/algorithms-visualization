@@ -33,6 +33,7 @@ function goHomePage(): void {
 <style scoped lang="less">
 #header {
   width: 100vw;
+  height: 100px;
   min-width: @screen-min-width;
   background-color: @neumorphis-background;
   .fixed-top();
