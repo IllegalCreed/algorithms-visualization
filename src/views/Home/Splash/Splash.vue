@@ -6,6 +6,7 @@ const router = useRouter();
 function goDocsPage(): void {
   router.push({
     name: 'docs',
+    params: { page: 'array' }
   })
 }
 </script>
@@ -21,8 +22,7 @@ function goDocsPage(): void {
 </template>
 <style scoped lang='less'>
 .splash {
-  width: 100vw;
-  min-width: @screen-min-width;
+  width: 100%;
   height: 100vh;
   .column();
   .center();
@@ -33,6 +33,7 @@ function goDocsPage(): void {
     margin-block-end: 0px;
     text-align: center;
     background-image: linear-gradient(315deg, #42d392 25%, #647eff);
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
   }

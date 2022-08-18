@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import { defineProps } from 'vue';
 import { IconLink } from './types';
 
 const props = defineProps<{

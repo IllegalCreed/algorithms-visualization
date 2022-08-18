@@ -4,7 +4,7 @@ import { useSystemStore } from '@/store/modules/system';
 import { useRouter } from 'vue-router'
 import IconLinkComp from './IconLink/IconLink.vue';
 
-let systemStore = useSystemStore();
+const systemStore = useSystemStore();
 
 const iconLinkData = useIconLink();
 
@@ -25,7 +25,7 @@ function goHomePage(): void {
       <h1>算法可视化</h1>
       <div class="blank"></div>
 
-      <IconLinkComp v-for="item of iconLinkData" :key="item.url" :data="item" />
+      <IconLinkComp v-for="item in iconLinkData" :key="item.url" :data="item" />
     </div>
   </div>
 </template>
@@ -34,8 +34,10 @@ function goHomePage(): void {
 #header {
   width: 100vw;
   min-width: @screen-min-width;
+  background-color: @neumorphis-background;
   .fixed-top();
   .center();
+  transition: box-shadow 0.2s ease-in;
 
   #main {
     width: 100vw;

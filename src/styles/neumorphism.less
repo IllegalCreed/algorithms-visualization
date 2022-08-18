@@ -3,28 +3,28 @@
 
 .neumorphism-flat(@height, @radius, @bg: @neumorphis-background) {
   border-radius: @radius;
-  background: @bg;
+  background-image: @bg;
   box-shadow: @height @height @height*2 darken(@bg, 15%),
     -@height -@height @height*2 lighten(@bg, 15%);
 }
 
 .neumorphism-concave(@height, @radius, @bg: @neumorphis-background) {
   border-radius: @radius;
-  background: linear-gradient(145deg, darken(@bg, 10%), lighten(@bg, 7%));
+  background-image: linear-gradient(145deg, darken(@bg, 10%), lighten(@bg, 7%));
   box-shadow: @height @height @height*2 darken(@bg, 15%),
     -@height -@height @height*2 lighten(@bg, 15%);
 }
 
 .neumorphism-convex(@height, @radius, @bg: @neumorphis-background) {
   border-radius: @radius;
-  background: linear-gradient(145deg, lighten(@bg, 7%), darken(@bg, 10%));
+  background-image: linear-gradient(145deg, lighten(@bg, 7%), darken(@bg, 10%));
   box-shadow: @height @height @height*2 darken(@bg, 15%),
     -@height -@height @height*2 lighten(@bg, 15%);
 }
 
 .neumorphism-pressed (@height, @radius, @bg: @neumorphis-background) {
   border-radius: @radius;
-  background: @bg;
+  background-image: @bg;
   box-shadow: inset @height @height @height*2 darken(@bg, 15%),
     inset -@height -@height @height*2 lighten(@bg, 15%);
 }
