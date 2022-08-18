@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useIconLink } from './hooks';
-import { useSystemStore } from '../../store/modules/system';
+import { useSystemStore } from '@/store/modules/system';
 import { useRouter } from 'vue-router'
-import IconLinkComp from './IconLink.vue';
+import IconLinkComp from './IconLink/IconLink.vue';
 
 let systemStore = useSystemStore();
 
@@ -31,8 +31,6 @@ function goHomePage(): void {
 </template>
 
 <style scoped lang="less">
-@import "../../styles/common.less";
-
 #header {
   width: 100vw;
   min-width: @screen-min-width;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Header from './Header.vue'
+import Header from './Header/Header.vue'
 </script>
 
 <template>
@@ -10,8 +10,6 @@ import Header from './Header.vue'
 </template>
 
 <style scoped lang="less">
-@import '../../styles/common.less';
-
 #master {
   background-color: @neumorphis-background;
   color: @font-color;

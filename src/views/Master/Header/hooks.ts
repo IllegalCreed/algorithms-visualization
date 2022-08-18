@@ -1,7 +1,7 @@
-import { IconLink } from "../types";
-import weiboIcon from '../../../assets/weibo.svg';
-import gitbubIcon from '../../../assets/github.svg';
-import twitterIcon from '../../../assets/twitter.svg';
+import { IconLink } from "./IconLink/types";
+import weiboIcon from '@/assets/weibo.svg';
+import gitbubIcon from '@/assets/github.svg';
+import twitterIcon from '@/assets/twitter.svg';
 
 export function useIconLink(): IconLink[] {
   const iconLinkData: IconLink[] = [

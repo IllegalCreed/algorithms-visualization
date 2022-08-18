@@ -17,8 +17,6 @@ function linkTo(): void {
   </div>
 </template>
 <style scoped lang='less'>
-@import '../../styles/common.less';
-
 .icon-link {
   width: 40px;
   height: 40px;

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import Splash from './Splash.vue';
-import Main from './Main.vue';
+import Splash from './Splash/Splash.vue';
+import Main from './Main/Main.vue';
 </script>
 <template>
   <div>

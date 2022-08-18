@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 
 const router = useRouter();
+
 function goDocsPage(): void {
   router.push({
     name: 'docs',
@@ -19,16 +20,12 @@ function goDocsPage(): void {
   </div>
 </template>
 <style scoped lang='less'>
-@import "../../styles/common.less";
-
 .splash {
   width: 100vw;
+  min-width: @screen-min-width;
   height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  .column();
+  .center();
 
   h1 {
     font-size: 60px;
