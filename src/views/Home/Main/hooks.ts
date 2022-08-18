@@ -7,6 +7,15 @@ import TreeIcon from '@/assets/tree.svg';
 import HeapIcon from '@/assets/heap.svg';
 import HashIcon from '@/assets/hash.svg';
 import GraphIcon from '@/assets/graph.svg';
+import BubbleIcon from '@/assets/bubble.svg';
+import SelectionIcon from '@/assets/selection.svg';
+import InsertionIcon from '@/assets/insertion.svg';
+import ShellIcon from '@/assets/shell.svg';
+import MergeIcon from '@/assets/merge.svg';
+import QuickIcon from '@/assets/quick.svg';
+import CountingIcon from '@/assets/counting.svg';
+import RadixIcon from '@/assets/radix.svg';
+import BucketIcon from '@/assets/bucket.svg';
 
 export function useCategoryData(): Category[] {
   const categoryData: Category[] = [
@@ -62,6 +71,72 @@ export function useCategoryData(): Category[] {
           icon: GraphIcon,
           url: 'graph'
         },
+      ]
+    },
+    {
+      title: '经典排序算法',
+      desc: '根据不同数据结构对无序元素进行有序化的计算方法',
+      children: [
+        {
+          title: "冒泡排序",
+          desc: '每次循环找出目前数组中最大的数,放在当前数组末尾',
+          icon: BubbleIcon,
+          url: 'bubble-sort'
+        },
+        {
+          title: "选择排序",
+          desc: '每次循环找出目前数组中最小的数,放在当前数组头部',
+          icon: SelectionIcon,
+          url: 'selection-sort'
+        },
+        {
+          title: "插入排序",
+          desc: '顺序遍历数组每一个数字,然后和该数字前面的数组比较,将其放在适当的位置',
+          icon: InsertionIcon,
+          url: 'insertion-sort'
+        },
+        {
+          title: "希尔排序",
+          desc: '核心是一个插入排序,步进数1改为数组长度的一半,每完成一次步进都减小一半',
+          icon: ShellIcon,
+          url: 'shell-sort'
+        },
+        {
+          title: "归并排序",
+          desc: '通过递归构建二叉树结构，然进行左右两个节点的有序数组合并。',
+          icon: MergeIcon,
+          url: 'merge-sort'
+        },
+        {
+          title: "快速排序",
+          desc: '将数组首位作为基准数，将比他小的放在前面，比他大的放在后面，前后两个数组重复这一过程',
+          icon: QuickIcon,
+          url: 'quick-sort'
+        },
+        {
+          title: "堆排序",
+          desc: '利用大顶堆性质每次找出最大的数放在末尾，然后重复构造和维护大顶堆',
+          icon: HeapIcon,
+          url: 'heap-sort'
+        },
+        {
+          title: "计数排序",
+          desc: '在已知取值范围的情况下，按照一种萝卜一个坑的思想进行排序',
+          icon: CountingIcon,
+          url: 'counting-sort'
+        },
+        // {
+        //   title: "桶排序",
+        //   desc: '',
+        //   icon: BucketIcon,
+        //   url: 'bucket-sort'
+        // },
+        // {
+        //   title: "基数排序",
+        //   desc: '',
+        //   icon: RadixIcon,
+        //   url: 'radix-sort'
+        // },
       ]
     }
   ]

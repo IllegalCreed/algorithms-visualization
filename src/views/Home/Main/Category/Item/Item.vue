@@ -38,9 +38,9 @@ function goDocs(): void {
   }
 
   span {
+    font-weight: lighter;
     text-align: center;
     font-size: 12px;
-    opacity: .6;
     line-height: 20px;
   }
 }

@@ -19,6 +19,7 @@ const props = defineProps<{
 </template>
 <style scoped lang='less'>
 .category {
+  margin-top: 100px;
   margin-bottom: 50px;
   .column();
   .center();
