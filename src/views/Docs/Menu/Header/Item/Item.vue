@@ -18,7 +18,7 @@ function goDocs(): void {
 }
 </script>
 <template>
-  <div :class="['item', currentSelectMenuItemKey == props.data.url ? 'item-pressed' : null]" @click="goDocs">
+  <div :class="['item', 'btn', currentSelectMenuItemKey == props.data.url ? 'item-pressed' : null]" @click="goDocs">
     <span>{{ props.data.title }}</span>
   </div>
 </template>
@@ -35,7 +35,7 @@ function goDocs(): void {
   }
 
   &:hover {
-    color: blue;
+    color: @font-highlight-color;
   }
 }
 
