@@ -26,7 +26,6 @@ useControlHeaderShadow();
   @media screen {
     #left {
       width: @slider-width;
-      background-color: red;
       overflow-y: auto;
     }
 
@@ -39,7 +38,6 @@ useControlHeaderShadow();
     @media (min-width:@screen-max-width) {
       #left {
         width: calc((100vw - @screen-max-width) / 2 + @slider-width);
-        background-color: red;
         padding-left: calc((100vw - @screen-max-width) / 2);
       }
 

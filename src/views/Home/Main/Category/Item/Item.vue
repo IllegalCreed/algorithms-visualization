@@ -10,8 +10,7 @@ const router = useRouter();
 
 function goDocs(): void {
   router.push({
-    name: 'docs',
-    params: { page: props.data.url }
+    name: props.data.url,
   })
 }
 </script>

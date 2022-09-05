@@ -127,13 +127,13 @@ export function useCategoryData(): Category[] {
         },
         // {
         //   title: "桶排序",
-        //   desc: '',
+        //   desc: '计数排序优化，放宽桶接受范围，减少桶数量，桶内排序',
         //   icon: BucketIcon,
         //   url: 'bucket-sort'
         // },
         // {
         //   title: "基数排序",
-        //   desc: '',
+        //   desc: '先按个位数进桶，得到个位数有序数组后按十位数进桶，以此类推',
         //   icon: RadixIcon,
         //   url: 'radix-sort'
         // },
