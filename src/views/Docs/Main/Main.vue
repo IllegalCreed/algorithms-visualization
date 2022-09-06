@@ -8,7 +8,6 @@
 </template>
 <style scoped lang='less'>
 .main {
-  background: aliceblue;
-  height: 2000px;
+  padding: 20px
 }
 </style>

@@ -21,6 +21,13 @@ export const useSystemStore = defineStore('System', () => {
   // define state
   const isDarkMode: Ref<boolean> = ref<boolean>(false);
 
+  const colors = [
+    'red',
+    'blue',
+    'yellow',
+    'green'
+  ]
+
   // define action
   function changeDarkMode(): void {
     isDarkMode.value = !isDarkMode.value;
@@ -41,5 +48,5 @@ export const useSystemStore = defineStore('System', () => {
     isShowHeaderShadow.value = isShow;
   }
 
-  return { isDarkMode, changeDarkMode, isShowHeaderShadow, changeHeaderShadowe };
+  return { colors, isDarkMode, changeDarkMode, isShowHeaderShadow, changeHeaderShadowe };
 })

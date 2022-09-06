@@ -31,7 +31,6 @@ useControlHeaderShadow();
 
     #right {
       width: calc(100vw - @slider-width);
-      background-color: blue;
       overflow-y: auto;
     }
 
@@ -43,7 +42,6 @@ useControlHeaderShadow();
 
       #right {
         width: calc(100vw - (100vw - @screen-max-width) / 2 - @slider-width);
-        background-color: blue;
         padding-right: calc((100vw - @screen-max-width) / 2);
       }
     }

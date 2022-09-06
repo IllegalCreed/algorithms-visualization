@@ -59,6 +59,11 @@ const routes = [
             name: 'graph',
             component: () => import('../views/Article/DataStructure/Graph.vue'),
           },
+          {
+            path: '/docs/bubble-sort',
+            name: 'bubble-sort',
+            component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
+          },
         ]
       }
     ]
