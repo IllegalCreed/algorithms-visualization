@@ -1,4 +1,4 @@
-import { Category } from "./types";
+import type { Category } from "./types";
 import ArrayIcon from '@/assets/array.svg';
 import LinkIcon from '@/assets/link.svg';
 import StackIcon from '@/assets/stack.svg';

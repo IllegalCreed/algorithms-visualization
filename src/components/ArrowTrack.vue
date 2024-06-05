@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { Pointer } from '@/types/types';
+import type { Pointer } from '@/types/types';
 import { useSystemStore } from '@/store/modules/system';
 import ArrowComp from './Arrow.vue';
 

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { IconLink } from './types';
+import type { IconLink } from './types';
 
 const props = defineProps<{
   data: IconLink

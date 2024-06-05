@@ -1,6 +1,6 @@
-import { Category } from "./types";
+import type { Category } from "./types";
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
-import { Ref, ref, provide } from 'vue';
+import { ref, provide } from 'vue';
 
 export function useCategoryData(): Category[] {
   const categoryData: Category[] = [
@@ -91,7 +91,7 @@ export function useCategoryData(): Category[] {
 }
 
 export function useMenuSelect(): void {
-  let currentSelectMenuItemKey: Ref<string | null> = ref<string | null>(null);
+  let currentSelectMenuItemKey = ref<string | null>(null);
   provide('currentSelectMenuItemKey', currentSelectMenuItemKey);
   onBeforeRouteUpdate(async (to, from) => {
     currentSelectMenuItemKey.value = to.name as string;

@@ -1,8 +1,8 @@
 <script setup lang='ts'>
-import { reactive, ref, Ref } from 'vue';
+import { reactive, ref } from 'vue';
 import ListComp from '@/components/List.vue';
 import ArrowTrackComp from '@/components/ArrowTrack.vue'
-import { Pointer } from '@/types/types';
+import type { Pointer } from '@/types/types';
 import { useSystemStore } from '@/store/modules/system';
 import { computed } from '@vue/reactivity';
 
@@ -32,8 +32,8 @@ const colors = useSystemStore().colors;
 const updateFirstPointerValue = () => numArray[pointerArray[0].index][1];
 const updateSecondPointerValue = () => numArray[pointerArray[1].index][1];
 
-const firstPointerValue: Ref<number> = ref<number>(updateFirstPointerValue());
-const secondPointerValue: Ref<number> = ref<number>(updateSecondPointerValue());
+const firstPointerValue = ref<number>(updateFirstPointerValue());
+const secondPointerValue = ref<number>(updateSecondPointerValue());
 
 const compareTwoValue = computed(() => {
   return firstPointerValue.value > secondPointerValue.value;

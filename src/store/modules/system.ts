@@ -1,4 +1,4 @@
-import { ref, Ref } from 'vue';
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 
@@ -19,7 +19,7 @@ import { defineStore } from 'pinia';
  */
 export const useSystemStore = defineStore('System', () => {
   // define state
-  const isDarkMode: Ref<boolean> = ref<boolean>(false);
+  const isDarkMode = ref<boolean>(false);
 
   const colors = [
     'red',
@@ -43,7 +43,7 @@ export const useSystemStore = defineStore('System', () => {
   /**
    * 控制header阴影是否出现
    */
-  const isShowHeaderShadow: Ref<boolean> = ref<boolean>(false);
+  const isShowHeaderShadow = ref<boolean>(false);
   function changeHeaderShadowe(isShow: boolean): void {
     isShowHeaderShadow.value = isShow;
   }

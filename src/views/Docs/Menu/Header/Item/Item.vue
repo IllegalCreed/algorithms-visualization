@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router';
-import { Item } from '../../types';
+import type { Item } from '../../types';
 import { inject } from 'vue'
 
 const props = defineProps<{
