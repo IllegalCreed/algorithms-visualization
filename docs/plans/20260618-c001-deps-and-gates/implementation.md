@@ -1,14 +1,14 @@
 # 实现记录：工具链现代化
 
-> Status: implemented
+> Status: verified
 > Stable ID: C-20260618-001
 > Type: ops
 > Owner: IllegalCreed
 > Created: 2026-06-18
 > Last reviewed: 2026-06-18
-> Progress: 90%
+> Progress: 100%
 > Blocked by: none
-> Next action: 提交并合并到 main（CI 门禁验证）
+> Next action: none（已合并 main，GitHub Actions CI 门禁实跑通过）
 > Replaces: none
 > Replaced by: none
 > Related plans: none
