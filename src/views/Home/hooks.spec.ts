@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
-import { defineComponent } from 'vue';
+import { defineComponent, nextTick } from 'vue';
 import { useControlHeaderShadow } from './hooks';
 import { useSystemStore } from '@/store/modules/system';
 
@@ -43,27 +43,31 @@ describe('Home useControlHeaderShadow', () => {
     expect(removeSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
   });
 
-  it('TC-HOOK-03-3: scrollY > 0 时 isShowHeaderShadow 变为 true', () => {
+  it('TC-HOOK-03-3: scrollY > 0 时 isShowHeaderShadow 变为 true', async () => {
     const store = useSystemStore();
     expect(store.isShowHeaderShadow).toBe(false);
 
-    mount(makeHostComponent());
+    const wrapper = mount(makeHostComponent());
 
     Object.defineProperty(window, 'scrollY', { value: 100, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
+    await nextTick();
 
     expect(store.isShowHeaderShadow).toBe(true);
+    wrapper.unmount();
   });
 
-  it('TC-HOOK-03-4: scrollY === 0 时 isShowHeaderShadow 变为 false', () => {
+  it('TC-HOOK-03-4: scrollY === 0 时 isShowHeaderShadow 变为 false', async () => {
     const store = useSystemStore();
     store.isShowHeaderShadow = true;
 
-    mount(makeHostComponent());
+    const wrapper = mount(makeHostComponent());
 
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
+    await nextTick();
 
     expect(store.isShowHeaderShadow).toBe(false);
+    wrapper.unmount();
   });
 });
