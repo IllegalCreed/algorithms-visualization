@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import IconLink from './IconLink.vue';
 
@@ -10,6 +10,10 @@ describe('Master/Header/IconLink 组件', () => {
   beforeEach(() => {
     vi.stubGlobal('open', mockWindowOpen);
     mockWindowOpen.mockReset();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   const mockData = {
