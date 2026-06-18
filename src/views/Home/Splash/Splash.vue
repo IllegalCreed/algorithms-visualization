@@ -4,10 +4,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 function goDocsPage(): void {
-  router.push({
-    name: 'docs',
-    params: { page: 'array' },
-  });
+  router.push({ name: 'array' });
 }
 </script>
 <template>

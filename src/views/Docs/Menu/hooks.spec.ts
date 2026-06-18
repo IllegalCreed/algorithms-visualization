@@ -34,9 +34,9 @@ describe('Docs/Menu useCategoryData', () => {
     expect(new Set(urls).size).toBe(urls.length);
   });
 
-  it('TC-HOOK-02-4: 数据结构含 8 项，排序算法含 10 项（含桶/基数）', () => {
+  it('TC-HOOK-02-4: 数据结构含 8 项，排序算法含 8 项（与 Home 一致，bucket/radix 留 M2）', () => {
     const data = useCategoryData();
     expect(data[0].children).toHaveLength(8);
-    expect(data[1].children).toHaveLength(10);
+    expect(data[1].children).toHaveLength(8);
   });
 });
