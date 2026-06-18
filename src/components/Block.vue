@@ -6,7 +6,7 @@ const props = defineProps<{
 </script>
 <template>
   <div class="block center" :style="{ 'background-color': 'rgba(0,200,50,' + props.percent + ')' }">
-    <span :style="{ color: props.percent < 0.5 ? 'block' : 'white' }">{{ props.data[1] }}</span>
+    <span :style="{ color: props.percent < 0.5 ? 'black' : 'white' }">{{ props.data[1] }}</span>
   </div>
 </template>
 <style scoped lang="less">
