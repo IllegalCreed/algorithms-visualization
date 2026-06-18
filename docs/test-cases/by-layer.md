@@ -58,7 +58,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **52** 个用例。运行命令：`pnpm test:unit`
+共 **57** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 

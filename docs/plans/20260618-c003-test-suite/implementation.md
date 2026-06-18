@@ -176,7 +176,7 @@ docs/roadmap.md
 ### L3 + L4 全量单元测试（`pnpm test:unit`）
 
 - 测试文件：20 个 spec
-- 测试用例：80 个（全绿）
+- 测试用例：85 个 unit it()（全绿）；连同 3 个 e2e 合计 88 Case
 - 覆盖率（`pnpm coverage`）：
 
 | 指标       | 实际值 | 阈值 | 状态 |
