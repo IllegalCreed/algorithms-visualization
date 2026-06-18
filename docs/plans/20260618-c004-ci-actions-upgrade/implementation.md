@@ -17,7 +17,9 @@
 
 ## 改动清单
 
-`.github/workflows/deploy.yml`：6 个 action 版本升级（checkout v7 / setup-node v6 / configure-pages v6 / upload-pages-artifact v5 / deploy-pages v5 / pnpm/action-setup v6）。流程逻辑、Node 22、门禁步骤不变。
+`.github/workflows/deploy.yml`：6 个 action 版本升级（checkout v6 / setup-node v6 / configure-pages v6 / upload-pages-artifact v5 / deploy-pages v5 / pnpm/action-setup v6）。流程逻辑、Node 22、门禁步骤不变。
+
+**踩坑**：首次用 `checkout@v7` 导致 CI `Unable to resolve action ... unable to find version v7`——`gh api releases/latest` 返回具体 release `v7.0.0`，但 GitHub 未维护 `@v7` 浮动 major tag。改用各 action 实际存在的最高浮动 major tag（`gh api repos/<action>/tags | grep '^v[0-9]+$'` 查证）后通过。
 
 ## 实际涉及文件
 

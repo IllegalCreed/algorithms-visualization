@@ -22,7 +22,7 @@
 
 升级 `.github/workflows/deploy.yml` 各 action 到最新主版本：
 
-- `actions/checkout` v4 → **v7**
+- `actions/checkout` v4 → **v6**（注：v7.0.0 存在但无 `@v7` 浮动 major tag，用最高浮动 tag v6）
 - `pnpm/action-setup` v4 → **v6**
 - `actions/setup-node` v4 → **v6**
 - `actions/configure-pages` v4 → **v6**
