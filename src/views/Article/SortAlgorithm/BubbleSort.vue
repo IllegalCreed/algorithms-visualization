@@ -4,6 +4,7 @@ import ListComp from '@/components/List.vue';
 import ArrowTrackComp from '@/components/ArrowTrack.vue';
 import type { Pointer } from '@/types/types';
 import { useSystemStore } from '@/store/modules/system';
+import { bubbleSortSteps } from '@/algorithms/bubble-sort';
 
 // 将初始值定义为函数方便还原
 const getInitialNum = () => [7, 6, 5, 10, 9, 8, 4, 3, 2, 1];
@@ -39,20 +40,20 @@ const compareTwoValue = computed(() => {
 });
 
 async function doSort() {
-  for (let j = numArray.length - 1; j > 0; j--) {
-    for (let i = 0; i < j; i++) {
-      pointerArray[0].index = i;
-      pointerArray[1].index = i + 1;
-      firstPointerValue.value = updateFirstPointerValue();
-      secondPointerValue.value = updateSecondPointerValue();
-      await delay(500);
-      if (numArray[i][1] > numArray[i + 1][1]) {
-        const temp = numArray[i];
-        numArray[i] = numArray[i + 1];
-        numArray[i + 1] = temp;
-      }
-      await delay(1000);
+  const steps = bubbleSortSteps(getInitialNum());
+  for (const step of steps) {
+    const [i, j] = step.compare;
+    pointerArray[0].index = i;
+    pointerArray[1].index = j;
+    firstPointerValue.value = numArray[i][1];
+    secondPointerValue.value = numArray[j][1];
+    await delay(500);
+    if (step.swapped) {
+      const temp = numArray[i];
+      numArray[i] = numArray[j];
+      numArray[j] = temp;
     }
+    await delay(1000);
   }
 }
 
