@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted } from 'vue';
 import { useSystemStore } from '@/store/modules/system';
 
 export function useControlHeaderShadow(): void {
@@ -6,9 +6,9 @@ export function useControlHeaderShadow(): void {
 
   onMounted(() => {
     system.isShowHeaderShadow = true;
-  })
+  });
 
   onUnmounted(() => {
     system.isShowHeaderShadow = false;
-  })
+  });
 }

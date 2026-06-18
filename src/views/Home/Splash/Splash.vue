@@ -1,13 +1,13 @@
-<script setup lang='ts'>
-import { useRouter } from 'vue-router'
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 function goDocsPage(): void {
   router.push({
     name: 'docs',
-    params: { page: 'array' }
-  })
+    params: { page: 'array' },
+  });
 }
 </script>
 <template>
@@ -15,12 +15,10 @@ function goDocsPage(): void {
     <h1>可视化的</h1>
     <h2>数据结构与算法</h2>
     <span>使用Vue3 + Vite + TypeScript + Pinia编写</span>
-    <div id="start-btn" @click="goDocsPage">
-      开始学习
-    </div>
+    <div id="start-btn" @click="goDocsPage">开始学习</div>
   </div>
 </template>
-<style scoped lang='less'>
+<style scoped lang="less">
 .splash {
   width: 100%;
   height: 100vh;

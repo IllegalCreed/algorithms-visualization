@@ -1,21 +1,20 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import type { IconLink } from './types';
 
 const props = defineProps<{
-  data: IconLink
+  data: IconLink;
 }>();
 
 function linkTo(): void {
   window.open(props.data.url);
 }
-
 </script>
 <template>
   <div class="icon-link" :title="props.data.title" @click="linkTo">
     <img :src="props.data.src" />
   </div>
 </template>
-<style scoped lang='less'>
+<style scoped lang="less">
 .icon-link {
   width: 40px;
   height: 40px;

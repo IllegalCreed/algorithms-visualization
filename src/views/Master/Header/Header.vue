@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useIconLink } from './hooks';
 import { useSystemStore } from '@/store/modules/system';
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 import IconLinkComp from './IconLink/IconLink.vue';
 
 const systemStore = useSystemStore();
@@ -12,7 +12,7 @@ const router = useRouter();
 function goHomePage(): void {
   router.push({
     name: 'home',
-  })
+  });
 }
 </script>
 

@@ -64,21 +64,20 @@ const routes = [
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
           },
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
   {
     path: '/about',
     name: 'about',
-    component: About
+    component: About,
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes,
-})
-
+});
 
 export default router;

@@ -1,11 +1,10 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import type { Category } from '../types';
 import ItemComp from './Item/Item.vue';
 
 const props = defineProps<{
-  data: Category
+  data: Category;
 }>();
-
 </script>
 <template>
   <div class="category">
@@ -17,7 +16,7 @@ const props = defineProps<{
     <ItemComp v-for="item in props.data.children" :key="item.title" :data="item"></ItemComp>
   </div>
 </template>
-<style scoped lang='less'>
+<style scoped lang="less">
 .category {
   margin-bottom: 50px;
   .column();
@@ -37,7 +36,6 @@ const props = defineProps<{
   align-self: center;
   justify-content: center;
   .row-wrap();
-
 
   .item {
     margin: 15px 20px;

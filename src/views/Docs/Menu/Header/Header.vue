@@ -1,9 +1,9 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import type { Category } from '../types';
-import ItemComp from './Item/Item.vue'
+import ItemComp from './Item/Item.vue';
 
 const props = defineProps<{
-  data: Category
+  data: Category;
 }>();
 </script>
 <template>
@@ -12,7 +12,7 @@ const props = defineProps<{
     <ItemComp v-for="item in props.data.children" :key="item.title" :data="item"></ItemComp>
   </div>
 </template>
-<style scoped lang='less'>
+<style scoped lang="less">
 .header {
   &:not(:first-child) {
     margin-top: 30px;

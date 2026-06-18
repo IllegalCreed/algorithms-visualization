@@ -3,33 +3,56 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.29.2",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build && cp 404.html dist/",
-    "type-check": "vue-tsc --build --force"
+    "type-check": "vue-tsc --build --force",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
+    "prepare": "husky"
   },
   "dependencies": {
-    "pinia": "^2.1.7",
-    "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "pinia": "^3.0.4",
+    "vue": "^3.5.38",
+    "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "less": "^4.2.0",
-    "@tsconfig/node20": "^20.1.4",
-    "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.14.2",
-    "@vitejs/plugin-vue": "^5.0.5",
-    "@vue/test-utils": "^2.4.6",
-    "@vue/tsconfig": "^0.5.1",
-    "jsdom": "^24.1.0",
-    "npm-run-all2": "^6.2.0",
-    "typescript": "~5.4.5",
-    "vite": "^5.2.12",
-    "vite-plugin-vue-devtools": "^7.2.1",
-    "vitest": "^1.6.0",
-    "vue-tsc": "^2.0.19"
+    "@tsconfig/node20": "^20.1.9",
+    "@types/jsdom": "^28.0.3",
+    "@types/node": "^25.9.3",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.8.0",
+    "@vue/test-utils": "^2.4.11",
+    "@vue/tsconfig": "^0.9.1",
+    "eslint": "^10.5.0",
+    "eslint-plugin-vue": "^10.9.2",
+    "husky": "^9.1.7",
+    "jiti": "^2.7.0",
+    "jsdom": "^29.1.1",
+    "less": "^4.6.6",
+    "lint-staged": "^17.0.7",
+    "npm-run-all2": "^9.0.2",
+    "prettier": "^3.8.4",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.16",
+    "vite-plugin-vue-devtools": "^8.1.3",
+    "vitest": "^4.1.9",
+    "vue-tsc": "^3.3.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,mts,tsx,vue}": "eslint --fix",
+    "*.{ts,mts,tsx,vue,js,json,md,less,css,html}": "prettier --write"
   }
 }

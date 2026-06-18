@@ -1,5 +1,5 @@
 export interface IconLink {
-  url: string,
-  src: string,
-  title: string
+  url: string;
+  src: string;
+  title: string;
 }

@@ -1,9 +1,9 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import type { Item } from '../../types';
 import { useRouter } from 'vue-router';
 
 const props = defineProps<{
-  data: Item
+  data: Item;
 }>();
 
 const router = useRouter();
@@ -11,7 +11,7 @@ const router = useRouter();
 function goDocs(): void {
   router.push({
     name: props.data.url,
-  })
+  });
 }
 </script>
 <template>
@@ -22,7 +22,7 @@ function goDocs(): void {
     <span>{{ props.data.desc }}</span>
   </div>
 </template>
-<style scoped lang='less'>
+<style scoped lang="less">
 .item {
   width: 280px;
   padding: 30px;

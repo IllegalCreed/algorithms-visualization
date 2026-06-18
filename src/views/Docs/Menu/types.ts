@@ -1,9 +1,9 @@
 export interface Category {
-  title: string,
-  children: Item[]
+  title: string;
+  children: Item[];
 }
 
 export interface Item {
-  title: string,
-  url: string,
+  title: string;
+  url: string;
 }

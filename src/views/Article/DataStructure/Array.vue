@@ -1,8 +1,3 @@
-<script setup lang='ts'>
-
-</script>
-<template>
-  array
-</template>
-<style scoped lang='less'>
-</style>
+<script setup lang="ts"></script>
+<template><div></div></template>
+<style scoped lang="less"></style>

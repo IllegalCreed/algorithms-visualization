@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import Splash from './Splash/Splash.vue';
 import Main from './Main/Main.vue';
 import Footer from './Footer/Footer.vue';
@@ -13,7 +13,7 @@ useControlHeaderShadow();
     <Footer></Footer>
   </div>
 </template>
-<style lang='less'>
+<style lang="less">
 #home {
   background-color: @neumorphis-background;
   min-width: @screen-min-width;

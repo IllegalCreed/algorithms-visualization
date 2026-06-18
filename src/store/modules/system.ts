@@ -1,7 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
-
 /** pinia的类setup式定义，你也可以使用传统的option式定义，形如
  *  export const useCounterStore = defineStore('counter', {
  *  state: () => {
@@ -15,18 +14,13 @@ import { defineStore } from 'pinia';
  *    },
  *  },
  *  })
- *  
+ *
  */
 export const useSystemStore = defineStore('System', () => {
   // define state
   const isDarkMode = ref<boolean>(false);
 
-  const colors = [
-    'red',
-    'blue',
-    'yellow',
-    'green'
-  ]
+  const colors = ['red', 'blue', 'yellow', 'green'];
 
   // define action
   function changeDarkMode(): void {
@@ -49,4 +43,4 @@ export const useSystemStore = defineStore('System', () => {
   }
 
   return { colors, isDarkMode, changeDarkMode, isShowHeaderShadow, changeHeaderShadowe };
-})
+});

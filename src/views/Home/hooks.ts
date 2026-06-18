@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted } from 'vue';
 import { useSystemStore } from '@/store/modules/system';
 
 export function useControlHeaderShadow(): void {
@@ -13,10 +13,10 @@ export function useControlHeaderShadow(): void {
   }
 
   onMounted(() => {
-    window.addEventListener("scroll", onScroll);
-  })
+    window.addEventListener('scroll', onScroll);
+  });
 
   onUnmounted(() => {
-    window.removeEventListener("scroll", onScroll);
-  })
+    window.removeEventListener('scroll', onScroll);
+  });
 }

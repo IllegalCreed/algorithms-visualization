@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import MenuComp from './Menu/Menu.vue';
 import MainComp from './Main/Main.vue';
 import { useControlHeaderShadow } from './hooks';
@@ -15,7 +15,7 @@ useControlHeaderShadow();
     </div>
   </div>
 </template>
-<style lang='less'>
+<style lang="less">
 #docs {
   height: 100vh;
   width: 100vw;
@@ -34,7 +34,7 @@ useControlHeaderShadow();
       overflow-y: auto;
     }
 
-    @media (min-width:@screen-max-width) {
+    @media (min-width: @screen-max-width) {
       #left {
         width: calc((100vw - @screen-max-width) / 2 + @slider-width);
         padding-left: calc((100vw - @screen-max-width) / 2);
@@ -46,6 +46,5 @@ useControlHeaderShadow();
       }
     }
   }
-
 }
 </style>
