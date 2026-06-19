@@ -35,12 +35,41 @@ function onSpeed(e: Event) {
 </script>
 <template>
   <div class="transport row center">
-    <button class="ctl" title="重置" @click="emit('reset')">↺</button>
-    <button class="ctl" title="上一步" :disabled="atStart" @click="emit('stepBack')">⏮</button>
-    <button class="ctl play" @click="isPlaying ? emit('pause') : emit('play')">
-      {{ isPlaying ? '⏸' : '▶' }}
+    <button class="ctl" title="重置" @click="emit('reset')">
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+        <path d="M3 3v5h5" />
+      </svg>
     </button>
-    <button class="ctl" title="下一步" :disabled="atEnd" @click="emit('stepForward')">⏭</button>
+    <button class="ctl" title="上一步" :disabled="atStart" @click="emit('stepBack')">
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="5.5" y="5" width="2.6" height="14" rx="1.3" />
+        <polygon points="19 5 10 12 19 19" />
+      </svg>
+    </button>
+    <button class="ctl play" @click="isPlaying ? emit('pause') : emit('play')">
+      <svg v-if="isPlaying" class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="6.5" y="4.5" width="3.6" height="15" rx="1.4" />
+        <rect x="13.9" y="4.5" width="3.6" height="15" rx="1.4" />
+      </svg>
+      <svg v-else class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="8 5 19 12 8 19" />
+      </svg>
+    </button>
+    <button class="ctl" title="下一步" :disabled="atEnd" @click="emit('stepForward')">
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="5 5 14 12 5 19" />
+        <rect x="16.4" y="5" width="2.6" height="14" rx="1.3" />
+      </svg>
+    </button>
     <select class="speed" :value="speed" @change="onSpeed">
       <option v-for="s in SPEEDS" :key="s" :value="s">{{ s }}×</option>
     </select>
@@ -64,13 +93,21 @@ function onSpeed(e: Event) {
   .neumorphism-flat(4px, 12px);
 }
 .ctl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 38px;
   height: 38px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 15px;
+  color: @font-color;
   .neumorphism-btn(3px, 50%);
+}
+.ctl .icon {
+  display: block;
+  width: 18px;
+  height: 18px;
 }
 .ctl:disabled {
   opacity: 0.4;
