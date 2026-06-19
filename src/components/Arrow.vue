@@ -14,9 +14,9 @@ const SOFT_COLOR: Record<string, string> = {
 const stroke = computed(() => SOFT_COLOR[props.color] ?? props.color);
 </script>
 <template>
-  <svg class="chevron" width="50" height="30" viewBox="0 0 50 30" fill="none">
+  <svg class="chevron" width="60" height="30" viewBox="0 0 60 30" fill="none">
     <path
-      d="M12 21 L25 9 L38 21"
+      d="M17 21 L30 9 L43 21"
       :stroke="stroke"
       stroke-width="6"
       stroke-linecap="round"
