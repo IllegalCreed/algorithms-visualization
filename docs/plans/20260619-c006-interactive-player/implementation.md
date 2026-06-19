@@ -1968,3 +1968,14 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 | pnpm test:unit    | 通过 |
 | pnpm coverage     | 通过 |
 | pnpm test:e2e     | 通过 |
+
+### 视觉冒烟（controller 终验，2026-06-19）
+
+最终 review 后在真机（`pnpm dev` + Playwright 截图逐步走查）发现 2 个自动化测试未覆盖的视觉缺陷，已修复并各补一条回归用例（commit `bf5f7af`）：
+
+1. **指针箭头错位**：`BarsView` 内 `ArrowTrack` 轨道无显式宽度 → 塌缩为 0 宽并被居中，箭头从可视区中心起算、整体偏到中部。修复 = 给轨道显式宽度 `array.length × slotWidth`，与柱子行同左原点对齐；补 `BarsView.spec` 轨道宽度断言。
+2. **变量面板 j / a[j] / a[j+1] 错位一格**：`buildSteps` 的 `vars` 误用第二指针索引（j+1）而非内层循环计数器 i。修复 = `vars(i)`；补 `bubble-sort.module.spec` 变量语义断言。
+
+修复后门禁仍全绿：单测 **132**（+2 回归）、coverage Lines 81.96% / Branch 83.17% / Funcs 84.31% / Stmts 81.86%、e2e 3。
+
+> 教训：纯函数 + 组件单测覆盖不到"像素对齐"与"生成步骤的变量语义"；可视化功能必须辅以真机视觉走查。
