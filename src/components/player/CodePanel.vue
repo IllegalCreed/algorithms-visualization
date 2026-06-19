@@ -20,7 +20,11 @@ const lines = shallowRef<HlLines | null>(null);
 watchEffect(async () => {
   const src = activeSource.value;
   const dark = isDarkMode.value;
-  lines.value = await highlightToLines(src.code, src.lang, dark);
+  const result = await highlightToLines(src.code, src.lang, dark);
+  // 仅当输入仍是当前值时才写入，避免快速切换语言/主题时旧结果覆盖新结果
+  if (activeSource.value === src && isDarkMode.value === dark) {
+    lines.value = result;
+  }
 });
 
 const plainLines = computed(() => activeSource.value.code.split('\n'));

@@ -34,7 +34,7 @@ describe('CodePanel', () => {
   });
 
   it('切换语言 Tab 后按该语言 lineMap 高亮', async () => {
-    const w = mountIt('done'); // TS done=11 → 切到 Python done=7
+    const w = mountIt('done'); // TS lineMap.done = 10 → 切到 Python done=7
     await flushPromises();
     const pyTab = w.findAll('.tab').find((b) => b.text() === 'Python')!;
     await pyTab.trigger('click');

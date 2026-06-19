@@ -3,7 +3,7 @@ import { createHighlighter, type Highlighter, type BundledLanguage } from 'shiki
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 import type { Lang } from './types';
 
-const SHIKI_LANG: Record<Lang, string> = {
+const SHIKI_LANG: Record<Lang, BundledLanguage> = {
   ts: 'typescript',
   python: 'python',
   go: 'go',
@@ -38,7 +38,7 @@ export async function highlightToLines(code: string, lang: Lang, dark: boolean):
   if (hit) return hit;
   const hl = await getHighlighter();
   const { tokens } = hl.codeToTokens(code, {
-    lang: SHIKI_LANG[lang] as BundledLanguage,
+    lang: SHIKI_LANG[lang],
     theme: dark ? DARK : LIGHT,
   });
   const lines: HlLines = tokens.map((line) =>
