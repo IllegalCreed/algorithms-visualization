@@ -20,6 +20,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@shikijs/langs": "^4.2.0",
+    "@shikijs/themes": "^4.2.0",
     "pinia": "^3.0.4",
     "shiki": "^4.2.0",
     "vue": "^3.5.38",

@@ -42,7 +42,7 @@ C-003 已把排序纯逻辑抽到 `src/algorithms/bubble-sort.ts`（`bubbleSortS
 
 - 多语言仅展示；动画的唯一真相源是内置 TS 步骤流。
 - 单步 / 暂停 / 后退 / 拖动进度，全部通过"**预计算步骤数组 + 当前下标**"实现，不依赖异步 `delay`，无竞态。
-- 语法高亮用 **Shiki 主包 `createHighlighter`** + `createJavaScriptRegexEngine`（免 Oniguruma WASM）；只声明四门语言（`typescript/python/go/rust`）与两套主题（`github-light/github-dark`）；语法包随 `shiki` 主包引入，随算法页懒加载，首页不受影响。静态源码在模块初始化时各高亮一次并缓存；主题随 `useSystemStore().isDarkMode` 明暗切换。注：迁移到 `createHighlighterCore` + `@shikijs/langs/*` 细粒度引入（可去掉主包随附的约 295 条 registry-index 元数据）是后续可选的 bundle 优化，当前不阻塞任何功能。
+- 语法高亮用 **Shiki 细粒度 `createHighlighterCore`**（`shiki/core`）+ `createJavaScriptRegexEngine`（免 Oniguruma WASM）；显式 `import('@shikijs/langs/<lang>')` 引入四门语言（`typescript/python/go/rust`）与两套主题（`github-light/github-dark`），`@shikijs/langs`/`@shikijs/themes` 为直接依赖。**dist 只生成这 4 门语法 chunk**（不再含主包随附的约 300 门内置语法）。语法包随算法页懒加载，首页不受影响。静态源码在模块初始化时各高亮一次并缓存；主题随 `useSystemStore().isDarkMode` 明暗切换。
 - 沿用 pnpm / ESLint / Prettier / `type-check` 门禁；遵循覆盖率门槛（业务核心 ≥85%/75%，一般 ≥70%/60%）。
 - Shiki + 语法包随算法页懒加载，不影响首页体积。
 

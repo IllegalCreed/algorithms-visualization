@@ -1929,7 +1929,7 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 
 ### 与设计偏差
 
-- **`useHighlighter` 高亮器实现**：`design.md` §4 初稿描述的是 `createHighlighterCore`（`shiki/core`）细粒度路径，需把 `@shikijs/langs/*` 和 `@shikijs/themes/*` 作为直接依赖单独安装。Task 5 实际采用 **Shiki 主包 `createHighlighter`**，理由：① 只需一个 pnpm 直接依赖（`shiki`），避免手动管理 `@shikijs/langs`/`@shikijs/themes` 版本对齐；② API 更稳定，规避细粒度 API 可能的 breaking change 风险。代价：主包附带约 295 条 registry-index 元数据一并进入算法页异步 chunk，但算法页本身已是懒加载路由，首页体积完全不受影响。后续若需进一步缩减算法 chunk，可迁移到 `createHighlighterCore` 细粒度路径（纯 bundle 优化，功能等价）。`design.md` §4 与 `requirements.md` 业务规则约束节已同步更新以反映实际选型。
+- **`useHighlighter` 高亮器实现**：Task 5 初版图省事用了 Shiki 主包 `createHighlighter`（只加一个 `shiki` 直接依赖）。但**自有服务器部署时实测**：构建把内置约 300 门语法全部生成 chunk（cpp 626KB、emacs-lisp 779KB、wasm 622KB…，懒加载但 dist 臃肿，`dist/assets` 共 311 个 JS）。随后**优化为 `design.md` §4 原定的 `createHighlighterCore` 细粒度路径**（`shiki/core` + 显式 `import('@shikijs/langs/<lang>')`，`@shikijs/langs`/`@shikijs/themes` 提为直接依赖）：dist 资源 chunk **311 → 16**，只保留 `typescript/python/go/rust` 4 门；BubbleSort chunk 216KB→172KB。功能与门禁不变，e2e 真机着色断言（`TC-E2E-PLAYER-01`）仍绿。`design.md` §4 / `requirements.md` 已同步为细粒度方案。
 
 ### 踩坑
 

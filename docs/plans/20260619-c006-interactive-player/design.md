@@ -189,7 +189,7 @@ export function usePlayer(steps: Step[], opts?: UsePlayerOptions) {
 
 `useHighlighter.ts`：
 
-- 用 **Shiki 主包 `createHighlighter`**（`shiki`）+ `createJavaScriptRegexEngine`（`shiki/engine/javascript`），只声明四门语言（`typescript/python/go/rust`）与两套主题（`github-light`/`github-dark`）。语法包随 `shiki` 主包引入，整个 Shiki chunk 随算法页懒加载，首页体积不受影响。
+- 用 **Shiki 细粒度 `createHighlighterCore`**（`shiki/core`）+ `createJavaScriptRegexEngine`（`shiki/engine/javascript`），通过 `import('@shikijs/langs/<lang>')` / `import('@shikijs/themes/<theme>')` 显式引入四门语言（`typescript/python/go/rust`）与两套主题（`github-light`/`github-dark`）。dist 只产出这 4 门语法 chunk，随算法页懒加载，首页体积不受影响。
 - 暴露 `highlightToLines(code, lang)`：用 `codeToTokens` 得到**逐行 token 结构**，缓存（按 `lang` + 主题 memo，静态源码只算一次）。
 - 初始化是异步：未就绪时 `CodePanel` 先渲染无高亮的等宽 `<pre>` 占位，就绪后替换。
 
@@ -200,7 +200,7 @@ export function usePlayer(steps: Step[], opts?: UsePlayerOptions) {
 - **当前行高亮**：`activeLine = sources[lang].lineMap[player.current.point]`，给该 `.code-line` 加反应式 `.is-active` class（底色）。源码较长时 `scrollIntoView` 把当前行滚入可视区（冒泡很短，通常无需）。
 - 主题随 `useSystemStore().isDarkMode` 切换（持有明 / 暗两套已缓存结果，切 class 即可）。
 
-> 选 Shiki 而非 highlight.js 的理由见 requirements 与 brainstorming 记录：静态源码 → 零运行时成本；`codeToTokens` 逐行结构让"当前行高亮"比 highlight.js 的扁平 HTML 更干净；VS Code 同款主题可联动 `isDarkMode`。代价：异步初始化；JS 正则引擎对极个别 Oniguruma 特性不支持（四门主流语言无碍，必要时 `forgiving: true`）。后续 bundle 优化方向：迁移到 `createHighlighterCore` + `@shikijs/langs/*` 细粒度引入，可去掉主包附带的约 295 条 registry-index 元数据，进一步缩减算法页异步 chunk 体积（当前算法页本身懒加载，首页不受影响，优先级低）。
+> 选 Shiki 而非 highlight.js 的理由见 requirements 与 brainstorming 记录：静态源码 → 零运行时成本；`codeToTokens` 逐行结构让"当前行高亮"比 highlight.js 的扁平 HTML 更干净；VS Code 同款主题可联动 `isDarkMode`。代价：异步初始化；JS 正则引擎对极个别 Oniguruma 特性不支持（四门主流语言无碍，必要时 `forgiving: true`）。bundle 策略：用 `createHighlighterCore` + `@shikijs/langs/*` 细粒度引入，dist 只生成 4 门语法 chunk（实测从主包方案的 311 个资源 chunk 降到 16 个，BubbleSort chunk 216KB→172KB）。
 
 ## 5. 变量面板 `VariablePanel`
 
