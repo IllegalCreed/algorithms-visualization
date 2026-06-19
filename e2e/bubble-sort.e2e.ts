@@ -7,6 +7,9 @@ test('TC-E2E-PLAYER-01 冒泡播放器：默认暂停/单步/跳末升序/重置
   await expect(bars).toHaveCount(10);
   await expect(page.locator('.counter')).toContainText('1 / '); // 默认停第 0 步
 
+  // 验证真实 Shiki 在浏览器里着色了（单测里 useHighlighter 全程被 mock，这里补真机覆盖）
+  await expect(page.locator('.code .tok[style*="color"]').first()).toBeVisible();
+
   // 单步前进
   await page.locator('.ctl[title="下一步"]').click();
   await expect(page.locator('.counter')).toContainText('2 / ');

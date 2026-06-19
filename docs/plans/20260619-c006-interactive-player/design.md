@@ -189,18 +189,18 @@ export function usePlayer(steps: Step[], opts?: UsePlayerOptions) {
 
 `useHighlighter.ts`：
 
-- 用 `createHighlighterCore`（`shiki/core`）+ `createJavaScriptRegexEngine`（`shiki/engine/javascript`），**只**按需引入 `ts/python/go/rust` 四门语法 + 两套主题（明 / 暗，如 `github-light` / `github-dark`）。
+- 用 **Shiki 主包 `createHighlighter`**（`shiki`）+ `createJavaScriptRegexEngine`（`shiki/engine/javascript`），只声明四门语言（`typescript/python/go/rust`）与两套主题（`github-light`/`github-dark`）。语法包随 `shiki` 主包引入，整个 Shiki chunk 随算法页懒加载，首页体积不受影响。
 - 暴露 `highlightToLines(code, lang)`：用 `codeToTokens` 得到**逐行 token 结构**，缓存（按 `lang` + 主题 memo，静态源码只算一次）。
 - 初始化是异步：未就绪时 `CodePanel` 先渲染无高亮的等宽 `<pre>` 占位，就绪后替换。
 
 `CodePanel.vue`：
 
 - 顶部语言 Tab（`AlgorithmModule.sources` 驱动）。
-- 主体把"逐行 token"渲染成一行一个 `.code-line`（带行号）。
+- 主体把"逐行 token"渲染成一行一个 `.code-line`（带行号），每个 token 是 `<span class="tok" :style="{ color }">` 以承载 Shiki 的颜色。
 - **当前行高亮**：`activeLine = sources[lang].lineMap[player.current.point]`，给该 `.code-line` 加反应式 `.is-active` class（底色）。源码较长时 `scrollIntoView` 把当前行滚入可视区（冒泡很短，通常无需）。
 - 主题随 `useSystemStore().isDarkMode` 切换（持有明 / 暗两套已缓存结果，切 class 即可）。
 
-> 选 Shiki 而非 highlight.js 的理由见 requirements 与 brainstorming 记录：静态源码 → 零运行时成本；`codeToTokens` 逐行结构让"当前行高亮"比 highlight.js 的扁平 HTML 更干净；VS Code 同款主题可联动 `isDarkMode`。代价：异步初始化 + 细粒度 bundle 装配；JS 正则引擎对极个别 Oniguruma 特性不支持（四门主流语言无碍，必要时 `forgiving: true` 或预编译语法包 `@shikijs/langs-precompiled`）。
+> 选 Shiki 而非 highlight.js 的理由见 requirements 与 brainstorming 记录：静态源码 → 零运行时成本；`codeToTokens` 逐行结构让"当前行高亮"比 highlight.js 的扁平 HTML 更干净；VS Code 同款主题可联动 `isDarkMode`。代价：异步初始化；JS 正则引擎对极个别 Oniguruma 特性不支持（四门主流语言无碍，必要时 `forgiving: true`）。后续 bundle 优化方向：迁移到 `createHighlighterCore` + `@shikijs/langs/*` 细粒度引入，可去掉主包附带的约 295 条 registry-index 元数据，进一步缩减算法页异步 chunk 体积（当前算法页本身懒加载，首页不受影响，优先级低）。
 
 ## 5. 变量面板 `VariablePanel`
 
@@ -267,3 +267,4 @@ import { bubbleSortModule } from '@/algorithms/bubble-sort.module';
 - **多语言 `lineMap` 与源码漂移**：源码一改、行号即错。用 L3 校验"每个 `ExecPoint` 行号合法"兜底；`lineMap` 与 `code` 同文件相邻，改时一起改。
 - **可视化重做影响范围**：改动隔离在新增组件 + `BubbleSort.vue`；`List/Block` 不动可独立回滚；受影响的两个 Case 有明确改写口径。
 - **框架过度设计**：本变更只接冒泡一个算法验证，不为树 / 图预设抽象（YAGNI）；`AlgorithmModule` 仅覆盖"线性数组 + 指针"类，后续按需扩展。
+- **外壳可视化限制**：`AlgorithmPlayer.vue` 目前静态渲染 `BarsView`，`AlgorithmModule` 仅覆盖"线性数组 + 指针"类可视化；M3 接入树 / 图 / 链表结构前，需先把可视化做成插槽（`AlgorithmModule` 增加 viz 组件字段或外壳改用 `<slot>`）。当前仅冒泡 / 线性排序复用，无需改动。
