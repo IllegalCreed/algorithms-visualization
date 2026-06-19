@@ -5,9 +5,16 @@ import { createPinia } from 'pinia';
 import BarsView from './BarsView.vue';
 import Bar from './Bar.vue';
 import ArrowTrack from './ArrowTrack.vue';
+import type { Pointer, StepEmphasis } from '@/components/player/types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mountIt = (props: any) => mount(BarsView, { props, global: { plugins: [createPinia()] } });
+type BarsViewProps = {
+  array: [string, number][];
+  pointers: Pointer[];
+  emphasis: StepEmphasis;
+  slotWidth?: number;
+};
+const mountIt = (props: BarsViewProps) =>
+  mount(BarsView, { props, global: { plugins: [createPinia()] } });
 
 describe('BarsView', () => {
   const base = {
@@ -40,6 +47,11 @@ describe('BarsView', () => {
   it('sortedFrom 之后的 Bar 进入 sorted 态', () => {
     const w = mountIt({ ...base, emphasis: { sortedFrom: 2 } });
     expect(w.findAllComponents(Bar)[2].props('state')).toBe('sorted');
+  });
+
+  it('comparing+swapped 时对应 Bar 进入 swapped 态', () => {
+    const w = mountIt({ ...base, emphasis: { comparing: [0, 1], swapped: true } });
+    expect(w.findAllComponents(Bar)[0].props('state')).toBe('swapped');
   });
 
   it('把 slotWidth 透传给 ArrowTrack', () => {
