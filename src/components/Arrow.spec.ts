@@ -3,8 +3,13 @@ import { mount } from '@vue/test-utils';
 import Arrow from './Arrow.vue';
 
 describe('Arrow', () => {
-  it('按 color 着色 svg', () => {
+  it('语义色映射为柔和展示色，描在雪佛龙上', () => {
     const w = mount(Arrow, { props: { color: 'red' } });
-    expect(w.find('svg').attributes('fill')).toBe('red');
+    expect(w.find('path').attributes('stroke')).toBe('#e5686b'); // red → 柔红
+  });
+
+  it('非预设色按原值透传', () => {
+    const w = mount(Arrow, { props: { color: '#123456' } });
+    expect(w.find('path').attributes('stroke')).toBe('#123456');
   });
 });

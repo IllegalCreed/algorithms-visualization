@@ -43,7 +43,8 @@
 | TC-HOOK-05-1         | 返回 3 个社交链接（github/twitter/微博）                  | master / icon-hook         | C-20260618-003 | L3   | `src/views/Master/Header/hooks.spec.ts`              | active     | 2026-06-18 |
 | TC-HOOK-05-2         | 每项含 title/src/url 且均非空                             | master / icon-hook         | C-20260618-003 | L3   | `src/views/Master/Header/hooks.spec.ts`              | active     | 2026-06-18 |
 | TC-HOOK-05-3         | 所有 url 为合法的 https 地址                              | master / icon-hook         | C-20260618-003 | L3   | `src/views/Master/Header/hooks.spec.ts`              | active     | 2026-06-18 |
-| TC-VIZ-ARROW-01      | 按 color 着色 svg                                         | viz-engine / Arrow         | C-20260618-003 | L4   | `src/components/Arrow.spec.ts`                       | active     | 2026-06-18 |
+| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                              | viz-engine / Arrow         | C-20260618-003 | L4   | `src/components/Arrow.spec.ts`                       | active     | 2026-06-19 |
+| TC-VIZ-ARROW-02      | 非预设色按原值透传                                        | viz-engine / Arrow         | C-20260619-006 | L4   | `src/components/Arrow.spec.ts`                       | active     | 2026-06-19 |
 | TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位               | viz-engine / ArrowTrack    | C-20260618-003 | L4   | `src/components/ArrowTrack.spec.ts`                  | active     | 2026-06-18 |
 | TC-VIZ-BLOCK-01      | 渲染数值                                                  | viz-engine / Block         | C-20260618-003 | L4   | `src/components/Block.spec.ts`                       | active     | 2026-06-18 |
 | TC-VIZ-BLOCK-02      | 背景透明度随 percent                                      | viz-engine / Block         | C-20260618-003 | L4   | `src/components/Block.spec.ts`                       | active     | 2026-06-18 |

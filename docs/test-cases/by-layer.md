@@ -92,7 +92,8 @@
 
 | Case ID              | 标题                                        | 自动化路径                          |
 | -------------------- | ------------------------------------------- | ----------------------------------- |
-| TC-VIZ-ARROW-01      | 按 color 着色 svg                           | `src/components/Arrow.spec.ts`      |
+| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                | `src/components/Arrow.spec.ts`      |
+| TC-VIZ-ARROW-02      | 非预设色按原值透传                          | `src/components/Arrow.spec.ts`      |
 | TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位 | `src/components/ArrowTrack.spec.ts` |
 | TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）         | `src/components/ArrowTrack.spec.ts` |
 | TC-VIZ-BLOCK-01      | 渲染数值                                    | `src/components/Block.spec.ts`      |
