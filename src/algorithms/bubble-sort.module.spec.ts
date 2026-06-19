@@ -43,6 +43,15 @@ describe('buildBubbleSortSteps', () => {
       if (s.point === 'noSwap') expect(s.emphasis.swapped).toBe(false);
     }
   });
+
+  it('变量面板 j / a[j] / a[j+1] 对应内层循环计数器与被比较的两元素（不错位一格）', () => {
+    const steps = buildBubbleSortSteps([5, 3, 8]);
+    const firstCompare = steps.find((s) => s.point === 'compare')!;
+    const val = (name: string) => firstCompare.vars.find((r) => r.name === name)!.value;
+    expect(val('j')).toBe(0); // 内层循环计数器（红箭头位置）
+    expect(val('a[j]')).toBe(5); // work[0]
+    expect(val('a[j+1]')).toBe(3); // work[1]，与 caption "5 > 3" 一致
+  });
 });
 
 describe('bubbleSortModule.sources', () => {

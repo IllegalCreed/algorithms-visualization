@@ -58,4 +58,11 @@ describe('BarsView', () => {
     const w = mountIt({ ...base, slotWidth: 50 });
     expect(w.findComponent(ArrowTrack).props('slotWidth')).toBe(50);
   });
+
+  it('指针轨道宽度 = array.length × slotWidth（与柱子行同原点，箭头才对齐）', () => {
+    const w = mountIt(base); // 3 元素 × 默认 60 = 180
+    expect(w.findComponent(ArrowTrack).attributes('style')).toContain('width: 180px');
+    const w2 = mountIt({ ...base, slotWidth: 50 }); // 3 × 50 = 150
+    expect(w2.findComponent(ArrowTrack).attributes('style')).toContain('width: 150px');
+  });
 });

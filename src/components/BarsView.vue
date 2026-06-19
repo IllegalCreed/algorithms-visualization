@@ -18,6 +18,9 @@ const props = withDefaults(
 const min = computed(() => Math.min(...props.array.map((t) => t[1])));
 const max = computed(() => Math.max(...props.array.map((t) => t[1])));
 
+// 指针轨道与柱子行同宽，保证二者左原点重合，箭头才能对齐到对应柱子
+const vizWidth = computed(() => props.array.length * props.slotWidth);
+
 function percent(v: number): number {
   const span = max.value - min.value;
   if (span === 0) return 1;
@@ -45,7 +48,11 @@ function stateOf(index: number): 'idle' | 'comparing' | 'swapped' | 'sorted' {
         :style="{ width: props.slotWidth + 'px' }"
       />
     </TransitionGroup>
-    <ArrowTrackComp :data="props.pointers" :slot-width="props.slotWidth" />
+    <ArrowTrackComp
+      :data="props.pointers"
+      :slot-width="props.slotWidth"
+      :style="{ width: vizWidth + 'px' }"
+    />
   </div>
 </template>
 <style scoped lang="less">

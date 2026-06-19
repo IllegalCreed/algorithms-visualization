@@ -41,7 +41,9 @@ export function buildBubbleSortSteps(input: number[]): Step[] {
         { id: ID_J, index: clampIdx(j) },
       ],
       emphasis: { sortedFrom, ...emphasis },
-      vars: vars(j),
+      // 变量面板的 j 取第一个指针（内层循环计数器 = 红箭头位置）；
+      // push 的第三参 j 实为 j+1（蓝箭头），用它会让 a[j]/a[j+1] 整体错位一格
+      vars: vars(i),
       point,
       caption,
     });
