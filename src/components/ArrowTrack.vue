@@ -3,12 +3,16 @@ import type { Pointer } from '@/types/types';
 import { useSystemStore } from '@/store/modules/system';
 import ArrowComp from './Arrow.vue';
 
-const props = defineProps<{
-  data: Array<Pointer>;
-}>();
+const props = withDefaults(
+  defineProps<{
+    data: Array<Pointer>;
+    slotWidth?: number;
+  }>(),
+  { slotWidth: 60 },
+);
 
 function genOffect(index: number): number {
-  return index * 60;
+  return index * props.slotWidth;
 }
 
 const colors = useSystemStore().colors;

@@ -19,4 +19,16 @@ describe('ArrowTrack', () => {
     expect(arrows).toHaveLength(2);
     expect(arrows[0].attributes('style')).toContain('translateX(120px)');
   });
+
+  it('slotWidth 自定义时按其定位', () => {
+    const w = mount(ArrowTrack, {
+      props: {
+        data: [{ id: '0', index: 2 }],
+        slotWidth: 50,
+      },
+      global: { plugins: [createPinia()] },
+    });
+    const arrow = w.findAllComponents(Arrow)[0];
+    expect(arrow.attributes('style')).toContain('translateX(100px)'); // 2 * 50
+  });
 });
