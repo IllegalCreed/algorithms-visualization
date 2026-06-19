@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **28** 个用例。运行命令：`pnpm test:unit`
+共 **56** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -30,6 +30,34 @@
 | TC-STORE-02 | changeDarkMode 切换暗色                         | `src/store/modules/system.spec.ts` |
 | TC-STORE-03 | changeHeaderShadowe 设置阴影开关                | `src/store/modules/system.spec.ts` |
 | TC-STORE-04 | colors 含 red/blue/yellow/green                 | `src/store/modules/system.spec.ts` |
+
+### bubble-sort module（C-006）
+
+| Case ID          | 标题                                         | 自动化路径                                  |
+| ---------------- | -------------------------------------------- | ------------------------------------------- |
+| TC-BUBBLE-MOD-01 | 空/单元素也产出至少一个 done 步              | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-02 | 末步数组与 oracle 最终结果一致（交叉校验）   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-03 | 每步 array 的 id 集合恒等于初始（FLIP 前提） | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-04 | 不修改入参                                   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-05 | 每步 point 合法，swap/noSwap 的 swapped 对应 | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-06 | 四门语言齐备                                 | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-07 | 每门语言每个 ExecPoint 行号落在源码行范围内  | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-08 | 实际出现的 point 都能在每门语言映射到行      | `src/algorithms/bubble-sort.module.spec.ts` |
+
+### player / usePlayer（C-006）
+
+| Case ID      | 标题                                    | 自动化路径                                |
+| ------------ | --------------------------------------- | ----------------------------------------- |
+| TC-PLAYER-01 | 初始停第 0 步且未播放                   | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-02 | stepForward 前进且不越过末步            | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-03 | stepBackward 后退且不越过首步           | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-04 | seek 越界夹紧到合法范围                 | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-05 | reset 回第 0 步并停止                   | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-06 | play 按基准间隔逐步推进、到末步自动暂停 | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-07 | pause 停止自动推进                      | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-08 | setSpeed 加速后按新速率推进             | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-09 | current 跟随 index                      | `src/components/player/usePlayer.spec.ts` |
+| TC-PLAYER-10 | progress 从 0 到 1                      | `src/components/player/usePlayer.spec.ts` |
 
 ### hooks
 
@@ -58,7 +86,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **57** 个用例。运行命令：`pnpm test:unit`
+共 **74** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -66,18 +94,49 @@
 | -------------------- | ------------------------------------------- | ----------------------------------- |
 | TC-VIZ-ARROW-01      | 按 color 着色 svg                           | `src/components/Arrow.spec.ts`      |
 | TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位 | `src/components/ArrowTrack.spec.ts` |
+| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）         | `src/components/ArrowTrack.spec.ts` |
 | TC-VIZ-BLOCK-01      | 渲染数值                                    | `src/components/Block.spec.ts`      |
 | TC-VIZ-BLOCK-02      | 背景透明度随 percent                        | `src/components/Block.spec.ts`      |
 | TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white        | `src/components/Block.spec.ts`      |
 | TC-VIZ-LIST-01       | 渲染与数据等量的 Block                      | `src/components/List.spec.ts`       |
 | TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1          | `src/components/List.spec.ts`       |
+| TC-VIZ-BAR-01        | 渲染数值（C-006）                           | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）               | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）               | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）         | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）    | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）      | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）        | `src/components/BarsView.spec.ts`   |
+
+### player（播放器外壳，C-006）
+
+| Case ID           | 标题                               | 自动化路径                                        |
+| ----------------- | ---------------------------------- | ------------------------------------------------- |
+| TC-CODEPANEL-01   | 渲染默认语言(TS)所有行             | `src/components/player/CodePanel.spec.ts`         |
+| TC-CODEPANEL-02   | 当前执行行随 point 经 lineMap 高亮 | `src/components/player/CodePanel.spec.ts`         |
+| TC-CODEPANEL-03   | 切语言 Tab 后按该语言 lineMap 高亮 | `src/components/player/CodePanel.spec.ts`         |
+| TC-VARPANEL-01    | 渲染每个变量的名与值               | `src/components/player/VariablePanel.spec.ts`     |
+| TC-VARPANEL-02    | 与上一步比较，变化的行加 changed   | `src/components/player/VariablePanel.spec.ts`     |
+| TC-VARPANEL-03    | 无 prev 时都不高亮                 | `src/components/player/VariablePanel.spec.ts`     |
+| TC-TRANSPORT-01   | 未播放点主按钮 emit play           | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-02   | 播放中点主按钮 emit pause          | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-03   | atStart 时上一步禁用               | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-04   | atEnd 时下一步禁用                 | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-05   | 下一步 emit stepForward            | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-06   | 重置 emit reset                    | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-07   | 计数器显示 index+1 / total         | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-08   | 拖动进度条 emit seek(值)           | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-09   | 改速 emit setSpeed(值)             | `src/components/player/TransportControls.spec.ts` |
+| TC-PLAYER-VIEW-01 | 渲染柱状图+代码+变量+控制          | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-VIEW-02 | 默认第 0 步，点下一步到第 2 步     | `src/components/player/AlgorithmPlayer.spec.ts`   |
 
 ### article-sort（文章/动画视图）
 
-| Case ID           | 标题                       | 自动化路径                                           |
-| ----------------- | -------------------------- | ---------------------------------------------------- |
-| TC-VIEW-BUBBLE-01 | 挂载渲染 List + 比较表达式 | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
-| TC-VIEW-BUBBLE-02 | 初始渲染 10 个方块         | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
+| Case ID           | 标题                                            | 自动化路径                                           |
+| ----------------- | ----------------------------------------------- | ---------------------------------------------------- |
+| TC-VIEW-BUBBLE-01 | （C-006 改写）挂载渲染 AlgorithmPlayer          | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
+| TC-VIEW-BUBBLE-02 | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步 | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
 
 ### home（首页视图）
 
@@ -146,21 +205,22 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **3** 个用例。运行命令：`pnpm test:e2e`
+共 **3** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
-| Case ID          | 标题                  | 自动化路径                   |
-| ---------------- | --------------------- | ---------------------------- |
-| TC-E2E-HOME-01   | 首页加载并能进入 docs | `e2e/home-navigation.e2e.ts` |
-| TC-E2E-MENU-01   | docs 菜单点击切换路由 | `e2e/docs-menu.e2e.ts`       |
-| TC-E2E-BUBBLE-01 | 冒泡排序动画最终升序  | `e2e/bubble-sort.e2e.ts`     |
+| Case ID          | 标题                                    | 自动化路径                   | 状态       |
+| ---------------- | --------------------------------------- | ---------------------------- | ---------- |
+| TC-E2E-HOME-01   | 首页加载并能进入 docs                   | `e2e/home-navigation.e2e.ts` | active     |
+| TC-E2E-MENU-01   | docs 菜单点击切换路由                   | `e2e/docs-menu.e2e.ts`       | active     |
+| TC-E2E-BUBBLE-01 | ~~冒泡排序动画最终升序~~                | `e2e/bubble-sort.e2e.ts`     | superseded |
+| TC-E2E-PLAYER-01 | 冒泡播放器：默认暂停/单步/跳末升序/重置 | `e2e/bubble-sort.e2e.ts`     | active     |
 
 ---
 
-## 覆盖率（L3+L4，2026-06-18）
+## 覆盖率（L3+L4，2026-06-19）
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 77.04% | 70%  | 达标 |
-| Branch | 88.46% | 60%  | 达标 |
-| Funcs  | 80.70% | 70%  | 达标 |
-| Lines  | 77.24% | 70%  | 达标 |
+| Stmts  | 81.76% | 70%  | 达标 |
+| Branch | 83.17% | 60%  | 达标 |
+| Funcs  | 84.15% | 70%  | 达标 |
+| Lines  | 81.9%  | 70%  | 达标 |

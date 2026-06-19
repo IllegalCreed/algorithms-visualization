@@ -1,14 +1,14 @@
 # 实现计划：交互式算法播放器
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260619-006
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-19
 > Last reviewed: 2026-06-19
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 执行 Task 1
+> Next action: 已完成
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260618-003
@@ -1886,8 +1886,85 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 
 ## 实际涉及文件（执行后回填）
 
-_待执行完成后据实补全（新建/修改清单 + 行数）。_
+### 新建文件
+
+| 文件                                              | 说明                             |
+| ------------------------------------------------- | -------------------------------- |
+| `src/components/player/types.ts`                  | 播放器契约（Task 1）             |
+| `src/components/player/usePlayer.ts`              | 传输状态机（Task 1）             |
+| `src/components/player/usePlayer.spec.ts`         | usePlayer L3 测试 10 case        |
+| `src/algorithms/bubble-sort.sources.ts`           | 四语言源码 + lineMap（Task 2）   |
+| `src/algorithms/bubble-sort.module.ts`            | buildSteps + module（Task 2）    |
+| `src/algorithms/bubble-sort.module.spec.ts`       | L3 测试 8 case                   |
+| `src/components/Bar.vue`                          | 柱状条组件（Task 4）             |
+| `src/components/BarsView.vue`                     | 柱状条视图（Task 4）             |
+| `src/components/Bar.spec.ts`                      | Bar L4 测试 3 case               |
+| `src/components/BarsView.spec.ts`                 | BarsView L4 测试 5 case          |
+| `src/components/player/useHighlighter.ts`         | Shiki 语法高亮适配器（Task 5）   |
+| `src/components/player/CodePanel.vue`             | 代码面板（Task 5）               |
+| `src/components/player/CodePanel.spec.ts`         | CodePanel L4 测试 3 case         |
+| `src/components/player/VariablePanel.vue`         | 变量面板（Task 6）               |
+| `src/components/player/VariablePanel.spec.ts`     | VariablePanel L4 测试 3 case     |
+| `src/components/player/TransportControls.vue`     | 传输控制条（Task 7）             |
+| `src/components/player/TransportControls.spec.ts` | TransportControls L4 测试 9 case |
+| `src/components/player/AlgorithmPlayer.vue`       | 外壳装配（Task 8）               |
+| `src/components/player/AlgorithmPlayer.spec.ts`   | AlgorithmPlayer L4 测试 2 case   |
+
+### 修改文件
+
+| 文件                                                 | 说明                               |
+| ---------------------------------------------------- | ---------------------------------- |
+| `src/components/ArrowTrack.vue`                      | 增加 slotWidth prop（Task 3）      |
+| `src/components/ArrowTrack.spec.ts`                  | 加 TC-VIZ-ARROWTRACK-02            |
+| `src/views/Article/SortAlgorithm/BubbleSort.vue`     | 改写为 AlgorithmPlayer（Task 8）   |
+| `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` | 改写 TC-VIEW-BUBBLE-01/02          |
+| `e2e/bubble-sort.e2e.ts`                             | 改写为单步/跳末/重置（Task 9）     |
+| `package.json` / `pnpm-lock.yaml`                    | 增加 shiki 依赖（Task 5）          |
+| `eslint.config.ts`                                   | 加 .remember/\*\* 到 globalIgnores |
+| `docs/test-cases/index.md`                           | 全局索引登记（Task 9）             |
+| `docs/test-cases/by-layer.md`                        | 分层视图登记（Task 9）             |
+| `docs/test-cases/by-module.md`                       | 模块视图登记（Task 9）             |
+| `docs/plans/index.md`                                | C-006 状态更新（Task 9）           |
+| `docs/roadmap.md`                                    | M2 done（Task 9）                  |
+
+### 与设计偏差
+
+无实质偏差。代码实现与 implementation.md 各 Task 步骤完全对应。
+
+### 踩坑
+
+1. `.remember/tmp/last-ndc.ts` 被 ESLint 扫描到（该文件含纯数字，触发 `no-unused-expressions`）——在 `eslint.config.ts` 中追加 `**/.remember/**` 到 `globalIgnores` 解决。
 
 ## 验证记录（执行后回填）
 
-_待执行完成后据实补全（单测/覆盖率/e2e 实测）。_
+### 单元测试（2026-06-19）
+
+- 测试文件数：28
+- 测试用例数：130
+- 结果：全部通过（PASS）
+
+### 覆盖率（2026-06-19）
+
+| 指标   | 实际值 | 阈值 | 状态 |
+| ------ | ------ | ---- | ---- |
+| Stmts  | 81.76% | 70%  | 达标 |
+| Branch | 83.17% | 60%  | 达标 |
+| Funcs  | 84.15% | 70%  | 达标 |
+| Lines  | 81.9%  | 70%  | 达标 |
+
+备注：`useHighlighter.ts` 在所有单元测试中被 mock（Shiki 依赖 JS 引擎，不适合在 jsdom 环境运行），该文件覆盖率 0%。但全局覆盖率仍通过所有阈值。e2e 测试（TC-E2E-PLAYER-01）在真实浏览器中覆盖了 Shiki 路径。
+
+### e2e（2026-06-19）
+
+- TC-E2E-PLAYER-01（冒泡播放器：默认暂停/单步/跳末升序/重置）：PASS，耗时 600ms
+
+### 门禁状态
+
+| 门禁              | 结果 |
+| ----------------- | ---- |
+| pnpm lint:check   | 通过 |
+| pnpm format:check | 通过 |
+| pnpm type-check   | 通过 |
+| pnpm test:unit    | 通过 |
+| pnpm coverage     | 通过 |
+| pnpm test:e2e     | 通过 |

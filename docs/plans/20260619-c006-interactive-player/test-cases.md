@@ -1,14 +1,14 @@
 # 测试用例：交互式算法播放器
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260619-006
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-19
 > Last reviewed: 2026-06-19
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 随 implementation.md 各 Task 落地后登记进全局索引
+> Next action: 已完成
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260618-003
@@ -31,6 +31,17 @@
 | 合计 | 11       | 47      | —                |
 
 > L4 的 28 含「改写」的 `TC-VIEW-BUBBLE-01/02`（同 ID、新含义）与新增的 `TC-VIZ-ARROWTRACK-02`。
+
+## 汇总统计（实测，2026-06-19）
+
+| 层级 | 测试文件 | Case 数 | 通过数 | 运行命令         |
+| ---- | -------- | ------- | ------ | ---------------- |
+| L3   | 2        | 18      | 18     | `pnpm test:unit` |
+| L4   | 8        | 28      | 28     | `pnpm test:unit` |
+| L5   | 1        | 1       | 1      | `pnpm test:e2e`  |
+| 合计 | 11       | 47      | 47     | —                |
+
+全部通过。TC-E2E-PLAYER-01 取代 TC-E2E-BUBBLE-01（已标 superseded）。
 
 ## 全量 Case 清单
 

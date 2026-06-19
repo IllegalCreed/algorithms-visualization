@@ -1,14 +1,14 @@
 # 需求：交互式算法播放器（重做冒泡排序体验）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260619-006
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-19
 > Last reviewed: 2026-06-19
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 用户审 spec → writing-plans
+> Next action: 已完成
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260618-003（提供 bubble-sort 步骤抽离与 L3/L4/L5 测试基线）

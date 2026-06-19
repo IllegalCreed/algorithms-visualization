@@ -1,12 +1,12 @@
 # 设计：交互式算法播放器
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260619-006
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-19
 > Last reviewed: 2026-06-19
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
 > Next action: 用户审 spec → writing-plans
 > Replaces: none

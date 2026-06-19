@@ -11,14 +11,22 @@
 
 ## algorithms（算法纯逻辑）
 
-| Case ID    | 标题                             | 层级 | 自动化路径                           |
-| ---------- | -------------------------------- | ---- | ------------------------------------ |
-| TC-ALGO-01 | 空数组与单元素不产生步骤         | L3   | `src/algorithms/bubble-sort.spec.ts` |
-| TC-ALGO-02 | 最终数组升序排列                 | L3   | `src/algorithms/bubble-sort.spec.ts` |
-| TC-ALGO-03 | 每步 compare 是相邻合法下标      | L3   | `src/algorithms/bubble-sort.spec.ts` |
-| TC-ALGO-04 | 已排序数组无任何 swap            | L3   | `src/algorithms/bubble-sort.spec.ts` |
-| TC-ALGO-05 | 含重复元素结果正确且稳定地不越界 | L3   | `src/algorithms/bubble-sort.spec.ts` |
-| TC-ALGO-06 | 不修改入参                       | L3   | `src/algorithms/bubble-sort.spec.ts` |
+| Case ID          | 标题                                                  | 层级 | 自动化路径                                  |
+| ---------------- | ----------------------------------------------------- | ---- | ------------------------------------------- |
+| TC-ALGO-01       | 空数组与单元素不产生步骤                              | L3   | `src/algorithms/bubble-sort.spec.ts`        |
+| TC-ALGO-02       | 最终数组升序排列                                      | L3   | `src/algorithms/bubble-sort.spec.ts`        |
+| TC-ALGO-03       | 每步 compare 是相邻合法下标                           | L3   | `src/algorithms/bubble-sort.spec.ts`        |
+| TC-ALGO-04       | 已排序数组无任何 swap                                 | L3   | `src/algorithms/bubble-sort.spec.ts`        |
+| TC-ALGO-05       | 含重复元素结果正确且稳定地不越界                      | L3   | `src/algorithms/bubble-sort.spec.ts`        |
+| TC-ALGO-06       | 不修改入参                                            | L3   | `src/algorithms/bubble-sort.spec.ts`        |
+| TC-BUBBLE-MOD-01 | 空/单元素也产出至少一个 done 步（C-006）              | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-02 | 末步数组与 oracle 最终结果一致（C-006）               | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-03 | 每步 array 的 id 集合恒等于初始（C-006）              | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-04 | 不修改入参（C-006）                                   | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-05 | 每步 point 合法，swap/noSwap 的 swapped 对应（C-006） | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-06 | 四门语言齐备（C-006）                                 | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-07 | 每门语言每个 ExecPoint 行号落在源码行范围内（C-006）  | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| TC-BUBBLE-MOD-08 | 实际出现的 point 都能在每门语言映射到行（C-006）      | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
 
 ---
 
@@ -39,11 +47,54 @@
 | -------------------- | ------------------------------------------- | ---- | ----------------------------------- |
 | TC-VIZ-ARROW-01      | 按 color 着色 svg                           | L4   | `src/components/Arrow.spec.ts`      |
 | TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位 | L4   | `src/components/ArrowTrack.spec.ts` |
+| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）         | L4   | `src/components/ArrowTrack.spec.ts` |
 | TC-VIZ-BLOCK-01      | 渲染数值                                    | L4   | `src/components/Block.spec.ts`      |
 | TC-VIZ-BLOCK-02      | 背景透明度随 percent                        | L4   | `src/components/Block.spec.ts`      |
 | TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white        | L4   | `src/components/Block.spec.ts`      |
 | TC-VIZ-LIST-01       | 渲染与数据等量的 Block                      | L4   | `src/components/List.spec.ts`       |
 | TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1          | L4   | `src/components/List.spec.ts`       |
+| TC-VIZ-BAR-01        | 渲染数值（C-006）                           | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）               | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）               | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）         | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）    | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）      | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）        | L4   | `src/components/BarsView.spec.ts`   |
+
+---
+
+## player（播放器，C-006）
+
+| Case ID           | 标题                                    | 层级 | 自动化路径                                        |
+| ----------------- | --------------------------------------- | ---- | ------------------------------------------------- |
+| TC-PLAYER-01      | 初始停第 0 步且未播放                   | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-02      | stepForward 前进且不越过末步            | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-03      | stepBackward 后退且不越过首步           | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-04      | seek 越界夹紧到合法范围                 | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-05      | reset 回第 0 步并停止                   | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-06      | play 按基准间隔逐步推进、到末步自动暂停 | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-07      | pause 停止自动推进                      | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-08      | setSpeed 加速后按新速率推进             | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-09      | current 跟随 index                      | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-PLAYER-10      | progress 从 0 到 1                      | L3   | `src/components/player/usePlayer.spec.ts`         |
+| TC-CODEPANEL-01   | 渲染默认语言(TS)所有行                  | L4   | `src/components/player/CodePanel.spec.ts`         |
+| TC-CODEPANEL-02   | 当前执行行随 point 经 lineMap 高亮      | L4   | `src/components/player/CodePanel.spec.ts`         |
+| TC-CODEPANEL-03   | 切语言 Tab 后按该语言 lineMap 高亮      | L4   | `src/components/player/CodePanel.spec.ts`         |
+| TC-VARPANEL-01    | 渲染每个变量的名与值                    | L4   | `src/components/player/VariablePanel.spec.ts`     |
+| TC-VARPANEL-02    | 与上一步比较，变化的行加 changed        | L4   | `src/components/player/VariablePanel.spec.ts`     |
+| TC-VARPANEL-03    | 无 prev 时都不高亮                      | L4   | `src/components/player/VariablePanel.spec.ts`     |
+| TC-TRANSPORT-01   | 未播放点主按钮 emit play                | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-02   | 播放中点主按钮 emit pause               | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-03   | atStart 时上一步禁用                    | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-04   | atEnd 时下一步禁用                      | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-05   | 下一步 emit stepForward                 | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-06   | 重置 emit reset                         | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-07   | 计数器显示 index+1 / total              | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-08   | 拖动进度条 emit seek(值)                | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-TRANSPORT-09   | 改速 emit setSpeed(值)                  | L4   | `src/components/player/TransportControls.spec.ts` |
+| TC-PLAYER-VIEW-01 | 渲染柱状图+代码+变量+控制               | L4   | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-VIEW-02 | 默认第 0 步，点下一步到第 2 步          | L4   | `src/components/player/AlgorithmPlayer.spec.ts`   |
 
 ---
 
@@ -115,11 +166,12 @@
 
 ## article-sort（排序动画文章）
 
-| Case ID           | 标题                       | 层级 | 自动化路径                                           |
-| ----------------- | -------------------------- | ---- | ---------------------------------------------------- |
-| TC-VIEW-BUBBLE-01 | 挂载渲染 List + 比较表达式 | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
-| TC-VIEW-BUBBLE-02 | 初始渲染 10 个方块         | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
-| TC-E2E-BUBBLE-01  | 冒泡排序动画最终升序       | L5   | `e2e/bubble-sort.e2e.ts`                             |
+| Case ID           | 标题                                                      | 层级 | 自动化路径                                           |
+| ----------------- | --------------------------------------------------------- | ---- | ---------------------------------------------------- |
+| TC-VIEW-BUBBLE-01 | （C-006 改写）挂载渲染 AlgorithmPlayer                    | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
+| TC-VIEW-BUBBLE-02 | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步           | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
+| TC-E2E-BUBBLE-01  | ~~冒泡排序动画最终升序~~ (superseded by TC-E2E-PLAYER-01) | L5   | `e2e/bubble-sort.e2e.ts`                             |
+| TC-E2E-PLAYER-01  | 冒泡播放器：默认暂停/单步/跳末升序/重置（C-006）          | L5   | `e2e/bubble-sort.e2e.ts`                             |
 
 ---
 
