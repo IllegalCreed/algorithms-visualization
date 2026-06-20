@@ -64,6 +64,11 @@ const routes = [
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
           },
+          {
+            path: '/docs/selection-sort',
+            name: 'selection-sort',
+            component: () => import('../views/Article/SortAlgorithm/SelectionSort.vue'),
+          },
         ],
       },
     ],
