@@ -1,14 +1,14 @@
 # 测试用例：选择排序动画
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260620-007
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-20
 > Last reviewed: 2026-06-20
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 用户审 spec → writing-plans
+> Next action: 已完成
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006
@@ -33,6 +33,17 @@
 | 合计 | 6        | 23           | —                |
 
 > L4 的 3 个文件中，`Bar.spec.ts`、`BarsView.spec.ts` 是**向现有文件追加** Case；`SelectionSort.spec.ts` 为新建。
+
+## 汇总统计（实测，2026-06-20）
+
+| 层级 | 测试文件 | 新增 Case 数 | 通过数 | 运行命令         |
+| ---- | -------- | ------------ | ------ | ---------------- |
+| L3   | 2        | 16           | 16     | `pnpm test:unit` |
+| L4   | 3        | 6            | 6      | `pnpm test:unit` |
+| L5   | 1        | 1            | 1      | `pnpm test:e2e`  |
+| 合计 | 6        | 23           | 23     | —                |
+
+全部通过。全量回归：单测 31 文件 155 通过、e2e 4 文件全过（含冒泡向后兼容全绿）；lint/format/type-check 三门禁绿。
 
 ## 全量 Case 清单（计划）
 

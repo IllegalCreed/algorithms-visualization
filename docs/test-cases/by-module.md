@@ -11,22 +11,38 @@
 
 ## algorithms（算法纯逻辑）
 
-| Case ID          | 标题                                                  | 层级 | 自动化路径                                  |
-| ---------------- | ----------------------------------------------------- | ---- | ------------------------------------------- |
-| TC-ALGO-01       | 空数组与单元素不产生步骤                              | L3   | `src/algorithms/bubble-sort.spec.ts`        |
-| TC-ALGO-02       | 最终数组升序排列                                      | L3   | `src/algorithms/bubble-sort.spec.ts`        |
-| TC-ALGO-03       | 每步 compare 是相邻合法下标                           | L3   | `src/algorithms/bubble-sort.spec.ts`        |
-| TC-ALGO-04       | 已排序数组无任何 swap                                 | L3   | `src/algorithms/bubble-sort.spec.ts`        |
-| TC-ALGO-05       | 含重复元素结果正确且稳定地不越界                      | L3   | `src/algorithms/bubble-sort.spec.ts`        |
-| TC-ALGO-06       | 不修改入参                                            | L3   | `src/algorithms/bubble-sort.spec.ts`        |
-| TC-BUBBLE-MOD-01 | 空/单元素也产出至少一个 done 步（C-006）              | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
-| TC-BUBBLE-MOD-02 | 末步数组与 oracle 最终结果一致（C-006）               | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
-| TC-BUBBLE-MOD-03 | 每步 array 的 id 集合恒等于初始（C-006）              | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
-| TC-BUBBLE-MOD-04 | 不修改入参（C-006）                                   | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
-| TC-BUBBLE-MOD-05 | 每步 point 合法，swap/noSwap 的 swapped 对应（C-006） | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
-| TC-BUBBLE-MOD-06 | 四门语言齐备（C-006）                                 | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
-| TC-BUBBLE-MOD-07 | 每门语言每个 ExecPoint 行号落在源码行范围内（C-006）  | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
-| TC-BUBBLE-MOD-08 | 实际出现的 point 都能在每门语言映射到行（C-006）      | L3   | `src/algorithms/bubble-sort.module.spec.ts` |
+| Case ID             | 标题                                                  | 层级 | 自动化路径                                     |
+| ------------------- | ----------------------------------------------------- | ---- | ---------------------------------------------- |
+| TC-ALGO-01          | 空数组与单元素不产生步骤                              | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-02          | 最终数组升序排列                                      | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-03          | 每步 compare 是相邻合法下标                           | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-04          | 已排序数组无任何 swap                                 | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-05          | 含重复元素结果正确且稳定地不越界                      | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-06          | 不修改入参                                            | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-BUBBLE-MOD-01    | 空/单元素也产出至少一个 done 步（C-006）              | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-02    | 末步数组与 oracle 最终结果一致（C-006）               | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-03    | 每步 array 的 id 集合恒等于初始（C-006）              | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-04    | 不修改入参（C-006）                                   | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-05    | 每步 point 合法，swap/noSwap 的 swapped 对应（C-006） | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-06    | 四门语言齐备（C-006）                                 | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-07    | 每门语言每个 ExecPoint 行号落在源码行范围内（C-006）  | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-08    | 实际出现的 point 都能在每门语言映射到行（C-006）      | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-SEL-ALGO-01      | 空数组与单元素不产生步骤（C-007）                     | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SEL-ALGO-02      | 最终数组升序排列（C-007）                             | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SEL-ALGO-03      | 含重复元素结果正确（C-007）                           | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SEL-ALGO-04      | 不修改入参（C-007）                                   | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SELECTION-MOD-01 | 空/单元素也产出 done 步（C-007）                      | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-02 | 末步与 oracle 一致（C-007）                           | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-03 | id 集合恒等于初始（C-007）                            | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-04 | 不修改入参（C-007）                                   | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-05 | swap/noSwap 的 swapped 对应（C-007）                  | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-06 | newMin 步 min 指针落在 minIndex（C-007）              | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-07 | 每轮 i 位即 [i,n) 最小（C-007）                       | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-08 | sortedUpTo 单调、末步为 n（C-007）                    | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-09 | 交换次数 ≤ n-1（C-007）                               | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-10 | 四门语言齐备（C-007）                                 | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-11 | 每门语言行号在范围内（C-007）                         | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-12 | 实际 point 都能映射到行（C-007）                      | L3   | `src/algorithms/selection-sort.module.spec.ts` |
 
 ---
 
@@ -62,6 +78,10 @@
 | TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）    | L4   | `src/components/BarsView.spec.ts`   |
 | TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）      | L4   | `src/components/BarsView.spec.ts`   |
 | TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）        | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）       | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）    | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）      | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）             | L4   | `src/components/BarsView.spec.ts`   |
 
 ---
 
@@ -167,12 +187,15 @@
 
 ## article-sort（排序动画文章）
 
-| Case ID           | 标题                                                      | 层级 | 自动化路径                                           |
-| ----------------- | --------------------------------------------------------- | ---- | ---------------------------------------------------- |
-| TC-VIEW-BUBBLE-01 | （C-006 改写）挂载渲染 AlgorithmPlayer                    | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
-| TC-VIEW-BUBBLE-02 | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步           | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts` |
-| TC-E2E-BUBBLE-01  | ~~冒泡排序动画最终升序~~ (superseded by TC-E2E-PLAYER-01) | L5   | `e2e/bubble-sort.e2e.ts`                             |
-| TC-E2E-PLAYER-01  | 冒泡播放器：默认暂停/单步/跳末升序/重置（C-006）          | L5   | `e2e/bubble-sort.e2e.ts`                             |
+| Case ID              | 标题                                                      | 层级 | 自动化路径                                              |
+| -------------------- | --------------------------------------------------------- | ---- | ------------------------------------------------------- |
+| TC-VIEW-BUBBLE-01    | （C-006 改写）挂载渲染 AlgorithmPlayer                    | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步           | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-E2E-BUBBLE-01     | ~~冒泡排序动画最终升序~~ (superseded by TC-E2E-PLAYER-01) | L5   | `e2e/bubble-sort.e2e.ts`                                |
+| TC-E2E-PLAYER-01     | 冒泡播放器：默认暂停/单步/跳末升序/重置（C-006）          | L5   | `e2e/bubble-sort.e2e.ts`                                |
+| TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）                         | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-VIEW-SELECTION-02 | 初始渲染 10 柱默认停第 0 步（C-007）                      | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-E2E-SELECTION-01  | 选择排序播放器 e2e（C-007）                               | L5   | `e2e/selection-sort.e2e.ts`                             |
 
 ---
 
