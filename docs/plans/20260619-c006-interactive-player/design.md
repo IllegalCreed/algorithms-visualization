@@ -11,7 +11,7 @@
 > Next action: 用户审 spec → writing-plans
 > Replaces: none
 > Replaced by: none
-> Related plans: C-20260618-003
+> Related plans: C-20260618-003；C-20260620-007（复用本框架接入选择排序，向后兼容泛型化扩展）
 > Related tests: 见 §8「对现有测试的影响」
 > Related requirement: requirements.md
 
