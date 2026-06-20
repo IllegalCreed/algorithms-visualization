@@ -27,12 +27,15 @@ function percent(v: number): number {
   return 0.08 + 0.92 * ((v - min.value) / span); // 最小值给 0.08 基准，避免看不见
 }
 
-function stateOf(index: number): 'idle' | 'comparing' | 'swapped' | 'sorted' {
+function stateOf(index: number): 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' {
   const e = props.emphasis;
+  const sortedRight = e.sortedFrom !== undefined && index >= e.sortedFrom;
+  const sortedLeft = e.sortedUpTo !== undefined && index < e.sortedUpTo;
+  if (sortedRight || sortedLeft) return 'sorted';
   const inCompare = !!e.comparing && (index === e.comparing[0] || index === e.comparing[1]);
   if (inCompare && e.swapped) return 'swapped';
-  if (inCompare) return 'comparing';
-  if (e.sortedFrom !== undefined && index >= e.sortedFrom) return 'sorted';
+  if (e.minIndex === index) return 'min'; // min 压过 comparing：比较帧 min 柱保持紫
+  if (inCompare) return 'comparing'; // 另一根（j）才是 comparing 黄
   return 'idle';
 }
 </script>

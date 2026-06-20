@@ -65,4 +65,24 @@ describe('BarsView', () => {
     const w2 = mountIt({ ...base, slotWidth: 50 }); // 3 × 50 = 150
     expect(w2.findComponent(ArrowTrack).attributes('style')).toContain('width: 150px');
   });
+
+  it('TC-VIZ-BARSVIEW-06 minIndex 指向的 Bar 进入 min 态', () => {
+    const w = mountIt({ ...base, emphasis: { minIndex: 1 } });
+    expect(w.findAllComponents(Bar)[1].props('state')).toBe('min');
+  });
+
+  it('TC-VIZ-BARSVIEW-07 sortedUpTo 左侧的 Bar 进入 sorted 态', () => {
+    const w = mountIt({ ...base, emphasis: { sortedUpTo: 2 } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[0].props('state')).toBe('sorted');
+    expect(bars[1].props('state')).toBe('sorted');
+    expect(bars[2].props('state')).toBe('idle'); // 下标 2 不在 [0,2)
+  });
+
+  it('TC-VIZ-BARSVIEW-08 比较帧优先级：minIndex 那根取 min、另一根取 comparing', () => {
+    const w = mountIt({ ...base, emphasis: { comparing: [1, 2], minIndex: 2 } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[2].props('state')).toBe('min'); // minIndex 压过 comparing
+    expect(bars[1].props('state')).toBe('comparing'); // 另一根（j）才是 comparing
+  });
 });

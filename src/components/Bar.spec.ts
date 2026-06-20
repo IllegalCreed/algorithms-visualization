@@ -21,4 +21,9 @@ describe('Bar', () => {
     const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'comparing' } });
     expect(w.find('.bar').classes()).toContain('comparing');
   });
+
+  it('TC-VIZ-BAR-04 state=min 时柱体加 min class', () => {
+    const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'min' } });
+    expect(w.find('.bar').classes()).toContain('min');
+  });
 });
