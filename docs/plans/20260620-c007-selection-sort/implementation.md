@@ -122,14 +122,16 @@ export interface AlgorithmModule<P extends string = string> {
 
 - [ ] **Step 2: 给冒泡 module 补泛型标注 `bubble-sort.module.ts`**
 
-仅改两处签名（函数体、`push` 的 `Step['emphasis']` 等均不动——`Step` 默认 `P=string`，`Step['emphasis']` 仍解析为 `StepEmphasis`）：
+改三处（`push` 的 `Step['emphasis']` 不动——`Step` 默认 `P=string` 时它仍解析为 `StepEmphasis`）：
 
 - 第 2 行 import 不变（已含 `ExecPoint`）。
 - `export function buildBubbleSortSteps(input: number[]): Step[]` → `export function buildBubbleSortSteps(input: number[]): Step<ExecPoint>[]`
+- 函数体 `const steps: Step[] = [];` → `const steps: Step<ExecPoint>[] = [];`（否则推断成 `Step<string>[]`，与返回类型不符）
 - `export const bubbleSortModule: AlgorithmModule = {` → `export const bubbleSortModule: AlgorithmModule<ExecPoint> = {`
 
 - [ ] **Step 3: 给冒泡 sources 补泛型标注 `bubble-sort.sources.ts`**
 
+- 第 2 行 import 补 `ExecPoint`：`import type { LangSource } from '@/components/player/types';` → `import type { ExecPoint, LangSource } from '@/components/player/types';`
 - `export const bubbleSortSources: LangSource[] = [` → `export const bubbleSortSources: LangSource<ExecPoint>[] = [`
 
 - [ ] **Step 4: CodePanel 放宽 `point` 类型 `CodePanel.vue`**

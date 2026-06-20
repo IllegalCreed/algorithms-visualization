@@ -6,8 +6,8 @@ const ID_I = '0'; // 红箭头（colors[0]）
 const ID_J = '1'; // 蓝箭头（colors[1]）
 
 /** 插桩重走标准冒泡，产出逐行粒度的胖步骤 */
-export function buildBubbleSortSteps(input: number[]): Step[] {
-  const steps: Step[] = [];
+export function buildBubbleSortSteps(input: number[]): Step<ExecPoint>[] {
+  const steps: Step<ExecPoint>[] = [];
   const work: [string, number][] = input.map((v, i) => [String(i), v]);
   const n = work.length;
 
@@ -79,7 +79,7 @@ export function buildBubbleSortSteps(input: number[]): Step[] {
   return steps;
 }
 
-export const bubbleSortModule: AlgorithmModule = {
+export const bubbleSortModule: AlgorithmModule<ExecPoint> = {
   title: '冒泡排序',
   initialInput: () => [7, 6, 5, 10, 9, 8, 4, 3, 2, 1],
   buildSteps: buildBubbleSortSteps,

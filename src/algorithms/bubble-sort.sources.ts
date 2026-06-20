@@ -1,5 +1,5 @@
 // src/algorithms/bubble-sort.sources.ts
-import type { LangSource } from '@/components/player/types';
+import type { ExecPoint, LangSource } from '@/components/player/types';
 
 const ts = `function bubbleSort(a: number[]): number[] {
   const n = a.length;
@@ -44,7 +44,7 @@ const rust = `fn bubble_sort(a: &mut Vec<i32>) {
     }
 }`;
 
-export const bubbleSortSources: LangSource[] = [
+export const bubbleSortSources: LangSource<ExecPoint>[] = [
   {
     lang: 'ts',
     label: 'TypeScript',

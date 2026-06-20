@@ -3,10 +3,10 @@
 import { ref, computed, shallowRef, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useSystemStore } from '@/store/modules/system';
-import type { ExecPoint, Lang, LangSource } from './types';
+import type { Lang, LangSource } from './types';
 import { highlightToLines, type HlLines } from './useHighlighter';
 
-const props = defineProps<{ sources: LangSource[]; point: ExecPoint }>();
+const props = defineProps<{ sources: LangSource[]; point: string }>();
 
 const activeLang = ref<Lang>(props.sources[0].lang);
 const activeSource = computed(
