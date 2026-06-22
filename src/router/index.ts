@@ -74,6 +74,11 @@ const routes = [
             name: 'insertion-sort',
             component: () => import('../views/Article/SortAlgorithm/InsertionSort.vue'),
           },
+          {
+            path: '/docs/shell-sort',
+            name: 'shell-sort',
+            component: () => import('../views/Article/SortAlgorithm/ShellSort.vue'),
+          },
         ],
       },
     ],
