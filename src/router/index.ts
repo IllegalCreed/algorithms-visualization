@@ -69,6 +69,11 @@ const routes = [
             name: 'selection-sort',
             component: () => import('../views/Article/SortAlgorithm/SelectionSort.vue'),
           },
+          {
+            path: '/docs/insertion-sort',
+            name: 'insertion-sort',
+            component: () => import('../views/Article/SortAlgorithm/InsertionSort.vue'),
+          },
         ],
       },
     ],
