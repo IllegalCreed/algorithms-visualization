@@ -3,7 +3,7 @@
 defineProps<{
   value: number;
   percent: number;
-  state: 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min';
+  state: 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key';
 }>();
 </script>
 <template>
@@ -41,5 +41,8 @@ defineProps<{
 }
 .bar.min {
   background-color: #9d8df0;
+}
+.bar.key {
+  background-color: #e07b9a;
 }
 </style>

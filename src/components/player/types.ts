@@ -18,6 +18,9 @@ export type SelectionExecPoint =
   | 'noSwap'
   | 'done';
 
+/** 插入排序的执行点（shift：已排序元素右移腾位；insert：key 落定） */
+export type InsertionExecPoint = 'outerLoop' | 'compare' | 'shift' | 'insert' | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -30,6 +33,7 @@ export interface StepEmphasis {
   sortedFrom?: number; // 冒泡：右侧 [sortedFrom, n) 已就位
   minIndex?: number; // 选择：当前已知最小值下标 → min 态 + min 柱高亮
   sortedUpTo?: number; // 选择：左侧 [0, sortedUpTo) 已就位
+  keyIndex?: number; // 插入：被取出的 key 柱当前下标 → key 态（最高优先）
 }
 
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */

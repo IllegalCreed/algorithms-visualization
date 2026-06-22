@@ -85,4 +85,24 @@ describe('BarsView', () => {
     expect(bars[2].props('state')).toBe('min'); // minIndex 压过 comparing
     expect(bars[1].props('state')).toBe('comparing'); // 另一根（j）才是 comparing
   });
+
+  it('TC-VIZ-BARSVIEW-09 keyIndex 指向的 Bar 进入 key 态', () => {
+    const w = mountIt({ ...base, emphasis: { keyIndex: 1 } });
+    expect(w.findAllComponents(Bar)[1].props('state')).toBe('key');
+  });
+
+  it('TC-VIZ-BARSVIEW-10 key 优先级压过 sorted：keyIndex 落在已排序区仍取 key 态', () => {
+    const w = mountIt({ ...base, emphasis: { sortedUpTo: 3, keyIndex: 1 } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[1].props('state')).toBe('key'); // 下标 1 在 [0,3) 已排序区，但 key 压过 sorted
+    expect(bars[0].props('state')).toBe('sorted'); // 其他已排序柱仍绿
+    expect(bars[2].props('state')).toBe('sorted');
+  });
+
+  it('TC-VIZ-BARSVIEW-11 比较帧：keyIndex 那根取 key、comparing 另一根取 comparing', () => {
+    const w = mountIt({ ...base, emphasis: { comparing: [0, 1], keyIndex: 1 } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[1].props('state')).toBe('key'); // key 压过 comparing
+    expect(bars[0].props('state')).toBe('comparing'); // 另一根（j）才是 comparing
+  });
 });

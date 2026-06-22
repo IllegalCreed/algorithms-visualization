@@ -26,4 +26,9 @@ describe('Bar', () => {
     const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'min' } });
     expect(w.find('.bar').classes()).toContain('min');
   });
+
+  it('TC-VIZ-BAR-05 state=key 时柱体加 key class', () => {
+    const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'key' } });
+    expect(w.find('.bar').classes()).toContain('key');
+  });
 });
