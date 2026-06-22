@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **89** 个用例。运行命令：`pnpm test:unit`
+共 **85** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -150,7 +150,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **86** 个用例。运行命令：`pnpm test:unit`
+共 **96** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
