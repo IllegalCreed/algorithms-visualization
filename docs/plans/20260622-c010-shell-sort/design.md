@@ -135,6 +135,7 @@ push('done', n-1, work[n-1][1], n-1, { sortedFrom: 0 }, '完成，全部有序')
 ```
 
 - 指针下标越界（如 `j` 退到 `start-gap < 0`）一律 `clampIdx`（沿用插入 module 做法）；`vars` 里 `a[j]` 用 `work[j]?.[1] ?? '-'`。
+- `vars` 的 `group` 字段：`gapChange` / `done` 帧（尚未进入 / 已离开任何子序列）显示 `'-'`，`groupStart` 起显示当前 `start`（用 `start >= 0` 判定；进 `gapChange` 前与 `done` 前把 `start` 置 `-1`）。
 - **循环条件 `j >= start`**（而非插入排序的 `j >= 0`）：保证 `j` 不越当前组下界 `start`，**绝不跨组比较**。等价于标准写法的 `keyIdx >= start + gap`。
 - `shift` 帧靠稳定 key + `<TransitionGroup>` 产生 FLIP：`key` 柱（玫红）从 `keyIdx` 跨 `gap` 跳到 `j`，被越过的元素从 `j` 滑到 `keyIdx`，**两根同时平移**（跨距比插入排序更大，正是希尔「长跳」的观感）。
 - **id 集合每步恒定**：移位只做跨 gap 交换、无增删，满足「每步 id 集合不变」断言，FLIP 前提成立。
