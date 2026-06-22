@@ -1,14 +1,14 @@
 # 设计：头部分享/仓库按钮（微博 / X / GitHub）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260622-009
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-22
 > Last reviewed: 2026-06-22
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 写 implementation.md 后实现
+> Next action: 已完成
 > Replaces: none
 > Replaced by: none
 > Related plans: none

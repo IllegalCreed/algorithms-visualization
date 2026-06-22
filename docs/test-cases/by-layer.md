@@ -114,26 +114,37 @@
 
 ### hooks
 
-| Case ID      | 标题                                           | 自动化路径                              |
-| ------------ | ---------------------------------------------- | --------------------------------------- |
-| TC-HOOK-01-1 | 返回数据结构与排序两个分类                     | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 8 项                            | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                 | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                  | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 返回 2 个分类                                  | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                      | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                  | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 8 项，排序算法含 10 项              | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                   | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                   | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true    | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true        | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false     | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 3 个社交链接（github/twitter/微博）       | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项含 title/src/url 且均非空                  | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 所有 url 为合法的 https 地址                   | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                         | 自动化路径                              |
+| ------------ | ------------------------------------------------------------ | --------------------------------------- |
+| TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 8 项                                          | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 8 项，排序算法含 10 项                            | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 3 项 微博/X/GitHub，title 为分享/仓库文案（C-009 改写） | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
+
+### share（C-009）
+
+| Case ID     | 标题                                      | 自动化路径                              |
+| ----------- | ----------------------------------------- | --------------------------------------- |
+| TC-SHARE-01 | buildShareTargetUrl 拼线上域名 + fullPath | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-02 | buildShareTargetUrl 保留 query/hash       | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-03 | buildWeiboShareUrl 指向微博分享页         | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-04 | buildXShareUrl 指向 X 分享页              | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-05 | 链接与中文文案经 URLSearchParams 编码     | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-06 | 常量 GITHUB_REPO_URL / SITE_ORIGIN 校验   | `src/views/Master/Header/share.spec.ts` |
 
 ---
 

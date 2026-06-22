@@ -1,14 +1,14 @@
 # 头部分享/仓库按钮 实现计划
 
-> Status: approved
+> Status: verified
 > Stable ID: C-20260622-009
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-22
 > Last reviewed: 2026-06-22
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 按 Task 1→3 执行
+> Next action: 已完成（3 Task 全部落地，全量 35 文件 184 通过）
 > Replaces: none
 > Replaced by: none
 > Related plans: none

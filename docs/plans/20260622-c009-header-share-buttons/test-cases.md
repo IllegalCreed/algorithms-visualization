@@ -1,14 +1,14 @@
 # 测试用例：头部分享/仓库按钮（微博 / X / GitHub）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260622-009
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-22
 > Last reviewed: 2026-06-22
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 实现期把 Case 登记进 `docs/test-cases/{index,by-layer,by-module}.md` 并置 active
+> Next action: 已完成（6 个 TC-SHARE + 3 个 TC-HOOK-05 已登记三索引并置 active）
 > Replaces: none
 > Replaced by: none
 > Related plans: none
