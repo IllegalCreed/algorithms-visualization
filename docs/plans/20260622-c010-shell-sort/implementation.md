@@ -1,14 +1,14 @@
 # 希尔排序动画 实现计划
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260622-010
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-22
 > Last reviewed: 2026-06-22
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 按 Task 1→5 逐步执行（subagent-driven 或 inline）
+> Next action: 已完成（5 Task 全部落地，26 Case 全绿，已落 main）
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006、C-20260620-007、C-20260621-008

@@ -1,14 +1,14 @@
 # 需求：希尔排序动画（接入算法播放器框架，M3 第三个算法）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260622-010
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-22
 > Last reviewed: 2026-06-22
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 待用户 review 本 spec（requirements + design）→ writing-plans 产出 implementation + test-cases
+> Next action: 已完成（26 Case 全绿，已落 main）
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006（提供「算法播放器」框架）；C-20260620-007（选择排序，完成执行点泛型化、`CodePanel` 放宽 `string`、柱态优先级）；C-20260621-008（插入排序，新增 `keyIndex`/`key` 玫红态、移位插桩范式——**希尔直接复用并把步长从 1 泛化为 gap**）

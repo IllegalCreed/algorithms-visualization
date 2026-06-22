@@ -60,6 +60,25 @@
 | TC-INSERTION-MOD-10 | 四门语言齐备（C-008）                                 | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
 | TC-INSERTION-MOD-11 | 每门语言行号在范围内（C-008）                         | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
 | TC-INSERTION-MOD-12 | 实际 point 都能映射到行（C-008）                      | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-SHELL-ALGO-01    | 空数组与单元素不产生 pass（C-010）                    | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-02    | 最终 pass 升序排列（C-010）                           | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-03    | 含重复元素结果正确且不越界（C-010）                   | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-04    | 不修改入参（C-010）                                   | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-05    | gap 序列为 ⌊n/2⌋ 减半到 1（C-010）                    | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-06    | 已升序输入：最终仍升序、gap 序列不变（C-010）         | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-MOD-01     | 空/单元素也产出至少一个 done 步（C-010）              | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-02     | 末步数组与 oracle 一致（C-010）                       | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-03     | id 集合恒等于初始（C-010）                            | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-04     | 不修改入参（C-010）                                   | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-05     | shift 步必带数值型 keyIndex（C-010）                  | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-06     | gapChange 步 gap 依次 ⌊n/2⌋ 减半到 1（C-010）         | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-07     | 各 gap-pass 边界数组与 oracle 快照一致（C-010）       | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-08     | groupStart 的 groupMembers = 子序列下标（C-010）      | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-09     | 一轮内 keyIndex 单调不增（C-010）                     | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-10     | done 步标 sortedFrom=0（C-010）                       | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-11     | 四门语言齐备（C-010）                                 | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-12     | 每门语言行号在范围内（C-010）                         | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-13     | 实际 point 都能映射到行（C-010）                      | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
 
 ---
 
@@ -76,33 +95,37 @@
 
 ## viz-engine（可视化引擎基础组件）
 
-| Case ID              | 标题                                        | 层级 | 自动化路径                          |
-| -------------------- | ------------------------------------------- | ---- | ----------------------------------- |
-| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                | L4   | `src/components/Arrow.spec.ts`      |
-| TC-VIZ-ARROW-02      | 非预设色按原值透传                          | L4   | `src/components/Arrow.spec.ts`      |
-| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位 | L4   | `src/components/ArrowTrack.spec.ts` |
-| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）         | L4   | `src/components/ArrowTrack.spec.ts` |
-| TC-VIZ-BLOCK-01      | 渲染数值                                    | L4   | `src/components/Block.spec.ts`      |
-| TC-VIZ-BLOCK-02      | 背景透明度随 percent                        | L4   | `src/components/Block.spec.ts`      |
-| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white        | L4   | `src/components/Block.spec.ts`      |
-| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                      | L4   | `src/components/List.spec.ts`       |
-| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1          | L4   | `src/components/List.spec.ts`       |
-| TC-VIZ-BAR-01        | 渲染数值（C-006）                           | L4   | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                | L4   | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）               | L4   | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）               | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）         | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）    | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）      | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）        | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）       | L4   | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）    | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）      | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）             | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）       | L4   | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）    | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）              | L4   | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）             | L4   | `src/components/BarsView.spec.ts`   |
+| Case ID              | 标题                                              | 层级 | 自动化路径                          |
+| -------------------- | ------------------------------------------------- | ---- | ----------------------------------- |
+| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                      | L4   | `src/components/Arrow.spec.ts`      |
+| TC-VIZ-ARROW-02      | 非预设色按原值透传                                | L4   | `src/components/Arrow.spec.ts`      |
+| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位       | L4   | `src/components/ArrowTrack.spec.ts` |
+| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）               | L4   | `src/components/ArrowTrack.spec.ts` |
+| TC-VIZ-BLOCK-01      | 渲染数值                                          | L4   | `src/components/Block.spec.ts`      |
+| TC-VIZ-BLOCK-02      | 背景透明度随 percent                              | L4   | `src/components/Block.spec.ts`      |
+| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white              | L4   | `src/components/Block.spec.ts`      |
+| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                            | L4   | `src/components/List.spec.ts`       |
+| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                | L4   | `src/components/List.spec.ts`       |
+| TC-VIZ-BAR-01        | 渲染数值（C-006）                                 | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                      | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                     | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                     | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）               | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）          | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）            | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）              | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）             | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）          | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）            | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）                   | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）             | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）          | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）                    | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）                   | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）       | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-12   | 组内柱保持 idle、组外柱 dimmed（C-010）           | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 取本态（C-010） | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）             | L4   | `src/components/BarsView.spec.ts`   |
 
 ---
 
@@ -220,6 +243,9 @@
 | TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）                         | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
 | TC-VIEW-INSERTION-02 | 初始渲染 10 柱默认停第 0 步（C-008）                      | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
 | TC-E2E-INSERTION-01  | 插入排序播放器 e2e（C-008）                               | L5   | `e2e/insertion-sort.e2e.ts`                             |
+| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）                         | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-VIEW-SHELL-02     | 初始渲染 10 柱默认停第 0 步（C-010）                      | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-E2E-SHELL-01      | 希尔排序播放器 e2e（C-010）                               | L5   | `e2e/shell-sort.e2e.ts`                                 |
 
 ---
 

@@ -1,14 +1,14 @@
 # 设计：希尔排序动画（接入算法播放器框架）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260622-010
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-22
 > Last reviewed: 2026-06-22
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 待用户 review 本 spec → writing-plans 产出 implementation + test-cases
+> Next action: 已完成（26 Case 全绿，已落 main）
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006、C-20260620-007、C-20260621-008

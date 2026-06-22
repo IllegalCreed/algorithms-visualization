@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **85** 个用例。运行命令：`pnpm test:unit`
+共 **104** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -97,6 +97,35 @@
 | TC-INSERTION-MOD-11 | 每门语言每个 InsertionExecPoint 行号在范围内      | `src/algorithms/insertion-sort.module.spec.ts` |
 | TC-INSERTION-MOD-12 | 实际出现的 point 都能在每门语言映射到行           | `src/algorithms/insertion-sort.module.spec.ts` |
 
+### shell-sort oracle（C-010）
+
+| Case ID          | 标题                                         | 自动化路径                          |
+| ---------------- | -------------------------------------------- | ----------------------------------- |
+| TC-SHELL-ALGO-01 | 空数组与单元素不产生 pass                    | `src/algorithms/shell-sort.spec.ts` |
+| TC-SHELL-ALGO-02 | 最终 pass 升序排列                           | `src/algorithms/shell-sort.spec.ts` |
+| TC-SHELL-ALGO-03 | 含重复元素结果正确且不越界                   | `src/algorithms/shell-sort.spec.ts` |
+| TC-SHELL-ALGO-04 | 不修改入参                                   | `src/algorithms/shell-sort.spec.ts` |
+| TC-SHELL-ALGO-05 | gap 序列为 ⌊n/2⌋ 减半到 1                    | `src/algorithms/shell-sort.spec.ts` |
+| TC-SHELL-ALGO-06 | 已升序输入：最终仍升序、gap 序列不变（幂等） | `src/algorithms/shell-sort.spec.ts` |
+
+### shell-sort module（C-010）
+
+| Case ID         | 标题                                                  | 自动化路径                                 |
+| --------------- | ----------------------------------------------------- | ------------------------------------------ |
+| TC-SHELL-MOD-01 | 空/单元素也产出至少一个 done 步                       | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-02 | 末步数组与 oracle 最终结果一致（交叉校验，升序）      | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-03 | 每步 array 的 id 集合恒等于初始（FLIP 前提）          | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-04 | 不修改入参                                            | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-05 | 每步 point 合法；shift 步必带数值型 keyIndex          | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-06 | gapChange 步的 gap 依次为 ⌊n/2⌋ 减半到 1              | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-07 | 各 gap-pass 边界数组与 oracle 快照一致                | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-08 | 每个 groupStart 的 groupMembers = 该 gap 下子序列下标 | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-09 | 一轮内 keyIndex 单调不增（key 只向左跳）              | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-10 | done 步标 sortedFrom=0（全部有序）                    | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-11 | 四门语言齐备                                          | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-12 | 每门语言每个 ShellExecPoint 行号在范围内              | `src/algorithms/shell-sort.module.spec.ts` |
+| TC-SHELL-MOD-13 | 实际出现的 point 都能在每门语言映射到行               | `src/algorithms/shell-sort.module.spec.ts` |
+
 ### player / usePlayer（C-006）
 
 | Case ID      | 标题                                    | 自动化路径                                |
@@ -150,7 +179,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **96** 个用例。运行命令：`pnpm test:unit`
+共 **102** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -181,6 +210,10 @@
 | TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）             | `src/components/BarsView.spec.ts`   |
 | TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted，滑入已排序区仍取 key（C-008） | `src/components/BarsView.spec.ts`   |
 | TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key、另一根取 comparing（C-008）  | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）          | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-12   | groupMembers 内的柱保持 idle、外的柱 dimmed（C-010） | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 仍取本态（C-010）  | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）                | `src/components/BarsView.spec.ts`   |
 
 ### player（播放器外壳，C-006）
 
@@ -214,6 +247,8 @@
 | TC-VIEW-SELECTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-007）      | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
 | TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）               | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
 | TC-VIEW-INSERTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-008）      | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）               | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-VIEW-SHELL-02     | 初始渲染 10 根柱子且默认停第 0 步（C-010）      | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
 
 ### home（首页视图）
 
@@ -282,16 +317,17 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **5** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **6** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
-| Case ID             | 标题                                        | 自动化路径                   | 状态       |
-| ------------------- | ------------------------------------------- | ---------------------------- | ---------- |
-| TC-E2E-HOME-01      | 首页加载并能进入 docs                       | `e2e/home-navigation.e2e.ts` | active     |
-| TC-E2E-MENU-01      | docs 菜单点击切换路由                       | `e2e/docs-menu.e2e.ts`       | active     |
-| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                    | `e2e/bubble-sort.e2e.ts`     | superseded |
-| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置     | `e2e/bubble-sort.e2e.ts`     | active     |
-| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置 | `e2e/selection-sort.e2e.ts`  | active     |
-| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置 | `e2e/insertion-sort.e2e.ts`  | active     |
+| Case ID             | 标题                                                | 自动化路径                   | 状态       |
+| ------------------- | --------------------------------------------------- | ---------------------------- | ---------- |
+| TC-E2E-HOME-01      | 首页加载并能进入 docs                               | `e2e/home-navigation.e2e.ts` | active     |
+| TC-E2E-MENU-01      | docs 菜单点击切换路由                               | `e2e/docs-menu.e2e.ts`       | active     |
+| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                            | `e2e/bubble-sort.e2e.ts`     | superseded |
+| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置             | `e2e/bubble-sort.e2e.ts`     | active     |
+| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置         | `e2e/selection-sort.e2e.ts`  | active     |
+| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置         | `e2e/insertion-sort.e2e.ts`  | active     |
+| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置 | `e2e/shell-sort.e2e.ts`      | active     |
 
 ---
 
@@ -299,7 +335,7 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 86.74% | 70%  | 达标 |
-| Branch | 87.89% | 60%  | 达标 |
-| Funcs  | 85.24% | 70%  | 达标 |
-| Lines  | 86.8%  | 70%  | 达标 |
+| Stmts  | 88.6%  | 70%  | 达标 |
+| Branch | 89.26% | 60%  | 达标 |
+| Funcs  | 86.02% | 70%  | 达标 |
+| Lines  | 88.67% | 70%  | 达标 |
