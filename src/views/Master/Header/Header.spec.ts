@@ -9,6 +9,7 @@ const mockPush = vi.fn();
 
 vi.mock('vue-router', () => ({
   useRouter: () => ({ push: mockPush }),
+  useRoute: () => ({ fullPath: '/' }),
 }));
 
 // mock svg asset imports

@@ -25,7 +25,7 @@ function goHomePage(): void {
       <h1>算法可视化</h1>
       <div class="blank"></div>
 
-      <IconLinkComp v-for="item in iconLinkData" :key="item.url" :data="item" />
+      <IconLinkComp v-for="item in iconLinkData" :key="item.title" :data="item" />
     </div>
   </div>
 </template>

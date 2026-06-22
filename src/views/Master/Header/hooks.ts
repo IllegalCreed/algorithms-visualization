@@ -1,26 +1,25 @@
+import { computed, type ComputedRef } from 'vue';
+import { useRoute } from 'vue-router';
 import type { IconLink } from './IconLink/types';
 import weiboIcon from '@/assets/weibo.svg';
-import gitbubIcon from '@/assets/github.svg';
+import githubIcon from '@/assets/github.svg';
 import twitterIcon from '@/assets/twitter.svg';
+import {
+  GITHUB_REPO_URL,
+  SHARE_TEXT,
+  buildShareTargetUrl,
+  buildWeiboShareUrl,
+  buildXShareUrl,
+} from './share';
 
-export function useIconLink(): IconLink[] {
-  const iconLinkData: IconLink[] = [
-    {
-      title: 'github',
-      src: gitbubIcon,
-      url: 'https://www.github.com',
-    },
-    {
-      title: 'twitter',
-      src: twitterIcon,
-      url: 'https://www.twitter.com',
-    },
-    {
-      title: '新浪微博',
-      src: weiboIcon,
-      url: 'https://www.weibo.com',
-    },
-  ];
-
-  return iconLinkData;
+export function useIconLink(): ComputedRef<IconLink[]> {
+  const route = useRoute();
+  return computed(() => {
+    const target = buildShareTargetUrl(route.fullPath);
+    return [
+      { title: '分享到微博', src: weiboIcon, url: buildWeiboShareUrl(target, SHARE_TEXT) },
+      { title: '分享到 X', src: twitterIcon, url: buildXShareUrl(target, SHARE_TEXT) },
+      { title: 'GitHub 仓库', src: githubIcon, url: GITHUB_REPO_URL },
+    ];
+  });
 }
