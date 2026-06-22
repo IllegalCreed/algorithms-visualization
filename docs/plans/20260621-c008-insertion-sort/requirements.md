@@ -1,14 +1,14 @@
 # 需求：插入排序动画（接入算法播放器框架，M3 第二个算法）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260621-008
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-21
-> Last reviewed: 2026-06-21
-> Progress: 0%
+> Last reviewed: 2026-06-22
+> Progress: 100%
 > Blocked by: none
-> Next action: 用户复审需求 + 设计，通过后转 writing-plans 出实现计划
+> Next action: 已完成
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006（提供「算法播放器」框架）；C-20260620-007（选择排序，已完成执行点泛型化、CodePanel 放宽 `string`、柱态优先级与左侧已排序语义——本变更直接受益，无需再重构）

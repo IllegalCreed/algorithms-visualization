@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-06-18
+> Last reviewed: 2026-06-22
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -172,3 +172,27 @@
 | TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer                                  | article-sort / SelectionSort | C-20260620-007 | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` | active     | 2026-06-20 |
 | TC-VIEW-SELECTION-02 | 初始渲染 10 根柱子且默认停第 0 步                         | article-sort / SelectionSort | C-20260620-007 | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` | active     | 2026-06-20 |
 | TC-E2E-SELECTION-01  | 选择排序播放器：默认暂停/单步/跳末升序/重置               | article-sort / e2e           | C-20260620-007 | L5   | `e2e/selection-sort.e2e.ts`                             | active     | 2026-06-20 |
+| TC-INS-ALGO-01       | 空数组与单元素不产生步骤                                  | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.spec.ts`                 | active     | 2026-06-22 |
+| TC-INS-ALGO-02       | 最终数组升序排列                                          | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.spec.ts`                 | active     | 2026-06-22 |
+| TC-INS-ALGO-03       | 含重复元素结果正确且不越界                                | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.spec.ts`                 | active     | 2026-06-22 |
+| TC-INS-ALGO-04       | 不修改入参                                                | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.spec.ts`                 | active     | 2026-06-22 |
+| TC-INS-ALGO-05       | 已升序输入每轮零移位（最佳情况 O(n)）                     | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.spec.ts`                 | active     | 2026-06-22 |
+| TC-INSERTION-MOD-01  | 空/单元素也产出至少一个 done 步                           | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-02  | 末步数组与 oracle 一致（交叉校验，升序）                  | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-03  | 每步 array 的 id 集合恒等于初始（FLIP 前提）              | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-04  | 不修改入参                                                | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-05  | 每步 point 合法；shift 步必带数值型 keyIndex              | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-06  | 每个 insert 步后 [0,i] 前缀升序（插入核心不变量）         | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-07  | 一轮内 keyIndex 单调不增（key 只向左滑）                  | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-08  | sortedUpTo 单调不减且末步为 n                             | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-09  | 稳定性：相等元素原始相对顺序保持不变                      | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-10  | 四门语言齐备                                              | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-11  | 每门语言每个 InsertionExecPoint 行号在范围内              | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-INSERTION-MOD-12  | 实际出现的 point 都能在每门语言映射到行                   | algorithms / insertion-sort  | C-20260621-008 | L3   | `src/algorithms/insertion-sort.module.spec.ts`          | active     | 2026-06-22 |
+| TC-VIZ-BAR-05        | state=key 时柱体加 key class                              | viz-engine / Bar             | C-20260621-008 | L4   | `src/components/Bar.spec.ts`                            | active     | 2026-06-22 |
+| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态                           | viz-engine / BarsView        | C-20260621-008 | L4   | `src/components/BarsView.spec.ts`                       | active     | 2026-06-22 |
+| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（滑入已排序区仍取 key）             | viz-engine / BarsView        | C-20260621-008 | L4   | `src/components/BarsView.spec.ts`                       | active     | 2026-06-22 |
+| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key、另一根取 comparing                | viz-engine / BarsView        | C-20260621-008 | L4   | `src/components/BarsView.spec.ts`                       | active     | 2026-06-22 |
+| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer                                  | article-sort / InsertionSort | C-20260621-008 | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` | active     | 2026-06-22 |
+| TC-VIEW-INSERTION-02 | 初始渲染 10 根柱子且默认停第 0 步                         | article-sort / InsertionSort | C-20260621-008 | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` | active     | 2026-06-22 |
+| TC-E2E-INSERTION-01  | 插入排序播放器：默认暂停/单步/跳末升序/重置               | article-sort / e2e           | C-20260621-008 | L5   | `e2e/insertion-sort.e2e.ts`                             | active     | 2026-06-22 |

@@ -1,7 +1,7 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-06-18
+> Last reviewed: 2026-06-22
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
@@ -43,6 +43,23 @@
 | TC-SELECTION-MOD-10 | 四门语言齐备（C-007）                                 | L3   | `src/algorithms/selection-sort.module.spec.ts` |
 | TC-SELECTION-MOD-11 | 每门语言行号在范围内（C-007）                         | L3   | `src/algorithms/selection-sort.module.spec.ts` |
 | TC-SELECTION-MOD-12 | 实际 point 都能映射到行（C-007）                      | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-INS-ALGO-01      | 空数组与单元素不产生步骤（C-008）                     | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-02      | 最终数组升序排列（C-008）                             | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-03      | 含重复元素结果正确（C-008）                           | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-04      | 不修改入参（C-008）                                   | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-05      | 已升序输入每轮零移位（C-008）                         | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INSERTION-MOD-01 | 空/单元素也产出 done 步（C-008）                      | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-02 | 末步与 oracle 一致（C-008）                           | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-03 | id 集合恒等于初始（C-008）                            | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-04 | 不修改入参（C-008）                                   | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-05 | shift 步必带数值型 keyIndex（C-008）                  | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-06 | insert 后 [0,i] 前缀升序（C-008）                     | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-07 | 一轮内 keyIndex 单调不增（C-008）                     | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-08 | sortedUpTo 单调、末步为 n（C-008）                    | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-09 | 稳定性：相等元素相对顺序不变（C-008）                 | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-10 | 四门语言齐备（C-008）                                 | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-11 | 每门语言行号在范围内（C-008）                         | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-12 | 实际 point 都能映射到行（C-008）                      | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
 
 ---
 
@@ -82,6 +99,10 @@
 | TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）    | L4   | `src/components/BarsView.spec.ts`   |
 | TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）      | L4   | `src/components/BarsView.spec.ts`   |
 | TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）             | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）       | L4   | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）    | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）              | L4   | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）             | L4   | `src/components/BarsView.spec.ts`   |
 
 ---
 
@@ -196,6 +217,9 @@
 | TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）                         | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
 | TC-VIEW-SELECTION-02 | 初始渲染 10 柱默认停第 0 步（C-007）                      | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
 | TC-E2E-SELECTION-01  | 选择排序播放器 e2e（C-007）                               | L5   | `e2e/selection-sort.e2e.ts`                             |
+| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）                         | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-INSERTION-02 | 初始渲染 10 柱默认停第 0 步（C-008）                      | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-E2E-INSERTION-01  | 插入排序播放器 e2e（C-008）                               | L5   | `e2e/insertion-sort.e2e.ts`                             |
 
 ---
 

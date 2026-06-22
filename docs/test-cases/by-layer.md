@@ -1,7 +1,7 @@
 # 测试用例分层视图
 
 > Status: active
-> Last reviewed: 2026-06-18
+> Last reviewed: 2026-06-22
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **72** 个用例。运行命令：`pnpm test:unit`
+共 **89** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -70,6 +70,33 @@
 | TC-SELECTION-MOD-11 | 每门语言每个 SelectionExecPoint 行号在范围内   | `src/algorithms/selection-sort.module.spec.ts` |
 | TC-SELECTION-MOD-12 | 实际出现的 point 都能在每门语言映射到行        | `src/algorithms/selection-sort.module.spec.ts` |
 
+### insertion-sort oracle（C-008）
+
+| Case ID        | 标题                                  | 自动化路径                              |
+| -------------- | ------------------------------------- | --------------------------------------- |
+| TC-INS-ALGO-01 | 空数组与单元素不产生步骤              | `src/algorithms/insertion-sort.spec.ts` |
+| TC-INS-ALGO-02 | 最终数组升序排列                      | `src/algorithms/insertion-sort.spec.ts` |
+| TC-INS-ALGO-03 | 含重复元素结果正确且不越界            | `src/algorithms/insertion-sort.spec.ts` |
+| TC-INS-ALGO-04 | 不修改入参                            | `src/algorithms/insertion-sort.spec.ts` |
+| TC-INS-ALGO-05 | 已升序输入每轮零移位（最佳情况 O(n)） | `src/algorithms/insertion-sort.spec.ts` |
+
+### insertion-sort module（C-008）
+
+| Case ID             | 标题                                              | 自动化路径                                     |
+| ------------------- | ------------------------------------------------- | ---------------------------------------------- |
+| TC-INSERTION-MOD-01 | 空/单元素也产出至少一个 done 步                   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-02 | 末步数组与 oracle 一致（交叉校验，升序）          | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-03 | 每步 array 的 id 集合恒等于初始（FLIP 前提）      | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-04 | 不修改入参                                        | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-05 | 每步 point 合法；shift 步必带数值型 keyIndex      | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-06 | 每个 insert 步后 [0,i] 前缀升序（插入核心不变量） | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-07 | 一轮内 keyIndex 单调不增（key 只向左滑）          | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-08 | sortedUpTo 单调不减且末步为 n                     | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-09 | 稳定性：相等元素原始相对顺序保持不变              | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-10 | 四门语言齐备                                      | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-11 | 每门语言每个 InsertionExecPoint 行号在范围内      | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-12 | 实际出现的 point 都能在每门语言映射到行           | `src/algorithms/insertion-sort.module.spec.ts` |
+
 ### player / usePlayer（C-006）
 
 | Case ID      | 标题                                    | 自动化路径                                |
@@ -112,33 +139,37 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **80** 个用例。运行命令：`pnpm test:unit`
+共 **86** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
-| Case ID              | 标题                                                | 自动化路径                          |
-| -------------------- | --------------------------------------------------- | ----------------------------------- |
-| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                        | `src/components/Arrow.spec.ts`      |
-| TC-VIZ-ARROW-02      | 非预设色按原值透传                                  | `src/components/Arrow.spec.ts`      |
-| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位         | `src/components/ArrowTrack.spec.ts` |
-| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）                 | `src/components/ArrowTrack.spec.ts` |
-| TC-VIZ-BLOCK-01      | 渲染数值                                            | `src/components/Block.spec.ts`      |
-| TC-VIZ-BLOCK-02      | 背景透明度随 percent                                | `src/components/Block.spec.ts`      |
-| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white                | `src/components/Block.spec.ts`      |
-| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                              | `src/components/List.spec.ts`       |
-| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                  | `src/components/List.spec.ts`       |
-| TC-VIZ-BAR-01        | 渲染数值（C-006）                                   | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                        | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                       | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                       | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）                 | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）            | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）              | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）                | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）               | `src/components/Bar.spec.ts`        |
-| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）            | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧的 Bar 进入 sorted 态（C-007）       | `src/components/BarsView.spec.ts`   |
-| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min、另一根取 comparing（C-007） | `src/components/BarsView.spec.ts`   |
+| Case ID              | 标题                                                 | 自动化路径                          |
+| -------------------- | ---------------------------------------------------- | ----------------------------------- |
+| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                         | `src/components/Arrow.spec.ts`      |
+| TC-VIZ-ARROW-02      | 非预设色按原值透传                                   | `src/components/Arrow.spec.ts`      |
+| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位          | `src/components/ArrowTrack.spec.ts` |
+| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）                  | `src/components/ArrowTrack.spec.ts` |
+| TC-VIZ-BLOCK-01      | 渲染数值                                             | `src/components/Block.spec.ts`      |
+| TC-VIZ-BLOCK-02      | 背景透明度随 percent                                 | `src/components/Block.spec.ts`      |
+| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white                 | `src/components/Block.spec.ts`      |
+| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                               | `src/components/List.spec.ts`       |
+| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                   | `src/components/List.spec.ts`       |
+| TC-VIZ-BAR-01        | 渲染数值（C-006）                                    | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                         | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                        | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                        | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）                  | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）             | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）               | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）                 | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）                | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）             | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧的 Bar 进入 sorted 态（C-007）        | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min、另一根取 comparing（C-007）  | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）                | `src/components/Bar.spec.ts`        |
+| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）             | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted，滑入已排序区仍取 key（C-008） | `src/components/BarsView.spec.ts`   |
+| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key、另一根取 comparing（C-008）  | `src/components/BarsView.spec.ts`   |
 
 ### player（播放器外壳，C-006）
 
@@ -170,6 +201,8 @@
 | TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步 | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
 | TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）               | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
 | TC-VIEW-SELECTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-007）      | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）               | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-INSERTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-008）      | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
 
 ### home（首页视图）
 
@@ -238,7 +271,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **4** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **5** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                        | 自动化路径                   | 状态       |
 | ------------------- | ------------------------------------------- | ---------------------------- | ---------- |
@@ -247,14 +280,15 @@
 | TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                    | `e2e/bubble-sort.e2e.ts`     | superseded |
 | TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置     | `e2e/bubble-sort.e2e.ts`     | active     |
 | TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置 | `e2e/selection-sort.e2e.ts`  | active     |
+| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置 | `e2e/insertion-sort.e2e.ts`  | active     |
 
 ---
 
-## 覆盖率（L3+L4，2026-06-20）
+## 覆盖率（L3+L4，2026-06-22）
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 84.95% | 70%  | 达标 |
-| Branch | 86.61% | 60%  | 达标 |
-| Funcs  | 84.95% | 70%  | 达标 |
-| Lines  | 84.98% | 70%  | 达标 |
+| Stmts  | 86.74% | 70%  | 达标 |
+| Branch | 87.89% | 60%  | 达标 |
+| Funcs  | 85.24% | 70%  | 达标 |
+| Lines  | 86.8%  | 70%  | 达标 |

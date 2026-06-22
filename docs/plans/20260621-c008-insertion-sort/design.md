@@ -1,14 +1,14 @@
 # 设计：插入排序动画（接入算法播放器框架）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260621-008
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-21
-> Last reviewed: 2026-06-21
-> Progress: 0%
+> Last reviewed: 2026-06-22
+> Progress: 100%
 > Blocked by: none
-> Next action: 用户复审；通过后 writing-plans 出 implementation.md + test-cases.md
+> Next action: 已完成
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006、C-20260620-007
