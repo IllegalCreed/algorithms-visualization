@@ -105,4 +105,27 @@ describe('BarsView', () => {
     expect(bars[1].props('state')).toBe('key'); // key 压过 comparing
     expect(bars[0].props('state')).toBe('comparing'); // 另一根（j）才是 comparing
   });
+
+  it('TC-VIZ-BARSVIEW-12 groupMembers 内的柱保持 idle、外的柱 dimmed', () => {
+    const w = mountIt({ ...base, emphasis: { groupMembers: [0, 2] } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[0].props('state')).toBe('idle'); // 在当前组
+    expect(bars[1].props('state')).toBe('dimmed'); // 不在 [0,2] → 淡出
+    expect(bars[2].props('state')).toBe('idle'); // 在当前组
+  });
+
+  it('TC-VIZ-BARSVIEW-13 dimmed 是最低档：组外的 key/comparing 仍取本态（不被淡化掩盖）', () => {
+    const w = mountIt({ ...base, emphasis: { groupMembers: [0], keyIndex: 1, comparing: [1, 2] } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[0].props('state')).toBe('idle'); // 组内、无其它强调
+    expect(bars[1].props('state')).toBe('key'); // keyIndex 压过 dimmed（即便不在组内）
+    expect(bars[2].props('state')).toBe('comparing'); // comparing 压过 dimmed（即便不在组内）
+  });
+
+  it('TC-VIZ-BARSVIEW-14 空 groupMembers 不淡化任何柱', () => {
+    const w = mountIt({ ...base, emphasis: { groupMembers: [] } });
+    for (const bar of w.findAllComponents(Bar)) {
+      expect(bar.props('state')).toBe('idle');
+    }
+  });
 });

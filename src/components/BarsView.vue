@@ -27,7 +27,9 @@ function percent(v: number): number {
   return 0.08 + 0.92 * ((v - min.value) / span); // 最小值给 0.08 基准，避免看不见
 }
 
-function stateOf(index: number): 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' {
+function stateOf(
+  index: number,
+): 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' | 'dimmed' {
   const e = props.emphasis;
   if (e.keyIndex === index) return 'key'; // key 压过一切（含 sorted）：滑入已排序区也保持玫红
   const sortedRight = e.sortedFrom !== undefined && index >= e.sortedFrom;
@@ -37,6 +39,9 @@ function stateOf(index: number): 'idle' | 'comparing' | 'swapped' | 'sorted' | '
   if (inCompare && e.swapped) return 'swapped';
   if (e.minIndex === index) return 'min'; // min 压过 comparing
   if (inCompare) return 'comparing'; // 另一根（j）才是 comparing 黄
+  // 希尔：当前组之外、且无任何其它强调 → 淡出（最低有效档，绝不掩盖活跃柱）
+  if (e.groupMembers && e.groupMembers.length > 0 && !e.groupMembers.includes(index))
+    return 'dimmed';
   return 'idle';
 }
 </script>

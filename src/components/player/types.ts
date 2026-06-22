@@ -21,6 +21,16 @@ export type SelectionExecPoint =
 /** 插入排序的执行点（shift：已排序元素右移腾位；insert：key 落定） */
 export type InsertionExecPoint = 'outerLoop' | 'compare' | 'shift' | 'insert' | 'done';
 
+/** 希尔排序的执行点（gap 减半 → 逐组 start → 组内插入：gapChange/groupStart 为分组标记步） */
+export type ShellExecPoint =
+  | 'gapChange'
+  | 'groupStart'
+  | 'outerLoop'
+  | 'compare'
+  | 'shift'
+  | 'insert'
+  | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -34,6 +44,7 @@ export interface StepEmphasis {
   minIndex?: number; // 选择：当前已知最小值下标 → min 态 + min 柱高亮
   sortedUpTo?: number; // 选择：左侧 [0, sortedUpTo) 已就位
   keyIndex?: number; // 插入：被取出的 key 柱当前下标 → key 态（最高优先）
+  groupMembers?: number[]; // 希尔：当前子序列的下标集；不在其中且无其它强调 → dimmed 淡出
 }
 
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */

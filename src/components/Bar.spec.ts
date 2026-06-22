@@ -31,4 +31,9 @@ describe('Bar', () => {
     const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'key' } });
     expect(w.find('.bar').classes()).toContain('key');
   });
+
+  it('TC-VIZ-BAR-06 state=dimmed 时柱体加 dimmed class', () => {
+    const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'dimmed' } });
+    expect(w.find('.bar').classes()).toContain('dimmed');
+  });
 });
