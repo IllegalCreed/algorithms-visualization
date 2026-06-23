@@ -29,12 +29,14 @@ function percent(v: number): number {
 
 function stateOf(
   index: number,
-): 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' | 'dimmed' {
+): 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' | 'dimmed' | 'pivot' {
   const e = props.emphasis;
+  if (e.pivotIndex === index) return 'pivot'; // 快排：pivot 压过一切（含 sorted/comparing/dimmed）
   if (e.keyIndex === index) return 'key'; // key 压过一切（含 sorted）：滑入已排序区也保持玫红
   const sortedRight = e.sortedFrom !== undefined && index >= e.sortedFrom;
   const sortedLeft = e.sortedUpTo !== undefined && index < e.sortedUpTo;
-  if (sortedRight || sortedLeft) return 'sorted';
+  const sortedDisc = e.sortedIndices?.includes(index) ?? false; // 快排：离散「已就位」下标集
+  if (sortedRight || sortedLeft || sortedDisc) return 'sorted';
   const inCompare = !!e.comparing && (index === e.comparing[0] || index === e.comparing[1]);
   if (inCompare && e.swapped) return 'swapped';
   if (e.minIndex === index) return 'min'; // min 压过 comparing

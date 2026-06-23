@@ -128,4 +128,25 @@ describe('BarsView', () => {
       expect(bar.props('state')).toBe('idle');
     }
   });
+
+  it('TC-VIZ-BARSVIEW-15 pivotIndex 指向的 Bar 进入 pivot 态', () => {
+    const w = mountIt({ ...base, emphasis: { pivotIndex: 1 } });
+    expect(w.findAllComponents(Bar)[1].props('state')).toBe('pivot');
+  });
+
+  it('TC-VIZ-BARSVIEW-16 pivot 优先级最高：压过 comparing / groupMembers / sortedIndices', () => {
+    const w = mountIt({
+      ...base,
+      emphasis: { pivotIndex: 1, comparing: [0, 1], groupMembers: [0], sortedIndices: [1] },
+    });
+    expect(w.findAllComponents(Bar)[1].props('state')).toBe('pivot');
+  });
+
+  it('TC-VIZ-BARSVIEW-17 sortedIndices 内的离散下标进入 sorted 态', () => {
+    const w = mountIt({ ...base, emphasis: { sortedIndices: [0, 2] } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[0].props('state')).toBe('sorted'); // 在 sortedIndices
+    expect(bars[1].props('state')).toBe('idle'); // 不在 → 未就位
+    expect(bars[2].props('state')).toBe('sorted'); // 离散就位
+  });
 });

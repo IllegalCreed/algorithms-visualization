@@ -43,6 +43,17 @@ export type MergeExecPoint =
   | 'writeBack'
   | 'done';
 
+/** 快速排序的执行点（Lomuto 末位 pivot + 显式区间栈：pop 弹区间 → 选 pivot → 扫描比较 → swap/noSwap → pivot 归位 → push 子区间） */
+export type QuickExecPoint =
+  | 'pop'
+  | 'pivotSelect'
+  | 'compare'
+  | 'swap'
+  | 'noSwap'
+  | 'pivotPlace'
+  | 'push'
+  | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -57,6 +68,8 @@ export interface StepEmphasis {
   sortedUpTo?: number; // 选择：左侧 [0, sortedUpTo) 已就位
   keyIndex?: number; // 插入：被取出的 key 柱当前下标 → key 态（最高优先）
   groupMembers?: number[]; // 希尔：当前子序列的下标集；不在其中且无其它强调 → dimmed 淡出
+  pivotIndex?: number; // 快排：当前 pivot 下标 → pivot 态（最高优先，压过 sorted/comparing）
+  sortedIndices?: number[]; // 快排：离散「已就位」下标集 → sorted（区别于 sortedFrom/sortedUpTo 的连续前后缀）
 }
 
 /** 辅助数组轨（temp）快照——归并排序专用，与主轨等长、上下对齐 */
@@ -65,6 +78,12 @@ export interface AuxTrack {
   filled: number[]; // 已写入的下标集；不在其中 → empty 空槽
   pointer?: number; // k 写入位（ArrowTrack 取 colors[2]=yellow）
   activeRange?: [number, number]; // 当前合并段 [lo, hi)
+}
+
+/** 区间栈轨快照——快排专用，与主轨同 slotWidth 坐标系对齐 */
+export interface StackTrack {
+  frames: { lo: number; hi: number }[]; // 栈内待处理区间；frames[0]=栈底，frames[length-1]=栈顶
+  popped?: { lo: number; hi: number }; // 本步刚弹出/正在处理的区间（pop 步高亮）
 }
 
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */
@@ -76,6 +95,7 @@ export interface Step<P extends string = string> {
   point: P; // 当前执行点 → 经 lineMap 查每语言行号
   caption?: string; // 解说
   aux?: AuxTrack; // 纯加法：归并的辅助轨；其它算法不设 → AuxView 不渲染
+  stack?: StackTrack; // 纯加法：快排的区间栈轨；其它算法不设 → StackView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

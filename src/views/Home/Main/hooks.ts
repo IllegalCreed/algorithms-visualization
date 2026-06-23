@@ -107,7 +107,7 @@ export function useCategoryData(): Category[] {
         },
         {
           title: '快速排序',
-          desc: '将数组首位作为基准数，将比他小的放在前面，比他大的放在后面，前后两个数组重复这一过程',
+          desc: '选取一个基准数,将比它小的放在前面,比它大的放在后面,左右两部分重复这一过程',
           icon: QuickIcon,
           url: 'quick-sort',
         },

@@ -7,6 +7,7 @@ import TransportControls from './TransportControls.vue';
 import Bar from '@/components/Bar.vue';
 import { bubbleSortModule } from '@/algorithms/bubble-sort.module';
 import AuxView from '@/components/AuxView.vue';
+import StackView from '@/components/StackView.vue';
 import type { AlgorithmModule, Step } from './types';
 
 vi.mock('./useHighlighter', () => ({
@@ -79,5 +80,51 @@ describe('AlgorithmPlayer', () => {
     });
     await flushPromises();
     expect(w.findComponent(AuxView).exists()).toBe(true);
+  });
+
+  // 内联最小 module：单步带 stack，用于验证外壳条件渲染区间栈轨（不依赖快排模块）
+  const stackModule: AlgorithmModule = {
+    title: 'stack-test',
+    initialInput: () => [3, 1, 2],
+    buildSteps: (): Step[] => [
+      {
+        array: [
+          ['0', 3],
+          ['1', 1],
+          ['2', 2],
+        ],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'pop',
+        stack: { frames: [{ lo: 0, hi: 2 }] },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { pop: 1 } }],
+  };
+
+  it('TC-PLAYER-STACK-01 module 无 stack 时不渲染 StackView（前五算法向后兼容）', async () => {
+    const w = mountIt(); // bubbleSortModule，无 stack
+    await flushPromises();
+    expect(w.findComponent(StackView).exists()).toBe(false);
+  });
+
+  it('TC-PLAYER-STACK-02 当前步带 stack 时渲染 StackView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: stackModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(StackView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-STACK-03 带 aux 不带 stack 时只渲染 AuxView、不渲染 StackView（两轨互不干扰）', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: auxModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(AuxView).exists()).toBe(true);
+    expect(w.findComponent(StackView).exists()).toBe(false);
   });
 });

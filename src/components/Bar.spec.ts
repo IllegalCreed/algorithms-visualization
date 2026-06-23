@@ -42,4 +42,9 @@ describe('Bar', () => {
     expect(w.find('.bar').classes()).toContain('empty');
     expect(w.find('.val').text()).toBe(''); // 空槽不显示数值
   });
+
+  it('TC-VIZ-BAR-08 state=pivot 时柱体加 pivot class', () => {
+    const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'pivot' } });
+    expect(w.find('.bar').classes()).toContain('pivot');
+  });
 });

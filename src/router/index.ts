@@ -84,6 +84,11 @@ const routes = [
             name: 'merge-sort',
             component: () => import('../views/Article/SortAlgorithm/MergeSort.vue'),
           },
+          {
+            path: '/docs/quick-sort',
+            name: 'quick-sort',
+            component: () => import('../views/Article/SortAlgorithm/QuickSort.vue'),
+          },
         ],
       },
     ],
