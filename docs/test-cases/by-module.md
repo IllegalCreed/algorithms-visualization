@@ -127,6 +127,28 @@
 | TC-QUICK-MOD-14     | 四门语言齐备（C-012）                                     | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
 | TC-QUICK-MOD-15     | 每门语言每个 QuickExecPoint 行号在源码行范围内（C-012）   | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
 | TC-QUICK-MOD-16     | 实际出现的 point 都能在每门语言映射到行（C-012）          | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-HEAP-ALGO-01     | result 升序且与内置 sort 一致（C-013）                    | L3   | `src/algorithms/heap-sort.spec.ts`             |
+| TC-HEAP-ALGO-02     | built 是大顶堆（C-013）                                   | L3   | `src/algorithms/heap-sort.spec.ts`             |
+| TC-HEAP-ALGO-03     | BASE 建堆后 = [10,9,8,6,7,5,4,3,2,1]（C-013）             | L3   | `src/algorithms/heap-sort.spec.ts`             |
+| TC-HEAP-ALGO-04     | 不修改入参（C-013）                                       | L3   | `src/algorithms/heap-sort.spec.ts`             |
+| TC-HEAP-ALGO-05     | 空 / 单元素 result 原样（C-013）                          | L3   | `src/algorithms/heap-sort.spec.ts`             |
+| TC-HEAP-ALGO-06     | 含重复 / 已序 / 逆序均升序（C-013）                       | L3   | `src/algorithms/heap-sort.spec.ts`             |
+| TC-HEAP-ALGO-07     | isMaxHeap 能识别非堆（C-013）                             | L3   | `src/algorithms/heap-sort.spec.ts`             |
+| TC-HEAP-MOD-01      | 空 / 单元素只产出 done、sortedFrom=0（C-013）             | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-02      | 末步升序 = oracle result（C-013）                         | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-03      | 每步 id 集合恒等于初始（FLIP）（C-013）                   | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-04      | 不修改入参（C-013）                                       | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-05      | 每步 point 合法；compare 带 comparing（C-013）            | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-06      | 建堆阶段末步 = oracle built 且为大顶堆（C-013）           | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-07      | extract 步 sortedFrom=heapSize 且单调递减（C-013）        | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-08      | extract 堆顶取出序列 = [10,9,8,7,6,5,4,3,2]（C-013）      | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-09      | heapify 步 heapNode 为数字（C-013）                       | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-10      | done 步 sortedFrom=0、tree.heapSize=0（C-013）            | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-11      | 每步带 tree 快照（C-013）                                 | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-12      | 堆用节点高亮、无指针箭头（C-013）                         | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-13      | 四门语言齐备（C-013）                                     | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-14      | 每门语言每个 point 行号在源码行范围内（C-013）            | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
+| TC-HEAP-MOD-15      | 实际出现的 point 都能映射到行（C-013）                    | L3   | `src/algorithms/heap-sort.module.spec.ts`      |
 
 ---
 
@@ -194,6 +216,19 @@
 | TC-PLAYER-STACK-01   | module 无 stack 时不渲染 StackView（向后兼容）（C-012）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-STACK-02   | 当前步带 stack 时渲染 StackView（C-012）                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-STACK-03   | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）（C-012）            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BAR-09        | state=heapNode 时柱体加 heapNode class（C-013）                      | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-18   | heapNode 指向的 Bar 进入 heapNode 态（C-013）                        | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-19   | heapNode 让位 sorted：已就位后缀优先（C-013）                        | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-20   | heapNode 压过 comparing（C-013）                                     | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-TREEVIEW-01   | 渲染节点数 = array.length（C-013）                                   | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-02   | 完全二叉树布局坐标（C-013）                                          | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-03   | 父子边数 = n-1（C-013）                                              | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-04   | heapNode 节点带 heapNode 类（C-013）                                 | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-05   | heapSize 区分就位（k≥heapSize 为 sorted）（C-013）                   | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-06   | comparing 黄 / swapped 橙节点态（C-013）                             | L4   | `src/components/TreeView.spec.ts`               |
+| TC-PLAYER-TREE-01    | 当前步带 tree 时渲染 TreeView（C-013）                               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-TREE-02    | module 无 tree 时不渲染 TreeView（向后兼容）（C-013）                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-TREE-03    | 带 aux 不带 tree 不渲染 TreeView（多轨互不干扰）（C-013）            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -320,6 +355,9 @@
 | TC-VIEW-QUICK-01     | 挂载渲染 AlgorithmPlayer（C-012）                                  | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
 | TC-VIEW-QUICK-02     | 初始渲染主轨 10 柱 + 区间栈轨且默认停第 0 步（C-012）              | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
 | TC-E2E-QUICK-01      | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置（C-012） | L5   | `e2e/quick-sort.e2e.ts`                                 |
+| TC-VIEW-HEAP-01      | 挂载渲染 AlgorithmPlayer（C-013）                                  | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      |
+| TC-VIEW-HEAP-02      | 初始渲染二叉树轨 + 主轨 10 柱且默认停第 0 步（C-013）              | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      |
+| TC-E2E-HEAP-01       | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置（C-013）    | L5   | `e2e/heap-sort.e2e.ts`                                  |
 
 ---
 

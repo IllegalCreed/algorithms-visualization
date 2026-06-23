@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **152** 个用例。运行命令：`pnpm test:unit`
+共 **174** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -235,9 +235,38 @@
 
 ---
 
+### heap-sort oracle + module（C-013）
+
+| Case ID         | 标题                                        | 自动化路径                                |
+| --------------- | ------------------------------------------- | ----------------------------------------- |
+| TC-HEAP-ALGO-01 | result 升序且与内置 sort 一致               | `src/algorithms/heap-sort.spec.ts`        |
+| TC-HEAP-ALGO-02 | built 是大顶堆                              | `src/algorithms/heap-sort.spec.ts`        |
+| TC-HEAP-ALGO-03 | BASE 建堆后 = [10,9,8,6,7,5,4,3,2,1]        | `src/algorithms/heap-sort.spec.ts`        |
+| TC-HEAP-ALGO-04 | 不修改入参                                  | `src/algorithms/heap-sort.spec.ts`        |
+| TC-HEAP-ALGO-05 | 空 / 单元素 result 原样                     | `src/algorithms/heap-sort.spec.ts`        |
+| TC-HEAP-ALGO-06 | 含重复 / 已序 / 逆序均升序                  | `src/algorithms/heap-sort.spec.ts`        |
+| TC-HEAP-ALGO-07 | isMaxHeap 能识别非堆                        | `src/algorithms/heap-sort.spec.ts`        |
+| TC-HEAP-MOD-01  | 空 / 单元素只产出 done、sortedFrom=0        | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-02  | 末步升序 = oracle result                    | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-03  | 每步 id 集合恒等于初始（FLIP）              | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-04  | 不修改入参                                  | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-05  | 每步 point 合法；compare 带 comparing       | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-06  | 建堆阶段末步 = oracle built 且为大顶堆      | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-07  | extract 步 sortedFrom=heapSize 且单调递减   | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-08  | extract 堆顶取出序列 = [10,9,8,7,6,5,4,3,2] | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-09  | heapify 步 heapNode 为数字                  | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-10  | done 步 sortedFrom=0、tree.heapSize=0       | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-11  | 每步带 tree 快照                            | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-12  | 堆用节点高亮、无指针箭头                    | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-13  | 四门语言齐备                                | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-14  | 每门语言每个 point 行号在源码行范围内       | `src/algorithms/heap-sort.module.spec.ts` |
+| TC-HEAP-MOD-15  | 实际出现的 point 都能映射到行               | `src/algorithms/heap-sort.module.spec.ts` |
+
+---
+
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **126** 个用例。运行命令：`pnpm test:unit`
+共 **141** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -407,9 +436,31 @@
 
 ---
 
+### 堆排序二叉树轨 + 视图（C-013）
+
+| Case ID            | 标题                                             | 自动化路径                                         |
+| ------------------ | ------------------------------------------------ | -------------------------------------------------- |
+| TC-VIZ-BAR-09      | state=heapNode 时柱体加 heapNode class           | `src/components/Bar.spec.ts`                       |
+| TC-VIZ-BARSVIEW-18 | heapNode 指向的 Bar 进入 heapNode 态             | `src/components/BarsView.spec.ts`                  |
+| TC-VIZ-BARSVIEW-19 | heapNode 让位 sorted：已就位后缀优先             | `src/components/BarsView.spec.ts`                  |
+| TC-VIZ-BARSVIEW-20 | heapNode 压过 comparing                          | `src/components/BarsView.spec.ts`                  |
+| TC-VIZ-TREEVIEW-01 | 渲染节点数 = array.length                        | `src/components/TreeView.spec.ts`                  |
+| TC-VIZ-TREEVIEW-02 | 完全二叉树布局坐标                               | `src/components/TreeView.spec.ts`                  |
+| TC-VIZ-TREEVIEW-03 | 父子边数 = n-1                                   | `src/components/TreeView.spec.ts`                  |
+| TC-VIZ-TREEVIEW-04 | heapNode 节点带 heapNode 类                      | `src/components/TreeView.spec.ts`                  |
+| TC-VIZ-TREEVIEW-05 | heapSize 区分就位（k≥heapSize 为 sorted）        | `src/components/TreeView.spec.ts`                  |
+| TC-VIZ-TREEVIEW-06 | comparing 黄 / swapped 橙节点态                  | `src/components/TreeView.spec.ts`                  |
+| TC-PLAYER-TREE-01  | 当前步带 tree 时渲染 TreeView                    | `src/components/player/AlgorithmPlayer.spec.ts`    |
+| TC-PLAYER-TREE-02  | module 无 tree 时不渲染 TreeView（向后兼容）     | `src/components/player/AlgorithmPlayer.spec.ts`    |
+| TC-PLAYER-TREE-03  | 带 aux 不带 tree 不渲染 TreeView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`    |
+| TC-VIEW-HEAP-01    | 挂载渲染 AlgorithmPlayer                         | `src/views/Article/SortAlgorithm/HeapSort.spec.ts` |
+| TC-VIEW-HEAP-02    | 初始渲染二叉树轨 + 主轨 10 柱且默认停第 0 步     | `src/views/Article/SortAlgorithm/HeapSort.spec.ts` |
+
+---
+
 ## L5 — 端到端（Playwright）
 
-共 **8** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **9** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                       | 自动化路径                   | 状态       |
 | ------------------- | ---------------------------------------------------------- | ---------------------------- | ---------- |
@@ -422,6 +473,7 @@
 | TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置        | `e2e/shell-sort.e2e.ts`      | active     |
 | TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置 | `e2e/merge-sort.e2e.ts`      | active     |
 | TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置  | `e2e/quick-sort.e2e.ts`      | active     |
+| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置     | `e2e/heap-sort.e2e.ts`       | active     |
 
 ---
 
@@ -429,7 +481,7 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 91.71% | 70%  | 达标 |
-| Branch | 92.51% | 60%  | 达标 |
-| Funcs  | 88%    | 70%  | 达标 |
-| Lines  | 91.65% | 70%  | 达标 |
+| Stmts  | 92.47% | 70%  | 达标 |
+| Branch | 91.53% | 60%  | 达标 |
+| Funcs  | 88.83% | 70%  | 达标 |
+| Lines  | 92.48% | 70%  | 达标 |
