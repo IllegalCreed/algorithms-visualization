@@ -54,6 +54,9 @@ export type QuickExecPoint =
   | 'push'
   | 'done';
 
+/** 堆排序的执行点（Floyd 大顶堆 + 单一 siftDown：建堆 heapify → siftDown 内 compare/swap/settle → 排序 extract） */
+export type HeapExecPoint = 'heapify' | 'compare' | 'swap' | 'settle' | 'extract' | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -70,6 +73,7 @@ export interface StepEmphasis {
   groupMembers?: number[]; // 希尔：当前子序列的下标集；不在其中且无其它强调 → dimmed 淡出
   pivotIndex?: number; // 快排：当前 pivot 下标 → pivot 态（最高优先，压过 sorted/comparing）
   sortedIndices?: number[]; // 快排：离散「已就位」下标集 → sorted（区别于 sortedFrom/sortedUpTo 的连续前后缀）
+  heapNode?: number; // 堆排序：当前 siftDown 活动父节点 → heapNode 态（深紫；sorted 之后、swapped 之前）
 }
 
 /** 辅助数组轨（temp）快照——归并排序专用，与主轨等长、上下对齐 */
@@ -86,6 +90,11 @@ export interface StackTrack {
   popped?: { lo: number; hi: number }; // 本步刚弹出/正在处理的区间（pop 步高亮）
 }
 
+/** 二叉树轨快照——堆排序专用（数组按完全二叉树层序布局） */
+export interface TreeTrack {
+  heapSize: number; // [0,heapSize) 在堆中，[heapSize,n) 已就位脱离堆
+}
+
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */
 export interface Step<P extends string = string> {
   array: [string, number][]; // 当前数组快照；[0]=稳定 key（驱动柱子 FLIP），[1]=值
@@ -96,6 +105,7 @@ export interface Step<P extends string = string> {
   caption?: string; // 解说
   aux?: AuxTrack; // 纯加法：归并的辅助轨；其它算法不设 → AuxView 不渲染
   stack?: StackTrack; // 纯加法：快排的区间栈轨；其它算法不设 → StackView 不渲染
+  tree?: TreeTrack; // 纯加法：堆排序的二叉树轨；其它算法不设 → TreeView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

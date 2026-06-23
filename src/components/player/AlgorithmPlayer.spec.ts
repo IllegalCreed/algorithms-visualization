@@ -8,6 +8,7 @@ import Bar from '@/components/Bar.vue';
 import { bubbleSortModule } from '@/algorithms/bubble-sort.module';
 import AuxView from '@/components/AuxView.vue';
 import StackView from '@/components/StackView.vue';
+import TreeView from '@/components/TreeView.vue';
 import type { AlgorithmModule, Step } from './types';
 
 vi.mock('./useHighlighter', () => ({
@@ -126,5 +127,51 @@ describe('AlgorithmPlayer', () => {
     await flushPromises();
     expect(w.findComponent(AuxView).exists()).toBe(true);
     expect(w.findComponent(StackView).exists()).toBe(false);
+  });
+
+  // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）
+  const treeModule: AlgorithmModule = {
+    title: 'tree-test',
+    initialInput: () => [3, 1, 2],
+    buildSteps: (): Step[] => [
+      {
+        array: [
+          ['0', 3],
+          ['1', 1],
+          ['2', 2],
+        ],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'heapify',
+        tree: { heapSize: 3 },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { heapify: 1 } }],
+  };
+
+  it('TC-PLAYER-TREE-01 当前步带 tree 时渲染 TreeView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: treeModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(TreeView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-TREE-02 module 无 tree 时不渲染 TreeView（前六算法向后兼容）', async () => {
+    const w = mountIt(); // bubbleSortModule，无 tree
+    await flushPromises();
+    expect(w.findComponent(TreeView).exists()).toBe(false);
+  });
+
+  it('TC-PLAYER-TREE-03 带 aux 不带 tree 时只渲染 AuxView、不渲染 TreeView（多轨互不干扰）', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: auxModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(AuxView).exists()).toBe(true);
+    expect(w.findComponent(TreeView).exists()).toBe(false);
   });
 });

@@ -29,7 +29,7 @@ function percent(v: number): number {
 
 function stateOf(
   index: number,
-): 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' | 'dimmed' | 'pivot' {
+): 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' | 'dimmed' | 'pivot' | 'heapNode' {
   const e = props.emphasis;
   if (e.pivotIndex === index) return 'pivot'; // 快排：pivot 压过一切（含 sorted/comparing/dimmed）
   if (e.keyIndex === index) return 'key'; // key 压过一切（含 sorted）：滑入已排序区也保持玫红
@@ -37,6 +37,7 @@ function stateOf(
   const sortedLeft = e.sortedUpTo !== undefined && index < e.sortedUpTo;
   const sortedDisc = e.sortedIndices?.includes(index) ?? false; // 快排：离散「已就位」下标集
   if (sortedRight || sortedLeft || sortedDisc) return 'sorted';
+  if (e.heapNode === index) return 'heapNode'; // 堆排序：当前 siftDown 活动父节点（sorted 之后、swapped 之前）
   const inCompare = !!e.comparing && (index === e.comparing[0] || index === e.comparing[1]);
   if (inCompare && e.swapped) return 'swapped';
   if (e.minIndex === index) return 'min'; // min 压过 comparing

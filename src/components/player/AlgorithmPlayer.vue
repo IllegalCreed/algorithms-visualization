@@ -6,6 +6,7 @@ import { usePlayer } from './usePlayer';
 import BarsView from '@/components/BarsView.vue';
 import AuxView from '@/components/AuxView.vue';
 import StackView from '@/components/StackView.vue';
+import TreeView from '@/components/TreeView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
@@ -34,6 +35,12 @@ const prevVars = computed(() => steps[index.value - 1]?.vars);
 </script>
 <template>
   <div class="algo-player column center">
+    <TreeView
+      v-if="current.tree"
+      :array="current.array"
+      :emphasis="current.emphasis"
+      :heap-size="current.tree.heapSize"
+    />
     <BarsView :array="current.array" :pointers="current.pointers" :emphasis="current.emphasis" />
     <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
     <StackView v-if="current.stack" :stack="current.stack" :length="current.array.length" />

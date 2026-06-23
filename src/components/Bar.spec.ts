@@ -47,4 +47,9 @@ describe('Bar', () => {
     const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'pivot' } });
     expect(w.find('.bar').classes()).toContain('pivot');
   });
+
+  it('TC-VIZ-BAR-09 state=heapNode 时柱体加 heapNode class', () => {
+    const w = mount(Bar, { props: { value: 7, percent: 0.5, state: 'heapNode' } });
+    expect(w.find('.bar').classes()).toContain('heapNode');
+  });
 });

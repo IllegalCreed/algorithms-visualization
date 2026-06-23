@@ -149,4 +149,21 @@ describe('BarsView', () => {
     expect(bars[1].props('state')).toBe('idle'); // 不在 → 未就位
     expect(bars[2].props('state')).toBe('sorted'); // 离散就位
   });
+
+  it('TC-VIZ-BARSVIEW-18 heapNode 指向的 Bar 进入 heapNode 态', () => {
+    const w = mountIt({ ...base, emphasis: { heapNode: 1 } });
+    expect(w.findAllComponents(Bar)[1].props('state')).toBe('heapNode');
+  });
+
+  it('TC-VIZ-BARSVIEW-19 heapNode 让位 sorted：已就位后缀优先', () => {
+    const w = mountIt({ ...base, emphasis: { heapNode: 2, sortedFrom: 2 } });
+    expect(w.findAllComponents(Bar)[2].props('state')).toBe('sorted');
+  });
+
+  it('TC-VIZ-BARSVIEW-20 heapNode 压过 comparing：同 index 取 heapNode', () => {
+    const w = mountIt({ ...base, emphasis: { heapNode: 1, comparing: [1, 2] } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[1].props('state')).toBe('heapNode'); // heapNode 压过 comparing
+    expect(bars[2].props('state')).toBe('comparing'); // 另一根仍 comparing
+  });
 });
