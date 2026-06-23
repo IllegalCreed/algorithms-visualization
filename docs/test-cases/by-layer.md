@@ -1,7 +1,7 @@
 # 测试用例分层视图
 
 > Status: active
-> Last reviewed: 2026-06-22
+> Last reviewed: 2026-06-23
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **130** 个用例。运行命令：`pnpm test:unit`
+共 **152** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -206,11 +206,38 @@
 | TC-MERGE-MOD-16  | 每门语言每个 MergeExecPoint 行号落在源码物理行范围内 | `src/algorithms/merge-sort.module.spec.ts` |
 | TC-MERGE-MOD-17  | 实际出现的 point 都能在每门语言映射到行              | `src/algorithms/merge-sort.module.spec.ts` |
 
+### quick-sort oracle + module（C-012）
+
+| Case ID          | 标题                                             | 自动化路径                                 |
+| ---------------- | ------------------------------------------------ | ------------------------------------------ |
+| TC-QUICK-ALGO-01 | 末事件数组严格升序且与内置 sort 一致             | `src/algorithms/quick-sort.spec.ts`        |
+| TC-QUICK-ALGO-02 | 不修改入参                                       | `src/algorithms/quick-sort.spec.ts`        |
+| TC-QUICK-ALGO-03 | 空/单元素返回空事件序列                          | `src/algorithms/quick-sort.spec.ts`        |
+| TC-QUICK-ALGO-04 | BASE 的 pivot 落点序列 = [0,6,1,5,2,4,9,7]       | `src/algorithms/quick-sort.spec.ts`        |
+| TC-QUICK-ALGO-05 | 每次 partition 落点钉死最终位置                  | `src/algorithms/quick-sort.spec.ts`        |
+| TC-QUICK-ALGO-06 | 含重复/已序/逆序也正确升序                       | `src/algorithms/quick-sort.spec.ts`        |
+| TC-QUICK-MOD-01  | 空/单元素只产出 done 步、sortedIndices 全集      | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-02  | 末步数组与 oracle 一致（升序）                   | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-03  | 每步 id 集合恒等于初始（FLIP 前提）              | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-04  | 不修改入参                                       | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-05  | 每步 point 合法；compare 步必带 comparing=[j,hi] | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-06  | pivotPlace 落点序列 = oracle pivotIndex 序列     | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-07  | sortedIndices 单调不减、末步全集                 | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-08  | pivotSelect 步 pivotIndex=hi 且 pivot 值=a[hi]   | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-09  | 栈序：pop 弹出区间=前一步栈顶（先右后左→先取左） | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-10  | done 步 stack 空、sortedIndices 全集             | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-11  | 每步指针 clamp 在 [0,n-1]                        | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-12  | 每步带 stack 快照（StackTrack）                  | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-13  | swap 步小于区不变量：a[lo..i-1] 全 < pivot       | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-14  | 四门语言齐备                                     | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-15  | 每门语言每个 QuickExecPoint 行号在源码行范围内   | `src/algorithms/quick-sort.module.spec.ts` |
+| TC-QUICK-MOD-16  | 实际出现的 point 都能在每门语言映射到行          | `src/algorithms/quick-sort.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **112** 个用例。运行命令：`pnpm test:unit`
+共 **126** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -359,11 +386,30 @@
 | TC-VIEW-MERGE-01  | 挂载渲染 AlgorithmPlayer                        | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
 | TC-VIEW-MERGE-02  | 初始渲染主轨 10 柱 + 辅助轨且默认停第 0 步      | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
 
+### 快排区间栈轨 + 视图（C-012）
+
+| Case ID             | 标题                                                        | 自动化路径                                          |
+| ------------------- | ----------------------------------------------------------- | --------------------------------------------------- |
+| TC-VIZ-BAR-08       | state=pivot 时柱体加 pivot class                            | `src/components/Bar.spec.ts`                        |
+| TC-VIZ-BARSVIEW-15  | pivotIndex 指向的 Bar 进入 pivot 态                         | `src/components/BarsView.spec.ts`                   |
+| TC-VIZ-BARSVIEW-16  | pivot 优先级最高：压过 comparing/groupMembers/sortedIndices | `src/components/BarsView.spec.ts`                   |
+| TC-VIZ-BARSVIEW-17  | sortedIndices 内的离散下标进入 sorted 态                    | `src/components/BarsView.spec.ts`                   |
+| TC-VIZ-STACKVIEW-01 | 渲染与 frames 等量的区间条                                  | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-02 | 区间条 left/width 对齐主轨下标坐标系                        | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-03 | 栈顶帧高亮（.top）                                          | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-04 | popped 区间单独标记（.popped）                              | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-05 | 空栈渲染占位、无区间条                                      | `src/components/StackView.spec.ts`                  |
+| TC-PLAYER-STACK-01  | module 无 stack 时不渲染 StackView（向后兼容）              | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-PLAYER-STACK-02  | 当前步带 stack 时渲染 StackView                             | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-PLAYER-STACK-03  | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）            | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-VIEW-QUICK-01    | 挂载渲染 AlgorithmPlayer                                    | `src/views/Article/SortAlgorithm/QuickSort.spec.ts` |
+| TC-VIEW-QUICK-02    | 初始渲染主轨 10 柱 + 区间栈轨且默认停第 0 步                | `src/views/Article/SortAlgorithm/QuickSort.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **7** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **8** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                       | 自动化路径                   | 状态       |
 | ------------------- | ---------------------------------------------------------- | ---------------------------- | ---------- |
@@ -375,14 +421,15 @@
 | TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                | `e2e/insertion-sort.e2e.ts`  | active     |
 | TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置        | `e2e/shell-sort.e2e.ts`      | active     |
 | TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置 | `e2e/merge-sort.e2e.ts`      | active     |
+| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置  | `e2e/quick-sort.e2e.ts`      | active     |
 
 ---
 
-## 覆盖率（L3+L4，2026-06-22）
+## 覆盖率（L3+L4，2026-06-23）
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 88.6%  | 70%  | 达标 |
-| Branch | 89.26% | 60%  | 达标 |
-| Funcs  | 86.02% | 70%  | 达标 |
-| Lines  | 88.67% | 70%  | 达标 |
+| Stmts  | 91.71% | 70%  | 达标 |
+| Branch | 92.51% | 60%  | 达标 |
+| Funcs  | 88%    | 70%  | 达标 |
+| Lines  | 91.65% | 70%  | 达标 |

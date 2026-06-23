@@ -1,7 +1,7 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-06-22
+> Last reviewed: 2026-06-23
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
@@ -11,100 +11,122 @@
 
 ## algorithms（算法纯逻辑）
 
-| Case ID             | 标题                                                    | 层级 | 自动化路径                                     |
-| ------------------- | ------------------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-ALGO-01          | 空数组与单元素不产生步骤                                | L3   | `src/algorithms/bubble-sort.spec.ts`           |
-| TC-ALGO-02          | 最终数组升序排列                                        | L3   | `src/algorithms/bubble-sort.spec.ts`           |
-| TC-ALGO-03          | 每步 compare 是相邻合法下标                             | L3   | `src/algorithms/bubble-sort.spec.ts`           |
-| TC-ALGO-04          | 已排序数组无任何 swap                                   | L3   | `src/algorithms/bubble-sort.spec.ts`           |
-| TC-ALGO-05          | 含重复元素结果正确且稳定地不越界                        | L3   | `src/algorithms/bubble-sort.spec.ts`           |
-| TC-ALGO-06          | 不修改入参                                              | L3   | `src/algorithms/bubble-sort.spec.ts`           |
-| TC-BUBBLE-MOD-01    | 空/单元素也产出至少一个 done 步（C-006）                | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-BUBBLE-MOD-02    | 末步数组与 oracle 最终结果一致（C-006）                 | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-BUBBLE-MOD-03    | 每步 array 的 id 集合恒等于初始（C-006）                | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-BUBBLE-MOD-04    | 不修改入参（C-006）                                     | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-BUBBLE-MOD-05    | 每步 point 合法，swap/noSwap 的 swapped 对应（C-006）   | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-BUBBLE-MOD-06    | 四门语言齐备（C-006）                                   | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-BUBBLE-MOD-07    | 每门语言每个 ExecPoint 行号落在源码行范围内（C-006）    | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-BUBBLE-MOD-08    | 实际出现的 point 都能在每门语言映射到行（C-006）        | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
-| TC-SEL-ALGO-01      | 空数组与单元素不产生步骤（C-007）                       | L3   | `src/algorithms/selection-sort.spec.ts`        |
-| TC-SEL-ALGO-02      | 最终数组升序排列（C-007）                               | L3   | `src/algorithms/selection-sort.spec.ts`        |
-| TC-SEL-ALGO-03      | 含重复元素结果正确（C-007）                             | L3   | `src/algorithms/selection-sort.spec.ts`        |
-| TC-SEL-ALGO-04      | 不修改入参（C-007）                                     | L3   | `src/algorithms/selection-sort.spec.ts`        |
-| TC-SELECTION-MOD-01 | 空/单元素也产出 done 步（C-007）                        | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-02 | 末步与 oracle 一致（C-007）                             | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-03 | id 集合恒等于初始（C-007）                              | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-04 | 不修改入参（C-007）                                     | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-05 | swap/noSwap 的 swapped 对应（C-007）                    | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-06 | newMin 步 min 指针落在 minIndex（C-007）                | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-07 | 每轮 i 位即 [i,n) 最小（C-007）                         | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-08 | sortedUpTo 单调、末步为 n（C-007）                      | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-09 | 交换次数 ≤ n-1（C-007）                                 | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-10 | 四门语言齐备（C-007）                                   | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-11 | 每门语言行号在范围内（C-007）                           | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-SELECTION-MOD-12 | 实际 point 都能映射到行（C-007）                        | L3   | `src/algorithms/selection-sort.module.spec.ts` |
-| TC-INS-ALGO-01      | 空数组与单元素不产生步骤（C-008）                       | L3   | `src/algorithms/insertion-sort.spec.ts`        |
-| TC-INS-ALGO-02      | 最终数组升序排列（C-008）                               | L3   | `src/algorithms/insertion-sort.spec.ts`        |
-| TC-INS-ALGO-03      | 含重复元素结果正确（C-008）                             | L3   | `src/algorithms/insertion-sort.spec.ts`        |
-| TC-INS-ALGO-04      | 不修改入参（C-008）                                     | L3   | `src/algorithms/insertion-sort.spec.ts`        |
-| TC-INS-ALGO-05      | 已升序输入每轮零移位（C-008）                           | L3   | `src/algorithms/insertion-sort.spec.ts`        |
-| TC-INSERTION-MOD-01 | 空/单元素也产出 done 步（C-008）                        | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-02 | 末步与 oracle 一致（C-008）                             | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-03 | id 集合恒等于初始（C-008）                              | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-04 | 不修改入参（C-008）                                     | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-05 | shift 步必带数值型 keyIndex（C-008）                    | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-06 | insert 后 [0,i] 前缀升序（C-008）                       | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-07 | 一轮内 keyIndex 单调不增（C-008）                       | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-08 | sortedUpTo 单调、末步为 n（C-008）                      | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-09 | 稳定性：相等元素相对顺序不变（C-008）                   | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-10 | 四门语言齐备（C-008）                                   | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-11 | 每门语言行号在范围内（C-008）                           | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-INSERTION-MOD-12 | 实际 point 都能映射到行（C-008）                        | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
-| TC-SHELL-ALGO-01    | 空数组与单元素不产生 pass（C-010）                      | L3   | `src/algorithms/shell-sort.spec.ts`            |
-| TC-SHELL-ALGO-02    | 最终 pass 升序排列（C-010）                             | L3   | `src/algorithms/shell-sort.spec.ts`            |
-| TC-SHELL-ALGO-03    | 含重复元素结果正确且不越界（C-010）                     | L3   | `src/algorithms/shell-sort.spec.ts`            |
-| TC-SHELL-ALGO-04    | 不修改入参（C-010）                                     | L3   | `src/algorithms/shell-sort.spec.ts`            |
-| TC-SHELL-ALGO-05    | gap 序列为 ⌊n/2⌋ 减半到 1（C-010）                      | L3   | `src/algorithms/shell-sort.spec.ts`            |
-| TC-SHELL-ALGO-06    | 已升序输入：最终仍升序、gap 序列不变（C-010）           | L3   | `src/algorithms/shell-sort.spec.ts`            |
-| TC-SHELL-MOD-01     | 空/单元素也产出至少一个 done 步（C-010）                | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-02     | 末步数组与 oracle 一致（C-010）                         | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-03     | id 集合恒等于初始（C-010）                              | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-04     | 不修改入参（C-010）                                     | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-05     | shift 步必带数值型 keyIndex（C-010）                    | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-06     | gapChange 步 gap 依次 ⌊n/2⌋ 减半到 1（C-010）           | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-07     | 各 gap-pass 边界数组与 oracle 快照一致（C-010）         | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-08     | groupStart 的 groupMembers = 子序列下标（C-010）        | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-09     | 一轮内 keyIndex 单调不增（C-010）                       | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-10     | done 步标 sortedFrom=0（C-010）                         | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-11     | 四门语言齐备（C-010）                                   | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-12     | 每门语言行号在范围内（C-010）                           | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-SHELL-MOD-13     | 实际 point 都能映射到行（C-010）                        | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
-| TC-MERGE-ALGO-01    | 空数组与单元素不产生 pass（C-011）                      | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-02    | 基准数据最终升序（C-011）                               | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-03    | 含重复元素结果正确（C-011）                             | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-04    | 不修改入参（C-011）                                     | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-05    | width 序列为 1,2,4,…（<n）（C-011）                     | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-06    | 已升序输入幂等（最终仍升序）（C-011）                   | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-07    | 逆序输入最终升序（C-011）                               | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-08    | 每趟 width 后每个 2\*width 块内部有序（C-011）          | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-ALGO-09    | 随机用例与 Array.sort 交叉校验（C-011）                 | L3   | `src/algorithms/merge-sort.spec.ts`            |
-| TC-MERGE-MOD-01     | 空/单元素也产出至少一个 done 步（C-011）                | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-02     | 末步数组与 oracle 一致（C-011）                         | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-03     | 主轨 id 集合恒等于初始（C-011）                         | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-04     | 不修改入参（C-011）                                     | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-05     | compare 步必带 comparing（C-011）                       | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-06     | widthChange 步 width 依次 1,2,4,…（C-011）              | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-07     | 各 width 趟边界数组与 oracle 快照一致（C-011）          | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-08     | mergeStart 的 groupMembers/activeRange=[lo,hi)（C-011） | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-09     | 一对合并内 aux.filled 单调增长（C-011）                 | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-10     | writeBack 后主轨 [lo,hi) 段升序（C-011）                | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-11     | done 步标 sortedFrom=0、aux 无 filled（C-011）          | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-12     | take 步 temp 写入位的值 = 所取元素值（C-011）           | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-13     | 主轨指针 clamp [0,n-1]、aux.pointer [0,n]（C-011）      | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-14     | 每步 aux.array 长度 = 主轨长度（C-011）                 | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-15     | 四门语言齐备（C-011）                                   | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-16     | 每门语言 MergeExecPoint 行号在范围内（C-011）           | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
-| TC-MERGE-MOD-17     | 实际 point 都能映射到行（C-011）                        | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| Case ID             | 标题                                                      | 层级 | 自动化路径                                     |
+| ------------------- | --------------------------------------------------------- | ---- | ---------------------------------------------- |
+| TC-ALGO-01          | 空数组与单元素不产生步骤                                  | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-02          | 最终数组升序排列                                          | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-03          | 每步 compare 是相邻合法下标                               | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-04          | 已排序数组无任何 swap                                     | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-05          | 含重复元素结果正确且稳定地不越界                          | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-ALGO-06          | 不修改入参                                                | L3   | `src/algorithms/bubble-sort.spec.ts`           |
+| TC-BUBBLE-MOD-01    | 空/单元素也产出至少一个 done 步（C-006）                  | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-02    | 末步数组与 oracle 最终结果一致（C-006）                   | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-03    | 每步 array 的 id 集合恒等于初始（C-006）                  | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-04    | 不修改入参（C-006）                                       | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-05    | 每步 point 合法，swap/noSwap 的 swapped 对应（C-006）     | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-06    | 四门语言齐备（C-006）                                     | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-07    | 每门语言每个 ExecPoint 行号落在源码行范围内（C-006）      | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-BUBBLE-MOD-08    | 实际出现的 point 都能在每门语言映射到行（C-006）          | L3   | `src/algorithms/bubble-sort.module.spec.ts`    |
+| TC-SEL-ALGO-01      | 空数组与单元素不产生步骤（C-007）                         | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SEL-ALGO-02      | 最终数组升序排列（C-007）                                 | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SEL-ALGO-03      | 含重复元素结果正确（C-007）                               | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SEL-ALGO-04      | 不修改入参（C-007）                                       | L3   | `src/algorithms/selection-sort.spec.ts`        |
+| TC-SELECTION-MOD-01 | 空/单元素也产出 done 步（C-007）                          | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-02 | 末步与 oracle 一致（C-007）                               | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-03 | id 集合恒等于初始（C-007）                                | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-04 | 不修改入参（C-007）                                       | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-05 | swap/noSwap 的 swapped 对应（C-007）                      | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-06 | newMin 步 min 指针落在 minIndex（C-007）                  | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-07 | 每轮 i 位即 [i,n) 最小（C-007）                           | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-08 | sortedUpTo 单调、末步为 n（C-007）                        | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-09 | 交换次数 ≤ n-1（C-007）                                   | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-10 | 四门语言齐备（C-007）                                     | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-11 | 每门语言行号在范围内（C-007）                             | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-SELECTION-MOD-12 | 实际 point 都能映射到行（C-007）                          | L3   | `src/algorithms/selection-sort.module.spec.ts` |
+| TC-INS-ALGO-01      | 空数组与单元素不产生步骤（C-008）                         | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-02      | 最终数组升序排列（C-008）                                 | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-03      | 含重复元素结果正确（C-008）                               | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-04      | 不修改入参（C-008）                                       | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INS-ALGO-05      | 已升序输入每轮零移位（C-008）                             | L3   | `src/algorithms/insertion-sort.spec.ts`        |
+| TC-INSERTION-MOD-01 | 空/单元素也产出 done 步（C-008）                          | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-02 | 末步与 oracle 一致（C-008）                               | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-03 | id 集合恒等于初始（C-008）                                | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-04 | 不修改入参（C-008）                                       | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-05 | shift 步必带数值型 keyIndex（C-008）                      | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-06 | insert 后 [0,i] 前缀升序（C-008）                         | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-07 | 一轮内 keyIndex 单调不增（C-008）                         | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-08 | sortedUpTo 单调、末步为 n（C-008）                        | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-09 | 稳定性：相等元素相对顺序不变（C-008）                     | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-10 | 四门语言齐备（C-008）                                     | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-11 | 每门语言行号在范围内（C-008）                             | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-INSERTION-MOD-12 | 实际 point 都能映射到行（C-008）                          | L3   | `src/algorithms/insertion-sort.module.spec.ts` |
+| TC-SHELL-ALGO-01    | 空数组与单元素不产生 pass（C-010）                        | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-02    | 最终 pass 升序排列（C-010）                               | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-03    | 含重复元素结果正确且不越界（C-010）                       | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-04    | 不修改入参（C-010）                                       | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-05    | gap 序列为 ⌊n/2⌋ 减半到 1（C-010）                        | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-ALGO-06    | 已升序输入：最终仍升序、gap 序列不变（C-010）             | L3   | `src/algorithms/shell-sort.spec.ts`            |
+| TC-SHELL-MOD-01     | 空/单元素也产出至少一个 done 步（C-010）                  | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-02     | 末步数组与 oracle 一致（C-010）                           | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-03     | id 集合恒等于初始（C-010）                                | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-04     | 不修改入参（C-010）                                       | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-05     | shift 步必带数值型 keyIndex（C-010）                      | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-06     | gapChange 步 gap 依次 ⌊n/2⌋ 减半到 1（C-010）             | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-07     | 各 gap-pass 边界数组与 oracle 快照一致（C-010）           | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-08     | groupStart 的 groupMembers = 子序列下标（C-010）          | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-09     | 一轮内 keyIndex 单调不增（C-010）                         | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-10     | done 步标 sortedFrom=0（C-010）                           | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-11     | 四门语言齐备（C-010）                                     | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-12     | 每门语言行号在范围内（C-010）                             | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-SHELL-MOD-13     | 实际 point 都能映射到行（C-010）                          | L3   | `src/algorithms/shell-sort.module.spec.ts`     |
+| TC-MERGE-ALGO-01    | 空数组与单元素不产生 pass（C-011）                        | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-02    | 基准数据最终升序（C-011）                                 | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-03    | 含重复元素结果正确（C-011）                               | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-04    | 不修改入参（C-011）                                       | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-05    | width 序列为 1,2,4,…（<n）（C-011）                       | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-06    | 已升序输入幂等（最终仍升序）（C-011）                     | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-07    | 逆序输入最终升序（C-011）                                 | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-08    | 每趟 width 后每个 2\*width 块内部有序（C-011）            | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-ALGO-09    | 随机用例与 Array.sort 交叉校验（C-011）                   | L3   | `src/algorithms/merge-sort.spec.ts`            |
+| TC-MERGE-MOD-01     | 空/单元素也产出至少一个 done 步（C-011）                  | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-02     | 末步数组与 oracle 一致（C-011）                           | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-03     | 主轨 id 集合恒等于初始（C-011）                           | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-04     | 不修改入参（C-011）                                       | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-05     | compare 步必带 comparing（C-011）                         | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-06     | widthChange 步 width 依次 1,2,4,…（C-011）                | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-07     | 各 width 趟边界数组与 oracle 快照一致（C-011）            | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-08     | mergeStart 的 groupMembers/activeRange=[lo,hi)（C-011）   | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-09     | 一对合并内 aux.filled 单调增长（C-011）                   | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-10     | writeBack 后主轨 [lo,hi) 段升序（C-011）                  | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-11     | done 步标 sortedFrom=0、aux 无 filled（C-011）            | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-12     | take 步 temp 写入位的值 = 所取元素值（C-011）             | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-13     | 主轨指针 clamp [0,n-1]、aux.pointer [0,n]（C-011）        | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-14     | 每步 aux.array 长度 = 主轨长度（C-011）                   | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-15     | 四门语言齐备（C-011）                                     | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-16     | 每门语言 MergeExecPoint 行号在范围内（C-011）             | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-MERGE-MOD-17     | 实际 point 都能映射到行（C-011）                          | L3   | `src/algorithms/merge-sort.module.spec.ts`     |
+| TC-QUICK-ALGO-01    | 末事件数组严格升序且与内置 sort 一致（C-012）             | L3   | `src/algorithms/quick-sort.spec.ts`            |
+| TC-QUICK-ALGO-02    | 不修改入参（C-012）                                       | L3   | `src/algorithms/quick-sort.spec.ts`            |
+| TC-QUICK-ALGO-03    | 空/单元素返回空事件序列（C-012）                          | L3   | `src/algorithms/quick-sort.spec.ts`            |
+| TC-QUICK-ALGO-04    | BASE 的 pivot 落点序列 = [0,6,1,5,2,4,9,7]（C-012）       | L3   | `src/algorithms/quick-sort.spec.ts`            |
+| TC-QUICK-ALGO-05    | 每次 partition 落点钉死最终位置（C-012）                  | L3   | `src/algorithms/quick-sort.spec.ts`            |
+| TC-QUICK-ALGO-06    | 含重复/已序/逆序也正确升序（C-012）                       | L3   | `src/algorithms/quick-sort.spec.ts`            |
+| TC-QUICK-MOD-01     | 空/单元素只产出 done 步、sortedIndices 全集（C-012）      | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-02     | 末步数组与 oracle 一致（升序）（C-012）                   | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-03     | 每步 id 集合恒等于初始（FLIP 前提）（C-012）              | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-04     | 不修改入参（C-012）                                       | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-05     | 每步 point 合法；compare 步必带 comparing=[j,hi]（C-012） | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-06     | pivotPlace 落点序列 = oracle pivotIndex 序列（C-012）     | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-07     | sortedIndices 单调不减、末步全集（C-012）                 | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-08     | pivotSelect 步 pivotIndex=hi 且 pivot 值=a[hi]（C-012）   | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-09     | 栈序：pop 弹出区间=前一步栈顶（先右后左→先取左）（C-012） | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-10     | done 步 stack 空、sortedIndices 全集（C-012）             | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-11     | 每步指针 clamp 在 [0,n-1]（C-012）                        | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-12     | 每步带 stack 快照（StackTrack）（C-012）                  | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-13     | swap 步小于区不变量：a[lo..i-1] 全 < pivot（C-012）       | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-14     | 四门语言齐备（C-012）                                     | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-15     | 每门语言每个 QuickExecPoint 行号在源码行范围内（C-012）   | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
+| TC-QUICK-MOD-16     | 实际出现的 point 都能在每门语言映射到行（C-012）          | L3   | `src/algorithms/quick-sort.module.spec.ts`     |
 
 ---
 
@@ -121,45 +143,57 @@
 
 ## viz-engine（可视化引擎基础组件）
 
-| Case ID              | 标题                                              | 层级 | 自动化路径                                      |
-| -------------------- | ------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                      | L4   | `src/components/Arrow.spec.ts`                  |
-| TC-VIZ-ARROW-02      | 非预设色按原值透传                                | L4   | `src/components/Arrow.spec.ts`                  |
-| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位       | L4   | `src/components/ArrowTrack.spec.ts`             |
-| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）               | L4   | `src/components/ArrowTrack.spec.ts`             |
-| TC-VIZ-BLOCK-01      | 渲染数值                                          | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-BLOCK-02      | 背景透明度随 percent                              | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white              | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                            | L4   | `src/components/List.spec.ts`                   |
-| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                | L4   | `src/components/List.spec.ts`                   |
-| TC-VIZ-BAR-01        | 渲染数值（C-006）                                 | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                      | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                     | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                     | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）               | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）          | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）            | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）              | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）             | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）          | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）            | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）                   | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）             | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）          | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）                    | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）                   | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）       | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-12   | 组内柱保持 idle、组外柱 dimmed（C-010）           | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 取本态（C-010） | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）             | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-07        | state='empty' 时柱体加 empty class（C-011）       | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-AUXVIEW-01    | 渲染与 aux.array 等长的槽（C-011）                | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-02    | filled 的槽为 sorted、其余为 empty（C-011）       | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-03    | pointer 定位 k 箭头到对应槽（C-011）              | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-04    | 无 pointer 时不渲染箭头（C-011）                  | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-05    | filled 槽高度用主轨 min/max 同尺度（C-011）       | L4   | `src/components/AuxView.spec.ts`                |
-| TC-PLAYER-AUX-01     | module 无 aux 时不渲染 AuxView（C-011）           | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-AUX-02     | 当前步带 aux 时渲染 AuxView（C-011）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| Case ID              | 标题                                                                 | 层级 | 自动化路径                                      |
+| -------------------- | -------------------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                                         | L4   | `src/components/Arrow.spec.ts`                  |
+| TC-VIZ-ARROW-02      | 非预设色按原值透传                                                   | L4   | `src/components/Arrow.spec.ts`                  |
+| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位                          | L4   | `src/components/ArrowTrack.spec.ts`             |
+| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）                                  | L4   | `src/components/ArrowTrack.spec.ts`             |
+| TC-VIZ-BLOCK-01      | 渲染数值                                                             | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-BLOCK-02      | 背景透明度随 percent                                                 | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white                                 | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                                               | L4   | `src/components/List.spec.ts`                   |
+| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                                   | L4   | `src/components/List.spec.ts`                   |
+| TC-VIZ-BAR-01        | 渲染数值（C-006）                                                    | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                                         | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                                        | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                                        | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）                                  | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）                             | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）                               | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）                                 | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）                                | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）                             | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）                               | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）                                      | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）                                | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）                             | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）                                       | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）                                      | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）                          | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-12   | 组内柱保持 idle、组外柱 dimmed（C-010）                              | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 取本态（C-010）                    | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）                                | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-07        | state='empty' 时柱体加 empty class（C-011）                          | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-AUXVIEW-01    | 渲染与 aux.array 等长的槽（C-011）                                   | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-02    | filled 的槽为 sorted、其余为 empty（C-011）                          | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-03    | pointer 定位 k 箭头到对应槽（C-011）                                 | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-04    | 无 pointer 时不渲染箭头（C-011）                                     | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-05    | filled 槽高度用主轨 min/max 同尺度（C-011）                          | L4   | `src/components/AuxView.spec.ts`                |
+| TC-PLAYER-AUX-01     | module 无 aux 时不渲染 AuxView（C-011）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-AUX-02     | 当前步带 aux 时渲染 AuxView（C-011）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BAR-08        | state=pivot 时柱体加 pivot class（C-012）                            | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-15   | pivotIndex 指向的 Bar 进入 pivot 态（C-012）                         | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-16   | pivot 优先级最高：压过 comparing/groupMembers/sortedIndices（C-012） | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-17   | sortedIndices 内的离散下标进入 sorted 态（C-012）                    | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-STACKVIEW-01  | 渲染与 frames 等量的区间条（C-012）                                  | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-02  | 区间条 left/width 对齐主轨下标坐标系（C-012）                        | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-03  | 栈顶帧高亮（.top）（C-012）                                          | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-04  | popped 区间单独标记（.popped）（C-012）                              | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-05  | 空栈渲染占位、无区间条（C-012）                                      | L4   | `src/components/StackView.spec.ts`              |
+| TC-PLAYER-STACK-01   | module 无 stack 时不渲染 StackView（向后兼容）（C-012）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-02   | 当前步带 stack 时渲染 StackView（C-012）                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-03   | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）（C-012）            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -265,24 +299,27 @@
 
 ## article-sort（排序动画文章）
 
-| Case ID              | 标题                                                      | 层级 | 自动化路径                                              |
-| -------------------- | --------------------------------------------------------- | ---- | ------------------------------------------------------- |
-| TC-VIEW-BUBBLE-01    | （C-006 改写）挂载渲染 AlgorithmPlayer                    | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
-| TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步           | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
-| TC-E2E-BUBBLE-01     | ~~冒泡排序动画最终升序~~ (superseded by TC-E2E-PLAYER-01) | L5   | `e2e/bubble-sort.e2e.ts`                                |
-| TC-E2E-PLAYER-01     | 冒泡播放器：默认暂停/单步/跳末升序/重置（C-006）          | L5   | `e2e/bubble-sort.e2e.ts`                                |
-| TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）                         | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
-| TC-VIEW-SELECTION-02 | 初始渲染 10 柱默认停第 0 步（C-007）                      | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
-| TC-E2E-SELECTION-01  | 选择排序播放器 e2e（C-007）                               | L5   | `e2e/selection-sort.e2e.ts`                             |
-| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）                         | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
-| TC-VIEW-INSERTION-02 | 初始渲染 10 柱默认停第 0 步（C-008）                      | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
-| TC-E2E-INSERTION-01  | 插入排序播放器 e2e（C-008）                               | L5   | `e2e/insertion-sort.e2e.ts`                             |
-| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）                         | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
-| TC-VIEW-SHELL-02     | 初始渲染 10 柱默认停第 0 步（C-010）                      | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
-| TC-E2E-SHELL-01      | 希尔排序播放器 e2e（C-010）                               | L5   | `e2e/shell-sort.e2e.ts`                                 |
-| TC-VIEW-MERGE-01     | 挂载渲染 AlgorithmPlayer（C-011）                         | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
-| TC-VIEW-MERGE-02     | 初始渲染主轨 10 柱 + 辅助轨默认停第 0 步（C-011）         | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
-| TC-E2E-MERGE-01      | 归并播放器 e2e（C-011）                                   | L5   | `e2e/merge-sort.e2e.ts`                                 |
+| Case ID              | 标题                                                               | 层级 | 自动化路径                                              |
+| -------------------- | ------------------------------------------------------------------ | ---- | ------------------------------------------------------- |
+| TC-VIEW-BUBBLE-01    | （C-006 改写）挂载渲染 AlgorithmPlayer                             | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步                    | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-E2E-BUBBLE-01     | ~~冒泡排序动画最终升序~~ (superseded by TC-E2E-PLAYER-01)          | L5   | `e2e/bubble-sort.e2e.ts`                                |
+| TC-E2E-PLAYER-01     | 冒泡播放器：默认暂停/单步/跳末升序/重置（C-006）                   | L5   | `e2e/bubble-sort.e2e.ts`                                |
+| TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）                                  | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-VIEW-SELECTION-02 | 初始渲染 10 柱默认停第 0 步（C-007）                               | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-E2E-SELECTION-01  | 选择排序播放器 e2e（C-007）                                        | L5   | `e2e/selection-sort.e2e.ts`                             |
+| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）                                  | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-INSERTION-02 | 初始渲染 10 柱默认停第 0 步（C-008）                               | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-E2E-INSERTION-01  | 插入排序播放器 e2e（C-008）                                        | L5   | `e2e/insertion-sort.e2e.ts`                             |
+| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）                                  | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-VIEW-SHELL-02     | 初始渲染 10 柱默认停第 0 步（C-010）                               | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-E2E-SHELL-01      | 希尔排序播放器 e2e（C-010）                                        | L5   | `e2e/shell-sort.e2e.ts`                                 |
+| TC-VIEW-MERGE-01     | 挂载渲染 AlgorithmPlayer（C-011）                                  | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
+| TC-VIEW-MERGE-02     | 初始渲染主轨 10 柱 + 辅助轨默认停第 0 步（C-011）                  | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
+| TC-E2E-MERGE-01      | 归并播放器 e2e（C-011）                                            | L5   | `e2e/merge-sort.e2e.ts`                                 |
+| TC-VIEW-QUICK-01     | 挂载渲染 AlgorithmPlayer（C-012）                                  | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
+| TC-VIEW-QUICK-02     | 初始渲染主轨 10 柱 + 区间栈轨且默认停第 0 步（C-012）              | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
+| TC-E2E-QUICK-01      | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置（C-012） | L5   | `e2e/quick-sort.e2e.ts`                                 |
 
 ---
 
