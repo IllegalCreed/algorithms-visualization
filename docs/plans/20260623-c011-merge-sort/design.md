@@ -1,14 +1,14 @@
 # 设计：归并排序动画（接入算法播放器框架，首个双数组可视化）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260623-011
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-23
 > Last reviewed: 2026-06-23
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 待用户审阅 → writing-plans / TDD 实现
+> Next action: 已完成（37 Case 全绿，已落 main）
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006、C-20260620-007、C-20260621-008、C-20260622-010

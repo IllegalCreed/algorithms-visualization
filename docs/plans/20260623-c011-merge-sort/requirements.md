@@ -1,14 +1,14 @@
 # 需求：归并排序动画（接入算法播放器框架，M3 第四个算法，首个双数组可视化）
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260623-011
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-23
 > Last reviewed: 2026-06-23
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 待用户审阅本设计 → 进入 writing-plans / TDD 实现
+> Next action: 已完成（37 Case 全绿，已落 main）
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006（提供「算法播放器」框架）；C-20260620-007（选择排序，执行点泛型化 `Step<P>`）；C-20260621-008（插入排序，`keyIndex`/`key` 玫红态 + 移位插桩）；C-20260622-010（希尔排序，新增 `groupMembers`/`dimmed` 分组淡化——**归并直接复用它做「聚焦当前合并段」**）

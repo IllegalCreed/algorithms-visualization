@@ -1,14 +1,14 @@
 # 测试用例：归并排序动画
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260623-011
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-23
 > Last reviewed: 2026-06-23
-> Progress: 0%
+> Progress: 100%
 > Blocked by: none
-> Next action: 随 Task 落地登记进全局测试索引并置 active
+> Next action: 已完成（37 Case 全绿，已登记进全局测试索引并置 active）
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006、C-20260620-007、C-20260621-008、C-20260622-010
@@ -38,10 +38,12 @@
 
 | 层级 | 测试文件 | 新增 Case 数 | 通过数 | 运行命令         |
 | ---- | -------- | ------------ | ------ | ---------------- |
-| L3   | —        | —            | —      | `pnpm test:unit` |
-| L4   | —        | —            | —      | `pnpm test:unit` |
-| L5   | —        | —            | —      | `pnpm test:e2e`  |
-| 合计 | —        | —            | —      | —                |
+| L3   | 2        | 26           | 26     | `pnpm test:unit` |
+| L4   | 4        | 10           | 10     | `pnpm test:unit` |
+| L5   | 1        | 1            | 1      | `pnpm test:e2e`  |
+| 合计 | 7        | 37           | 37     | —                |
+
+全部通过。全量回归：单测 42 文件 245 通过、e2e 7 文件全过（含冒泡/选择/插入/希尔向后兼容全绿，四者页面不渲染 `AuxView`）；lint / format / type-check 三门禁绿；覆盖率达本地门槛。
 
 ## 全量 Case 清单（计划）
 

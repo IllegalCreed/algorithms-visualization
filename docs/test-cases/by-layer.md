@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **104** 个用例。运行命令：`pnpm test:unit`
+共 **130** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -175,11 +175,42 @@
 | TC-SHARE-05 | 链接与中文文案经 URLSearchParams 编码     | `src/views/Master/Header/share.spec.ts` |
 | TC-SHARE-06 | 常量 GITHUB_REPO_URL / SITE_ORIGIN 校验   | `src/views/Master/Header/share.spec.ts` |
 
+### merge-sort oracle + module（C-011）
+
+| Case ID          | 标题                                                 | 自动化路径                                 |
+| ---------------- | ---------------------------------------------------- | ------------------------------------------ |
+| TC-MERGE-ALGO-01 | 空数组与单元素不产生 pass                            | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-02 | 基准数据最终升序                                     | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-03 | 含重复元素结果正确                                   | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-04 | 不修改入参                                           | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-05 | width 序列为 1,2,4,…（<n）                           | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-06 | 已升序输入幂等（最终仍升序）                         | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-07 | 逆序输入最终升序                                     | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-08 | 每趟 width 后每个 2\*width 块内部有序（不变量）      | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-ALGO-09 | 随机用例与 Array.sort 交叉校验                       | `src/algorithms/merge-sort.spec.ts`        |
+| TC-MERGE-MOD-01  | 空/单元素也产出至少一个 done 步                      | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-02  | 末步数组与 oracle 最终结果一致（交叉校验，升序）     | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-03  | 每步主轨 array 的 id 集合恒等于初始（FLIP 前提）     | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-04  | 不修改入参                                           | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-05  | 每步 point 合法；compare 步必带 comparing            | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-06  | widthChange 步的 width 依次为 1,2,4,…                | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-07  | 各 width 趟边界数组与 oracle 快照一致（核心不变量）  | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-08  | 每个 mergeStart 的 groupMembers/activeRange=[lo,hi)  | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-09  | 一对合并内 aux.filled 单调增长（temp 只填不删）      | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-10  | writeBack 后主轨 [lo,hi) 段升序                      | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-11  | done 步标 sortedFrom=0、aux 无 filled                | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-12  | take 步 temp 写入位的值 = 所取元素值                 | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-13  | 每步主轨指针 clamp 在 [0,n-1]、aux.pointer 在 [0,n]  | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-14  | 每步 aux.array 长度 = 主轨长度                       | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-15  | 四门语言齐备                                         | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-16  | 每门语言每个 MergeExecPoint 行号落在源码物理行范围内 | `src/algorithms/merge-sort.module.spec.ts` |
+| TC-MERGE-MOD-17  | 实际出现的 point 都能在每门语言映射到行              | `src/algorithms/merge-sort.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **102** 个用例。运行命令：`pnpm test:unit`
+共 **112** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -313,21 +344,37 @@
 | TC-VIEW-ICONLINK-05 | 点击调用 window.open 打开对应 url           | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
 | TC-VIEW-ICONLINK-06 | 不同 url 也能正确打开                       | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
 
+### 归并双轨可视化 + 视图（C-011）
+
+| Case ID           | 标题                                            | 自动化路径                                          |
+| ----------------- | ----------------------------------------------- | --------------------------------------------------- |
+| TC-VIZ-BAR-07     | state='empty' 时柱体加 empty class 且不显示数值 | `src/components/Bar.spec.ts`                        |
+| TC-VIZ-AUXVIEW-01 | 渲染与 aux.array 等长的槽                       | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-02 | filled 的槽为 sorted、其余为 empty              | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-03 | pointer 定位 k 箭头到对应槽                     | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-04 | 无 pointer 时不渲染箭头                         | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-05 | filled 槽高度用主轨 min/max 同尺度              | `src/components/AuxView.spec.ts`                    |
+| TC-PLAYER-AUX-01  | module 无 aux 时不渲染 AuxView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-PLAYER-AUX-02  | 当前步带 aux 时渲染 AuxView                     | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-VIEW-MERGE-01  | 挂载渲染 AlgorithmPlayer                        | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
+| TC-VIEW-MERGE-02  | 初始渲染主轨 10 柱 + 辅助轨且默认停第 0 步      | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **6** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **7** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
-| Case ID             | 标题                                                | 自动化路径                   | 状态       |
-| ------------------- | --------------------------------------------------- | ---------------------------- | ---------- |
-| TC-E2E-HOME-01      | 首页加载并能进入 docs                               | `e2e/home-navigation.e2e.ts` | active     |
-| TC-E2E-MENU-01      | docs 菜单点击切换路由                               | `e2e/docs-menu.e2e.ts`       | active     |
-| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                            | `e2e/bubble-sort.e2e.ts`     | superseded |
-| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置             | `e2e/bubble-sort.e2e.ts`     | active     |
-| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置         | `e2e/selection-sort.e2e.ts`  | active     |
-| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置         | `e2e/insertion-sort.e2e.ts`  | active     |
-| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置 | `e2e/shell-sort.e2e.ts`      | active     |
+| Case ID             | 标题                                                       | 自动化路径                   | 状态       |
+| ------------------- | ---------------------------------------------------------- | ---------------------------- | ---------- |
+| TC-E2E-HOME-01      | 首页加载并能进入 docs                                      | `e2e/home-navigation.e2e.ts` | active     |
+| TC-E2E-MENU-01      | docs 菜单点击切换路由                                      | `e2e/docs-menu.e2e.ts`       | active     |
+| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                   | `e2e/bubble-sort.e2e.ts`     | superseded |
+| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                    | `e2e/bubble-sort.e2e.ts`     | active     |
+| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                | `e2e/selection-sort.e2e.ts`  | active     |
+| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                | `e2e/insertion-sort.e2e.ts`  | active     |
+| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置        | `e2e/shell-sort.e2e.ts`      | active     |
+| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置 | `e2e/merge-sort.e2e.ts`      | active     |
 
 ---
 

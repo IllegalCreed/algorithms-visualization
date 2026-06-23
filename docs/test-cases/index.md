@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-06-22
+> Last reviewed: 2026-06-23
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -228,3 +228,40 @@
 | TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer                                       | article-sort / ShellSort     | C-20260622-010 | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     | active     | 2026-06-22 |
 | TC-VIEW-SHELL-02     | 初始渲染 10 根柱子且默认停第 0 步                              | article-sort / ShellSort     | C-20260622-010 | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     | active     | 2026-06-22 |
 | TC-E2E-SHELL-01      | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置            | article-sort / e2e           | C-20260622-010 | L5   | `e2e/shell-sort.e2e.ts`                                 | active     | 2026-06-22 |
+| TC-MERGE-ALGO-01     | 空数组与单元素不产生 pass                                      | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-02     | 基准数据最终升序                                               | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-03     | 含重复元素结果正确                                             | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-04     | 不修改入参                                                     | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-05     | width 序列为 1,2,4,…（<n）                                     | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-06     | 已升序输入幂等（最终仍升序）                                   | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-07     | 逆序输入最终升序                                               | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-08     | 每趟 width 后每个 2\*width 块内部有序（不变量）                | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-ALGO-09     | 随机用例与 Array.sort 交叉校验                                 | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.spec.ts`                     | active     | 2026-06-23 |
+| TC-MERGE-MOD-01      | 空/单元素也产出至少一个 done 步                                | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-02      | 末步数组与 oracle 最终结果一致（交叉校验，升序）               | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-03      | 每步主轨 array 的 id 集合恒等于初始（FLIP 前提）               | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-04      | 不修改入参                                                     | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-05      | 每步 point 合法；compare 步必带 comparing                      | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-06      | widthChange 步的 width 依次为 1,2,4,…                          | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-07      | 各 width 趟边界数组与 oracle 快照一致（核心不变量）            | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-08      | 每个 mergeStart 的 groupMembers/activeRange=[lo,hi)            | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-09      | 一对合并内 aux.filled 单调增长（temp 只填不删）                | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-10      | writeBack 后主轨 [lo,hi) 段升序                                | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-11      | done 步标 sortedFrom=0、aux 无 filled                          | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-12      | take 步 temp 写入位的值 = 所取元素值                           | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-13      | 每步主轨指针 clamp 在 [0,n-1]、aux.pointer 在 [0,n]            | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-14      | 每步 aux.array 长度 = 主轨长度                                 | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-15      | 四门语言齐备                                                   | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-16      | 每门语言每个 MergeExecPoint 行号落在源码物理行范围内           | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-MERGE-MOD-17      | 实际出现的 point 都能在每门语言映射到行                        | algorithms / merge-sort      | C-20260623-011 | L3   | `src/algorithms/merge-sort.module.spec.ts`              | active     | 2026-06-23 |
+| TC-VIZ-BAR-07        | state='empty' 时柱体加 empty class 且不显示数值                | viz-engine / Bar             | C-20260623-011 | L4   | `src/components/Bar.spec.ts`                            | active     | 2026-06-23 |
+| TC-VIZ-AUXVIEW-01    | 渲染与 aux.array 等长的槽                                      | viz-engine / AuxView         | C-20260623-011 | L4   | `src/components/AuxView.spec.ts`                        | active     | 2026-06-23 |
+| TC-VIZ-AUXVIEW-02    | filled 的槽为 sorted、其余为 empty                             | viz-engine / AuxView         | C-20260623-011 | L4   | `src/components/AuxView.spec.ts`                        | active     | 2026-06-23 |
+| TC-VIZ-AUXVIEW-03    | pointer 定位 k 箭头到对应槽                                    | viz-engine / AuxView         | C-20260623-011 | L4   | `src/components/AuxView.spec.ts`                        | active     | 2026-06-23 |
+| TC-VIZ-AUXVIEW-04    | 无 pointer 时不渲染箭头                                        | viz-engine / AuxView         | C-20260623-011 | L4   | `src/components/AuxView.spec.ts`                        | active     | 2026-06-23 |
+| TC-VIZ-AUXVIEW-05    | filled 槽高度用主轨 min/max 同尺度                             | viz-engine / AuxView         | C-20260623-011 | L4   | `src/components/AuxView.spec.ts`                        | active     | 2026-06-23 |
+| TC-PLAYER-AUX-01     | module 无 aux 时不渲染 AuxView（向后兼容）                     | viz-engine / AlgorithmPlayer | C-20260623-011 | L4   | `src/components/player/AlgorithmPlayer.spec.ts`         | active     | 2026-06-23 |
+| TC-PLAYER-AUX-02     | 当前步带 aux 时渲染 AuxView                                    | viz-engine / AlgorithmPlayer | C-20260623-011 | L4   | `src/components/player/AlgorithmPlayer.spec.ts`         | active     | 2026-06-23 |
+| TC-VIEW-MERGE-01     | 挂载渲染 AlgorithmPlayer                                       | article-sort / MergeSort     | C-20260623-011 | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     | active     | 2026-06-23 |
+| TC-VIEW-MERGE-02     | 初始渲染主轨 10 柱 + 辅助轨且默认停第 0 步                     | article-sort / MergeSort     | C-20260623-011 | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     | active     | 2026-06-23 |
+| TC-E2E-MERGE-01      | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置     | article-sort / e2e           | C-20260623-011 | L5   | `e2e/merge-sort.e2e.ts`                                 | active     | 2026-06-23 |
