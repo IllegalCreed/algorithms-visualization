@@ -17,7 +17,7 @@
 | L3 module（buildSteps + sources） | `src/algorithms/quick-sort.module.spec.ts`                | `TC-QUICK-MOD-01..16`       | 16   |
 | L4 Bar 态                         | `src/components/Bar.spec.ts`（扩展）                      | `TC-VIZ-BAR-*`（接续）      | 1    |
 | L4 BarsView 判定                  | `src/components/BarsView.spec.ts`（扩展）                 | `TC-VIZ-BARSVIEW-*`（接续） | 3    |
-| L4 StackView 组件                 | `src/components/StackView.spec.ts`（新）                  | `TC-VIZ-STACKVIEW-01..05`   | 5    |
+| L4 StackView 组件                 | `src/components/StackView.spec.ts`（新）                  | `TC-VIZ-STACKVIEW-01..06`   | 6    |
 | L4 外壳条件渲染                   | `src/components/player/AlgorithmPlayer.spec.ts`（扩展）   | `TC-PLAYER-*`（接续）       | 2    |
 | L4 视图薄壳                       | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`（新） | `TC-VIEW-QUICK-01..02`      | 2    |
 | L5 e2e                            | `e2e/quick-sort.e2e.ts`（新）                             | `TC-E2E-QUICK-01`           | 1    |
@@ -72,13 +72,14 @@
 
 ## L4 — StackView（`TC-VIZ-STACKVIEW-*`，新组件）
 
-| TC                  | 描述                               | 预期                                                        |
-| ------------------- | ---------------------------------- | ----------------------------------------------------------- |
-| TC-VIZ-STACKVIEW-01 | 渲染 frames 数量条                 | `frames.length` 个区间条                                    |
-| TC-VIZ-STACKVIEW-02 | 区间条定位 left/width 对齐主轨下标 | `[1,5]`→left=60px、width=300px；`[0,9]`→left=0、width=600px |
-| TC-VIZ-STACKVIEW-03 | 栈顶帧高亮                         | `frames[last]` 条带 `.top` 类                               |
-| TC-VIZ-STACKVIEW-04 | popped 区间单独标记                | 存在 `.popped` 行                                           |
-| TC-VIZ-STACKVIEW-05 | 空栈占位                           | `frames=[]` 渲染占位文案、无区间条                          |
+| TC                  | 描述                                 | 预期                                             |
+| ------------------- | ------------------------------------ | ------------------------------------------------ |
+| TC-VIZ-STACKVIEW-01 | 渲染 frames 数量的栈帧               | `.frame` 数 = frames.length                      |
+| TC-VIZ-STACKVIEW-02 | 栈顶在最上、内容为 `a[lo..hi]`       | frames[0]=`a[1..5]`（栈顶）、frames[1]=`a[0..9]` |
+| TC-VIZ-STACKVIEW-03 | 栈顶帧高亮                           | 逆序后第一个带 `.top` 类                         |
+| TC-VIZ-STACKVIEW-04 | 固定等宽居中（无 inline left/width） | frame 无可变 inline 宽/缩进                      |
+| TC-VIZ-STACKVIEW-05 | 空栈占位                             | `frames=[]` 渲染占位、无 `.frame`                |
+| TC-VIZ-STACKVIEW-06 | 稳定 key 入栈渲染                    | setProps 增帧后旧帧保留、新帧追加（支撑动画）    |
 
 ## L4 — AlgorithmPlayer 条件渲染（扩展，接续编号）
 
@@ -102,8 +103,9 @@
 
 ## 覆盖率
 
-本地门槛：lines/functions/statements ≥70%、branches ≥60%。新增算法模块（oracle + module + sources）为纯函数/纯数据，目标行覆盖 ≥90%；StackView 组件分支（栈顶/popped/空栈）全覆盖。
+本地门槛：lines/functions/statements ≥70%、branches ≥60%。新增算法模块（oracle + module + sources）为纯函数/纯数据，目标行覆盖 ≥90%；StackView 组件分支（栈顶/固定宽度/空栈/稳定 key）全覆盖。
 
 ## 变更历史
 
 - 2026-06-23：创建并落地。实际新增 37 个 Case（oracle 6 + module 16 + Bar 1 + BarsView 3 + StackView 5 + AlgorithmPlayer 3 + view 2 + e2e 1），全绿；已回写三索引（index / by-layer / by-module）。覆盖率 All files 91.71%/92.51%/88%/91.65%，新增代码 100%。
+- 2026-06-23（修订）：据用户反馈重构 `StackView` 视觉（固定等宽居中 + `a[lo..hi]` 记法 + 入栈/出栈动画）；`TC-VIZ-STACKVIEW` 5→6（02/04 语义调整、新增 06「稳定 key 入栈渲染」），本 plan Case 总数 37→38；三索引同步。

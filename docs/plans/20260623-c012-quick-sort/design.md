@@ -176,17 +176,18 @@ function stateOf(index): '…' | 'pivot' {
 
 ### 5.2 栈轨（StackView，新组件）
 
-- props：`stack: StackTrack`、`length: number`（主轨长度，算总宽）、`slotWidth = 60`（与主轨同坐标系）。
-- 渲染：`frames` **逆序**渲染（栈顶在最上一行，最显眼）；每帧一个绝对定位的水平条：`left = lo * slotWidth`、`width = (hi - lo + 1) * slotWidth`，条内居中标注 `[lo,hi]`（或 `lo..hi`）。
-- 态：栈顶帧（`frames[last]`）高亮（实色 + 阴影）；其余帧常态（半透明/描边）；`popped` 区间（`pop` 步）以「移出」色（虚线/淡出）单独画一行在最上，提示「刚弹出、正在处理」。
-- 空栈：渲染一行占位提示「栈空 → 全部就位」。
-- 不复用 `Bar`（栈帧是区间条、非数值柱）；复用 `.neumorphism-flat()` 混入与颜色变量。
+- props：`stack: StackTrack`（仅此一项；不再依赖主轨宽度/坐标系）。
+- 渲染：`frames` **逆序**渲染（栈顶在最上、最显眼）；每帧**固定等宽**（`160px`）、**水平居中**的格子，文字用数组切片记法 **`a[lo..hi]`**——明确「数组的一段待排序子区间」，比旧的 `[lo,hi]` 更直观（用户反馈 `[0,9]` 像「一条数据」而非区间，易困惑）。`<TransitionGroup>` + **稳定 key（区间 `lo-hi`）** 包裹，支撑入栈/出栈动画。
+- 动画：入栈（push）新帧从上方滑入（`translateY(-26px)` + fade）；出栈（pop）栈顶帧向右滑出 + fade（`stack-leave-active` 用 `position:absolute` 脱离流、其余帧 `stack-move` 平滑上移）。**修复了旧实现「`:key` 用下标 + 无 TransitionGroup 导致出栈时帧瞬间消失、无动画」的问题。**
+- 态：栈顶帧（逆序后第一个）靛蓝高亮；其余帧半透明描边。
+- 空栈：渲染占位「栈空 → 全部就位」。
+- 不复用 `Bar`（栈帧是区间格、非数值柱）；复用 `.center` 布局与新拟物色。
 
 ```
-（主轨下方）
-栈轨   下标:  0   1   2   3   4   5   6   7   8   9
-栈顶 → ┌─────────[1,5]─────────┐                       （高亮：下一个 pop）
-       ┌─────────────────[7,9]─────────────────────┐   （常态）
+（主轨下方，固定等宽居中堆叠 + 入栈/出栈动画）
+区间栈 · 每格 = 一段待排序子数组 a[lo..hi]（栈顶先弹出分区）
+栈顶 →  ┌────── a[1..5] ──────┐   （靛蓝高亮：下一个 pop）
+        ┌────── a[7..9] ──────┐   （常态）
 ```
 
 ## 6. 四语言源码与 lineMap（显式栈 Lomuto）
@@ -260,7 +261,7 @@ export function quickSortPartitions(input: number[]): PartitionEvent[];
 | `src/components/Bar.vue`                        | 改（加法）     | `state` 增 `'pivot'` + `.bar.pivot{background:#c2185b}`                                                      |
 | `src/components/BarsView.vue`                   | 改（加法）     | `stateOf` 接入 `pivotIndex`（链首）+ `sortedIndices`（并入 sorted）                                          |
 | `src/components/StackView.vue`                  | **新增**       | 区间栈水平条轨                                                                                               |
-| `src/components/player/AlgorithmPlayer.vue`     | 改（1 行）     | `<StackView v-if="current.stack" :stack="current.stack" :length="current.array.length" />`                   |
+| `src/components/player/AlgorithmPlayer.vue`     | 改（1 行）     | `<StackView v-if="current.stack" :stack="current.stack" />`（固定等宽居中 + 入栈出栈动画）                   |
 | `src/algorithms/quick-sort.ts`                  | **新增**       | oracle `quickSortPartitions`                                                                                 |
 | `src/algorithms/quick-sort.module.ts`           | **新增**       | `buildQuickSortSteps` + `quickSortModule`                                                                    |
 | `src/algorithms/quick-sort.sources.ts`          | **新增**       | 四语言源码 + lineMap                                                                                         |
@@ -279,6 +280,6 @@ export function quickSortPartitions(input: number[]): PartitionEvent[];
 
 - L3 oracle（`TC-QUICK-ALGO-*`）：升序、不改入参、空/单元素、pivot 落点钉死、与内置 sort 一致。
 - L3 module（`TC-QUICK-MOD-*`）：末步升序 + oracle 交叉、id 集合恒定、point 合法、compare 带 comparing、各 pivotPlace 落点序列 = oracle、sortedIndices 单调增长且末步全集、stack 快照自洽（pop 后/push 后）、栈序（先右后左 → pop 先左）、四语言齐备 + 行号范围 + 实际 point 可映射。
-- L4 组件：`TC-VIZ-BAR-*`（pivot 态渲染 `.bar.pivot`）、`TC-VIZ-BARSVIEW-*`（pivotIndex 压过 sorted/comparing、sortedIndices 离散绿）、`TC-VIZ-STACKVIEW-*`（区间条定位 left/width、栈顶高亮、popped 标记、空栈占位）、`TC-PLAYER-*`（current.stack 真才渲染 StackView、前五算法不渲染）。
+- L4 组件：`TC-VIZ-BAR-*`（pivot 态渲染 `.bar.pivot`）、`TC-VIZ-BARSVIEW-*`（pivotIndex 压过 sorted/comparing、sortedIndices 离散绿）、`TC-VIZ-STACKVIEW-*`（固定等宽居中、`a[lo..hi]` 记法、栈顶高亮、稳定 key 入栈出栈动画、空栈占位）、`TC-PLAYER-*`（current.stack 真才渲染 StackView、前五算法不渲染）。
 - L4 视图：`TC-VIEW-QUICK-*`（薄壳挂载 quickSortModule、默认停第 0 步）。
 - L5 e2e：`TC-E2E-QUICK-*`（默认暂停、栈轨可见、pivot 品红、拖动到末态升序全绿、重置、四语言切换截图）。

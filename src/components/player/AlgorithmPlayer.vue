@@ -43,7 +43,7 @@ const prevVars = computed(() => steps[index.value - 1]?.vars);
     />
     <BarsView :array="current.array" :pointers="current.pointers" :emphasis="current.emphasis" />
     <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
-    <StackView v-if="current.stack" :stack="current.stack" :length="current.array.length" />
+    <StackView v-if="current.stack" :stack="current.stack" />
     <p class="caption">{{ current.caption }}</p>
     <div class="middle row">
       <CodePanel class="code-pane" :sources="props.module.sources" :point="current.point" />

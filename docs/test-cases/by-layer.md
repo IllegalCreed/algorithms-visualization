@@ -266,7 +266,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **141** 个用例。运行命令：`pnpm test:unit`
+共 **142** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -423,11 +423,12 @@
 | TC-VIZ-BARSVIEW-15  | pivotIndex 指向的 Bar 进入 pivot 态                         | `src/components/BarsView.spec.ts`                   |
 | TC-VIZ-BARSVIEW-16  | pivot 优先级最高：压过 comparing/groupMembers/sortedIndices | `src/components/BarsView.spec.ts`                   |
 | TC-VIZ-BARSVIEW-17  | sortedIndices 内的离散下标进入 sorted 态                    | `src/components/BarsView.spec.ts`                   |
-| TC-VIZ-STACKVIEW-01 | 渲染与 frames 等量的区间条                                  | `src/components/StackView.spec.ts`                  |
-| TC-VIZ-STACKVIEW-02 | 区间条 left/width 对齐主轨下标坐标系                        | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-01 | 渲染与 frames 等量的栈帧                                    | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-02 | 栈顶在最上、内容为 a[lo..hi]                                | `src/components/StackView.spec.ts`                  |
 | TC-VIZ-STACKVIEW-03 | 栈顶帧高亮（.top）                                          | `src/components/StackView.spec.ts`                  |
-| TC-VIZ-STACKVIEW-04 | popped 区间单独标记（.popped）                              | `src/components/StackView.spec.ts`                  |
-| TC-VIZ-STACKVIEW-05 | 空栈渲染占位、无区间条                                      | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-04 | 固定等宽居中（无 inline left/width）                        | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-05 | 空栈渲染占位、无栈帧                                        | `src/components/StackView.spec.ts`                  |
+| TC-VIZ-STACKVIEW-06 | 稳定 key 入栈渲染（setProps 增帧后旧帧保留）                | `src/components/StackView.spec.ts`                  |
 | TC-PLAYER-STACK-01  | module 无 stack 时不渲染 StackView（向后兼容）              | `src/components/player/AlgorithmPlayer.spec.ts`     |
 | TC-PLAYER-STACK-02  | 当前步带 stack 时渲染 StackView                             | `src/components/player/AlgorithmPlayer.spec.ts`     |
 | TC-PLAYER-STACK-03  | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）            | `src/components/player/AlgorithmPlayer.spec.ts`     |
@@ -481,7 +482,7 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 92.47% | 70%  | 达标 |
-| Branch | 91.53% | 60%  | 达标 |
-| Funcs  | 88.83% | 70%  | 达标 |
-| Lines  | 92.48% | 70%  | 达标 |
+| Stmts  | 92.54% | 70%  | 达标 |
+| Branch | 93.06% | 60%  | 达标 |
+| Funcs  | 88.71% | 70%  | 达标 |
+| Lines  | 92.57% | 70%  | 达标 |

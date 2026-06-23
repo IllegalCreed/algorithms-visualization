@@ -3,101 +3,80 @@
 import { computed } from 'vue';
 import type { StackTrack } from '@/components/player/types';
 
-const props = withDefaults(
-  defineProps<{
-    stack: StackTrack;
-    length: number; // 主轨长度，决定坐标系总宽
-    slotWidth?: number;
-  }>(),
-  { slotWidth: 60 },
-);
+const props = defineProps<{ stack: StackTrack }>();
 
-const vizWidth = computed(() => props.length * props.slotWidth);
-
-// 逆序渲染：栈顶（frames 末元素）排在最上面、最显眼
-const orderedFrames = computed(() =>
-  props.stack.frames
-    .map((f, idx) => ({ ...f, isTop: idx === props.stack.frames.length - 1 }))
-    .reverse(),
-);
-
-const frameStyle = (lo: number, hi: number) => ({
-  left: lo * props.slotWidth + 'px',
-  width: (hi - lo + 1) * props.slotWidth + 'px',
-});
+// 逆序：栈顶（frames 末元素）排在最上面、最显眼
+const orderedFrames = computed(() => props.stack.frames.slice().reverse());
 </script>
 <template>
   <div class="stack-view column center">
-    <div class="stack-label">区间栈（待处理子问题，栈顶在上）</div>
-    <div class="stack-rows" :style="{ width: vizWidth + 'px' }">
-      <div
-        v-if="props.stack.popped"
-        class="row-line popped"
-        :style="frameStyle(props.stack.popped.lo, props.stack.popped.hi)"
-      >
-        [{{ props.stack.popped.lo }},{{ props.stack.popped.hi }}]
-      </div>
+    <div class="stack-label">区间栈 · 每格 = 一段待排序子数组 a[lo..hi]（栈顶先弹出分区）</div>
+    <TransitionGroup name="stack" tag="div" class="stack-frames column center">
       <div
         v-for="(f, idx) in orderedFrames"
-        :key="idx"
-        class="row-line frame"
-        :class="{ top: f.isTop }"
-        :style="frameStyle(f.lo, f.hi)"
+        :key="`${f.lo}-${f.hi}`"
+        class="frame center"
+        :class="{ top: idx === 0 }"
       >
-        [{{ f.lo }},{{ f.hi }}]
+        a[{{ f.lo }}..{{ f.hi }}]
       </div>
-      <div v-if="props.stack.frames.length === 0 && !props.stack.popped" class="stack-empty">
+      <div v-if="orderedFrames.length === 0" key="__empty__" class="stack-empty center">
         栈空 → 全部就位
       </div>
-    </div>
+    </TransitionGroup>
   </div>
 </template>
 <style scoped lang="less">
 .stack-view {
-  gap: 8px;
+  gap: 10px;
   width: 100%;
 }
 .stack-label {
   font-size: 12px;
   color: fade(@font-color, 55%);
 }
-.stack-rows {
+.stack-frames {
   position: relative;
-  min-height: 32px;
+  gap: 8px;
+  min-height: 38px;
+  width: 100%;
 }
-.row-line {
-  position: relative;
-  height: 26px;
-  line-height: 24px;
-  margin-bottom: 6px;
-  border-radius: 6px;
+.frame {
+  width: 160px; // 固定等宽
+  height: 30px;
+  border-radius: 8px;
   box-sizing: border-box;
-  text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
   color: @font-color;
-  overflow: hidden;
-  white-space: nowrap;
-  transition:
-    left 0.3s ease,
-    width 0.3s ease;
-}
-.row-line.frame {
   background-color: fade(@font-color, 8%);
   border: 1px solid fade(@font-color, 18%);
 }
-.row-line.frame.top {
+.frame.top {
   background-color: fade(#5c6bc0, 28%);
   border-color: #5c6bc0;
 }
-.row-line.popped {
-  background-color: transparent;
-  border: 1px dashed fade(@font-color, 40%);
-  opacity: 0.65;
+/* 入栈：从上方滑入；出栈：向右滑出 + 淡出；其余帧 FLIP 平滑移动 */
+.stack-enter-active,
+.stack-leave-active {
+  transition: all 0.35s ease;
+}
+.stack-enter-from {
+  opacity: 0;
+  transform: translateY(-26px) scale(0.9);
+}
+.stack-leave-to {
+  opacity: 0;
+  transform: translateX(64px) scale(0.9);
+}
+.stack-leave-active {
+  position: absolute; // 出栈帧脱离文档流，其余帧平滑上移
+}
+.stack-move {
+  transition: transform 0.35s ease;
 }
 .stack-empty {
-  height: 26px;
-  line-height: 26px;
+  height: 30px;
   font-size: 12px;
   color: fade(@font-color, 45%);
 }
