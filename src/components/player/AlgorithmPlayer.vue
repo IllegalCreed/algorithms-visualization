@@ -4,6 +4,7 @@ import { computed } from 'vue';
 import type { AlgorithmModule } from './types';
 import { usePlayer } from './usePlayer';
 import BarsView from '@/components/BarsView.vue';
+import AuxView from '@/components/AuxView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
@@ -33,6 +34,7 @@ const prevVars = computed(() => steps[index.value - 1]?.vars);
 <template>
   <div class="algo-player column center">
     <BarsView :array="current.array" :pointers="current.pointers" :emphasis="current.emphasis" />
+    <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
     <p class="caption">{{ current.caption }}</p>
     <div class="middle row">
       <CodePanel class="code-pane" :sources="props.module.sources" :point="current.point" />

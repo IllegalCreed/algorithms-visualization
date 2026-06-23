@@ -6,6 +6,8 @@ import AlgorithmPlayer from './AlgorithmPlayer.vue';
 import TransportControls from './TransportControls.vue';
 import Bar from '@/components/Bar.vue';
 import { bubbleSortModule } from '@/algorithms/bubble-sort.module';
+import AuxView from '@/components/AuxView.vue';
+import type { AlgorithmModule, Step } from './types';
 
 vi.mock('./useHighlighter', () => ({
   highlightToLines: vi.fn(async (code: string) => code.split('\n').map((l) => [{ content: l }])),
@@ -33,5 +35,49 @@ describe('AlgorithmPlayer', () => {
     expect(w.find('.counter').text()).toContain('1 / ');
     await w.find('.ctl[title="下一步"]').trigger('click');
     expect(w.find('.counter').text()).toContain('2 / ');
+  });
+
+  // 内联最小 module：单步带 aux，用于验证外壳条件渲染（不依赖归并模块）
+  const auxModule: AlgorithmModule = {
+    title: 'aux-test',
+    initialInput: () => [3, 1, 2],
+    buildSteps: (): Step[] => [
+      {
+        array: [
+          ['0', 3],
+          ['1', 1],
+          ['2', 2],
+        ],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'mergeStart',
+        aux: {
+          array: [
+            ['t0', 0],
+            ['t1', 0],
+            ['t2', 0],
+          ],
+          filled: [],
+          pointer: 0,
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { mergeStart: 1 } }],
+  };
+
+  it('TC-PLAYER-AUX-01 module 无 aux 时不渲染 AuxView（前四算法向后兼容）', async () => {
+    const w = mountIt(); // bubbleSortModule，无 aux
+    await flushPromises();
+    expect(w.findComponent(AuxView).exists()).toBe(false);
+  });
+
+  it('TC-PLAYER-AUX-02 当前步带 aux 时渲染 AuxView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: auxModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(AuxView).exists()).toBe(true);
   });
 });
