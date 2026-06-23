@@ -79,6 +79,11 @@ const routes = [
             name: 'shell-sort',
             component: () => import('../views/Article/SortAlgorithm/ShellSort.vue'),
           },
+          {
+            path: '/docs/merge-sort',
+            name: 'merge-sort',
+            component: () => import('../views/Article/SortAlgorithm/MergeSort.vue'),
+          },
         ],
       },
     ],
