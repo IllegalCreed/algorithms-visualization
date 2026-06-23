@@ -3,12 +3,12 @@
 defineProps<{
   value: number;
   percent: number;
-  state: 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' | 'dimmed';
+  state: 'idle' | 'comparing' | 'swapped' | 'sorted' | 'min' | 'key' | 'dimmed' | 'empty';
 }>();
 </script>
 <template>
   <div class="bar-cell column center">
-    <span class="val">{{ value }}</span>
+    <span class="val">{{ state === 'empty' ? ' ' : value }}</span>
     <div class="bar" :class="state" :style="{ height: 30 + percent * 130 + 'px' }"></div>
   </div>
 </template>
@@ -47,5 +47,10 @@ defineProps<{
 }
 .bar.dimmed {
   opacity: 0.28;
+}
+.bar.empty {
+  background-color: transparent;
+  border: 2px dashed fade(@font-color, 35%);
+  box-shadow: none;
 }
 </style>

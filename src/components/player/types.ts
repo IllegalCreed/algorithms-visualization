@@ -31,6 +31,18 @@ export type ShellExecPoint =
   | 'insert'
   | 'done';
 
+/** 归并排序的执行点（自底向上：width 倍增 → 逐对合并 → 比较取小写 temp → 收尾 drain → 拷回） */
+export type MergeExecPoint =
+  | 'widthChange'
+  | 'mergeStart'
+  | 'compare'
+  | 'takeLeft'
+  | 'takeRight'
+  | 'drainLeft'
+  | 'drainRight'
+  | 'writeBack'
+  | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -47,6 +59,14 @@ export interface StepEmphasis {
   groupMembers?: number[]; // 希尔：当前子序列的下标集；不在其中且无其它强调 → dimmed 淡出
 }
 
+/** 辅助数组轨（temp）快照——归并排序专用，与主轨等长、上下对齐 */
+export interface AuxTrack {
+  array: [string, number][]; // 定长 = 主轨长度；位置 id 't0'..'t{n-1}'（稳定渲染）
+  filled: number[]; // 已写入的下标集；不在其中 → empty 空槽
+  pointer?: number; // k 写入位（ArrowTrack 取 colors[2]=yellow）
+  activeRange?: [number, number]; // 当前合并段 [lo, hi)
+}
+
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */
 export interface Step<P extends string = string> {
   array: [string, number][]; // 当前数组快照；[0]=稳定 key（驱动柱子 FLIP），[1]=值
@@ -55,6 +75,7 @@ export interface Step<P extends string = string> {
   vars: VarRow[]; // 变量面板按顺序渲染
   point: P; // 当前执行点 → 经 lineMap 查每语言行号
   caption?: string; // 解说
+  aux?: AuxTrack; // 纯加法：归并的辅助轨；其它算法不设 → AuxView 不渲染
 }
 
 export interface LangSource<P extends string = string> {
