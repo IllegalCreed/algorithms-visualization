@@ -425,3 +425,42 @@
 | TC-VIEW-ICONLINK-04 | title 属性渲染到元素上                                       | L4   | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
 | TC-VIEW-ICONLINK-05 | 点击调用 window.open 打开对应 url                            | L4   | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
 | TC-VIEW-ICONLINK-06 | 不同 url 也能正确打开                                        | L4   | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
+
+## article（知识页排版骨架，C-015）
+
+| Case ID              | 标题                       | 层级 | 自动化路径                                  |
+| -------------------- | -------------------------- | ---- | ------------------------------------------- |
+| TC-VIZ-ARTICLE-01    | 渲染 .article 容器         | L4   | `src/components/article/Article.spec.ts`    |
+| TC-VIZ-ARTICLE-02    | slot 内容透传              | L4   | `src/components/article/Article.spec.ts`    |
+| TC-VIZ-CALLOUT-01    | 渲染 .callout 且 slot 出现 | L4   | `src/components/article/Callout.spec.ts`    |
+| TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
+| TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
+
+## structures（数据结构互动组件，C-015）
+
+| Case ID            | 标题                                          | 层级 | 自动化路径                                   |
+| ------------------ | --------------------------------------------- | ---- | -------------------------------------------- |
+| TC-STACK-LOGIC-01  | 初始空：items 空/top null/canPop F/canPush T  | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-02  | push 追加递增序号、返回值、top 更新           | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-03  | pop 删尾返回原栈顶；空 pop 返回 null          | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-04  | peek 返回栈顶不改 items                       | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-05  | reset 清空且 seq 归零                         | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-06  | canPush 满 STACK_MAX 为 false、push 返回 null | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-07  | 每个元素 id 唯一                              | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-08  | canPop 随空/非空切换                          | L3   | `src/components/structures/useStack.spec.ts` |
+| TC-VIZ-STACKVIZ-01 | 初始空：栈为空 + pop/peek 禁用                | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-VIZ-STACKVIZ-02 | push 增盘子、值为递增序号                     | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-VIZ-STACKVIZ-03 | 栈顶 is-top 落在最后压入元素                  | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-VIZ-STACKVIZ-04 | 每 item 含「← 栈顶」节点                      | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-VIZ-STACKVIZ-05 | pop 减盘子并解说                              | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-VIZ-STACKVIZ-06 | push 到 8 后 push 禁用                        | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-VIZ-STACKVIZ-07 | 重置清空                                      | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-VIZ-STACKVIZ-08 | peek 解说栈顶不取走                           | L4   | `src/components/structures/StackViz.spec.ts` |
+
+## article-ds（数据结构文章页，C-015）
+
+| Case ID          | 标题                                             | 层级 | 自动化路径                                      |
+| ---------------- | ------------------------------------------------ | ---- | ----------------------------------------------- |
+| TC-VIEW-STACK-01 | 挂载渲染 Article + StackViz                      | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-VIEW-STACK-02 | 含「栈」标题与 Playground                        | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-E2E-STACK-01  | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态 | L5   | `e2e/stack.e2e.ts`                              |

@@ -290,6 +290,19 @@
 | TC-COUNT-MOD-15  | 每门语言每个 point 行号在源码行范围内           | `src/algorithms/counting-sort.module.spec.ts` |
 | TC-COUNT-MOD-16  | 实际出现的 point 都能映射到行                   | `src/algorithms/counting-sort.module.spec.ts` |
 
+### 栈逻辑 useStack（C-015）
+
+| Case ID           | 标题                                          | 自动化路径                                   |
+| ----------------- | --------------------------------------------- | -------------------------------------------- |
+| TC-STACK-LOGIC-01 | 初始空：items 空/top null/canPop F/canPush T  | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-02 | push 追加递增序号、返回值、top 更新           | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-03 | pop 删尾返回原栈顶；空 pop 返回 null          | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-04 | peek 返回栈顶不改 items                       | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-05 | reset 清空且 seq 归零                         | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-06 | canPush 满 STACK_MAX 为 false、push 返回 null | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-07 | 每个元素 id 唯一                              | `src/components/structures/useStack.spec.ts` |
+| TC-STACK-LOGIC-08 | canPop 随空/非空切换                          | `src/components/structures/useStack.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -503,11 +516,31 @@
 | TC-VIEW-COUNT-01    | 挂载渲染 AlgorithmPlayer                            | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
 | TC-VIEW-COUNT-02    | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步        | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
 
+### 知识页骨架 + 栈互动 + 栈页（C-015）
+
+| Case ID              | 标题                           | 自动化路径                                      |
+| -------------------- | ------------------------------ | ----------------------------------------------- |
+| TC-VIZ-ARTICLE-01    | 渲染 .article 容器             | `src/components/article/Article.spec.ts`        |
+| TC-VIZ-ARTICLE-02    | slot 内容透传                  | `src/components/article/Article.spec.ts`        |
+| TC-VIZ-CALLOUT-01    | 渲染 .callout 且 slot 出现     | `src/components/article/Callout.spec.ts`        |
+| TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot     | `src/components/article/Playground.spec.ts`     |
+| TC-VIZ-PLAYGROUND-02 | 自定义 title 角标              | `src/components/article/Playground.spec.ts`     |
+| TC-VIZ-STACKVIZ-01   | 初始空：栈为空 + pop/peek 禁用 | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIZ-STACKVIZ-02   | push 增盘子、值为递增序号      | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIZ-STACKVIZ-03   | 栈顶 is-top 落在最后压入元素   | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIZ-STACKVIZ-04   | 每 item 含「← 栈顶」节点       | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIZ-STACKVIZ-05   | pop 减盘子并解说               | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIZ-STACKVIZ-06   | push 到 8 后 push 禁用         | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIZ-STACKVIZ-07   | 重置清空                       | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIZ-STACKVIZ-08   | peek 解说栈顶不取走            | `src/components/structures/StackViz.spec.ts`    |
+| TC-VIEW-STACK-01     | 挂载渲染 Article + StackViz    | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-VIEW-STACK-02     | 含「栈」标题与 Playground      | `src/views/Article/DataStructure/Stack.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **10** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **11** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                       | 自动化路径                   | 状态       |
 | ------------------- | ---------------------------------------------------------- | ---------------------------- | ---------- |
@@ -522,6 +555,7 @@
 | TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置  | `e2e/quick-sort.e2e.ts`      | active     |
 | TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置     | `e2e/heap-sort.e2e.ts`       | active     |
 | TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置  | `e2e/counting-sort.e2e.ts`   | active     |
+| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态           | `e2e/stack.e2e.ts`           | active     |
 
 ---
 
@@ -529,7 +563,7 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 92.54% | 70%  | 达标 |
-| Branch | 93.06% | 60%  | 达标 |
-| Funcs  | 88.71% | 70%  | 达标 |
-| Lines  | 92.57% | 70%  | 达标 |
+| Stmts  | 93.44% | 70%  | 达标 |
+| Branch | 93.14% | 60%  | 达标 |
+| Funcs  | 89.82% | 70%  | 达标 |
+| Lines  | 93.41% | 70%  | 达标 |
