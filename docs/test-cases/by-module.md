@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016）
+## structures（数据结构互动组件，C-015/016/017）
 
 | Case ID            | 标题                                          | 层级 | 自动化路径                                   |
 | ------------------ | --------------------------------------------- | ---- | -------------------------------------------- |
@@ -472,14 +472,37 @@
 | TC-VIZ-QUEUEVIZ-06 | enqueue 到 6 后 enqueue 禁用                  | L4   | `src/components/structures/QueueViz.spec.ts` |
 | TC-VIZ-QUEUEVIZ-07 | 重置清空                                      | L4   | `src/components/structures/QueueViz.spec.ts` |
 | TC-VIZ-QUEUEVIZ-08 | peek 解说队首不取走                           | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-ARRAY-LOGIC-01  | 初始 [1,2,3,4]、无选中、can 标志              | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-02  | valueAt 按下标读、越界 null                   | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-03  | select toggle：选中/再点取消/换选             | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-04  | insert 未选返回 null 且不变                   | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-05  | insert 在 i 插递增值、右移、保持选中、下标≠值 | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-06  | remove 删 i、后续左移、清空选中               | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-07  | remove 未选返回 null                          | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-08  | append 尾插递增、不动选中                     | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-09  | 满 ARRAY_MAX：canAppend/canInsert F、null     | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-10  | reset 复位 [1,2,3,4]、清选中、下次 append=5   | L3   | `src/components/structures/useArray.spec.ts` |
+| TC-VIZ-ARRAYVIZ-01 | 初始 4 格 + 下标 0..3 + 无选中禁三键          | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-02 | 点格选中：cell/slot is-selected + 启用三键    | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-03 | insert 增元素、新值落 i、下标≠值              | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-04 | remove 减元素                                 | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-05 | append 尾增（无需选中）                       | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-06 | 下标行数量 = items 数、文本 0..n-1            | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-07 | 满 8 禁插入/追加                              | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-08 | access 解说含 O(1)                            | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-09 | reset 复位 4 格、清选中                       | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-VIZ-ARRAYVIZ-10 | 删空显示 empty-hint + 禁三键                  | L4   | `src/components/structures/ArrayViz.spec.ts` |
 
-## article-ds（数据结构文章页，C-015/016）
+## article-ds（数据结构文章页，C-015/016/017）
 
-| Case ID          | 标题                                                  | 层级 | 自动化路径                                      |
-| ---------------- | ----------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-VIEW-STACK-01 | 挂载渲染 Article + StackViz                           | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-VIEW-STACK-02 | 含「栈」标题与 Playground                             | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-E2E-STACK-01  | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态      | L5   | `e2e/stack.e2e.ts`                              |
-| TC-VIEW-QUEUE-01 | 挂载渲染 Article + QueueViz                           | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
-| TC-VIEW-QUEUE-02 | 含「队列」标题与 Playground                           | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
-| TC-E2E-QUEUE-01  | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置 | L5   | `e2e/queue.e2e.ts`                              |
+| Case ID          | 标题                                                      | 层级 | 自动化路径                                      |
+| ---------------- | --------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-VIEW-STACK-01 | 挂载渲染 Article + StackViz                               | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-VIEW-STACK-02 | 含「栈」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-E2E-STACK-01  | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态          | L5   | `e2e/stack.e2e.ts`                              |
+| TC-VIEW-QUEUE-01 | 挂载渲染 Article + QueueViz                               | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-VIEW-QUEUE-02 | 含「队列」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-E2E-QUEUE-01  | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置     | L5   | `e2e/queue.e2e.ts`                              |
+| TC-VIEW-ARRAY-01 | 挂载渲染 Article + ArrayViz                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-VIEW-ARRAY-02 | 含「数组」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-E2E-ARRAY-01  | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置 | L5   | `e2e/array.e2e.ts`                              |

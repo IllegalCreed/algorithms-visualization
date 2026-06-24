@@ -316,6 +316,21 @@
 | TC-QUEUE-LOGIC-07 | 每个元素 id 唯一                                      | `src/components/structures/useQueue.spec.ts` |
 | TC-QUEUE-LOGIC-08 | canDequeue 随空/非空切换                              | `src/components/structures/useQueue.spec.ts` |
 
+### 数组逻辑 useArray（C-017）
+
+| Case ID           | 标题                                                   | 自动化路径                                   |
+| ----------------- | ------------------------------------------------------ | -------------------------------------------- |
+| TC-ARRAY-LOGIC-01 | 初始 [1,2,3,4]、无选中、can 标志                       | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-02 | valueAt 按下标读、越界 null                            | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-03 | select toggle：选中/再点取消/换选                      | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-04 | insert 未选返回 null 且不变                            | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-05 | insert 在 i 插递增值、右移、保持选中、下标≠值、id 唯一 | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-06 | remove 删 i、后续左移、清空选中                        | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-07 | remove 未选返回 null                                   | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-08 | append 尾插递增、不动选中                              | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-09 | 满 ARRAY_MAX：canAppend/canInsert F、返回 null         | `src/components/structures/useArray.spec.ts` |
+| TC-ARRAY-LOGIC-10 | reset 复位 [1,2,3,4]、清选中、下次 append=5            | `src/components/structures/useArray.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -564,11 +579,28 @@
 | TC-VIEW-QUEUE-01   | 挂载渲染 Article + QueueViz                  | `src/views/Article/DataStructure/Queue.spec.ts` |
 | TC-VIEW-QUEUE-02   | 含「队列」标题与 Playground                  | `src/views/Article/DataStructure/Queue.spec.ts` |
 
+### 数组互动 ArrayViz + 数组页（C-017）
+
+| Case ID            | 标题                                           | 自动化路径                                      |
+| ------------------ | ---------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-ARRAYVIZ-01 | 初始 4 格 + 下标 0..3 + 无选中禁访问/插入/删除 | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-02 | 点格选中：cell/slot is-selected + 启用三键     | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-03 | insert 增元素、新值落 i、下标≠值               | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-04 | remove 减元素                                  | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-05 | append 尾增（无需选中）                        | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-06 | 下标行数量 = items 数、文本 0..n-1             | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-07 | 满 8 禁插入/追加                               | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-08 | access 解说含 O(1)                             | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-09 | reset 复位 4 格、清选中                        | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIZ-ARRAYVIZ-10 | 删空显示 empty-hint + 禁三键                   | `src/components/structures/ArrayViz.spec.ts`    |
+| TC-VIEW-ARRAY-01   | 挂载渲染 Article + ArrayViz                    | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-VIEW-ARRAY-02   | 含「数组」标题与 Playground                    | `src/views/Article/DataStructure/Array.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **12** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **13** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -585,6 +617,7 @@
 | TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置   | `e2e/counting-sort.e2e.ts`   | active     |
 | TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态            | `e2e/stack.e2e.ts`           | active     |
 | TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置 | `e2e/queue.e2e.ts`           | active     |
+| TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置   | `e2e/array.e2e.ts`           | active     |
 
 ---
 
@@ -592,7 +625,7 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 93.84% | 70%  | 达标 |
-| Branch | 93.00% | 60%  | 达标 |
-| Funcs  | 90.53% | 70%  | 达标 |
-| Lines  | 93.82% | 70%  | 达标 |
+| Stmts  | 94.00% | 70%  | 达标 |
+| Branch | 92.37% | 60%  | 达标 |
+| Funcs  | 90.74% | 70%  | 达标 |
+| Lines  | 94.39% | 70%  | 达标 |
