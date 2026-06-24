@@ -9,6 +9,7 @@ import { bubbleSortModule } from '@/algorithms/bubble-sort.module';
 import AuxView from '@/components/AuxView.vue';
 import StackView from '@/components/StackView.vue';
 import TreeView from '@/components/TreeView.vue';
+import CountView from '@/components/CountView.vue';
 import type { AlgorithmModule, Step } from './types';
 
 vi.mock('./useHighlighter', () => ({
@@ -173,5 +174,51 @@ describe('AlgorithmPlayer', () => {
     await flushPromises();
     expect(w.findComponent(AuxView).exists()).toBe(true);
     expect(w.findComponent(TreeView).exists()).toBe(false);
+  });
+
+  // 内联最小 module：单步带 count，用于验证外壳条件渲染计数桶轨（不依赖计数排序模块）
+  const countModule: AlgorithmModule = {
+    title: 'count-test',
+    initialInput: () => [3, 1, 2],
+    buildSteps: (): Step[] => [
+      {
+        array: [
+          ['0', 3],
+          ['1', 1],
+          ['2', 2],
+        ],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'count',
+        count: { min: 1, buckets: [1, 1, 1], activeBucket: 0 },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { count: 1 } }],
+  };
+
+  it('TC-PLAYER-COUNT-01 当前步带 count 时渲染 CountView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: countModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(CountView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-COUNT-02 module 无 count 时不渲染 CountView（前七算法向后兼容）', async () => {
+    const w = mountIt(); // bubbleSortModule，无 count
+    await flushPromises();
+    expect(w.findComponent(CountView).exists()).toBe(false);
+  });
+
+  it('TC-PLAYER-COUNT-03 带 tree 不带 count 时只渲染 TreeView、不渲染 CountView（多轨互不干扰）', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: treeModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(TreeView).exists()).toBe(true);
+    expect(w.findComponent(CountView).exists()).toBe(false);
   });
 });

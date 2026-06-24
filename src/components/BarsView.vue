@@ -45,6 +45,8 @@ function stateOf(
   // 希尔：当前组之外、且无任何其它强调 → 淡出（最低有效档，绝不掩盖活跃柱）
   if (e.groupMembers && e.groupMembers.length > 0 && !e.groupMembers.includes(index))
     return 'dimmed';
+  // 计数排序：回写阶段连续后缀 [dimFrom, n) 淡出（原值已计入桶、作废）
+  if (e.dimFrom !== undefined && index >= e.dimFrom) return 'dimmed';
   return 'idle';
 }
 </script>

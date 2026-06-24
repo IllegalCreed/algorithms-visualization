@@ -57,6 +57,9 @@ export type QuickExecPoint =
 /** 堆排序的执行点（Floyd 大顶堆 + 单一 siftDown：建堆 heapify → siftDown 内 compare/swap/settle → 排序 extract） */
 export type HeapExecPoint = 'heapify' | 'compare' | 'swap' | 'settle' | 'extract' | 'done';
 
+/** 计数排序的执行点（简单计数「萝卜一个坑」：计数 count → 走桶 bucketStart → 回写 writeBack） */
+export type CountingExecPoint = 'count' | 'bucketStart' | 'writeBack' | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -74,6 +77,7 @@ export interface StepEmphasis {
   pivotIndex?: number; // 快排：当前 pivot 下标 → pivot 态（最高优先，压过 sorted/comparing）
   sortedIndices?: number[]; // 快排：离散「已就位」下标集 → sorted（区别于 sortedFrom/sortedUpTo 的连续前后缀）
   heapNode?: number; // 堆排序：当前 siftDown 活动父节点 → heapNode 态（深紫；sorted 之后、swapped 之前）
+  dimFrom?: number; // 计数排序：回写阶段连续后缀 [dimFrom, n) 淡出（原值已计入桶、作废）；区别于希尔的离散集合 groupMembers
 }
 
 /** 辅助数组轨（temp）快照——归并排序专用，与主轨等长、上下对齐 */
@@ -95,6 +99,13 @@ export interface TreeTrack {
   heapSize: number; // [0,heapSize) 在堆中，[heapSize,n) 已就位脱离堆
 }
 
+/** 计数桶轨快照——计数排序专用，按「值」索引（区别于所有按位置索引的轨） */
+export interface CountTrack {
+  min: number; // 桶 0 对应的值；桶 b 对应值 b+min
+  buckets: number[]; // buckets[v-min] = 值 v 当前计数；长度 = max-min+1
+  activeBucket?: number; // 当前高亮桶下标(v-min)：count 步=被 +1 的桶；bucketStart/writeBack 步=正在出货的桶
+}
+
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */
 export interface Step<P extends string = string> {
   array: [string, number][]; // 当前数组快照；[0]=稳定 key（驱动柱子 FLIP），[1]=值
@@ -106,6 +117,7 @@ export interface Step<P extends string = string> {
   aux?: AuxTrack; // 纯加法：归并的辅助轨；其它算法不设 → AuxView 不渲染
   stack?: StackTrack; // 纯加法：快排的区间栈轨；其它算法不设 → StackView 不渲染
   tree?: TreeTrack; // 纯加法：堆排序的二叉树轨；其它算法不设 → TreeView 不渲染
+  count?: CountTrack; // 纯加法：计数排序的计数桶轨；其它算法不设 → CountView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

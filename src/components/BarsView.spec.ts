@@ -166,4 +166,20 @@ describe('BarsView', () => {
     expect(bars[1].props('state')).toBe('heapNode'); // heapNode 压过 comparing
     expect(bars[2].props('state')).toBe('comparing'); // 另一根仍 comparing
   });
+
+  it('TC-VIZ-BARSVIEW-21 dimFrom 连续后缀淡化：index≥dimFrom → dimmed', () => {
+    const w = mountIt({ ...base, emphasis: { dimFrom: 1 } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[0].props('state')).toBe('idle'); // < dimFrom 不受影响
+    expect(bars[1].props('state')).toBe('dimmed'); // ≥ dimFrom 淡出
+    expect(bars[2].props('state')).toBe('dimmed');
+  });
+
+  it('TC-VIZ-BARSVIEW-22 dimFrom 与 sortedUpTo 共存：前缀绿 / 活跃格 idle / 后缀淡', () => {
+    const w = mountIt({ ...base, emphasis: { sortedUpTo: 1, dimFrom: 2 } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[0].props('state')).toBe('sorted'); // [0,1) 已就位
+    expect(bars[1].props('state')).toBe('idle'); // 活跃写入格，不提前转绿、不淡
+    expect(bars[2].props('state')).toBe('dimmed'); // ≥ dimFrom 淡出
+  });
 });

@@ -94,6 +94,11 @@ const routes = [
             name: 'heap-sort',
             component: () => import('../views/Article/SortAlgorithm/HeapSort.vue'),
           },
+          {
+            path: '/docs/counting-sort',
+            name: 'counting-sort',
+            component: () => import('../views/Article/SortAlgorithm/CountingSort.vue'),
+          },
         ],
       },
     ],
