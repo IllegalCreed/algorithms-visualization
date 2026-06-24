@@ -492,8 +492,28 @@
 | TC-VIZ-ARRAYVIZ-08 | access 解说含 O(1)                            | L4   | `src/components/structures/ArrayViz.spec.ts` |
 | TC-VIZ-ARRAYVIZ-09 | reset 复位 4 格、清选中                       | L4   | `src/components/structures/ArrayViz.spec.ts` |
 | TC-VIZ-ARRAYVIZ-10 | 删空显示 empty-hint + 禁三键                  | L4   | `src/components/structures/ArrayViz.spec.ts` |
+| TC-LINK-LOGIC-01   | 初始 [1,2,3]、无选中、can 标志                | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-02   | valueAt 按位置读、越界 null                   | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-03   | select toggle：选中/再点取消/换选             | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-04   | insertAfter 未选返回 null 且不变              | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-05   | insertAfter 在选中后插递增、选中落 i+1、链序  | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-06   | remove 删选中、清空选中                       | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-07   | remove 未选返回 null                          | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-08   | prepend 头插递增、落表头、选中随之 +1         | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-09   | 满 LINK_MAX：canPrepend/canInsert F、null     | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-LINK-LOGIC-10   | reset 复位 [1,2,3]、清选中、下次 prepend=4    | L3   | `src/components/structures/useLink.spec.ts`  |
+| TC-VIZ-LINKVIZ-01  | 初始 3 节点 + head + null + 无选中禁三键      | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-02  | 点节点选中：is-sel + 启用查找/插入/删除       | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-03  | insertAfter 增节点、新值落选中后              | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-04  | remove 减节点                                 | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-05  | prepend 头插落表头                            | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-06  | 每节点带 next 箭头 + 有 head/null             | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-07  | 满 6 禁插入/头插                              | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-08  | find 同步解说含 O(n)                          | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-09  | reset 复位 3 节点、清选中                     | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-VIZ-LINKVIZ-10  | 删空显示 empty-hint + 禁三键                  | L4   | `src/components/structures/LinkViz.spec.ts`  |
 
-## article-ds（数据结构文章页，C-015/016/017）
+## article-ds（数据结构文章页，C-015/016/017/018）
 
 | Case ID          | 标题                                                      | 层级 | 自动化路径                                      |
 | ---------------- | --------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -506,3 +526,6 @@
 | TC-VIEW-ARRAY-01 | 挂载渲染 Article + ArrayViz                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
 | TC-VIEW-ARRAY-02 | 含「数组」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
 | TC-E2E-ARRAY-01  | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置 | L5   | `e2e/array.e2e.ts`                              |
+| TC-VIEW-LINK-01  | 挂载渲染 Article + LinkViz                                | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
+| TC-VIEW-LINK-02  | 含「链表」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
+| TC-E2E-LINK-01   | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置 | L5   | `e2e/link.e2e.ts`                               |

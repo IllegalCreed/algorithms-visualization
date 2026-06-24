@@ -331,6 +331,21 @@
 | TC-ARRAY-LOGIC-09 | 满 ARRAY_MAX：canAppend/canInsert F、返回 null         | `src/components/structures/useArray.spec.ts` |
 | TC-ARRAY-LOGIC-10 | reset 复位 [1,2,3,4]、清选中、下次 append=5            | `src/components/structures/useArray.spec.ts` |
 
+### 链表逻辑 useLink（C-018）
+
+| Case ID          | 标题                                                  | 自动化路径                                  |
+| ---------------- | ----------------------------------------------------- | ------------------------------------------- |
+| TC-LINK-LOGIC-01 | 初始 [1,2,3]、无选中、can 标志                        | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-02 | valueAt 按位置读、越界 null                           | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-03 | select toggle：选中/再点取消/换选                     | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-04 | insertAfter 未选返回 null 且不变                      | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-05 | insertAfter 在选中后插递增、选中落 i+1、链序、id 唯一 | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-06 | remove 删选中、清空选中                               | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-07 | remove 未选返回 null                                  | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-08 | prepend 头插递增、落表头、选中随之 +1                 | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-09 | 满 LINK_MAX：canPrepend/canInsert F、返回 null        | `src/components/structures/useLink.spec.ts` |
+| TC-LINK-LOGIC-10 | reset 复位 [1,2,3]、清选中、下次 prepend=4            | `src/components/structures/useLink.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -596,11 +611,28 @@
 | TC-VIEW-ARRAY-01   | 挂载渲染 Article + ArrayViz                    | `src/views/Article/DataStructure/Array.spec.ts` |
 | TC-VIEW-ARRAY-02   | 含「数组」标题与 Playground                    | `src/views/Article/DataStructure/Array.spec.ts` |
 
+### 链表互动 LinkViz + 链表页（C-018）
+
+| Case ID           | 标题                                     | 自动化路径                                     |
+| ----------------- | ---------------------------------------- | ---------------------------------------------- |
+| TC-VIZ-LINKVIZ-01 | 初始 3 节点 + head + null + 无选中禁三键 | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-02 | 点节点选中：is-sel + 启用查找/插入/删除  | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-03 | insertAfter 增节点、新值落选中后         | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-04 | remove 减节点                            | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-05 | prepend 头插落表头                       | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-06 | 每节点带 next 箭头 + 有 head/null        | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-07 | 满 6 禁插入/头插                         | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-08 | find 同步解说含 O(n)                     | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-09 | reset 复位 3 节点、清选中                | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIZ-LINKVIZ-10 | 删空显示 empty-hint + 禁三键             | `src/components/structures/LinkViz.spec.ts`    |
+| TC-VIEW-LINK-01   | 挂载渲染 Article + LinkViz               | `src/views/Article/DataStructure/Link.spec.ts` |
+| TC-VIEW-LINK-02   | 含「链表」标题与 Playground              | `src/views/Article/DataStructure/Link.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **13** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **14** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -618,14 +650,15 @@
 | TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态            | `e2e/stack.e2e.ts`           | active     |
 | TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置 | `e2e/queue.e2e.ts`           | active     |
 | TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置   | `e2e/array.e2e.ts`           | active     |
+| TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置   | `e2e/link.e2e.ts`            | active     |
 
 ---
 
-## 覆盖率（L3+L4，2026-06-24）
+## 覆盖率（L3+L4，2026-06-25）
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 94.00% | 70%  | 达标 |
-| Branch | 92.37% | 60%  | 达标 |
-| Funcs  | 90.74% | 70%  | 达标 |
-| Lines  | 94.39% | 70%  | 达标 |
+| Stmts  | 93.86% | 70%  | 达标 |
+| Branch | 91.82% | 60%  | 达标 |
+| Funcs  | 90.63% | 70%  | 达标 |
+| Lines  | 94.55% | 70%  | 达标 |
