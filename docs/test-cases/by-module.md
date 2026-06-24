@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015）
+## structures（数据结构互动组件，C-015/016）
 
 | Case ID            | 标题                                          | 层级 | 自动化路径                                   |
 | ------------------ | --------------------------------------------- | ---- | -------------------------------------------- |
@@ -456,11 +456,30 @@
 | TC-VIZ-STACKVIZ-06 | push 到 8 后 push 禁用                        | L4   | `src/components/structures/StackViz.spec.ts` |
 | TC-VIZ-STACKVIZ-07 | 重置清空                                      | L4   | `src/components/structures/StackViz.spec.ts` |
 | TC-VIZ-STACKVIZ-08 | peek 解说栈顶不取走                           | L4   | `src/components/structures/StackViz.spec.ts` |
+| TC-QUEUE-LOGIC-01  | 初始空：front null/canDequeue F/canEnqueue T  | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-02  | enqueue 追加递增序号；front 不变（非空）      | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-03  | dequeue 删队首返回原队首；空 null             | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-04  | peek 返回队首不改 items                       | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-05  | reset 清空且 seq 归零                         | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-06  | canEnqueue 满 QUEUE_MAX false、enqueue null   | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-07  | 每个元素 id 唯一                              | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-08  | canDequeue 随空/非空切换                      | L3   | `src/components/structures/useQueue.spec.ts` |
+| TC-VIZ-QUEUEVIZ-01 | 初始空：队列为空 + dequeue/peek 禁用          | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-VIZ-QUEUEVIZ-02 | enqueue 增元素、值为递增序号                  | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-VIZ-QUEUEVIZ-03 | 队首 is-front 落 index0、队尾 is-rear 落末位  | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-VIZ-QUEUEVIZ-04 | 每 qitem 含队首/队尾 marker 节点              | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-VIZ-QUEUEVIZ-05 | dequeue 移队首并解说（新队首=2）              | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-VIZ-QUEUEVIZ-06 | enqueue 到 6 后 enqueue 禁用                  | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-VIZ-QUEUEVIZ-07 | 重置清空                                      | L4   | `src/components/structures/QueueViz.spec.ts` |
+| TC-VIZ-QUEUEVIZ-08 | peek 解说队首不取走                           | L4   | `src/components/structures/QueueViz.spec.ts` |
 
-## article-ds（数据结构文章页，C-015）
+## article-ds（数据结构文章页，C-015/016）
 
-| Case ID          | 标题                                             | 层级 | 自动化路径                                      |
-| ---------------- | ------------------------------------------------ | ---- | ----------------------------------------------- |
-| TC-VIEW-STACK-01 | 挂载渲染 Article + StackViz                      | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-VIEW-STACK-02 | 含「栈」标题与 Playground                        | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-E2E-STACK-01  | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态 | L5   | `e2e/stack.e2e.ts`                              |
+| Case ID          | 标题                                                  | 层级 | 自动化路径                                      |
+| ---------------- | ----------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-VIEW-STACK-01 | 挂载渲染 Article + StackViz                           | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-VIEW-STACK-02 | 含「栈」标题与 Playground                             | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-E2E-STACK-01  | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态      | L5   | `e2e/stack.e2e.ts`                              |
+| TC-VIEW-QUEUE-01 | 挂载渲染 Article + QueueViz                           | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-VIEW-QUEUE-02 | 含「队列」标题与 Playground                           | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-E2E-QUEUE-01  | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置 | L5   | `e2e/queue.e2e.ts`                              |

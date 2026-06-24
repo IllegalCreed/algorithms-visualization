@@ -23,6 +23,7 @@
 | C-20260623-013 | feature             | 堆排序动画          | 用算法播放器框架接入堆排序（Floyd 大顶堆 + 单一 siftDown；首个非线性「树」可视化——新增第三条轨 TreeView 完全二叉树、与数组轨同步高亮；新增 heapNode 深紫态，已就位连续后缀复用 sortedFrom），M3 第六个                                                                                                                      | verified | 100%   | 无     | 已完成（38 Case 全绿，已落 main）         | viz-engine / article-sort / M3 | IllegalCreed | `20260623-c013-heap-sort/`            | 2026-06-23 | -             |
 | C-20260624-014 | feature             | 计数排序动画        | 用算法播放器框架接入计数排序（简单计数「萝卜一个坑」：计数 + 走桶原地回写；首个**非比较**排序；继堆排树轨后新增**第四条轨** CountView 计数桶——首条**按值索引**；主轨复用 sortedUpTo 连续前缀 + 新增 dimFrom 尾部淡化，**零新增 Bar 态**），M3 排序系列收官                                                                  | verified | 100%   | 无     | 已完成（37 Case 全绿，已落 main）         | viz-engine / article-sort / M3 | IllegalCreed | `20260624-c014-counting-sort/`        | 2026-06-24 | -             |
 | C-20260624-015 | feature             | 知识页骨架 + 栈     | 开 M3 **数据结构动画**（新页种「可探索讲解」：正文穿插读者驱动的互动小组件，区别于排序的回放）。立**通用排版骨架** Article/Callout/Playground + **栈互动组件** StackViz（useStack 纯逻辑 + TransitionGroup 进出场 + 栈顶指针挂顶行 + 坑定宽），填充 Stack.vue 空壳。**不复用播放器、零改动排序**；队列等 7 结构后续复用骨架 | verified | 100%   | 无     | 已完成（24 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260624-c015-stack-knowledge/`      | 2026-06-24 | -             |
+| C-20260624-016 | feature             | 队列动画            | 复用知识页骨架做**队列**（栈的 FIFO 镜像，验证骨架可复用性）。新增 useQueue（enqueue 队尾 / dequeue 队首 / front）+ QueueViz（**横向车道** + **队首/队尾双指针**挂端跟随 + TransitionGroup 入右滑/出左滑/FLIP 左移），填充 Queue.vue 空壳。**骨架零改动**；M3 数据结构第二个                                                | verified | 100%   | 无     | 已完成（19 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260624-c016-queue-knowledge/`      | 2026-06-24 | -             |
 
 ## By Type
 
@@ -60,6 +61,7 @@
 | C-20260623-013 | 堆排序动画        | verified | 100%   | 无     | 已完成 | `20260623-c013-heap-sort/`            |
 | C-20260624-014 | 计数排序动画      | verified | 100%   | 无     | 已完成 | `20260624-c014-counting-sort/`        |
 | C-20260624-015 | 知识页骨架 + 栈   | verified | 100%   | 无     | 已完成 | `20260624-c015-stack-knowledge/`      |
+| C-20260624-016 | 队列动画          | verified | 100%   | 无     | 已完成 | `20260624-c016-queue-knowledge/`      |
 
 ## By Module
 
@@ -97,3 +99,4 @@
 | Change ID      | Type    | 标题            | 状态     | 完成度 | Plan                             |
 | -------------- | ------- | --------------- | -------- | ------ | -------------------------------- |
 | C-20260624-015 | feature | 知识页骨架 + 栈 | verified | 100%   | `20260624-c015-stack-knowledge/` |
+| C-20260624-016 | feature | 队列动画        | verified | 100%   | `20260624-c016-queue-knowledge/` |

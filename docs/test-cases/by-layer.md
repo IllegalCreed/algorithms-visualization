@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **197** 个用例。运行命令：`pnpm test:unit`
+共 **205** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -303,11 +303,24 @@
 | TC-STACK-LOGIC-07 | 每个元素 id 唯一                              | `src/components/structures/useStack.spec.ts` |
 | TC-STACK-LOGIC-08 | canPop 随空/非空切换                          | `src/components/structures/useStack.spec.ts` |
 
+### 队列逻辑 useQueue（C-016）
+
+| Case ID           | 标题                                                  | 自动化路径                                   |
+| ----------------- | ----------------------------------------------------- | -------------------------------------------- |
+| TC-QUEUE-LOGIC-01 | 初始空：items 空/front null/canDequeue F/canEnqueue T | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-02 | enqueue 追加递增序号、返回值；front 不变（非空）      | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-03 | dequeue 删队首返回原队首；空 dequeue 返回 null        | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-04 | peek 返回队首不改 items                               | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-05 | reset 清空且 seq 归零                                 | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-06 | canEnqueue 满 QUEUE_MAX 为 false、enqueue 返回 null   | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-07 | 每个元素 id 唯一                                      | `src/components/structures/useQueue.spec.ts` |
+| TC-QUEUE-LOGIC-08 | canDequeue 随空/非空切换                              | `src/components/structures/useQueue.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **155** 个用例。运行命令：`pnpm test:unit`
+共 **165** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -536,26 +549,42 @@
 | TC-VIEW-STACK-01     | 挂载渲染 Article + StackViz    | `src/views/Article/DataStructure/Stack.spec.ts` |
 | TC-VIEW-STACK-02     | 含「栈」标题与 Playground      | `src/views/Article/DataStructure/Stack.spec.ts` |
 
+### 队列互动 QueueViz + 队列页（C-016）
+
+| Case ID            | 标题                                         | 自动化路径                                      |
+| ------------------ | -------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-QUEUEVIZ-01 | 初始空：队列为空 + dequeue/peek 禁用         | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIZ-QUEUEVIZ-02 | enqueue 增元素、值为递增序号                 | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIZ-QUEUEVIZ-03 | 队首 is-front 落 index0、队尾 is-rear 落末位 | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIZ-QUEUEVIZ-04 | 每 qitem 含队首/队尾 marker 节点             | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIZ-QUEUEVIZ-05 | dequeue 移队首并解说（新队首=2）             | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIZ-QUEUEVIZ-06 | enqueue 到 6 后 enqueue 禁用                 | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIZ-QUEUEVIZ-07 | 重置清空                                     | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIZ-QUEUEVIZ-08 | peek 解说队首不取走                          | `src/components/structures/QueueViz.spec.ts`    |
+| TC-VIEW-QUEUE-01   | 挂载渲染 Article + QueueViz                  | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-VIEW-QUEUE-02   | 含「队列」标题与 Playground                  | `src/views/Article/DataStructure/Queue.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **11** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **12** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
-| Case ID             | 标题                                                       | 自动化路径                   | 状态       |
-| ------------------- | ---------------------------------------------------------- | ---------------------------- | ---------- |
-| TC-E2E-HOME-01      | 首页加载并能进入 docs                                      | `e2e/home-navigation.e2e.ts` | active     |
-| TC-E2E-MENU-01      | docs 菜单点击切换路由                                      | `e2e/docs-menu.e2e.ts`       | active     |
-| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                   | `e2e/bubble-sort.e2e.ts`     | superseded |
-| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                    | `e2e/bubble-sort.e2e.ts`     | active     |
-| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                | `e2e/selection-sort.e2e.ts`  | active     |
-| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                | `e2e/insertion-sort.e2e.ts`  | active     |
-| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置        | `e2e/shell-sort.e2e.ts`      | active     |
-| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置 | `e2e/merge-sort.e2e.ts`      | active     |
-| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置  | `e2e/quick-sort.e2e.ts`      | active     |
-| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置     | `e2e/heap-sort.e2e.ts`       | active     |
-| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置  | `e2e/counting-sort.e2e.ts`   | active     |
-| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态           | `e2e/stack.e2e.ts`           | active     |
+| Case ID             | 标题                                                        | 自动化路径                   | 状态       |
+| ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
+| TC-E2E-HOME-01      | 首页加载并能进入 docs                                       | `e2e/home-navigation.e2e.ts` | active     |
+| TC-E2E-MENU-01      | docs 菜单点击切换路由                                       | `e2e/docs-menu.e2e.ts`       | active     |
+| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                    | `e2e/bubble-sort.e2e.ts`     | superseded |
+| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                     | `e2e/bubble-sort.e2e.ts`     | active     |
+| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                 | `e2e/selection-sort.e2e.ts`  | active     |
+| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                 | `e2e/insertion-sort.e2e.ts`  | active     |
+| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置         | `e2e/shell-sort.e2e.ts`      | active     |
+| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置  | `e2e/merge-sort.e2e.ts`      | active     |
+| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置   | `e2e/quick-sort.e2e.ts`      | active     |
+| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置      | `e2e/heap-sort.e2e.ts`       | active     |
+| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置   | `e2e/counting-sort.e2e.ts`   | active     |
+| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态            | `e2e/stack.e2e.ts`           | active     |
+| TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置 | `e2e/queue.e2e.ts`           | active     |
 
 ---
 
@@ -563,7 +592,7 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 93.44% | 70%  | 达标 |
-| Branch | 93.14% | 60%  | 达标 |
-| Funcs  | 89.82% | 70%  | 达标 |
-| Lines  | 93.41% | 70%  | 达标 |
+| Stmts  | 93.84% | 70%  | 达标 |
+| Branch | 93.00% | 60%  | 达标 |
+| Funcs  | 90.53% | 70%  | 达标 |
+| Lines  | 93.82% | 70%  | 达标 |
