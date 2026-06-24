@@ -24,5 +24,7 @@ withDefaults(defineProps<{ title?: string }>(), { title: '亲手试试' });
   color: @font-highlight-color;
   padding: 2px 12px;
   .neumorphism-flat(2px, 10px);
+  // mixin 的 background-image:<color> 对纯色无效（角标骑在卡片边缘上会透出底色），补一层实心背景
+  background-color: @neumorphis-background;
 }
 </style>
