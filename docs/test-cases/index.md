@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-06-23
+> Last reviewed: 2026-06-24
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -341,3 +341,40 @@
 | TC-VIEW-HEAP-01      | 挂载渲染 AlgorithmPlayer                                       | article-sort / HeapSort      | C-20260623-013 | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      | active     | 2026-06-23 |
 | TC-VIEW-HEAP-02      | 初始渲染二叉树轨 + 主轨 10 柱且默认停第 0 步                   | article-sort / HeapSort      | C-20260623-013 | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      | active     | 2026-06-23 |
 | TC-E2E-HEAP-01       | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置         | article-sort / e2e           | C-20260623-013 | L5   | `e2e/heap-sort.e2e.ts`                                  | active     | 2026-06-23 |
+| TC-COUNT-ALGO-01     | result 升序且与内置 sort 一致                                  | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.spec.ts`                  | active     | 2026-06-24 |
+| TC-COUNT-ALGO-02     | counts/min/max 正确（含空桶=0）                                | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.spec.ts`                  | active     | 2026-06-24 |
+| TC-COUNT-ALGO-03     | sum(counts) = n                                                | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.spec.ts`                  | active     | 2026-06-24 |
+| TC-COUNT-ALGO-04     | 由 counts 按值域展开可重建 result                              | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.spec.ts`                  | active     | 2026-06-24 |
+| TC-COUNT-ALGO-05     | 不修改入参                                                     | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.spec.ts`                  | active     | 2026-06-24 |
+| TC-COUNT-ALGO-06     | 空 / 单元素 counts/result 正确                                 | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.spec.ts`                  | active     | 2026-06-24 |
+| TC-COUNT-ALGO-07     | 重复 / 已序 / 逆序 / 全等值均升序                              | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.spec.ts`                  | active     | 2026-06-24 |
+| TC-COUNT-MOD-01      | 空只产 done(sortedUpTo=0)；单元素末步 done 升序                | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-02      | 末步升序 = oracle result                                       | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-03      | 每步 id 集合恒等于初始（FLIP）                                 | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-04      | 不修改入参                                                     | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-05      | 每步 point 合法、带 count 快照                                 | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-06      | 计数阶段末步桶快照 = oracle counts                             | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-07      | count 步 activeBucket = a[i]-min                               | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-08      | 回写 sortedUpTo 单调不减、done = n                             | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-09      | 每条 writeBack 当前桶余量较上一次递减                          | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-10      | 空桶（值5）有 bucketStart 但其后无 writeBack                   | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-11      | done 步 sortedUpTo=n、所有桶=0、无游标                         | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-12      | count 蓝读游标(id1)；bucketStart/writeBack 绿写游标(id3)       | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-13      | writeBack 步 dimFrom=写入位+1、活跃格不提前转绿                | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-14      | 四门语言齐备                                                   | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-15      | 每门语言每个 point 行号在源码行范围内                          | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-COUNT-MOD-16      | 实际出现的 point 都能映射到行                                  | algorithms / counting-sort   | C-20260624-014 | L3   | `src/algorithms/counting-sort.module.spec.ts`           | active     | 2026-06-24 |
+| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）                 | viz-engine / BarsView        | C-20260624-014 | L4   | `src/components/BarsView.spec.ts`                       | active     | 2026-06-24 |
+| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡            | viz-engine / BarsView        | C-20260624-014 | L4   | `src/components/BarsView.spec.ts`                       | active     | 2026-06-24 |
+| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length                                      | viz-engine / CountView       | C-20260624-014 | L4   | `src/components/CountView.spec.ts`                      | active     | 2026-06-24 |
+| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]                                      | viz-engine / CountView       | C-20260624-014 | L4   | `src/components/CountView.spec.ts`                      | active     | 2026-06-24 |
+| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min                                           | viz-engine / CountView       | C-20260624-014 | L4   | `src/components/CountView.spec.ts`                      | active     | 2026-06-24 |
+| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active，其余不带                            | viz-engine / CountView       | C-20260624-014 | L4   | `src/components/CountView.spec.ts`                      | active     | 2026-06-24 |
+| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值标签与计数 0                              | viz-engine / CountView       | C-20260624-014 | L4   | `src/components/CountView.spec.ts`                      | active     | 2026-06-24 |
+| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]                                      | viz-engine / CountView       | C-20260624-014 | L4   | `src/components/CountView.spec.ts`                      | active     | 2026-06-24 |
+| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView                                | viz-engine / AlgorithmPlayer | C-20260624-014 | L4   | `src/components/player/AlgorithmPlayer.spec.ts`         | active     | 2026-06-24 |
+| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）                 | viz-engine / AlgorithmPlayer | C-20260624-014 | L4   | `src/components/player/AlgorithmPlayer.spec.ts`         | active     | 2026-06-24 |
+| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰）            | viz-engine / AlgorithmPlayer | C-20260624-014 | L4   | `src/components/player/AlgorithmPlayer.spec.ts`         | active     | 2026-06-24 |
+| TC-VIEW-COUNT-01     | 挂载渲染 AlgorithmPlayer                                       | article-sort / CountingSort  | C-20260624-014 | L4   | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`  | active     | 2026-06-24 |
+| TC-VIEW-COUNT-02     | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步                   | article-sort / CountingSort  | C-20260624-014 | L4   | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`  | active     | 2026-06-24 |
+| TC-E2E-COUNT-01      | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序全绿/重置  | article-sort / e2e           | C-20260624-014 | L5   | `e2e/counting-sort.e2e.ts`                              | active     | 2026-06-24 |

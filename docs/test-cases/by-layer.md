@@ -1,7 +1,7 @@
 # 测试用例分层视图
 
 > Status: active
-> Last reviewed: 2026-06-23
+> Last reviewed: 2026-06-24
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **174** 个用例。运行命令：`pnpm test:unit`
+共 **197** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -262,11 +262,39 @@
 | TC-HEAP-MOD-14  | 每门语言每个 point 行号在源码行范围内       | `src/algorithms/heap-sort.module.spec.ts` |
 | TC-HEAP-MOD-15  | 实际出现的 point 都能映射到行               | `src/algorithms/heap-sort.module.spec.ts` |
 
+### counting-sort oracle + module（C-014）
+
+| Case ID          | 标题                                            | 自动化路径                                    |
+| ---------------- | ----------------------------------------------- | --------------------------------------------- |
+| TC-COUNT-ALGO-01 | result 升序且与内置 sort 一致                   | `src/algorithms/counting-sort.spec.ts`        |
+| TC-COUNT-ALGO-02 | counts/min/max 正确（含空桶=0）                 | `src/algorithms/counting-sort.spec.ts`        |
+| TC-COUNT-ALGO-03 | sum(counts) = n                                 | `src/algorithms/counting-sort.spec.ts`        |
+| TC-COUNT-ALGO-04 | 由 counts 按值域展开可重建 result               | `src/algorithms/counting-sort.spec.ts`        |
+| TC-COUNT-ALGO-05 | 不修改入参                                      | `src/algorithms/counting-sort.spec.ts`        |
+| TC-COUNT-ALGO-06 | 空 / 单元素                                     | `src/algorithms/counting-sort.spec.ts`        |
+| TC-COUNT-ALGO-07 | 重复 / 已序 / 逆序 / 全等值均升序               | `src/algorithms/counting-sort.spec.ts`        |
+| TC-COUNT-MOD-01  | 空只产 done(sortedUpTo=0)；单元素末步 done 升序 | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-02  | 末步升序 = oracle result                        | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-03  | 每步 id 集合恒等于初始（FLIP）                  | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-04  | 不修改入参                                      | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-05  | 每步 point 合法、带 count 快照                  | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-06  | 计数阶段末步桶快照 = oracle counts              | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-07  | count 步 activeBucket = a[i]-min                | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-08  | 回写 sortedUpTo 单调不减、done = n              | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-09  | 每条 writeBack 当前桶余量较上一次递减           | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-10  | 空桶（值5）有 bucketStart 但其后无 writeBack    | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-11  | done 步 sortedUpTo=n、所有桶=0、无游标          | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-12  | count 蓝读游标 / bucketStart·writeBack 绿写游标 | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-13  | writeBack 步 dimFrom=写入位+1、活跃格不提前转绿 | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-14  | 四门语言齐备                                    | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-15  | 每门语言每个 point 行号在源码行范围内           | `src/algorithms/counting-sort.module.spec.ts` |
+| TC-COUNT-MOD-16  | 实际出现的 point 都能映射到行                   | `src/algorithms/counting-sort.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **142** 个用例。运行命令：`pnpm test:unit`
+共 **155** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -457,11 +485,29 @@
 | TC-VIEW-HEAP-01    | 挂载渲染 AlgorithmPlayer                         | `src/views/Article/SortAlgorithm/HeapSort.spec.ts` |
 | TC-VIEW-HEAP-02    | 初始渲染二叉树轨 + 主轨 10 柱且默认停第 0 步     | `src/views/Article/SortAlgorithm/HeapSort.spec.ts` |
 
+### 计数桶轨 + 视图（C-014）
+
+| Case ID             | 标题                                                | 自动化路径                                             |
+| ------------------- | --------------------------------------------------- | ------------------------------------------------------ |
+| TC-VIZ-BARSVIEW-21  | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）      | `src/components/BarsView.spec.ts`                      |
+| TC-VIZ-BARSVIEW-22  | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡 | `src/components/BarsView.spec.ts`                      |
+| TC-VIZ-COUNTVIEW-01 | 渲染桶数 = buckets.length                           | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-02 | 每桶单元格数 = buckets[b]                           | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-03 | 桶底值标签 = b + min                                | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-04 | activeBucket 桶带 .active                           | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-05 | 空桶渲染 0 格、仍显值与计数 0                       | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-06 | 桶顶计数数字 = buckets[b]                           | `src/components/CountView.spec.ts`                     |
+| TC-PLAYER-COUNT-01  | 当前步带 count 时渲染 CountView                     | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-PLAYER-COUNT-02  | module 无 count 时不渲染 CountView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-PLAYER-COUNT-03  | 带 tree 不带 count 不渲染 CountView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-VIEW-COUNT-01    | 挂载渲染 AlgorithmPlayer                            | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
+| TC-VIEW-COUNT-02    | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步        | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **9** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **10** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                       | 自动化路径                   | 状态       |
 | ------------------- | ---------------------------------------------------------- | ---------------------------- | ---------- |
@@ -475,10 +521,11 @@
 | TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置 | `e2e/merge-sort.e2e.ts`      | active     |
 | TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置  | `e2e/quick-sort.e2e.ts`      | active     |
 | TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置     | `e2e/heap-sort.e2e.ts`       | active     |
+| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置  | `e2e/counting-sort.e2e.ts`   | active     |
 
 ---
 
-## 覆盖率（L3+L4，2026-06-23）
+## 覆盖率（L3+L4，2026-06-24）
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |

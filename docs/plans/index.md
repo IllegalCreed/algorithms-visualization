@@ -1,7 +1,7 @@
 # Plans Index
 
 > Status: active
-> Last reviewed: 2026-06-23
+> Last reviewed: 2026-06-24
 > Owner: IllegalCreed
 
 ## All Changes
@@ -21,6 +21,7 @@
 | C-20260623-011 | feature             | 归并排序动画        | 用算法播放器框架接入归并排序（自底向上：width 倍增、相邻段合并；首扩外壳为双轨——新增 AuxView 辅助数组轨表达 temp 填充/拷回；主轨复用希尔 groupMembers/dimmed 聚焦当前合并段），M3 第四个、首个非原地/双数组算法                                                   | verified | 100%   | 无     | 已完成（37 Case 全绿，已落 main）         | viz-engine / article-sort / M3 | IllegalCreed | `20260623-c011-merge-sort/`           | 2026-06-23 | -             |
 | C-20260623-012 | feature             | 快速排序动画        | 用算法播放器框架接入快速排序（Lomuto 末位 pivot + 显式区间栈迭代；首个原地分治排序；继归并双轨后新增第二条「区间栈」轨 StackView 表达待处理子问题栈；主轨复用 groupMembers/dimmed 聚焦当前区间 [lo,hi]，新增 pivot 品红态 + sortedIndices 离散已就位），M3 第五个 | verified | 100%   | 无     | 已完成（37 Case 全绿，已落 main）         | viz-engine / article-sort / M3 | IllegalCreed | `20260623-c012-quick-sort/`           | 2026-06-23 | -             |
 | C-20260623-013 | feature             | 堆排序动画          | 用算法播放器框架接入堆排序（Floyd 大顶堆 + 单一 siftDown；首个非线性「树」可视化——新增第三条轨 TreeView 完全二叉树、与数组轨同步高亮；新增 heapNode 深紫态，已就位连续后缀复用 sortedFrom），M3 第六个                                                            | verified | 100%   | 无     | 已完成（38 Case 全绿，已落 main）         | viz-engine / article-sort / M3 | IllegalCreed | `20260623-c013-heap-sort/`            | 2026-06-23 | -             |
+| C-20260624-014 | feature             | 计数排序动画        | 用算法播放器框架接入计数排序（简单计数「萝卜一个坑」：计数 + 走桶原地回写；首个**非比较**排序；继堆排树轨后新增**第四条轨** CountView 计数桶——首条**按值索引**；主轨复用 sortedUpTo 连续前缀 + 新增 dimFrom 尾部淡化，**零新增 Bar 态**），M3 排序系列收官        | verified | 100%   | 无     | 已完成（37 Case 全绿，已落 main）         | viz-engine / article-sort / M3 | IllegalCreed | `20260624-c014-counting-sort/`        | 2026-06-24 | -             |
 
 ## By Type
 
@@ -56,6 +57,7 @@
 | C-20260623-011 | 归并排序动画      | verified | 100%   | 无     | 已完成 | `20260623-c011-merge-sort/`           |
 | C-20260623-012 | 快速排序动画      | verified | 100%   | 无     | 已完成 | `20260623-c012-quick-sort/`           |
 | C-20260623-013 | 堆排序动画        | verified | 100%   | 无     | 已完成 | `20260623-c013-heap-sort/`            |
+| C-20260624-014 | 计数排序动画      | verified | 100%   | 无     | 已完成 | `20260624-c014-counting-sort/`        |
 
 ## By Module
 
@@ -86,3 +88,4 @@
 | C-20260623-011 | feature | 归并排序动画     | verified | 100%   | `20260623-c011-merge-sort/`         |
 | C-20260623-012 | feature | 快速排序动画     | verified | 100%   | `20260623-c012-quick-sort/`         |
 | C-20260623-013 | feature | 堆排序动画       | verified | 100%   | `20260623-c013-heap-sort/`          |
+| C-20260624-014 | feature | 计数排序动画     | verified | 100%   | `20260624-c014-counting-sort/`      |
