@@ -40,6 +40,8 @@ import QueueViz from '@/components/structures/QueueViz.vue';
       <b>BFS 广度优先搜索</b>：用队列按层扩展节点。<br />
       <b>打印机 / 缓冲区</b>：先发的文档先打印，数据先进先出。
     </Callout>
-    <p>栈和队列是最基础的两种受限线性表，再往后是<strong>树</strong>——一种有层次的非线性结构。</p>
+    <p>
+      栈和队列是最基础的两种受限线性表。线性表家族里还有更通用的<strong>数组</strong>和<strong>链表</strong>，再往后才是有层次的非线性结构——<strong>树</strong>。
+    </p>
   </Article>
 </template>
