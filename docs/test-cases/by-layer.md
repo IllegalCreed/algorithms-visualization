@@ -361,6 +361,21 @@
 | TC-TREE-LOGIC-09 | inorder 初始 = 升序                       | `src/components/structures/useTree.spec.ts` |
 | TC-TREE-LOGIC-10 | reset 复位 7 节点、清插入                 | `src/components/structures/useTree.spec.ts` |
 
+### 大顶堆逻辑 useHeap（C-020）
+
+| Case ID            | 标题                                             | 自动化路径                                  |
+| ------------------ | ------------------------------------------------ | ------------------------------------------- |
+| TC-HEAPDS-LOGIC-01 | 初始大顶堆 [90,70,80,40,60,30,50]、peek 90、边界 | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-02 | insert 末尾追加（不 sift）、返回新下标           | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-03 | siftUpStep 单步上浮                              | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-04 | 完整插入后仍是大顶堆、root 为最大                | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-05 | extractRoot 取根（最大）、末位补根               | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-06 | 完整弹出后仍是大顶堆、返回最大、新堆顶           | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-07 | siftDownStep 单步下沉                            | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-08 | 不变量：连续插入/弹出后仍大顶堆、peek=max        | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-09 | 边界：满 15 / 空 / id 唯一                       | `src/components/structures/useHeap.spec.ts` |
+| TC-HEAPDS-LOGIC-10 | reset 复位初始堆                                 | `src/components/structures/useHeap.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -660,11 +675,28 @@
 | TC-VIEW-TREE-01   | 挂载渲染 Article + TreeViz           | `src/views/Article/DataStructure/Tree.spec.ts` |
 | TC-VIEW-TREE-02   | 含「树」标题与 Playground            | `src/views/Article/DataStructure/Tree.spec.ts` |
 
+### 大顶堆互动 HeapViz + 堆页（C-020）
+
+| Case ID           | 标题                                        | 自动化路径                                     |
+| ----------------- | ------------------------------------------- | ---------------------------------------------- |
+| TC-VIZ-HEAPVIZ-01 | 初始 7 格 + 7 节点 + 6 边 + 输入框 + 3 按钮 | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-02 | insert 双视图各 +1                          | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-03 | insert 出现新值 95                          | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-04 | extract 双视图各 -1                         | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-05 | extract 解说弹出 + 最大值 90                | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-06 | 双视图同步：格数 == 节点数                  | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-07 | 边数 = 节点数 - 1                           | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-08 | 非法值提示、不增                            | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-09 | reset 复位 7 格                             | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIZ-HEAPVIZ-10 | insert 解说含「上浮」                       | `src/components/structures/HeapViz.spec.ts`    |
+| TC-VIEW-HEAPDS-01 | 挂载渲染 Article + HeapViz                  | `src/views/Article/DataStructure/Heap.spec.ts` |
+| TC-VIEW-HEAPDS-02 | 含「堆」标题与 Playground                   | `src/views/Article/DataStructure/Heap.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **15** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **16** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -684,6 +716,7 @@
 | TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置   | `e2e/array.e2e.ts`           | active     |
 | TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置   | `e2e/link.e2e.ts`            | active     |
 | TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置         | `e2e/tree.e2e.ts`            | active     |
+| TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置       | `e2e/heap.e2e.ts`            | active     |
 
 ---
 
@@ -691,7 +724,9 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 94.15% | 70%  | 达标 |
-| Branch | 91.65% | 60%  | 达标 |
-| Funcs  | 90.88% | 70%  | 达标 |
-| Lines  | 95.09% | 70%  | 达标 |
+| Stmts  | 92.45% | 70%  | 达标 |
+| Branch | 90.09% | 60%  | 达标 |
+| Funcs  | 91.75% | 70%  | 达标 |
+| Lines  | 93.24% | 70%  | 达标 |
+
+> 注：`HeapViz.vue` 单文件偏低（行 ~68% / 分支 ~56%）——未覆盖为 setTimeout 驱动的上浮/下沉**分步动画循环体**（`useHeap` 堆逻辑本身 L3 100% 覆盖、分步动画由 `TC-E2E-HEAPDS-01` 真机覆盖）；聚合门槛达标。

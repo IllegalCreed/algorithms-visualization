@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019）
+## structures（数据结构互动组件，C-015/016/017/018/019/020）
 
 | Case ID            | 标题                                          | 层级 | 自动化路径                                   |
 | ------------------ | --------------------------------------------- | ---- | -------------------------------------------- |
@@ -532,23 +532,46 @@
 | TC-VIZ-TREEVIZ-08  | reset 复位 7 节点                             | L4   | `src/components/structures/TreeViz.spec.ts`  |
 | TC-VIZ-TREEVIZ-09  | 非法值提示、不增                              | L4   | `src/components/structures/TreeViz.spec.ts`  |
 | TC-VIZ-TREEVIZ-10  | 边数 = 节点数 - 1                             | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-HEAPDS-LOGIC-01 | 初始大顶堆 [90,70,80,40,60,30,50]、peek 90    | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-02 | insert 末尾追加（不 sift）、返回新下标        | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-03 | siftUpStep 单步上浮                           | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-04 | 完整插入后仍是大顶堆、root 为最大             | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-05 | extractRoot 取根（最大）、末位补根            | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-06 | 完整弹出后仍是大顶堆、返回最大、新堆顶        | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-07 | siftDownStep 单步下沉                         | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-08 | 不变量：连续插入/弹出后仍大顶堆、peek=max     | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-09 | 边界：满 15 / 空 / id 唯一                    | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-HEAPDS-LOGIC-10 | reset 复位初始堆                              | L3   | `src/components/structures/useHeap.spec.ts`  |
+| TC-VIZ-HEAPVIZ-01  | 初始 7 格 + 7 节点 + 6 边 + 输入框 + 3 按钮   | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-02  | insert 双视图各 +1                            | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-03  | insert 出现新值 95                            | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-04  | extract 双视图各 -1                           | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-05  | extract 解说弹出 + 最大值 90                  | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-06  | 双视图同步：格数 == 节点数                    | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-07  | 边数 = 节点数 - 1                             | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-08  | 非法值提示、不增                              | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-09  | reset 复位 7 格                               | L4   | `src/components/structures/HeapViz.spec.ts`  |
+| TC-VIZ-HEAPVIZ-10  | insert 解说含「上浮」                         | L4   | `src/components/structures/HeapViz.spec.ts`  |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020）
 
-| Case ID          | 标题                                                      | 层级 | 自动化路径                                      |
-| ---------------- | --------------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-VIEW-STACK-01 | 挂载渲染 Article + StackViz                               | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-VIEW-STACK-02 | 含「栈」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-E2E-STACK-01  | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态          | L5   | `e2e/stack.e2e.ts`                              |
-| TC-VIEW-QUEUE-01 | 挂载渲染 Article + QueueViz                               | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
-| TC-VIEW-QUEUE-02 | 含「队列」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
-| TC-E2E-QUEUE-01  | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置     | L5   | `e2e/queue.e2e.ts`                              |
-| TC-VIEW-ARRAY-01 | 挂载渲染 Article + ArrayViz                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
-| TC-VIEW-ARRAY-02 | 含「数组」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
-| TC-E2E-ARRAY-01  | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置 | L5   | `e2e/array.e2e.ts`                              |
-| TC-VIEW-LINK-01  | 挂载渲染 Article + LinkViz                                | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
-| TC-VIEW-LINK-02  | 含「链表」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
-| TC-E2E-LINK-01   | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置 | L5   | `e2e/link.e2e.ts`                               |
-| TC-VIEW-TREE-01  | 挂载渲染 Article + TreeViz                                | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
-| TC-VIEW-TREE-02  | 含「树」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
-| TC-E2E-TREE-01   | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置       | L5   | `e2e/tree.e2e.ts`                               |
+| Case ID           | 标题                                                      | 层级 | 自动化路径                                      |
+| ----------------- | --------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-VIEW-STACK-01  | 挂载渲染 Article + StackViz                               | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-VIEW-STACK-02  | 含「栈」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-E2E-STACK-01   | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态          | L5   | `e2e/stack.e2e.ts`                              |
+| TC-VIEW-QUEUE-01  | 挂载渲染 Article + QueueViz                               | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-VIEW-QUEUE-02  | 含「队列」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-E2E-QUEUE-01   | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置     | L5   | `e2e/queue.e2e.ts`                              |
+| TC-VIEW-ARRAY-01  | 挂载渲染 Article + ArrayViz                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-VIEW-ARRAY-02  | 含「数组」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-E2E-ARRAY-01   | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置 | L5   | `e2e/array.e2e.ts`                              |
+| TC-VIEW-LINK-01   | 挂载渲染 Article + LinkViz                                | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
+| TC-VIEW-LINK-02   | 含「链表」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
+| TC-E2E-LINK-01    | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置 | L5   | `e2e/link.e2e.ts`                               |
+| TC-VIEW-TREE-01   | 挂载渲染 Article + TreeViz                                | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
+| TC-VIEW-TREE-02   | 含「树」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
+| TC-E2E-TREE-01    | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置       | L5   | `e2e/tree.e2e.ts`                               |
+| TC-VIEW-HEAPDS-01 | 挂载渲染 Article + HeapViz                                | L4   | `src/views/Article/DataStructure/Heap.spec.ts`  |
+| TC-VIEW-HEAPDS-02 | 含「堆」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Heap.spec.ts`  |
+| TC-E2E-HEAPDS-01  | 堆知识页：正文+互动堆/数组+树双视图/插入上浮/重置         | L5   | `e2e/heap.e2e.ts`                               |
