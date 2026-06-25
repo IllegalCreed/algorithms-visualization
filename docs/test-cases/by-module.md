@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017）
+## structures（数据结构互动组件，C-015/016/017/018/019）
 
 | Case ID            | 标题                                          | 层级 | 自动化路径                                   |
 | ------------------ | --------------------------------------------- | ---- | -------------------------------------------- |
@@ -512,8 +512,28 @@
 | TC-VIZ-LINKVIZ-08  | find 同步解说含 O(n)                          | L4   | `src/components/structures/LinkViz.spec.ts`  |
 | TC-VIZ-LINKVIZ-09  | reset 复位 3 节点、清选中                     | L4   | `src/components/structures/LinkViz.spec.ts`  |
 | TC-VIZ-LINKVIZ-10  | 删空显示 empty-hint + 禁三键                  | L4   | `src/components/structures/LinkViz.spec.ts`  |
+| TC-TREE-LOGIC-01   | 初始平衡树 50/30/70/20/40/60/80、pos 正确     | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-02   | has 命中/未命中                               | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-03   | insert 走位落正确 pos + 返回 path             | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-04   | insert 查重返回 dup、不增                     | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-05   | insert 维持 BST：任意插入后 inorder 升序      | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-06   | insert 超 4 层返回 depth                      | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-07   | search 命中返回 found + path                  | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-08   | search 未命中返回 false + 走到空位 path       | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-09   | inorder 初始 = 升序                           | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-TREE-LOGIC-10   | reset 复位 7 节点、清插入                     | L3   | `src/components/structures/useTree.spec.ts`  |
+| TC-VIZ-TREEVIZ-01  | 初始 7 节点 + 6 边 + 输入框 + 4 按钮          | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-02  | insert 增节点、含新值                         | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-03  | insert 查重不增、解说已存在                   | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-04  | search 找到解说                               | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-05  | search 没找到解说                             | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-06  | 中序遍历解说含升序序列                        | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-07  | 超 4 层解说上限                               | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-08  | reset 复位 7 节点                             | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-09  | 非法值提示、不增                              | L4   | `src/components/structures/TreeViz.spec.ts`  |
+| TC-VIZ-TREEVIZ-10  | 边数 = 节点数 - 1                             | L4   | `src/components/structures/TreeViz.spec.ts`  |
 
-## article-ds（数据结构文章页，C-015/016/017/018）
+## article-ds（数据结构文章页，C-015/016/017/018/019）
 
 | Case ID          | 标题                                                      | 层级 | 自动化路径                                      |
 | ---------------- | --------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -529,3 +549,6 @@
 | TC-VIEW-LINK-01  | 挂载渲染 Article + LinkViz                                | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
 | TC-VIEW-LINK-02  | 含「链表」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
 | TC-E2E-LINK-01   | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置 | L5   | `e2e/link.e2e.ts`                               |
+| TC-VIEW-TREE-01  | 挂载渲染 Article + TreeViz                                | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
+| TC-VIEW-TREE-02  | 含「树」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
+| TC-E2E-TREE-01   | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置       | L5   | `e2e/tree.e2e.ts`                               |

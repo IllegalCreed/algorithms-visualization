@@ -346,6 +346,21 @@
 | TC-LINK-LOGIC-09 | 满 LINK_MAX：canPrepend/canInsert F、返回 null        | `src/components/structures/useLink.spec.ts` |
 | TC-LINK-LOGIC-10 | reset 复位 [1,2,3]、清选中、下次 prepend=4            | `src/components/structures/useLink.spec.ts` |
 
+### BST 逻辑 useTree（C-019）
+
+| Case ID          | 标题                                      | 自动化路径                                  |
+| ---------------- | ----------------------------------------- | ------------------------------------------- |
+| TC-TREE-LOGIC-01 | 初始平衡树 50/30/70/20/40/60/80、pos 正确 | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-02 | has 命中/未命中                           | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-03 | insert 走位落正确 pos + 返回 path         | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-04 | insert 查重返回 dup、不增                 | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-05 | insert 维持 BST：任意插入后 inorder 升序  | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-06 | insert 超 4 层返回 depth                  | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-07 | search 命中返回 found + path              | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-08 | search 未命中返回 false + 走到空位 path   | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-09 | inorder 初始 = 升序                       | `src/components/structures/useTree.spec.ts` |
+| TC-TREE-LOGIC-10 | reset 复位 7 节点、清插入                 | `src/components/structures/useTree.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -628,11 +643,28 @@
 | TC-VIEW-LINK-01   | 挂载渲染 Article + LinkViz               | `src/views/Article/DataStructure/Link.spec.ts` |
 | TC-VIEW-LINK-02   | 含「链表」标题与 Playground              | `src/views/Article/DataStructure/Link.spec.ts` |
 
+### BST 互动 TreeViz + 树页（C-019）
+
+| Case ID           | 标题                                 | 自动化路径                                     |
+| ----------------- | ------------------------------------ | ---------------------------------------------- |
+| TC-VIZ-TREEVIZ-01 | 初始 7 节点 + 6 边 + 输入框 + 4 按钮 | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-02 | insert 增节点、含新值                | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-03 | insert 查重不增、解说已存在          | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-04 | search 找到解说                      | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-05 | search 没找到解说                    | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-06 | 中序遍历解说含升序序列               | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-07 | 超 4 层解说上限                      | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-08 | reset 复位 7 节点                    | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-09 | 非法值提示、不增                     | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIZ-TREEVIZ-10 | 边数 = 节点数 - 1                    | `src/components/structures/TreeViz.spec.ts`    |
+| TC-VIEW-TREE-01   | 挂载渲染 Article + TreeViz           | `src/views/Article/DataStructure/Tree.spec.ts` |
+| TC-VIEW-TREE-02   | 含「树」标题与 Playground            | `src/views/Article/DataStructure/Tree.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **14** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **15** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -651,6 +683,7 @@
 | TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置 | `e2e/queue.e2e.ts`           | active     |
 | TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置   | `e2e/array.e2e.ts`           | active     |
 | TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置   | `e2e/link.e2e.ts`            | active     |
+| TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置         | `e2e/tree.e2e.ts`            | active     |
 
 ---
 
@@ -658,7 +691,7 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 93.86% | 70%  | 达标 |
-| Branch | 91.82% | 60%  | 达标 |
-| Funcs  | 90.63% | 70%  | 达标 |
-| Lines  | 94.55% | 70%  | 达标 |
+| Stmts  | 94.15% | 70%  | 达标 |
+| Branch | 91.65% | 60%  | 达标 |
+| Funcs  | 90.88% | 70%  | 达标 |
+| Lines  | 95.09% | 70%  | 达标 |

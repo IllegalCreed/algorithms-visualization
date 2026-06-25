@@ -26,6 +26,7 @@
 | C-20260624-016 | feature             | 队列动画            | 复用知识页骨架做**队列**（栈的 FIFO 镜像，验证骨架可复用性）。新增 useQueue（enqueue 队尾 / dequeue 队首 / front）+ QueueViz（**横向车道** + **队首/队尾双指针**挂端跟随 + TransitionGroup 入右滑/出左滑/FLIP 左移），填充 Queue.vue 空壳。**骨架零改动**；M3 数据结构第二个                                                                             | verified | 100%   | 无     | 已完成（19 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260624-c016-queue-knowledge/`      | 2026-06-24 | -             |
 | C-20260624-017 | feature             | 数组动画            | 复用知识页骨架做**数组**（首个「下标 + 搬移」线性结构）。新增 useArray（valueAt 随机访问 / insert 中部插右移 / remove 中部删左移 / append 尾插 / 选中态）+ ArrayViz（**贴合格 + 固定下标行** + **↑i 槽位指针**挂位置而非值 + TransitionGroup 插右滑/删离场/FLIP 搬移），填充 Array.vue 空壳，微调 Queue.vue 结尾引子。**骨架零改动**；M3 数据结构第三个  | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260624-c017-array-knowledge/`      | 2026-06-24 | -             |
 | C-20260625-018 | feature             | 链表动画            | 复用知识页骨架做**链表**（数组的镜像：访问 O(n)/增删 O(1)）。新增 useLink（valueAt 逐跳 / insertAfter 选中后插 / remove 删选中 / prepend 头插 / 选中态）+ LinkViz（**节点 + next 箭头 + head + null**，首个「节点+连线」原语 + 查找逐跳 O(n) + 改指针高亮 O(1) + TransitionGroup 滑入/离场/FLIP），填充 Link.vue 空壳。**骨架零改动**；M3 数据结构第四个 | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c018-link-knowledge/`       | 2026-06-25 | -             |
+| C-20260625-019 | feature             | 树动画（BST）       | 复用知识页骨架做**树**（**首个非线性结构**，二叉搜索树）。新增 useTree（pos 完全二叉树编号 / insert 走位落子返回 path / search 走位 / inorder=升序 / 限 4 层）+ TreeViz（**二维 SVG 边 + 圆形节点**，复用 TreeView 定位数学 + 走位逐层高亮 O(log n) + 中序点亮=升序 + 输入框选值），填充 Tree.vue 空壳。**骨架/TreeView 零改动**；M3 数据结构第五个      | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c019-tree-knowledge/`       | 2026-06-25 | -             |
 
 ## By Type
 
@@ -66,6 +67,7 @@
 | C-20260624-016 | 队列动画          | verified | 100%   | 无     | 已完成 | `20260624-c016-queue-knowledge/`      |
 | C-20260624-017 | 数组动画          | verified | 100%   | 无     | 已完成 | `20260624-c017-array-knowledge/`      |
 | C-20260625-018 | 链表动画          | verified | 100%   | 无     | 已完成 | `20260625-c018-link-knowledge/`       |
+| C-20260625-019 | 树动画（BST）     | verified | 100%   | 无     | 已完成 | `20260625-c019-tree-knowledge/`       |
 
 ## By Module
 
@@ -106,3 +108,4 @@
 | C-20260624-016 | feature | 队列动画        | verified | 100%   | `20260624-c016-queue-knowledge/` |
 | C-20260624-017 | feature | 数组动画        | verified | 100%   | `20260624-c017-array-knowledge/` |
 | C-20260625-018 | feature | 链表动画        | verified | 100%   | `20260625-c018-link-knowledge/`  |
+| C-20260625-019 | feature | 树动画（BST）   | verified | 100%   | `20260625-c019-tree-knowledge/`  |
