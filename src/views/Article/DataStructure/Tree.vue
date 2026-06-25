@@ -3,6 +3,7 @@ import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import Playground from '@/components/article/Playground.vue';
 import TreeViz from '@/components/structures/TreeViz.vue';
+import BalanceViz from '@/components/structures/BalanceViz.vue';
 </script>
 
 <template>
@@ -30,6 +31,30 @@ import TreeViz from '@/components/structures/TreeViz.vue';
       <code>O(log n)</code
       >。再点「中序遍历」——按<strong>左→根→右</strong>的顺序走一遍，吐出来的正好是<strong>升序</strong>，这是
       BST 最漂亮的性质。
+    </p>
+
+    <h2>为什么会失衡 · 平衡的思想</h2>
+    <p>
+      BST 快，有个前提：树得<strong>长得开</strong>。可万一你<strong>按顺序</strong>插入
+      <code>1 2 3 4 5 6 7</code
+      >——每个都比前一个大、全挂到右边，树就<strong>退化成一条链</strong>，高度变成
+      <code>n</code>，查找退回 <code>O(n)</code>，和链表一样慢，BST 的优势全没了。
+    </p>
+    <p>
+      <strong>平衡树</strong
+      >（AVL、红黑树）就是来治这个的：一发现某一支太深，就<strong>旋转</strong>几下把树重新压扁，始终保持高度
+      <code>~O(log n)</code>。下面同样 7 个值，切换看看「退化的链」和「平衡的树」差多少。
+    </p>
+
+    <Playground>
+      <BalanceViz />
+    </Playground>
+
+    <p>
+      退化成链，查找 <code>7</code> 要老老实实走 <strong>7 步</strong>；平衡的树只要
+      <strong>3 步</strong>。值越多差距越夸张（<code>n</code> vs
+      <code>log n</code>）。所以真实世界的有序 map /
+      set、数据库索引，底层用的都是<strong>自平衡</strong>的树（红黑树、B 树），保证最坏情况也快。
     </p>
 
     <h2>树在哪里用</h2>

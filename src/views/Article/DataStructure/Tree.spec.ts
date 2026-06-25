@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils';
 import Tree from './Tree.vue';
 import Article from '@/components/article/Article.vue';
 import TreeViz from '@/components/structures/TreeViz.vue';
+import BalanceViz from '@/components/structures/BalanceViz.vue';
 
 const mountIt = () => mount(Tree);
 
@@ -16,5 +17,9 @@ describe('Tree 树页', () => {
     const w = mountIt();
     expect(w.find('h1').text()).toContain('树');
     expect(w.find('.playground').exists()).toBe(true);
+  });
+  it('TC-VIEW-TREE-03 树页含 BalanceViz（平衡节）', () => {
+    const w = mountIt();
+    expect(w.findComponent(BalanceViz).exists()).toBe(true);
   });
 });
