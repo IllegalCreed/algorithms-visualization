@@ -376,6 +376,21 @@
 | TC-HEAPDS-LOGIC-09 | 边界：满 15 / 空 / id 唯一                       | `src/components/structures/useHeap.spec.ts` |
 | TC-HEAPDS-LOGIC-10 | reset 复位初始堆                                 | `src/components/structures/useHeap.spec.ts` |
 
+### 哈希逻辑 useHash（C-021）
+
+| Case ID          | 标题                                              | 自动化路径                                  |
+| ---------------- | ------------------------------------------------- | ------------------------------------------- |
+| TC-HASH-LOGIC-01 | 初始：7 桶、桶1=[15,8]、桶2=[23]、桶4=[4]、size 4 | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-02 | hash = key % 7                                    | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-03 | has 命中/未命中                                   | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-04 | insert 空桶直放（无冲突）                         | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-05 | insert 冲突追加链尾                               | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-06 | insert 查重不插                                   | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-07 | search 命中返回 bucket + steps                    | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-08 | search 没找到（走完链）                           | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-09 | 满 HASH_MAX / id 唯一                             | `src/components/structures/useHash.spec.ts` |
+| TC-HASH-LOGIC-10 | reset 复位初始                                    | `src/components/structures/useHash.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -692,11 +707,28 @@
 | TC-VIEW-HEAPDS-01 | 挂载渲染 Article + HeapViz                  | `src/views/Article/DataStructure/Heap.spec.ts` |
 | TC-VIEW-HEAPDS-02 | 含「堆」标题与 Playground                   | `src/views/Article/DataStructure/Heap.spec.ts` |
 
+### 哈希互动 HashViz + 哈希页（C-021）
+
+| Case ID           | 标题                                      | 自动化路径                                     |
+| ----------------- | ----------------------------------------- | ---------------------------------------------- |
+| TC-VIZ-HASHVIZ-01 | 初始 7 桶 + 桶1 含 2 项 + 输入框 + 3 按钮 | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-02 | insert 空桶直放                           | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-03 | insert 冲突追加链尾                       | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-04 | insert 总项数 +1                          | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-05 | insert 查重不增、解说已存在               | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-06 | search 命中解说                           | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-07 | search 没找到解说                         | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-08 | insert 解说含 hash 算式                   | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-09 | 非法值提示、不增                          | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIZ-HASHVIZ-10 | reset 复位 4 项                           | `src/components/structures/HashViz.spec.ts`    |
+| TC-VIEW-HASH-01   | 挂载渲染 Article + HashViz                | `src/views/Article/DataStructure/Hash.spec.ts` |
+| TC-VIEW-HASH-02   | 含「哈希表」标题与 Playground             | `src/views/Article/DataStructure/Hash.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **16** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **17** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -717,6 +749,7 @@
 | TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置   | `e2e/link.e2e.ts`            | active     |
 | TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置         | `e2e/tree.e2e.ts`            | active     |
 | TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置       | `e2e/heap.e2e.ts`            | active     |
+| TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置          | `e2e/hash.e2e.ts`            | active     |
 
 ---
 
@@ -724,9 +757,9 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 92.45% | 70%  | 达标 |
-| Branch | 90.09% | 60%  | 达标 |
-| Funcs  | 91.75% | 70%  | 达标 |
-| Lines  | 93.24% | 70%  | 达标 |
+| Stmts  | 92.33% | 70%  | 达标 |
+| Branch | 89.71% | 60%  | 达标 |
+| Funcs  | 92.30% | 70%  | 达标 |
+| Lines  | 93.20% | 70%  | 达标 |
 
 > 注：`HeapViz.vue` 单文件偏低（行 ~68% / 分支 ~56%）——未覆盖为 setTimeout 驱动的上浮/下沉**分步动画循环体**（`useHeap` 堆逻辑本身 L3 100% 覆盖、分步动画由 `TC-E2E-HEAPDS-01` 真机覆盖）；聚合门槛达标。

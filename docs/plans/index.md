@@ -28,6 +28,7 @@
 | C-20260625-018 | feature             | 链表动画            | 复用知识页骨架做**链表**（数组的镜像：访问 O(n)/增删 O(1)）。新增 useLink（valueAt 逐跳 / insertAfter 选中后插 / remove 删选中 / prepend 头插 / 选中态）+ LinkViz（**节点 + next 箭头 + head + null**，首个「节点+连线」原语 + 查找逐跳 O(n) + 改指针高亮 O(1) + TransitionGroup 滑入/离场/FLIP），填充 Link.vue 空壳。**骨架零改动**；M3 数据结构第四个                    | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c018-link-knowledge/`       | 2026-06-25 | -             |
 | C-20260625-019 | feature             | 树动画（BST）       | 复用知识页骨架做**树**（**首个非线性结构**，二叉搜索树）。新增 useTree（pos 完全二叉树编号 / insert 走位落子返回 path / search 走位 / inorder=升序 / 限 4 层）+ TreeViz（**二维 SVG 边 + 圆形节点**，复用 TreeView 定位数学 + 走位逐层高亮 O(log n) + 中序点亮=升序 + 输入框选值），填充 Tree.vue 空壳。**骨架/TreeView 零改动**；M3 数据结构第五个                         | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c019-tree-knowledge/`       | 2026-06-25 | -             |
 | C-20260625-020 | feature             | 堆动画（大顶堆）    | 复用知识页骨架做**堆**（承接树，**数组+树双视图**讲「用数组装树」）。新增 useHeap（pos=数组下标 / 步进式 siftUpStep·siftDownStep / insert 末尾追加 / extractRoot 取根移末 / 限 15）+ HeapViz（**数组轨 + 树轨同 id 联动** + 上浮/下沉真实分步动画 O(log n) + 输入框选值），填充 Heap.vue 空壳。**骨架/TreeView/堆排序零改动**；Case 命名空间 HEAPDS 避让；M3 数据结构第六个 | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c020-heap-knowledge/`       | 2026-06-25 | -             |
+| C-20260625-021 | feature             | 哈希表动画          | 复用知识页骨架做**哈希表**（**靠算找元素**：散列 key%7 → 桶下标直达 O(1)）。新增 useHash（buckets 二维 / hash / insert 空放·冲突追加链尾 / search 扫链 / has / 限 16）+ HashViz（**7 桶阵列 + 每桶拉链** + 散列命中桶高亮 + 冲突追加 + 扫链动画 + 输入框选值），填充 Hash.vue 空壳。**骨架零改动**；M3 数据结构第七个                                                       | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）         | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c021-hash-knowledge/`       | 2026-06-25 | -             |
 
 ## By Type
 
@@ -70,6 +71,7 @@
 | C-20260625-018 | 链表动画          | verified | 100%   | 无     | 已完成 | `20260625-c018-link-knowledge/`       |
 | C-20260625-019 | 树动画（BST）     | verified | 100%   | 无     | 已完成 | `20260625-c019-tree-knowledge/`       |
 | C-20260625-020 | 堆动画（大顶堆）  | verified | 100%   | 无     | 已完成 | `20260625-c020-heap-knowledge/`       |
+| C-20260625-021 | 哈希表动画        | verified | 100%   | 无     | 已完成 | `20260625-c021-hash-knowledge/`       |
 
 ## By Module
 
@@ -112,3 +114,4 @@
 | C-20260625-018 | feature | 链表动画         | verified | 100%   | `20260625-c018-link-knowledge/`  |
 | C-20260625-019 | feature | 树动画（BST）    | verified | 100%   | `20260625-c019-tree-knowledge/`  |
 | C-20260625-020 | feature | 堆动画（大顶堆） | verified | 100%   | `20260625-c020-heap-knowledge/`  |
+| C-20260625-021 | feature | 哈希表动画       | verified | 100%   | `20260625-c021-hash-knowledge/`  |
