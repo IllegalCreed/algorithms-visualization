@@ -391,6 +391,21 @@
 | TC-HASH-LOGIC-09 | 满 HASH_MAX / id 唯一                             | `src/components/structures/useHash.spec.ts` |
 | TC-HASH-LOGIC-10 | reset 复位初始                                    | `src/components/structures/useHash.spec.ts` |
 
+### 图逻辑 useGraph（C-022）
+
+| Case ID           | 标题                           | 自动化路径                                   |
+| ----------------- | ------------------------------ | -------------------------------------------- |
+| TC-GRAPH-LOGIC-01 | 图结构：6 顶点、7 边、adj      | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-02 | labelOf + 顶点坐标             | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-03 | bfs(0) 顺序 A B C D E F        | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-04 | dfs(0) 顺序 A B D E F C        | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-05 | bfs 与 dfs 顺序不同            | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-06 | bfs 访问全部 6、不重不漏       | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-07 | dfs 访问全部 6、不重不漏       | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-08 | bfs 首步 frontier = 队列 [1,2] | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-09 | dfs 首步 frontier = 栈 [2,1]   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-10 | 换起点 bfs(3) 也访问全部       | `src/components/structures/useGraph.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -724,11 +739,28 @@
 | TC-VIEW-HASH-01   | 挂载渲染 Article + HashViz                | `src/views/Article/DataStructure/Hash.spec.ts` |
 | TC-VIEW-HASH-02   | 含「哈希表」标题与 Playground             | `src/views/Article/DataStructure/Hash.spec.ts` |
 
+### 图互动 GraphViz + 图页（C-022）
+
+| Case ID            | 标题                                       | 自动化路径                                      |
+| ------------------ | ------------------------------------------ | ----------------------------------------------- |
+| TC-VIZ-GRAPHVIZ-01 | 初始 6 顶点 + 7 边 + 3 按钮 + 默认起点高亮 | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-02 | 顶点标签 A–F                               | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-03 | 点顶点换起点（唯一 is-start）              | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-04 | BFS status 含「队列」+ A B C D E F         | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-05 | DFS status 含「栈」+ A B D E F C           | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-06 | BFS helper-label 含「队列」                | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-07 | DFS helper-label 含「栈」                  | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-08 | 重置复位（无 current、status 含起点）      | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-09 | 换起点后 BFS 从该点出发                    | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIZ-GRAPHVIZ-10 | BFS 与 DFS 顺序不同                        | `src/components/structures/GraphViz.spec.ts`    |
+| TC-VIEW-GRAPH-01   | 挂载渲染 Article + GraphViz                | `src/views/Article/DataStructure/Graph.spec.ts` |
+| TC-VIEW-GRAPH-02   | 含「图」标题与 Playground                  | `src/views/Article/DataStructure/Graph.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **17** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **18** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -750,6 +782,7 @@
 | TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置         | `e2e/tree.e2e.ts`            | active     |
 | TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置       | `e2e/heap.e2e.ts`            | active     |
 | TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置          | `e2e/hash.e2e.ts`            | active     |
+| TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                     | `e2e/graph.e2e.ts`           | active     |
 
 ---
 
@@ -757,9 +790,9 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 92.33% | 70%  | 达标 |
-| Branch | 89.71% | 60%  | 达标 |
-| Funcs  | 92.30% | 70%  | 达标 |
-| Lines  | 93.20% | 70%  | 达标 |
+| Stmts  | 92.60% | 70%  | 达标 |
+| Branch | 89.83% | 60%  | 达标 |
+| Funcs  | 92.72% | 70%  | 达标 |
+| Lines  | 93.54% | 70%  | 达标 |
 
 > 注：`HeapViz.vue` 单文件偏低（行 ~68% / 分支 ~56%）——未覆盖为 setTimeout 驱动的上浮/下沉**分步动画循环体**（`useHeap` 堆逻辑本身 L3 100% 覆盖、分步动画由 `TC-E2E-HEAPDS-01` 真机覆盖）；聚合门槛达标。

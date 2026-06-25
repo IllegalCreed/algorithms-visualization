@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022）
 
 | Case ID            | 标题                                            | 层级 | 自动化路径                                   |
 | ------------------ | ----------------------------------------------- | ---- | -------------------------------------------- |
@@ -572,8 +572,28 @@
 | TC-VIZ-HASHVIZ-08  | insert 解说含 hash 算式                         | L4   | `src/components/structures/HashViz.spec.ts`  |
 | TC-VIZ-HASHVIZ-09  | 非法值提示、不增                                | L4   | `src/components/structures/HashViz.spec.ts`  |
 | TC-VIZ-HASHVIZ-10  | reset 复位 4 项                                 | L4   | `src/components/structures/HashViz.spec.ts`  |
+| TC-GRAPH-LOGIC-01  | 图结构：6 顶点、7 边、adj                       | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-02  | labelOf + 顶点坐标                              | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-03  | bfs(0) 顺序 A B C D E F                         | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-04  | dfs(0) 顺序 A B D E F C                         | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-05  | bfs 与 dfs 顺序不同                             | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-06  | bfs 访问全部 6、不重不漏                        | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-07  | dfs 访问全部 6、不重不漏                        | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-08  | bfs 首步 frontier = 队列 [1,2]                  | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-09  | dfs 首步 frontier = 栈 [2,1]                    | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-GRAPH-LOGIC-10  | 换起点 bfs(3) 也访问全部                        | L3   | `src/components/structures/useGraph.spec.ts` |
+| TC-VIZ-GRAPHVIZ-01 | 初始 6 顶点 + 7 边 + 3 按钮 + 默认起点高亮      | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-02 | 顶点标签 A–F                                    | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-03 | 点顶点换起点（唯一 is-start）                   | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-04 | BFS status 含「队列」+ 顺序                     | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-05 | DFS status 含「栈」+ 顺序                       | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-06 | BFS helper-label 含「队列」                     | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-07 | DFS helper-label 含「栈」                       | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-08 | 重置复位（无 current、status 含起点）           | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-09 | 换起点后 BFS 从该点出发                         | L4   | `src/components/structures/GraphViz.spec.ts` |
+| TC-VIZ-GRAPHVIZ-10 | BFS 与 DFS 顺序不同                             | L4   | `src/components/structures/GraphViz.spec.ts` |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022）
 
 | Case ID           | 标题                                                      | 层级 | 自动化路径                                      |
 | ----------------- | --------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -598,3 +618,6 @@
 | TC-VIEW-HASH-01   | 挂载渲染 Article + HashViz                                | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
 | TC-VIEW-HASH-02   | 含「哈希表」标题与 Playground                             | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
 | TC-E2E-HASH-01    | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置        | L5   | `e2e/hash.e2e.ts`                               |
+| TC-VIEW-GRAPH-01  | 挂载渲染 Article + GraphViz                               | L4   | `src/views/Article/DataStructure/Graph.spec.ts` |
+| TC-VIEW-GRAPH-02  | 含「图」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Graph.spec.ts` |
+| TC-E2E-GRAPH-01   | 图知识页：正文+互动图/BFS 队列遍历/重置                   | L5   | `e2e/graph.e2e.ts`                              |
