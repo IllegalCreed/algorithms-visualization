@@ -406,6 +406,19 @@
 | TC-GRAPH-LOGIC-09 | dfs 首步 frontier = 栈 [2,1]   | `src/components/structures/useGraph.spec.ts` |
 | TC-GRAPH-LOGIC-10 | 换起点 bfs(3) 也访问全部       | `src/components/structures/useGraph.spec.ts` |
 
+### 平衡逻辑 useBalance（C-023 · M4 深度 D1）
+
+| Case ID         | 标题                                         | 自动化路径                                     |
+| --------------- | -------------------------------------------- | ---------------------------------------------- |
+| TC-BAL-LOGIC-01 | chain 结构：7 节点 1-7、6 边、高度 7、最坏 7 | `src/components/structures/useBalance.spec.ts` |
+| TC-BAL-LOGIC-02 | balanced 结构：4/2/6/1/3/5/7、6 边、高度 3   | `src/components/structures/useBalance.spec.ts` |
+| TC-BAL-LOGIC-03 | 节点带坐标 + id 唯一                         | `src/components/structures/useBalance.spec.ts` |
+| TC-BAL-LOGIC-04 | search(7, chain) 走 7 步                     | `src/components/structures/useBalance.spec.ts` |
+| TC-BAL-LOGIC-05 | search(7, balanced) 走 3 步                  | `src/components/structures/useBalance.spec.ts` |
+| TC-BAL-LOGIC-06 | chain search 步数 = 值                       | `src/components/structures/useBalance.spec.ts` |
+| TC-BAL-LOGIC-07 | balanced：根 1 步、叶 3 步                   | `src/components/structures/useBalance.spec.ts` |
+| TC-BAL-LOGIC-08 | 同值两 mode 步数不同                         | `src/components/structures/useBalance.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
@@ -756,11 +769,25 @@
 | TC-VIEW-GRAPH-01   | 挂载渲染 Article + GraphViz                | `src/views/Article/DataStructure/Graph.spec.ts` |
 | TC-VIEW-GRAPH-02   | 含「图」标题与 Playground                  | `src/views/Article/DataStructure/Graph.spec.ts` |
 
+### 平衡互动 BalanceViz + 树页平衡节（C-023 · M4 深度 D1）
+
+| Case ID          | 标题                                                   | 自动化路径                                     |
+| ---------------- | ------------------------------------------------------ | ---------------------------------------------- |
+| TC-VIZ-BALVIZ-01 | 初始退化：7 节点+6 边+3 按钮+退化 on+readout 7 层/7 次 | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIZ-BALVIZ-02 | 切平衡：readout 3 层/3 次、节点 7、平衡 on             | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIZ-BALVIZ-03 | 退化节点值 1–7                                         | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIZ-BALVIZ-04 | 查找 7（退化）status 含「7 步」                        | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIZ-BALVIZ-05 | 查找 7（平衡）status 含「3 步」                        | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIZ-BALVIZ-06 | 切回退化：readout 回 7 层                              | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIZ-BALVIZ-07 | 退化 vs 平衡 readout 不同                              | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIZ-BALVIZ-08 | 边数两 mode 均 6                                       | `src/components/structures/BalanceViz.spec.ts` |
+| TC-VIEW-TREE-03  | 树页含 BalanceViz（平衡节）                            | `src/views/Article/DataStructure/Tree.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **18** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **19** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -783,6 +810,7 @@
 | TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置       | `e2e/heap.e2e.ts`            | active     |
 | TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置          | `e2e/hash.e2e.ts`            | active     |
 | TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                     | `e2e/graph.e2e.ts`           | active     |
+| TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                       | `e2e/tree.e2e.ts`            | active     |
 
 ---
 
@@ -790,9 +818,9 @@
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 92.60% | 70%  | 达标 |
-| Branch | 89.83% | 60%  | 达标 |
-| Funcs  | 92.72% | 70%  | 达标 |
-| Lines  | 93.54% | 70%  | 达标 |
+| Stmts  | 92.47% | 70%  | 达标 |
+| Branch | 89.86% | 60%  | 达标 |
+| Funcs  | 92.80% | 70%  | 达标 |
+| Lines  | 93.53% | 70%  | 达标 |
 
 > 注：`HeapViz.vue` 单文件偏低（行 ~68% / 分支 ~56%）——未覆盖为 setTimeout 驱动的上浮/下沉**分步动画循环体**（`useHeap` 堆逻辑本身 L3 100% 覆盖、分步动画由 `TC-E2E-HEAPDS-01` 真机覆盖）；聚合门槛达标。
