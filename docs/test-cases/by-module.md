@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025）
 
 | Case ID            | 标题                                            | 层级 | 自动化路径                                       |
 | ------------------ | ----------------------------------------------- | ---- | ------------------------------------------------ |
@@ -626,36 +626,56 @@
 | TC-VIZ-PROBEVIZ-06 | 查找 99（未命中）status 含「不在表中」          | L4   | `src/components/structures/HashProbeViz.spec.ts` |
 | TC-VIZ-PROBEVIZ-07 | 填满后插入 status 含「扩容」、readout 7/7       | L4   | `src/components/structures/HashProbeViz.spec.ts` |
 | TC-VIZ-PROBEVIZ-08 | 重置 filled 回 4、readout 4/7                   | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-DLINK-LOGIC-01  | 初始 items 值 [10,20,30,40]、长度 4             | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-02  | forward = [10,20,30,40]（沿 next）              | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-03  | backward = [40,30,20,10]（沿 prev）             | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-04  | select toggle + hasSelection                    | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-05  | removeAt 中部（选1）：→[10,30,40]、rewire{0,2}  | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-06  | removeAt 头：→[20,30,40]、rewire.left=head      | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-07  | removeAt 尾：→[10,20,30]、rewire.right=tail     | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-08  | removeAt 无选中 → null、items 不变              | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-09  | 删除后 backward 更新（删1后 [40,30,10]）        | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-10  | reset 复原 [10,20,30,40]、清选中                | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-VIZ-DLINKVIZ-01 | 初始 4 dnode + 双箭头(→/←) + 3 按钮 + head/tail | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-02 | dnode 值 10/20/30/40                            | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-03 | 点 dnode[1] 选中 is-sel                         | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-04 | 反向遍历：status 含「反向」且「40 → 30」        | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-05 | 删除选中（选1）：dnode→3、status 含 O(1)/prev   | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-06 | 删头删除：首 dnode 变 20、dnode→3               | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-07 | 未选中时删除按钮禁用、dnode 仍 4                | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-08 | 重置回 4 dnode                                  | L4   | `src/components/structures/DlinkViz.spec.ts`     |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025）
 
-| Case ID           | 标题                                                        | 层级 | 自动化路径                                      |
-| ----------------- | ----------------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-VIEW-STACK-01  | 挂载渲染 Article + StackViz                                 | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-VIEW-STACK-02  | 含「栈」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
-| TC-E2E-STACK-01   | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态            | L5   | `e2e/stack.e2e.ts`                              |
-| TC-VIEW-QUEUE-01  | 挂载渲染 Article + QueueViz                                 | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
-| TC-VIEW-QUEUE-02  | 含「队列」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
-| TC-E2E-QUEUE-01   | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置       | L5   | `e2e/queue.e2e.ts`                              |
-| TC-VIEW-ARRAY-01  | 挂载渲染 Article + ArrayViz                                 | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
-| TC-VIEW-ARRAY-02  | 含「数组」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
-| TC-E2E-ARRAY-01   | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置   | L5   | `e2e/array.e2e.ts`                              |
-| TC-VIEW-LINK-01   | 挂载渲染 Article + LinkViz                                  | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
-| TC-VIEW-LINK-02   | 含「链表」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
-| TC-E2E-LINK-01    | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置   | L5   | `e2e/link.e2e.ts`                               |
-| TC-VIEW-TREE-01   | 挂载渲染 Article + TreeViz                                  | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
-| TC-VIEW-TREE-02   | 含「树」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
-| TC-E2E-TREE-01    | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置         | L5   | `e2e/tree.e2e.ts`                               |
-| TC-VIEW-HEAPDS-01 | 挂载渲染 Article + HeapViz                                  | L4   | `src/views/Article/DataStructure/Heap.spec.ts`  |
-| TC-VIEW-HEAPDS-02 | 含「堆」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Heap.spec.ts`  |
-| TC-E2E-HEAPDS-01  | 堆知识页：正文+互动堆/数组+树双视图/插入上浮/重置           | L5   | `e2e/heap.e2e.ts`                               |
-| TC-VIEW-HASH-01   | 挂载渲染 Article + HashViz                                  | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
-| TC-VIEW-HASH-02   | 含「哈希表」标题与 Playground                               | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
-| TC-E2E-HASH-01    | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置          | L5   | `e2e/hash.e2e.ts`                               |
-| TC-VIEW-GRAPH-01  | 挂载渲染 Article + GraphViz                                 | L4   | `src/views/Article/DataStructure/Graph.spec.ts` |
-| TC-VIEW-GRAPH-02  | 含「图」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Graph.spec.ts` |
-| TC-E2E-GRAPH-01   | 图知识页：正文+互动图/BFS 队列遍历/重置                     | L5   | `e2e/graph.e2e.ts`                              |
-| TC-VIEW-TREE-03   | 树页含 BalanceViz（平衡节，C-023）                          | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
-| TC-E2E-TREE-02    | 树页·平衡节：退化↔平衡对照 + 查找走位（C-023）              | L5   | `e2e/tree.e2e.ts`                               |
-| TC-VIEW-HASH-03   | 哈希页含 HashProbeViz（开放寻址节，C-024）                  | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
-| TC-E2E-HASH-02    | 哈希页·开放寻址节：扁平表/线性探测插入/未命中/重置（C-024） | L5   | `e2e/hash.e2e.ts`                               |
+| Case ID           | 标题                                                          | 层级 | 自动化路径                                      |
+| ----------------- | ------------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-VIEW-STACK-01  | 挂载渲染 Article + StackViz                                   | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-VIEW-STACK-02  | 含「栈」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Stack.spec.ts` |
+| TC-E2E-STACK-01   | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态              | L5   | `e2e/stack.e2e.ts`                              |
+| TC-VIEW-QUEUE-01  | 挂载渲染 Article + QueueViz                                   | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-VIEW-QUEUE-02  | 含「队列」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-E2E-QUEUE-01   | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置         | L5   | `e2e/queue.e2e.ts`                              |
+| TC-VIEW-ARRAY-01  | 挂载渲染 Article + ArrayViz                                   | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-VIEW-ARRAY-02  | 含「数组」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-E2E-ARRAY-01   | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置     | L5   | `e2e/array.e2e.ts`                              |
+| TC-VIEW-LINK-01   | 挂载渲染 Article + LinkViz                                    | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
+| TC-VIEW-LINK-02   | 含「链表」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
+| TC-E2E-LINK-01    | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置     | L5   | `e2e/link.e2e.ts`                               |
+| TC-VIEW-TREE-01   | 挂载渲染 Article + TreeViz                                    | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
+| TC-VIEW-TREE-02   | 含「树」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
+| TC-E2E-TREE-01    | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置           | L5   | `e2e/tree.e2e.ts`                               |
+| TC-VIEW-HEAPDS-01 | 挂载渲染 Article + HeapViz                                    | L4   | `src/views/Article/DataStructure/Heap.spec.ts`  |
+| TC-VIEW-HEAPDS-02 | 含「堆」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Heap.spec.ts`  |
+| TC-E2E-HEAPDS-01  | 堆知识页：正文+互动堆/数组+树双视图/插入上浮/重置             | L5   | `e2e/heap.e2e.ts`                               |
+| TC-VIEW-HASH-01   | 挂载渲染 Article + HashViz                                    | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
+| TC-VIEW-HASH-02   | 含「哈希表」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
+| TC-E2E-HASH-01    | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置            | L5   | `e2e/hash.e2e.ts`                               |
+| TC-VIEW-GRAPH-01  | 挂载渲染 Article + GraphViz                                   | L4   | `src/views/Article/DataStructure/Graph.spec.ts` |
+| TC-VIEW-GRAPH-02  | 含「图」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Graph.spec.ts` |
+| TC-E2E-GRAPH-01   | 图知识页：正文+互动图/BFS 队列遍历/重置                       | L5   | `e2e/graph.e2e.ts`                              |
+| TC-VIEW-TREE-03   | 树页含 BalanceViz（平衡节，C-023）                            | L4   | `src/views/Article/DataStructure/Tree.spec.ts`  |
+| TC-E2E-TREE-02    | 树页·平衡节：退化↔平衡对照 + 查找走位（C-023）                | L5   | `e2e/tree.e2e.ts`                               |
+| TC-VIEW-HASH-03   | 哈希页含 HashProbeViz（开放寻址节，C-024）                    | L4   | `src/views/Article/DataStructure/Hash.spec.ts`  |
+| TC-E2E-HASH-02    | 哈希页·开放寻址节：扁平表/线性探测插入/未命中/重置（C-024）   | L5   | `e2e/hash.e2e.ts`                               |
+| TC-VIEW-LINK-03   | 链表页含 DlinkViz（双向链表节，C-025）                        | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
+| TC-E2E-LINK-02    | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置（C-025） | L5   | `e2e/link.e2e.ts`                               |

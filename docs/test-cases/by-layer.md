@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **215** 个用例。运行命令：`pnpm test:unit`
+共 **225** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -434,11 +434,26 @@
 | TC-PROBE-LOGIC-09 | 填满后 isFull、load=1，insert→full 不死循环   | `src/components/structures/useProbe.spec.ts` |
 | TC-PROBE-LOGIC-10 | reset 复原；has(8)=true、has(99)=false        | `src/components/structures/useProbe.spec.ts` |
 
+### 双向链表逻辑 useDlink（C-025 · M4 深度 D3）
+
+| Case ID           | 标题                                           | 自动化路径                                   |
+| ----------------- | ---------------------------------------------- | -------------------------------------------- |
+| TC-DLINK-LOGIC-01 | 初始 items 值 [10,20,30,40]、长度 4            | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-02 | forward = [10,20,30,40]（沿 next）             | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-03 | backward = [40,30,20,10]（沿 prev）            | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-04 | select toggle + hasSelection                   | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-05 | removeAt 中部（选1）：→[10,30,40]、rewire{0,2} | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-06 | removeAt 头：→[20,30,40]、rewire.left=head     | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-07 | removeAt 尾：→[10,20,30]、rewire.right=tail    | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-08 | removeAt 无选中 → null、items 不变             | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-09 | 删除后 backward 更新（删1后 [40,30,10]）       | `src/components/structures/useDlink.spec.ts` |
+| TC-DLINK-LOGIC-10 | reset 复原 [10,20,30,40]、清选中               | `src/components/structures/useDlink.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **174** 个用例。运行命令：`pnpm test:unit`
+共 **183** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -812,11 +827,25 @@
 | TC-VIZ-PROBEVIZ-08 | 重置 filled 回 4、readout 4/7               | `src/components/structures/HashProbeViz.spec.ts` |
 | TC-VIEW-HASH-03    | 哈希页含 HashProbeViz（开放寻址节）         | `src/views/Article/DataStructure/Hash.spec.ts`   |
 
+### 双向链表互动 DlinkViz + 链表页双向节（C-025 · M4 深度 D3）
+
+| Case ID            | 标题                                              | 自动化路径                                     |
+| ------------------ | ------------------------------------------------- | ---------------------------------------------- |
+| TC-VIZ-DLINKVIZ-01 | 初始 4 dnode + 双箭头(→/←) + 3 按钮 + head + tail | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIZ-DLINKVIZ-02 | dnode 值 10/20/30/40                              | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIZ-DLINKVIZ-03 | 点 dnode[1] 选中 is-sel                           | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIZ-DLINKVIZ-04 | 反向遍历：status 含「反向」且「40 → 30」          | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIZ-DLINKVIZ-05 | 删除选中（选1）：dnode→3、status 含 O(1)/prev     | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIZ-DLINKVIZ-06 | 删头删除：首 dnode 变 20、dnode→3                 | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIZ-DLINKVIZ-07 | 未选中时删除按钮禁用、dnode 仍 4                  | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIZ-DLINKVIZ-08 | 重置回 4 dnode                                    | `src/components/structures/DlinkViz.spec.ts`   |
+| TC-VIEW-LINK-03    | 链表页含 DlinkViz（双向链表节）                   | `src/views/Article/DataStructure/Link.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **20** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **21** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -841,6 +870,7 @@
 | TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                     | `e2e/graph.e2e.ts`           | active     |
 | TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                       | `e2e/tree.e2e.ts`            | active     |
 | TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置     | `e2e/hash.e2e.ts`            | active     |
+| TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置        | `e2e/link.e2e.ts`            | active     |
 
 ---
 

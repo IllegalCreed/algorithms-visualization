@@ -32,6 +32,7 @@
 | C-20260625-022 | feature             | 图动画（收官）      | 复用知识页骨架做**图**（**M3 数据结构收官**，最一般结构：顶点+边任意连接）。新增 useGraph（固定无向图 6 顶点 7 边 + 纯 bfs/dfs 返回步序）+ GraphViz（**SVG 二维图** + 点顶点换起点 + **BFS 队列/DFS 栈遍历点亮** + 辅助面板，收官回扣栈/队列），填充 Graph.vue 空壳。**骨架零改动**；数据结构 8/8                                                                           | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）；**M3 收官**      | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c022-graph-knowledge/`      | 2026-06-25 | -             |
 | C-20260625-023 | feature             | 树·平衡深化         | **M4 深度 D1**：树页**加一节**「为什么会失衡 · 平衡的思想」（还 C-019 callout 欠的债）。新增 useBalance（退化链/平衡树两套固定布局 + 纯 search 返回步数）+ BalanceViz（**退化↔平衡对照** + 高度/最坏查找读数 + 查找 7 走位 7 步 vs 3 步），树页中序段后加节。**不动菜单/路由/TreeViz**；M4 深度首项                                                                         | verified | 100%   | 无     | 已完成（18 Case 全绿，已落 main）；**M4 深度 D1 ✓** | viz-engine / article-ds / M4   | IllegalCreed | `20260625-c023-tree-balance/`         | 2026-06-25 | -             |
 | C-20260626-024 | feature             | 哈希·开放寻址       | **M4 深度 D2**：哈希页**加一节**「另一种解冲突：开放寻址」（补 C-021 当年所砍）。新增 useProbe（7 格扁平表 + 线性探测 insert/search 返回探测路径 + 装载因子）+ HashProbeViz（**扁平表对照拉链** + 同键 [15,8,23,4] 成簇 + 探测走位 + 装载因子读数），哈希页拉链段后加节。**不动菜单/路由/HashViz**；M4 深度第二项                                                           | verified | 100%   | 无     | 已完成（20 Case 全绿，已落 main）；**M4 深度 D2 ✓** | viz-engine / article-ds / M4   | IllegalCreed | `20260626-c024-hash-open-addressing/` | 2026-06-26 | -             |
+| C-20260626-025 | feature             | 链表·双向           | **M4 深度 D3**：链表页**加一节**「双向链表：再加一根 prev 指针」（补 C-018 当年所砍）。新增 useDlink（双向链 + forward/backward 双序 + O(1) removeAt 返回接线信息）+ DlinkViz（**→/← 双箭头 + head/tail + 两端 null** + 反向遍历沿 prev 点亮 + 无需找前驱的 O(1) 删除接线），链表页查找逐跳段后加节。**不动菜单/路由/LinkViz**；M4 深度第三项                               | verified | 100%   | 无     | 已完成（20 Case 全绿，已落 main）；**M4 深度 D3 ✓** | viz-engine / article-ds / M4   | IllegalCreed | `20260626-c025-link-doubly/`          | 2026-06-26 | -             |
 
 ## By Type
 
@@ -78,6 +79,7 @@
 | C-20260625-022 | 图动画（收官）    | verified | 100%   | 无     | 已完成 | `20260625-c022-graph-knowledge/`      |
 | C-20260625-023 | 树·平衡深化       | verified | 100%   | 无     | 已完成 | `20260625-c023-tree-balance/`         |
 | C-20260626-024 | 哈希·开放寻址     | verified | 100%   | 无     | 已完成 | `20260626-c024-hash-open-addressing/` |
+| C-20260626-025 | 链表·双向         | verified | 100%   | 无     | 已完成 | `20260626-c025-link-doubly/`          |
 
 ## By Module
 
@@ -124,3 +126,4 @@
 | C-20260625-022 | feature | 图动画（收官）   | verified | 100%   | `20260625-c022-graph-knowledge/`      |
 | C-20260625-023 | feature | 树·平衡深化      | verified | 100%   | `20260625-c023-tree-balance/`         |
 | C-20260626-024 | feature | 哈希·开放寻址    | verified | 100%   | `20260626-c024-hash-open-addressing/` |
+| C-20260626-025 | feature | 链表·双向        | verified | 100%   | `20260626-c025-link-doubly/`          |
