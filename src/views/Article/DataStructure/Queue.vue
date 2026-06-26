@@ -3,6 +3,7 @@ import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import Playground from '@/components/article/Playground.vue';
 import QueueViz from '@/components/structures/QueueViz.vue';
+import DequeViz from '@/components/structures/DequeViz.vue';
 </script>
 
 <template>
@@ -31,6 +32,29 @@ import QueueViz from '@/components/structures/QueueViz.vue';
       <strong>1</strong>，谁先排队谁先走。和栈对比：同样压/入 1、2、3，栈先吐
       <strong>3</strong>、队列先吐 <strong>1</strong>。<code>enqueue</code> 和
       <code>dequeue</code> 都只动一端，复杂度都是 <code>O(1)</code>。
+    </p>
+
+    <h2>双端队列 Deque：两端都能进出</h2>
+    <p>
+      普通队列死守
+      FIFO——只能<strong>尾进头出</strong>。<strong>双端队列</strong>（deque，double-ended
+      queue）放宽了这条限制：<strong>队头、队尾两端都能进、都能出</strong>，于是有四个操作——头部入
+      <code>pushFront</code>、尾部入 <code>pushBack</code>、头部出 <code>popFront</code>、尾部出
+      <code>popBack</code>。
+    </p>
+    <p>
+      正因为两端自由，它是<strong>栈和队列的共同推广</strong>：只用<strong>一端</strong>进出，就退化成<strong>栈</strong>（后进先出）；<strong>一端进、另一端出</strong>，就是普通<strong>队列</strong>（先进先出）。四个方向都点点看。
+    </p>
+
+    <Playground>
+      <DequeViz />
+    </Playground>
+
+    <p>
+      deque 的经典用途是<strong>滑动窗口最值</strong>——用一个「单调队列」在两端维护候选，进出都
+      <code>O(1)</code>；定长 deque 还能存「最近 N 条」历史 /
+      撤销记录，挤满了就从另一端丢掉最旧的。另外还有一种带优先级的队列——<strong>优先队列</strong>，它总让「最小/最大」的先出，本质是一个<strong>堆</strong>（见堆那篇），和这里按位置进出的
+      deque 是两回事。
     </p>
 
     <h2>队列在哪里用</h2>

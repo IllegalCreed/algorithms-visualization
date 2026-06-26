@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils';
 import Queue from './Queue.vue';
 import Article from '@/components/article/Article.vue';
 import QueueViz from '@/components/structures/QueueViz.vue';
+import DequeViz from '@/components/structures/DequeViz.vue';
 
 const mountIt = () =>
   mount(Queue, {
@@ -19,5 +20,9 @@ describe('Queue 队列页', () => {
     const w = mountIt();
     expect(w.find('h1').text()).toContain('队列');
     expect(w.find('.playground').exists()).toBe(true);
+  });
+  it('TC-VIEW-QUEUE-03 队列页含 DequeViz（双端队列节）', () => {
+    const w = mountIt();
+    expect(w.findComponent(DequeViz).exists()).toBe(true);
   });
 });
