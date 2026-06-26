@@ -306,7 +306,7 @@
 | Case ID              | 标题                                           | 层级 | 自动化路径                                       |
 | -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
 | TC-HOOK-01-1         | 返回数据结构与排序两个分类                     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-2         | 数据结构分类含 8 项                            | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-2         | 数据结构分类含 9 项（含字典树 C-028）          | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-5         | 每个分类含 desc                                | L3   | `src/views/Home/Main/hooks.spec.ts`              |
@@ -346,7 +346,7 @@
 | TC-HOOK-02-1         | 返回 2 个分类                                 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-2         | 每项含 title/url 且均非空                     | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-3         | 所有 url 唯一                                 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构含 8 项，排序算法含 10 项             | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构含 9 项（含字典树 C-028），排序 8 项  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true       | L3   | `src/views/Docs/hooks.spec.ts`                 |
 | TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false    | L3   | `src/views/Docs/hooks.spec.ts`                 |
 | TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028）
 
 | Case ID            | 标题                                             | 层级 | 自动化路径                                       |
 | ------------------ | ------------------------------------------------ | ---- | ------------------------------------------------ |
@@ -680,8 +680,26 @@
 | TC-VIZ-GROWVIZ-06  | stats 含均摊统计（append 次数）                  | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
 | TC-VIZ-GROWVIZ-07  | 连续 append 6 次：容量翻倍到 16（16 gcell）      | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
 | TC-VIZ-GROWVIZ-08  | 重置回 3 filled、4 gcell                         | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-TRIE-LOGIC-01   | nodes 11、edges 10、words 6（排序）              | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-02   | root：char ''、isEnd false、parent -1            | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-03   | 节点带坐标 + id 唯一 + 非 root char 单字符       | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-04   | 共享前缀：search(car)/search(cat) 前 3 同        | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-05   | search('card')：found                            | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-06   | search('ca')：prefix-only（不是词）              | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-07   | search('cab')：no-edge（不存在）                 | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-08   | startsWith('ca') = [car,card,cat]                | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-09   | startsWith('do') = [do,dog]、subtree 2           | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-TRIE-LOGIC-10   | startsWith('xyz')：prefixNode -1、words []       | L3   | `src/components/structures/useTrie.spec.ts`      |
+| TC-VIZ-TRIEVIZ-01  | 11 tnode + 10 edge + 输入框 + 3 按钮             | L4   | `src/components/structures/TrieViz.spec.ts`      |
+| TC-VIZ-TRIEVIZ-02  | 节点字符含 c/a/t/r/d/u/p/o/g                     | L4   | `src/components/structures/TrieViz.spec.ts`      |
+| TC-VIZ-TRIEVIZ-03  | 查找 card：status 含「是一个词」                 | L4   | `src/components/structures/TrieViz.spec.ts`      |
+| TC-VIZ-TRIEVIZ-04  | 查找 ca：status 含「前缀」                       | L4   | `src/components/structures/TrieViz.spec.ts`      |
+| TC-VIZ-TRIEVIZ-05  | 查找 cab：status 含「不存在」                    | L4   | `src/components/structures/TrieViz.spec.ts`      |
+| TC-VIZ-TRIEVIZ-06  | 前缀 ca：status 含「car」（补全）                | L4   | `src/components/structures/TrieViz.spec.ts`      |
+| TC-VIZ-TRIEVIZ-07  | 前缀 ca：子树点亮 .tnode.lit = 4                 | L4   | `src/components/structures/TrieViz.spec.ts`      |
+| TC-VIZ-TRIEVIZ-08  | 重置：清高亮                                     | L4   | `src/components/structures/TrieViz.spec.ts`      |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028）
 
 | Case ID           | 标题                                                          | 层级 | 自动化路径                                      |
 | ----------------- | ------------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -719,3 +737,6 @@
 | TC-E2E-QUEUE-02   | 队列页·双端节：3 元素/头部入/尾部出/重置（C-026）             | L5   | `e2e/queue.e2e.ts`                              |
 | TC-VIEW-ARRAY-03  | 数组页含 ArrayGrowViz（扩容节，C-027）                        | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
 | TC-E2E-ARRAY-02   | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)（C-027）          | L5   | `e2e/array.e2e.ts`                              |
+| TC-VIEW-TRIE-01   | 挂载渲染 Article + TrieViz（C-028）                           | L4   | `src/views/Article/DataStructure/Trie.spec.ts`  |
+| TC-VIEW-TRIE-02   | 含「字典树」标题与 Playground（C-028）                        | L4   | `src/views/Article/DataStructure/Trie.spec.ts`  |
+| TC-E2E-TRIE-01    | 字典树页：11 节点/查找三结局/前缀补全/重置（C-028）           | L5   | `e2e/trie.e2e.ts`                               |
