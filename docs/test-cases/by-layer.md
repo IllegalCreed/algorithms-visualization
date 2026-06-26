@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **235** 个用例。运行命令：`pnpm test:unit`
+共 **245** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -464,11 +464,26 @@
 | TC-DEQUE-LOGIC-09 | reset 复原 [1,2,3]                          | `src/components/structures/useDeque.spec.ts` |
 | TC-DEQUE-LOGIC-10 | 栈=尾进尾出(LIFO)、队列=尾进头出(FIFO)      | `src/components/structures/useDeque.spec.ts` |
 
+### 动态数组扩容逻辑 useGrow（C-027 · M4 深度 D5·收官）
+
+| Case ID          | 标题                                             | 自动化路径                                  |
+| ---------------- | ------------------------------------------------ | ------------------------------------------- |
+| TC-GROW-LOGIC-01 | 初始 cap 4、len 3、items [1,2,3]、计数 0         | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-02 | append 未满：grew false、copies 0、cap 4         | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-03 | append 到满再 append：grew true、copies 4、cap 8 | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-04 | 连续翻倍 4→8→16（append 6 次）                   | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-05 | appends 计数随每次 +1                            | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-06 | totalCopies 累计 = 4+8                           | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-07 | amortized = (appends+totalCopies)/appends        | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-08 | amortized 有界：20 次后 ≤ 3（O(1)）              | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-09 | value = ++seq 递增                               | `src/components/structures/useGrow.spec.ts` |
+| TC-GROW-LOGIC-10 | reset 复原 cap 4 len 3、计数归零                 | `src/components/structures/useGrow.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **192** 个用例。运行命令：`pnpm test:unit`
+共 **201** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -870,11 +885,25 @@
 | TC-VIZ-DEQUEVIZ-08 | 重置回 3 dqitem                                | `src/components/structures/DequeViz.spec.ts`    |
 | TC-VIEW-QUEUE-03   | 队列页含 DequeViz（双端队列节）                | `src/views/Article/DataStructure/Queue.spec.ts` |
 
+### 动态数组扩容互动 ArrayGrowViz + 数组页扩容节（C-027 · M4 深度 D5·收官）
+
+| Case ID           | 标题                                          | 自动化路径                                       |
+| ----------------- | --------------------------------------------- | ------------------------------------------------ |
+| TC-VIZ-GROWVIZ-01 | 初始 4 gcell + 3 filled + 追加/重置 + readout | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-02 | filled 格值 1/2/3                             | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-03 | append 未满：4 filled、status 含 O(1)         | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-04 | append×2 触发扩容：8 gcell、status 含「扩容」 | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-05 | 扩容那次 status 含 O(n)                       | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-06 | stats 含均摊统计（append 次数）               | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-07 | 连续 append 6 次：容量翻倍到 16（16 gcell）   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-08 | 重置回 3 filled、4 gcell                      | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIEW-ARRAY-03  | 数组页含 ArrayGrowViz（扩容节）               | `src/views/Article/DataStructure/Array.spec.ts`  |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **22** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **23** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -901,6 +930,7 @@
 | TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置     | `e2e/hash.e2e.ts`            | active     |
 | TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置        | `e2e/link.e2e.ts`            | active     |
 | TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）        | `e2e/queue.e2e.ts`           | active     |
+| TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                 | `e2e/array.e2e.ts`           | active     |
 
 ---
 

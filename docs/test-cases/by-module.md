@@ -436,234 +436,252 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027）
 
-| Case ID            | 标题                                            | 层级 | 自动化路径                                       |
-| ------------------ | ----------------------------------------------- | ---- | ------------------------------------------------ |
-| TC-STACK-LOGIC-01  | 初始空：items 空/top null/canPop F/canPush T    | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-STACK-LOGIC-02  | push 追加递增序号、返回值、top 更新             | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-STACK-LOGIC-03  | pop 删尾返回原栈顶；空 pop 返回 null            | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-STACK-LOGIC-04  | peek 返回栈顶不改 items                         | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-STACK-LOGIC-05  | reset 清空且 seq 归零                           | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-STACK-LOGIC-06  | canPush 满 STACK_MAX 为 false、push 返回 null   | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-STACK-LOGIC-07  | 每个元素 id 唯一                                | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-STACK-LOGIC-08  | canPop 随空/非空切换                            | L3   | `src/components/structures/useStack.spec.ts`     |
-| TC-VIZ-STACKVIZ-01 | 初始空：栈为空 + pop/peek 禁用                  | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-VIZ-STACKVIZ-02 | push 增盘子、值为递增序号                       | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-VIZ-STACKVIZ-03 | 栈顶 is-top 落在最后压入元素                    | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-VIZ-STACKVIZ-04 | 每 item 含「← 栈顶」节点                        | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-VIZ-STACKVIZ-05 | pop 减盘子并解说                                | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-VIZ-STACKVIZ-06 | push 到 8 后 push 禁用                          | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-VIZ-STACKVIZ-07 | 重置清空                                        | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-VIZ-STACKVIZ-08 | peek 解说栈顶不取走                             | L4   | `src/components/structures/StackViz.spec.ts`     |
-| TC-QUEUE-LOGIC-01  | 初始空：front null/canDequeue F/canEnqueue T    | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-QUEUE-LOGIC-02  | enqueue 追加递增序号；front 不变（非空）        | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-QUEUE-LOGIC-03  | dequeue 删队首返回原队首；空 null               | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-QUEUE-LOGIC-04  | peek 返回队首不改 items                         | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-QUEUE-LOGIC-05  | reset 清空且 seq 归零                           | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-QUEUE-LOGIC-06  | canEnqueue 满 QUEUE_MAX false、enqueue null     | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-QUEUE-LOGIC-07  | 每个元素 id 唯一                                | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-QUEUE-LOGIC-08  | canDequeue 随空/非空切换                        | L3   | `src/components/structures/useQueue.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-01 | 初始空：队列为空 + dequeue/peek 禁用            | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-02 | enqueue 增元素、值为递增序号                    | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-03 | 队首 is-front 落 index0、队尾 is-rear 落末位    | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-04 | 每 qitem 含队首/队尾 marker 节点                | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-05 | dequeue 移队首并解说（新队首=2）                | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-06 | enqueue 到 6 后 enqueue 禁用                    | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-07 | 重置清空                                        | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-VIZ-QUEUEVIZ-08 | peek 解说队首不取走                             | L4   | `src/components/structures/QueueViz.spec.ts`     |
-| TC-ARRAY-LOGIC-01  | 初始 [1,2,3,4]、无选中、can 标志                | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-02  | valueAt 按下标读、越界 null                     | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-03  | select toggle：选中/再点取消/换选               | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-04  | insert 未选返回 null 且不变                     | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-05  | insert 在 i 插递增值、右移、保持选中、下标≠值   | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-06  | remove 删 i、后续左移、清空选中                 | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-07  | remove 未选返回 null                            | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-08  | append 尾插递增、不动选中                       | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-09  | 满 ARRAY_MAX：canAppend/canInsert F、null       | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-ARRAY-LOGIC-10  | reset 复位 [1,2,3,4]、清选中、下次 append=5     | L3   | `src/components/structures/useArray.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-01 | 初始 4 格 + 下标 0..3 + 无选中禁三键            | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-02 | 点格选中：cell/slot is-selected + 启用三键      | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-03 | insert 增元素、新值落 i、下标≠值                | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-04 | remove 减元素                                   | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-05 | append 尾增（无需选中）                         | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-06 | 下标行数量 = items 数、文本 0..n-1              | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-07 | 满 8 禁插入/追加                                | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-08 | access 解说含 O(1)                              | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-09 | reset 复位 4 格、清选中                         | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-VIZ-ARRAYVIZ-10 | 删空显示 empty-hint + 禁三键                    | L4   | `src/components/structures/ArrayViz.spec.ts`     |
-| TC-LINK-LOGIC-01   | 初始 [1,2,3]、无选中、can 标志                  | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-02   | valueAt 按位置读、越界 null                     | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-03   | select toggle：选中/再点取消/换选               | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-04   | insertAfter 未选返回 null 且不变                | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-05   | insertAfter 在选中后插递增、选中落 i+1、链序    | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-06   | remove 删选中、清空选中                         | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-07   | remove 未选返回 null                            | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-08   | prepend 头插递增、落表头、选中随之 +1           | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-09   | 满 LINK_MAX：canPrepend/canInsert F、null       | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-LINK-LOGIC-10   | reset 复位 [1,2,3]、清选中、下次 prepend=4      | L3   | `src/components/structures/useLink.spec.ts`      |
-| TC-VIZ-LINKVIZ-01  | 初始 3 节点 + head + null + 无选中禁三键        | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-02  | 点节点选中：is-sel + 启用查找/插入/删除         | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-03  | insertAfter 增节点、新值落选中后                | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-04  | remove 减节点                                   | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-05  | prepend 头插落表头                              | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-06  | 每节点带 next 箭头 + 有 head/null               | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-07  | 满 6 禁插入/头插                                | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-08  | find 同步解说含 O(n)                            | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-09  | reset 复位 3 节点、清选中                       | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-VIZ-LINKVIZ-10  | 删空显示 empty-hint + 禁三键                    | L4   | `src/components/structures/LinkViz.spec.ts`      |
-| TC-TREE-LOGIC-01   | 初始平衡树 50/30/70/20/40/60/80、pos 正确       | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-02   | has 命中/未命中                                 | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-03   | insert 走位落正确 pos + 返回 path               | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-04   | insert 查重返回 dup、不增                       | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-05   | insert 维持 BST：任意插入后 inorder 升序        | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-06   | insert 超 4 层返回 depth                        | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-07   | search 命中返回 found + path                    | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-08   | search 未命中返回 false + 走到空位 path         | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-09   | inorder 初始 = 升序                             | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-TREE-LOGIC-10   | reset 复位 7 节点、清插入                       | L3   | `src/components/structures/useTree.spec.ts`      |
-| TC-VIZ-TREEVIZ-01  | 初始 7 节点 + 6 边 + 输入框 + 4 按钮            | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-02  | insert 增节点、含新值                           | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-03  | insert 查重不增、解说已存在                     | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-04  | search 找到解说                                 | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-05  | search 没找到解说                               | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-06  | 中序遍历解说含升序序列                          | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-07  | 超 4 层解说上限                                 | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-08  | reset 复位 7 节点                               | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-09  | 非法值提示、不增                                | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-VIZ-TREEVIZ-10  | 边数 = 节点数 - 1                               | L4   | `src/components/structures/TreeViz.spec.ts`      |
-| TC-HEAPDS-LOGIC-01 | 初始大顶堆 [90,70,80,40,60,30,50]、peek 90      | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-02 | insert 末尾追加（不 sift）、返回新下标          | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-03 | siftUpStep 单步上浮                             | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-04 | 完整插入后仍是大顶堆、root 为最大               | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-05 | extractRoot 取根（最大）、末位补根              | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-06 | 完整弹出后仍是大顶堆、返回最大、新堆顶          | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-07 | siftDownStep 单步下沉                           | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-08 | 不变量：连续插入/弹出后仍大顶堆、peek=max       | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-09 | 边界：满 15 / 空 / id 唯一                      | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-HEAPDS-LOGIC-10 | reset 复位初始堆                                | L3   | `src/components/structures/useHeap.spec.ts`      |
-| TC-VIZ-HEAPVIZ-01  | 初始 7 格 + 7 节点 + 6 边 + 输入框 + 3 按钮     | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-02  | insert 双视图各 +1                              | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-03  | insert 出现新值 95                              | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-04  | extract 双视图各 -1                             | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-05  | extract 解说弹出 + 最大值 90                    | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-06  | 双视图同步：格数 == 节点数                      | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-07  | 边数 = 节点数 - 1                               | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-08  | 非法值提示、不增                                | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-09  | reset 复位 7 格                                 | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-VIZ-HEAPVIZ-10  | insert 解说含「上浮」                           | L4   | `src/components/structures/HeapViz.spec.ts`      |
-| TC-HASH-LOGIC-01   | 初始：7 桶、桶1=[15,8]/桶2=[23]/桶4=[4]、size 4 | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-02   | hash = key % 7                                  | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-03   | has 命中/未命中                                 | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-04   | insert 空桶直放（无冲突）                       | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-05   | insert 冲突追加链尾                             | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-06   | insert 查重不插                                 | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-07   | search 命中返回 bucket + steps                  | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-08   | search 没找到（走完链）                         | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-09   | 满 HASH_MAX / id 唯一                           | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-HASH-LOGIC-10   | reset 复位初始                                  | L3   | `src/components/structures/useHash.spec.ts`      |
-| TC-VIZ-HASHVIZ-01  | 初始 7 桶 + 桶1 含 2 项 + 输入框 + 3 按钮       | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-02  | insert 空桶直放                                 | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-03  | insert 冲突追加链尾                             | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-04  | insert 总项数 +1                                | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-05  | insert 查重不增、解说已存在                     | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-06  | search 命中解说                                 | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-07  | search 没找到解说                               | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-08  | insert 解说含 hash 算式                         | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-09  | 非法值提示、不增                                | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-VIZ-HASHVIZ-10  | reset 复位 4 项                                 | L4   | `src/components/structures/HashViz.spec.ts`      |
-| TC-GRAPH-LOGIC-01  | 图结构：6 顶点、7 边、adj                       | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-02  | labelOf + 顶点坐标                              | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-03  | bfs(0) 顺序 A B C D E F                         | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-04  | dfs(0) 顺序 A B D E F C                         | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-05  | bfs 与 dfs 顺序不同                             | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-06  | bfs 访问全部 6、不重不漏                        | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-07  | dfs 访问全部 6、不重不漏                        | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-08  | bfs 首步 frontier = 队列 [1,2]                  | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-09  | dfs 首步 frontier = 栈 [2,1]                    | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-GRAPH-LOGIC-10  | 换起点 bfs(3) 也访问全部                        | L3   | `src/components/structures/useGraph.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-01 | 初始 6 顶点 + 7 边 + 3 按钮 + 默认起点高亮      | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-02 | 顶点标签 A–F                                    | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-03 | 点顶点换起点（唯一 is-start）                   | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-04 | BFS status 含「队列」+ 顺序                     | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-05 | DFS status 含「栈」+ 顺序                       | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-06 | BFS helper-label 含「队列」                     | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-07 | DFS helper-label 含「栈」                       | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-08 | 重置复位（无 current、status 含起点）           | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-09 | 换起点后 BFS 从该点出发                         | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-VIZ-GRAPHVIZ-10 | BFS 与 DFS 顺序不同                             | L4   | `src/components/structures/GraphViz.spec.ts`     |
-| TC-BAL-LOGIC-01    | chain 结构：7 节点 1-7、6 边、高度 7、最坏 7    | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-BAL-LOGIC-02    | balanced 结构：4/2/6/1/3/5/7、6 边、高度 3      | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-BAL-LOGIC-03    | 节点带坐标 + id 唯一                            | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-BAL-LOGIC-04    | search(7, chain) 走 7 步                        | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-BAL-LOGIC-05    | search(7, balanced) 走 3 步                     | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-BAL-LOGIC-06    | chain search 步数 = 值                          | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-BAL-LOGIC-07    | balanced：根 1 步、叶 3 步                      | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-BAL-LOGIC-08    | 同值两 mode 步数不同                            | L3   | `src/components/structures/useBalance.spec.ts`   |
-| TC-VIZ-BALVIZ-01   | 初始退化：7 节点+6 边+3 按钮+退化 on+读数       | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-VIZ-BALVIZ-02   | 切平衡：readout 3 层/3 次、平衡 on              | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-VIZ-BALVIZ-03   | 退化节点值 1–7                                  | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-VIZ-BALVIZ-04   | 查找 7（退化）status 含「7 步」                 | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-VIZ-BALVIZ-05   | 查找 7（平衡）status 含「3 步」                 | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-VIZ-BALVIZ-06   | 切回退化：readout 回 7 层                       | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-VIZ-BALVIZ-07   | 退化 vs 平衡 readout 不同                       | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-VIZ-BALVIZ-08   | 边数两 mode 均 6                                | L4   | `src/components/structures/BalanceViz.spec.ts`   |
-| TC-PROBE-LOGIC-01  | 初始扁平表 [null,15,8,23,4,null,null]、size 4   | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-02  | 装载因子 4/7、isFull=false                      | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-03  | hash(key)=key%7                                 | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-04  | insert 非冲突：5→格5                            | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-05  | insert 冲突：9→探 2,3,4 落 5                    | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-06  | insert 查重：15 已在 → dup                      | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-07  | search 命中：15→1 步、8→2 步                    | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-08  | search 未命中：99 探到空槽止、steps 5           | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-09  | 填满后 isFull、load=1，insert→full 不死循环     | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-PROBE-LOGIC-10  | reset 复原；has(8)=true、has(99)=false          | L3   | `src/components/structures/useProbe.spec.ts`     |
-| TC-VIZ-PROBEVIZ-01 | 初始 7 格+4 filled+3 按钮+readout 4/7           | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-VIZ-PROBEVIZ-02 | 初始 filled 格含 15/8/23/4                      | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-VIZ-PROBEVIZ-03 | 插入 5（非冲突）filled→5、status 含「落座」     | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-VIZ-PROBEVIZ-04 | 插入 9（冲突）filled→5、status 含「探测」       | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-VIZ-PROBEVIZ-05 | 查找 8（命中）status 含「命中」                 | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-VIZ-PROBEVIZ-06 | 查找 99（未命中）status 含「不在表中」          | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-VIZ-PROBEVIZ-07 | 填满后插入 status 含「扩容」、readout 7/7       | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-VIZ-PROBEVIZ-08 | 重置 filled 回 4、readout 4/7                   | L4   | `src/components/structures/HashProbeViz.spec.ts` |
-| TC-DLINK-LOGIC-01  | 初始 items 值 [10,20,30,40]、长度 4             | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-02  | forward = [10,20,30,40]（沿 next）              | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-03  | backward = [40,30,20,10]（沿 prev）             | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-04  | select toggle + hasSelection                    | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-05  | removeAt 中部（选1）：→[10,30,40]、rewire{0,2}  | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-06  | removeAt 头：→[20,30,40]、rewire.left=head      | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-07  | removeAt 尾：→[10,20,30]、rewire.right=tail     | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-08  | removeAt 无选中 → null、items 不变              | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-09  | 删除后 backward 更新（删1后 [40,30,10]）        | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-DLINK-LOGIC-10  | reset 复原 [10,20,30,40]、清选中                | L3   | `src/components/structures/useDlink.spec.ts`     |
-| TC-VIZ-DLINKVIZ-01 | 初始 4 dnode + 双箭头(→/←) + 3 按钮 + head/tail | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-VIZ-DLINKVIZ-02 | dnode 值 10/20/30/40                            | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-VIZ-DLINKVIZ-03 | 点 dnode[1] 选中 is-sel                         | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-VIZ-DLINKVIZ-04 | 反向遍历：status 含「反向」且「40 → 30」        | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-VIZ-DLINKVIZ-05 | 删除选中（选1）：dnode→3、status 含 O(1)/prev   | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-VIZ-DLINKVIZ-06 | 删头删除：首 dnode 变 20、dnode→3               | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-VIZ-DLINKVIZ-07 | 未选中时删除按钮禁用、dnode 仍 4                | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-VIZ-DLINKVIZ-08 | 重置回 4 dnode                                  | L4   | `src/components/structures/DlinkViz.spec.ts`     |
-| TC-DEQUE-LOGIC-01  | 初始 [1,2,3]、size 3、front 1、back 3           | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-02  | pushBack → 4 落尾：[1,2,3,4]、back 4            | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-03  | pushFront → 4 落头：[4,1,2,3]、front 4          | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-04  | popFront → 1、[2,3]                             | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-05  | popBack → 3、[1,2]                              | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-06  | popFront×3 → isEmpty、front/back null           | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-07  | 满（push 到 6）后 pushBack/pushFront → null     | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-08  | 空时 popFront/popBack → null                    | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-09  | reset 复原 [1,2,3]                              | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-DEQUE-LOGIC-10  | 栈=尾进尾出(LIFO)、队列=尾进头出(FIFO)          | L3   | `src/components/structures/useDeque.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-01 | 初始 3 dqitem + 5 按钮 + 头/尾标记              | L4   | `src/components/structures/DequeViz.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-02 | dqitem 值 1/2/3                                 | L4   | `src/components/structures/DequeViz.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-03 | 尾部入：4 dqitem、status 含「尾」               | L4   | `src/components/structures/DequeViz.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-04 | 头部入：4 dqitem、首位=新值、status 含「头」    | L4   | `src/components/structures/DequeViz.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-05 | 头部出：剩 2 dqitem、首位变 2、status 含「头」  | L4   | `src/components/structures/DequeViz.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-06 | 尾部出：剩 2 dqitem、末位变 2、status 含「尾」  | L4   | `src/components/structures/DequeViz.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-07 | 头部出×3 → 空：出队禁用 + empty-hint            | L4   | `src/components/structures/DequeViz.spec.ts`     |
-| TC-VIZ-DEQUEVIZ-08 | 重置回 3 dqitem                                 | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| Case ID            | 标题                                             | 层级 | 自动化路径                                       |
+| ------------------ | ------------------------------------------------ | ---- | ------------------------------------------------ |
+| TC-STACK-LOGIC-01  | 初始空：items 空/top null/canPop F/canPush T     | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-STACK-LOGIC-02  | push 追加递增序号、返回值、top 更新              | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-STACK-LOGIC-03  | pop 删尾返回原栈顶；空 pop 返回 null             | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-STACK-LOGIC-04  | peek 返回栈顶不改 items                          | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-STACK-LOGIC-05  | reset 清空且 seq 归零                            | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-STACK-LOGIC-06  | canPush 满 STACK_MAX 为 false、push 返回 null    | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-STACK-LOGIC-07  | 每个元素 id 唯一                                 | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-STACK-LOGIC-08  | canPop 随空/非空切换                             | L3   | `src/components/structures/useStack.spec.ts`     |
+| TC-VIZ-STACKVIZ-01 | 初始空：栈为空 + pop/peek 禁用                   | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-VIZ-STACKVIZ-02 | push 增盘子、值为递增序号                        | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-VIZ-STACKVIZ-03 | 栈顶 is-top 落在最后压入元素                     | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-VIZ-STACKVIZ-04 | 每 item 含「← 栈顶」节点                         | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-VIZ-STACKVIZ-05 | pop 减盘子并解说                                 | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-VIZ-STACKVIZ-06 | push 到 8 后 push 禁用                           | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-VIZ-STACKVIZ-07 | 重置清空                                         | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-VIZ-STACKVIZ-08 | peek 解说栈顶不取走                              | L4   | `src/components/structures/StackViz.spec.ts`     |
+| TC-QUEUE-LOGIC-01  | 初始空：front null/canDequeue F/canEnqueue T     | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-QUEUE-LOGIC-02  | enqueue 追加递增序号；front 不变（非空）         | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-QUEUE-LOGIC-03  | dequeue 删队首返回原队首；空 null                | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-QUEUE-LOGIC-04  | peek 返回队首不改 items                          | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-QUEUE-LOGIC-05  | reset 清空且 seq 归零                            | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-QUEUE-LOGIC-06  | canEnqueue 满 QUEUE_MAX false、enqueue null      | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-QUEUE-LOGIC-07  | 每个元素 id 唯一                                 | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-QUEUE-LOGIC-08  | canDequeue 随空/非空切换                         | L3   | `src/components/structures/useQueue.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-01 | 初始空：队列为空 + dequeue/peek 禁用             | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-02 | enqueue 增元素、值为递增序号                     | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-03 | 队首 is-front 落 index0、队尾 is-rear 落末位     | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-04 | 每 qitem 含队首/队尾 marker 节点                 | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-05 | dequeue 移队首并解说（新队首=2）                 | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-06 | enqueue 到 6 后 enqueue 禁用                     | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-07 | 重置清空                                         | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-VIZ-QUEUEVIZ-08 | peek 解说队首不取走                              | L4   | `src/components/structures/QueueViz.spec.ts`     |
+| TC-ARRAY-LOGIC-01  | 初始 [1,2,3,4]、无选中、can 标志                 | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-02  | valueAt 按下标读、越界 null                      | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-03  | select toggle：选中/再点取消/换选                | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-04  | insert 未选返回 null 且不变                      | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-05  | insert 在 i 插递增值、右移、保持选中、下标≠值    | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-06  | remove 删 i、后续左移、清空选中                  | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-07  | remove 未选返回 null                             | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-08  | append 尾插递增、不动选中                        | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-09  | 满 ARRAY_MAX：canAppend/canInsert F、null        | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-ARRAY-LOGIC-10  | reset 复位 [1,2,3,4]、清选中、下次 append=5      | L3   | `src/components/structures/useArray.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-01 | 初始 4 格 + 下标 0..3 + 无选中禁三键             | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-02 | 点格选中：cell/slot is-selected + 启用三键       | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-03 | insert 增元素、新值落 i、下标≠值                 | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-04 | remove 减元素                                    | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-05 | append 尾增（无需选中）                          | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-06 | 下标行数量 = items 数、文本 0..n-1               | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-07 | 满 8 禁插入/追加                                 | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-08 | access 解说含 O(1)                               | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-09 | reset 复位 4 格、清选中                          | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-VIZ-ARRAYVIZ-10 | 删空显示 empty-hint + 禁三键                     | L4   | `src/components/structures/ArrayViz.spec.ts`     |
+| TC-LINK-LOGIC-01   | 初始 [1,2,3]、无选中、can 标志                   | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-02   | valueAt 按位置读、越界 null                      | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-03   | select toggle：选中/再点取消/换选                | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-04   | insertAfter 未选返回 null 且不变                 | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-05   | insertAfter 在选中后插递增、选中落 i+1、链序     | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-06   | remove 删选中、清空选中                          | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-07   | remove 未选返回 null                             | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-08   | prepend 头插递增、落表头、选中随之 +1            | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-09   | 满 LINK_MAX：canPrepend/canInsert F、null        | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-LINK-LOGIC-10   | reset 复位 [1,2,3]、清选中、下次 prepend=4       | L3   | `src/components/structures/useLink.spec.ts`      |
+| TC-VIZ-LINKVIZ-01  | 初始 3 节点 + head + null + 无选中禁三键         | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-02  | 点节点选中：is-sel + 启用查找/插入/删除          | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-03  | insertAfter 增节点、新值落选中后                 | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-04  | remove 减节点                                    | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-05  | prepend 头插落表头                               | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-06  | 每节点带 next 箭头 + 有 head/null                | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-07  | 满 6 禁插入/头插                                 | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-08  | find 同步解说含 O(n)                             | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-09  | reset 复位 3 节点、清选中                        | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-VIZ-LINKVIZ-10  | 删空显示 empty-hint + 禁三键                     | L4   | `src/components/structures/LinkViz.spec.ts`      |
+| TC-TREE-LOGIC-01   | 初始平衡树 50/30/70/20/40/60/80、pos 正确        | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-02   | has 命中/未命中                                  | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-03   | insert 走位落正确 pos + 返回 path                | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-04   | insert 查重返回 dup、不增                        | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-05   | insert 维持 BST：任意插入后 inorder 升序         | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-06   | insert 超 4 层返回 depth                         | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-07   | search 命中返回 found + path                     | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-08   | search 未命中返回 false + 走到空位 path          | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-09   | inorder 初始 = 升序                              | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-TREE-LOGIC-10   | reset 复位 7 节点、清插入                        | L3   | `src/components/structures/useTree.spec.ts`      |
+| TC-VIZ-TREEVIZ-01  | 初始 7 节点 + 6 边 + 输入框 + 4 按钮             | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-02  | insert 增节点、含新值                            | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-03  | insert 查重不增、解说已存在                      | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-04  | search 找到解说                                  | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-05  | search 没找到解说                                | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-06  | 中序遍历解说含升序序列                           | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-07  | 超 4 层解说上限                                  | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-08  | reset 复位 7 节点                                | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-09  | 非法值提示、不增                                 | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-VIZ-TREEVIZ-10  | 边数 = 节点数 - 1                                | L4   | `src/components/structures/TreeViz.spec.ts`      |
+| TC-HEAPDS-LOGIC-01 | 初始大顶堆 [90,70,80,40,60,30,50]、peek 90       | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-02 | insert 末尾追加（不 sift）、返回新下标           | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-03 | siftUpStep 单步上浮                              | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-04 | 完整插入后仍是大顶堆、root 为最大                | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-05 | extractRoot 取根（最大）、末位补根               | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-06 | 完整弹出后仍是大顶堆、返回最大、新堆顶           | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-07 | siftDownStep 单步下沉                            | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-08 | 不变量：连续插入/弹出后仍大顶堆、peek=max        | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-09 | 边界：满 15 / 空 / id 唯一                       | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-HEAPDS-LOGIC-10 | reset 复位初始堆                                 | L3   | `src/components/structures/useHeap.spec.ts`      |
+| TC-VIZ-HEAPVIZ-01  | 初始 7 格 + 7 节点 + 6 边 + 输入框 + 3 按钮      | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-02  | insert 双视图各 +1                               | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-03  | insert 出现新值 95                               | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-04  | extract 双视图各 -1                              | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-05  | extract 解说弹出 + 最大值 90                     | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-06  | 双视图同步：格数 == 节点数                       | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-07  | 边数 = 节点数 - 1                                | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-08  | 非法值提示、不增                                 | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-09  | reset 复位 7 格                                  | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-VIZ-HEAPVIZ-10  | insert 解说含「上浮」                            | L4   | `src/components/structures/HeapViz.spec.ts`      |
+| TC-HASH-LOGIC-01   | 初始：7 桶、桶1=[15,8]/桶2=[23]/桶4=[4]、size 4  | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-02   | hash = key % 7                                   | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-03   | has 命中/未命中                                  | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-04   | insert 空桶直放（无冲突）                        | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-05   | insert 冲突追加链尾                              | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-06   | insert 查重不插                                  | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-07   | search 命中返回 bucket + steps                   | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-08   | search 没找到（走完链）                          | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-09   | 满 HASH_MAX / id 唯一                            | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-HASH-LOGIC-10   | reset 复位初始                                   | L3   | `src/components/structures/useHash.spec.ts`      |
+| TC-VIZ-HASHVIZ-01  | 初始 7 桶 + 桶1 含 2 项 + 输入框 + 3 按钮        | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-02  | insert 空桶直放                                  | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-03  | insert 冲突追加链尾                              | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-04  | insert 总项数 +1                                 | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-05  | insert 查重不增、解说已存在                      | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-06  | search 命中解说                                  | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-07  | search 没找到解说                                | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-08  | insert 解说含 hash 算式                          | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-09  | 非法值提示、不增                                 | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-VIZ-HASHVIZ-10  | reset 复位 4 项                                  | L4   | `src/components/structures/HashViz.spec.ts`      |
+| TC-GRAPH-LOGIC-01  | 图结构：6 顶点、7 边、adj                        | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-02  | labelOf + 顶点坐标                               | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-03  | bfs(0) 顺序 A B C D E F                          | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-04  | dfs(0) 顺序 A B D E F C                          | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-05  | bfs 与 dfs 顺序不同                              | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-06  | bfs 访问全部 6、不重不漏                         | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-07  | dfs 访问全部 6、不重不漏                         | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-08  | bfs 首步 frontier = 队列 [1,2]                   | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-09  | dfs 首步 frontier = 栈 [2,1]                     | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-GRAPH-LOGIC-10  | 换起点 bfs(3) 也访问全部                         | L3   | `src/components/structures/useGraph.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-01 | 初始 6 顶点 + 7 边 + 3 按钮 + 默认起点高亮       | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-02 | 顶点标签 A–F                                     | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-03 | 点顶点换起点（唯一 is-start）                    | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-04 | BFS status 含「队列」+ 顺序                      | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-05 | DFS status 含「栈」+ 顺序                        | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-06 | BFS helper-label 含「队列」                      | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-07 | DFS helper-label 含「栈」                        | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-08 | 重置复位（无 current、status 含起点）            | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-09 | 换起点后 BFS 从该点出发                          | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-VIZ-GRAPHVIZ-10 | BFS 与 DFS 顺序不同                              | L4   | `src/components/structures/GraphViz.spec.ts`     |
+| TC-BAL-LOGIC-01    | chain 结构：7 节点 1-7、6 边、高度 7、最坏 7     | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-BAL-LOGIC-02    | balanced 结构：4/2/6/1/3/5/7、6 边、高度 3       | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-BAL-LOGIC-03    | 节点带坐标 + id 唯一                             | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-BAL-LOGIC-04    | search(7, chain) 走 7 步                         | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-BAL-LOGIC-05    | search(7, balanced) 走 3 步                      | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-BAL-LOGIC-06    | chain search 步数 = 值                           | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-BAL-LOGIC-07    | balanced：根 1 步、叶 3 步                       | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-BAL-LOGIC-08    | 同值两 mode 步数不同                             | L3   | `src/components/structures/useBalance.spec.ts`   |
+| TC-VIZ-BALVIZ-01   | 初始退化：7 节点+6 边+3 按钮+退化 on+读数        | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-VIZ-BALVIZ-02   | 切平衡：readout 3 层/3 次、平衡 on               | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-VIZ-BALVIZ-03   | 退化节点值 1–7                                   | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-VIZ-BALVIZ-04   | 查找 7（退化）status 含「7 步」                  | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-VIZ-BALVIZ-05   | 查找 7（平衡）status 含「3 步」                  | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-VIZ-BALVIZ-06   | 切回退化：readout 回 7 层                        | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-VIZ-BALVIZ-07   | 退化 vs 平衡 readout 不同                        | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-VIZ-BALVIZ-08   | 边数两 mode 均 6                                 | L4   | `src/components/structures/BalanceViz.spec.ts`   |
+| TC-PROBE-LOGIC-01  | 初始扁平表 [null,15,8,23,4,null,null]、size 4    | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-02  | 装载因子 4/7、isFull=false                       | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-03  | hash(key)=key%7                                  | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-04  | insert 非冲突：5→格5                             | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-05  | insert 冲突：9→探 2,3,4 落 5                     | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-06  | insert 查重：15 已在 → dup                       | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-07  | search 命中：15→1 步、8→2 步                     | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-08  | search 未命中：99 探到空槽止、steps 5            | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-09  | 填满后 isFull、load=1，insert→full 不死循环      | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-PROBE-LOGIC-10  | reset 复原；has(8)=true、has(99)=false           | L3   | `src/components/structures/useProbe.spec.ts`     |
+| TC-VIZ-PROBEVIZ-01 | 初始 7 格+4 filled+3 按钮+readout 4/7            | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-02 | 初始 filled 格含 15/8/23/4                       | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-03 | 插入 5（非冲突）filled→5、status 含「落座」      | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-04 | 插入 9（冲突）filled→5、status 含「探测」        | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-05 | 查找 8（命中）status 含「命中」                  | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-06 | 查找 99（未命中）status 含「不在表中」           | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-07 | 填满后插入 status 含「扩容」、readout 7/7        | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-08 | 重置 filled 回 4、readout 4/7                    | L4   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-DLINK-LOGIC-01  | 初始 items 值 [10,20,30,40]、长度 4              | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-02  | forward = [10,20,30,40]（沿 next）               | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-03  | backward = [40,30,20,10]（沿 prev）              | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-04  | select toggle + hasSelection                     | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-05  | removeAt 中部（选1）：→[10,30,40]、rewire{0,2}   | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-06  | removeAt 头：→[20,30,40]、rewire.left=head       | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-07  | removeAt 尾：→[10,20,30]、rewire.right=tail      | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-08  | removeAt 无选中 → null、items 不变               | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-09  | 删除后 backward 更新（删1后 [40,30,10]）         | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-DLINK-LOGIC-10  | reset 复原 [10,20,30,40]、清选中                 | L3   | `src/components/structures/useDlink.spec.ts`     |
+| TC-VIZ-DLINKVIZ-01 | 初始 4 dnode + 双箭头(→/←) + 3 按钮 + head/tail  | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-02 | dnode 值 10/20/30/40                             | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-03 | 点 dnode[1] 选中 is-sel                          | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-04 | 反向遍历：status 含「反向」且「40 → 30」         | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-05 | 删除选中（选1）：dnode→3、status 含 O(1)/prev    | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-06 | 删头删除：首 dnode 变 20、dnode→3                | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-07 | 未选中时删除按钮禁用、dnode 仍 4                 | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-VIZ-DLINKVIZ-08 | 重置回 4 dnode                                   | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-DEQUE-LOGIC-01  | 初始 [1,2,3]、size 3、front 1、back 3            | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-02  | pushBack → 4 落尾：[1,2,3,4]、back 4             | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-03  | pushFront → 4 落头：[4,1,2,3]、front 4           | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-04  | popFront → 1、[2,3]                              | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-05  | popBack → 3、[1,2]                               | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-06  | popFront×3 → isEmpty、front/back null            | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-07  | 满（push 到 6）后 pushBack/pushFront → null      | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-08  | 空时 popFront/popBack → null                     | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-09  | reset 复原 [1,2,3]                               | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-10  | 栈=尾进尾出(LIFO)、队列=尾进头出(FIFO)           | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-01 | 初始 3 dqitem + 5 按钮 + 头/尾标记               | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-02 | dqitem 值 1/2/3                                  | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-03 | 尾部入：4 dqitem、status 含「尾」                | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-04 | 头部入：4 dqitem、首位=新值、status 含「头」     | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-05 | 头部出：剩 2 dqitem、首位变 2、status 含「头」   | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-06 | 尾部出：剩 2 dqitem、末位变 2、status 含「尾」   | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-07 | 头部出×3 → 空：出队禁用 + empty-hint             | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-08 | 重置回 3 dqitem                                  | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-GROW-LOGIC-01   | 初始 cap 4、len 3、items [1,2,3]、计数 0         | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-02   | append 未满：grew false、copies 0、cap 4         | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-03   | append 到满再 append：grew true、copies 4、cap 8 | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-04   | 连续翻倍 4→8→16（append 6 次）                   | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-05   | appends 计数随每次 +1                            | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-06   | totalCopies 累计 = 4+8                           | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-07   | amortized = (appends+totalCopies)/appends        | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-08   | amortized 有界：20 次后 ≤ 3（O(1)）              | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-09   | value = ++seq 递增                               | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-GROW-LOGIC-10   | reset 复原 cap 4 len 3、计数归零                 | L3   | `src/components/structures/useGrow.spec.ts`      |
+| TC-VIZ-GROWVIZ-01  | 初始 4 gcell + 3 filled + 追加/重置 + readout    | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-02  | filled 格值 1/2/3                                | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-03  | append 未满：4 filled、status 含 O(1)            | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-04  | append×2 触发扩容：8 gcell、status 含「扩容」    | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-05  | 扩容那次 status 含 O(n)                          | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-06  | stats 含均摊统计（append 次数）                  | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-07  | 连续 append 6 次：容量翻倍到 16（16 gcell）      | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
+| TC-VIZ-GROWVIZ-08  | 重置回 3 filled、4 gcell                         | L4   | `src/components/structures/ArrayGrowViz.spec.ts` |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027）
 
 | Case ID           | 标题                                                          | 层级 | 自动化路径                                      |
 | ----------------- | ------------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -699,3 +717,5 @@
 | TC-E2E-LINK-02    | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置（C-025） | L5   | `e2e/link.e2e.ts`                               |
 | TC-VIEW-QUEUE-03  | 队列页含 DequeViz（双端队列节，C-026）                        | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
 | TC-E2E-QUEUE-02   | 队列页·双端节：3 元素/头部入/尾部出/重置（C-026）             | L5   | `e2e/queue.e2e.ts`                              |
+| TC-VIEW-ARRAY-03  | 数组页含 ArrayGrowViz（扩容节，C-027）                        | L4   | `src/views/Article/DataStructure/Array.spec.ts` |
+| TC-E2E-ARRAY-02   | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)（C-027）          | L5   | `e2e/array.e2e.ts`                              |
