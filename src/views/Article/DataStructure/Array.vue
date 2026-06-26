@@ -3,6 +3,7 @@ import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import Playground from '@/components/article/Playground.vue';
 import ArrayViz from '@/components/structures/ArrayViz.vue';
+import ArrayGrowViz from '@/components/structures/ArrayGrowViz.vue';
 </script>
 
 <template>
@@ -36,6 +37,29 @@ import ArrayViz from '@/components/structures/ArrayViz.vue';
       起的元素怎么<strong>排队右移</strong>给新元素让位；删除则反过来左移补位；而「尾部追加」放在末尾，谁也不用动，
       <code>O(1)</code
       >。插几次后你会发现：<strong>下标和值不再相等</strong>——下标是位置，值是内容，本就是两码事。
+    </p>
+
+    <h2>动态数组：容量满了怎么办——翻倍扩容</h2>
+    <p>
+      上面这个数组容量是<strong>固定</strong>的。可现实里我们天天用的「数组」——JS 的
+      <code>Array</code>、C++ 的 <code>vector</code>、Java 的 <code>ArrayList</code>、Python 的
+      <code>list</code>——却能<strong>一直 append</strong> 下去，靠的就是<strong>动态扩容</strong>。
+    </p>
+    <p>
+      它的办法是：当容量<strong>正好装满</strong>、还要再放，就开一个<strong>2 倍大</strong
+      >的新数组，把旧元素<strong>逐个拷过去</strong>（<code>O(n)</code>），再放新元素。拷贝很贵，但只在「装满」那一刻才发生。一直点「追加」试试。
+    </p>
+
+    <Playground>
+      <ArrayGrowViz />
+    </Playground>
+
+    <p>
+      关键全在「<strong>翻倍</strong>」上：容量 <code>4 → 8 → 16 → …</code>
+      指数增长，扩容越来越<strong>稀疏</strong>。把每次扩容的拷贝成本<strong>摊到</strong>它之后那一大批
+      <code>append</code> 上，平均下来每次
+      <code>append</code> 只花<strong>常数次</strong>操作——这就是「尾部追加<strong>均摊 O(1)</strong
+      >」的<strong>摊还分析</strong>。看右边那个均摊读数，无论追加多少次它始终<strong>有界</strong>，不会越长越慢。
     </p>
 
     <h2>数组在哪里用</h2>
