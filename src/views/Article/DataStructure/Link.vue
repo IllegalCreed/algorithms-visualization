@@ -3,6 +3,7 @@ import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import Playground from '@/components/article/Playground.vue';
 import LinkViz from '@/components/structures/LinkViz.vue';
+import DlinkViz from '@/components/structures/DlinkViz.vue';
 </script>
 
 <template>
@@ -35,6 +36,32 @@ import LinkViz from '@/components/structures/LinkViz.vue';
       被改写（高亮那两根），其余节点纹丝不动，<code>O(1)</code>；删除同理，让前一个节点的
       <code>next</code>
       直接跳过它即可。这正是数组（访问快、增删慢）与链表（访问慢、增删快）的<strong>取舍</strong>。
+    </p>
+
+    <h2>双向链表：再加一根 prev 指针</h2>
+    <p>
+      上面的链表每个节点只有一根 <code>next</code>，只能从 <code>head</code>
+      <strong>往后</strong>走。给每个节点<strong>再加一根</strong>指向前一个节点的
+      <code>prev</code> 指针，就成了<strong>双向链表</strong>。
+    </p>
+    <p>
+      多出来的 <code>prev</code> 换来两件单链表做不到的事：① <strong>反向遍历</strong>——能从
+      <code>tail</code> 沿 <code>prev</code> 一路往回走；②<strong
+        >给定任意一个节点就能 O(1) 删除它</strong
+      >——单链表只拿到一个节点，得先从 <code>head</code> 走
+      <code>O(n)</code> 找到它的<strong>前驱</strong>才能删；双向链表的节点<strong>自带 prev</strong
+      >，直接 <code>prev.next = next</code>、<code>next.prev = prev</code>
+      两步接线就行。点「反向遍历」，或点一个节点删除看看。
+    </p>
+
+    <Playground>
+      <DlinkViz />
+    </Playground>
+
+    <p>
+      代价也很实在：每个节点要多存一根指针，增删时要多维护一根。如果再把<strong
+        >尾节点的 next 接回头、头的 prev 接到尾</strong
+      >，链就首尾相连成了<strong>循环链表</strong>——环状结构，适合轮询调度、轮转缓冲这类「转圈」的场景。
     </p>
 
     <h2>链表在哪里用</h2>

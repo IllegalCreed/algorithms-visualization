@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils';
 import Link from './Link.vue';
 import Article from '@/components/article/Article.vue';
 import LinkViz from '@/components/structures/LinkViz.vue';
+import DlinkViz from '@/components/structures/DlinkViz.vue';
 
 const mountIt = () =>
   mount(Link, {
@@ -19,5 +20,9 @@ describe('Link 链表页', () => {
     const w = mountIt();
     expect(w.find('h1').text()).toContain('链表');
     expect(w.find('.playground').exists()).toBe(true);
+  });
+  it('TC-VIEW-LINK-03 链表页含 DlinkViz（双向链表节）', () => {
+    const w = mountIt();
+    expect(w.findComponent(DlinkViz).exists()).toBe(true);
   });
 });
