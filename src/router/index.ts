@@ -60,6 +60,11 @@ const routes = [
             component: () => import('../views/Article/DataStructure/Graph.vue'),
           },
           {
+            path: '/docs/trie',
+            name: 'trie',
+            component: () => import('../views/Article/DataStructure/Trie.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

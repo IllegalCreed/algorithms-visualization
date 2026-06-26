@@ -39,6 +39,10 @@ export function useCategoryData(): Category[] {
           title: '图',
           url: 'graph',
         },
+        {
+          title: '字典树',
+          url: 'trie',
+        },
       ],
     },
     {

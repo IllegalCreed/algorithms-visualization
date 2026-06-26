@@ -7,6 +7,7 @@ import TreeIcon from '@/assets/tree.svg';
 import HeapIcon from '@/assets/heap.svg';
 import HashIcon from '@/assets/hash.svg';
 import GraphIcon from '@/assets/graph.svg';
+import TrieIcon from '@/assets/trie.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
@@ -68,6 +69,12 @@ export function useCategoryData(): Category[] {
           desc: '图是一系列顶点的集合，这些顶点通过一系列边连接起来组成图这种数据结构。',
           icon: GraphIcon,
           url: 'graph',
+        },
+        {
+          title: '字典树',
+          desc: '把字符摊在边上的前缀树，路径拼出单词，天生支持前缀匹配与自动补全',
+          icon: TrieIcon,
+          url: 'trie',
         },
       ],
     },
