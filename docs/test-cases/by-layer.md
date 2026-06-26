@@ -1,7 +1,7 @@
 # 测试用例分层视图
 
 > Status: active
-> Last reviewed: 2026-06-24
+> Last reviewed: 2026-06-26
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **205** 个用例。运行命令：`pnpm test:unit`
+共 **215** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -419,11 +419,26 @@
 | TC-BAL-LOGIC-07 | balanced：根 1 步、叶 3 步                   | `src/components/structures/useBalance.spec.ts` |
 | TC-BAL-LOGIC-08 | 同值两 mode 步数不同                         | `src/components/structures/useBalance.spec.ts` |
 
+### 开放寻址逻辑 useProbe（C-024 · M4 深度 D2）
+
+| Case ID           | 标题                                          | 自动化路径                                   |
+| ----------------- | --------------------------------------------- | -------------------------------------------- |
+| TC-PROBE-LOGIC-01 | 初始扁平表 [null,15,8,23,4,null,null]、size 4 | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-02 | 装载因子 4/7、isFull=false                    | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-03 | hash(key)=key%7                               | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-04 | insert 非冲突：5→格5                          | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-05 | insert 冲突：9→探 2,3,4 落 5                  | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-06 | insert 查重：15 已在 → dup                    | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-07 | search 命中：15→1 步、8→2 步                  | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-08 | search 未命中：99 探到空槽止、steps 5         | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-09 | 填满后 isFull、load=1，insert→full 不死循环   | `src/components/structures/useProbe.spec.ts` |
+| TC-PROBE-LOGIC-10 | reset 复原；has(8)=true、has(99)=false        | `src/components/structures/useProbe.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **165** 个用例。运行命令：`pnpm test:unit`
+共 **174** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -783,11 +798,25 @@
 | TC-VIZ-BALVIZ-08 | 边数两 mode 均 6                                       | `src/components/structures/BalanceViz.spec.ts` |
 | TC-VIEW-TREE-03  | 树页含 BalanceViz（平衡节）                            | `src/views/Article/DataStructure/Tree.spec.ts` |
 
+### 开放寻址互动 HashProbeViz + 哈希页开放寻址节（C-024 · M4 深度 D2）
+
+| Case ID            | 标题                                        | 自动化路径                                       |
+| ------------------ | ------------------------------------------- | ------------------------------------------------ |
+| TC-VIZ-PROBEVIZ-01 | 初始 7 格+4 filled+3 按钮+readout 4/7       | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-02 | 初始 filled 格含 15/8/23/4                  | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-03 | 插入 5（非冲突）filled→5、status 含「落座」 | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-04 | 插入 9（冲突）filled→5、status 含「探测」   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-05 | 查找 8（命中）status 含「命中」             | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-06 | 查找 99（未命中）status 含「不在表中」      | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-07 | 填满后插入 status 含「扩容」、readout 7/7   | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIZ-PROBEVIZ-08 | 重置 filled 回 4、readout 4/7               | `src/components/structures/HashProbeViz.spec.ts` |
+| TC-VIEW-HASH-03    | 哈希页含 HashProbeViz（开放寻址节）         | `src/views/Article/DataStructure/Hash.spec.ts`   |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **19** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **20** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -811,6 +840,7 @@
 | TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置          | `e2e/hash.e2e.ts`            | active     |
 | TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                     | `e2e/graph.e2e.ts`           | active     |
 | TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                       | `e2e/tree.e2e.ts`            | active     |
+| TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置     | `e2e/hash.e2e.ts`            | active     |
 
 ---
 

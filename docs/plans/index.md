@@ -1,7 +1,7 @@
 # Plans Index
 
 > Status: active
-> Last reviewed: 2026-06-24
+> Last reviewed: 2026-06-26
 > Owner: IllegalCreed
 
 ## All Changes
@@ -31,6 +31,7 @@
 | C-20260625-021 | feature             | 哈希表动画          | 复用知识页骨架做**哈希表**（**靠算找元素**：散列 key%7 → 桶下标直达 O(1)）。新增 useHash（buckets 二维 / hash / insert 空放·冲突追加链尾 / search 扫链 / has / 限 16）+ HashViz（**7 桶阵列 + 每桶拉链** + 散列命中桶高亮 + 冲突追加 + 扫链动画 + 输入框选值），填充 Hash.vue 空壳。**骨架零改动**；M3 数据结构第七个                                                       | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）                   | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c021-hash-knowledge/`       | 2026-06-25 | -             |
 | C-20260625-022 | feature             | 图动画（收官）      | 复用知识页骨架做**图**（**M3 数据结构收官**，最一般结构：顶点+边任意连接）。新增 useGraph（固定无向图 6 顶点 7 边 + 纯 bfs/dfs 返回步序）+ GraphViz（**SVG 二维图** + 点顶点换起点 + **BFS 队列/DFS 栈遍历点亮** + 辅助面板，收官回扣栈/队列），填充 Graph.vue 空壳。**骨架零改动**；数据结构 8/8                                                                           | verified | 100%   | 无     | 已完成（23 Case 全绿，已落 main）；**M3 收官**      | viz-engine / article-ds / M3   | IllegalCreed | `20260625-c022-graph-knowledge/`      | 2026-06-25 | -             |
 | C-20260625-023 | feature             | 树·平衡深化         | **M4 深度 D1**：树页**加一节**「为什么会失衡 · 平衡的思想」（还 C-019 callout 欠的债）。新增 useBalance（退化链/平衡树两套固定布局 + 纯 search 返回步数）+ BalanceViz（**退化↔平衡对照** + 高度/最坏查找读数 + 查找 7 走位 7 步 vs 3 步），树页中序段后加节。**不动菜单/路由/TreeViz**；M4 深度首项                                                                         | verified | 100%   | 无     | 已完成（18 Case 全绿，已落 main）；**M4 深度 D1 ✓** | viz-engine / article-ds / M4   | IllegalCreed | `20260625-c023-tree-balance/`         | 2026-06-25 | -             |
+| C-20260626-024 | feature             | 哈希·开放寻址       | **M4 深度 D2**：哈希页**加一节**「另一种解冲突：开放寻址」（补 C-021 当年所砍）。新增 useProbe（7 格扁平表 + 线性探测 insert/search 返回探测路径 + 装载因子）+ HashProbeViz（**扁平表对照拉链** + 同键 [15,8,23,4] 成簇 + 探测走位 + 装载因子读数），哈希页拉链段后加节。**不动菜单/路由/HashViz**；M4 深度第二项                                                           | verified | 100%   | 无     | 已完成（20 Case 全绿，已落 main）；**M4 深度 D2 ✓** | viz-engine / article-ds / M4   | IllegalCreed | `20260626-c024-hash-open-addressing/` | 2026-06-26 | -             |
 
 ## By Type
 
@@ -76,6 +77,7 @@
 | C-20260625-021 | 哈希表动画        | verified | 100%   | 无     | 已完成 | `20260625-c021-hash-knowledge/`       |
 | C-20260625-022 | 图动画（收官）    | verified | 100%   | 无     | 已完成 | `20260625-c022-graph-knowledge/`      |
 | C-20260625-023 | 树·平衡深化       | verified | 100%   | 无     | 已完成 | `20260625-c023-tree-balance/`         |
+| C-20260626-024 | 哈希·开放寻址     | verified | 100%   | 无     | 已完成 | `20260626-c024-hash-open-addressing/` |
 
 ## By Module
 
@@ -110,14 +112,15 @@
 
 ### viz-engine / article-ds
 
-| Change ID      | Type    | 标题             | 状态     | 完成度 | Plan                             |
-| -------------- | ------- | ---------------- | -------- | ------ | -------------------------------- |
-| C-20260624-015 | feature | 知识页骨架 + 栈  | verified | 100%   | `20260624-c015-stack-knowledge/` |
-| C-20260624-016 | feature | 队列动画         | verified | 100%   | `20260624-c016-queue-knowledge/` |
-| C-20260624-017 | feature | 数组动画         | verified | 100%   | `20260624-c017-array-knowledge/` |
-| C-20260625-018 | feature | 链表动画         | verified | 100%   | `20260625-c018-link-knowledge/`  |
-| C-20260625-019 | feature | 树动画（BST）    | verified | 100%   | `20260625-c019-tree-knowledge/`  |
-| C-20260625-020 | feature | 堆动画（大顶堆） | verified | 100%   | `20260625-c020-heap-knowledge/`  |
-| C-20260625-021 | feature | 哈希表动画       | verified | 100%   | `20260625-c021-hash-knowledge/`  |
-| C-20260625-022 | feature | 图动画（收官）   | verified | 100%   | `20260625-c022-graph-knowledge/` |
-| C-20260625-023 | feature | 树·平衡深化      | verified | 100%   | `20260625-c023-tree-balance/`    |
+| Change ID      | Type    | 标题             | 状态     | 完成度 | Plan                                  |
+| -------------- | ------- | ---------------- | -------- | ------ | ------------------------------------- |
+| C-20260624-015 | feature | 知识页骨架 + 栈  | verified | 100%   | `20260624-c015-stack-knowledge/`      |
+| C-20260624-016 | feature | 队列动画         | verified | 100%   | `20260624-c016-queue-knowledge/`      |
+| C-20260624-017 | feature | 数组动画         | verified | 100%   | `20260624-c017-array-knowledge/`      |
+| C-20260625-018 | feature | 链表动画         | verified | 100%   | `20260625-c018-link-knowledge/`       |
+| C-20260625-019 | feature | 树动画（BST）    | verified | 100%   | `20260625-c019-tree-knowledge/`       |
+| C-20260625-020 | feature | 堆动画（大顶堆） | verified | 100%   | `20260625-c020-heap-knowledge/`       |
+| C-20260625-021 | feature | 哈希表动画       | verified | 100%   | `20260625-c021-hash-knowledge/`       |
+| C-20260625-022 | feature | 图动画（收官）   | verified | 100%   | `20260625-c022-graph-knowledge/`      |
+| C-20260625-023 | feature | 树·平衡深化      | verified | 100%   | `20260625-c023-tree-balance/`         |
+| C-20260626-024 | feature | 哈希·开放寻址    | verified | 100%   | `20260626-c024-hash-open-addressing/` |

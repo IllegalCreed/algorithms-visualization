@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-06-24
+> Last reviewed: 2026-06-26
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -577,3 +577,23 @@
 | TC-VIZ-BALVIZ-08     | 边数两 mode 均 6                                               | structures / BalanceViz      | C-20260625-023 | L4   | `src/components/structures/BalanceViz.spec.ts`          | active     | 2026-06-25 |
 | TC-VIEW-TREE-03      | 树页含 BalanceViz（平衡节）                                    | article-ds / Tree            | C-20260625-023 | L4   | `src/views/Article/DataStructure/Tree.spec.ts`          | active     | 2026-06-25 |
 | TC-E2E-TREE-02       | 树页·平衡节：退化↔平衡对照 + 查找走位                          | article-ds / e2e             | C-20260625-023 | L5   | `e2e/tree.e2e.ts`                                       | active     | 2026-06-25 |
+| TC-PROBE-LOGIC-01    | 初始扁平表 [null,15,8,23,4,null,null]、size 4                  | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-02    | 装载因子 4/7、isFull=false                                     | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-03    | hash(key)=key%7                                                | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-04    | insert 非冲突：5→格5                                           | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-05    | insert 冲突：9→探 2,3,4 落 5                                   | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-06    | insert 查重：15 已在 → dup                                     | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-07    | search 命中：15→1 步、8→2 步                                   | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-08    | search 未命中：99 探到空槽止、steps 5                          | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-09    | 填满后 isFull、load=1，insert→full 不死循环                    | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-PROBE-LOGIC-10    | reset 复原；has(8)=true、has(99)=false                         | structures / useProbe        | C-20260626-024 | L3   | `src/components/structures/useProbe.spec.ts`            | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-01   | 初始 7 格+4 filled+3 按钮+readout 4/7                          | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-02   | 初始 filled 格含 15/8/23/4                                     | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-03   | 插入 5（非冲突）filled→5、status 含「落座」                    | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-04   | 插入 9（冲突）filled→5、status 含「探测」                      | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-05   | 查找 8（命中）status 含「命中」                                | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-06   | 查找 99（未命中）status 含「不在表中」                         | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-07   | 填满后插入 status 含「扩容」、readout 7/7                      | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIZ-PROBEVIZ-08   | 重置 filled 回 4、readout 4/7                                  | structures / HashProbeViz    | C-20260626-024 | L4   | `src/components/structures/HashProbeViz.spec.ts`        | active     | 2026-06-26 |
+| TC-VIEW-HASH-03      | 哈希页含 HashProbeViz（开放寻址节）                            | article-ds / Hash            | C-20260626-024 | L4   | `src/views/Article/DataStructure/Hash.spec.ts`          | active     | 2026-06-26 |
+| TC-E2E-HASH-02       | 开放寻址节：扁平表 7 格/线性探测插入/未命中/重置               | article-ds / e2e             | C-20260626-024 | L5   | `e2e/hash.e2e.ts`                                       | active     | 2026-06-26 |
