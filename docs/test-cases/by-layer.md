@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **225** 个用例。运行命令：`pnpm test:unit`
+共 **235** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -449,11 +449,26 @@
 | TC-DLINK-LOGIC-09 | 删除后 backward 更新（删1后 [40,30,10]）       | `src/components/structures/useDlink.spec.ts` |
 | TC-DLINK-LOGIC-10 | reset 复原 [10,20,30,40]、清选中               | `src/components/structures/useDlink.spec.ts` |
 
+### 双端队列逻辑 useDeque（C-026 · M4 深度 D4）
+
+| Case ID           | 标题                                        | 自动化路径                                   |
+| ----------------- | ------------------------------------------- | -------------------------------------------- |
+| TC-DEQUE-LOGIC-01 | 初始 [1,2,3]、size 3、front 1、back 3       | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-02 | pushBack → 4 落尾：[1,2,3,4]、back 4        | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-03 | pushFront → 4 落头：[4,1,2,3]、front 4      | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-04 | popFront → 1、[2,3]                         | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-05 | popBack → 3、[1,2]                          | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-06 | popFront×3 → isEmpty、front/back null       | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-07 | 满（push 到 6）后 pushBack/pushFront → null | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-08 | 空时 popFront/popBack → null                | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-09 | reset 复原 [1,2,3]                          | `src/components/structures/useDeque.spec.ts` |
+| TC-DEQUE-LOGIC-10 | 栈=尾进尾出(LIFO)、队列=尾进头出(FIFO)      | `src/components/structures/useDeque.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **183** 个用例。运行命令：`pnpm test:unit`
+共 **192** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -841,11 +856,25 @@
 | TC-VIZ-DLINKVIZ-08 | 重置回 4 dnode                                    | `src/components/structures/DlinkViz.spec.ts`   |
 | TC-VIEW-LINK-03    | 链表页含 DlinkViz（双向链表节）                   | `src/views/Article/DataStructure/Link.spec.ts` |
 
+### 双端队列互动 DequeViz + 队列页双端节（C-026 · M4 深度 D4）
+
+| Case ID            | 标题                                           | 自动化路径                                      |
+| ------------------ | ---------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-DEQUEVIZ-01 | 初始 3 dqitem + 5 按钮 + 头/尾标记             | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIZ-DEQUEVIZ-02 | dqitem 值 1/2/3                                | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIZ-DEQUEVIZ-03 | 尾部入：4 dqitem、status 含「尾」              | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIZ-DEQUEVIZ-04 | 头部入：4 dqitem、首位=新值、status 含「头」   | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIZ-DEQUEVIZ-05 | 头部出：剩 2 dqitem、首位变 2、status 含「头」 | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIZ-DEQUEVIZ-06 | 尾部出：剩 2 dqitem、末位变 2、status 含「尾」 | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIZ-DEQUEVIZ-07 | 头部出×3 → 空：出队禁用 + empty-hint           | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIZ-DEQUEVIZ-08 | 重置回 3 dqitem                                | `src/components/structures/DequeViz.spec.ts`    |
+| TC-VIEW-QUEUE-03   | 队列页含 DequeViz（双端队列节）                | `src/views/Article/DataStructure/Queue.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **21** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **22** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -871,6 +900,7 @@
 | TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                       | `e2e/tree.e2e.ts`            | active     |
 | TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置     | `e2e/hash.e2e.ts`            | active     |
 | TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置        | `e2e/link.e2e.ts`            | active     |
+| TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）        | `e2e/queue.e2e.ts`           | active     |
 
 ---
 

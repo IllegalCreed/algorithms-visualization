@@ -436,7 +436,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026）
 
 | Case ID            | 标题                                            | 层级 | 自动化路径                                       |
 | ------------------ | ----------------------------------------------- | ---- | ------------------------------------------------ |
@@ -644,8 +644,26 @@
 | TC-VIZ-DLINKVIZ-06 | 删头删除：首 dnode 变 20、dnode→3               | L4   | `src/components/structures/DlinkViz.spec.ts`     |
 | TC-VIZ-DLINKVIZ-07 | 未选中时删除按钮禁用、dnode 仍 4                | L4   | `src/components/structures/DlinkViz.spec.ts`     |
 | TC-VIZ-DLINKVIZ-08 | 重置回 4 dnode                                  | L4   | `src/components/structures/DlinkViz.spec.ts`     |
+| TC-DEQUE-LOGIC-01  | 初始 [1,2,3]、size 3、front 1、back 3           | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-02  | pushBack → 4 落尾：[1,2,3,4]、back 4            | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-03  | pushFront → 4 落头：[4,1,2,3]、front 4          | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-04  | popFront → 1、[2,3]                             | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-05  | popBack → 3、[1,2]                              | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-06  | popFront×3 → isEmpty、front/back null           | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-07  | 满（push 到 6）后 pushBack/pushFront → null     | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-08  | 空时 popFront/popBack → null                    | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-09  | reset 复原 [1,2,3]                              | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-DEQUE-LOGIC-10  | 栈=尾进尾出(LIFO)、队列=尾进头出(FIFO)          | L3   | `src/components/structures/useDeque.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-01 | 初始 3 dqitem + 5 按钮 + 头/尾标记              | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-02 | dqitem 值 1/2/3                                 | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-03 | 尾部入：4 dqitem、status 含「尾」               | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-04 | 头部入：4 dqitem、首位=新值、status 含「头」    | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-05 | 头部出：剩 2 dqitem、首位变 2、status 含「头」  | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-06 | 尾部出：剩 2 dqitem、末位变 2、status 含「尾」  | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-07 | 头部出×3 → 空：出队禁用 + empty-hint            | L4   | `src/components/structures/DequeViz.spec.ts`     |
+| TC-VIZ-DEQUEVIZ-08 | 重置回 3 dqitem                                 | L4   | `src/components/structures/DequeViz.spec.ts`     |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026）
 
 | Case ID           | 标题                                                          | 层级 | 自动化路径                                      |
 | ----------------- | ------------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -679,3 +697,5 @@
 | TC-E2E-HASH-02    | 哈希页·开放寻址节：扁平表/线性探测插入/未命中/重置（C-024）   | L5   | `e2e/hash.e2e.ts`                               |
 | TC-VIEW-LINK-03   | 链表页含 DlinkViz（双向链表节，C-025）                        | L4   | `src/views/Article/DataStructure/Link.spec.ts`  |
 | TC-E2E-LINK-02    | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置（C-025） | L5   | `e2e/link.e2e.ts`                               |
+| TC-VIEW-QUEUE-03  | 队列页含 DequeViz（双端队列节，C-026）                        | L4   | `src/views/Article/DataStructure/Queue.spec.ts` |
+| TC-E2E-QUEUE-02   | 队列页·双端节：3 元素/头部入/尾部出/重置（C-026）             | L5   | `e2e/queue.e2e.ts`                              |
