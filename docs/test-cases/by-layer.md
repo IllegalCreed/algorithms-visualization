@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **255** 个用例。运行命令：`pnpm test:unit`
+共 **265** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -146,14 +146,14 @@
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
 | TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 9 项（含字典树 C-028）                        | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 10 项（含字典树 C-028、并查集 C-029）         | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 9 项（含字典树 C-028），排序算法含 8 项           | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 10 项（字典树 C-028、并查集 C-029），排序 8 项    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
@@ -494,11 +494,26 @@
 | TC-TRIE-LOGIC-09 | startsWith('do') = [do,dog]、subtree 2            | `src/components/structures/useTrie.spec.ts` |
 | TC-TRIE-LOGIC-10 | startsWith('xyz')：prefixNode -1、words []        | `src/components/structures/useTrie.spec.ts` |
 
+### 并查集逻辑 useUnionFind（C-029 · M4 广度 B2）
+
+| Case ID        | 标题                                   | 自动化路径                                       |
+| -------------- | -------------------------------------- | ------------------------------------------------ |
+| TC-UF-LOGIC-01 | 初始 parent [0..7]、groupCount 8       | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-02 | union(0,1)：merged、parent[0]=1、组 7  | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-03 | union 同组：merged false、组不减       | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-04 | 链后 find(0)：root 3、path [0,1,2,3]   | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-05 | find 纯走位不改 parent                 | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-06 | compress(0)（链后）：parent[0/1/2]=3   | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-07 | connected：(0,1)true、(0,2)false       | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-08 | connected 经链：connected(0,3) true    | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-09 | groupCount 随 union 递减（3 次后 5）   | `src/components/structures/useUnionFind.spec.ts` |
+| TC-UF-LOGIC-10 | reset 复原 parent [0..7]、groupCount 8 | `src/components/structures/useUnionFind.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **211** 个用例。运行命令：`pnpm test:unit`
+共 **221** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -929,11 +944,26 @@
 | TC-VIEW-TRIE-01   | 挂载渲染 Article + TrieViz           | `src/views/Article/DataStructure/Trie.spec.ts` |
 | TC-VIEW-TRIE-02   | 含「字典树」标题与 Playground        | `src/views/Article/DataStructure/Trie.spec.ts` |
 
+### 并查集互动 UnionFindViz + 并查集页（C-029 · M4 广度 B2，新页）
+
+| Case ID         | 标题                                      | 自动化路径                                          |
+| --------------- | ----------------------------------------- | --------------------------------------------------- |
+| TC-VIZ-UFVIZ-01 | 8 ufnode + 两输入 + 4 按钮 + readout 含 8 | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIZ-UFVIZ-02 | 节点标 0..7                               | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIZ-UFVIZ-03 | 合并 0,1：readout 含 7、uf-edge 1         | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIZ-UFVIZ-04 | 合并链：uf-edge 3、readout 含 5           | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIZ-UFVIZ-05 | 链后查根 0：status 含「压缩」             | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIZ-UFVIZ-06 | 连通?（同组）：status 含「同根」          | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIZ-UFVIZ-07 | 连通?（异组）：status 含「根不同」        | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIZ-UFVIZ-08 | 重置：8 ufnode、0 uf-edge、readout 含 8   | `src/components/structures/UnionFindViz.spec.ts`    |
+| TC-VIEW-UF-01   | 挂载渲染 Article + UnionFindViz           | `src/views/Article/DataStructure/UnionFind.spec.ts` |
+| TC-VIEW-UF-02   | 含「并查集」标题与 Playground             | `src/views/Article/DataStructure/UnionFind.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **24** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **25** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -962,6 +992,7 @@
 | TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）        | `e2e/queue.e2e.ts`           | active     |
 | TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                 | `e2e/array.e2e.ts`           | active     |
 | TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置   | `e2e/trie.e2e.ts`            | active     |
+| TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置          | `e2e/union-find.e2e.ts`      | active     |
 
 ---
 
