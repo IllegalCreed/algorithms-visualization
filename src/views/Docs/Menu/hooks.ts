@@ -43,6 +43,10 @@ export function useCategoryData(): Category[] {
           title: '字典树',
           url: 'trie',
         },
+        {
+          title: '并查集',
+          url: 'union-find',
+        },
       ],
     },
     {
