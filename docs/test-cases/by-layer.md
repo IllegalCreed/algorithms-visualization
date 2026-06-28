@@ -160,20 +160,22 @@
 | TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
 | TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 3 项 微博/X/GitHub，title 为分享/仓库文案（C-009 改写） | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4） | `src/views/Master/Header/hooks.spec.ts` |
 | TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
 | TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）              | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
-| Case ID     | 标题                                      | 自动化路径                              |
-| ----------- | ----------------------------------------- | --------------------------------------- |
-| TC-SHARE-01 | buildShareTargetUrl 拼线上域名 + fullPath | `src/views/Master/Header/share.spec.ts` |
-| TC-SHARE-02 | buildShareTargetUrl 保留 query/hash       | `src/views/Master/Header/share.spec.ts` |
-| TC-SHARE-03 | buildWeiboShareUrl 指向微博分享页         | `src/views/Master/Header/share.spec.ts` |
-| TC-SHARE-04 | buildXShareUrl 指向 X 分享页              | `src/views/Master/Header/share.spec.ts` |
-| TC-SHARE-05 | 链接与中文文案经 URLSearchParams 编码     | `src/views/Master/Header/share.spec.ts` |
-| TC-SHARE-06 | 常量 GITHUB_REPO_URL / SITE_ORIGIN 校验   | `src/views/Master/Header/share.spec.ts` |
+| Case ID     | 标题                                              | 自动化路径                              |
+| ----------- | ------------------------------------------------- | --------------------------------------- |
+| TC-SHARE-01 | buildShareTargetUrl 拼线上域名 + fullPath         | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-02 | buildShareTargetUrl 保留 query/hash               | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-03 | buildWeiboShareUrl 指向微博分享页                 | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-04 | buildXShareUrl 指向 X 分享页                      | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-05 | 链接与中文文案经 URLSearchParams 编码             | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-06 | 常量 GITHUB_REPO_URL / SITE_ORIGIN 校验           | `src/views/Master/Header/share.spec.ts` |
+| TC-SHARE-07 | 常量 HOME_PAGE_URL 为个人主页 https 链接（C-030） | `src/views/Master/Header/share.spec.ts` |
 
 ### merge-sort oracle + module（C-011）
 
@@ -631,21 +633,21 @@
 
 ### master（全局框架 Header）
 
-| Case ID             | 标题                                        | 自动化路径                                          |
-| ------------------- | ------------------------------------------- | --------------------------------------------------- |
-| TC-VIEW-HEADER-01   | 渲染 #header 根元素                         | `src/views/Master/Header/Header.spec.ts`            |
-| TC-VIEW-HEADER-02   | 渲染 logo #logo 元素                        | `src/views/Master/Header/Header.spec.ts`            |
-| TC-VIEW-HEADER-03   | 渲染「V」logo 字符                          | `src/views/Master/Header/Header.spec.ts`            |
-| TC-VIEW-HEADER-04   | 渲染 h1 标题「算法可视化」                  | `src/views/Master/Header/Header.spec.ts`            |
-| TC-VIEW-HEADER-05   | 点击 logo 跳转到 home 路由                  | `src/views/Master/Header/Header.spec.ts`            |
-| TC-VIEW-HEADER-06   | 渲染 3 个 icon-link（github/twitter/weibo） | `src/views/Master/Header/Header.spec.ts`            |
-| TC-VIEW-HEADER-07   | 初始无 header shadow class                  | `src/views/Master/Header/Header.spec.ts`            |
-| TC-VIEW-ICONLINK-01 | 渲染 .icon-link 根元素                      | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
-| TC-VIEW-ICONLINK-02 | 渲染 img 标签                               | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
-| TC-VIEW-ICONLINK-03 | img src 属性正确                            | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
-| TC-VIEW-ICONLINK-04 | title 属性渲染到元素上                      | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
-| TC-VIEW-ICONLINK-05 | 点击调用 window.open 打开对应 url           | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
-| TC-VIEW-ICONLINK-06 | 不同 url 也能正确打开                       | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
+| Case ID             | 标题                                                        | 自动化路径                                          |
+| ------------------- | ----------------------------------------------------------- | --------------------------------------------------- |
+| TC-VIEW-HEADER-01   | 渲染 #header 根元素                                         | `src/views/Master/Header/Header.spec.ts`            |
+| TC-VIEW-HEADER-02   | 渲染 logo #logo 元素                                        | `src/views/Master/Header/Header.spec.ts`            |
+| TC-VIEW-HEADER-03   | 渲染「V」logo 字符                                          | `src/views/Master/Header/Header.spec.ts`            |
+| TC-VIEW-HEADER-04   | 渲染 h1 标题「算法可视化」                                  | `src/views/Master/Header/Header.spec.ts`            |
+| TC-VIEW-HEADER-05   | 点击 logo 跳转到 home 路由                                  | `src/views/Master/Header/Header.spec.ts`            |
+| TC-VIEW-HEADER-06   | 渲染 4 个 icon-link（微博/X/GitHub/个人主页，C-030 改 3→4） | `src/views/Master/Header/Header.spec.ts`            |
+| TC-VIEW-HEADER-07   | 初始无 header shadow class                                  | `src/views/Master/Header/Header.spec.ts`            |
+| TC-VIEW-ICONLINK-01 | 渲染 .icon-link 根元素                                      | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
+| TC-VIEW-ICONLINK-02 | 渲染 img 标签                                               | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
+| TC-VIEW-ICONLINK-03 | img src 属性正确                                            | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
+| TC-VIEW-ICONLINK-04 | title 属性渲染到元素上                                      | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
+| TC-VIEW-ICONLINK-05 | 点击调用 window.open 打开对应 url                           | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
+| TC-VIEW-ICONLINK-06 | 不同 url 也能正确打开                                       | `src/views/Master/Header/IconLink/IconLink.spec.ts` |
 
 ### 归并双轨可视化 + 视图（C-011）
 
