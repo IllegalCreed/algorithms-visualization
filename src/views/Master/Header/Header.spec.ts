@@ -16,6 +16,7 @@ vi.mock('vue-router', () => ({
 vi.mock('@/assets/weibo.svg', () => ({ default: 'weibo.svg' }));
 vi.mock('@/assets/github.svg', () => ({ default: 'github.svg' }));
 vi.mock('@/assets/twitter.svg', () => ({ default: 'twitter.svg' }));
+vi.mock('@/assets/homepage.svg', () => ({ default: 'homepage.svg' }));
 
 describe('Master/Header 组件', () => {
   beforeEach(() => {
@@ -49,9 +50,11 @@ describe('Master/Header 组件', () => {
     expect(mockPush).toHaveBeenCalledWith({ name: 'home' });
   });
 
-  it('TC-VIEW-HEADER-06: 渲染 3 个 icon-link（github/twitter/weibo）', () => {
+  it('TC-VIEW-HEADER-06: 渲染 4 个 icon-link（微博/X/GitHub/个人主页），含个人主页项（C-030）', () => {
     const w = mount(Header, { global: { plugins: [createPinia()] } });
-    expect(w.findAll('.icon-link')).toHaveLength(3);
+    const links = w.findAll('.icon-link');
+    expect(links).toHaveLength(4);
+    expect(links.some((l) => l.attributes('title') === '个人主页')).toBe(true);
   });
 
   it('TC-VIEW-HEADER-07: 初始无 header shadow class（isShowHeaderShadow 默认 false）', () => {

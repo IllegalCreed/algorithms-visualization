@@ -2,6 +2,8 @@
 export const SITE_ORIGIN = 'https://algo.illegalscreed.cn';
 /** 本项目 GitHub 仓库（取自 git remote origin） */
 export const GITHUB_REPO_URL = 'https://github.com/IllegalCreed/algorithms-visualization';
+/** 作者个人主页（C-030 增：头部「个人主页」外链指向这里） */
+export const HOME_PAGE_URL = 'https://illegalscreed.cn/zh/';
 /** 分享文案：标题 + 一句简介 */
 export const SHARE_TEXT = '算法可视化 —— 交互式数据结构与算法可视化';
 

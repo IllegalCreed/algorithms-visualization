@@ -2,13 +2,14 @@ import { describe, it, expect } from 'vitest';
 import {
   SITE_ORIGIN,
   GITHUB_REPO_URL,
+  HOME_PAGE_URL,
   SHARE_TEXT,
   buildShareTargetUrl,
   buildWeiboShareUrl,
   buildXShareUrl,
 } from './share';
 
-// TC-SHARE: Master/Header 分享 URL 纯函数（C-009）
+// TC-SHARE: Master/Header 分享 URL 纯函数（C-009）；C-030 增个人主页外链常量
 
 describe('Master/Header share 纯函数', () => {
   it('TC-SHARE-01: buildShareTargetUrl 把 fullPath 拼到线上域名后', () => {
@@ -56,5 +57,9 @@ describe('Master/Header share 纯函数', () => {
     expect(GITHUB_REPO_URL).toBe('https://github.com/IllegalCreed/algorithms-visualization');
     expect(SITE_ORIGIN).toBe('https://algo.illegalscreed.cn');
     expect(SHARE_TEXT).toBeTruthy();
+  });
+
+  it('TC-SHARE-07: 常量 HOME_PAGE_URL 为作者个人主页 https 链接（C-030）', () => {
+    expect(HOME_PAGE_URL).toBe('https://illegalscreed.cn/zh/');
   });
 });
