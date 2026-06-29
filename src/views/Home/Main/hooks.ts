@@ -13,6 +13,7 @@ import LruIcon from '@/assets/lru.svg';
 import SkipListIcon from '@/assets/skip-list.svg';
 import SegmentTreeIcon from '@/assets/segment-tree.svg';
 import BTreeIcon from '@/assets/b-tree.svg';
+import BloomIcon from '@/assets/bloom-filter.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
@@ -110,6 +111,12 @@ export function useCategoryData(): Category[] {
           desc: '多路平衡查找树，数据全在叶 + 叶链，多路下钻查找 + 范围扫描，数据库索引的底层',
           icon: BTreeIcon,
           url: 'b-tree',
+        },
+        {
+          title: '布隆过滤器',
+          desc: '位数组 + 多哈希的概率型存在性判断，会误判不漏判、极省空间，缓存穿透/去重必备',
+          icon: BloomIcon,
+          url: 'bloom-filter',
         },
       ],
     },

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <g fill="none" stroke="#333333" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 元素 + 3 个哈希箭头指向位数组 -->
+    <circle cx="512" cy="170" r="58" />
+    <line x1="512" y1="228" x2="356" y2="556" />
+    <line x1="512" y1="228" x2="560" y2="556" />
+    <line x1="512" y1="228" x2="744" y2="556" />
+    <!-- 位数组：8 格 -->
+    <rect x="104" y="580" width="100" height="120" rx="14" />
+    <rect x="220" y="580" width="100" height="120" rx="14" />
+    <rect x="336" y="580" width="100" height="120" rx="14" />
+    <rect x="452" y="580" width="100" height="120" rx="14" />
+    <rect x="568" y="580" width="100" height="120" rx="14" />
+    <rect x="684" y="580" width="100" height="120" rx="14" />
+    <rect x="800" y="580" width="100" height="120" rx="14" />
+  </g>
+  <!-- 被置 1 的位（实心） -->
+  <g fill="#333333">
+    <rect x="336" y="580" width="100" height="120" rx="14" />
+    <rect x="568" y="580" width="100" height="120" rx="14" />
+    <rect x="684" y="580" width="100" height="120" rx="14" />
+  </g>
+</svg>

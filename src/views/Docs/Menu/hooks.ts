@@ -63,6 +63,10 @@ export function useCategoryData(): Category[] {
           title: 'B+ 树',
           url: 'b-tree',
         },
+        {
+          title: '布隆过滤器',
+          url: 'bloom-filter',
+        },
       ],
     },
     {

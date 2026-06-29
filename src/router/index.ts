@@ -90,6 +90,11 @@ const routes = [
             component: () => import('../views/Article/DataStructure/BTree.vue'),
           },
           {
+            path: '/docs/bloom-filter',
+            name: 'bloom-filter',
+            component: () => import('../views/Article/DataStructure/BloomFilter.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
