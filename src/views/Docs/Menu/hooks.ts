@@ -51,6 +51,10 @@ export function useCategoryData(): Category[] {
           title: 'LRU 缓存',
           url: 'lru',
         },
+        {
+          title: '跳表',
+          url: 'skip-list',
+        },
       ],
     },
     {

@@ -10,6 +10,7 @@ import GraphIcon from '@/assets/graph.svg';
 import TrieIcon from '@/assets/trie.svg';
 import UnionFindIcon from '@/assets/union-find.svg';
 import LruIcon from '@/assets/lru.svg';
+import SkipListIcon from '@/assets/skip-list.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
@@ -89,6 +90,12 @@ export function useCategoryData(): Category[] {
           desc: '哈希表 + 双向链表的经典组合，O(1) 读写，满了淘汰最久没用的',
           icon: LruIcon,
           url: 'lru',
+        },
+        {
+          title: '跳表',
+          desc: '给有序链表加几层快车道，楼梯式查找平均 O(log n)，Redis 有序集合底层',
+          icon: SkipListIcon,
+          url: 'skip-list',
         },
       ],
     },

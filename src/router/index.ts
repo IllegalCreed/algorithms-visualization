@@ -75,6 +75,11 @@ const routes = [
             component: () => import('../views/Article/DataStructure/Lru.vue'),
           },
           {
+            path: '/docs/skip-list',
+            name: 'skip-list',
+            component: () => import('../views/Article/DataStructure/SkipList.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
