@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **285** 个用例。运行命令：`pnpm test:unit`
+共 **296** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -143,27 +143,27 @@
 
 ### hooks
 
-| Case ID      | 标题                                                         | 自动化路径                              |
-| ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 12 项（字典树/并查集/LRU/跳表 C-032）         | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 12 项（字典树/并查集/LRU/跳表 C-032），排序 8     | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4） | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）              | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                            | 自动化路径                              |
+| ------------ | --------------------------------------------------------------- | --------------------------------------- |
+| TC-HOOK-01-1 | 返回数据结构与排序两个分类                                      | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 13 项（字典树/并查集/LRU/跳表/线段树 C-033）     | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                  | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                                 | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 返回 2 个分类                                                   | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                       | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                   | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 13 项（字典树/并查集/LRU/跳表/线段树 C-033），排序 8 | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                     | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                         | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                      | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）    | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）            | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）       | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）                 | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
@@ -541,11 +541,29 @@
 | TC-SKIP-LOGIC-09 | search(99) not found                           | `src/components/structures/useSkipList.spec.ts` |
 | TC-SKIP-LOGIC-10 | path level 单调不增、move 合法                 | `src/components/structures/useSkipList.spec.ts` |
 
+### 线段树逻辑 useSegTree（C-033 · M4 广度 B5）
+
+固定求和树 `[2,5,1,4,9,3,7,6]`，15 节点（叶 pos 7..14）。
+
+| Case ID         | 标题                                            | 自动化路径                                     |
+| --------------- | ----------------------------------------------- | ---------------------------------------------- |
+| TC-SEG-LOGIC-01 | 建树 15 节点、root sum 37、root [0,7]           | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-02 | 叶子 pos 7..14 还原原数组、均 isLeaf            | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-03 | 节点管辖区间 [lo,hi]（pos1/2/4/10）             | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-04 | 内部节点聚合和 [12,25,7,5,12,13]                | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-05 | query(2,5) → sum 17、covered [4,5]              | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-06 | query(0,7) → sum 37、covered [0]                | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-07 | query(3,3) → sum 4、covered [10]                | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-08 | query(1,6) → sum 29、covered 4 段               | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-09 | update(2,10) → path [9,4,1,0]、root 46、pos4 14 | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-10 | update(2,10) 后 query(2,5) → 26                 | `src/components/structures/useSegTree.spec.ts` |
+| TC-SEG-LOGIC-11 | reset 复原 root 37、query(2,5) 回 17            | `src/components/structures/useSegTree.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **241** 个用例。运行命令：`pnpm test:unit`
+共 **251** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1021,42 +1039,58 @@
 | TC-VIEW-SKIP-01   | 挂载渲染 Article + SkipListViz              | `src/views/Article/DataStructure/SkipList.spec.ts` |
 | TC-VIEW-SKIP-02   | 含「跳表」标题与 Playground                 | `src/views/Article/DataStructure/SkipList.spec.ts` |
 
+### 线段树互动 SegTreeViz + 线段树页（C-033 · M4 广度 B5，新页）
+
+| Case ID          | 标题                                          | 自动化路径                                            |
+| ---------------- | --------------------------------------------- | ----------------------------------------------------- |
+| TC-VIZ-SEGVIZ-01 | 15 seg-node + 14 seg-edge + a/b 输入 + 三按钮 | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIZ-SEGVIZ-02 | 节点显聚合和（root 37、叶 9）                 | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIZ-SEGVIZ-03 | 区间和 2,5：status 含 17、covered 2 个        | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIZ-SEGVIZ-04 | 区间和 0,7：status 含 37、covered 1 个        | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIZ-SEGVIZ-05 | 区间和 3,3：status 含 4                       | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIZ-SEGVIZ-06 | 更新 2→10：status 含「更新」、节点出现 46     | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIZ-SEGVIZ-07 | 更新 2→10：路径点亮 onpath 4 个               | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIZ-SEGVIZ-08 | 重置：清高亮 + 复原 37                        | `src/components/structures/SegTreeViz.spec.ts`        |
+| TC-VIEW-SEG-01   | 挂载渲染 Article + SegTreeViz + Playground    | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
+| TC-VIEW-SEG-02   | 含「线段树」标题与互动容器（15 节点）         | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **27** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **28** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
-| Case ID             | 标题                                                        | 自动化路径                   | 状态       |
-| ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
-| TC-E2E-HOME-01      | 首页加载并能进入 docs                                       | `e2e/home-navigation.e2e.ts` | active     |
-| TC-E2E-MENU-01      | docs 菜单点击切换路由                                       | `e2e/docs-menu.e2e.ts`       | active     |
-| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                    | `e2e/bubble-sort.e2e.ts`     | superseded |
-| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                     | `e2e/bubble-sort.e2e.ts`     | active     |
-| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                 | `e2e/selection-sort.e2e.ts`  | active     |
-| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                 | `e2e/insertion-sort.e2e.ts`  | active     |
-| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置         | `e2e/shell-sort.e2e.ts`      | active     |
-| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置  | `e2e/merge-sort.e2e.ts`      | active     |
-| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置   | `e2e/quick-sort.e2e.ts`      | active     |
-| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置      | `e2e/heap-sort.e2e.ts`       | active     |
-| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置   | `e2e/counting-sort.e2e.ts`   | active     |
-| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态            | `e2e/stack.e2e.ts`           | active     |
-| TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置 | `e2e/queue.e2e.ts`           | active     |
-| TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置   | `e2e/array.e2e.ts`           | active     |
-| TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置   | `e2e/link.e2e.ts`            | active     |
-| TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置         | `e2e/tree.e2e.ts`            | active     |
-| TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置       | `e2e/heap.e2e.ts`            | active     |
-| TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置          | `e2e/hash.e2e.ts`            | active     |
-| TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                     | `e2e/graph.e2e.ts`           | active     |
-| TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                       | `e2e/tree.e2e.ts`            | active     |
-| TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置     | `e2e/hash.e2e.ts`            | active     |
-| TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置        | `e2e/link.e2e.ts`            | active     |
-| TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）        | `e2e/queue.e2e.ts`           | active     |
-| TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                 | `e2e/array.e2e.ts`           | active     |
-| TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置   | `e2e/trie.e2e.ts`            | active     |
-| TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置          | `e2e/union-find.e2e.ts`      | active     |
-| TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置         | `e2e/lru.e2e.ts`             | active     |
-| TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置 | `e2e/skip-list.e2e.ts`       | active     |
+| Case ID             | 标题                                                          | 自动化路径                   | 状态       |
+| ------------------- | ------------------------------------------------------------- | ---------------------------- | ---------- |
+| TC-E2E-HOME-01      | 首页加载并能进入 docs                                         | `e2e/home-navigation.e2e.ts` | active     |
+| TC-E2E-MENU-01      | docs 菜单点击切换路由                                         | `e2e/docs-menu.e2e.ts`       | active     |
+| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                      | `e2e/bubble-sort.e2e.ts`     | superseded |
+| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                       | `e2e/bubble-sort.e2e.ts`     | active     |
+| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                   | `e2e/selection-sort.e2e.ts`  | active     |
+| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                   | `e2e/insertion-sort.e2e.ts`  | active     |
+| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置           | `e2e/shell-sort.e2e.ts`      | active     |
+| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置    | `e2e/merge-sort.e2e.ts`      | active     |
+| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置     | `e2e/quick-sort.e2e.ts`      | active     |
+| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置        | `e2e/heap-sort.e2e.ts`       | active     |
+| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置     | `e2e/counting-sort.e2e.ts`   | active     |
+| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态              | `e2e/stack.e2e.ts`           | active     |
+| TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置   | `e2e/queue.e2e.ts`           | active     |
+| TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置     | `e2e/array.e2e.ts`           | active     |
+| TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置     | `e2e/link.e2e.ts`            | active     |
+| TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置           | `e2e/tree.e2e.ts`            | active     |
+| TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置         | `e2e/heap.e2e.ts`            | active     |
+| TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置            | `e2e/hash.e2e.ts`            | active     |
+| TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                       | `e2e/graph.e2e.ts`           | active     |
+| TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                         | `e2e/tree.e2e.ts`            | active     |
+| TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置       | `e2e/hash.e2e.ts`            | active     |
+| TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置          | `e2e/link.e2e.ts`            | active     |
+| TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）          | `e2e/queue.e2e.ts`           | active     |
+| TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                   | `e2e/array.e2e.ts`           | active     |
+| TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置     | `e2e/trie.e2e.ts`            | active     |
+| TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置            | `e2e/union-find.e2e.ts`      | active     |
+| TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置           | `e2e/lru.e2e.ts`             | active     |
+| TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置   | `e2e/skip-list.e2e.ts`       | active     |
+| TC-E2E-SEG-01       | 线段树页：15 节点 / 区间和 2,5「17」/ 更新 2→10「更新」/ 重置 | `e2e/segment-tree.e2e.ts`    | active     |
 
 ---
 
