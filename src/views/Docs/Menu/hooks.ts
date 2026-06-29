@@ -47,6 +47,10 @@ export function useCategoryData(): Category[] {
           title: '并查集',
           url: 'union-find',
         },
+        {
+          title: 'LRU 缓存',
+          url: 'lru',
+        },
       ],
     },
     {

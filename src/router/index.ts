@@ -70,6 +70,11 @@ const routes = [
             component: () => import('../views/Article/DataStructure/UnionFind.vue'),
           },
           {
+            path: '/docs/lru',
+            name: 'lru',
+            component: () => import('../views/Article/DataStructure/Lru.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

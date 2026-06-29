@@ -9,6 +9,7 @@ import HashIcon from '@/assets/hash.svg';
 import GraphIcon from '@/assets/graph.svg';
 import TrieIcon from '@/assets/trie.svg';
 import UnionFindIcon from '@/assets/union-find.svg';
+import LruIcon from '@/assets/lru.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
@@ -82,6 +83,12 @@ export function useCategoryData(): Category[] {
           desc: '极快维护「谁和谁同组」：合并、找根、路径压缩，连通性问题利器',
           icon: UnionFindIcon,
           url: 'union-find',
+        },
+        {
+          title: 'LRU 缓存',
+          desc: '哈希表 + 双向链表的经典组合，O(1) 读写，满了淘汰最久没用的',
+          icon: LruIcon,
+          url: 'lru',
         },
       ],
     },
