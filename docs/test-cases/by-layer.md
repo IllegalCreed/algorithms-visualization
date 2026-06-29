@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **275** 个用例。运行命令：`pnpm test:unit`
+共 **285** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -146,14 +146,14 @@
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
 | TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 11 项（字典树 C-028/并查集 C-029/LRU C-031）  | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 12 项（字典树/并查集/LRU/跳表 C-032）         | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 11 项（字典树/并查集/LRU C-031），排序 8 项       | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 12 项（字典树/并查集/LRU/跳表 C-032），排序 8     | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
@@ -526,11 +526,26 @@
 | TC-LRU-LOGIC-09 | 连续 put 5 新键：size ≤ 4                      | `src/components/structures/useLRU.spec.ts` |
 | TC-LRU-LOGIC-10 | reset 复原 keys [3,2,1]、size 3                | `src/components/structures/useLRU.spec.ts` |
 
+### 跳表逻辑 useSkipList（C-032 · M4 广度 B4）
+
+| Case ID          | 标题                                           | 自动化路径                                      |
+| ---------------- | ---------------------------------------------- | ----------------------------------------------- |
+| TC-SKIP-LOGIC-01 | nodes 9（head+8）、maxLevel 4、元素 [1..15 奇] | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-02 | 元素 heights [4,1,2,1,3,1,2,1]、head 4         | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-03 | 各层元素数 L0 8、L1 4、L2 2、L3 1              | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-04 | search(11) found                               | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-05 | search(11) visitedValues [1,9,11]              | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-06 | search(8) not found、visited [1,5,7]           | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-07 | search(1) found                                | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-08 | search(15) found、visited [1,9,13,15]          | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-09 | search(99) not found                           | `src/components/structures/useSkipList.spec.ts` |
+| TC-SKIP-LOGIC-10 | path level 单调不增、move 合法                 | `src/components/structures/useSkipList.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **231** 个用例。运行命令：`pnpm test:unit`
+共 **241** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -991,11 +1006,26 @@
 | TC-VIEW-LRU-01   | 挂载渲染 Article + LruViz                         | `src/views/Article/DataStructure/Lru.spec.ts` |
 | TC-VIEW-LRU-02   | 含「LRU」标题与 Playground                        | `src/views/Article/DataStructure/Lru.spec.ts` |
 
+### 跳表互动 SkipListViz + 跳表页（C-032 · M4 广度 B4，新页）
+
+| Case ID           | 标题                                        | 自动化路径                                         |
+| ----------------- | ------------------------------------------- | -------------------------------------------------- |
+| TC-VIZ-SKIPVIZ-01 | 网格 19 skip-cell + 输入 + 查找/重置 + head | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIZ-SKIPVIZ-02 | 元素值 1..15 出现                           | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIZ-SKIPVIZ-03 | 查找 11：status 含「跳过」「找到了」        | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIZ-SKIPVIZ-04 | 查找 8：status 含「没找到」                 | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIZ-SKIPVIZ-05 | 查找 11：路径点亮 skip-cell.lit > 0         | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIZ-SKIPVIZ-06 | 查找 15：status 含「找到了」                | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIZ-SKIPVIZ-07 | 查找 99：status 含「没找到」                | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIZ-SKIPVIZ-08 | 重置：清高亮（lit/hot 为 0）                | `src/components/structures/SkipListViz.spec.ts`    |
+| TC-VIEW-SKIP-01   | 挂载渲染 Article + SkipListViz              | `src/views/Article/DataStructure/SkipList.spec.ts` |
+| TC-VIEW-SKIP-02   | 含「跳表」标题与 Playground                 | `src/views/Article/DataStructure/SkipList.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **26** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **27** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -1026,6 +1056,7 @@
 | TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置   | `e2e/trie.e2e.ts`            | active     |
 | TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置          | `e2e/union-find.e2e.ts`      | active     |
 | TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置         | `e2e/lru.e2e.ts`             | active     |
+| TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置 | `e2e/skip-list.e2e.ts`       | active     |
 
 ---
 
