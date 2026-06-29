@@ -303,39 +303,39 @@
 
 ## home（首页）
 
-| Case ID              | 标题                                              | 层级 | 自动化路径                                       |
-| -------------------- | ------------------------------------------------- | ---- | ------------------------------------------------ |
-| TC-HOOK-01-1         | 返回数据结构与排序两个分类                        | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-2         | 数据结构分类含 10 项（字典树 C-028/并查集 C-029） | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                    | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-4         | 所有 url 唯一                                     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-5         | 每个分类含 desc                                   | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                      | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                      | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true       | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false    | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                            | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                               | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                                | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                                | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-CATEGORY-01  | 渲染分类标题                                      | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-02  | 渲染分类描述                                      | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                     | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                      | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                      | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                       | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                    | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                    | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                             | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                        | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name     | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                         | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                            | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                      | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                                | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                              | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页              | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-E2E-HOME-01       | 首页加载并能进入 docs                             | L5   | `e2e/home-navigation.e2e.ts`                     |
+| Case ID              | 标题                                            | 层级 | 自动化路径                                       |
+| -------------------- | ----------------------------------------------- | ---- | ------------------------------------------------ |
+| TC-HOOK-01-1         | 返回数据结构与排序两个分类                      | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-2         | 数据结构分类含 11 项（字典树/并查集/LRU C-031） | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-4         | 所有 url 唯一                                   | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-5         | 每个分类含 desc                                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                    | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                    | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true     | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false  | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                          | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                              | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                              | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-CATEGORY-01  | 渲染分类标题                                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-02  | 渲染分类描述                                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                     | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                  | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                  | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                           | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                      | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name   | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                       | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                          | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                    | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                              | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                            | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页            | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-E2E-HOME-01       | 首页加载并能进入 docs                           | L5   | `e2e/home-navigation.e2e.ts`                     |
 
 ---
 
@@ -346,7 +346,7 @@
 | TC-HOOK-02-1         | 返回 2 个分类                                 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-2         | 每项含 title/url 且均非空                     | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-3         | 所有 url 唯一                                 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构含 10 项（字典树/并查集），排序 8 项  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构含 11 项（字典树/并查集/LRU），排序 8 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true       | L3   | `src/views/Docs/hooks.spec.ts`                 |
 | TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false    | L3   | `src/views/Docs/hooks.spec.ts`                 |
 | TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
@@ -438,7 +438,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031）
 
 | Case ID            | 标题                                             | 层级 | 自动化路径                                       |
 | ------------------ | ------------------------------------------------ | ---- | ------------------------------------------------ |
@@ -718,8 +718,26 @@
 | TC-VIZ-UFVIZ-06    | 连通?（同组）：status 含「同根」                 | L4   | `src/components/structures/UnionFindViz.spec.ts` |
 | TC-VIZ-UFVIZ-07    | 连通?（异组）：status 含「根不同」               | L4   | `src/components/structures/UnionFindViz.spec.ts` |
 | TC-VIZ-UFVIZ-08    | 重置：8 ufnode、0 uf-edge、readout 含 8          | L4   | `src/components/structures/UnionFindViz.spec.ts` |
+| TC-LRU-LOGIC-01    | 初始 keys [3,2,1]、size 3、capacity 4            | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-02    | get(1) 命中：type hit、value 10                  | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-03    | get(1) 移最前：keys [1,3,2]                      | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-04    | get(9) 未命中：type miss、不变                   | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-05    | put(4,40) 新键未满：put-new、keys[0]=4、size 4   | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-06    | put(2,99) 更新：put-update、(2,99)、size 3       | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-07    | put 满后淘汰：put(4);put(5) → evicted 1          | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-08    | 淘汰 LRU 末位：07 后 keys [5,4,3,2]              | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-09    | 连续 put 5 新键：size ≤ 4                        | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-LRU-LOGIC-10    | reset 复原 keys [3,2,1]、size 3                  | L3   | `src/components/structures/useLRU.spec.ts`       |
+| TC-VIZ-LRUVIZ-01   | 3 lru-cell + 两输入 + 3 按钮 + MRU/LRU 标记      | L4   | `src/components/structures/LruViz.spec.ts`       |
+| TC-VIZ-LRUVIZ-02   | cell 键含 3/2/1                                  | L4   | `src/components/structures/LruViz.spec.ts`       |
+| TC-VIZ-LRUVIZ-03   | get(1) 命中：status 含「找到」、首键 1           | L4   | `src/components/structures/LruViz.spec.ts`       |
+| TC-VIZ-LRUVIZ-04   | get(9) 未命中：status 含「没有」                 | L4   | `src/components/structures/LruViz.spec.ts`       |
+| TC-VIZ-LRUVIZ-05   | put(4,40) 新键：4 cell、首键 4                   | L4   | `src/components/structures/LruViz.spec.ts`       |
+| TC-VIZ-LRUVIZ-06   | put 满后淘汰：status 含「淘汰」、cell 仍 4       | L4   | `src/components/structures/LruViz.spec.ts`       |
+| TC-VIZ-LRUVIZ-07   | put(2,99) 更新：status 含「更新」                | L4   | `src/components/structures/LruViz.spec.ts`       |
+| TC-VIZ-LRUVIZ-08   | 重置：3 lru-cell                                 | L4   | `src/components/structures/LruViz.spec.ts`       |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031）
 
 | Case ID           | 标题                                                          | 层级 | 自动化路径                                          |
 | ----------------- | ------------------------------------------------------------- | ---- | --------------------------------------------------- |
@@ -763,3 +781,6 @@
 | TC-VIEW-UF-01     | 挂载渲染 Article + UnionFindViz（C-029）                      | L4   | `src/views/Article/DataStructure/UnionFind.spec.ts` |
 | TC-VIEW-UF-02     | 含「并查集」标题与 Playground（C-029）                        | L4   | `src/views/Article/DataStructure/UnionFind.spec.ts` |
 | TC-E2E-UF-01      | 并查集页：8 节点/合并/连通判定/重置（C-029）                  | L5   | `e2e/union-find.e2e.ts`                             |
+| TC-VIEW-LRU-01    | 挂载渲染 Article + LruViz（C-031）                            | L4   | `src/views/Article/DataStructure/Lru.spec.ts`       |
+| TC-VIEW-LRU-02    | 含「LRU」标题与 Playground（C-031）                           | L4   | `src/views/Article/DataStructure/Lru.spec.ts`       |
+| TC-E2E-LRU-01     | LRU 页：3 cell/get 跳最前/put 满淘汰/重置（C-031）            | L5   | `e2e/lru.e2e.ts`                                    |

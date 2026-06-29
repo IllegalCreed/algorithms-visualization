@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **265** 个用例。运行命令：`pnpm test:unit`
+共 **275** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -146,14 +146,14 @@
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
 | TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 10 项（含字典树 C-028、并查集 C-029）         | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 11 项（字典树 C-028/并查集 C-029/LRU C-031）  | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 10 项（字典树 C-028、并查集 C-029），排序 8 项    | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 11 项（字典树/并查集/LRU C-031），排序 8 项       | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
@@ -511,11 +511,26 @@
 | TC-UF-LOGIC-09 | groupCount 随 union 递减（3 次后 5）   | `src/components/structures/useUnionFind.spec.ts` |
 | TC-UF-LOGIC-10 | reset 复原 parent [0..7]、groupCount 8 | `src/components/structures/useUnionFind.spec.ts` |
 
+### LRU 缓存逻辑 useLRU（C-031 · M4 广度 B3）
+
+| Case ID         | 标题                                           | 自动化路径                                 |
+| --------------- | ---------------------------------------------- | ------------------------------------------ |
+| TC-LRU-LOGIC-01 | 初始 keys [3,2,1]、size 3、capacity 4          | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-02 | get(1) 命中：type hit、value 10                | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-03 | get(1) 移最前：keys [1,3,2]                    | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-04 | get(9) 未命中：type miss、不变                 | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-05 | put(4,40) 新键未满：put-new、keys[0]=4、size 4 | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-06 | put(2,99) 更新：put-update、(2,99)、size 3     | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-07 | put 满后淘汰：put(4);put(5) → evicted 1        | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-08 | 淘汰 LRU 末位：07 后 keys [5,4,3,2]            | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-09 | 连续 put 5 新键：size ≤ 4                      | `src/components/structures/useLRU.spec.ts` |
+| TC-LRU-LOGIC-10 | reset 复原 keys [3,2,1]、size 3                | `src/components/structures/useLRU.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **221** 个用例。运行命令：`pnpm test:unit`
+共 **231** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -961,11 +976,26 @@
 | TC-VIEW-UF-01   | 挂载渲染 Article + UnionFindViz           | `src/views/Article/DataStructure/UnionFind.spec.ts` |
 | TC-VIEW-UF-02   | 含「并查集」标题与 Playground             | `src/views/Article/DataStructure/UnionFind.spec.ts` |
 
+### LRU 缓存互动 LruViz + LRU 页（C-031 · M4 广度 B3，新页）
+
+| Case ID          | 标题                                              | 自动化路径                                    |
+| ---------------- | ------------------------------------------------- | --------------------------------------------- |
+| TC-VIZ-LRUVIZ-01 | 3 lru-cell + 两输入 + get/put/重置 + MRU/LRU 标记 | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIZ-LRUVIZ-02 | cell 键含 3/2/1                                   | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIZ-LRUVIZ-03 | get(1) 命中：status 含「找到」、首键 1            | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIZ-LRUVIZ-04 | get(9) 未命中：status 含「没有」                  | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIZ-LRUVIZ-05 | put(4,40) 新键：4 cell、首键 4                    | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIZ-LRUVIZ-06 | put 满后淘汰：status 含「淘汰」、cell 仍 4        | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIZ-LRUVIZ-07 | put(2,99) 更新：status 含「更新」                 | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIZ-LRUVIZ-08 | 重置：3 lru-cell                                  | `src/components/structures/LruViz.spec.ts`    |
+| TC-VIEW-LRU-01   | 挂载渲染 Article + LruViz                         | `src/views/Article/DataStructure/Lru.spec.ts` |
+| TC-VIEW-LRU-02   | 含「LRU」标题与 Playground                        | `src/views/Article/DataStructure/Lru.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **25** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **26** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                        | 自动化路径                   | 状态       |
 | ------------------- | ----------------------------------------------------------- | ---------------------------- | ---------- |
@@ -995,6 +1025,7 @@
 | TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                 | `e2e/array.e2e.ts`           | active     |
 | TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置   | `e2e/trie.e2e.ts`            | active     |
 | TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置          | `e2e/union-find.e2e.ts`      | active     |
+| TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置         | `e2e/lru.e2e.ts`             | active     |
 
 ---
 

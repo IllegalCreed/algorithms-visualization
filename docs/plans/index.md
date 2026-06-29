@@ -1,7 +1,7 @@
 # Plans Index
 
 > Status: active
-> Last reviewed: 2026-06-26
+> Last reviewed: 2026-06-29
 > Owner: IllegalCreed
 
 ## All Changes
@@ -37,6 +37,7 @@
 | C-20260626-027 | feature             | 数组·扩容           | **M4 深度 D5（深度收官）**：数组页**加一节**「动态数组：容量满了怎么办——翻倍扩容」（补 C-017 当年所砍）。新增 useGrow（定容数组 + append 满则翻倍 + 拷贝/append 计数 + 均摊）+ ArrayGrowViz（**定容格阵 + 翻倍扩容 + 拷贝高亮 + 均摊读数**，摊还分析均摊 O(1)），数组页下标搬移段后加节。**不动菜单/路由/ArrayViz**；M4 深度第五项·深度收官                                                           | verified | 100%   | 无     | 已完成（20 Case 全绿，已落 main）；**M4 深度 D5 ✓、深度 D1–D5 收官** | viz-engine / article-ds / M4   | IllegalCreed | `20260626-c027-array-grow/`           | 2026-06-26 | -             |
 | C-20260626-028 | feature             | 字典树 Trie         | **M4 广度 B1（首个广度新结构）**：新增**字典树 Trie 前缀树**独立页（树家族具名结构，与 BST/哈希并列：字符在边、路径拼词、O(L)、看家本领前缀自动补全）。新增 useTrie（固定词集建 trie + 布局一次算定 + 纯 search 三结局/startsWith 子树补全）+ TrieViz（**SVG 字符树 + 查找三结局 + 前缀子树点亮**）+ Trie.vue + **4 处接线**（路由/菜单/首页/图标）。改 2 处 HOOK 计数（数据结构 8→9）；M4 广度第一项 | verified | 100%   | 无     | 已完成（21 Case 全绿 + 改 2 HOOK，已落 main）；**M4 广度 B1 ✓**      | viz-engine / article-ds / M4   | IllegalCreed | `20260626-c028-trie/`                 | 2026-06-26 | -             |
 | C-20260627-029 | feature             | 并查集 Union-Find   | **M4 广度 B2**：新增**并查集 Union-Find**独立页（维护「谁和谁同组」的连通关系结构）。新增 useUnionFind（parent[] + find 纯走位/union 合并/connected/compress 路径压缩/groupCount）+ UnionFindViz（**固定 8 节点 + 父指针箭头 + 合并/查根(路径压缩)/连通?**）+ UnionFind.vue + **4 处接线**（路由/菜单/首页/图标）。改 2 处 HOOK 计数（数据结构 9→10）；M4 广度第二项                                  | verified | 100%   | 无     | 已完成（21 Case + 改 2 HOOK，已落 main）；**M4 广度 B2 ✓**           | viz-engine / article-ds / M4   | IllegalCreed | `20260627-c029-union-find/`           | 2026-06-27 | -             |
+| C-20260629-031 | feature             | LRU 缓存            | **M4 广度 B3**：新增**LRU 缓存**独立页（哈希表 + 双向链表组合的定容缓存，淘汰最久没用）。新增 useLRU（entries MRU→LRU 有序 + get 命中移最前/put 新增·更新·满后淘汰末位 + size）+ LruViz（**横向缓存车道 + MRU/LRU 端标记 + get/put 淘汰演示**）+ Lru.vue + **4 处接线**（路由/菜单/首页/图标）。回扣哈希/双向链表。改 2 处 HOOK 计数（数据结构 10→11）；M4 广度第三项                                 | verified | 100%   | 无     | 已完成（21 Case + 改 2 HOOK，已落 main）；**M4 广度 B3 ✓**           | viz-engine / article-ds / M4   | IllegalCreed | `20260629-c031-lru/`                  | 2026-06-29 | -             |
 | C-20260628-030 | feature             | 头部个人主页外链    | 头部新增**第四个外链「个人主页」**（指向作者主页 `https://illegalscreed.cn/zh/`）。share.ts 加 `HOME_PAGE_URL` 常量 + `useIconLink` 数组末追加 + 新增 `homepage.svg`（person 剪影）；复用 `IconLink` 的 `window.open` 模型**零组件改动**；在 C-009 三外链基础上扩展、未改其行为（2 新 + 2 改用例）                                                                                                    | verified | 100%   | 无     | 已完成（2 新 + 2 改用例，已落 main）；home/docs-shell UI 增量        | home / docs-shell              | IllegalCreed | `20260628-c030-header-homepage-link/` | 2026-06-28 | -             |
 
 ## By Type
@@ -89,6 +90,7 @@
 | C-20260626-027 | 数组·扩容         | verified | 100%   | 无     | 已完成 | `20260626-c027-array-grow/`           |
 | C-20260626-028 | 字典树 Trie       | verified | 100%   | 无     | 已完成 | `20260626-c028-trie/`                 |
 | C-20260627-029 | 并查集 Union-Find | verified | 100%   | 无     | 已完成 | `20260627-c029-union-find/`           |
+| C-20260629-031 | LRU 缓存          | verified | 100%   | 无     | 已完成 | `20260629-c031-lru/`                  |
 | C-20260628-030 | 头部个人主页外链  | verified | 100%   | 无     | 已完成 | `20260628-c030-header-homepage-link/` |
 
 ## By Module
@@ -142,3 +144,4 @@
 | C-20260626-027 | feature | 数组·扩容         | verified | 100%   | `20260626-c027-array-grow/`           |
 | C-20260626-028 | feature | 字典树 Trie       | verified | 100%   | `20260626-c028-trie/`                 |
 | C-20260627-029 | feature | 并查集 Union-Find | verified | 100%   | `20260627-c029-union-find/`           |
+| C-20260629-031 | feature | LRU 缓存          | verified | 100%   | `20260629-c031-lru/`                  |
