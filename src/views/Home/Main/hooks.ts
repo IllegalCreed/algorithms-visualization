@@ -11,6 +11,7 @@ import TrieIcon from '@/assets/trie.svg';
 import UnionFindIcon from '@/assets/union-find.svg';
 import LruIcon from '@/assets/lru.svg';
 import SkipListIcon from '@/assets/skip-list.svg';
+import SegmentTreeIcon from '@/assets/segment-tree.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
@@ -96,6 +97,12 @@ export function useCategoryData(): Category[] {
           desc: '给有序链表加几层快车道，楼梯式查找平均 O(log n)，Redis 有序集合底层',
           icon: SkipListIcon,
           url: 'skip-list',
+        },
+        {
+          title: '线段树',
+          desc: '每个节点管一段区间存聚合，区间查询拆整段、单点更新走一条路径，均 O(log n)',
+          icon: SegmentTreeIcon,
+          url: 'segment-tree',
         },
       ],
     },

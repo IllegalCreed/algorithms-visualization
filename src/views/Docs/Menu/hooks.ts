@@ -55,6 +55,10 @@ export function useCategoryData(): Category[] {
           title: '跳表',
           url: 'skip-list',
         },
+        {
+          title: '线段树',
+          url: 'segment-tree',
+        },
       ],
     },
     {

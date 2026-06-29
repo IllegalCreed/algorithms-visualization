@@ -11,8 +11,8 @@ describe('Home/Main useCategoryData', () => {
     expect(data[1].title).toBe('经典排序算法');
   });
 
-  it('TC-HOOK-01-2: 数据结构分类含 12 项（字典树/并查集/LRU/跳表 C-032）', () => {
-    expect(data[0].children).toHaveLength(12);
+  it('TC-HOOK-01-2: 数据结构分类含 13 项（字典树/并查集/LRU/跳表/线段树 C-033）', () => {
+    expect(data[0].children).toHaveLength(13);
   });
 
   it('TC-HOOK-01-3: 每个条目含 title/desc/icon/url', () => {
