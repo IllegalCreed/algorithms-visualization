@@ -306,7 +306,7 @@
 | Case ID              | 标题                                           | 层级 | 自动化路径                                       |
 | -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
 | TC-HOOK-01-1         | 返回数据结构与排序两个分类                     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-2         | 数据结构分类含 13 项（…/跳表/线段树 C-033）    | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-2         | 数据结构分类含 14 项（…/线段树/B+ 树 C-035）   | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-5         | 每个分类含 desc                                | L3   | `src/views/Home/Main/hooks.spec.ts`              |
@@ -341,29 +341,29 @@
 
 ## docs（文档页侧边菜单）
 
-| Case ID              | 标题                                            | 层级 | 自动化路径                                     |
-| -------------------- | ----------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 返回 2 个分类                                   | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-2         | 每项含 title/url 且均非空                       | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-3         | 所有 url 唯一                                   | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构含 13 项（…/跳表/线段树 C-033），排序 8 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true         | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false      | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class         | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-E2E-MENU-01       | docs 菜单点击切换路由                           | L5   | `e2e/docs-menu.e2e.ts`                         |
+| Case ID              | 标题                                             | 层级 | 自动化路径                                     |
+| -------------------- | ------------------------------------------------ | ---- | ---------------------------------------------- |
+| TC-HOOK-02-1         | 返回 2 个分类                                    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-2         | 每项含 title/url 且均非空                        | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-3         | 所有 url 唯一                                    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构含 14 项（…/线段树/B+ 树 C-035），排序 8 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true          | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false       | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-E2E-MENU-01       | docs 菜单点击切换路由                            | L5   | `e2e/docs-menu.e2e.ts`                         |
 
 ---
 
@@ -438,7 +438,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033/035）
 
 | Case ID            | 标题                                             | 层级 | 自动化路径                                       |
 | ------------------ | ------------------------------------------------ | ---- | ------------------------------------------------ |
@@ -773,8 +773,29 @@
 | TC-VIZ-SEGVIZ-06   | 更新 2→10：status 含「更新」、节点出现 46        | L4   | `src/components/structures/SegTreeViz.spec.ts`   |
 | TC-VIZ-SEGVIZ-07   | 更新 2→10：路径点亮 onpath 4 个                  | L4   | `src/components/structures/SegTreeViz.spec.ts`   |
 | TC-VIZ-SEGVIZ-08   | 重置：清高亮 + 复原 37                           | L4   | `src/components/structures/SegTreeViz.spec.ts`   |
+| TC-BTREE-LOGIC-01  | 结构 4 节点、root [25,45]、非叶、3 子            | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-02  | 叶子 keys + 均 isLeaf                            | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-03  | 叶链 next（l0→l1→l2→null）                       | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-04  | search(30) 命中、路径 [root,l1]                  | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-05  | search(33) 未命中、路径到 l1                     | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-06  | search(5) 落最左叶 l0                            | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-07  | search(60) 落最右叶 l2                           | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-08  | search(100) 未命中落 l2                          | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-09  | rangeScan(12,38) 跨两叶 [15,20,25,30,35]         | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-10  | rangeScan(48,99) 仅右叶 [50,55,60]               | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-11  | rangeScan(5,60) 全表 12 值 3 叶                  | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-BTREE-LOGIC-12  | rangeScan(100,200) 空命中、定位 l2               | L3   | `src/components/structures/useBTree.spec.ts`     |
+| TC-VIZ-BTREEVIZ-01 | 4 bt-node+14 bt-key+2 bt-link+a/b+三按钮         | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-02 | key 格显数字（5/25/60）                          | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-03 | 查找 30：status「找到了」、hit 1                 | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-04 | 查找 30：下钻路径 onpath 2                       | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-05 | 查找 33：status「不存在」、hit 0                 | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-06 | 查找 5：落最左叶、status「找到了」               | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-07 | 范围查 12,38：status「扫到」、inrange 5          | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-08 | 范围查 48,99：inrange 3                          | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-VIZ-BTREEVIZ-09 | 重置：清高亮（hit/onpath 0）                     | L4   | `src/components/structures/BTreeViz.spec.ts`     |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033/035）
 
 | Case ID           | 标题                                                          | 层级 | 自动化路径                                            |
 | ----------------- | ------------------------------------------------------------- | ---- | ----------------------------------------------------- |
@@ -827,3 +848,6 @@
 | TC-VIEW-SEG-01    | 挂载渲染 Article + SegTreeViz + Playground（C-033）           | L4   | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
 | TC-VIEW-SEG-02    | 含「线段树」标题与互动容器（15 节点）（C-033）                | L4   | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
 | TC-E2E-SEG-01     | 线段树页：15 节点/区间和「17」/更新「更新」/重置（C-033）     | L5   | `e2e/segment-tree.e2e.ts`                             |
+| TC-VIEW-BTREE-01  | 挂载渲染 Article + BTreeViz + Playground（C-035）             | L4   | `src/views/Article/DataStructure/BTree.spec.ts`       |
+| TC-VIEW-BTREE-02  | 含「B 树」标题与互动容器（4 节点）（C-035）                   | L4   | `src/views/Article/DataStructure/BTree.spec.ts`       |
+| TC-E2E-BTREE-01   | B+ 树页：4 节点/查找「找到了」/范围「扫到」/重置（C-035）     | L5   | `e2e/b-tree.e2e.ts`                                   |

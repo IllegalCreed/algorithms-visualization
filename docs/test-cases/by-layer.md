@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **296** 个用例。运行命令：`pnpm test:unit`
+共 **308** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -143,27 +143,27 @@
 
 ### hooks
 
-| Case ID      | 标题                                                            | 自动化路径                              |
-| ------------ | --------------------------------------------------------------- | --------------------------------------- |
-| TC-HOOK-01-1 | 返回数据结构与排序两个分类                                      | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 13 项（字典树/并查集/LRU/跳表/线段树 C-033）     | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                  | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                                 | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 返回 2 个分类                                                   | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                                       | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                                   | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 13 项（字典树/并查集/LRU/跳表/线段树 C-033），排序 8 | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                     | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                  | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                         | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                      | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）    | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）            | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）       | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）                 | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                         | 自动化路径                              |
+| ------------ | ------------------------------------------------------------ | --------------------------------------- |
+| TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 14 项（…/跳表/线段树/B+ 树 C-035）            | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 14 项（…/跳表/线段树/B+ 树 C-035），排序 8        | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4） | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）              | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
@@ -559,11 +559,30 @@
 | TC-SEG-LOGIC-10 | update(2,10) 后 query(2,5) → 26                 | `src/components/structures/useSegTree.spec.ts` |
 | TC-SEG-LOGIC-11 | reset 复原 root 37、query(2,5) 回 17            | `src/components/structures/useSegTree.spec.ts` |
 
+### B+ 树逻辑 useBTree（C-035 · M4 广度 B6）
+
+固定 2 层 B+ 树：root `[25,45]` → 叶 l0/l1/l2（各 4 key）+ 叶链 l0→l1→l2。
+
+| Case ID           | 标题                                       | 自动化路径                                   |
+| ----------------- | ------------------------------------------ | -------------------------------------------- |
+| TC-BTREE-LOGIC-01 | 结构 4 节点、root keys [25,45]、非叶、3 子 | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-02 | 叶子 keys + 均 isLeaf                      | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-03 | 叶链 next（l0→l1→l2→null）                 | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-04 | search(30) 命中、下钻路径 [root,l1]        | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-05 | search(33) 未命中、路径仍到 l1             | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-06 | search(5) 落最左叶 l0                      | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-07 | search(60) 落最右叶 l2                     | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-08 | search(100) 大值未命中落 l2                | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-09 | rangeScan(12,38) 跨两叶 [15,20,25,30,35]   | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-10 | rangeScan(48,99) 仅右叶 [50,55,60]         | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-11 | rangeScan(5,60) 全表 12 值 3 叶            | `src/components/structures/useBTree.spec.ts` |
+| TC-BTREE-LOGIC-12 | rangeScan(100,200) 空命中、定位到 l2       | `src/components/structures/useBTree.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **251** 个用例。运行命令：`pnpm test:unit`
+共 **262** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1054,11 +1073,27 @@
 | TC-VIEW-SEG-01   | 挂载渲染 Article + SegTreeViz + Playground    | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
 | TC-VIEW-SEG-02   | 含「线段树」标题与互动容器（15 节点）         | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
 
+### B+ 树互动 BTreeViz + B+ 树页（C-035 · M4 广度 B6，新页）
+
+| Case ID            | 标题                                             | 自动化路径                                      |
+| ------------------ | ------------------------------------------------ | ----------------------------------------------- |
+| TC-VIZ-BTREEVIZ-01 | 4 bt-node + 14 bt-key + 2 bt-link + a/b + 三按钮 | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-02 | key 格显数字（5/25/60）                          | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-03 | 查找 30：status 含「找到了」、hit 1              | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-04 | 查找 30：下钻路径 onpath 2（root+叶）            | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-05 | 查找 33：status 含「不存在」、hit 0              | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-06 | 查找 5：落最左叶、status 含「找到了」            | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-07 | 范围查 12,38：status 含「扫到」、inrange 5       | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-08 | 范围查 48,99：inrange 3                          | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIZ-BTREEVIZ-09 | 重置：清高亮（hit/onpath 0）                     | `src/components/structures/BTreeViz.spec.ts`    |
+| TC-VIEW-BTREE-01   | 挂载渲染 Article + BTreeViz + Playground         | `src/views/Article/DataStructure/BTree.spec.ts` |
+| TC-VIEW-BTREE-02   | 含「B 树」标题与互动容器（4 节点）               | `src/views/Article/DataStructure/BTree.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **28** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **29** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                          | 自动化路径                   | 状态       |
 | ------------------- | ------------------------------------------------------------- | ---------------------------- | ---------- |
@@ -1091,6 +1126,7 @@
 | TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置           | `e2e/lru.e2e.ts`             | active     |
 | TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置   | `e2e/skip-list.e2e.ts`       | active     |
 | TC-E2E-SEG-01       | 线段树页：15 节点 / 区间和 2,5「17」/ 更新 2→10「更新」/ 重置 | `e2e/segment-tree.e2e.ts`    | active     |
+| TC-E2E-BTREE-01     | B+ 树页：4 节点 / 查找 30「找到了」/ 范围 12,38「扫到」/ 重置 | `e2e/b-tree.e2e.ts`          | active     |
 
 ---
 

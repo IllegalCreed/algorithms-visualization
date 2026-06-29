@@ -42,6 +42,7 @@
 | C-20260629-033 | feature             | 线段树 Segment Tree | **M4 广度 B5（进阶）**：新增**线段树 Segment Tree**独立页（每节点管一段区间存聚合，区间查询拆 O(log n) 个整段 + 单点更新一条叶→根路径）。新增 useSegTree（固定 8 元素求和树 15 节点 + 纯 query→{sum,covered} / update→{path} / reset）+ SegTreeViz（**SVG 二叉树 + 区间覆盖点亮 + 更新路径点亮**）+ SegmentTree.vue + **4 处接线**（路由/菜单/首页/图标）。区间更新懒标记 + 树状数组正文带过。改 2 处 HOOK 计数（数据结构 12→13）；M4 广度第五项 | verified | 100%   | 无     | 已完成（23 Case + 改 2 HOOK，已落 main）；**M4 广度 B5 ✓**           | viz-engine / article-ds / M4   | IllegalCreed | `20260629-c033-segment-tree/`         | 2026-06-29 | -             |
 | C-20260628-030 | feature             | 头部个人主页外链    | 头部新增**第四个外链「个人主页」**（指向作者主页 `https://illegalscreed.cn/zh/`）。share.ts 加 `HOME_PAGE_URL` 常量 + `useIconLink` 数组末追加 + 新增 `homepage.svg`（person 剪影）；复用 `IconLink` 的 `window.open` 模型**零组件改动**；在 C-009 三外链基础上扩展、未改其行为（2 新 + 2 改用例）                                                                                                                                               | verified | 100%   | 无     | 已完成（2 新 + 2 改用例，已落 main）；home/docs-shell UI 增量        | home / docs-shell              | IllegalCreed | `20260628-c030-header-homepage-link/` | 2026-06-28 | -             |
 | C-20260629-034 | feature             | SEO+GEO 可检索地基  | **M5 增长首项**：让每个路由页对搜索引擎 + AI 爬虫可见、可引用（SEO/GEO 同源，预渲染打开同一道门）。预渲染（复用 Playwright chromium 构建后处理，非 SSG）+ 路由级集中 meta 注入（@unhead/vue + src/seo，0 改页面）+ JSON-LD + robots（放行 AI 爬虫）+ sitemap + llms.txt。范围 E1 机制先行（中文，不 i18n、不逐页内容）。承接 `docs/marketing/roadmap.md`                                                                                         | draft    | 0%     | 无     | 四文档已落，评审通过后进 TDD；**M5 首项**                            | seo / M5                       | IllegalCreed | `20260629-c034-seo-geo-foundation/`   | 2026-06-29 | -             |
+| C-20260629-035 | feature             | B 树 / B+ 树        | **M4 广度 B6（进阶）**：新增**B 树 / B+ 树**独立页（多路平衡查找树，数据全在叶 + 叶链的 B+ 树，多路下钻查找 + 叶链范围扫描）。新增 useBTree（固定 2 层阶-5 B+ 树 12 数据 + 纯 search→{path,found} / rangeScan→{leafPath,values}）+ BTreeViz（**SVG 多 key 节点 + 下钻路径点亮 + 范围叶链点亮**）+ BTree.vue + **4 处接线**（路由/菜单/首页/图标）。插入分裂 + B 树细节正文带过。改 2 处 HOOK 计数（数据结构 13→14）；M4 广度第六项               | verified | 100%   | 无     | 已完成（24 Case + 改 2 HOOK，已落 main）；**M4 广度 B6 ✓**           | viz-engine / article-ds / M4   | IllegalCreed | `20260629-c035-b-tree/`               | 2026-06-29 | -             |
 
 ## By Type
 
@@ -98,6 +99,7 @@
 | C-20260629-033 | 线段树 Segment Tree | verified | 100%   | 无     | 已完成           | `20260629-c033-segment-tree/`         |
 | C-20260628-030 | 头部个人主页外链    | verified | 100%   | 无     | 已完成           | `20260628-c030-header-homepage-link/` |
 | C-20260629-034 | SEO+GEO 可检索地基  | draft    | 0%     | 无     | 四文档已落待 TDD | `20260629-c034-seo-geo-foundation/`   |
+| C-20260629-035 | B 树 / B+ 树        | verified | 100%   | 无     | 已完成           | `20260629-c035-b-tree/`               |
 
 ## By Module
 
@@ -159,3 +161,4 @@
 | C-20260629-031 | feature | LRU 缓存            | verified | 100%   | `20260629-c031-lru/`                  |
 | C-20260629-032 | feature | 跳表 Skip List      | verified | 100%   | `20260629-c032-skip-list/`            |
 | C-20260629-033 | feature | 线段树 Segment Tree | verified | 100%   | `20260629-c033-segment-tree/`         |
+| C-20260629-035 | feature | B 树 / B+ 树        | verified | 100%   | `20260629-c035-b-tree/`               |
