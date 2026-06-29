@@ -59,6 +59,10 @@ export function useCategoryData(): Category[] {
           title: '线段树',
           url: 'segment-tree',
         },
+        {
+          title: 'B+ 树',
+          url: 'b-tree',
+        },
       ],
     },
     {

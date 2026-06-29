@@ -12,6 +12,7 @@ import UnionFindIcon from '@/assets/union-find.svg';
 import LruIcon from '@/assets/lru.svg';
 import SkipListIcon from '@/assets/skip-list.svg';
 import SegmentTreeIcon from '@/assets/segment-tree.svg';
+import BTreeIcon from '@/assets/b-tree.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
@@ -103,6 +104,12 @@ export function useCategoryData(): Category[] {
           desc: '每个节点管一段区间存聚合，区间查询拆整段、单点更新走一条路径，均 O(log n)',
           icon: SegmentTreeIcon,
           url: 'segment-tree',
+        },
+        {
+          title: 'B+ 树',
+          desc: '多路平衡查找树，数据全在叶 + 叶链，多路下钻查找 + 范围扫描，数据库索引的底层',
+          icon: BTreeIcon,
+          url: 'b-tree',
         },
       ],
     },

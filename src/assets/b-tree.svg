@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <g fill="none" stroke="#333333" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <!-- root（2 key 宽框） -->
+    <rect x="372" y="150" width="280" height="120" rx="18" />
+    <line x1="512" y1="150" x2="512" y2="270" />
+    <!-- 子指针 root→3 叶 -->
+    <line x1="450" y1="270" x2="200" y2="600" />
+    <line x1="512" y1="270" x2="512" y2="600" />
+    <line x1="574" y1="270" x2="824" y2="600" />
+    <!-- 3 个叶子（各多 key） -->
+    <rect x="70" y="600" width="260" height="110" rx="16" />
+    <line x1="156" y1="600" x2="156" y2="710" />
+    <line x1="244" y1="600" x2="244" y2="710" />
+    <rect x="382" y="600" width="260" height="110" rx="16" />
+    <line x1="468" y1="600" x2="468" y2="710" />
+    <line x1="556" y1="600" x2="556" y2="710" />
+    <rect x="694" y="600" width="260" height="110" rx="16" />
+    <line x1="780" y1="600" x2="780" y2="710" />
+    <line x1="868" y1="600" x2="868" y2="710" />
+    <!-- 叶链 -->
+    <line x1="330" y1="655" x2="382" y2="655" />
+    <line x1="642" y1="655" x2="694" y2="655" />
+  </g>
+</svg>

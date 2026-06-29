@@ -85,6 +85,11 @@ const routes = [
             component: () => import('../views/Article/DataStructure/SegmentTree.vue'),
           },
           {
+            path: '/docs/b-tree',
+            name: 'b-tree',
+            component: () => import('../views/Article/DataStructure/BTree.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
