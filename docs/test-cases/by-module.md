@@ -306,7 +306,7 @@
 | Case ID              | 标题                                           | 层级 | 自动化路径                                       |
 | -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
 | TC-HOOK-01-1         | 返回数据结构与排序两个分类                     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-2         | 数据结构分类含 14 项（…/线段树/B+ 树 C-035）   | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-5         | 每个分类含 desc                                | L3   | `src/views/Home/Main/hooks.spec.ts`              |
@@ -341,29 +341,29 @@
 
 ## docs（文档页侧边菜单）
 
-| Case ID              | 标题                                             | 层级 | 自动化路径                                     |
-| -------------------- | ------------------------------------------------ | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 返回 2 个分类                                    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-2         | 每项含 title/url 且均非空                        | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-3         | 所有 url 唯一                                    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构含 14 项（…/线段树/B+ 树 C-035），排序 8 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true          | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false       | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-E2E-MENU-01       | docs 菜单点击切换路由                            | L5   | `e2e/docs-menu.e2e.ts`                         |
+| Case ID              | 标题                                           | 层级 | 自动化路径                                     |
+| -------------------- | ---------------------------------------------- | ---- | ---------------------------------------------- |
+| TC-HOOK-02-1         | 返回 2 个分类                                  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-2         | 每项含 title/url 且均非空                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-3         | 所有 url 唯一                                  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构含 15 项（…/B+ 树/布隆 C-036），排序 8 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true        | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false     | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class        | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮  | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-E2E-MENU-01       | docs 菜单点击切换路由                          | L5   | `e2e/docs-menu.e2e.ts`                         |
 
 ---
 
@@ -438,7 +438,7 @@
 | TC-VIZ-PLAYGROUND-01 | 默认角标「亲手试试」+ slot | L4   | `src/components/article/Playground.spec.ts` |
 | TC-VIZ-PLAYGROUND-02 | 自定义 title 角标          | L4   | `src/components/article/Playground.spec.ts` |
 
-## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033/035）
+## structures（数据结构互动组件，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033/035/036）
 
 | Case ID            | 标题                                             | 层级 | 自动化路径                                       |
 | ------------------ | ------------------------------------------------ | ---- | ------------------------------------------------ |
@@ -794,60 +794,84 @@
 | TC-VIZ-BTREEVIZ-07 | 范围查 12,38：status「扫到」、inrange 5          | L4   | `src/components/structures/BTreeViz.spec.ts`     |
 | TC-VIZ-BTREEVIZ-08 | 范围查 48,99：inrange 3                          | L4   | `src/components/structures/BTreeViz.spec.ts`     |
 | TC-VIZ-BTREEVIZ-09 | 重置：清高亮（hit/onpath 0）                     | L4   | `src/components/structures/BTreeViz.spec.ts`     |
+| TC-BLOOM-LOGIC-01  | 初始 16 位全 0、size 16、k 3                     | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-02  | hashes(3)=[3,5,6]                                | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-03  | hashes(7)=[7,1,2]、hashes(11)=[11,13,14]         | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-04  | add(3) 置位 [3,5,6]                              | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-05  | add 3/7/11 后并集 9 位                           | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-06  | query(7) 真命中（非误判）                        | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-07  | query(5) 一定不存在（bit12=0）                   | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-08  | query(2) 误判（falsePositive）                   | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-09  | query(4) 未命中有 0                              | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-10  | add 幂等                                         | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-11  | 空表 query(7) 一定不存在                         | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-BLOOM-LOGIC-12  | reset 清零、其后 query(7) 不存在                 | L3   | `src/components/structures/useBloom.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-01 | 16 bit-cell + a 输入 + 加入/查询/重置 按钮       | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-02 | 初始 set 0                                       | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-03 | 加入 3：set 3 + status「加入」                   | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-04 | 加入 3/7/11：set 9                               | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-05 | 查询 7：「可能存在」且不含「误判」               | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-06 | 查询 5：「一定不存在」                           | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-07 | 查询 2：「误判」                                 | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-08 | 查询 7：探测位 probe 3                           | L4   | `src/components/structures/BloomViz.spec.ts`     |
+| TC-VIZ-BLOOMVIZ-09 | 重置：清空 set/probe                             | L4   | `src/components/structures/BloomViz.spec.ts`     |
 
-## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033/035）
+## article-ds（数据结构文章页，C-015/016/017/018/019/020/021/022/023/024/025/026/027/028/029/031/032/033/035/036）
 
-| Case ID           | 标题                                                          | 层级 | 自动化路径                                            |
-| ----------------- | ------------------------------------------------------------- | ---- | ----------------------------------------------------- |
-| TC-VIEW-STACK-01  | 挂载渲染 Article + StackViz                                   | L4   | `src/views/Article/DataStructure/Stack.spec.ts`       |
-| TC-VIEW-STACK-02  | 含「栈」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Stack.spec.ts`       |
-| TC-E2E-STACK-01   | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态              | L5   | `e2e/stack.e2e.ts`                                    |
-| TC-VIEW-QUEUE-01  | 挂载渲染 Article + QueueViz                                   | L4   | `src/views/Article/DataStructure/Queue.spec.ts`       |
-| TC-VIEW-QUEUE-02  | 含「队列」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Queue.spec.ts`       |
-| TC-E2E-QUEUE-01   | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置         | L5   | `e2e/queue.e2e.ts`                                    |
-| TC-VIEW-ARRAY-01  | 挂载渲染 Article + ArrayViz                                   | L4   | `src/views/Article/DataStructure/Array.spec.ts`       |
-| TC-VIEW-ARRAY-02  | 含「数组」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Array.spec.ts`       |
-| TC-E2E-ARRAY-01   | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置     | L5   | `e2e/array.e2e.ts`                                    |
-| TC-VIEW-LINK-01   | 挂载渲染 Article + LinkViz                                    | L4   | `src/views/Article/DataStructure/Link.spec.ts`        |
-| TC-VIEW-LINK-02   | 含「链表」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Link.spec.ts`        |
-| TC-E2E-LINK-01    | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置     | L5   | `e2e/link.e2e.ts`                                     |
-| TC-VIEW-TREE-01   | 挂载渲染 Article + TreeViz                                    | L4   | `src/views/Article/DataStructure/Tree.spec.ts`        |
-| TC-VIEW-TREE-02   | 含「树」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Tree.spec.ts`        |
-| TC-E2E-TREE-01    | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置           | L5   | `e2e/tree.e2e.ts`                                     |
-| TC-VIEW-HEAPDS-01 | 挂载渲染 Article + HeapViz                                    | L4   | `src/views/Article/DataStructure/Heap.spec.ts`        |
-| TC-VIEW-HEAPDS-02 | 含「堆」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Heap.spec.ts`        |
-| TC-E2E-HEAPDS-01  | 堆知识页：正文+互动堆/数组+树双视图/插入上浮/重置             | L5   | `e2e/heap.e2e.ts`                                     |
-| TC-VIEW-HASH-01   | 挂载渲染 Article + HashViz                                    | L4   | `src/views/Article/DataStructure/Hash.spec.ts`        |
-| TC-VIEW-HASH-02   | 含「哈希表」标题与 Playground                                 | L4   | `src/views/Article/DataStructure/Hash.spec.ts`        |
-| TC-E2E-HASH-01    | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置            | L5   | `e2e/hash.e2e.ts`                                     |
-| TC-VIEW-GRAPH-01  | 挂载渲染 Article + GraphViz                                   | L4   | `src/views/Article/DataStructure/Graph.spec.ts`       |
-| TC-VIEW-GRAPH-02  | 含「图」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Graph.spec.ts`       |
-| TC-E2E-GRAPH-01   | 图知识页：正文+互动图/BFS 队列遍历/重置                       | L5   | `e2e/graph.e2e.ts`                                    |
-| TC-VIEW-TREE-03   | 树页含 BalanceViz（平衡节，C-023）                            | L4   | `src/views/Article/DataStructure/Tree.spec.ts`        |
-| TC-E2E-TREE-02    | 树页·平衡节：退化↔平衡对照 + 查找走位（C-023）                | L5   | `e2e/tree.e2e.ts`                                     |
-| TC-VIEW-HASH-03   | 哈希页含 HashProbeViz（开放寻址节，C-024）                    | L4   | `src/views/Article/DataStructure/Hash.spec.ts`        |
-| TC-E2E-HASH-02    | 哈希页·开放寻址节：扁平表/线性探测插入/未命中/重置（C-024）   | L5   | `e2e/hash.e2e.ts`                                     |
-| TC-VIEW-LINK-03   | 链表页含 DlinkViz（双向链表节，C-025）                        | L4   | `src/views/Article/DataStructure/Link.spec.ts`        |
-| TC-E2E-LINK-02    | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置（C-025） | L5   | `e2e/link.e2e.ts`                                     |
-| TC-VIEW-QUEUE-03  | 队列页含 DequeViz（双端队列节，C-026）                        | L4   | `src/views/Article/DataStructure/Queue.spec.ts`       |
-| TC-E2E-QUEUE-02   | 队列页·双端节：3 元素/头部入/尾部出/重置（C-026）             | L5   | `e2e/queue.e2e.ts`                                    |
-| TC-VIEW-ARRAY-03  | 数组页含 ArrayGrowViz（扩容节，C-027）                        | L4   | `src/views/Article/DataStructure/Array.spec.ts`       |
-| TC-E2E-ARRAY-02   | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)（C-027）          | L5   | `e2e/array.e2e.ts`                                    |
-| TC-VIEW-TRIE-01   | 挂载渲染 Article + TrieViz（C-028）                           | L4   | `src/views/Article/DataStructure/Trie.spec.ts`        |
-| TC-VIEW-TRIE-02   | 含「字典树」标题与 Playground（C-028）                        | L4   | `src/views/Article/DataStructure/Trie.spec.ts`        |
-| TC-E2E-TRIE-01    | 字典树页：11 节点/查找三结局/前缀补全/重置（C-028）           | L5   | `e2e/trie.e2e.ts`                                     |
-| TC-VIEW-UF-01     | 挂载渲染 Article + UnionFindViz（C-029）                      | L4   | `src/views/Article/DataStructure/UnionFind.spec.ts`   |
-| TC-VIEW-UF-02     | 含「并查集」标题与 Playground（C-029）                        | L4   | `src/views/Article/DataStructure/UnionFind.spec.ts`   |
-| TC-E2E-UF-01      | 并查集页：8 节点/合并/连通判定/重置（C-029）                  | L5   | `e2e/union-find.e2e.ts`                               |
-| TC-VIEW-LRU-01    | 挂载渲染 Article + LruViz（C-031）                            | L4   | `src/views/Article/DataStructure/Lru.spec.ts`         |
-| TC-VIEW-LRU-02    | 含「LRU」标题与 Playground（C-031）                           | L4   | `src/views/Article/DataStructure/Lru.spec.ts`         |
-| TC-E2E-LRU-01     | LRU 页：3 cell/get 跳最前/put 满淘汰/重置（C-031）            | L5   | `e2e/lru.e2e.ts`                                      |
-| TC-VIEW-SKIP-01   | 挂载渲染 Article + SkipListViz（C-032）                       | L4   | `src/views/Article/DataStructure/SkipList.spec.ts`    |
-| TC-VIEW-SKIP-02   | 含「跳表」标题与 Playground（C-032）                          | L4   | `src/views/Article/DataStructure/SkipList.spec.ts`    |
-| TC-E2E-SKIP-01    | 跳表页：cell/查找命中/未命中/重置（C-032）                    | L5   | `e2e/skip-list.e2e.ts`                                |
-| TC-VIEW-SEG-01    | 挂载渲染 Article + SegTreeViz + Playground（C-033）           | L4   | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
-| TC-VIEW-SEG-02    | 含「线段树」标题与互动容器（15 节点）（C-033）                | L4   | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
-| TC-E2E-SEG-01     | 线段树页：15 节点/区间和「17」/更新「更新」/重置（C-033）     | L5   | `e2e/segment-tree.e2e.ts`                             |
-| TC-VIEW-BTREE-01  | 挂载渲染 Article + BTreeViz + Playground（C-035）             | L4   | `src/views/Article/DataStructure/BTree.spec.ts`       |
-| TC-VIEW-BTREE-02  | 含「B 树」标题与互动容器（4 节点）（C-035）                   | L4   | `src/views/Article/DataStructure/BTree.spec.ts`       |
-| TC-E2E-BTREE-01   | B+ 树页：4 节点/查找「找到了」/范围「扫到」/重置（C-035）     | L5   | `e2e/b-tree.e2e.ts`                                   |
+| Case ID           | 标题                                                            | 层级 | 自动化路径                                            |
+| ----------------- | --------------------------------------------------------------- | ---- | ----------------------------------------------------- |
+| TC-VIEW-STACK-01  | 挂载渲染 Article + StackViz                                     | L4   | `src/views/Article/DataStructure/Stack.spec.ts`       |
+| TC-VIEW-STACK-02  | 含「栈」标题与 Playground                                       | L4   | `src/views/Article/DataStructure/Stack.spec.ts`       |
+| TC-E2E-STACK-01   | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                | L5   | `e2e/stack.e2e.ts`                                    |
+| TC-VIEW-QUEUE-01  | 挂载渲染 Article + QueueViz                                     | L4   | `src/views/Article/DataStructure/Queue.spec.ts`       |
+| TC-VIEW-QUEUE-02  | 含「队列」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Queue.spec.ts`       |
+| TC-E2E-QUEUE-01   | 队列知识页：正文+互动队列/enqueue/双指针/dequeue/重置           | L5   | `e2e/queue.e2e.ts`                                    |
+| TC-VIEW-ARRAY-01  | 挂载渲染 Article + ArrayViz                                     | L4   | `src/views/Article/DataStructure/Array.spec.ts`       |
+| TC-VIEW-ARRAY-02  | 含「数组」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Array.spec.ts`       |
+| TC-E2E-ARRAY-01   | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置       | L5   | `e2e/array.e2e.ts`                                    |
+| TC-VIEW-LINK-01   | 挂载渲染 Article + LinkViz                                      | L4   | `src/views/Article/DataStructure/Link.spec.ts`        |
+| TC-VIEW-LINK-02   | 含「链表」标题与 Playground                                     | L4   | `src/views/Article/DataStructure/Link.spec.ts`        |
+| TC-E2E-LINK-01    | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置       | L5   | `e2e/link.e2e.ts`                                     |
+| TC-VIEW-TREE-01   | 挂载渲染 Article + TreeViz                                      | L4   | `src/views/Article/DataStructure/Tree.spec.ts`        |
+| TC-VIEW-TREE-02   | 含「树」标题与 Playground                                       | L4   | `src/views/Article/DataStructure/Tree.spec.ts`        |
+| TC-E2E-TREE-01    | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置             | L5   | `e2e/tree.e2e.ts`                                     |
+| TC-VIEW-HEAPDS-01 | 挂载渲染 Article + HeapViz                                      | L4   | `src/views/Article/DataStructure/Heap.spec.ts`        |
+| TC-VIEW-HEAPDS-02 | 含「堆」标题与 Playground                                       | L4   | `src/views/Article/DataStructure/Heap.spec.ts`        |
+| TC-E2E-HEAPDS-01  | 堆知识页：正文+互动堆/数组+树双视图/插入上浮/重置               | L5   | `e2e/heap.e2e.ts`                                     |
+| TC-VIEW-HASH-01   | 挂载渲染 Article + HashViz                                      | L4   | `src/views/Article/DataStructure/Hash.spec.ts`        |
+| TC-VIEW-HASH-02   | 含「哈希表」标题与 Playground                                   | L4   | `src/views/Article/DataStructure/Hash.spec.ts`        |
+| TC-E2E-HASH-01    | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置              | L5   | `e2e/hash.e2e.ts`                                     |
+| TC-VIEW-GRAPH-01  | 挂载渲染 Article + GraphViz                                     | L4   | `src/views/Article/DataStructure/Graph.spec.ts`       |
+| TC-VIEW-GRAPH-02  | 含「图」标题与 Playground                                       | L4   | `src/views/Article/DataStructure/Graph.spec.ts`       |
+| TC-E2E-GRAPH-01   | 图知识页：正文+互动图/BFS 队列遍历/重置                         | L5   | `e2e/graph.e2e.ts`                                    |
+| TC-VIEW-TREE-03   | 树页含 BalanceViz（平衡节，C-023）                              | L4   | `src/views/Article/DataStructure/Tree.spec.ts`        |
+| TC-E2E-TREE-02    | 树页·平衡节：退化↔平衡对照 + 查找走位（C-023）                  | L5   | `e2e/tree.e2e.ts`                                     |
+| TC-VIEW-HASH-03   | 哈希页含 HashProbeViz（开放寻址节，C-024）                      | L4   | `src/views/Article/DataStructure/Hash.spec.ts`        |
+| TC-E2E-HASH-02    | 哈希页·开放寻址节：扁平表/线性探测插入/未命中/重置（C-024）     | L5   | `e2e/hash.e2e.ts`                                     |
+| TC-VIEW-LINK-03   | 链表页含 DlinkViz（双向链表节，C-025）                          | L4   | `src/views/Article/DataStructure/Link.spec.ts`        |
+| TC-E2E-LINK-02    | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置（C-025）   | L5   | `e2e/link.e2e.ts`                                     |
+| TC-VIEW-QUEUE-03  | 队列页含 DequeViz（双端队列节，C-026）                          | L4   | `src/views/Article/DataStructure/Queue.spec.ts`       |
+| TC-E2E-QUEUE-02   | 队列页·双端节：3 元素/头部入/尾部出/重置（C-026）               | L5   | `e2e/queue.e2e.ts`                                    |
+| TC-VIEW-ARRAY-03  | 数组页含 ArrayGrowViz（扩容节，C-027）                          | L4   | `src/views/Article/DataStructure/Array.spec.ts`       |
+| TC-E2E-ARRAY-02   | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)（C-027）            | L5   | `e2e/array.e2e.ts`                                    |
+| TC-VIEW-TRIE-01   | 挂载渲染 Article + TrieViz（C-028）                             | L4   | `src/views/Article/DataStructure/Trie.spec.ts`        |
+| TC-VIEW-TRIE-02   | 含「字典树」标题与 Playground（C-028）                          | L4   | `src/views/Article/DataStructure/Trie.spec.ts`        |
+| TC-E2E-TRIE-01    | 字典树页：11 节点/查找三结局/前缀补全/重置（C-028）             | L5   | `e2e/trie.e2e.ts`                                     |
+| TC-VIEW-UF-01     | 挂载渲染 Article + UnionFindViz（C-029）                        | L4   | `src/views/Article/DataStructure/UnionFind.spec.ts`   |
+| TC-VIEW-UF-02     | 含「并查集」标题与 Playground（C-029）                          | L4   | `src/views/Article/DataStructure/UnionFind.spec.ts`   |
+| TC-E2E-UF-01      | 并查集页：8 节点/合并/连通判定/重置（C-029）                    | L5   | `e2e/union-find.e2e.ts`                               |
+| TC-VIEW-LRU-01    | 挂载渲染 Article + LruViz（C-031）                              | L4   | `src/views/Article/DataStructure/Lru.spec.ts`         |
+| TC-VIEW-LRU-02    | 含「LRU」标题与 Playground（C-031）                             | L4   | `src/views/Article/DataStructure/Lru.spec.ts`         |
+| TC-E2E-LRU-01     | LRU 页：3 cell/get 跳最前/put 满淘汰/重置（C-031）              | L5   | `e2e/lru.e2e.ts`                                      |
+| TC-VIEW-SKIP-01   | 挂载渲染 Article + SkipListViz（C-032）                         | L4   | `src/views/Article/DataStructure/SkipList.spec.ts`    |
+| TC-VIEW-SKIP-02   | 含「跳表」标题与 Playground（C-032）                            | L4   | `src/views/Article/DataStructure/SkipList.spec.ts`    |
+| TC-E2E-SKIP-01    | 跳表页：cell/查找命中/未命中/重置（C-032）                      | L5   | `e2e/skip-list.e2e.ts`                                |
+| TC-VIEW-SEG-01    | 挂载渲染 Article + SegTreeViz + Playground（C-033）             | L4   | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
+| TC-VIEW-SEG-02    | 含「线段树」标题与互动容器（15 节点）（C-033）                  | L4   | `src/views/Article/DataStructure/SegmentTree.spec.ts` |
+| TC-E2E-SEG-01     | 线段树页：15 节点/区间和「17」/更新「更新」/重置（C-033）       | L5   | `e2e/segment-tree.e2e.ts`                             |
+| TC-VIEW-BTREE-01  | 挂载渲染 Article + BTreeViz + Playground（C-035）               | L4   | `src/views/Article/DataStructure/BTree.spec.ts`       |
+| TC-VIEW-BTREE-02  | 含「B 树」标题与互动容器（4 节点）（C-035）                     | L4   | `src/views/Article/DataStructure/BTree.spec.ts`       |
+| TC-E2E-BTREE-01   | B+ 树页：4 节点/查找「找到了」/范围「扫到」/重置（C-035）       | L5   | `e2e/b-tree.e2e.ts`                                   |
+| TC-VIEW-BLOOM-01  | 挂载渲染 Article + BloomViz + Playground（C-036）               | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
+| TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
+| TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |

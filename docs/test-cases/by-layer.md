@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **308** 个用例。运行命令：`pnpm test:unit`
+共 **320** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -146,14 +146,14 @@
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
 | TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 14 项（…/跳表/线段树/B+ 树 C-035）            | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 14 项（…/跳表/线段树/B+ 树 C-035），排序 8        | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项（…/线段树/B+ 树/布隆过滤器 C-036），排序 8  | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
@@ -578,11 +578,30 @@
 | TC-BTREE-LOGIC-11 | rangeScan(5,60) 全表 12 值 3 叶            | `src/components/structures/useBTree.spec.ts` |
 | TC-BTREE-LOGIC-12 | rangeScan(100,200) 空命中、定位到 l2       | `src/components/structures/useBTree.spec.ts` |
 
+### 布隆过滤器逻辑 useBloom（C-036 · M4 广度 B7·收官）
+
+固定 m=16、k=3，哈希 `h1=x%16 / h2=7x%16 / h3=(11x+5)%16`。
+
+| Case ID           | 标题                                                | 自动化路径                                   |
+| ----------------- | --------------------------------------------------- | -------------------------------------------- |
+| TC-BLOOM-LOGIC-01 | 初始 16 位全 0、size 16、k 3                        | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-02 | hashes(3) = [3,5,6]                                 | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-03 | hashes(7)=[7,1,2]、hashes(11)=[11,13,14]            | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-04 | add(3) 置位 [3,5,6]                                 | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-05 | add 3/7/11 后并集 9 位                              | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-06 | query(7) 真命中（mightExist/added，非误判）         | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-07 | query(5) 一定不存在（bit12=0）                      | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-08 | query(2) 误判（mightExist 但没加过，falsePositive） | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-09 | query(4) 未命中有 0                                 | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-10 | add 幂等（位已 1 再置不增）                         | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-11 | 空表 query(7) 一定不存在                            | `src/components/structures/useBloom.spec.ts` |
+| TC-BLOOM-LOGIC-12 | reset 清零、其后 query(7) 不存在                    | `src/components/structures/useBloom.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **262** 个用例。运行命令：`pnpm test:unit`
+共 **273** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1089,44 +1108,61 @@
 | TC-VIEW-BTREE-01   | 挂载渲染 Article + BTreeViz + Playground         | `src/views/Article/DataStructure/BTree.spec.ts` |
 | TC-VIEW-BTREE-02   | 含「B 树」标题与互动容器（4 节点）               | `src/views/Article/DataStructure/BTree.spec.ts` |
 
+### 布隆过滤器互动 BloomViz + 布隆页（C-036 · M4 广度 B7·收官，新页）
+
+| Case ID            | 标题                                       | 自动化路径                                            |
+| ------------------ | ------------------------------------------ | ----------------------------------------------------- |
+| TC-VIZ-BLOOMVIZ-01 | 16 bit-cell + a 输入 + 加入/查询/重置 按钮 | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-02 | 初始 set 0                                 | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-03 | 加入 3：set 3 + status 含「加入」          | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-04 | 加入 3/7/11：set 9                         | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-05 | 查询 7：含「可能存在」且不含「误判」       | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-06 | 查询 5：含「一定不存在」                   | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-07 | 查询 2：含「误判」                         | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-08 | 查询 7：探测位 probe 3                     | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIZ-BLOOMVIZ-09 | 重置：清空 set/probe                       | `src/components/structures/BloomViz.spec.ts`          |
+| TC-VIEW-BLOOM-01   | 挂载渲染 Article + BloomViz + Playground   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
+| TC-VIEW-BLOOM-02   | 含「布隆过滤器」标题与互动容器（16 位）    | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **29** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **30** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
-| Case ID             | 标题                                                          | 自动化路径                   | 状态       |
-| ------------------- | ------------------------------------------------------------- | ---------------------------- | ---------- |
-| TC-E2E-HOME-01      | 首页加载并能进入 docs                                         | `e2e/home-navigation.e2e.ts` | active     |
-| TC-E2E-MENU-01      | docs 菜单点击切换路由                                         | `e2e/docs-menu.e2e.ts`       | active     |
-| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                      | `e2e/bubble-sort.e2e.ts`     | superseded |
-| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                       | `e2e/bubble-sort.e2e.ts`     | active     |
-| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                   | `e2e/selection-sort.e2e.ts`  | active     |
-| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                   | `e2e/insertion-sort.e2e.ts`  | active     |
-| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置           | `e2e/shell-sort.e2e.ts`      | active     |
-| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置    | `e2e/merge-sort.e2e.ts`      | active     |
-| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置     | `e2e/quick-sort.e2e.ts`      | active     |
-| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置        | `e2e/heap-sort.e2e.ts`       | active     |
-| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置     | `e2e/counting-sort.e2e.ts`   | active     |
-| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态              | `e2e/stack.e2e.ts`           | active     |
-| TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置   | `e2e/queue.e2e.ts`           | active     |
-| TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置     | `e2e/array.e2e.ts`           | active     |
-| TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置     | `e2e/link.e2e.ts`            | active     |
-| TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置           | `e2e/tree.e2e.ts`            | active     |
-| TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置         | `e2e/heap.e2e.ts`            | active     |
-| TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置            | `e2e/hash.e2e.ts`            | active     |
-| TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                       | `e2e/graph.e2e.ts`           | active     |
-| TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                         | `e2e/tree.e2e.ts`            | active     |
-| TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置       | `e2e/hash.e2e.ts`            | active     |
-| TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置          | `e2e/link.e2e.ts`            | active     |
-| TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）          | `e2e/queue.e2e.ts`           | active     |
-| TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                   | `e2e/array.e2e.ts`           | active     |
-| TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置     | `e2e/trie.e2e.ts`            | active     |
-| TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置            | `e2e/union-find.e2e.ts`      | active     |
-| TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置           | `e2e/lru.e2e.ts`             | active     |
-| TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置   | `e2e/skip-list.e2e.ts`       | active     |
-| TC-E2E-SEG-01       | 线段树页：15 节点 / 区间和 2,5「17」/ 更新 2→10「更新」/ 重置 | `e2e/segment-tree.e2e.ts`    | active     |
-| TC-E2E-BTREE-01     | B+ 树页：4 节点 / 查找 30「找到了」/ 范围 12,38「扫到」/ 重置 | `e2e/b-tree.e2e.ts`          | active     |
+| Case ID             | 标题                                                             | 自动化路径                   | 状态       |
+| ------------------- | ---------------------------------------------------------------- | ---------------------------- | ---------- |
+| TC-E2E-HOME-01      | 首页加载并能进入 docs                                            | `e2e/home-navigation.e2e.ts` | active     |
+| TC-E2E-MENU-01      | docs 菜单点击切换路由                                            | `e2e/docs-menu.e2e.ts`       | active     |
+| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                         | `e2e/bubble-sort.e2e.ts`     | superseded |
+| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                          | `e2e/bubble-sort.e2e.ts`     | active     |
+| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                      | `e2e/selection-sort.e2e.ts`  | active     |
+| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                      | `e2e/insertion-sort.e2e.ts`  | active     |
+| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置              | `e2e/shell-sort.e2e.ts`      | active     |
+| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置       | `e2e/merge-sort.e2e.ts`      | active     |
+| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置        | `e2e/quick-sort.e2e.ts`      | active     |
+| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置           | `e2e/heap-sort.e2e.ts`       | active     |
+| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置        | `e2e/counting-sort.e2e.ts`   | active     |
+| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                 | `e2e/stack.e2e.ts`           | active     |
+| TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置      | `e2e/queue.e2e.ts`           | active     |
+| TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置        | `e2e/array.e2e.ts`           | active     |
+| TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置        | `e2e/link.e2e.ts`            | active     |
+| TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置              | `e2e/tree.e2e.ts`            | active     |
+| TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置            | `e2e/heap.e2e.ts`            | active     |
+| TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置               | `e2e/hash.e2e.ts`            | active     |
+| TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                          | `e2e/graph.e2e.ts`           | active     |
+| TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                            | `e2e/tree.e2e.ts`            | active     |
+| TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置          | `e2e/hash.e2e.ts`            | active     |
+| TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置             | `e2e/link.e2e.ts`            | active     |
+| TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）             | `e2e/queue.e2e.ts`           | active     |
+| TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                      | `e2e/array.e2e.ts`           | active     |
+| TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置        | `e2e/trie.e2e.ts`            | active     |
+| TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置               | `e2e/union-find.e2e.ts`      | active     |
+| TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置              | `e2e/lru.e2e.ts`             | active     |
+| TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置      | `e2e/skip-list.e2e.ts`       | active     |
+| TC-E2E-SEG-01       | 线段树页：15 节点 / 区间和 2,5「17」/ 更新 2→10「更新」/ 重置    | `e2e/segment-tree.e2e.ts`    | active     |
+| TC-E2E-BTREE-01     | B+ 树页：4 节点 / 查找 30「找到了」/ 范围 12,38「扫到」/ 重置    | `e2e/b-tree.e2e.ts`          | active     |
+| TC-E2E-BLOOM-01     | 布隆页：16 格 / 加 3·7·11 / 查 7「可能存在」/ 查 2「误判」/ 重置 | `e2e/bloom-filter.e2e.ts`    | active     |
 
 ---
 
