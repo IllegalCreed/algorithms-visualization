@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **357** 个用例。运行命令：`pnpm test:unit`
+共 **370** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -153,7 +153,7 @@
 | TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal（C-038）                   | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 9 项（新增基数排序 C-039）          | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项，排序含 10 项（新增桶排序 C-040）           | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
@@ -296,21 +296,34 @@
 
 固定 `[42,7,25,63,18,31,56,9]` LSD 2 轮（个位、十位）；复用算法播放器 + CountView 桶轨。
 
-| Case ID         | 标题                                             | 自动化路径                                 |
-| --------------- | ------------------------------------------------ | ------------------------------------------ |
-| TC-RADIX-MOD-01 | 末步 done、有序 = oracle.result                  | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-02 | 不修改入参                                       | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-03 | 位置键恒为 0..7                                  | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-04 | 每步 point 合法且带桶轨 count                    | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-05 | 步数结构 distribute16/collect16/passStart2/done1 | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-06 | 第 1 轮个位分桶计数 [0,1,1,1,0,1,1,1,1,1]        | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-07 | 首个 distribute activeBucket 2 + 读游标 1        | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-08 | 第 1 轮收集 [31,42,63,25,56,7,18,9] + 写游标 3   | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-09 | done 步 sortedUpTo=n、无指针                     | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-10 | 四语言齐备                                       | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-11 | 每语言每 point 行号在源码行数内                  | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-12 | 产出的 point 都能映射行号                        | `src/algorithms/radix-sort.module.spec.ts` |
-| TC-RADIX-MOD-13 | module 元信息（title/initialInput）              | `src/algorithms/radix-sort.module.spec.ts` |
+| Case ID          | 标题                                             | 自动化路径                                  |
+| ---------------- | ------------------------------------------------ | ------------------------------------------- |
+| TC-RADIX-MOD-01  | 末步 done、有序 = oracle.result                  | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-02  | 不修改入参                                       | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-03  | 位置键恒为 0..7                                  | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-04  | 每步 point 合法且带桶轨 count                    | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-05  | 步数结构 distribute16/collect16/passStart2/done1 | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-06  | 第 1 轮个位分桶计数 [0,1,1,1,0,1,1,1,1,1]        | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-07  | 首个 distribute activeBucket 2 + 读游标 1        | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-08  | 第 1 轮收集 [31,42,63,25,56,7,18,9] + 写游标 3   | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-09  | done 步 sortedUpTo=n、无指针                     | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-10  | 四语言齐备                                       | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-11  | 每语言每 point 行号在源码行数内                  | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-12  | 产出的 point 都能映射行号                        | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-RADIX-MOD-13  | module 元信息（title/initialInput）              | `src/algorithms/radix-sort.module.spec.ts`  |
+| TC-BUCKET-MOD-01 | 末步 done、有序 = oracle.result                  | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-02 | 不修改入参                                       | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-03 | 位置键恒为 0..7                                  | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-04 | 每步 point 合法且带桶轨 bucket                   | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-05 | 步数结构 distribute8/sortBucket5/concat8/done1   | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-06 | 分配末桶 桶0[3,9]/桶1[]/桶2[29,25,21]            | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-07 | 首个 distribute activeBucket 2 + 读游标 1        | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-08 | 桶内排序 桶2 [21,25,29]                          | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-09 | 末 concat 整体有序 + 写游标 3                    | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-10 | done 步 sortedUpTo=n、无指针                     | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-11 | 桶值域 ranges 5 桶宽 10                          | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-12 | 四语言 + 行号在源码行数内                        | `src/algorithms/bucket-sort.module.spec.ts` |
+| TC-BUCKET-MOD-13 | module 元信息（title/initialInput）              | `src/algorithms/bucket-sort.module.spec.ts` |
 
 ### 栈逻辑 useStack（C-015）
 
@@ -659,7 +672,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **295** 个用例。运行命令：`pnpm test:unit`
+共 **303** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -852,23 +865,31 @@
 
 ### 计数桶轨 + 视图（C-014）
 
-| Case ID             | 标题                                                | 自动化路径                                             |
-| ------------------- | --------------------------------------------------- | ------------------------------------------------------ |
-| TC-VIZ-BARSVIEW-21  | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）      | `src/components/BarsView.spec.ts`                      |
-| TC-VIZ-BARSVIEW-22  | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡 | `src/components/BarsView.spec.ts`                      |
-| TC-VIZ-COUNTVIEW-01 | 渲染桶数 = buckets.length                           | `src/components/CountView.spec.ts`                     |
-| TC-VIZ-COUNTVIEW-02 | 每桶单元格数 = buckets[b]                           | `src/components/CountView.spec.ts`                     |
-| TC-VIZ-COUNTVIEW-03 | 桶底值标签 = b + min                                | `src/components/CountView.spec.ts`                     |
-| TC-VIZ-COUNTVIEW-04 | activeBucket 桶带 .active                           | `src/components/CountView.spec.ts`                     |
-| TC-VIZ-COUNTVIEW-05 | 空桶渲染 0 格、仍显值与计数 0                       | `src/components/CountView.spec.ts`                     |
-| TC-VIZ-COUNTVIEW-06 | 桶顶计数数字 = buckets[b]                           | `src/components/CountView.spec.ts`                     |
-| TC-PLAYER-COUNT-01  | 当前步带 count 时渲染 CountView                     | `src/components/player/AlgorithmPlayer.spec.ts`        |
-| TC-PLAYER-COUNT-02  | module 无 count 时不渲染 CountView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`        |
-| TC-PLAYER-COUNT-03  | 带 tree 不带 count 不渲染 CountView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`        |
-| TC-VIEW-COUNT-01    | 挂载渲染 AlgorithmPlayer                            | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
-| TC-VIEW-COUNT-02    | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步        | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
-| TC-VIEW-RADIX-01    | 挂载渲染 AlgorithmPlayer（C-039 基数排序）          | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`    |
-| TC-VIEW-RADIX-02    | 渲染计数桶轨 + 主轨 8 柱且默认停第 0 步             | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`    |
+| Case ID              | 标题                                                | 自动化路径                                             |
+| -------------------- | --------------------------------------------------- | ------------------------------------------------------ |
+| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）      | `src/components/BarsView.spec.ts`                      |
+| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡 | `src/components/BarsView.spec.ts`                      |
+| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length                           | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]                           | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min                                | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active                           | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值与计数 0                       | `src/components/CountView.spec.ts`                     |
+| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]                           | `src/components/CountView.spec.ts`                     |
+| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView                     | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-VIEW-COUNT-01     | 挂载渲染 AlgorithmPlayer                            | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
+| TC-VIEW-COUNT-02     | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步        | `src/views/Article/SortAlgorithm/CountingSort.spec.ts` |
+| TC-VIEW-RADIX-01     | 挂载渲染 AlgorithmPlayer（C-039 基数排序）          | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`    |
+| TC-VIEW-RADIX-02     | 渲染计数桶轨 + 主轨 8 柱且默认停第 0 步             | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`    |
+| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签                                | `src/components/BucketView.spec.ts`                    |
+| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值                            | `src/components/BucketView.spec.ts`                    |
+| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active                           | `src/components/BucketView.spec.ts`                    |
+| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签                         | `src/components/BucketView.spec.ts`                    |
+| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView                   | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`        |
+| TC-VIEW-BUCKET-01    | 全模板：Article(h1 桶排序) + 播放器                 | `src/views/Article/SortAlgorithm/BucketSort.spec.ts`   |
+| TC-VIEW-BUCKET-02    | 渲染 BucketView 桶轨 + 主轨 8 柱                    | `src/views/Article/SortAlgorithm/BucketSort.spec.ts`   |
 
 ### 知识页骨架 + 栈互动 + 栈页（C-015）
 
@@ -1218,7 +1239,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **33** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **34** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                             | 自动化路径                   | 状态       |
 | ------------------- | ---------------------------------------------------------------- | ---------------------------- | ---------- |
@@ -1234,6 +1255,7 @@
 | TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置           | `e2e/heap-sort.e2e.ts`       | active     |
 | TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置        | `e2e/counting-sort.e2e.ts`   | active     |
 | TC-E2E-RADIX-01     | 基数排序播放器：主轨 8 柱 / 桶轨 10 桶 / 拖到末步升序            | `e2e/radix-sort.e2e.ts`      | active     |
+| TC-E2E-BUCKET-01    | 桶排序全模板：正文 + 桶轨 5 桶 + 主轨 8 柱 / 拖到末步升序        | `e2e/bucket-sort.e2e.ts`     | active     |
 | TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                 | `e2e/stack.e2e.ts`           | active     |
 | TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置      | `e2e/queue.e2e.ts`           | active     |
 | TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置        | `e2e/array.e2e.ts`           | active     |

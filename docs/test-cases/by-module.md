@@ -264,6 +264,12 @@
 | TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView（C-014）                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）（C-014）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰）（C-014）         | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签（C-040 新桶轨）                                 | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值（C-040）                                    | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active（C-040）                                   | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签（C-040）                                 | L4   | `src/components/BucketView.spec.ts`             |
+| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView（C-040）                           | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）（C-040）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -341,64 +347,67 @@
 
 ## docs（文档页侧边菜单）
 
-| Case ID              | 标题                                          | 层级 | 自动化路径                                     |
-| -------------------- | --------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 三分类，图算法含 Dijkstra+Kruskal（C-038）    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-2         | 每项含 title/url 且均非空                     | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-3         | 所有 url 唯一                                 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构 15 项，排序 9 项（新增基数 C-039）   | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true       | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false    | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class         | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class       | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                         | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                  | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                  | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮 | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新  | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-E2E-MENU-01       | docs 菜单点击切换路由                         | L5   | `e2e/docs-menu.e2e.ts`                         |
+| Case ID              | 标题                                           | 层级 | 自动化路径                                     |
+| -------------------- | ---------------------------------------------- | ---- | ---------------------------------------------- |
+| TC-HOOK-02-1         | 三分类，图算法含 Dijkstra+Kruskal（C-038）     | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-2         | 每项含 title/url 且均非空                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-3         | 所有 url 唯一                                  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构 15 项，排序 10 项（新增桶排序 C-040） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true        | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false     | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class        | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮  | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-E2E-MENU-01       | docs 菜单点击切换路由                          | L5   | `e2e/docs-menu.e2e.ts`                         |
 
 ---
 
 ## article-sort（排序动画文章）
 
-| Case ID              | 标题                                                                                      | 层级 | 自动化路径                                              |
-| -------------------- | ----------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------- |
-| TC-VIEW-BUBBLE-01    | （C-006 改写）挂载渲染 AlgorithmPlayer                                                    | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
-| TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步                                           | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
-| TC-E2E-BUBBLE-01     | ~~冒泡排序动画最终升序~~ (superseded by TC-E2E-PLAYER-01)                                 | L5   | `e2e/bubble-sort.e2e.ts`                                |
-| TC-E2E-PLAYER-01     | 冒泡播放器：默认暂停/单步/跳末升序/重置（C-006）                                          | L5   | `e2e/bubble-sort.e2e.ts`                                |
-| TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）                                                         | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
-| TC-VIEW-SELECTION-02 | 初始渲染 10 柱默认停第 0 步（C-007）                                                      | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
-| TC-E2E-SELECTION-01  | 选择排序播放器 e2e（C-007）                                                               | L5   | `e2e/selection-sort.e2e.ts`                             |
-| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）                                                         | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
-| TC-VIEW-INSERTION-02 | 初始渲染 10 柱默认停第 0 步（C-008）                                                      | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
-| TC-E2E-INSERTION-01  | 插入排序播放器 e2e（C-008）                                                               | L5   | `e2e/insertion-sort.e2e.ts`                             |
-| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）                                                         | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
-| TC-VIEW-SHELL-02     | 初始渲染 10 柱默认停第 0 步（C-010）                                                      | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
-| TC-E2E-SHELL-01      | 希尔排序播放器 e2e（C-010）                                                               | L5   | `e2e/shell-sort.e2e.ts`                                 |
-| TC-VIEW-MERGE-01     | 挂载渲染 AlgorithmPlayer（C-011）                                                         | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
-| TC-VIEW-MERGE-02     | 初始渲染主轨 10 柱 + 辅助轨默认停第 0 步（C-011）                                         | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
-| TC-E2E-MERGE-01      | 归并播放器 e2e（C-011）                                                                   | L5   | `e2e/merge-sort.e2e.ts`                                 |
-| TC-VIEW-QUICK-01     | 挂载渲染 AlgorithmPlayer（C-012）                                                         | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
-| TC-VIEW-QUICK-02     | 初始渲染主轨 10 柱 + 区间栈轨且默认停第 0 步（C-012）                                     | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
-| TC-E2E-QUICK-01      | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置（C-012）                        | L5   | `e2e/quick-sort.e2e.ts`                                 |
-| TC-VIEW-HEAP-01      | 挂载渲染 AlgorithmPlayer（C-013）                                                         | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      |
-| TC-VIEW-HEAP-02      | 初始渲染二叉树轨 + 主轨 10 柱且默认停第 0 步（C-013）                                     | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      |
-| TC-E2E-HEAP-01       | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置（C-013）                           | L5   | `e2e/heap-sort.e2e.ts`                                  |
-| TC-VIEW-COUNT-01     | 挂载渲染 AlgorithmPlayer（C-014）                                                         | L4   | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`  |
-| TC-VIEW-COUNT-02     | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步（C-014）                                     | L4   | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`  |
-| TC-E2E-COUNT-01      | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置（C-014）                        | L5   | `e2e/counting-sort.e2e.ts`                              |
-| TC-RADIX-MOD-01..13  | 基数排序模块 13：末步有序/不改入参/位置键/步数结构/分桶计数/收集结果/四语言/行号（C-039） | L3   | `src/algorithms/radix-sort.module.spec.ts`              |
-| TC-VIEW-RADIX-01/02  | 基数排序页：挂载 AlgorithmPlayer + 桶轨 + 主轨 8 柱（C-039）                              | L4   | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`     |
-| TC-E2E-RADIX-01      | 基数排序播放器：8 柱 / 10 桶 / 拖末步升序（C-039）                                        | L5   | `e2e/radix-sort.e2e.ts`                                 |
+| Case ID              | 标题                                                                                                   | 层级 | 自动化路径                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------ | ---- | ------------------------------------------------------- |
+| TC-VIEW-BUBBLE-01    | （C-006 改写）挂载渲染 AlgorithmPlayer                                                                 | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步                                                        | L4   | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-E2E-BUBBLE-01     | ~~冒泡排序动画最终升序~~ (superseded by TC-E2E-PLAYER-01)                                              | L5   | `e2e/bubble-sort.e2e.ts`                                |
+| TC-E2E-PLAYER-01     | 冒泡播放器：默认暂停/单步/跳末升序/重置（C-006）                                                       | L5   | `e2e/bubble-sort.e2e.ts`                                |
+| TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）                                                                      | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-VIEW-SELECTION-02 | 初始渲染 10 柱默认停第 0 步（C-007）                                                                   | L4   | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-E2E-SELECTION-01  | 选择排序播放器 e2e（C-007）                                                                            | L5   | `e2e/selection-sort.e2e.ts`                             |
+| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）                                                                      | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-INSERTION-02 | 初始渲染 10 柱默认停第 0 步（C-008）                                                                   | L4   | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-E2E-INSERTION-01  | 插入排序播放器 e2e（C-008）                                                                            | L5   | `e2e/insertion-sort.e2e.ts`                             |
+| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）                                                                      | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-VIEW-SHELL-02     | 初始渲染 10 柱默认停第 0 步（C-010）                                                                   | L4   | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-E2E-SHELL-01      | 希尔排序播放器 e2e（C-010）                                                                            | L5   | `e2e/shell-sort.e2e.ts`                                 |
+| TC-VIEW-MERGE-01     | 挂载渲染 AlgorithmPlayer（C-011）                                                                      | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
+| TC-VIEW-MERGE-02     | 初始渲染主轨 10 柱 + 辅助轨默认停第 0 步（C-011）                                                      | L4   | `src/views/Article/SortAlgorithm/MergeSort.spec.ts`     |
+| TC-E2E-MERGE-01      | 归并播放器 e2e（C-011）                                                                                | L5   | `e2e/merge-sort.e2e.ts`                                 |
+| TC-VIEW-QUICK-01     | 挂载渲染 AlgorithmPlayer（C-012）                                                                      | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
+| TC-VIEW-QUICK-02     | 初始渲染主轨 10 柱 + 区间栈轨且默认停第 0 步（C-012）                                                  | L4   | `src/views/Article/SortAlgorithm/QuickSort.spec.ts`     |
+| TC-E2E-QUICK-01      | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置（C-012）                                     | L5   | `e2e/quick-sort.e2e.ts`                                 |
+| TC-VIEW-HEAP-01      | 挂载渲染 AlgorithmPlayer（C-013）                                                                      | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      |
+| TC-VIEW-HEAP-02      | 初始渲染二叉树轨 + 主轨 10 柱且默认停第 0 步（C-013）                                                  | L4   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts`      |
+| TC-E2E-HEAP-01       | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置（C-013）                                        | L5   | `e2e/heap-sort.e2e.ts`                                  |
+| TC-VIEW-COUNT-01     | 挂载渲染 AlgorithmPlayer（C-014）                                                                      | L4   | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`  |
+| TC-VIEW-COUNT-02     | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步（C-014）                                                  | L4   | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`  |
+| TC-E2E-COUNT-01      | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置（C-014）                                     | L5   | `e2e/counting-sort.e2e.ts`                              |
+| TC-RADIX-MOD-01..13  | 基数排序模块 13：末步有序/不改入参/位置键/步数结构/分桶计数/收集结果/四语言/行号（C-039）              | L3   | `src/algorithms/radix-sort.module.spec.ts`              |
+| TC-VIEW-RADIX-01/02  | 基数排序页：挂载 AlgorithmPlayer + 桶轨 + 主轨 8 柱（C-039）                                           | L4   | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`     |
+| TC-E2E-RADIX-01      | 基数排序播放器：8 柱 / 10 桶 / 拖末步升序（C-039）                                                     | L5   | `e2e/radix-sort.e2e.ts`                                 |
+| TC-BUCKET-MOD-01..13 | 桶排序模块 13：末步有序/不改入参/位置键/步数结构/分配末桶/桶内排序/合并写游标/值域/四语言行号（C-040） | L3   | `src/algorithms/bucket-sort.module.spec.ts`             |
+| TC-VIEW-BUCKET-01/02 | 桶排序页全模板：Article(h1 桶排序) + AlgorithmPlayer + BucketView 桶轨 + 主轨 8 柱（C-040）            | L4   | `src/views/Article/SortAlgorithm/BucketSort.spec.ts`    |
+| TC-E2E-BUCKET-01     | 桶排序全模板：正文 + 桶轨 5 桶 + 主轨 8 柱 / 拖末步升序（C-040）                                       | L5   | `e2e/bucket-sort.e2e.ts`                                |
 
 ---
 
