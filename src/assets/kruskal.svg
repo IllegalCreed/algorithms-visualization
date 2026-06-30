@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 未选中的边（细虚线，成环跳过） -->
+  <g fill="none" stroke="#333333" stroke-width="20" stroke-linecap="round" stroke-dasharray="34 30">
+    <line x1="440" y1="250" x2="440" y2="774" />
+    <line x1="760" y1="370" x2="760" y2="654" />
+  </g>
+  <!-- 最小生成树的边（粗实线，已加入） -->
+  <g fill="none" stroke="#333333" stroke-width="56" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="180" y1="512" x2="440" y2="250" />
+    <line x1="180" y1="512" x2="440" y2="774" />
+    <line x1="440" y1="250" x2="760" y2="370" />
+    <line x1="440" y1="774" x2="760" y2="654" />
+  </g>
+  <!-- 顶点 -->
+  <g fill="#333333">
+    <circle cx="180" cy="512" r="78" />
+    <circle cx="440" cy="250" r="70" />
+    <circle cx="440" cy="774" r="70" />
+    <circle cx="760" cy="370" r="70" />
+    <circle cx="760" cy="654" r="70" />
+  </g>
+</svg>

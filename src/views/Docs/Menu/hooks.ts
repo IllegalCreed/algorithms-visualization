@@ -113,6 +113,10 @@ export function useCategoryData(): Category[] {
           title: 'Dijkstra 最短路',
           url: 'dijkstra',
         },
+        {
+          title: 'Kruskal 最小生成树',
+          url: 'kruskal',
+        },
       ],
     },
   ];
