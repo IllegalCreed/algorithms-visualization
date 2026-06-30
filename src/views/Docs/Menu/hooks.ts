@@ -104,6 +104,10 @@ export function useCategoryData(): Category[] {
           title: '计数排序',
           url: 'counting-sort',
         },
+        {
+          title: '基数排序',
+          url: 'radix-sort',
+        },
       ],
     },
     {

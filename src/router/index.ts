@@ -144,6 +144,11 @@ const routes = [
             name: 'counting-sort',
             component: () => import('../views/Article/SortAlgorithm/CountingSort.vue'),
           },
+          {
+            path: '/docs/radix-sort',
+            name: 'radix-sort',
+            component: () => import('../views/Article/SortAlgorithm/RadixSort.vue'),
+          },
         ],
       },
     ],

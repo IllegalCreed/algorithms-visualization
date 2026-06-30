@@ -37,9 +37,10 @@ describe('Docs/Menu useCategoryData', () => {
     expect(new Set(urls).size).toBe(urls.length);
   });
 
-  it('TC-HOOK-02-4: 数据结构含 15 项（…/线段树/B+ 树/布隆过滤器 C-036），排序算法含 8 项', () => {
+  it('TC-HOOK-02-4: 数据结构含 15 项，排序算法含 9 项（新增基数排序 C-039）', () => {
     const data = useCategoryData();
     expect(data[0].children).toHaveLength(15);
-    expect(data[1].children).toHaveLength(8);
+    expect(data[1].children).toHaveLength(9);
+    expect(data[1].children.map((c) => c.url)).toContain('radix-sort');
   });
 });

@@ -23,6 +23,7 @@ import ShellIcon from '@/assets/shell.svg';
 import MergeIcon from '@/assets/merge.svg';
 import QuickIcon from '@/assets/quick.svg';
 import CountingIcon from '@/assets/counting.svg';
+import RadixIcon from '@/assets/radix.svg';
 
 export function useCategoryData(): Category[] {
   const categoryData: Category[] = [
@@ -173,6 +174,12 @@ export function useCategoryData(): Category[] {
           desc: '在已知取值范围的情况下，按照一种萝卜一个坑的思想进行排序',
           icon: CountingIcon,
           url: 'counting-sort',
+        },
+        {
+          title: '基数排序',
+          desc: '不比较大小，按位（个位→十位…）反复分配到 10 个桶再收集，线性时间',
+          icon: RadixIcon,
+          url: 'radix-sort',
         },
         // {
         //   title: "桶排序",

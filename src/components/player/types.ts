@@ -60,6 +60,9 @@ export type HeapExecPoint = 'heapify' | 'compare' | 'swap' | 'settle' | 'extract
 /** 计数排序的执行点（简单计数「萝卜一个坑」：计数 count → 走桶 bucketStart → 回写 writeBack） */
 export type CountingExecPoint = 'count' | 'bucketStart' | 'writeBack' | 'done';
 
+/** 基数排序的执行点（LSD：每轮 passStart 宣布位 → distribute 按位入 10 桶 → collect 按桶序收集回写） */
+export type RadixExecPoint = 'passStart' | 'distribute' | 'collect' | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
