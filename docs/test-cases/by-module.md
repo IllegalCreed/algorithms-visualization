@@ -305,7 +305,7 @@
 
 | Case ID              | 标题                                           | 层级 | 自动化路径                                       |
 | -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
-| TC-HOOK-01-1         | 返回数据结构/排序/图算法三个分类（C-037）      | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-1         | 三分类，图算法含 Dijkstra+Kruskal（C-038）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
@@ -343,7 +343,7 @@
 
 | Case ID              | 标题                                           | 层级 | 自动化路径                                     |
 | -------------------- | ---------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 返回 3 个分类（数据结构/排序/图算法 C-037）    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-1         | 三分类，图算法含 Dijkstra+Kruskal（C-038）     | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-2         | 每项含 title/url 且均非空                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-3         | 所有 url 唯一                                  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-4         | 数据结构含 15 项（…/B+ 树/布隆 C-036），排序 8 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
@@ -876,7 +876,7 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法，C-037）
+## article-algo（图算法，C-037/038）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/DijkstraViz 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
 
@@ -905,3 +905,26 @@
 | TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + DijkstraViz + Playground         | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
 | TC-VIEW-DIJKSTRA-02   | 含「Dijkstra」标题与互动容器（6 dvert）             | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
 | TC-E2E-DIJKSTRA-01    | Dijkstra 页：单步走到底「最短」「9」/ 重置（C-037） | L5   | `e2e/dijkstra.e2e.ts`                           |
+| TC-KRUSKAL-01         | 图规模与标签（6 点 9 边）                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-02         | 边已按权升序（[1..9]、AC 首）                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-03         | MST 边集 [AC,BC,DE,BD,DF]                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-04         | MST 总权重 18                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-05         | steps 长度 10                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-06         | 初始步 mst 空、weight 0                             | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-07         | 加入 B-C：steps[2]                                  | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-08         | 成环跳过 A-B：steps[4]                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-09         | 加入 B-D：steps[5] 含 BD、weight 11                 | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-10         | 完成步 D-F：steps[7] mst 5、weight 18               | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-11         | 成环边集 [AB,CE,EF,CD]                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-12         | 末步权重稳定 mst 5、weight 18                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-01  | 6 kvert + 9 kedge + 边列表 9 行 + 下一步/重置       | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-02  | 初始无 MST                                          | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-03  | 下一步×1：加入、status「加入」                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-04  | 下一步×4：成环跳过、cycle ≥1、mst 3                 | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-05  | 下一步×4：当前考虑边高亮 ≥1                         | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-06  | 走到底：mst 5、status「18」                         | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-07  | 走到底：成环 4 条                                   | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-08  | 重置：mst 清空                                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIEW-KRUSKAL-01    | 挂载渲染 Article + KruskalViz + Playground          | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
+| TC-VIEW-KRUSKAL-02    | 含「Kruskal」标题与互动容器（6 kvert）              | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
+| TC-E2E-KRUSKAL-01     | Kruskal 页：单步走到底 MST 5「18」/ 重置（C-038）   | L5   | `e2e/kruskal.e2e.ts`                            |
