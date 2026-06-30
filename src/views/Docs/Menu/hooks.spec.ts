@@ -37,11 +37,11 @@ describe('Docs/Menu useCategoryData', () => {
     expect(new Set(urls).size).toBe(urls.length);
   });
 
-  it('TC-HOOK-02-4: 数据结构含 15 项，排序算法含 10 项（新增桶排序 C-040）', () => {
+  it('TC-HOOK-02-4: 数据结构含 15 项，排序算法含 11 项（新增三路快排 C-041）', () => {
     const data = useCategoryData();
     expect(data[0].children).toHaveLength(15);
-    expect(data[1].children).toHaveLength(10);
-    expect(data[1].children.map((c) => c.url)).toContain('radix-sort');
+    expect(data[1].children).toHaveLength(11);
     expect(data[1].children.map((c) => c.url)).toContain('bucket-sort');
+    expect(data[1].children.map((c) => c.url)).toContain('three-way-quick-sort');
   });
 });

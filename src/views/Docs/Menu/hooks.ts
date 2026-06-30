@@ -97,6 +97,10 @@ export function useCategoryData(): Category[] {
           url: 'quick-sort',
         },
         {
+          title: '三路快排',
+          url: 'three-way-quick-sort',
+        },
+        {
           title: '堆排序',
           url: 'heap-sort',
         },

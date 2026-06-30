@@ -66,6 +66,17 @@ export type RadixExecPoint = 'passStart' | 'distribute' | 'collect' | 'done';
 /** 桶排序的执行点（distribute 按值域入桶 → sortBucket 桶内各自排序 → concat 按桶序合并回写） */
 export type BucketExecPoint = 'distribute' | 'sortBucket' | 'concat' | 'done';
 
+/** 三路快排的执行点（荷兰国旗：pop 弹区间 → pivotSelect 选基准 → compare 后三路分支 less/greater/equal → push 压子区间） */
+export type ThreeWayExecPoint =
+  | 'pop'
+  | 'pivotSelect'
+  | 'compare'
+  | 'less'
+  | 'greater'
+  | 'equal'
+  | 'push'
+  | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;

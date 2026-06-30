@@ -22,6 +22,7 @@ import InsertionIcon from '@/assets/insertion.svg';
 import ShellIcon from '@/assets/shell.svg';
 import MergeIcon from '@/assets/merge.svg';
 import QuickIcon from '@/assets/quick.svg';
+import ThreeWayQuickIcon from '@/assets/three-way-quick.svg';
 import CountingIcon from '@/assets/counting.svg';
 import RadixIcon from '@/assets/radix.svg';
 import BucketIcon from '@/assets/bucket.svg';
@@ -163,6 +164,12 @@ export function useCategoryData(): Category[] {
           desc: '选取一个基准数,将比它小的放在前面,比它大的放在后面,左右两部分重复这一过程',
           icon: QuickIcon,
           url: 'quick-sort',
+        },
+        {
+          title: '三路快排',
+          desc: '荷兰国旗划分,把数组分成小于/等于/大于基准三段,等值元素一次归位,治大量重复',
+          icon: ThreeWayQuickIcon,
+          url: 'three-way-quick-sort',
         },
         {
           title: '堆排序',
