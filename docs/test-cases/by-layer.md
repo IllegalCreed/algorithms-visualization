@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **320** 个用例。运行命令：`pnpm test:unit`
+共 **332** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 返回数据结构与排序两个分类                                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 返回数据结构/排序/图算法三个分类（图算法 C-037）             | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 返回 2 个分类                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 返回 3 个分类（数据结构/排序/图算法 C-037）                  | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项（…/线段树/B+ 树/布隆过滤器 C-036），排序 8  | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -597,11 +597,30 @@
 | TC-BLOOM-LOGIC-11 | 空表 query(7) 一定不存在                            | `src/components/structures/useBloom.spec.ts` |
 | TC-BLOOM-LOGIC-12 | reset 清零、其后 query(7) 不存在                    | `src/components/structures/useBloom.spec.ts` |
 
+### Dijkstra 最短路逻辑 useDijkstra（C-037 · M6 图算法 G1）
+
+固定带权有向图 A–F、9 边、源 A。
+
+| Case ID        | 标题                                     | 自动化路径                                      |
+| -------------- | ---------------------------------------- | ----------------------------------------------- |
+| TC-DIJKSTRA-01 | 图规模与标签（6 点 A–F、9 边、源 0）     | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-02 | 出边邻接（adj[0]/adj[4]/adj[5]）         | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-03 | 确定顺序 [0,2,1,3,4,5]（A→C→B→D→E→F）    | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-04 | 最终距离 [0,3,1,4,7,9]                   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-05 | 前驱表 [null,2,0,1,3,4]                  | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-06 | 最短路还原 F = [0,2,1,3,4,5]             | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-07 | 最短路还原 E = [0,2,1,3,4]               | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-08 | steps 长度 7                             | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-09 | 初始步：settled 空、dist[0]=0 余 ∞       | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-10 | 确定 C 后 steps[2]（dist [0,3,1,6,∞,∞]） | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-11 | 松弛更新 D：steps[3] dist[3] 降到 4      | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-12 | 终步 steps[6]：6 点全确定、[0,3,1,4,7,9] | `src/components/structures/useDijkstra.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **273** 个用例。运行命令：`pnpm test:unit`
+共 **283** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1124,11 +1143,26 @@
 | TC-VIEW-BLOOM-01   | 挂载渲染 Article + BloomViz + Playground   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-VIEW-BLOOM-02   | 含「布隆过滤器」标题与互动容器（16 位）    | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 
+### Dijkstra 最短路互动 DijkstraViz + Dijkstra 页（C-037 · M6 图算法 G1，新页 + 新分类）
+
+| Case ID               | 标题                                            | 自动化路径                                      |
+| --------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-DIJKSTRAVIZ-01 | 6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-02 | 初始距离表 0 + ∞、settled 0                     | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-03 | 下一步×1：确定 A、settled 1、dist 现 4 与 1     | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-04 | 下一步×2：B 由 4 松弛到 3                       | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-05 | 下一步×1：松弛边点亮 ≥1                         | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-06 | 走到底：settled 6、dist 现 9、status 含「最短」 | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-07 | 走到底：最短路树点亮 ≥1                         | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-08 | 重置：清空 settled、距离表回 ∞                  | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + DijkstraViz + Playground     | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-VIEW-DIJKSTRA-02   | 含「Dijkstra」标题与互动容器（6 dvert）         | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **30** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **31** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                             | 自动化路径                   | 状态       |
 | ------------------- | ---------------------------------------------------------------- | ---------------------------- | ---------- |
@@ -1163,6 +1197,7 @@
 | TC-E2E-SEG-01       | 线段树页：15 节点 / 区间和 2,5「17」/ 更新 2→10「更新」/ 重置    | `e2e/segment-tree.e2e.ts`    | active     |
 | TC-E2E-BTREE-01     | B+ 树页：4 节点 / 查找 30「找到了」/ 范围 12,38「扫到」/ 重置    | `e2e/b-tree.e2e.ts`          | active     |
 | TC-E2E-BLOOM-01     | 布隆页：16 格 / 加 3·7·11 / 查 7「可能存在」/ 查 2「误判」/ 重置 | `e2e/bloom-filter.e2e.ts`    | active     |
+| TC-E2E-DIJKSTRA-01  | Dijkstra 页：6 顶点 / 单步走到底 status 含「最短」「9」/ 重置    | `e2e/dijkstra.e2e.ts`        | active     |
 
 ---
 

@@ -305,7 +305,7 @@
 
 | Case ID              | 标题                                           | 层级 | 自动化路径                                       |
 | -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
-| TC-HOOK-01-1         | 返回数据结构与排序两个分类                     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-1         | 返回数据结构/排序/图算法三个分类（C-037）      | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
@@ -343,7 +343,7 @@
 
 | Case ID              | 标题                                           | 层级 | 自动化路径                                     |
 | -------------------- | ---------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 返回 2 个分类                                  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-1         | 返回 3 个分类（数据结构/排序/图算法 C-037）    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-2         | 每项含 title/url 且均非空                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-3         | 所有 url 唯一                                  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-4         | 数据结构含 15 项（…/B+ 树/布隆 C-036），排序 8 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
@@ -875,3 +875,33 @@
 | TC-VIEW-BLOOM-01  | 挂载渲染 Article + BloomViz + Playground（C-036）               | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
+
+## article-algo（图算法，C-037）
+
+> M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/DijkstraViz 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
+
+| Case ID               | 标题                                                | 层级 | 自动化路径                                      |
+| --------------------- | --------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-02        | 出边邻接                                            | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-03        | 确定顺序 [0,2,1,3,4,5]                              | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-04        | 最终距离 [0,3,1,4,7,9]                              | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-05        | 前驱表 [null,2,0,1,3,4]                             | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-06        | 最短路还原 F = [0,2,1,3,4,5]                        | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-07        | 最短路还原 E = [0,2,1,3,4]                          | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-08        | steps 长度 7                                        | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-09        | 初始步 settled 空、dist[0]=0 余 ∞                   | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-10        | 确定 C 后 steps[2]                                  | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-11        | 松弛更新 D：steps[3] dist[3]→4                      | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-12        | 终步 6 点全确定                                     | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-01 | 6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置       | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-02 | 初始距离表 0 + ∞、settled 0                         | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-03 | 下一步×1：确定 A、settled 1、现 4 与 1              | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-04 | 下一步×2：B 由 4 松弛到 3                           | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-05 | 下一步×1：松弛边点亮 ≥1                             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-06 | 走到底：settled 6、现 9、status「最短」             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-07 | 走到底：最短路树点亮 ≥1                             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-08 | 重置：清空 settled、距离表回 ∞                      | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + DijkstraViz + Playground         | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-VIEW-DIJKSTRA-02   | 含「Dijkstra」标题与互动容器（6 dvert）             | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-E2E-DIJKSTRA-01    | Dijkstra 页：单步走到底「最短」「9」/ 重置（C-037） | L5   | `e2e/dijkstra.e2e.ts`                           |
