@@ -24,6 +24,7 @@ import MergeIcon from '@/assets/merge.svg';
 import QuickIcon from '@/assets/quick.svg';
 import CountingIcon from '@/assets/counting.svg';
 import RadixIcon from '@/assets/radix.svg';
+import BucketIcon from '@/assets/bucket.svg';
 
 export function useCategoryData(): Category[] {
   const categoryData: Category[] = [
@@ -181,18 +182,12 @@ export function useCategoryData(): Category[] {
           icon: RadixIcon,
           url: 'radix-sort',
         },
-        // {
-        //   title: "桶排序",
-        //   desc: '计数排序优化，放宽桶接受范围，减少桶数量，桶内排序',
-        //   icon: BucketIcon,
-        //   url: 'bucket-sort'
-        // },
-        // {
-        //   title: "基数排序",
-        //   desc: '先按个位数进桶，得到个位数有序数组后按十位数进桶，以此类推',
-        //   icon: RadixIcon,
-        //   url: 'radix-sort'
-        // },
+        {
+          title: '桶排序',
+          desc: '按值域把元素撒进若干桶，桶内各自排序后按桶序合并，均匀分布时近线性',
+          icon: BucketIcon,
+          url: 'bucket-sort',
+        },
       ],
     },
     {

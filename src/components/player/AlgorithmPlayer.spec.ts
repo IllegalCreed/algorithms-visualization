@@ -10,6 +10,7 @@ import AuxView from '@/components/AuxView.vue';
 import StackView from '@/components/StackView.vue';
 import TreeView from '@/components/TreeView.vue';
 import CountView from '@/components/CountView.vue';
+import BucketView from '@/components/BucketView.vue';
 import type { AlgorithmModule, Step } from './types';
 
 vi.mock('./useHighlighter', () => ({
@@ -220,5 +221,49 @@ describe('AlgorithmPlayer', () => {
     await flushPromises();
     expect(w.findComponent(TreeView).exists()).toBe(true);
     expect(w.findComponent(CountView).exists()).toBe(false);
+  });
+
+  // 内联最小 module：单步带 bucket，用于验证外壳条件渲染桶轨（不依赖桶排序模块）
+  const bucketModule: AlgorithmModule = {
+    title: 'bucket-test',
+    initialInput: () => [3, 1, 2],
+    buildSteps: (): Step[] => [
+      {
+        array: [
+          ['0', 3],
+          ['1', 1],
+          ['2', 2],
+        ],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'distribute',
+        bucket: {
+          buckets: [[3, 1, 2], [], []],
+          ranges: [
+            [0, 9],
+            [10, 19],
+            [20, 29],
+          ],
+          activeBucket: 0,
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { distribute: 1 } }],
+  };
+
+  it('TC-PLAYER-BUCKET-01 当前步带 bucket 时渲染 BucketView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: bucketModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(BucketView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-BUCKET-02 module 无 bucket 时不渲染 BucketView（前八算法向后兼容）', async () => {
+    const w = mountIt(); // bubbleSortModule，无 bucket
+    await flushPromises();
+    expect(w.findComponent(BucketView).exists()).toBe(false);
   });
 });

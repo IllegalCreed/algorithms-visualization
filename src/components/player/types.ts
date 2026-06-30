@@ -63,6 +63,9 @@ export type CountingExecPoint = 'count' | 'bucketStart' | 'writeBack' | 'done';
 /** 基数排序的执行点（LSD：每轮 passStart 宣布位 → distribute 按位入 10 桶 → collect 按桶序收集回写） */
 export type RadixExecPoint = 'passStart' | 'distribute' | 'collect' | 'done';
 
+/** 桶排序的执行点（distribute 按值域入桶 → sortBucket 桶内各自排序 → concat 按桶序合并回写） */
+export type BucketExecPoint = 'distribute' | 'sortBucket' | 'concat' | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -109,6 +112,13 @@ export interface CountTrack {
   activeBucket?: number; // 当前高亮桶下标(v-min)：count 步=被 +1 的桶；bucketStart/writeBack 步=正在出货的桶
 }
 
+/** 桶轨快照——桶排序专用，桶里装「实际元素列表」（区别于计数轨只装计数） */
+export interface BucketTrack {
+  buckets: number[][]; // buckets[b] = 第 b 桶当前装的元素值列表（分配后乱序、桶内排序后有序、合并时递减出货）
+  ranges: [number, number][]; // ranges[b] = 第 b 桶值域 [lo,hi]（桶底标签，如 0–9）
+  activeBucket?: number; // 当前高亮桶：distribute=入桶、sortBucket=正在排序的桶、concat=正在出货的桶
+}
+
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */
 export interface Step<P extends string = string> {
   array: [string, number][]; // 当前数组快照；[0]=稳定 key（驱动柱子 FLIP），[1]=值
@@ -121,6 +131,7 @@ export interface Step<P extends string = string> {
   stack?: StackTrack; // 纯加法：快排的区间栈轨；其它算法不设 → StackView 不渲染
   tree?: TreeTrack; // 纯加法：堆排序的二叉树轨；其它算法不设 → TreeView 不渲染
   count?: CountTrack; // 纯加法：计数排序的计数桶轨；其它算法不设 → CountView 不渲染
+  bucket?: BucketTrack; // 纯加法：桶排序的桶轨（桶装实际元素）；其它算法不设 → BucketView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

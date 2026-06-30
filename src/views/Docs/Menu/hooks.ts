@@ -108,6 +108,10 @@ export function useCategoryData(): Category[] {
           title: '基数排序',
           url: 'radix-sort',
         },
+        {
+          title: '桶排序',
+          url: 'bucket-sort',
+        },
       ],
     },
     {

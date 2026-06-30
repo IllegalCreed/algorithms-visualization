@@ -149,6 +149,11 @@ const routes = [
             name: 'radix-sort',
             component: () => import('../views/Article/SortAlgorithm/RadixSort.vue'),
           },
+          {
+            path: '/docs/bucket-sort',
+            name: 'bucket-sort',
+            component: () => import('../views/Article/SortAlgorithm/BucketSort.vue'),
+          },
         ],
       },
     ],
