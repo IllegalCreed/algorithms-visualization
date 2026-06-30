@@ -10,11 +10,13 @@ vi.mock('vue-router', () => ({
 }));
 
 describe('Docs/Menu useCategoryData', () => {
-  it('TC-HOOK-02-1: 返回 2 个分类', () => {
+  it('TC-HOOK-02-1: 返回 3 个分类（数据结构/排序/图算法 C-037）', () => {
     const data = useCategoryData();
-    expect(data).toHaveLength(2);
+    expect(data).toHaveLength(3);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
+    expect(data[2].title).toBe('图算法');
+    expect(data[2].children.map((c) => c.url)).toContain('dijkstra');
   });
 
   it('TC-HOOK-02-2: 每项含 title/url 且均非空', () => {

@@ -5,10 +5,12 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回数据结构与排序两个分类', () => {
-    expect(data).toHaveLength(2);
+  it('TC-HOOK-01-1: 返回数据结构/排序/图算法三个分类（图算法 C-037）', () => {
+    expect(data).toHaveLength(3);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
+    expect(data[2].title).toBe('图算法');
+    expect(data[2].children.map((c) => c.url)).toContain('dijkstra');
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

@@ -106,6 +106,15 @@ export function useCategoryData(): Category[] {
         },
       ],
     },
+    {
+      title: '图算法',
+      children: [
+        {
+          title: 'Dijkstra 最短路',
+          url: 'dijkstra',
+        },
+      ],
+    },
   ];
   return categoryData;
 }

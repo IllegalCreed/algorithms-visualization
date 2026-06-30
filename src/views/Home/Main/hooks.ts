@@ -14,6 +14,7 @@ import SkipListIcon from '@/assets/skip-list.svg';
 import SegmentTreeIcon from '@/assets/segment-tree.svg';
 import BTreeIcon from '@/assets/b-tree.svg';
 import BloomIcon from '@/assets/bloom-filter.svg';
+import DijkstraIcon from '@/assets/dijkstra.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
@@ -184,6 +185,18 @@ export function useCategoryData(): Category[] {
         //   icon: RadixIcon,
         //   url: 'radix-sort'
         // },
+      ],
+    },
+    {
+      title: '图算法',
+      desc: '在图（点 + 边）上求解的算法，如最短路、连通性、最小生成树',
+      children: [
+        {
+          title: 'Dijkstra 最短路',
+          desc: '带权图单源最短路：每次取当前最近的点松弛邻边，逐步确定到各点的最短距离',
+          icon: DijkstraIcon,
+          url: 'dijkstra',
+        },
       ],
     },
   ];

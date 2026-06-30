@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <g fill="none" stroke="#333333" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 边 -->
+    <line x1="170" y1="512" x2="410" y2="270" />
+    <line x1="170" y1="512" x2="410" y2="754" />
+    <line x1="410" y1="270" x2="680" y2="512" />
+    <line x1="410" y1="754" x2="680" y2="512" />
+    <line x1="680" y1="512" x2="880" y2="512" />
+  </g>
+  <!-- 最短路（加粗强调 源→上→右→终） -->
+  <g fill="none" stroke="#333333" stroke-width="60" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="170" y1="512" x2="410" y2="270" />
+    <line x1="410" y1="270" x2="680" y2="512" />
+    <line x1="680" y1="512" x2="880" y2="512" />
+  </g>
+  <!-- 顶点 -->
+  <g fill="#333333">
+    <circle cx="150" cy="512" r="86" />
+    <circle cx="410" cy="270" r="70" />
+    <circle cx="410" cy="754" r="70" />
+    <circle cx="680" cy="512" r="70" />
+    <circle cx="900" cy="512" r="70" />
+  </g>
+</svg>
