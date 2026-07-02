@@ -19,6 +19,7 @@ import KruskalIcon from '@/assets/kruskal.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
+import BinaryInsertionIcon from '@/assets/binary-insertion.svg';
 import ShellIcon from '@/assets/shell.svg';
 import MergeIcon from '@/assets/merge.svg';
 import TopDownMergeIcon from '@/assets/top-down-merge.svg';
@@ -148,6 +149,12 @@ export function useCategoryData(): Category[] {
           desc: '顺序遍历数组每一个数字,然后和该数字前面的数组比较,将其放在适当的位置',
           icon: InsertionIcon,
           url: 'insertion-sort',
+        },
+        {
+          title: '二分插入排序',
+          desc: '插入排序变体,在已排序前缀里折半查找插入点,比较降到对数级,搬移不变保稳定',
+          icon: BinaryInsertionIcon,
+          url: 'binary-insertion-sort',
         },
         {
           title: '希尔排序',

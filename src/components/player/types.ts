@@ -77,6 +77,17 @@ export type ThreeWayExecPoint =
   | 'push'
   | 'done';
 
+/** 二分插入排序的执行点（outerLoop 取 key → probe 折半比较 → goLeft/goRight 区间收缩 → found 定位 → shift 搬移 → insert 落位） */
+export type BinaryInsertionExecPoint =
+  | 'outerLoop'
+  | 'probe'
+  | 'goLeft'
+  | 'goRight'
+  | 'found'
+  | 'shift'
+  | 'insert'
+  | 'done';
+
 /** 自顶向下归并的执行点（递归分治：split 对半下钻 → 回程 merge 七件套同自底向上 → done） */
 export type TopDownMergeExecPoint =
   | 'split'

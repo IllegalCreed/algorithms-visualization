@@ -120,6 +120,11 @@ const routes = [
             component: () => import('../views/Article/SortAlgorithm/InsertionSort.vue'),
           },
           {
+            path: '/docs/binary-insertion-sort',
+            name: 'binary-insertion-sort',
+            component: () => import('../views/Article/SortAlgorithm/BinaryInsertionSort.vue'),
+          },
+          {
             path: '/docs/shell-sort',
             name: 'shell-sort',
             component: () => import('../views/Article/SortAlgorithm/ShellSort.vue'),

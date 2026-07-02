@@ -85,6 +85,10 @@ export function useCategoryData(): Category[] {
           url: 'insertion-sort',
         },
         {
+          title: '二分插入排序',
+          url: 'binary-insertion-sort',
+        },
+        {
           title: '希尔排序',
           url: 'shell-sort',
         },
