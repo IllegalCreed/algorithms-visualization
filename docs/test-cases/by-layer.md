@@ -741,7 +741,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **315** 个用例。运行命令：`pnpm test:unit`
+共 **324** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -801,16 +801,20 @@
 
 ### article-sort（文章/动画视图）
 
-| Case ID              | 标题                                            | 自动化路径                                              |
-| -------------------- | ----------------------------------------------- | ------------------------------------------------------- |
-| TC-VIEW-BUBBLE-01    | （C-006 改写）挂载渲染 AlgorithmPlayer          | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
-| TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步 | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
-| TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）               | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
-| TC-VIEW-SELECTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-007）      | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
-| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）               | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
-| TC-VIEW-INSERTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-008）      | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
-| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）               | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
-| TC-VIEW-SHELL-02     | 初始渲染 10 根柱子且默认停第 0 步（C-010）      | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| Case ID              | 标题                                             | 自动化路径                                              |
+| -------------------- | ------------------------------------------------ | ------------------------------------------------------- |
+| TC-VIEW-BUBBLE-01    | （C-006 改写）挂载渲染 AlgorithmPlayer           | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-VIEW-BUBBLE-02    | （C-006 改写）初始渲染 10 根柱子且默认停第 0 步  | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-VIEW-BUBBLE-03    | 全模板：介绍正文 Article（h1 冒泡排序）（C-046） | `src/views/Article/SortAlgorithm/BubbleSort.spec.ts`    |
+| TC-VIEW-SELECTION-01 | 挂载渲染 AlgorithmPlayer（C-007）                | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-VIEW-SELECTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-007）       | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-VIEW-SELECTION-03 | 全模板：介绍正文 Article（h1 选择排序）（C-046） | `src/views/Article/SortAlgorithm/SelectionSort.spec.ts` |
+| TC-VIEW-INSERTION-01 | 挂载渲染 AlgorithmPlayer（C-008）                | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-INSERTION-02 | 初始渲染 10 根柱子且默认停第 0 步（C-008）       | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-INSERTION-03 | 全模板：介绍正文 Article（h1 插入排序）（C-046） | `src/views/Article/SortAlgorithm/InsertionSort.spec.ts` |
+| TC-VIEW-SHELL-01     | 挂载渲染 AlgorithmPlayer（C-010）                | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-VIEW-SHELL-02     | 初始渲染 10 根柱子且默认停第 0 步（C-010）       | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
+| TC-VIEW-SHELL-03     | 全模板：介绍正文 Article（h1 希尔排序）（C-046） | `src/views/Article/SortAlgorithm/ShellSort.spec.ts`     |
 
 ### home（首页视图）
 
@@ -877,18 +881,19 @@
 
 ### 归并双轨可视化 + 视图（C-011）
 
-| Case ID           | 标题                                            | 自动化路径                                          |
-| ----------------- | ----------------------------------------------- | --------------------------------------------------- |
-| TC-VIZ-BAR-07     | state='empty' 时柱体加 empty class 且不显示数值 | `src/components/Bar.spec.ts`                        |
-| TC-VIZ-AUXVIEW-01 | 渲染与 aux.array 等长的槽                       | `src/components/AuxView.spec.ts`                    |
-| TC-VIZ-AUXVIEW-02 | filled 的槽为 sorted、其余为 empty              | `src/components/AuxView.spec.ts`                    |
-| TC-VIZ-AUXVIEW-03 | pointer 定位 k 箭头到对应槽                     | `src/components/AuxView.spec.ts`                    |
-| TC-VIZ-AUXVIEW-04 | 无 pointer 时不渲染箭头                         | `src/components/AuxView.spec.ts`                    |
-| TC-VIZ-AUXVIEW-05 | filled 槽高度用主轨 min/max 同尺度              | `src/components/AuxView.spec.ts`                    |
-| TC-PLAYER-AUX-01  | module 无 aux 时不渲染 AuxView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`     |
-| TC-PLAYER-AUX-02  | 当前步带 aux 时渲染 AuxView                     | `src/components/player/AlgorithmPlayer.spec.ts`     |
-| TC-VIEW-MERGE-01  | 挂载渲染 AlgorithmPlayer                        | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
-| TC-VIEW-MERGE-02  | 初始渲染主轨 10 柱 + 辅助轨且默认停第 0 步      | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
+| Case ID           | 标题                                             | 自动化路径                                          |
+| ----------------- | ------------------------------------------------ | --------------------------------------------------- |
+| TC-VIZ-BAR-07     | state='empty' 时柱体加 empty class 且不显示数值  | `src/components/Bar.spec.ts`                        |
+| TC-VIZ-AUXVIEW-01 | 渲染与 aux.array 等长的槽                        | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-02 | filled 的槽为 sorted、其余为 empty               | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-03 | pointer 定位 k 箭头到对应槽                      | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-04 | 无 pointer 时不渲染箭头                          | `src/components/AuxView.spec.ts`                    |
+| TC-VIZ-AUXVIEW-05 | filled 槽高度用主轨 min/max 同尺度               | `src/components/AuxView.spec.ts`                    |
+| TC-PLAYER-AUX-01  | module 无 aux 时不渲染 AuxView（向后兼容）       | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-PLAYER-AUX-02  | 当前步带 aux 时渲染 AuxView                      | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-VIEW-MERGE-01  | 挂载渲染 AlgorithmPlayer                         | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
+| TC-VIEW-MERGE-02  | 初始渲染主轨 10 柱 + 辅助轨且默认停第 0 步       | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
+| TC-VIEW-MERGE-03  | 全模板：介绍正文 Article（h1 归并排序）（C-046） | `src/views/Article/SortAlgorithm/MergeSort.spec.ts` |
 
 ### 快排区间栈轨 + 视图（C-012）
 
@@ -910,6 +915,7 @@
 | TC-PLAYER-STACK-04  | 同时带 aux + stack 双辅助轨并存都渲染                       | `src/components/player/AlgorithmPlayer.spec.ts`     |
 | TC-VIEW-QUICK-01    | 挂载渲染 AlgorithmPlayer                                    | `src/views/Article/SortAlgorithm/QuickSort.spec.ts` |
 | TC-VIEW-QUICK-02    | 初始渲染主轨 10 柱 + 区间栈轨且默认停第 0 步                | `src/views/Article/SortAlgorithm/QuickSort.spec.ts` |
+| TC-VIEW-QUICK-03    | 全模板：介绍正文 Article（h1 快速排序）（C-046）            | `src/views/Article/SortAlgorithm/QuickSort.spec.ts` |
 
 ---
 
@@ -932,6 +938,7 @@
 | TC-PLAYER-TREE-03  | 带 aux 不带 tree 不渲染 TreeView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`    |
 | TC-VIEW-HEAP-01    | 挂载渲染 AlgorithmPlayer                         | `src/views/Article/SortAlgorithm/HeapSort.spec.ts` |
 | TC-VIEW-HEAP-02    | 初始渲染二叉树轨 + 主轨 10 柱且默认停第 0 步     | `src/views/Article/SortAlgorithm/HeapSort.spec.ts` |
+| TC-VIEW-HEAP-03    | 全模板：介绍正文 Article（h1 堆排序）（C-046）   | `src/views/Article/SortAlgorithm/HeapSort.spec.ts` |
 
 ### 计数桶轨 + 视图（C-014）
 
@@ -951,8 +958,10 @@
 | TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`               |
 | TC-VIEW-COUNT-01     | 挂载渲染 AlgorithmPlayer                            | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`        |
 | TC-VIEW-COUNT-02     | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步        | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`        |
+| TC-VIEW-COUNT-03     | 全模板：介绍正文 Article（h1 计数排序）（C-046）    | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`        |
 | TC-VIEW-RADIX-01     | 挂载渲染 AlgorithmPlayer（C-039 基数排序）          | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`           |
 | TC-VIEW-RADIX-02     | 渲染计数桶轨 + 主轨 8 柱且默认停第 0 步             | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`           |
+| TC-VIEW-RADIX-03     | 全模板：介绍正文 Article（h1 基数排序）（C-046）    | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`           |
 | TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签                                | `src/components/BucketView.spec.ts`                           |
 | TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值                            | `src/components/BucketView.spec.ts`                           |
 | TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active                           | `src/components/BucketView.spec.ts`                           |
