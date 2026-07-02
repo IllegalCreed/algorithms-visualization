@@ -31,6 +31,8 @@
 
 ## L4 —— `KruskalViz` 互动（`src/components/structures/KruskalViz.spec.ts`）
 
+> ⚠️ **本节 8 个 `TC-VIZ-KRUSKALVIZ-*` 已于 C-20260702-048（M8②-2 · 收官 M8）superseded**：`KruskalViz.vue`/spec 删除，功能由 GraphView 无向图轨（零改动复用 C-047）+ AlgorithmPlayer 承接（`TC-KRUSKAL-MOD-*` + 复用 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）。下方 `TC-VIEW-KRUSKAL-01/02` 亦被 C-048 改写（+ 新增 -03）、`TC-E2E-KRUSKAL-01` 改写。`useKruskal` 逻辑 + `TC-KRUSKAL-01..12` 保留复用。详见 `../20260702-c048-kruskal-into-player/test-cases.md`。
+
 挂载组件断言。helper：`next`（点下一步）、`reset`（点重置）。
 
 | 用例 ID              | 场景             | 操作            | 期望                                                             |

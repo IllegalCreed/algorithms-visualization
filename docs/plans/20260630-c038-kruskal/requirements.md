@@ -10,7 +10,7 @@
 > Blocked by: none
 > Next action: 已完成（22 Case + 改 2 HOOK，全门禁绿，双轨部署）
 > Replaces: none
-> Replaced by: none
+> Replaced by: **C-20260702-048（部分）** —— M8②-2 把 Kruskal 页返工进 AlgorithmPlayer：自建 `KruskalViz` 换成 GraphView 无向图轨（零改动复用 C-047）+ 4 语言代码播放器，`KruskalViz.vue`/spec 删除（`TC-VIZ-KRUSKALVIZ-*` superseded、`TC-VIEW-KRUSKAL-01/02` 改写 + 增 -03、`TC-E2E-KRUSKAL-01` 改写）；**`useKruskal` 纯逻辑 + `TC-KRUSKAL-01..12` 保留复用**。见 `../20260702-c048-kruskal-into-player/`。
 > Related plans: 算法候选池 `docs/plans/algorithms-backlog.md` G6；roadmap M6；C-037（图算法大类首发 Dijkstra，复用其 Algorithm 目录 + SVG 画法 + 单步 steps 范式）；**呼应 C-029 并查集**（Kruskal 用并查集判环）；回扣 C-022 图结构
 > Related tests: 计划新增 `TC-KRUSKAL-*`（useKruskal 纯逻辑）/ `TC-VIZ-KRUSKALVIZ-*`（KruskalViz 互动）/ `TC-VIEW-KRUSKAL-01/02`（Kruskal 页）/ `TC-E2E-KRUSKAL-01`（e2e）；**修改** `TC-HOOK-01-1`（Home + Menu 两处，图算法分类 children 1→2、新增 Kruskal）
 

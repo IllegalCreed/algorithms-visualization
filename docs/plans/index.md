@@ -55,6 +55,7 @@
 | C-20260702-045 | feature             | 鸡尾酒排序 Cocktail Shaker Sort    | **M7 排序细分 S7（阶段二收官项）**：排序分类追加 **鸡尾酒排序**页（双向冒泡——forward 趟左→右冒最大 right--、backward 趟右→左沉最小 left++，活动区两端收缩，任一趟零交换提前收工，专治尾部乌龟元素）。**零框架改动纯 BarsView，首个双端就位收缩可视化**（sortedFrom 右绿 + sortedUpTo 左绿并用）。新增 cocktail.module（固定 [4,2,6,3,8,5,7,1] 尾部乌龟 1 共 49 步：bwd1 六连 swap 一趟送乌龟回头 + bwd2 全 noSwap 提前收工 + CocktailExecPoint 带方向 9 执行点 + oracle + 4 语言 sources）+ CocktailSort.vue（全模板）+ 新图标 cocktail.svg + 接线（置冒泡排序后）；改 TC-HOOK-02-4（排序 14→15）                                                                                                                                                                                                                                 | verified | 100%   | 无     | 已完成（17 Case + 改 1 HOOK，已落 main）；**M7 排序 S7 ✓·排序 14→15·阶段二全部收官**                                                                                                                   | viz-engine / article-sort / M7,M8 | IllegalCreed | `20260702-c045-cocktail-sort/`         | 2026-07-02 | -                   |
 | C-20260702-046 | feature             | 老排序页全模板化（补正文）         | **M8③ 算法页模板统一收尾**：给 M3 遗留的 **9 个「裸播放器」老排序页补介绍正文**（冒泡/选择/插入/希尔/归并/快速/堆/计数/基数），升级为全模板（Article 正文 + 可视化 + 代码播放器），与 C-040~C-045 六个新排序页对齐——**全站 15 排序页体验统一**。纯视图层：各页裸 `<AlgorithmPlayer>` → `<Article>` 算法特定正文（是什么/怎么做/复杂度/Callout 对照，播放器嵌正文中段）+ spec 加 TC-VIEW-\*-03（Article+h1）+ e2e 扩 `.article h1` 断言。**零算法/播放器/轨道/类型/路由/菜单改动、不新增页、TC-HOOK 不变**。                                                                                                                                                                                                                                                                                                                       | verified | 100%   | 无     | 已完成（9 页补正文 + 9 L4 Case + 9 e2e 扩断言，已落 main）；**M8③ 达成·全站 15 排序页统一**                                                                                                            | viz-engine / article-sort / M8    | IllegalCreed | `20260702-c046-legacy-sort-prose/`     | 2026-07-02 | -                   |
 | C-20260702-047 | refactor            | Dijkstra 接入算法播放器            | **M8②-1 图算法接播放器**：把 Dijkstra（C-037）从自建 DijkstraViz 返工进 AlgorithmPlayer——正文保留、自建 viz 换成播放器（三件套统一）。**新建第 7 条 GraphView 轨**（SVG 带权图 + dist 徽标 + settled 绿 + relaxed 黄边 + 最短路树绿边，改造自 DijkstraViz，通用设计供 Kruskal C-048 复用）+ **BarsView 变可选**（v-if=current.array.length，图算法空数组不显，既有排序零回归）+ dijkstra.module（复用 useDijkstra 固定 6 点 9 边有向图、细粒度重走 ~32 步 dist=[0,3,1,4,7,9] + DijkstraExecPoint + 4 语言 sources）。删除 DijkstraViz.vue/spec（标 superseded，useDijkstra 保留复用）；改 Dijkstra.spec/e2e。不改路由/菜单/TC-HOOK                                                                                                                                                                                                | verified | 100%   | 无     | 已完成（20 Case：GraphView 4 + 播放器接轨 2 + module 11 + 视图 3；改 e2e 1；删 DijkstraViz 4 标 superseded，已落 main）；真机首末步核对 dist=[0,3,1,4,7,9]；**M8②-1 ✓·GraphView 第 7 轨供 C-048 复用** | viz-engine / article-algo / M8    | IllegalCreed | `20260702-c047-dijkstra-into-player/`  | 2026-07-02 | 替代 C-037 自建 viz |
+| C-20260702-048 | refactor            | Kruskal 接入算法播放器             | **M8②-2 图算法接播放器（收官）**：把 Kruskal（C-038）从自建 KruskalViz 返工进 AlgorithmPlayer——正文保留、换播放器。**零框架改动复用 C-047 的 GraphView 轨**（已支持无向图 directed:false 无箭头 + current 黄/mst 绿/rejected 虚线），唯一 additive types +KruskalExecPoint（5 点）+ kruskal.module（复用 useKruskal 固定 6 点 9 边无向图、并查集细粒度重走 20 步 MST=[AC,BC,DE,BD,DF] 权 18 + 4 语言 sources）。删除 KruskalViz.vue/spec（标 superseded，useKruskal 保留复用）；改 Kruskal.spec/e2e。不改 GraphView/AlgorithmPlayer/路由/菜单/TC-HOOK。**完成即 M8 全收官**                                                                                                                                                                                                                                                       | verified | 100%   | 无     | 已完成（16 Case：module 12 + 视图 3 + e2e 1 改写；删 KruskalViz 8 标 superseded，已落 main）；真机末步 MST 5 绿边 + 4 成环虚线 + 总权 18；**M8②-2 ✓·GraphView 零改动复用·M8 全收官**                   | viz-engine / article-algo / M8    | IllegalCreed | `20260702-c048-kruskal-into-player/`   | 2026-07-03 | 替代 C-038 自建 viz |
 
 ## By Type
 
@@ -80,50 +81,51 @@
 
 ### feature
 
-| Change ID      | 标题                               | 状态     | 完成度 | 阻塞项 | 下一步                                                                 | Plan                                   |
-| -------------- | ---------------------------------- | -------- | ------ | ------ | ---------------------------------------------------------------------- | -------------------------------------- |
-| C-20260619-006 | 交互式算法播放器                   | verified | 100%   | 无     | 已完成                                                                 | `20260619-c006-interactive-player/`    |
-| C-20260620-007 | 选择排序动画                       | verified | 100%   | 无     | 已完成                                                                 | `20260620-c007-selection-sort/`        |
-| C-20260621-008 | 插入排序动画                       | verified | 100%   | 无     | 已完成                                                                 | `20260621-c008-insertion-sort/`        |
-| C-20260622-009 | 头部分享/仓库按钮                  | verified | 100%   | 无     | 已完成                                                                 | `20260622-c009-header-share-buttons/`  |
-| C-20260622-010 | 希尔排序动画                       | verified | 100%   | 无     | 已完成                                                                 | `20260622-c010-shell-sort/`            |
-| C-20260623-011 | 归并排序动画                       | verified | 100%   | 无     | 已完成                                                                 | `20260623-c011-merge-sort/`            |
-| C-20260623-012 | 快速排序动画                       | verified | 100%   | 无     | 已完成                                                                 | `20260623-c012-quick-sort/`            |
-| C-20260623-013 | 堆排序动画                         | verified | 100%   | 无     | 已完成                                                                 | `20260623-c013-heap-sort/`             |
-| C-20260624-014 | 计数排序动画                       | verified | 100%   | 无     | 已完成                                                                 | `20260624-c014-counting-sort/`         |
-| C-20260624-015 | 知识页骨架 + 栈                    | verified | 100%   | 无     | 已完成                                                                 | `20260624-c015-stack-knowledge/`       |
-| C-20260624-016 | 队列动画                           | verified | 100%   | 无     | 已完成                                                                 | `20260624-c016-queue-knowledge/`       |
-| C-20260624-017 | 数组动画                           | verified | 100%   | 无     | 已完成                                                                 | `20260624-c017-array-knowledge/`       |
-| C-20260625-018 | 链表动画                           | verified | 100%   | 无     | 已完成                                                                 | `20260625-c018-link-knowledge/`        |
-| C-20260625-019 | 树动画（BST）                      | verified | 100%   | 无     | 已完成                                                                 | `20260625-c019-tree-knowledge/`        |
-| C-20260625-020 | 堆动画（大顶堆）                   | verified | 100%   | 无     | 已完成                                                                 | `20260625-c020-heap-knowledge/`        |
-| C-20260625-021 | 哈希表动画                         | verified | 100%   | 无     | 已完成                                                                 | `20260625-c021-hash-knowledge/`        |
-| C-20260625-022 | 图动画（收官）                     | verified | 100%   | 无     | 已完成                                                                 | `20260625-c022-graph-knowledge/`       |
-| C-20260625-023 | 树·平衡深化                        | verified | 100%   | 无     | 已完成                                                                 | `20260625-c023-tree-balance/`          |
-| C-20260626-024 | 哈希·开放寻址                      | verified | 100%   | 无     | 已完成                                                                 | `20260626-c024-hash-open-addressing/`  |
-| C-20260626-025 | 链表·双向                          | verified | 100%   | 无     | 已完成                                                                 | `20260626-c025-link-doubly/`           |
-| C-20260626-026 | 队列·双端                          | verified | 100%   | 无     | 已完成                                                                 | `20260626-c026-queue-deque/`           |
-| C-20260626-027 | 数组·扩容                          | verified | 100%   | 无     | 已完成                                                                 | `20260626-c027-array-grow/`            |
-| C-20260626-028 | 字典树 Trie                        | verified | 100%   | 无     | 已完成                                                                 | `20260626-c028-trie/`                  |
-| C-20260627-029 | 并查集 Union-Find                  | verified | 100%   | 无     | 已完成                                                                 | `20260627-c029-union-find/`            |
-| C-20260629-031 | LRU 缓存                           | verified | 100%   | 无     | 已完成                                                                 | `20260629-c031-lru/`                   |
-| C-20260629-032 | 跳表 Skip List                     | verified | 100%   | 无     | 已完成                                                                 | `20260629-c032-skip-list/`             |
-| C-20260629-033 | 线段树 Segment Tree                | verified | 100%   | 无     | 已完成                                                                 | `20260629-c033-segment-tree/`          |
-| C-20260628-030 | 头部个人主页外链                   | verified | 100%   | 无     | 已完成                                                                 | `20260628-c030-header-homepage-link/`  |
-| C-20260629-034 | SEO+GEO 可检索地基                 | draft    | 0%     | 无     | 四文档已落待 TDD                                                       | `20260629-c034-seo-geo-foundation/`    |
-| C-20260629-035 | B 树 / B+ 树                       | verified | 100%   | 无     | 已完成                                                                 | `20260629-c035-b-tree/`                |
-| C-20260629-036 | 布隆过滤器                         | verified | 100%   | 无     | 已完成                                                                 | `20260629-c036-bloom-filter/`          |
-| C-20260629-037 | Dijkstra 最短路                    | verified | 100%   | 无     | 已完成                                                                 | `20260629-c037-dijkstra/`              |
-| C-20260630-038 | Kruskal 最小生成树                 | verified | 100%   | 无     | 已完成                                                                 | `20260630-c038-kruskal/`               |
-| C-20260630-039 | 基数排序 Radix Sort                | verified | 100%   | 无     | 已完成                                                                 | `20260630-c039-radix-sort/`            |
-| C-20260630-040 | 桶排序 Bucket Sort                 | verified | 100%   | 无     | 已完成                                                                 | `20260630-c040-bucket-sort/`           |
-| C-20260630-041 | 三路快排 3-way Quicksort           | verified | 100%   | 无     | 已完成                                                                 | `20260630-c041-three-way-quick-sort/`  |
-| C-20260630-042 | 双轴快排 Dual-Pivot Quicksort      | verified | 100%   | 无     | 已完成                                                                 | `20260630-c042-dual-pivot-quick-sort/` |
-| C-20260702-043 | 自顶向下归并 Top-Down Merge Sort   | verified | 100%   | 无     | 已完成                                                                 | `20260702-c043-top-down-merge-sort/`   |
-| C-20260702-044 | 二分插入排序 Binary Insertion Sort | verified | 100%   | 无     | 已完成                                                                 | `20260702-c044-binary-insertion-sort/` |
-| C-20260702-045 | 鸡尾酒排序 Cocktail Shaker Sort    | verified | 100%   | 无     | 已完成                                                                 | `20260702-c045-cocktail-sort/`         |
-| C-20260702-046 | 老排序页全模板化（补正文）         | verified | 100%   | 无     | 已完成                                                                 | `20260702-c046-legacy-sort-prose/`     |
-| C-20260702-047 | Dijkstra 接入算法播放器            | verified | 100%   | 无     | 已完成（GraphView 第 7 轨 + Dijkstra 返工，单测 950/e2e 40 绿）；M8②-1 | `20260702-c047-dijkstra-into-player/`  |
+| Change ID      | 标题                               | 状态     | 完成度 | 阻塞项 | 下一步                                                                                              | Plan                                   |
+| -------------- | ---------------------------------- | -------- | ------ | ------ | --------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| C-20260619-006 | 交互式算法播放器                   | verified | 100%   | 无     | 已完成                                                                                              | `20260619-c006-interactive-player/`    |
+| C-20260620-007 | 选择排序动画                       | verified | 100%   | 无     | 已完成                                                                                              | `20260620-c007-selection-sort/`        |
+| C-20260621-008 | 插入排序动画                       | verified | 100%   | 无     | 已完成                                                                                              | `20260621-c008-insertion-sort/`        |
+| C-20260622-009 | 头部分享/仓库按钮                  | verified | 100%   | 无     | 已完成                                                                                              | `20260622-c009-header-share-buttons/`  |
+| C-20260622-010 | 希尔排序动画                       | verified | 100%   | 无     | 已完成                                                                                              | `20260622-c010-shell-sort/`            |
+| C-20260623-011 | 归并排序动画                       | verified | 100%   | 无     | 已完成                                                                                              | `20260623-c011-merge-sort/`            |
+| C-20260623-012 | 快速排序动画                       | verified | 100%   | 无     | 已完成                                                                                              | `20260623-c012-quick-sort/`            |
+| C-20260623-013 | 堆排序动画                         | verified | 100%   | 无     | 已完成                                                                                              | `20260623-c013-heap-sort/`             |
+| C-20260624-014 | 计数排序动画                       | verified | 100%   | 无     | 已完成                                                                                              | `20260624-c014-counting-sort/`         |
+| C-20260624-015 | 知识页骨架 + 栈                    | verified | 100%   | 无     | 已完成                                                                                              | `20260624-c015-stack-knowledge/`       |
+| C-20260624-016 | 队列动画                           | verified | 100%   | 无     | 已完成                                                                                              | `20260624-c016-queue-knowledge/`       |
+| C-20260624-017 | 数组动画                           | verified | 100%   | 无     | 已完成                                                                                              | `20260624-c017-array-knowledge/`       |
+| C-20260625-018 | 链表动画                           | verified | 100%   | 无     | 已完成                                                                                              | `20260625-c018-link-knowledge/`        |
+| C-20260625-019 | 树动画（BST）                      | verified | 100%   | 无     | 已完成                                                                                              | `20260625-c019-tree-knowledge/`        |
+| C-20260625-020 | 堆动画（大顶堆）                   | verified | 100%   | 无     | 已完成                                                                                              | `20260625-c020-heap-knowledge/`        |
+| C-20260625-021 | 哈希表动画                         | verified | 100%   | 无     | 已完成                                                                                              | `20260625-c021-hash-knowledge/`        |
+| C-20260625-022 | 图动画（收官）                     | verified | 100%   | 无     | 已完成                                                                                              | `20260625-c022-graph-knowledge/`       |
+| C-20260625-023 | 树·平衡深化                        | verified | 100%   | 无     | 已完成                                                                                              | `20260625-c023-tree-balance/`          |
+| C-20260626-024 | 哈希·开放寻址                      | verified | 100%   | 无     | 已完成                                                                                              | `20260626-c024-hash-open-addressing/`  |
+| C-20260626-025 | 链表·双向                          | verified | 100%   | 无     | 已完成                                                                                              | `20260626-c025-link-doubly/`           |
+| C-20260626-026 | 队列·双端                          | verified | 100%   | 无     | 已完成                                                                                              | `20260626-c026-queue-deque/`           |
+| C-20260626-027 | 数组·扩容                          | verified | 100%   | 无     | 已完成                                                                                              | `20260626-c027-array-grow/`            |
+| C-20260626-028 | 字典树 Trie                        | verified | 100%   | 无     | 已完成                                                                                              | `20260626-c028-trie/`                  |
+| C-20260627-029 | 并查集 Union-Find                  | verified | 100%   | 无     | 已完成                                                                                              | `20260627-c029-union-find/`            |
+| C-20260629-031 | LRU 缓存                           | verified | 100%   | 无     | 已完成                                                                                              | `20260629-c031-lru/`                   |
+| C-20260629-032 | 跳表 Skip List                     | verified | 100%   | 无     | 已完成                                                                                              | `20260629-c032-skip-list/`             |
+| C-20260629-033 | 线段树 Segment Tree                | verified | 100%   | 无     | 已完成                                                                                              | `20260629-c033-segment-tree/`          |
+| C-20260628-030 | 头部个人主页外链                   | verified | 100%   | 无     | 已完成                                                                                              | `20260628-c030-header-homepage-link/`  |
+| C-20260629-034 | SEO+GEO 可检索地基                 | draft    | 0%     | 无     | 四文档已落待 TDD                                                                                    | `20260629-c034-seo-geo-foundation/`    |
+| C-20260629-035 | B 树 / B+ 树                       | verified | 100%   | 无     | 已完成                                                                                              | `20260629-c035-b-tree/`                |
+| C-20260629-036 | 布隆过滤器                         | verified | 100%   | 无     | 已完成                                                                                              | `20260629-c036-bloom-filter/`          |
+| C-20260629-037 | Dijkstra 最短路                    | verified | 100%   | 无     | 已完成                                                                                              | `20260629-c037-dijkstra/`              |
+| C-20260630-038 | Kruskal 最小生成树                 | verified | 100%   | 无     | 已完成                                                                                              | `20260630-c038-kruskal/`               |
+| C-20260630-039 | 基数排序 Radix Sort                | verified | 100%   | 无     | 已完成                                                                                              | `20260630-c039-radix-sort/`            |
+| C-20260630-040 | 桶排序 Bucket Sort                 | verified | 100%   | 无     | 已完成                                                                                              | `20260630-c040-bucket-sort/`           |
+| C-20260630-041 | 三路快排 3-way Quicksort           | verified | 100%   | 无     | 已完成                                                                                              | `20260630-c041-three-way-quick-sort/`  |
+| C-20260630-042 | 双轴快排 Dual-Pivot Quicksort      | verified | 100%   | 无     | 已完成                                                                                              | `20260630-c042-dual-pivot-quick-sort/` |
+| C-20260702-043 | 自顶向下归并 Top-Down Merge Sort   | verified | 100%   | 无     | 已完成                                                                                              | `20260702-c043-top-down-merge-sort/`   |
+| C-20260702-044 | 二分插入排序 Binary Insertion Sort | verified | 100%   | 无     | 已完成                                                                                              | `20260702-c044-binary-insertion-sort/` |
+| C-20260702-045 | 鸡尾酒排序 Cocktail Shaker Sort    | verified | 100%   | 无     | 已完成                                                                                              | `20260702-c045-cocktail-sort/`         |
+| C-20260702-046 | 老排序页全模板化（补正文）         | verified | 100%   | 无     | 已完成                                                                                              | `20260702-c046-legacy-sort-prose/`     |
+| C-20260702-047 | Dijkstra 接入算法播放器            | verified | 100%   | 无     | 已完成（GraphView 第 7 轨 + Dijkstra 返工，单测 950/e2e 40 绿）；M8②-1                              | `20260702-c047-dijkstra-into-player/`  |
+| C-20260702-048 | Kruskal 接入算法播放器             | verified | 100%   | 无     | 已完成（kruskal.module + 视图返工，GraphView 零改动复用，单测 955/e2e 40 绿）；M8②-2 收官·M8 全完成 | `20260702-c048-kruskal-into-player/`   |
 
 ## By Module
 
@@ -152,25 +154,26 @@
 
 ### viz-engine / article-sort
 
-| Change ID      | Type     | 标题                  | 状态     | 完成度 | Plan                                   |
-| -------------- | -------- | --------------------- | -------- | ------ | -------------------------------------- |
-| C-20260619-006 | feature  | 交互式算法播放器      | verified | 100%   | `20260619-c006-interactive-player/`    |
-| C-20260620-007 | feature  | 选择排序动画          | verified | 100%   | `20260620-c007-selection-sort/`        |
-| C-20260621-008 | feature  | 插入排序动画          | verified | 100%   | `20260621-c008-insertion-sort/`        |
-| C-20260622-010 | feature  | 希尔排序动画          | verified | 100%   | `20260622-c010-shell-sort/`            |
-| C-20260623-011 | feature  | 归并排序动画          | verified | 100%   | `20260623-c011-merge-sort/`            |
-| C-20260623-012 | feature  | 快速排序动画          | verified | 100%   | `20260623-c012-quick-sort/`            |
-| C-20260623-013 | feature  | 堆排序动画            | verified | 100%   | `20260623-c013-heap-sort/`             |
-| C-20260624-014 | feature  | 计数排序动画          | verified | 100%   | `20260624-c014-counting-sort/`         |
-| C-20260630-039 | feature  | 基数排序 Radix        | verified | 100%   | `20260630-c039-radix-sort/`            |
-| C-20260630-040 | feature  | 桶排序 Bucket         | verified | 100%   | `20260630-c040-bucket-sort/`           |
-| C-20260630-041 | feature  | 三路快排 3-way        | verified | 100%   | `20260630-c041-three-way-quick-sort/`  |
-| C-20260630-042 | feature  | 双轴快排 Dual-Pivot   | verified | 100%   | `20260630-c042-dual-pivot-quick-sort/` |
-| C-20260702-043 | feature  | 自顶向下归并 Top-Down | verified | 100%   | `20260702-c043-top-down-merge-sort/`   |
-| C-20260702-044 | feature  | 二分插入排序 BinIns   | verified | 100%   | `20260702-c044-binary-insertion-sort/` |
-| C-20260702-045 | feature  | 鸡尾酒排序 Cocktail   | verified | 100%   | `20260702-c045-cocktail-sort/`         |
-| C-20260702-046 | feature  | 老排序补正文 M8③      | verified | 100%   | `20260702-c046-legacy-sort-prose/`     |
-| C-20260702-047 | refactor | Dijkstra 接播放器 M8② | verified | 100%   | `20260702-c047-dijkstra-into-player/`  |
+| Change ID      | Type     | 标题                      | 状态     | 完成度 | Plan                                   |
+| -------------- | -------- | ------------------------- | -------- | ------ | -------------------------------------- |
+| C-20260619-006 | feature  | 交互式算法播放器          | verified | 100%   | `20260619-c006-interactive-player/`    |
+| C-20260620-007 | feature  | 选择排序动画              | verified | 100%   | `20260620-c007-selection-sort/`        |
+| C-20260621-008 | feature  | 插入排序动画              | verified | 100%   | `20260621-c008-insertion-sort/`        |
+| C-20260622-010 | feature  | 希尔排序动画              | verified | 100%   | `20260622-c010-shell-sort/`            |
+| C-20260623-011 | feature  | 归并排序动画              | verified | 100%   | `20260623-c011-merge-sort/`            |
+| C-20260623-012 | feature  | 快速排序动画              | verified | 100%   | `20260623-c012-quick-sort/`            |
+| C-20260623-013 | feature  | 堆排序动画                | verified | 100%   | `20260623-c013-heap-sort/`             |
+| C-20260624-014 | feature  | 计数排序动画              | verified | 100%   | `20260624-c014-counting-sort/`         |
+| C-20260630-039 | feature  | 基数排序 Radix            | verified | 100%   | `20260630-c039-radix-sort/`            |
+| C-20260630-040 | feature  | 桶排序 Bucket             | verified | 100%   | `20260630-c040-bucket-sort/`           |
+| C-20260630-041 | feature  | 三路快排 3-way            | verified | 100%   | `20260630-c041-three-way-quick-sort/`  |
+| C-20260630-042 | feature  | 双轴快排 Dual-Pivot       | verified | 100%   | `20260630-c042-dual-pivot-quick-sort/` |
+| C-20260702-043 | feature  | 自顶向下归并 Top-Down     | verified | 100%   | `20260702-c043-top-down-merge-sort/`   |
+| C-20260702-044 | feature  | 二分插入排序 BinIns       | verified | 100%   | `20260702-c044-binary-insertion-sort/` |
+| C-20260702-045 | feature  | 鸡尾酒排序 Cocktail       | verified | 100%   | `20260702-c045-cocktail-sort/`         |
+| C-20260702-046 | feature  | 老排序补正文 M8③          | verified | 100%   | `20260702-c046-legacy-sort-prose/`     |
+| C-20260702-047 | refactor | Dijkstra 接播放器 M8②     | verified | 100%   | `20260702-c047-dijkstra-into-player/`  |
+| C-20260702-048 | refactor | Kruskal 接播放器 M8② 收官 | verified | 100%   | `20260702-c048-kruskal-into-player/`   |
 
 ### viz-engine / article-ds
 

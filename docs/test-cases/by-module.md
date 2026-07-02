@@ -913,68 +913,82 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法，C-037/038；Dijkstra 于 C-047 返工进播放器）
+## article-algo（图算法，C-037/038；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
-> **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。Kruskal 待 C-048 同法返工。
+> **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。
+> **C-048（M8②-2 · 收官 M8）**：Kruskal 页同法返工——新增 `kruskal.module`（并查集细粒度重走 20 步，复用 useKruskal 图 + oracle）走 **GraphView 无向图轨（零改动复用 C-047）**；`KruskalViz.vue`/spec 删除，8 个 `TC-VIZ-KRUSKALVIZ-*` **superseded**；`TC-VIEW-KRUSKAL-01/02` 改写 + 新增 -03；`TC-E2E-KRUSKAL-01` 改写。useKruskal 保留复用。**至此 M8 全收官。**
 
-| Case ID               | 标题                                                                             | 层级 | 自动化路径                                      |
-| --------------------- | -------------------------------------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                             | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-02        | 出边邻接                                                                         | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-03        | 确定顺序 [0,2,1,3,4,5]                                                           | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-04        | 最终距离 [0,3,1,4,7,9]                                                           | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-05        | 前驱表 [null,2,0,1,3,4]                                                          | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-06        | 最短路还原 F = [0,2,1,3,4,5]                                                     | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-07        | 最短路还原 E = [0,2,1,3,4]                                                       | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-08        | steps 长度 7                                                                     | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-09        | 初始步 settled 空、dist[0]=0 余 ∞                                                | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-10        | 确定 C 后 steps[2]                                                               | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-11        | 松弛更新 D：steps[3] dist[3]→4                                                   | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-12        | 终步 6 点全确定                                                                  | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-MOD-01    | 末步 nodeBadge = oracle dist [0,3,1,4,7,9]（C-047）                              | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-02    | 每步执行点合法且带 graph 轨（array:[]）（C-047）                                 | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-03    | 确定 6 点 #selectMin==#settle==6（C-047）                                        | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-04    | 松弛守恒 #relaxEdge==#relaxUpdate+#relaxSkip（C-047）                            | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-05    | init 步 dist[A]=0 其余 ∞（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-06    | 确定顺序 settle activeNode=[0,2,1,3,4,5]（C-047）                                | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-07    | 首个 relaxUpdate B=4（出边序）；A→C 后 C=1（C-047）                              | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-08    | done 最短路树 tree 边恰 5（C-047）                                               | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-09    | done 步 doneNodes 长度 6（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-10    | 四语言 sources + 行号在范围内（C-047）                                           | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-DIJKSTRA-MOD-11    | module 元信息 title 含 Dijkstra、initialInput()=[]（C-047）                      | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-01 | ~~6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置~~ (superseded C-047)             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-02 | ~~初始距离表 0 + ∞、settled 0~~ (superseded C-047)                               | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-03 | ~~下一步×1：确定 A、settled 1、现 4 与 1~~ (superseded C-047)                    | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-04 | ~~下一步×2：B 由 4 松弛到 3~~ (superseded C-047)                                 | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-05 | ~~下一步×1：松弛边点亮 ≥1~~ (superseded C-047)                                   | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-06 | ~~走到底：settled 6、现 9、status「最短」~~ (superseded C-047)                   | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-07 | ~~走到底：最短路树点亮 ≥1~~ (superseded C-047)                                   | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-08 | ~~重置：清空 settled、距离表回 ∞~~ (superseded C-047)                            | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + AlgorithmPlayer（C-047 返工，不再含 DijkstraViz）             | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
-| TC-VIEW-DIJKSTRA-02   | h1 含「Dijkstra」+ GraphView + 6 .graph-node + 无 .bars-view（C-047）            | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
-| TC-VIEW-DIJKSTRA-03   | 全模板同屏：Article 含「最短」+ ≥9 .graph-edge（C-047）                          | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
-| TC-E2E-DIJKSTRA-01    | Dijkstra 全模板：图轨 6 点 9 边 / 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写） | L5   | `e2e/dijkstra.e2e.ts`                           |
-| TC-KRUSKAL-01         | 图规模与标签（6 点 9 边）                                                        | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-02         | 边已按权升序（[1..9]、AC 首）                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-03         | MST 边集 [AC,BC,DE,BD,DF]                                                        | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-04         | MST 总权重 18                                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-05         | steps 长度 10                                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-06         | 初始步 mst 空、weight 0                                                          | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-07         | 加入 B-C：steps[2]                                                               | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-08         | 成环跳过 A-B：steps[4]                                                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-09         | 加入 B-D：steps[5] 含 BD、weight 11                                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-10         | 完成步 D-F：steps[7] mst 5、weight 18                                            | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-11         | 成环边集 [AB,CE,EF,CD]                                                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-12         | 末步权重稳定 mst 5、weight 18                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-01  | 6 kvert + 9 kedge + 边列表 9 行 + 下一步/重置                                    | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-02  | 初始无 MST                                                                       | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-03  | 下一步×1：加入、status「加入」                                                   | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-04  | 下一步×4：成环跳过、cycle ≥1、mst 3                                              | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-05  | 下一步×4：当前考虑边高亮 ≥1                                                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-06  | 走到底：mst 5、status「18」                                                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-07  | 走到底：成环 4 条                                                                | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-08  | 重置：mst 清空                                                                   | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIEW-KRUSKAL-01    | 挂载渲染 Article + KruskalViz + Playground                                       | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
-| TC-VIEW-KRUSKAL-02    | 含「Kruskal」标题与互动容器（6 kvert）                                           | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
-| TC-E2E-KRUSKAL-01     | Kruskal 页：单步走到底 MST 5「18」/ 重置（C-038）                                | L5   | `e2e/kruskal.e2e.ts`                            |
+| Case ID               | 标题                                                                                | 层级 | 自动化路径                                      |
+| --------------------- | ----------------------------------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-02        | 出边邻接                                                                            | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-03        | 确定顺序 [0,2,1,3,4,5]                                                              | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-04        | 最终距离 [0,3,1,4,7,9]                                                              | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-05        | 前驱表 [null,2,0,1,3,4]                                                             | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-06        | 最短路还原 F = [0,2,1,3,4,5]                                                        | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-07        | 最短路还原 E = [0,2,1,3,4]                                                          | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-08        | steps 长度 7                                                                        | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-09        | 初始步 settled 空、dist[0]=0 余 ∞                                                   | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-10        | 确定 C 后 steps[2]                                                                  | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-11        | 松弛更新 D：steps[3] dist[3]→4                                                      | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-12        | 终步 6 点全确定                                                                     | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-MOD-01    | 末步 nodeBadge = oracle dist [0,3,1,4,7,9]（C-047）                                 | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-02    | 每步执行点合法且带 graph 轨（array:[]）（C-047）                                    | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-03    | 确定 6 点 #selectMin==#settle==6（C-047）                                           | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-04    | 松弛守恒 #relaxEdge==#relaxUpdate+#relaxSkip（C-047）                               | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-05    | init 步 dist[A]=0 其余 ∞（C-047）                                                   | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-06    | 确定顺序 settle activeNode=[0,2,1,3,4,5]（C-047）                                   | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-07    | 首个 relaxUpdate B=4（出边序）；A→C 后 C=1（C-047）                                 | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-08    | done 最短路树 tree 边恰 5（C-047）                                                  | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-09    | done 步 doneNodes 长度 6（C-047）                                                   | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-10    | 四语言 sources + 行号在范围内（C-047）                                              | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-11    | module 元信息 title 含 Dijkstra、initialInput()=[]（C-047）                         | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-VIZ-DIJKSTRAVIZ-01 | ~~6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置~~ (superseded C-047)                | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-02 | ~~初始距离表 0 + ∞、settled 0~~ (superseded C-047)                                  | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-03 | ~~下一步×1：确定 A、settled 1、现 4 与 1~~ (superseded C-047)                       | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-04 | ~~下一步×2：B 由 4 松弛到 3~~ (superseded C-047)                                    | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-05 | ~~下一步×1：松弛边点亮 ≥1~~ (superseded C-047)                                      | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-06 | ~~走到底：settled 6、现 9、status「最短」~~ (superseded C-047)                      | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-07 | ~~走到底：最短路树点亮 ≥1~~ (superseded C-047)                                      | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-08 | ~~重置：清空 settled、距离表回 ∞~~ (superseded C-047)                               | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + AlgorithmPlayer（C-047 返工，不再含 DijkstraViz）                | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-VIEW-DIJKSTRA-02   | h1 含「Dijkstra」+ GraphView + 6 .graph-node + 无 .bars-view（C-047）               | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-VIEW-DIJKSTRA-03   | 全模板同屏：Article 含「最短」+ ≥9 .graph-edge（C-047）                             | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-E2E-DIJKSTRA-01    | Dijkstra 全模板：图轨 6 点 9 边 / 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写）    | L5   | `e2e/dijkstra.e2e.ts`                           |
+| TC-KRUSKAL-01         | 图规模与标签（6 点 9 边）                                                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-02         | 边已按权升序（[1..9]、AC 首）                                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-03         | MST 边集 [AC,BC,DE,BD,DF]                                                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-04         | MST 总权重 18                                                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-05         | steps 长度 10                                                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-06         | 初始步 mst 空、weight 0                                                             | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-07         | 加入 B-C：steps[2]                                                                  | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-08         | 成环跳过 A-B：steps[4]                                                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-09         | 加入 B-D：steps[5] 含 BD、weight 11                                                 | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-10         | 完成步 D-F：steps[7] mst 5、weight 18                                               | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-11         | 成环边集 [AB,CE,EF,CD]                                                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-12         | 末步权重稳定 mst 5、weight 18                                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-MOD-01     | 末步 mst 边（edgeClass=mst）= oracle [AC,BC,DE,BD,DF]（C-048）                      | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-02     | 每步执行点合法且带 graph 无向轨（array:[]）（C-048）                                | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-03     | 考虑 9 边 #consider==9（C-048）                                                     | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-04     | 接受/拒绝守恒 #accept==5、#reject==4（C-048）                                       | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-05     | init 步 edgeClass 全空、doneNodes 空（C-048）                                       | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-06     | 首个 accept（AC 权1）后 edgeClass[AC]=mst、权重=1（C-048）                          | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-07     | 首个 reject（AB 权4）后 edgeClass[AB]=rejected（C-048）                             | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-08     | 每个 consider 步当前边 edgeClass=current（C-048）                                   | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-09     | done 步 mst 恰 5、rejected 恰 4（C-048）                                            | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-10     | done 步总权 18、doneNodes 含全 6 点（C-048）                                        | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-11     | 四语言 sources + 行号在范围内（C-048）                                              | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-KRUSKAL-MOD-12     | module 元信息 title 含 Kruskal、initialInput()=[]（C-048）                          | L3   | `src/algorithms/kruskal.module.spec.ts`         |
+| TC-VIZ-KRUSKALVIZ-01  | ~~6 kvert + 9 kedge + 边列表 9 行 + 下一步/重置~~ (superseded C-048)                | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-02  | ~~初始无 MST~~ (superseded C-048)                                                   | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-03  | ~~下一步×1：加入、status「加入」~~ (superseded C-048)                               | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-04  | ~~下一步×4：成环跳过、cycle ≥1、mst 3~~ (superseded C-048)                          | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-05  | ~~下一步×4：当前考虑边高亮 ≥1~~ (superseded C-048)                                  | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-06  | ~~走到底：mst 5、status「18」~~ (superseded C-048)                                  | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-07  | ~~走到底：成环 4 条~~ (superseded C-048)                                            | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-08  | ~~重置：mst 清空~~ (superseded C-048)                                               | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIEW-KRUSKAL-01    | 挂载渲染 Article + AlgorithmPlayer（C-048 返工，不再含 KruskalViz）                 | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
+| TC-VIEW-KRUSKAL-02    | h1 含「Kruskal」+ GraphView + 6 .graph-node + 无 .bars-view（C-048）                | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
+| TC-VIEW-KRUSKAL-03    | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge（C-048）                       | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
+| TC-E2E-KRUSKAL-01     | Kruskal 全模板：图轨 6 点 9 边 / 拖末步 5 mst + 4 rejected 边 / Shiki（C-048 改写） | L5   | `e2e/kruskal.e2e.ts`                            |
