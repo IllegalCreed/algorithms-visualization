@@ -3,6 +3,9 @@ import { test, expect } from '@playwright/test';
 test('TC-E2E-SELECTION-01 选择排序播放器：默认暂停/单步/跳末升序/重置', async ({ page }) => {
   await page.goto('/docs/selection-sort');
 
+  // 全模板：介绍正文 Article（h1 含「选择排序」）
+  await expect(page.locator('.article h1')).toContainText('选择排序');
+
   const bars = page.locator('.bar-cell');
   await expect(bars).toHaveCount(10);
   await expect(page.locator('.counter')).toContainText('1 / '); // 默认停第 0 步

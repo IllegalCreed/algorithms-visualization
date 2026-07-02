@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { createPinia } from 'pinia';
 import HeapSort from './HeapSort.vue';
+import Article from '@/components/article/Article.vue';
 import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
 import TreeView from '@/components/TreeView.vue';
 import Bar from '@/components/Bar.vue';
@@ -22,5 +23,11 @@ describe('HeapSort', () => {
     expect(w.findComponent(TreeView).exists()).toBe(true);
     expect(w.findAllComponents(Bar)).toHaveLength(10); // 主轨 10 柱（树轨用 .tree-node）
     expect(w.find('.counter').text()).toContain('1 / ');
+  });
+
+  it('TC-VIEW-HEAP-03 全模板：介绍正文 Article（h1 堆排序）', () => {
+    const w = mount(HeapSort, { global: { plugins: [createPinia()] } });
+    expect(w.findComponent(Article).exists()).toBe(true);
+    expect(w.find('h1').text()).toContain('堆排序');
   });
 });

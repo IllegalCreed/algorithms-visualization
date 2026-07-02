@@ -5,6 +5,9 @@ test('TC-E2E-QUICK-01 快速排序播放器：默认暂停/区间栈轨/pivot品
 }) => {
   await page.goto('/docs/quick-sort');
 
+  // 全模板：介绍正文 Article（h1 含「快速排序」）
+  await expect(page.locator('.article h1')).toContainText('快速排序');
+
   // 快排原地：仅主轨 10 柱格（区间栈轨用水平区间条、非 .bar-cell）
   await expect(page.locator('.bar-cell')).toHaveCount(10);
   await expect(page.locator('.counter')).toContainText('1 / '); // 默认停第 0 步

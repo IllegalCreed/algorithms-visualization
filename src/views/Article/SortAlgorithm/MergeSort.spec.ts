@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { createPinia } from 'pinia';
 import MergeSort from './MergeSort.vue';
+import Article from '@/components/article/Article.vue';
 import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
 import AuxView from '@/components/AuxView.vue';
 import Bar from '@/components/Bar.vue';
@@ -23,5 +24,11 @@ describe('MergeSort', () => {
     // 主轨 10 + 辅助轨 10 = 20 个 Bar（第 0 步 widthChange，aux 为整排空槽）
     expect(w.findAllComponents(Bar)).toHaveLength(20);
     expect(w.find('.counter').text()).toContain('1 / ');
+  });
+
+  it('TC-VIEW-MERGE-03 全模板：介绍正文 Article（h1 归并排序）', () => {
+    const w = mount(MergeSort, { global: { plugins: [createPinia()] } });
+    expect(w.findComponent(Article).exists()).toBe(true);
+    expect(w.find('h1').text()).toContain('归并排序');
   });
 });

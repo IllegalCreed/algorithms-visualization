@@ -3,6 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { createPinia } from 'pinia';
 import BubbleSort from './BubbleSort.vue';
+import Article from '@/components/article/Article.vue';
 import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
 import Bar from '@/components/Bar.vue';
 
@@ -21,5 +22,11 @@ describe('BubbleSort', () => {
     await flushPromises();
     expect(w.findAllComponents(Bar)).toHaveLength(10);
     expect(w.find('.counter').text()).toContain('1 / ');
+  });
+
+  it('TC-VIEW-BUBBLE-03 全模板：介绍正文 Article（h1 冒泡排序）', () => {
+    const w = mount(BubbleSort, { global: { plugins: [createPinia()] } });
+    expect(w.findComponent(Article).exists()).toBe(true);
+    expect(w.find('h1').text()).toContain('冒泡排序');
   });
 });

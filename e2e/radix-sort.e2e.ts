@@ -3,6 +3,9 @@ import { test, expect } from '@playwright/test';
 test('TC-E2E-RADIX-01 基数排序播放器：主轨 8 柱/桶轨 10 桶/拖到末步升序', async ({ page }) => {
   await page.goto('/docs/radix-sort');
 
+  // 全模板：介绍正文 Article（h1 含「基数排序」）
+  await expect(page.locator('.article h1')).toContainText('基数排序');
+
   // 主轨 8 柱（基数排序用桶轨 .count-bucket）+ 默认停第 0 步
   await expect(page.locator('.bar-cell')).toHaveCount(8);
   await expect(page.locator('.counter')).toContainText('1 / ');
