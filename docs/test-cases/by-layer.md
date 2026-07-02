@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **411** 个用例。运行命令：`pnpm test:unit`
+共 **425** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -365,6 +365,20 @@
 | TC-TDMERGE-MOD-12   | compare 步含 i/j 双指针 + comparing                 | `src/algorithms/top-down-merge.module.spec.ts`   |
 | TC-TDMERGE-MOD-13   | 四语言 + 行号在源码行数内                           | `src/algorithms/top-down-merge.module.spec.ts`   |
 | TC-TDMERGE-MOD-14   | module 元信息（title/initialInput）                 | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-BININS-MOD-01    | 末步 done、有序 = oracle.result                     | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-02    | 不修改入参                                          | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-03    | 位置键恒为 0..7                                     | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-04    | 步点合法（8 执行点）                                | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-05    | 轮结构守恒 #outerLoop=#found=#insert=7              | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-06    | 折半守恒 #probe=#goLeft+#goRight=15                 | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-07    | 搬移总数 #shift=15                                  | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-08    | 零移动轮 key=9 found pos=2 后紧跟 insert            | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-09    | 全移动轮 key=1 found pos=0 后连续 5 shift           | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-10    | probe 步 lo/mid/hi 三指针 + comparing               | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-11    | outerLoop 步 keyIndex=i                             | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-12    | done 步 sortedUpTo=n、无指针                        | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-13    | 四语言 + 行号在源码行数内                           | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-BININS-MOD-14    | module 元信息（title/initialInput）                 | `src/algorithms/binary-insertion.module.spec.ts` |
 
 ### 栈逻辑 useStack（C-015）
 
@@ -713,7 +727,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **311** 个用例。运行命令：`pnpm test:unit`
+共 **313** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -907,38 +921,40 @@
 
 ### 计数桶轨 + 视图（C-014）
 
-| Case ID              | 标题                                                | 自动化路径                                                   |
-| -------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
-| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）      | `src/components/BarsView.spec.ts`                            |
-| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡 | `src/components/BarsView.spec.ts`                            |
-| TC-VIZ-BARSVIEW-23   | pivotIndices 双基准都进入 pivot 态（双轴快排）      | `src/components/BarsView.spec.ts`                            |
-| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length                           | `src/components/CountView.spec.ts`                           |
-| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]                           | `src/components/CountView.spec.ts`                           |
-| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min                                | `src/components/CountView.spec.ts`                           |
-| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active                           | `src/components/CountView.spec.ts`                           |
-| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值与计数 0                       | `src/components/CountView.spec.ts`                           |
-| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]                           | `src/components/CountView.spec.ts`                           |
-| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView                     | `src/components/player/AlgorithmPlayer.spec.ts`              |
-| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`              |
-| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`              |
-| TC-VIEW-COUNT-01     | 挂载渲染 AlgorithmPlayer                            | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`       |
-| TC-VIEW-COUNT-02     | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步        | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`       |
-| TC-VIEW-RADIX-01     | 挂载渲染 AlgorithmPlayer（C-039 基数排序）          | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`          |
-| TC-VIEW-RADIX-02     | 渲染计数桶轨 + 主轨 8 柱且默认停第 0 步             | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`          |
-| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签                                | `src/components/BucketView.spec.ts`                          |
-| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值                            | `src/components/BucketView.spec.ts`                          |
-| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active                           | `src/components/BucketView.spec.ts`                          |
-| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签                         | `src/components/BucketView.spec.ts`                          |
-| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView                   | `src/components/player/AlgorithmPlayer.spec.ts`              |
-| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`              |
-| TC-VIEW-BUCKET-01    | 全模板：Article(h1 桶排序) + 播放器                 | `src/views/Article/SortAlgorithm/BucketSort.spec.ts`         |
-| TC-VIEW-BUCKET-02    | 渲染 BucketView 桶轨 + 主轨 8 柱                    | `src/views/Article/SortAlgorithm/BucketSort.spec.ts`         |
-| TC-VIEW-3WQUICK-01   | 全模板：Article(h1 三路快排) + 播放器               | `src/views/Article/SortAlgorithm/ThreeWayQuickSort.spec.ts`  |
-| TC-VIEW-3WQUICK-02   | 区间栈 StackView + 主轨 8 柱                        | `src/views/Article/SortAlgorithm/ThreeWayQuickSort.spec.ts`  |
-| TC-VIEW-DUALPIVOT-01 | 全模板：Article(h1 双轴快排) + 播放器               | `src/views/Article/SortAlgorithm/DualPivotQuickSort.spec.ts` |
-| TC-VIEW-DUALPIVOT-02 | 区间栈 StackView + 主轨 8 柱                        | `src/views/Article/SortAlgorithm/DualPivotQuickSort.spec.ts` |
-| TC-VIEW-TDMERGE-01   | 全模板：Article(h1 自顶向下归并) + 播放器           | `src/views/Article/SortAlgorithm/TopDownMergeSort.spec.ts`   |
-| TC-VIEW-TDMERGE-02   | AuxView 与 StackView 双辅助轨 + 主轨 8 柱           | `src/views/Article/SortAlgorithm/TopDownMergeSort.spec.ts`   |
+| Case ID              | 标题                                                | 自动化路径                                                    |
+| -------------------- | --------------------------------------------------- | ------------------------------------------------------------- |
+| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）      | `src/components/BarsView.spec.ts`                             |
+| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡 | `src/components/BarsView.spec.ts`                             |
+| TC-VIZ-BARSVIEW-23   | pivotIndices 双基准都进入 pivot 态（双轴快排）      | `src/components/BarsView.spec.ts`                             |
+| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length                           | `src/components/CountView.spec.ts`                            |
+| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]                           | `src/components/CountView.spec.ts`                            |
+| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min                                | `src/components/CountView.spec.ts`                            |
+| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active                           | `src/components/CountView.spec.ts`                            |
+| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值与计数 0                       | `src/components/CountView.spec.ts`                            |
+| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]                           | `src/components/CountView.spec.ts`                            |
+| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView                     | `src/components/player/AlgorithmPlayer.spec.ts`               |
+| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`               |
+| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰） | `src/components/player/AlgorithmPlayer.spec.ts`               |
+| TC-VIEW-COUNT-01     | 挂载渲染 AlgorithmPlayer                            | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`        |
+| TC-VIEW-COUNT-02     | 初始渲染计数桶轨 + 主轨 10 柱且默认停第 0 步        | `src/views/Article/SortAlgorithm/CountingSort.spec.ts`        |
+| TC-VIEW-RADIX-01     | 挂载渲染 AlgorithmPlayer（C-039 基数排序）          | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`           |
+| TC-VIEW-RADIX-02     | 渲染计数桶轨 + 主轨 8 柱且默认停第 0 步             | `src/views/Article/SortAlgorithm/RadixSort.spec.ts`           |
+| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签                                | `src/components/BucketView.spec.ts`                           |
+| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值                            | `src/components/BucketView.spec.ts`                           |
+| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active                           | `src/components/BucketView.spec.ts`                           |
+| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签                         | `src/components/BucketView.spec.ts`                           |
+| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView                   | `src/components/player/AlgorithmPlayer.spec.ts`               |
+| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）      | `src/components/player/AlgorithmPlayer.spec.ts`               |
+| TC-VIEW-BUCKET-01    | 全模板：Article(h1 桶排序) + 播放器                 | `src/views/Article/SortAlgorithm/BucketSort.spec.ts`          |
+| TC-VIEW-BUCKET-02    | 渲染 BucketView 桶轨 + 主轨 8 柱                    | `src/views/Article/SortAlgorithm/BucketSort.spec.ts`          |
+| TC-VIEW-3WQUICK-01   | 全模板：Article(h1 三路快排) + 播放器               | `src/views/Article/SortAlgorithm/ThreeWayQuickSort.spec.ts`   |
+| TC-VIEW-3WQUICK-02   | 区间栈 StackView + 主轨 8 柱                        | `src/views/Article/SortAlgorithm/ThreeWayQuickSort.spec.ts`   |
+| TC-VIEW-DUALPIVOT-01 | 全模板：Article(h1 双轴快排) + 播放器               | `src/views/Article/SortAlgorithm/DualPivotQuickSort.spec.ts`  |
+| TC-VIEW-DUALPIVOT-02 | 区间栈 StackView + 主轨 8 柱                        | `src/views/Article/SortAlgorithm/DualPivotQuickSort.spec.ts`  |
+| TC-VIEW-TDMERGE-01   | 全模板：Article(h1 自顶向下归并) + 播放器           | `src/views/Article/SortAlgorithm/TopDownMergeSort.spec.ts`    |
+| TC-VIEW-TDMERGE-02   | AuxView 与 StackView 双辅助轨 + 主轨 8 柱           | `src/views/Article/SortAlgorithm/TopDownMergeSort.spec.ts`    |
+| TC-VIEW-BININS-01    | 全模板：Article(h1 二分插入排序) + 播放器           | `src/views/Article/SortAlgorithm/BinaryInsertionSort.spec.ts` |
+| TC-VIEW-BININS-02    | 主轨 8 柱且默认停第 0 步                            | `src/views/Article/SortAlgorithm/BinaryInsertionSort.spec.ts` |
 
 ### 知识页骨架 + 栈互动 + 栈页（C-015）
 
@@ -1288,7 +1304,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **38** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **39** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                             | 自动化路径                         | 状态       |
 | ------------------- | ---------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1309,6 +1325,7 @@
 | TC-E2E-DUALPIVOT-01 | 双轴快排全模板：正文 + 区间栈 + 主轨 8 柱 / 拖到末步升序         | `e2e/dual-pivot-quick-sort.e2e.ts` | active     |
 | TC-E2E-CODEPANEL-01 | 缺陷回归：代码面板长行可横滚、不截断（overflow-x + 行宽）        | `e2e/code-panel-hscroll.e2e.ts`    | active     |
 | TC-E2E-TDMERGE-01   | 自顶向下归并全模板：正文 + 递归栈/temp 双辅助轨 + 拖末步升序     | `e2e/top-down-merge-sort.e2e.ts`   | active     |
+| TC-E2E-BININS-01    | 二分插入排序全模板：正文 + 主轨 8 柱 / 拖到末步升序              | `e2e/binary-insertion-sort.e2e.ts` | active     |
 | TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                 | `e2e/stack.e2e.ts`                 | active     |
 | TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置      | `e2e/queue.e2e.ts`                 | active     |
 | TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置        | `e2e/array.e2e.ts`                 | active     |
