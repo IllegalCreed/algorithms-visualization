@@ -350,29 +350,29 @@
 
 ## docs（文档页侧边菜单）
 
-| Case ID              | 标题                                                 | 层级 | 自动化路径                                     |
-| -------------------- | ---------------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 三分类，图算法含 Dijkstra+Kruskal（C-038）           | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-2         | 每项含 title/url 且均非空                            | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-3         | 所有 url 唯一                                        | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构 15 项，排序 13 项（新增自顶向下归并 C-043） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true              | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false           | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                                  | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                                 | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url                  | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                          | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                             | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）           | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                             | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-E2E-MENU-01       | docs 菜单点击切换路由                                | L5   | `e2e/docs-menu.e2e.ts`                         |
+| Case ID              | 标题                                               | 层级 | 自动化路径                                     |
+| -------------------- | -------------------------------------------------- | ---- | ---------------------------------------------- |
+| TC-HOOK-02-1         | 三分类，图算法含 Dijkstra+Kruskal（C-038）         | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-2         | 每项含 title/url 且均非空                          | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-3         | 所有 url 唯一                                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构 15 项，排序 15 项（新增鸡尾酒排序 C-045） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true            | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false         | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                               | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                           | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                           | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-E2E-MENU-01       | docs 菜单点击切换路由                              | L5   | `e2e/docs-menu.e2e.ts`                         |
 
 ---
 
@@ -423,6 +423,9 @@
 | TC-BININS-MOD-01..14    | 二分插入排序模块 14：末步有序/不改入参/位置键/步点合法/轮守恒/折半守恒/搬移总数/零移动轮/全移动轮/probe 三指针/keyIndex/done/四语言行号（C-044）       | L3   | `src/algorithms/binary-insertion.module.spec.ts`              |
 | TC-VIEW-BININS-01/02    | 二分插入排序页全模板：Article(h1) + AlgorithmPlayer + 主轨 8 柱（C-044）                                                                               | L4   | `src/views/Article/SortAlgorithm/BinaryInsertionSort.spec.ts` |
 | TC-E2E-BININS-01        | 二分插入排序全模板：正文 + 主轨 8 柱 / 拖末步升序（C-044）                                                                                             | L5   | `e2e/binary-insertion-sort.e2e.ts`                            |
+| TC-COCKTAIL-MOD-01..14  | 鸡尾酒排序模块 14：末步有序/不改入参/位置键/步点带方向/趟结构/比较守恒分向/交换总数/乌龟一趟回头/双端并存/提前收工/双指针/done/四语言行号（C-045）     | L3   | `src/algorithms/cocktail.module.spec.ts`                      |
+| TC-VIEW-COCKTAIL-01/02  | 鸡尾酒排序页全模板：Article(h1) + AlgorithmPlayer + 主轨 8 柱（C-045）                                                                                 | L4   | `src/views/Article/SortAlgorithm/CocktailSort.spec.ts`        |
+| TC-E2E-COCKTAIL-01      | 鸡尾酒排序全模板：正文 + 主轨 8 柱 / 拖末步升序（C-045）                                                                                               | L5   | `e2e/cocktail-sort.e2e.ts`                                    |
 
 ---
 

@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **425** 个用例。运行命令：`pnpm test:unit`
+共 **439** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -153,7 +153,7 @@
 | TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal（C-038）                   | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 13 项（新增自顶向下归并 C-043）     | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
@@ -379,6 +379,20 @@
 | TC-BININS-MOD-12    | done 步 sortedUpTo=n、无指针                        | `src/algorithms/binary-insertion.module.spec.ts` |
 | TC-BININS-MOD-13    | 四语言 + 行号在源码行数内                           | `src/algorithms/binary-insertion.module.spec.ts` |
 | TC-BININS-MOD-14    | module 元信息（title/initialInput）                 | `src/algorithms/binary-insertion.module.spec.ts` |
+| TC-COCKTAIL-MOD-01  | 末步 done、有序 = oracle.result                     | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-02  | 不修改入参                                          | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-03  | 位置键恒为 0..7                                     | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-04  | 步点合法（9 执行点带方向）                          | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-05  | 趟结构 #forwardPass=#backwardPass=2                 | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-06  | 比较守恒分向 f12/b10                                | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-07  | 交换总数 #fSwap=7/#bSwap=6                          | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-08  | 乌龟一趟回头（bwd1 六连 bSwap）                     | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-09  | 双端并存 sortedFrom=7 且 sortedUpTo=1               | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-10  | 提前收工（末 4 比较全 bNoSwap→done）                | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-11  | f/b compare 步 comparing+双指针                     | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-12  | done 步 sortedFrom=0、无指针                        | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-13  | 四语言 + 行号在源码行数内                           | `src/algorithms/cocktail.module.spec.ts`         |
+| TC-COCKTAIL-MOD-14  | module 元信息（title/initialInput）                 | `src/algorithms/cocktail.module.spec.ts`         |
 
 ### 栈逻辑 useStack（C-015）
 
@@ -727,7 +741,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **313** 个用例。运行命令：`pnpm test:unit`
+共 **315** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -955,6 +969,8 @@
 | TC-VIEW-TDMERGE-02   | AuxView 与 StackView 双辅助轨 + 主轨 8 柱           | `src/views/Article/SortAlgorithm/TopDownMergeSort.spec.ts`    |
 | TC-VIEW-BININS-01    | 全模板：Article(h1 二分插入排序) + 播放器           | `src/views/Article/SortAlgorithm/BinaryInsertionSort.spec.ts` |
 | TC-VIEW-BININS-02    | 主轨 8 柱且默认停第 0 步                            | `src/views/Article/SortAlgorithm/BinaryInsertionSort.spec.ts` |
+| TC-VIEW-COCKTAIL-01  | 全模板：Article(h1 鸡尾酒排序) + 播放器             | `src/views/Article/SortAlgorithm/CocktailSort.spec.ts`        |
+| TC-VIEW-COCKTAIL-02  | 主轨 8 柱且默认停第 0 步                            | `src/views/Article/SortAlgorithm/CocktailSort.spec.ts`        |
 
 ### 知识页骨架 + 栈互动 + 栈页（C-015）
 
@@ -1304,7 +1320,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **39** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **40** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                             | 自动化路径                         | 状态       |
 | ------------------- | ---------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1326,6 +1342,7 @@
 | TC-E2E-CODEPANEL-01 | 缺陷回归：代码面板长行可横滚、不截断（overflow-x + 行宽）        | `e2e/code-panel-hscroll.e2e.ts`    | active     |
 | TC-E2E-TDMERGE-01   | 自顶向下归并全模板：正文 + 递归栈/temp 双辅助轨 + 拖末步升序     | `e2e/top-down-merge-sort.e2e.ts`   | active     |
 | TC-E2E-BININS-01    | 二分插入排序全模板：正文 + 主轨 8 柱 / 拖到末步升序              | `e2e/binary-insertion-sort.e2e.ts` | active     |
+| TC-E2E-COCKTAIL-01  | 鸡尾酒排序全模板：正文 + 主轨 8 柱 / 拖到末步升序                | `e2e/cocktail-sort.e2e.ts`         | active     |
 | TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                 | `e2e/stack.e2e.ts`                 | active     |
 | TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置      | `e2e/queue.e2e.ts`                 | active     |
 | TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置        | `e2e/array.e2e.ts`                 | active     |
