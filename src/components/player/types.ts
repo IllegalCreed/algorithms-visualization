@@ -134,6 +134,14 @@ export type DijkstraExecPoint =
   | 'relaxSkip'
   | 'done';
 
+/** Kruskal 最小生成树执行点（C-048，复用 GraphView 图轨——无向图 + current/mst/rejected 边） */
+export type KruskalExecPoint =
+  | 'init' // 边按权升序、MST 空、并查集各自为组
+  | 'consider' // 取下一条最短边，查两端是否已连通（current 黄）
+  | 'accept' // 两端不连通 → 加入 MST（mst 绿）+ union
+  | 'reject' // 两端已连通 → 成环跳过（rejected 虚线）
+  | 'done'; // V-1 条边选齐，MST 完成
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;

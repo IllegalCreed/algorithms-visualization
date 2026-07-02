@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
-import Playground from '@/components/article/Playground.vue';
-import KruskalViz from '@/components/structures/KruskalViz.vue';
+import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
+import { kruskalModule } from '@/algorithms/kruskal.module';
 </script>
 
 <template>
@@ -22,12 +22,11 @@ import KruskalViz from '@/components/structures/KruskalViz.vue';
     </p>
     <p>
       下面固定一张 6
-      个点的无向带权图。点<strong>「下一步」</strong>按权重从小到大逐条考虑——看哪些边加入（绿）、哪些因<strong>成环被跳过</strong>（红），最后得到总权重最小的生成树。
+      个点的无向带权图。点<strong>「下一步」</strong>按权重从小到大逐条考虑：当前边<strong>黄色高亮</strong>——不成环就<strong>加入（变绿）</strong>、两端点也连进森林；已连通就<strong>成环跳过（灰虚线）</strong>。走到底得到
+      5 条边、总权重最小的生成树。右侧代码随每一步同步高亮。
     </p>
 
-    <Playground>
-      <KruskalViz />
-    </Playground>
+    <AlgorithmPlayer :module="kruskalModule" />
 
     <p>
       为什么「每次贪心取不成环的最小边」是对的？由<strong>切分定理</strong>保证：横跨任意一种分割的最小边，一定属于某棵最小生成树。判环用<strong>并查集</strong>，几乎是常数时间；整体复杂度由排序主导，约

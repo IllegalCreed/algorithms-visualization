@@ -1,27 +1,36 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-E2E-KRUSKAL-01 Kruskal 最小生成树页：正文+互动/单步判环走到底/重置', async ({ page }) => {
+test('TC-E2E-KRUSKAL-01 Kruskal 全模板：正文 + 图轨 6 点 9 边/拖到末步 MST 5 绿边 + 4 成环虚线', async ({
+  page,
+}) => {
   await page.goto('/docs/kruskal');
 
-  // 正文标题（限定文章内 h1）+ 互动外框可见
+  // 全模板①：介绍正文 Article（h1 含「Kruskal」）
   await expect(page.locator('.article h1')).toContainText('Kruskal');
-  await expect(page.locator('.playground').first()).toBeVisible();
 
-  // 互动 MST（菜单也用 .btn，全部限定在 .kruskal-viz 内）
-  const viz = page.locator('.kruskal-viz');
-  const next = viz.locator('.btn', { hasText: '下一步' });
-  const reset = viz.locator('.btn', { hasText: '重置' });
+  // 全模板②③：图轨可视化 + 代码播放器——6 节点 9 边 + 默认停第 0 步
+  await expect(page.locator('.graph-view')).toBeVisible();
+  await expect(page.locator('.graph-node')).toHaveCount(6);
+  await expect(page.locator('.graph-edge')).toHaveCount(9);
+  await expect(page.locator('.counter')).toContainText('1 / ');
 
-  // 6 个顶点 + 9 条边渲染
-  await expect(viz.locator('.kvert')).toHaveCount(6);
-  await expect(viz.locator('.kedge')).toHaveCount(9);
+  // 图算法无柱数组 → 不渲染主柱轨
+  await expect(page.locator('.bars-view')).toHaveCount(0);
 
-  // 连点下一步 9 次走到底 → MST 5 条、总权 18
-  for (let i = 0; i < 9; i++) await next.click();
-  await expect(viz.locator('.kedge.mst')).toHaveCount(5);
-  await expect(viz.locator('.status')).toContainText('18');
+  // 真机 Shiki 着色
+  await expect(page.locator('.code .tok[style*="color"]').first()).toBeVisible();
 
-  // 重置 → MST 清空
-  await reset.click();
-  await expect(viz.locator('.kedge.mst')).toHaveCount(0);
+  const scrub = page.locator('.scrub');
+  const setScrub = (v: string) =>
+    scrub.evaluate((el: HTMLInputElement, val: string) => {
+      el.value = val;
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    }, v);
+
+  // 拖到末步 → MST 5 条绿边 + 4 条成环虚线 + 收尾字幕含「18」
+  const max = await scrub.getAttribute('max');
+  await setScrub(max!);
+  await expect(page.locator('.graph-edge.mst')).toHaveCount(5);
+  await expect(page.locator('.graph-edge.rejected')).toHaveCount(4);
+  await expect(page.locator('.caption')).toContainText('18');
 });
