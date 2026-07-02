@@ -10,7 +10,7 @@
 > Blocked by: none
 > Next action: 已完成（22 Case + 改 2 HOOK，全门禁绿，双轨部署，图算法大类开张）
 > Replaces: none
-> Replaced by: none
+> Replaced by: **C-20260702-047（部分）** —— M8②-1 把 Dijkstra 页返工进 AlgorithmPlayer：自建 `DijkstraViz` 换成通用 GraphView 图轨 + 4 语言代码播放器，`DijkstraViz.vue`/spec 删除（`TC-VIZ-DIJKSTRAVIZ-*` superseded、`TC-VIEW-DIJKSTRA-01/02` 改写 + 增 -03、`TC-E2E-DIJKSTRA-01` 改写）；**`useDijkstra` 纯逻辑 + `TC-DIJKSTRA-01..12` 保留复用**。见 `../20260702-c047-dijkstra-into-player/`。
 > Related plans: 算法候选池 `docs/plans/algorithms-backlog.md` G1（图算法大类首发）；roadmap M6；回扣 C-022（图数据结构页——本算法是其「算法视角」延伸，复用六边形布局 + SVG 画法）；借鉴 C-006 算法播放器的「单步演示」思路（本 viz 自建轻量单步，不接入播放器框架）
 > Related tests: 计划新增 `TC-DIJKSTRA-*`（useDijkstra 纯逻辑）/ `TC-VIZ-DIJKSTRAVIZ-*`（DijkstraViz 互动）/ `TC-VIEW-DIJKSTRA-01/02`（Dijkstra 页）/ `TC-E2E-DIJKSTRA-01`（e2e）；**修改** `TC-HOOK-01-1`（Home + Menu 两处，顶层分类 2→3、新增「图算法」）
 

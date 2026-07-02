@@ -31,6 +31,8 @@
 
 ## L4 —— `DijkstraViz` 互动（`src/components/structures/DijkstraViz.spec.ts`）
 
+> ⚠️ **本节 8 个 `TC-VIZ-DIJKSTRAVIZ-*` 已于 C-20260702-047（M8②-1）superseded**：`DijkstraViz.vue`/spec 删除，功能由通用 GraphView 图轨 + AlgorithmPlayer 承接（`TC-VIZ-GRAPHVIEW-*` / `TC-PLAYER-GRAPH-*` / `TC-DIJKSTRA-MOD-*`）。下方 `TC-VIEW-DIJKSTRA-01/02` 亦被 C-047 改写（+ 新增 -03）、`TC-E2E-DIJKSTRA-01` 改写。`useDijkstra` 逻辑 + `TC-DIJKSTRA-01..12` 保留复用。详见 `../20260702-c047-dijkstra-into-player/test-cases.md`。
+
 挂载组件断言。helper：`next`（点下一步）、`reset`（点重置）。
 
 | 用例 ID               | 场景          | 操作            | 期望                                                                 |

@@ -188,91 +188,97 @@
 
 ## viz-engine（可视化引擎基础组件）
 
-| Case ID              | 标题                                                                 | 层级 | 自动化路径                                      |
-| -------------------- | -------------------------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                                         | L4   | `src/components/Arrow.spec.ts`                  |
-| TC-VIZ-ARROW-02      | 非预设色按原值透传                                                   | L4   | `src/components/Arrow.spec.ts`                  |
-| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位                          | L4   | `src/components/ArrowTrack.spec.ts`             |
-| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）                                  | L4   | `src/components/ArrowTrack.spec.ts`             |
-| TC-VIZ-BLOCK-01      | 渲染数值                                                             | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-BLOCK-02      | 背景透明度随 percent                                                 | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white                                 | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                                               | L4   | `src/components/List.spec.ts`                   |
-| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                                   | L4   | `src/components/List.spec.ts`                   |
-| TC-VIZ-BAR-01        | 渲染数值（C-006）                                                    | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                                         | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                                        | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                                        | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）                                  | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）                             | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）                               | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）                                 | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）                                | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）                             | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）                               | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）                                      | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）                                | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）                             | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）                                       | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）                                      | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）                          | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-12   | 组内柱保持 idle、组外柱 dimmed（C-010）                              | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 取本态（C-010）                    | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）                                | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-07        | state='empty' 时柱体加 empty class（C-011）                          | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-AUXVIEW-01    | 渲染与 aux.array 等长的槽（C-011）                                   | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-02    | filled 的槽为 sorted、其余为 empty（C-011）                          | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-03    | pointer 定位 k 箭头到对应槽（C-011）                                 | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-04    | 无 pointer 时不渲染箭头（C-011）                                     | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-05    | filled 槽高度用主轨 min/max 同尺度（C-011）                          | L4   | `src/components/AuxView.spec.ts`                |
-| TC-PLAYER-AUX-01     | module 无 aux 时不渲染 AuxView（C-011）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-AUX-02     | 当前步带 aux 时渲染 AuxView（C-011）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BAR-08        | state=pivot 时柱体加 pivot class（C-012）                            | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-15   | pivotIndex 指向的 Bar 进入 pivot 态（C-012）                         | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-16   | pivot 优先级最高：压过 comparing/groupMembers/sortedIndices（C-012） | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-17   | sortedIndices 内的离散下标进入 sorted 态（C-012）                    | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-STACKVIEW-01  | 渲染与 frames 等量的栈帧（C-012）                                    | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-02  | 栈顶在最上、内容为 a[lo..hi]（C-012）                                | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-03  | 栈顶帧高亮（.top）（C-012）                                          | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-04  | 固定等宽居中（无 inline left/width）（C-012）                        | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-05  | 空栈渲染占位、无栈帧（C-012）                                        | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-06  | 稳定 key 入栈渲染（setProps 增帧后旧帧保留）（C-012）                | L4   | `src/components/StackView.spec.ts`              |
-| TC-PLAYER-STACK-01   | module 无 stack 时不渲染 StackView（向后兼容）（C-012）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-STACK-02   | 当前步带 stack 时渲染 StackView（C-012）                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-STACK-03   | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）（C-012）            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-STACK-04   | 同时带 aux + stack 双辅助轨并存都渲染（C-043 自顶向下归并）          | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BAR-09        | state=heapNode 时柱体加 heapNode class（C-013）                      | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-18   | heapNode 指向的 Bar 进入 heapNode 态（C-013）                        | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-19   | heapNode 让位 sorted：已就位后缀优先（C-013）                        | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-20   | heapNode 压过 comparing（C-013）                                     | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-TREEVIEW-01   | 渲染节点数 = array.length（C-013）                                   | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-02   | 完全二叉树布局坐标（C-013）                                          | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-03   | 父子边数 = n-1（C-013）                                              | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-04   | heapNode 节点带 heapNode 类（C-013）                                 | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-05   | heapSize 区分就位（k≥heapSize 为 sorted）（C-013）                   | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-06   | comparing 黄 / swapped 橙节点态（C-013）                             | L4   | `src/components/TreeView.spec.ts`               |
-| TC-PLAYER-TREE-01    | 当前步带 tree 时渲染 TreeView（C-013）                               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-TREE-02    | module 无 tree 时不渲染 TreeView（向后兼容）（C-013）                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-TREE-03    | 带 aux 不带 tree 不渲染 TreeView（多轨互不干扰）（C-013）            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）（C-014）              | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡（C-014）         | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-23   | pivotIndices 双基准都进入 pivot 态（C-042 双轴快排）                 | L4   | `src/components/BarsView.spec.ts`               |
-| TC-E2E-CODEPANEL-01  | 缺陷回归：代码面板长行可横滚、不截断（C-042 Owner 反馈，overflow-x） | L5   | `e2e/code-panel-hscroll.e2e.ts`                 |
-| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length（C-014）                                   | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]（C-014）                                   | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min（C-014）                                        | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active（C-014）                                   | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值与计数 0（C-014）                               | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]（C-014）                                   | L4   | `src/components/CountView.spec.ts`              |
-| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView（C-014）                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）（C-014）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰）（C-014）         | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签（C-040 新桶轨）                                 | L4   | `src/components/BucketView.spec.ts`             |
-| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值（C-040）                                    | L4   | `src/components/BucketView.spec.ts`             |
-| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active（C-040）                                   | L4   | `src/components/BucketView.spec.ts`             |
-| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签（C-040）                                 | L4   | `src/components/BucketView.spec.ts`             |
-| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView（C-040）                           | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）（C-040）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| Case ID              | 标题                                                                    | 层级 | 自动化路径                                      |
+| -------------------- | ----------------------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                                            | L4   | `src/components/Arrow.spec.ts`                  |
+| TC-VIZ-ARROW-02      | 非预设色按原值透传                                                      | L4   | `src/components/Arrow.spec.ts`                  |
+| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位                             | L4   | `src/components/ArrowTrack.spec.ts`             |
+| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）                                     | L4   | `src/components/ArrowTrack.spec.ts`             |
+| TC-VIZ-BLOCK-01      | 渲染数值                                                                | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-BLOCK-02      | 背景透明度随 percent                                                    | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white                                    | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                                                  | L4   | `src/components/List.spec.ts`                   |
+| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                                      | L4   | `src/components/List.spec.ts`                   |
+| TC-VIZ-BAR-01        | 渲染数值（C-006）                                                       | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                                            | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                                           | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                                           | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）                                     | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）                                | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）                                  | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）                                    | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）                                   | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）                                | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）                                  | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）                                         | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）                                   | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）                                | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）                                          | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）                                         | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）                             | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-12   | 组内柱保持 idle、组外柱 dimmed（C-010）                                 | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 取本态（C-010）                       | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）                                   | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-07        | state='empty' 时柱体加 empty class（C-011）                             | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-AUXVIEW-01    | 渲染与 aux.array 等长的槽（C-011）                                      | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-02    | filled 的槽为 sorted、其余为 empty（C-011）                             | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-03    | pointer 定位 k 箭头到对应槽（C-011）                                    | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-04    | 无 pointer 时不渲染箭头（C-011）                                        | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-05    | filled 槽高度用主轨 min/max 同尺度（C-011）                             | L4   | `src/components/AuxView.spec.ts`                |
+| TC-PLAYER-AUX-01     | module 无 aux 时不渲染 AuxView（C-011）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-AUX-02     | 当前步带 aux 时渲染 AuxView（C-011）                                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BAR-08        | state=pivot 时柱体加 pivot class（C-012）                               | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-15   | pivotIndex 指向的 Bar 进入 pivot 态（C-012）                            | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-16   | pivot 优先级最高：压过 comparing/groupMembers/sortedIndices（C-012）    | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-17   | sortedIndices 内的离散下标进入 sorted 态（C-012）                       | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-STACKVIEW-01  | 渲染与 frames 等量的栈帧（C-012）                                       | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-02  | 栈顶在最上、内容为 a[lo..hi]（C-012）                                   | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-03  | 栈顶帧高亮（.top）（C-012）                                             | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-04  | 固定等宽居中（无 inline left/width）（C-012）                           | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-05  | 空栈渲染占位、无栈帧（C-012）                                           | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-06  | 稳定 key 入栈渲染（setProps 增帧后旧帧保留）（C-012）                   | L4   | `src/components/StackView.spec.ts`              |
+| TC-PLAYER-STACK-01   | module 无 stack 时不渲染 StackView（向后兼容）（C-012）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-02   | 当前步带 stack 时渲染 StackView（C-012）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-03   | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）（C-012）               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-04   | 同时带 aux + stack 双辅助轨并存都渲染（C-043 自顶向下归并）             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BAR-09        | state=heapNode 时柱体加 heapNode class（C-013）                         | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-18   | heapNode 指向的 Bar 进入 heapNode 态（C-013）                           | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-19   | heapNode 让位 sorted：已就位后缀优先（C-013）                           | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-20   | heapNode 压过 comparing（C-013）                                        | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-TREEVIEW-01   | 渲染节点数 = array.length（C-013）                                      | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-02   | 完全二叉树布局坐标（C-013）                                             | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-03   | 父子边数 = n-1（C-013）                                                 | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-04   | heapNode 节点带 heapNode 类（C-013）                                    | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-05   | heapSize 区分就位（k≥heapSize 为 sorted）（C-013）                      | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-06   | comparing 黄 / swapped 橙节点态（C-013）                                | L4   | `src/components/TreeView.spec.ts`               |
+| TC-PLAYER-TREE-01    | 当前步带 tree 时渲染 TreeView（C-013）                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-TREE-02    | module 无 tree 时不渲染 TreeView（向后兼容）（C-013）                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-TREE-03    | 带 aux 不带 tree 不渲染 TreeView（多轨互不干扰）（C-013）               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）（C-014）                 | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡（C-014）            | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-23   | pivotIndices 双基准都进入 pivot 态（C-042 双轴快排）                    | L4   | `src/components/BarsView.spec.ts`               |
+| TC-E2E-CODEPANEL-01  | 缺陷回归：代码面板长行可横滚、不截断（C-042 Owner 反馈，overflow-x）    | L5   | `e2e/code-panel-hscroll.e2e.ts`                 |
+| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min（C-014）                                           | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值与计数 0（C-014）                                  | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
+| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView（C-014）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）（C-014）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰）（C-014）            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签（C-040 新桶轨）                                    | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值（C-040）                                       | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active（C-040）                                      | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签（C-040）                                    | L4   | `src/components/BucketView.spec.ts`             |
+| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView（C-040）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）（C-040）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-GRAPHVIEW-01  | 6 .graph-node + 9 .graph-edge + 权重文本（C-047 新第 7 轨，通用带权图） | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active（C-047）                            | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree（C-047）                              | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）（C-047）                        | L4   | `src/components/GraphView.spec.ts`              |
+| TC-PLAYER-GRAPH-01   | 当前步带 graph 时渲染 GraphView（C-047）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GRAPH-02   | array:[] 不渲染 BarsView；排序 array 非空仍渲染（零回归）（C-047）      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -907,55 +913,68 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法，C-037/038）
+## article-algo（图算法，C-037/038；Dijkstra 于 C-047 返工进播放器）
 
-> M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/DijkstraViz 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
+> M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
+> **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。Kruskal 待 C-048 同法返工。
 
-| Case ID               | 标题                                                | 层级 | 自动化路径                                      |
-| --------------------- | --------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-02        | 出边邻接                                            | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-03        | 确定顺序 [0,2,1,3,4,5]                              | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-04        | 最终距离 [0,3,1,4,7,9]                              | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-05        | 前驱表 [null,2,0,1,3,4]                             | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-06        | 最短路还原 F = [0,2,1,3,4,5]                        | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-07        | 最短路还原 E = [0,2,1,3,4]                          | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-08        | steps 长度 7                                        | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-09        | 初始步 settled 空、dist[0]=0 余 ∞                   | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-10        | 确定 C 后 steps[2]                                  | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-11        | 松弛更新 D：steps[3] dist[3]→4                      | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-DIJKSTRA-12        | 终步 6 点全确定                                     | L3   | `src/components/structures/useDijkstra.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-01 | 6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置       | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-02 | 初始距离表 0 + ∞、settled 0                         | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-03 | 下一步×1：确定 A、settled 1、现 4 与 1              | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-04 | 下一步×2：B 由 4 松弛到 3                           | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-05 | 下一步×1：松弛边点亮 ≥1                             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-06 | 走到底：settled 6、现 9、status「最短」             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-07 | 走到底：最短路树点亮 ≥1                             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-08 | 重置：清空 settled、距离表回 ∞                      | L4   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + DijkstraViz + Playground         | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
-| TC-VIEW-DIJKSTRA-02   | 含「Dijkstra」标题与互动容器（6 dvert）             | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
-| TC-E2E-DIJKSTRA-01    | Dijkstra 页：单步走到底「最短」「9」/ 重置（C-037） | L5   | `e2e/dijkstra.e2e.ts`                           |
-| TC-KRUSKAL-01         | 图规模与标签（6 点 9 边）                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-02         | 边已按权升序（[1..9]、AC 首）                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-03         | MST 边集 [AC,BC,DE,BD,DF]                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-04         | MST 总权重 18                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-05         | steps 长度 10                                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-06         | 初始步 mst 空、weight 0                             | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-07         | 加入 B-C：steps[2]                                  | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-08         | 成环跳过 A-B：steps[4]                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-09         | 加入 B-D：steps[5] 含 BD、weight 11                 | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-10         | 完成步 D-F：steps[7] mst 5、weight 18               | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-11         | 成环边集 [AB,CE,EF,CD]                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-KRUSKAL-12         | 末步权重稳定 mst 5、weight 18                       | L3   | `src/components/structures/useKruskal.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-01  | 6 kvert + 9 kedge + 边列表 9 行 + 下一步/重置       | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-02  | 初始无 MST                                          | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-03  | 下一步×1：加入、status「加入」                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-04  | 下一步×4：成环跳过、cycle ≥1、mst 3                 | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-05  | 下一步×4：当前考虑边高亮 ≥1                         | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-06  | 走到底：mst 5、status「18」                         | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-07  | 走到底：成环 4 条                                   | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIZ-KRUSKALVIZ-08  | 重置：mst 清空                                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
-| TC-VIEW-KRUSKAL-01    | 挂载渲染 Article + KruskalViz + Playground          | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
-| TC-VIEW-KRUSKAL-02    | 含「Kruskal」标题与互动容器（6 kvert）              | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
-| TC-E2E-KRUSKAL-01     | Kruskal 页：单步走到底 MST 5「18」/ 重置（C-038）   | L5   | `e2e/kruskal.e2e.ts`                            |
+| Case ID               | 标题                                                                             | 层级 | 自动化路径                                      |
+| --------------------- | -------------------------------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                             | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-02        | 出边邻接                                                                         | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-03        | 确定顺序 [0,2,1,3,4,5]                                                           | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-04        | 最终距离 [0,3,1,4,7,9]                                                           | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-05        | 前驱表 [null,2,0,1,3,4]                                                          | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-06        | 最短路还原 F = [0,2,1,3,4,5]                                                     | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-07        | 最短路还原 E = [0,2,1,3,4]                                                       | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-08        | steps 长度 7                                                                     | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-09        | 初始步 settled 空、dist[0]=0 余 ∞                                                | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-10        | 确定 C 后 steps[2]                                                               | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-11        | 松弛更新 D：steps[3] dist[3]→4                                                   | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-12        | 终步 6 点全确定                                                                  | L3   | `src/components/structures/useDijkstra.spec.ts` |
+| TC-DIJKSTRA-MOD-01    | 末步 nodeBadge = oracle dist [0,3,1,4,7,9]（C-047）                              | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-02    | 每步执行点合法且带 graph 轨（array:[]）（C-047）                                 | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-03    | 确定 6 点 #selectMin==#settle==6（C-047）                                        | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-04    | 松弛守恒 #relaxEdge==#relaxUpdate+#relaxSkip（C-047）                            | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-05    | init 步 dist[A]=0 其余 ∞（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-06    | 确定顺序 settle activeNode=[0,2,1,3,4,5]（C-047）                                | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-07    | 首个 relaxUpdate B=4（出边序）；A→C 后 C=1（C-047）                              | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-08    | done 最短路树 tree 边恰 5（C-047）                                               | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-09    | done 步 doneNodes 长度 6（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-10    | 四语言 sources + 行号在范围内（C-047）                                           | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-DIJKSTRA-MOD-11    | module 元信息 title 含 Dijkstra、initialInput()=[]（C-047）                      | L3   | `src/algorithms/dijkstra.module.spec.ts`        |
+| TC-VIZ-DIJKSTRAVIZ-01 | ~~6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置~~ (superseded C-047)             | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-02 | ~~初始距离表 0 + ∞、settled 0~~ (superseded C-047)                               | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-03 | ~~下一步×1：确定 A、settled 1、现 4 与 1~~ (superseded C-047)                    | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-04 | ~~下一步×2：B 由 4 松弛到 3~~ (superseded C-047)                                 | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-05 | ~~下一步×1：松弛边点亮 ≥1~~ (superseded C-047)                                   | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-06 | ~~走到底：settled 6、现 9、status「最短」~~ (superseded C-047)                   | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-07 | ~~走到底：最短路树点亮 ≥1~~ (superseded C-047)                                   | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIZ-DIJKSTRAVIZ-08 | ~~重置：清空 settled、距离表回 ∞~~ (superseded C-047)                            | L4   | `src/components/structures/DijkstraViz.spec.ts` |
+| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + AlgorithmPlayer（C-047 返工，不再含 DijkstraViz）             | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-VIEW-DIJKSTRA-02   | h1 含「Dijkstra」+ GraphView + 6 .graph-node + 无 .bars-view（C-047）            | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-VIEW-DIJKSTRA-03   | 全模板同屏：Article 含「最短」+ ≥9 .graph-edge（C-047）                          | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+| TC-E2E-DIJKSTRA-01    | Dijkstra 全模板：图轨 6 点 9 边 / 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写） | L5   | `e2e/dijkstra.e2e.ts`                           |
+| TC-KRUSKAL-01         | 图规模与标签（6 点 9 边）                                                        | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-02         | 边已按权升序（[1..9]、AC 首）                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-03         | MST 边集 [AC,BC,DE,BD,DF]                                                        | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-04         | MST 总权重 18                                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-05         | steps 长度 10                                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-06         | 初始步 mst 空、weight 0                                                          | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-07         | 加入 B-C：steps[2]                                                               | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-08         | 成环跳过 A-B：steps[4]                                                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-09         | 加入 B-D：steps[5] 含 BD、weight 11                                              | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-10         | 完成步 D-F：steps[7] mst 5、weight 18                                            | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-11         | 成环边集 [AB,CE,EF,CD]                                                           | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-KRUSKAL-12         | 末步权重稳定 mst 5、weight 18                                                    | L3   | `src/components/structures/useKruskal.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-01  | 6 kvert + 9 kedge + 边列表 9 行 + 下一步/重置                                    | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-02  | 初始无 MST                                                                       | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-03  | 下一步×1：加入、status「加入」                                                   | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-04  | 下一步×4：成环跳过、cycle ≥1、mst 3                                              | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-05  | 下一步×4：当前考虑边高亮 ≥1                                                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-06  | 走到底：mst 5、status「18」                                                      | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-07  | 走到底：成环 4 条                                                                | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIZ-KRUSKALVIZ-08  | 重置：mst 清空                                                                   | L4   | `src/components/structures/KruskalViz.spec.ts`  |
+| TC-VIEW-KRUSKAL-01    | 挂载渲染 Article + KruskalViz + Playground                                       | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
+| TC-VIEW-KRUSKAL-02    | 含「Kruskal」标题与互动容器（6 kvert）                                           | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`   |
+| TC-E2E-KRUSKAL-01     | Kruskal 页：单步走到底 MST 5「18」/ 重置（C-038）                                | L5   | `e2e/kruskal.e2e.ts`                            |

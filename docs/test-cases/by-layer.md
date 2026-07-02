@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **439** 个用例。运行命令：`pnpm test:unit`
+共 **450** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -718,6 +718,24 @@
 | TC-DIJKSTRA-11 | 松弛更新 D：steps[3] dist[3] 降到 4      | `src/components/structures/useDijkstra.spec.ts` |
 | TC-DIJKSTRA-12 | 终步 steps[6]：6 点全确定、[0,3,1,4,7,9] | `src/components/structures/useDijkstra.spec.ts` |
 
+### Dijkstra 播放器模块 dijkstra.module（C-047 · M8②-1，细粒度重走 32 步，复用 useDijkstra 图）
+
+复用 useDijkstra 固定图 + oracle `dijkstraTrace`；产出 `array:[]` + graph 图轨胖步骤（供 AlgorithmPlayer）。
+
+| Case ID            | 标题                                               | 自动化路径                               |
+| ------------------ | -------------------------------------------------- | ---------------------------------------- |
+| TC-DIJKSTRA-MOD-01 | 末步 nodeBadge 数值 = oracle dist [0,3,1,4,7,9]    | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-02 | 每步执行点合法且携带 graph 轨（array:[]）          | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-03 | 确定 6 点：#selectMin == #settle == 6              | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-04 | 松弛守恒 #relaxEdge == #relaxUpdate + #relaxSkip   | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-05 | init 步 dist[A]=0、其余 ∞                          | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-06 | 确定顺序 settle activeNode = [0,2,1,3,4,5]         | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-07 | 首个 relaxUpdate B=4（出边序 A→B 先）；A→C 后 C=1  | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-08 | done 最短路树 tree 边恰 5（每非源点一条入树边）    | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-09 | done 步 doneNodes 长度 = 6                         | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-10 | 四语言 sources + 每 point 行号在源码行数内         | `src/algorithms/dijkstra.module.spec.ts` |
+| TC-DIJKSTRA-MOD-11 | module 元信息 title 含 Dijkstra、initialInput()=[] | `src/algorithms/dijkstra.module.spec.ts` |
+
 ### Kruskal 最小生成树逻辑 useKruskal（C-038 · M6 图算法 G6）
 
 固定 6 点 9 边无向带权图（边按权升序），内置并查集判环。
@@ -741,7 +759,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **324** 个用例。运行命令：`pnpm test:unit`
+共 **323** 个用例（不含 8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1295,20 +1313,34 @@
 | TC-VIEW-BLOOM-01   | 挂载渲染 Article + BloomViz + Playground   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-VIEW-BLOOM-02   | 含「布隆过滤器」标题与互动容器（16 位）    | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 
-### Dijkstra 最短路互动 DijkstraViz + Dijkstra 页（C-037 · M6 图算法 G1，新页 + 新分类）
+### Dijkstra 页 C-037 → C-047 返工进播放器（M8②-1）
 
-| Case ID               | 标题                                            | 自动化路径                                      |
-| --------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| TC-VIZ-DIJKSTRAVIZ-01 | 6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置   | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-02 | 初始距离表 0 + ∞、settled 0                     | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-03 | 下一步×1：确定 A、settled 1、dist 现 4 与 1     | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-04 | 下一步×2：B 由 4 松弛到 3                       | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-05 | 下一步×1：松弛边点亮 ≥1                         | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-06 | 走到底：settled 6、dist 现 9、status 含「最短」 | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-07 | 走到底：最短路树点亮 ≥1                         | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIZ-DIJKSTRAVIZ-08 | 重置：清空 settled、距离表回 ∞                  | `src/components/structures/DijkstraViz.spec.ts` |
-| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + DijkstraViz + Playground     | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
-| TC-VIEW-DIJKSTRA-02   | 含「Dijkstra」标题与互动容器（6 dvert）         | `src/views/Article/Algorithm/Dijkstra.spec.ts`  |
+> C-047：Dijkstra 页正文保留、自建 `DijkstraViz` 换成 `AlgorithmPlayer`（GraphView 图轨）。以下 8 个 `TC-VIZ-DIJKSTRAVIZ-*` 随 `DijkstraViz.vue`/spec 删除 **superseded**（功能由 GraphView + 播放器承接）；`TC-VIEW-DIJKSTRA-01/02` 改写为播放器断言、新增 -03。
+
+| Case ID                   | 标题                                                                   | 自动化路径                                     |
+| ------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------- |
+| ~~TC-VIZ-DIJKSTRAVIZ-01~~ | ~~6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置~~ (superseded C-047)   | ~~`DijkstraViz.spec.ts`~~                      |
+| ~~TC-VIZ-DIJKSTRAVIZ-02~~ | ~~初始距离表 0 + ∞、settled 0~~ (superseded C-047)                     | ~~`DijkstraViz.spec.ts`~~                      |
+| ~~TC-VIZ-DIJKSTRAVIZ-03~~ | ~~下一步×1：确定 A、settled 1、dist 现 4 与 1~~ (superseded C-047)     | ~~`DijkstraViz.spec.ts`~~                      |
+| ~~TC-VIZ-DIJKSTRAVIZ-04~~ | ~~下一步×2：B 由 4 松弛到 3~~ (superseded C-047)                       | ~~`DijkstraViz.spec.ts`~~                      |
+| ~~TC-VIZ-DIJKSTRAVIZ-05~~ | ~~下一步×1：松弛边点亮 ≥1~~ (superseded C-047)                         | ~~`DijkstraViz.spec.ts`~~                      |
+| ~~TC-VIZ-DIJKSTRAVIZ-06~~ | ~~走到底：settled 6、dist 现 9、status 含「最短」~~ (superseded C-047) | ~~`DijkstraViz.spec.ts`~~                      |
+| ~~TC-VIZ-DIJKSTRAVIZ-07~~ | ~~走到底：最短路树点亮 ≥1~~ (superseded C-047)                         | ~~`DijkstraViz.spec.ts`~~                      |
+| ~~TC-VIZ-DIJKSTRAVIZ-08~~ | ~~重置：清空 settled、距离表回 ∞~~ (superseded C-047)                  | ~~`DijkstraViz.spec.ts`~~                      |
+| TC-VIEW-DIJKSTRA-01       | 挂载渲染 Article + AlgorithmPlayer（不再含 DijkstraViz）               | `src/views/Article/Algorithm/Dijkstra.spec.ts` |
+| TC-VIEW-DIJKSTRA-02       | h1 含「Dijkstra」+ GraphView + 6 .graph-node + 无 .bars-view           | `src/views/Article/Algorithm/Dijkstra.spec.ts` |
+| TC-VIEW-DIJKSTRA-03       | 全模板同屏：Article 含「最短」+ ≥9 .graph-edge                         | `src/views/Article/Algorithm/Dijkstra.spec.ts` |
+
+### GraphView 图轨 + 播放器接图轨（C-047 · M8②-1，新第 7 轨，通用带权图，供 Kruskal C-048 复用）
+
+| Case ID             | 标题                                                     | 自动化路径                                      |
+| ------------------- | -------------------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-GRAPHVIEW-01 | 6 .graph-node + 9 .graph-edge + 权重文本可见             | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-02 | doneNodes→.done、activeNode→.active                      | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-03 | edgeClass→对应边 .relaxed / .tree                        | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-04 | nodeBadge→.node-badge 显示 dist（含 ∞）                  | `src/components/GraphView.spec.ts`              |
+| TC-PLAYER-GRAPH-01  | 当前步带 graph → 渲染 GraphView                          | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GRAPH-02  | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归） | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 最小生成树互动 KruskalViz + Kruskal 页（C-038 · M6 图算法 G6，新页）
 
@@ -1331,49 +1363,49 @@
 
 共 **40** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
-| Case ID             | 标题                                                             | 自动化路径                         | 状态       |
-| ------------------- | ---------------------------------------------------------------- | ---------------------------------- | ---------- |
-| TC-E2E-HOME-01      | 首页加载并能进入 docs                                            | `e2e/home-navigation.e2e.ts`       | active     |
-| TC-E2E-MENU-01      | docs 菜单点击切换路由                                            | `e2e/docs-menu.e2e.ts`             | active     |
-| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                         | `e2e/bubble-sort.e2e.ts`           | superseded |
-| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                          | `e2e/bubble-sort.e2e.ts`           | active     |
-| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                      | `e2e/selection-sort.e2e.ts`        | active     |
-| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                      | `e2e/insertion-sort.e2e.ts`        | active     |
-| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置              | `e2e/shell-sort.e2e.ts`            | active     |
-| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置       | `e2e/merge-sort.e2e.ts`            | active     |
-| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置        | `e2e/quick-sort.e2e.ts`            | active     |
-| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置           | `e2e/heap-sort.e2e.ts`             | active     |
-| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置        | `e2e/counting-sort.e2e.ts`         | active     |
-| TC-E2E-RADIX-01     | 基数排序播放器：主轨 8 柱 / 桶轨 10 桶 / 拖到末步升序            | `e2e/radix-sort.e2e.ts`            | active     |
-| TC-E2E-BUCKET-01    | 桶排序全模板：正文 + 桶轨 5 桶 + 主轨 8 柱 / 拖到末步升序        | `e2e/bucket-sort.e2e.ts`           | active     |
-| TC-E2E-3WQUICK-01   | 三路快排全模板：正文 + 区间栈 + 主轨 8 柱 / 拖到末步升序         | `e2e/three-way-quick-sort.e2e.ts`  | active     |
-| TC-E2E-DUALPIVOT-01 | 双轴快排全模板：正文 + 区间栈 + 主轨 8 柱 / 拖到末步升序         | `e2e/dual-pivot-quick-sort.e2e.ts` | active     |
-| TC-E2E-CODEPANEL-01 | 缺陷回归：代码面板长行可横滚、不截断（overflow-x + 行宽）        | `e2e/code-panel-hscroll.e2e.ts`    | active     |
-| TC-E2E-TDMERGE-01   | 自顶向下归并全模板：正文 + 递归栈/temp 双辅助轨 + 拖末步升序     | `e2e/top-down-merge-sort.e2e.ts`   | active     |
-| TC-E2E-BININS-01    | 二分插入排序全模板：正文 + 主轨 8 柱 / 拖到末步升序              | `e2e/binary-insertion-sort.e2e.ts` | active     |
-| TC-E2E-COCKTAIL-01  | 鸡尾酒排序全模板：正文 + 主轨 8 柱 / 拖到末步升序                | `e2e/cocktail-sort.e2e.ts`         | active     |
-| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                 | `e2e/stack.e2e.ts`                 | active     |
-| TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置      | `e2e/queue.e2e.ts`                 | active     |
-| TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置        | `e2e/array.e2e.ts`                 | active     |
-| TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置        | `e2e/link.e2e.ts`                  | active     |
-| TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置              | `e2e/tree.e2e.ts`                  | active     |
-| TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置            | `e2e/heap.e2e.ts`                  | active     |
-| TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置               | `e2e/hash.e2e.ts`                  | active     |
-| TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                          | `e2e/graph.e2e.ts`                 | active     |
-| TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                            | `e2e/tree.e2e.ts`                  | active     |
-| TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置          | `e2e/hash.e2e.ts`                  | active     |
-| TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置             | `e2e/link.e2e.ts`                  | active     |
-| TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）             | `e2e/queue.e2e.ts`                 | active     |
-| TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                      | `e2e/array.e2e.ts`                 | active     |
-| TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置        | `e2e/trie.e2e.ts`                  | active     |
-| TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置               | `e2e/union-find.e2e.ts`            | active     |
-| TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置              | `e2e/lru.e2e.ts`                   | active     |
-| TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置      | `e2e/skip-list.e2e.ts`             | active     |
-| TC-E2E-SEG-01       | 线段树页：15 节点 / 区间和 2,5「17」/ 更新 2→10「更新」/ 重置    | `e2e/segment-tree.e2e.ts`          | active     |
-| TC-E2E-BTREE-01     | B+ 树页：4 节点 / 查找 30「找到了」/ 范围 12,38「扫到」/ 重置    | `e2e/b-tree.e2e.ts`                | active     |
-| TC-E2E-BLOOM-01     | 布隆页：16 格 / 加 3·7·11 / 查 7「可能存在」/ 查 2「误判」/ 重置 | `e2e/bloom-filter.e2e.ts`          | active     |
-| TC-E2E-DIJKSTRA-01  | Dijkstra 页：6 顶点 / 单步走到底 status 含「最短」「9」/ 重置    | `e2e/dijkstra.e2e.ts`              | active     |
-| TC-E2E-KRUSKAL-01   | Kruskal 页：6 顶点 9 边 / 单步走到底 MST 5「18」/ 重置           | `e2e/kruskal.e2e.ts`               | active     |
+| Case ID             | 标题                                                                                             | 自动化路径                         | 状态       |
+| ------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------- | ---------- |
+| TC-E2E-HOME-01      | 首页加载并能进入 docs                                                                            | `e2e/home-navigation.e2e.ts`       | active     |
+| TC-E2E-MENU-01      | docs 菜单点击切换路由                                                                            | `e2e/docs-menu.e2e.ts`             | active     |
+| TC-E2E-BUBBLE-01    | ~~冒泡排序动画最终升序~~                                                                         | `e2e/bubble-sort.e2e.ts`           | superseded |
+| TC-E2E-PLAYER-01    | 冒泡播放器：默认暂停/单步/跳末升序/重置                                                          | `e2e/bubble-sort.e2e.ts`           | active     |
+| TC-E2E-SELECTION-01 | 选择排序播放器：默认暂停/单步/跳末升序/重置                                                      | `e2e/selection-sort.e2e.ts`        | active     |
+| TC-E2E-INSERTION-01 | 插入排序播放器：默认暂停/单步/跳末升序/重置                                                      | `e2e/insertion-sort.e2e.ts`        | active     |
+| TC-E2E-SHELL-01     | 希尔排序播放器：默认暂停/单步聚焦分组/跳末升序/重置                                              | `e2e/shell-sort.e2e.ts`            | active     |
+| TC-E2E-MERGE-01     | 归并播放器：默认暂停 / 合并聚焦+temp填充 / 跳末升序 / 重置                                       | `e2e/merge-sort.e2e.ts`            | active     |
+| TC-E2E-QUICK-01     | 快排播放器：默认暂停/区间栈轨/pivot品红/跳末升序全绿/重置                                        | `e2e/quick-sort.e2e.ts`            | active     |
+| TC-E2E-HEAP-01      | 堆排序播放器 e2e：默认暂停/树轨/heapNode/跳末升序/重置                                           | `e2e/heap-sort.e2e.ts`             | active     |
+| TC-E2E-COUNT-01     | 计数排序播放器：默认暂停/桶轨/计数填桶/空桶/跳末升序/重置                                        | `e2e/counting-sort.e2e.ts`         | active     |
+| TC-E2E-RADIX-01     | 基数排序播放器：主轨 8 柱 / 桶轨 10 桶 / 拖到末步升序                                            | `e2e/radix-sort.e2e.ts`            | active     |
+| TC-E2E-BUCKET-01    | 桶排序全模板：正文 + 桶轨 5 桶 + 主轨 8 柱 / 拖到末步升序                                        | `e2e/bucket-sort.e2e.ts`           | active     |
+| TC-E2E-3WQUICK-01   | 三路快排全模板：正文 + 区间栈 + 主轨 8 柱 / 拖到末步升序                                         | `e2e/three-way-quick-sort.e2e.ts`  | active     |
+| TC-E2E-DUALPIVOT-01 | 双轴快排全模板：正文 + 区间栈 + 主轨 8 柱 / 拖到末步升序                                         | `e2e/dual-pivot-quick-sort.e2e.ts` | active     |
+| TC-E2E-CODEPANEL-01 | 缺陷回归：代码面板长行可横滚、不截断（overflow-x + 行宽）                                        | `e2e/code-panel-hscroll.e2e.ts`    | active     |
+| TC-E2E-TDMERGE-01   | 自顶向下归并全模板：正文 + 递归栈/temp 双辅助轨 + 拖末步升序                                     | `e2e/top-down-merge-sort.e2e.ts`   | active     |
+| TC-E2E-BININS-01    | 二分插入排序全模板：正文 + 主轨 8 柱 / 拖到末步升序                                              | `e2e/binary-insertion-sort.e2e.ts` | active     |
+| TC-E2E-COCKTAIL-01  | 鸡尾酒排序全模板：正文 + 主轨 8 柱 / 拖到末步升序                                                | `e2e/cocktail-sort.e2e.ts`         | active     |
+| TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                                                 | `e2e/stack.e2e.ts`                 | active     |
+| TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置                                      | `e2e/queue.e2e.ts`                 | active     |
+| TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置                                        | `e2e/array.e2e.ts`                 | active     |
+| TC-E2E-LINK-01      | 链表知识页：正文+互动链表/点节点选中/选中后插入/头插/重置                                        | `e2e/link.e2e.ts`                  | active     |
+| TC-E2E-TREE-01      | 树知识页：正文+互动 BST/输入插入走位/中序=升序/重置                                              | `e2e/tree.e2e.ts`                  | active     |
+| TC-E2E-HEAPDS-01    | 堆知识页：正文+互动堆/数组+树双视图/输入插入上浮/重置                                            | `e2e/heap.e2e.ts`                  | active     |
+| TC-E2E-HASH-01      | 哈希表知识页：正文+互动哈希/散列直达/冲突追加/重置                                               | `e2e/hash.e2e.ts`                  | active     |
+| TC-E2E-GRAPH-01     | 图知识页：正文+互动图/BFS 队列遍历/重置                                                          | `e2e/graph.e2e.ts`                 | active     |
+| TC-E2E-TREE-02      | 树页·平衡节：退化↔平衡对照 + 查找走位                                                            | `e2e/tree.e2e.ts`                  | active     |
+| TC-E2E-HASH-02      | 哈希页·开放寻址节：扁平表 7 格/线性探测插入/未命中/重置                                          | `e2e/hash.e2e.ts`                  | active     |
+| TC-E2E-LINK-02      | 链表页·双向节：4 节点/反向遍历/点节点 O(1) 删除/重置                                             | `e2e/link.e2e.ts`                  | active     |
+| TC-E2E-QUEUE-02     | 队列页·双端节：3 元素/头部入/尾部出/重置（两端进出）                                             | `e2e/queue.e2e.ts`                 | active     |
+| TC-E2E-ARRAY-02     | 数组页·扩容节：容量满了翻倍扩容 + 均摊 O(1)                                                      | `e2e/array.e2e.ts`                 | active     |
+| TC-E2E-TRIE-01      | 字典树页：11 节点 / 查找 card「词」/ 前缀 ca「car」/ 重置                                        | `e2e/trie.e2e.ts`                  | active     |
+| TC-E2E-UF-01        | 并查集页：8 节点 / 合并后组数变 / 连通?判定 / 重置                                               | `e2e/union-find.e2e.ts`            | active     |
+| TC-E2E-LRU-01       | LRU 页：3 cell / get 命中跳最前 / put 满淘汰 / 重置                                              | `e2e/lru.e2e.ts`                   | active     |
+| TC-E2E-SKIP-01      | 跳表页：cell 渲染 / 查找 11「找到」/ 查找 8「没找到」/ 重置                                      | `e2e/skip-list.e2e.ts`             | active     |
+| TC-E2E-SEG-01       | 线段树页：15 节点 / 区间和 2,5「17」/ 更新 2→10「更新」/ 重置                                    | `e2e/segment-tree.e2e.ts`          | active     |
+| TC-E2E-BTREE-01     | B+ 树页：4 节点 / 查找 30「找到了」/ 范围 12,38「扫到」/ 重置                                    | `e2e/b-tree.e2e.ts`                | active     |
+| TC-E2E-BLOOM-01     | 布隆页：16 格 / 加 3·7·11 / 查 7「可能存在」/ 查 2「误判」/ 重置                                 | `e2e/bloom-filter.e2e.ts`          | active     |
+| TC-E2E-DIJKSTRA-01  | Dijkstra 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写） | `e2e/dijkstra.e2e.ts`              | active     |
+| TC-E2E-KRUSKAL-01   | Kruskal 页：6 顶点 9 边 / 单步走到底 MST 5「18」/ 重置                                           | `e2e/kruskal.e2e.ts`               | active     |
 
 ---
 
