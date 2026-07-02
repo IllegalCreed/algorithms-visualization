@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
-import Playground from '@/components/article/Playground.vue';
-import DijkstraViz from '@/components/structures/DijkstraViz.vue';
+import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
+import { dijkstraModule } from '@/algorithms/dijkstra.module';
 </script>
 
 <template>
@@ -25,13 +25,12 @@ import DijkstraViz from '@/components/structures/DijkstraViz.vue';
     </p>
     <p>
       下面固定一张 6 个点的带权有向图（源
-      A）。点<strong>「下一步」</strong>逐步看它怎么取当前最近点、松弛邻边——特别留意 B、D、E、F
-      的距离会被<strong>更短的路径反复降低</strong>（先到的不一定最短）。
+      A）。点<strong>「下一步」</strong>逐步看它怎么取当前最近点（<strong>琥珀高亮</strong>）、确定它（<strong>变绿</strong>）、松弛邻边（<strong>黄边</strong>+
+      节点旁距离徽标更新）——特别留意 B、D、E、F
+      的距离会被<strong>更短的路径反复降低</strong>（先到的不一定最短）；走到底会点亮整棵<strong>最短路树</strong>（绿边）。右侧代码随每一步同步高亮。
     </p>
 
-    <Playground>
-      <DijkstraViz />
-    </Playground>
+    <AlgorithmPlayer :module="dijkstraModule" />
 
     <p>
       为什么「贪心地取当前最近点」是对的？因为边权非负，一个已经定下来的点，它的距离不可能再被后面更小——后面的路只会更长。用二叉堆做优先队列，复杂度约

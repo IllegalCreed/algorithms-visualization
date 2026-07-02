@@ -11,6 +11,8 @@ import StackView from '@/components/StackView.vue';
 import TreeView from '@/components/TreeView.vue';
 import CountView from '@/components/CountView.vue';
 import BucketView from '@/components/BucketView.vue';
+import GraphView from '@/components/GraphView.vue';
+import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
 vi.mock('./useHighlighter', () => ({
@@ -168,6 +170,52 @@ describe('AlgorithmPlayer', () => {
     await flushPromises();
     expect(w.findComponent(AuxView).exists()).toBe(true);
     expect(w.findComponent(StackView).exists()).toBe(true);
+  });
+
+  // 内联最小 module：单步带 graph 且 array 空（图算法 C-047：GraphView 轨 + 无柱主轨）
+  const graphModule: AlgorithmModule = {
+    title: 'graph-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        graph: {
+          vertices: [
+            { id: 0, label: 'A', x: 50, y: 150 },
+            { id: 1, label: 'B', x: 160, y: 70 },
+          ],
+          edges: [{ key: '0-1', from: 0, to: 1, w: 4 }],
+          directed: true,
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-GRAPH-01 当前步带 graph 时渲染 GraphView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: graphModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(GraphView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-GRAPH-02 array 空时不渲染 BarsView；既有排序 array 非空仍渲染（零回归）', async () => {
+    const wGraph = mount(AlgorithmPlayer, {
+      props: { module: graphModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(wGraph.findComponent(BarsView).exists()).toBe(false); // 图算法空数组 → 主轨隐藏
+
+    const wSort = mountIt(); // bubbleSortModule，array 恒非空
+    await flushPromises();
+    expect(wSort.findComponent(BarsView).exists()).toBe(true); // 排序主轨照常
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

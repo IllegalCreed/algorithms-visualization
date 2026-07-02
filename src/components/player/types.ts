@@ -124,6 +124,16 @@ export type DualPivotExecPoint =
   | 'push'
   | 'done';
 
+/** Dijkstra 单源最短路的执行点（init 初始化 → selectMin 取最近未确定点 → settle 确定 → relaxEdge 考虑出边 → relaxUpdate/relaxSkip 松弛 → done） */
+export type DijkstraExecPoint =
+  | 'init'
+  | 'selectMin'
+  | 'settle'
+  | 'relaxEdge'
+  | 'relaxUpdate'
+  | 'relaxSkip'
+  | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -178,6 +188,17 @@ export interface BucketTrack {
   activeBucket?: number; // 当前高亮桶：distribute=入桶、sortBucket=正在排序的桶、concat=正在出货的桶
 }
 
+/** 图轨快照——图算法专用（通用：Dijkstra 有向 + dist 徽标 + settled；Kruskal 无向 + 边分类 + 分量） */
+export interface GraphTrack {
+  vertices: { id: number; label: string; x: number; y: number }[]; // 固定布局节点
+  edges: { key: string; from: number; to: number; w: number }[]; // 带权边（key 唯一，如 '0-1'）
+  directed: boolean; // 有向（Dijkstra 画箭头）/ 无向（Kruskal）
+  nodeBadge?: (string | null)[]; // 每节点徽标（Dijkstra=dist，∞ 记 '∞'；null=不显）
+  activeNode?: number | null; // 当前操作节点（琥珀高亮环）
+  doneNodes?: number[]; // 已确定/已并入的节点（绿填充）
+  edgeClass?: Record<string, string>; // 边 key → 状态类（relaxed/tree（Dijkstra）| current/mst/rejected（Kruskal））
+}
+
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */
 export interface Step<P extends string = string> {
   array: [string, number][]; // 当前数组快照；[0]=稳定 key（驱动柱子 FLIP），[1]=值
@@ -191,6 +212,7 @@ export interface Step<P extends string = string> {
   tree?: TreeTrack; // 纯加法：堆排序的二叉树轨；其它算法不设 → TreeView 不渲染
   count?: CountTrack; // 纯加法：计数排序的计数桶轨；其它算法不设 → CountView 不渲染
   bucket?: BucketTrack; // 纯加法：桶排序的桶轨（桶装实际元素）；其它算法不设 → BucketView 不渲染
+  graph?: GraphTrack; // 纯加法：图算法的图轨；其它算法不设 → GraphView 不渲染
 }
 
 export interface LangSource<P extends string = string> {
