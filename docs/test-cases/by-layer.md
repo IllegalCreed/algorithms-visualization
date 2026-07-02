@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **397** 个用例。运行命令：`pnpm test:unit`
+共 **411** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -153,7 +153,7 @@
 | TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal（C-038）                   | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 12 项（新增双轴快排 C-042）         | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项，排序含 13 项（新增自顶向下归并 C-043）     | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
 | TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
@@ -351,6 +351,20 @@
 | TC-DUALPIVOT-MOD-12 | compare 步含 lt/i/gt 三指针                         | `src/algorithms/dual-pivot-quick.module.spec.ts` |
 | TC-DUALPIVOT-MOD-13 | 四语言 + 行号在源码行数内                           | `src/algorithms/dual-pivot-quick.module.spec.ts` |
 | TC-DUALPIVOT-MOD-14 | module 元信息（title/initialInput）                 | `src/algorithms/dual-pivot-quick.module.spec.ts` |
+| TC-TDMERGE-MOD-01   | 末步 done、有序 = oracle.result                     | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-02   | 不修改入参                                          | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-03   | 位置键恒为 0..7                                     | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-04   | 步合法且同时带 aux+stack 双辅助轨                   | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-05   | #split=7 且首 split 栈 [[0,7]]                      | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-06   | merge 块守恒 #mergeStart=#writeBack=7               | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-07   | #compare=#take、take+drain=24                       | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-08   | 首合并快照 merge[0,1] 后 [3,6]                      | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-09   | 递归栈深达 3 且 done 栈空                           | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-10   | 首 mergeStart 栈顶 [0,1]                            | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-11   | done 步 sortedFrom=0、无指针                        | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-12   | compare 步含 i/j 双指针 + comparing                 | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-13   | 四语言 + 行号在源码行数内                           | `src/algorithms/top-down-merge.module.spec.ts`   |
+| TC-TDMERGE-MOD-14   | module 元信息（title/initialInput）                 | `src/algorithms/top-down-merge.module.spec.ts`   |
 
 ### 栈逻辑 useStack（C-015）
 
@@ -699,7 +713,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **308** 个用例。运行命令：`pnpm test:unit`
+共 **311** 个用例。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -865,6 +879,7 @@
 | TC-PLAYER-STACK-01  | module 无 stack 时不渲染 StackView（向后兼容）              | `src/components/player/AlgorithmPlayer.spec.ts`     |
 | TC-PLAYER-STACK-02  | 当前步带 stack 时渲染 StackView                             | `src/components/player/AlgorithmPlayer.spec.ts`     |
 | TC-PLAYER-STACK-03  | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）            | `src/components/player/AlgorithmPlayer.spec.ts`     |
+| TC-PLAYER-STACK-04  | 同时带 aux + stack 双辅助轨并存都渲染                       | `src/components/player/AlgorithmPlayer.spec.ts`     |
 | TC-VIEW-QUICK-01    | 挂载渲染 AlgorithmPlayer                                    | `src/views/Article/SortAlgorithm/QuickSort.spec.ts` |
 | TC-VIEW-QUICK-02    | 初始渲染主轨 10 柱 + 区间栈轨且默认停第 0 步                | `src/views/Article/SortAlgorithm/QuickSort.spec.ts` |
 
@@ -922,6 +937,8 @@
 | TC-VIEW-3WQUICK-02   | 区间栈 StackView + 主轨 8 柱                        | `src/views/Article/SortAlgorithm/ThreeWayQuickSort.spec.ts`  |
 | TC-VIEW-DUALPIVOT-01 | 全模板：Article(h1 双轴快排) + 播放器               | `src/views/Article/SortAlgorithm/DualPivotQuickSort.spec.ts` |
 | TC-VIEW-DUALPIVOT-02 | 区间栈 StackView + 主轨 8 柱                        | `src/views/Article/SortAlgorithm/DualPivotQuickSort.spec.ts` |
+| TC-VIEW-TDMERGE-01   | 全模板：Article(h1 自顶向下归并) + 播放器           | `src/views/Article/SortAlgorithm/TopDownMergeSort.spec.ts`   |
+| TC-VIEW-TDMERGE-02   | AuxView 与 StackView 双辅助轨 + 主轨 8 柱           | `src/views/Article/SortAlgorithm/TopDownMergeSort.spec.ts`   |
 
 ### 知识页骨架 + 栈互动 + 栈页（C-015）
 
@@ -1271,7 +1288,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **37** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **38** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                             | 自动化路径                         | 状态       |
 | ------------------- | ---------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1291,6 +1308,7 @@
 | TC-E2E-3WQUICK-01   | 三路快排全模板：正文 + 区间栈 + 主轨 8 柱 / 拖到末步升序         | `e2e/three-way-quick-sort.e2e.ts`  | active     |
 | TC-E2E-DUALPIVOT-01 | 双轴快排全模板：正文 + 区间栈 + 主轨 8 柱 / 拖到末步升序         | `e2e/dual-pivot-quick-sort.e2e.ts` | active     |
 | TC-E2E-CODEPANEL-01 | 缺陷回归：代码面板长行可横滚、不截断（overflow-x + 行宽）        | `e2e/code-panel-hscroll.e2e.ts`    | active     |
+| TC-E2E-TDMERGE-01   | 自顶向下归并全模板：正文 + 递归栈/temp 双辅助轨 + 拖末步升序     | `e2e/top-down-merge-sort.e2e.ts`   | active     |
 | TC-E2E-STACK-01     | 栈知识页：正文+互动栈/push/栈顶跟随/pop/重置空态                 | `e2e/stack.e2e.ts`                 | active     |
 | TC-E2E-QUEUE-01     | 队列知识页：正文+互动队列/enqueue/双指针/dequeue移队首/重置      | `e2e/queue.e2e.ts`                 | active     |
 | TC-E2E-ARRAY-01     | 数组知识页：正文+互动数组/点选下标/插入右移/尾部追加/重置        | `e2e/array.e2e.ts`                 | active     |
