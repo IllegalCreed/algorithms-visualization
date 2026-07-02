@@ -23,6 +23,7 @@ import ShellIcon from '@/assets/shell.svg';
 import MergeIcon from '@/assets/merge.svg';
 import QuickIcon from '@/assets/quick.svg';
 import ThreeWayQuickIcon from '@/assets/three-way-quick.svg';
+import DualPivotQuickIcon from '@/assets/dual-pivot-quick.svg';
 import CountingIcon from '@/assets/counting.svg';
 import RadixIcon from '@/assets/radix.svg';
 import BucketIcon from '@/assets/bucket.svg';
@@ -170,6 +171,12 @@ export function useCategoryData(): Category[] {
           desc: '荷兰国旗划分,把数组分成小于/等于/大于基准三段,等值元素一次归位,治大量重复',
           icon: ThreeWayQuickIcon,
           url: 'three-way-quick-sort',
+        },
+        {
+          title: '双轴快排',
+          desc: '两个基准一趟分三段,递归更浅缓存更友好,Java Arrays.sort 基本类型实际采用',
+          icon: DualPivotQuickIcon,
+          url: 'dual-pivot-quick-sort',
         },
         {
           title: '堆排序',

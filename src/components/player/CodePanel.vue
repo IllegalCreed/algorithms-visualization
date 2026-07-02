@@ -96,11 +96,14 @@ const plainLines = computed(() => activeSource.value.code.split('\n'));
   padding: 8px 0;
   font-size: 13px;
   line-height: 1.6;
+  overflow-x: auto; /* 长行横向滚动，不被外层圆角裁掉（C-042 真机自检发现的缺陷修复） */
 }
 .code-line {
   display: block;
   white-space: pre;
   padding: 0 12px;
+  width: max-content; /* 行盒撑到内容宽：高亮行背景随滚动铺满整行 */
+  min-width: 100%; /* 短行仍占满可视宽，高亮不缺口 */
 }
 .code-line.is-active {
   background: rgba(255, 207, 92, 0.28);

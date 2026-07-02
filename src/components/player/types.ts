@@ -77,6 +77,18 @@ export type ThreeWayExecPoint =
   | 'push'
   | 'done';
 
+/** 双轴快排的执行点（Yaroslavskiy：双基准 p≤q 首尾取 → lt/i/gt 三段扫描 less/between/greater → pivotPlace 双基准归位） */
+export type DualPivotExecPoint =
+  | 'pop'
+  | 'pivotSelect'
+  | 'compare'
+  | 'less'
+  | 'between'
+  | 'greater'
+  | 'pivotPlace'
+  | 'push'
+  | 'done';
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -92,6 +104,7 @@ export interface StepEmphasis {
   keyIndex?: number; // 插入：被取出的 key 柱当前下标 → key 态（最高优先）
   groupMembers?: number[]; // 希尔：当前子序列的下标集；不在其中且无其它强调 → dimmed 淡出
   pivotIndex?: number; // 快排：当前 pivot 下标 → pivot 态（最高优先，压过 sorted/comparing）
+  pivotIndices?: number[]; // 双轴快排：两个基准下标 → 都渲染 pivot 态（与 pivotIndex 并存，additive）
   sortedIndices?: number[]; // 快排：离散「已就位」下标集 → sorted（区别于 sortedFrom/sortedUpTo 的连续前后缀）
   heapNode?: number; // 堆排序：当前 siftDown 活动父节点 → heapNode 态（深紫；sorted 之后、swapped 之前）
   dimFrom?: number; // 计数排序：回写阶段连续后缀 [dimFrom, n) 淡出（原值已计入桶、作废）；区别于希尔的离散集合 groupMembers

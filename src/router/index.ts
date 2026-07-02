@@ -140,6 +140,11 @@ const routes = [
             component: () => import('../views/Article/SortAlgorithm/ThreeWayQuickSort.vue'),
           },
           {
+            path: '/docs/dual-pivot-quick-sort',
+            name: 'dual-pivot-quick-sort',
+            component: () => import('../views/Article/SortAlgorithm/DualPivotQuickSort.vue'),
+          },
+          {
             path: '/docs/heap-sort',
             name: 'heap-sort',
             component: () => import('../views/Article/SortAlgorithm/HeapSort.vue'),

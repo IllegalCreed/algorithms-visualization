@@ -101,6 +101,10 @@ export function useCategoryData(): Category[] {
           url: 'three-way-quick-sort',
         },
         {
+          title: '双轴快排',
+          url: 'dual-pivot-quick-sort',
+        },
+        {
           title: '堆排序',
           url: 'heap-sort',
         },

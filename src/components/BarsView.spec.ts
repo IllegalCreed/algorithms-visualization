@@ -182,4 +182,12 @@ describe('BarsView', () => {
     expect(bars[1].props('state')).toBe('idle'); // 活跃写入格，不提前转绿、不淡
     expect(bars[2].props('state')).toBe('dimmed'); // ≥ dimFrom 淡出
   });
+
+  it('TC-VIZ-BARSVIEW-23 pivotIndices 双基准都进入 pivot 态、其余柱不受影响（双轴快排）', () => {
+    const w = mountIt({ ...base, emphasis: { pivotIndices: [0, 2], comparing: [1, 2] } });
+    const bars = w.findAllComponents(Bar);
+    expect(bars[0].props('state')).toBe('pivot'); // 基准 p
+    expect(bars[2].props('state')).toBe('pivot'); // 基准 q（压过 comparing）
+    expect(bars[1].props('state')).toBe('comparing'); // 非基准柱走原逻辑
+  });
 });
