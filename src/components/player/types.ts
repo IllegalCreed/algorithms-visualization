@@ -77,6 +77,18 @@ export type ThreeWayExecPoint =
   | 'push'
   | 'done';
 
+/** 鸡尾酒排序的执行点（双向冒泡：forwardPass 左→右冒最大 → backwardPass 右→左沉最小；比较/交换带方向以精确映射两个循环） */
+export type CocktailExecPoint =
+  | 'forwardPass'
+  | 'fCompare'
+  | 'fSwap'
+  | 'fNoSwap'
+  | 'backwardPass'
+  | 'bCompare'
+  | 'bSwap'
+  | 'bNoSwap'
+  | 'done';
+
 /** 二分插入排序的执行点（outerLoop 取 key → probe 折半比较 → goLeft/goRight 区间收缩 → found 定位 → shift 搬移 → insert 落位） */
 export type BinaryInsertionExecPoint =
   | 'outerLoop'

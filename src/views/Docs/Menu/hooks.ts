@@ -77,6 +77,10 @@ export function useCategoryData(): Category[] {
           url: 'bubble-sort',
         },
         {
+          title: '鸡尾酒排序',
+          url: 'cocktail-sort',
+        },
+        {
           title: '选择排序',
           url: 'selection-sort',
         },

@@ -17,6 +17,7 @@ import BloomIcon from '@/assets/bloom-filter.svg';
 import DijkstraIcon from '@/assets/dijkstra.svg';
 import KruskalIcon from '@/assets/kruskal.svg';
 import BubbleIcon from '@/assets/bubble.svg';
+import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
 import BinaryInsertionIcon from '@/assets/binary-insertion.svg';
@@ -137,6 +138,12 @@ export function useCategoryData(): Category[] {
           desc: '每次循环找出目前数组中最大的数,放在当前数组末尾',
           icon: BubbleIcon,
           url: 'bubble-sort',
+        },
+        {
+          title: '鸡尾酒排序',
+          desc: '双向冒泡,来回扫描两端收缩,尾部小元素一趟到家,零交换提前收工',
+          icon: CocktailIcon,
+          url: 'cocktail-sort',
         },
         {
           title: '选择排序',
