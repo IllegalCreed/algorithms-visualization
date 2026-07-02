@@ -131,6 +131,45 @@ describe('AlgorithmPlayer', () => {
     expect(w.findComponent(StackView).exists()).toBe(false);
   });
 
+  // 内联最小 module：单步同时带 aux + stack（自顶向下归并 C-043：temp 轨 + 递归栈双辅助轨并存）
+  const auxStackModule: AlgorithmModule = {
+    title: 'aux-stack-test',
+    initialInput: () => [3, 1, 2],
+    buildSteps: (): Step[] => [
+      {
+        array: [
+          ['0', 3],
+          ['1', 1],
+          ['2', 2],
+        ],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'split',
+        aux: {
+          array: [
+            ['t0', 0],
+            ['t1', 0],
+            ['t2', 0],
+          ],
+          filled: [],
+        },
+        stack: { frames: [{ lo: 0, hi: 2 }] },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { split: 1 } }],
+  };
+
+  it('TC-PLAYER-STACK-04 同时带 aux + stack 时双辅助轨并存都渲染', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: auxStackModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(AuxView).exists()).toBe(true);
+    expect(w.findComponent(StackView).exists()).toBe(true);
+  });
+
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）
   const treeModule: AlgorithmModule = {
     title: 'tree-test',

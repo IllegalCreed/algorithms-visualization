@@ -93,6 +93,10 @@ export function useCategoryData(): Category[] {
           url: 'merge-sort',
         },
         {
+          title: '自顶向下归并',
+          url: 'top-down-merge-sort',
+        },
+        {
           title: '快速排序',
           url: 'quick-sort',
         },

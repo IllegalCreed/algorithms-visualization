@@ -21,6 +21,7 @@ import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
 import ShellIcon from '@/assets/shell.svg';
 import MergeIcon from '@/assets/merge.svg';
+import TopDownMergeIcon from '@/assets/top-down-merge.svg';
 import QuickIcon from '@/assets/quick.svg';
 import ThreeWayQuickIcon from '@/assets/three-way-quick.svg';
 import DualPivotQuickIcon from '@/assets/dual-pivot-quick.svg';
@@ -159,6 +160,12 @@ export function useCategoryData(): Category[] {
           desc: '通过递归构建二叉树结构，然进行左右两个节点的有序数组合并。',
           icon: MergeIcon,
           url: 'merge-sort',
+        },
+        {
+          title: '自顶向下归并',
+          desc: '递归分治版归并,对半下钻回程合并,配递归调用栈看分治全程,与迭代版对照',
+          icon: TopDownMergeIcon,
+          url: 'top-down-merge-sort',
         },
         {
           title: '快速排序',

@@ -130,6 +130,11 @@ const routes = [
             component: () => import('../views/Article/SortAlgorithm/MergeSort.vue'),
           },
           {
+            path: '/docs/top-down-merge-sort',
+            name: 'top-down-merge-sort',
+            component: () => import('../views/Article/SortAlgorithm/TopDownMergeSort.vue'),
+          },
+          {
             path: '/docs/quick-sort',
             name: 'quick-sort',
             component: () => import('../views/Article/SortAlgorithm/QuickSort.vue'),

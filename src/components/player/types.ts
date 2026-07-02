@@ -77,6 +77,18 @@ export type ThreeWayExecPoint =
   | 'push'
   | 'done';
 
+/** 自顶向下归并的执行点（递归分治：split 对半下钻 → 回程 merge 七件套同自底向上 → done） */
+export type TopDownMergeExecPoint =
+  | 'split'
+  | 'mergeStart'
+  | 'compare'
+  | 'takeLeft'
+  | 'takeRight'
+  | 'drainLeft'
+  | 'drainRight'
+  | 'writeBack'
+  | 'done';
+
 /** 双轴快排的执行点（Yaroslavskiy：双基准 p≤q 首尾取 → lt/i/gt 三段扫描 less/between/greater → pivotPlace 双基准归位） */
 export type DualPivotExecPoint =
   | 'pop'
