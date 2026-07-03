@@ -315,7 +315,16 @@ export interface KmpTrack {
   status?: 'match' | 'mismatch' | 'found' | null; // 当前比较结果
   found: number[]; // 已命中的匹配起点（文本下标）
   windowStart?: number | null; // 当前窗口在文本的起点（高亮 [windowStart, windowStart+m)）——Rabin-Karp 设，KMP 不设
+  matchedFrom?: number | null; // 已匹配后缀起点：pattern[matchedFrom..m) 标绿（Boyer-Moore 从右往左匹配后缀）——KMP/RK 不设
 }
+
+/** Boyer-Moore 执行点（C-064，字符串第 3 页；复用 KmpView——从右往左比、坏字符表大步跳） */
+export type BoyerMooreExecPoint =
+  | 'start' // 模式对齐到文本开头，从模式末尾开始（右→左）
+  | 'match' // P[j]===T[s+j]：字符相等，j 左移，已匹配后缀 +1
+  | 'badChar' // P[j]≠T[s+j]：失配，按坏字符表把模式右移 max(1, j−last[坏字符])
+  | 'found' // j 越过左端 → 整段匹配，命中
+  | 'done'; // 文本扫描完
 
 /** Rabin-Karp 执行点（C-063，字符串第 2 页；复用 KmpView——滚动哈希 + 命中才验证） */
 export type RabinKarpExecPoint =

@@ -23,11 +23,14 @@ const textCells = computed(() => {
 });
 const patCells = computed(() => {
   const k = props.kmp;
+  // 前缀 [0,matchedLen)（KMP/RK）或后缀 [matchedFrom,m)（Boyer-Moore）标绿
+  const matched = (idx: number) =>
+    idx < k.matchedLen || (k.matchedFrom != null && idx >= k.matchedFrom);
   return k.pattern.split('').map((ch, idx) => ({
     ch,
     idx,
     compare: k.comparePat === idx,
-    matched: idx < k.matchedLen,
+    matched: matched(idx),
   }));
 });
 const lpsCells = computed(() =>

@@ -220,6 +220,10 @@ export function useCategoryData(): Category[] {
           title: 'Rabin-Karp',
           url: 'rabin-karp',
         },
+        {
+          title: 'Boyer-Moore',
+          url: 'boyer-moore',
+        },
       ],
     },
   ];

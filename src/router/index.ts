@@ -180,6 +180,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/RabinKarp.vue'),
           },
           {
+            path: '/docs/boyer-moore',
+            name: 'boyer-moore',
+            component: () => import('../views/Article/Algorithm/BoyerMoore.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 坏字符大步右移（跳过整段）：顶部粗点线右箭头 -->
+  <g stroke="#333333" stroke-linecap="round" fill="none">
+    <line x1="250" y1="420" x2="870" y2="420" stroke-width="34" stroke-dasharray="4 62" />
+    <polyline points="820,374 884,420 820,466" stroke-width="34" stroke-linejoin="round" />
+  </g>
+  <!-- 从右往左比：窗口上方向左箭头 -->
+  <g stroke="#333333" stroke-width="26" stroke-linecap="round" fill="none">
+    <line x1="470" y1="545" x2="130" y2="545" />
+    <polyline points="172,513 130,545 172,577" stroke-linejoin="round" />
+  </g>
+  <!-- 文本格（前 3 格为对齐的模式窗口，深色） -->
+  <g stroke="#333333" stroke-width="22">
+    <rect x="90" y="600" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="230" y="600" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="370" y="600" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="510" y="600" width="120" height="120" rx="16" fill="#ffffff" />
+    <rect x="650" y="600" width="120" height="120" rx="16" fill="#ffffff" />
+    <rect x="790" y="600" width="120" height="120" rx="16" fill="#ffffff" />
+  </g>
+  <!-- 滑动窗口框（罩住对齐的 3 格） -->
+  <rect x="68" y="578" width="444" height="164" rx="24" fill="none" stroke="#333333" stroke-width="30" />
+</svg>

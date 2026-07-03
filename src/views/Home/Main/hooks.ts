@@ -31,6 +31,7 @@ import CombsumIcon from '@/assets/combsum.svg';
 import MazeIcon from '@/assets/maze.svg';
 import KmpIcon from '@/assets/kmp.svg';
 import RabinKarpIcon from '@/assets/rabinkarp.svg';
+import BoyerMooreIcon from '@/assets/boyermoore.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -363,6 +364,12 @@ export function useCategoryData(): Category[] {
           desc: '滚动哈希匹配：把窗口压成一个哈希数，滑动 O(1) 更新，每格只比一个数、哈希相等才逐字符验证',
           icon: RabinKarpIcon,
           url: 'rabin-karp',
+        },
+        {
+          title: 'Boyer-Moore',
+          desc: '实践最快的串匹配：从模式末尾往左比，失配用坏字符规则大步右移，常常跳过整段，平均亚线性',
+          icon: BoyerMooreIcon,
+          url: 'boyer-moore',
         },
       ],
     },

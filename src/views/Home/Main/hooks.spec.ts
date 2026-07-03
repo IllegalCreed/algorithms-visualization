@@ -22,7 +22,7 @@ describe('Home/Main useCategoryData', () => {
       'combination-sum',
       'maze',
     ]);
-    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp']);
+    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp', 'boyer-moore']);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

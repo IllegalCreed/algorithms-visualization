@@ -36,7 +36,7 @@ describe('Docs/Menu useCategoryData', () => {
       'combination-sum',
       'maze',
     ]);
-    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp']);
+    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp', 'boyer-moore']);
   });
 
   it('TC-HOOK-02-2: 每项含 title/url 且均非空', () => {

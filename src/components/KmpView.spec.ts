@@ -43,4 +43,9 @@ describe('KmpView 字符串匹配轨', () => {
     expect(w.findAll('.kmp-window')).toHaveLength(3); // 窗口 [2,5) 共 3 格
     expect(w.findAll('.kmp-lps-cell')).toHaveLength(0); // lps 空 → π 行隐藏
   });
+
+  it('TC-VIZ-KMPVIEW-06 matchedFrom=1（P 长 3）→ 模式后缀 2 格 .kmp-matched（C-064 扩展）', () => {
+    const w = mountIt({ pattern: 'abc', matchedFrom: 1, matchedLen: 0 });
+    expect(w.findAll('.kmp-pat-cell.kmp-matched')).toHaveLength(2); // 后缀 [1,3) 共 2 格
+  });
 });
