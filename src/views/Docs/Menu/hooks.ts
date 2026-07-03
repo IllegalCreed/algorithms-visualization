@@ -195,6 +195,10 @@ export function useCategoryData(): Category[] {
           title: '组合总和',
           url: 'combination-sum',
         },
+        {
+          title: '迷宫寻路',
+          url: 'maze',
+        },
       ],
     },
   ];

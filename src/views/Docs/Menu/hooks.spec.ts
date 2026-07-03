@@ -10,7 +10,7 @@ vi.mock('vue-router', () => ({
 }));
 
 describe('Docs/Menu useCategoryData', () => {
-  it('TC-HOOK-02-1: 返回 5 个分类，「回溯与搜索」含 N 皇后 + 子集 + 排列 + 组合总和（C-058）', () => {
+  it('TC-HOOK-02-1: 返回 5 个分类，「回溯与搜索」含 N 皇后/子集/排列/组合总和/迷宫（C-059）', () => {
     const data = useCategoryData();
     expect(data).toHaveLength(5);
     expect(data[0].title).toBe('数据结构');
@@ -33,6 +33,7 @@ describe('Docs/Menu useCategoryData', () => {
       'subsets',
       'permutations',
       'combination-sum',
+      'maze',
     ]);
   });
 

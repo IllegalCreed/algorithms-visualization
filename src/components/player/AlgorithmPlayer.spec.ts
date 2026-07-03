@@ -15,6 +15,7 @@ import GraphView from '@/components/GraphView.vue';
 import MatrixView from '@/components/MatrixView.vue';
 import BoardView from '@/components/BoardView.vue';
 import DecisionTreeView from '@/components/DecisionTreeView.vue';
+import MazeView from '@/components/MazeView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -335,6 +336,49 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 decisionTree
     await flushPromises();
     expect(wSort.findComponent(DecisionTreeView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 maze 且 array 空（迷宫 C-059：MazeView 迷宫轨 + 无柱主轨）
+  const mazeModule: AlgorithmModule = {
+    title: 'maze-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'start',
+        maze: {
+          rows: 2,
+          cols: 2,
+          walls: [
+            [false, false],
+            [false, false],
+          ],
+          start: [0, 0],
+          goal: [1, 1],
+          current: [0, 0],
+          path: [[0, 0]],
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { start: 1 } }],
+  };
+
+  it('TC-PLAYER-MAZE-01 当前步带 maze 时渲染 MazeView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: mazeModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(MazeView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-MAZE-02 既有排序 step（无 maze）不渲染 MazeView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 maze
+    await flushPromises();
+    expect(wSort.findComponent(MazeView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

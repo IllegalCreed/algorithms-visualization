@@ -155,6 +155,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Combsum.vue'),
           },
           {
+            path: '/docs/maze',
+            name: 'maze',
+            component: () => import('../views/Article/Algorithm/Maze.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

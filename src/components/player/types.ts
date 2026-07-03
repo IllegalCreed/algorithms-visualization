@@ -284,6 +284,28 @@ export type SubsetsExecPoint =
   | 'backtrack' // 一个子树探索完，回退到父节点换另一分支
   | 'done'; // 全部 2^n 子集枚举完毕
 
+/** 迷宫轨快照——回溯与搜索网格搜索原语（迷宫寻路 DFS + 回溯；为岛屿/单词搜索/BFS 铺路） */
+export interface MazeTrack {
+  rows: number;
+  cols: number;
+  walls: boolean[][]; // walls[r][c] = 是否墙
+  start: [number, number];
+  goal: [number, number];
+  current?: [number, number] | null; // 老鼠当前格（🐭 + 琥珀环）
+  path?: [number, number][]; // 当前 DFS 栈路径 start..current（琥珀 trail）
+  visited?: [number, number][]; // 已进入过的格（浅蓝；含已放弃的死路）
+  solved?: boolean; // path 即解路径 → 整条标绿
+}
+
+/** 迷宫寻路执行点（C-059，回溯第 5 页；新建 MazeView 迷宫轨——网格 DFS + 回溯） */
+export type MazeExecPoint =
+  | 'start' // 位于起点
+  | 'move' // 沿某方向前进一格（入栈）
+  | 'deadend' // 当前格四周无未访问通路 → 死路
+  | 'backtrack' // 退回上一格（出栈）
+  | 'goal' // 到达终点
+  | 'done'; // 结束（解路径标绿）
+
 /** 组合总和执行点（C-058，回溯第 4 页；扩展 DecisionTreeView——决策树 + 剪枝：和 > 目标即砍枝） */
 export type CombSumExecPoint =
   | 'start' // 根：空组合，和 0
@@ -334,6 +356,7 @@ export interface Step<P extends string = string> {
   matrix?: MatrixTrack; // 纯加法：Floyd 的矩阵轨；其它算法不设 → MatrixView 不渲染
   board?: BoardTrack; // 纯加法：回溯的棋盘轨；其它算法不设 → BoardView 不渲染
   decisionTree?: DecisionTreeTrack; // 纯加法：回溯的决策树轨；其它算法不设 → DecisionTreeView 不渲染
+  maze?: MazeTrack; // 纯加法：回溯的迷宫轨；其它算法不设 → MazeView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

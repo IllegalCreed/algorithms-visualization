@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 迷宫外框 -->
+  <rect x="120" y="120" width="784" height="784" rx="40" fill="none" stroke="#333333" stroke-width="40" />
+  <!-- 内部墙 -->
+  <g stroke="#333333" stroke-width="36" stroke-linecap="round">
+    <line x1="120" y1="380" x2="512" y2="380" />
+    <line x1="644" y1="120" x2="644" y2="512" />
+    <line x1="380" y1="644" x2="904" y2="644" />
+    <line x1="380" y1="512" x2="380" y2="904" />
+  </g>
+  <!-- 解路径（起点 → 终点，蛇形穿过） -->
+  <polyline
+    points="230,230 230,512 512,512 512,774 774,774"
+    fill="none"
+    stroke="#333333"
+    stroke-width="26"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-dasharray="8 40"
+  />
+  <!-- 起点（实心） -->
+  <circle cx="230" cy="230" r="66" fill="#333333" />
+  <!-- 终点（空心旗标） -->
+  <circle cx="774" cy="774" r="66" fill="#ffffff" stroke="#333333" stroke-width="30" />
+</svg>

@@ -26,6 +26,7 @@ import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
 import CombsumIcon from '@/assets/combsum.svg';
+import MazeIcon from '@/assets/maze.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -322,6 +323,12 @@ export function useCategoryData(): Category[] {
           desc: '从一组数选若干个凑目标和：决策树上逐个加数，当前和超过目标就剪枝砍支，演示回溯剪枝的威力',
           icon: CombsumIcon,
           url: 'combination-sum',
+        },
+        {
+          title: '迷宫寻路',
+          desc: '在带墙网格里用 DFS 从起点找到终点：沿一个方向深入，撞死路就回退换方向，回溯的网格搜索形态',
+          icon: MazeIcon,
+          url: 'maze',
         },
       ],
     },
