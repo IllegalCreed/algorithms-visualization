@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **630** 个用例。运行命令：`pnpm test:unit`
+共 **642** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，6 顶层分类·新增字符串·KMP（C-062）                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp（C-063）          | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，6 顶层分类·新增字符串·KMP（C-062）                   | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp（C-063）          | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -1040,11 +1040,30 @@
 | TC-KMP-MOD-11 | 四语言 sources + 行号在范围内                         | `src/algorithms/kmp.module.spec.ts` |
 | TC-KMP-MOD-12 | module 元信息 title 含 KMP/字符串、initialInput()=[]  | `src/algorithms/kmp.module.spec.ts` |
 
+### Rabin-Karp 模块 rabinkarp.module（C-063 · 字符串第 2 页，滚动哈希 12 步 + 复用 KmpView 轨）
+
+固定 T=`abcabcab`、P=`cab`，B=10/M=997；oracle `rkHash`/`rkWindowHashes`/`rkMatches`；窗口哈希对比，命中 [2,5]。
+
+| Case ID      | 标题                                                      | 自动化路径                                |
+| ------------ | --------------------------------------------------------- | ----------------------------------------- |
+| TC-RK-MOD-01 | 末步 done，found = rkMatches() = [2,5]                    | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-02 | 每步执行点合法且带匹配轨（array:[]）                      | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-03 | 无 π 行：每步 lps = []                                    | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-04 | 窗口对齐：windowStart = offset                            | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-05 | vars/caption 含模式哈希 312                               | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-06 | 存在跳过 + 恰 2 命中                                      | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-07 | skip 步该窗口哈希 ≠ 模式哈希                              | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-08 | hashHit 步该窗口哈希 = 模式哈希                           | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-09 | found 步命中起点 ∈ {2,5}，末步 found=[2,5]                | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-10 | 命中区间不越界：T.substr(s,m)===P                         | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-11 | 四语言 sources + 行号在范围内                             | `src/algorithms/rabinkarp.module.spec.ts` |
+| TC-RK-MOD-12 | module 元信息 title 含 Rabin-Karp/哈希、initialInput()=[] | `src/algorithms/rabinkarp.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **392** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **396** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1618,48 +1637,49 @@
 
 ### GraphView 图轨 + 播放器接图轨（C-047 · M8②-1，新第 7 轨，通用带权图，供 Kruskal C-048 复用）
 
-| Case ID              | 标题                                                           | 自动化路径                                      |
-| -------------------- | -------------------------------------------------------------- | ----------------------------------------------- |
-| TC-VIZ-GRAPHVIEW-01  | 6 .graph-node + 9 .graph-edge + 权重文本可见                   | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active                            | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree                              | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）                        | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-MATRIXVIEW-01 | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                           | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）                                | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-04 | active 单元 .mx-active；sources 两单元 .mx-source              | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-05 | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）               | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-06 | emptyText='' → null 单元显示空白（非 ∞）                       | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-07 | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）  | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-BOARDVIEW-01  | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛              | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-02  | 交错着色：深格 8 个                                            | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-03  | tryCell=[2,1] → 对应格带 .bc-try                               | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-04  | conflictCells=[[0,0]] → 对应格带 .bc-conflict                  | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-DTREEVIEW-01  | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge                     | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-02  | activeId=1 → 恰 1 个 .active 节点                              | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点                       | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                    | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-05  | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）  | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-MAZEVIEW-01   | 5×5 → 25 格；2 墙 → 2 .mz-wall                                 | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）                            | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path                   | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution           | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格                                 | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare                   | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                   | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-04    | found=[2] → 文本下标 2 起 5 格带 .kmp-found                    | `src/components/KmpView.spec.ts`                |
-| TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）       | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                               | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-01   | step 带 board → 渲染 BoardView                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-02   | 排序 step 无 board→不渲染 BoardView（零回归）                  | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-01   | step 带 decisionTree → 渲染 DecisionTreeView                   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）                     | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MAZE-01    | step 带 maze → 渲染 MazeView                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MAZE-02    | 排序 step 无 maze→不渲染 MazeView（零回归）                    | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-01     | step 带 kmp → 渲染 KmpView                                     | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-02     | 排序 step 无 kmp→不渲染 KmpView（零回归）                      | `src/components/player/AlgorithmPlayer.spec.ts` |
+| Case ID              | 标题                                                                      | 自动化路径                                      |
+| -------------------- | ------------------------------------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-GRAPHVIEW-01  | 6 .graph-node + 9 .graph-edge + 权重文本可见                              | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active                                       | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree                                         | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）                                   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-MATRIXVIEW-01 | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                      | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）                                           | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                              | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-04 | active 单元 .mx-active；sources 两单元 .mx-source                         | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-05 | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）                          | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-06 | emptyText='' → null 单元显示空白（非 ∞）                                  | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-07 | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）             | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-BOARDVIEW-01  | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛                         | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-02  | 交错着色：深格 8 个                                                       | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-03  | tryCell=[2,1] → 对应格带 .bc-try                                          | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-04  | conflictCells=[[0,0]] → 对应格带 .bc-conflict                             | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-DTREEVIEW-01  | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge                                | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-02  | activeId=1 → 恰 1 个 .active 节点                                         | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点                                  | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                               | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-05  | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）             | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-MAZEVIEW-01   | 5×5 → 25 格；2 墙 → 2 .mz-wall                                            | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）                                       | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path                              | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution                      | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格                                            | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare                              | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                              | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-04    | found=[2] → 文本下标 2 起 5 格带 .kmp-found                               | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-05    | windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展） | `src/components/KmpView.spec.ts`                |
+| TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                           | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                  | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                                          | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView            | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-01   | step 带 board → 渲染 BoardView                                            | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-02   | 排序 step 无 board→不渲染 BoardView（零回归）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-01   | step 带 decisionTree → 渲染 DecisionTreeView                              | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）                                | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-01    | step 带 maze → 渲染 MazeView                                              | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-02    | 排序 step 无 maze→不渲染 MazeView（零回归）                               | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-01     | step 带 kmp → 渲染 KmpView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-02     | 排序 step 无 kmp→不渲染 KmpView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -1791,11 +1811,19 @@
 | TC-VIEW-KMP-02 | h1 含「KMP」+ KmpView + 无 .bars-view     | `src/views/Article/Algorithm/Kmp.spec.ts` |
 | TC-VIEW-KMP-03 | 全模板同屏：Article 含「字符串」+ KmpView | `src/views/Article/Algorithm/Kmp.spec.ts` |
 
+### Rabin-Karp 页 C-063（字符串第 2 页，新页，全模板 + 复用 KmpView 轨·无 π 行）
+
+| Case ID       | 标题                                                   | 自动化路径                                      |
+| ------------- | ------------------------------------------------------ | ----------------------------------------------- |
+| TC-VIEW-RK-01 | 挂载渲染 Article + AlgorithmPlayer                     | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
+| TC-VIEW-RK-02 | h1 含「Rabin-Karp」+ KmpView + 无 .bars-view + 无 π 行 | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
+| TC-VIEW-RK-03 | 全模板同屏：Article 含「哈希」+ KmpView                | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **54** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **55** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1854,6 +1882,7 @@
 | TC-E2E-LCS-01       | LCS 全模板：正文 + DP 填表 + 回溯 / `.scrub` 拖末步 路径绿环 + caption 含 ACD / Shiki（C-060 新增）                        | `e2e/lcs.e2e.ts`                   | active     |
 | TC-E2E-LIS-01       | LIS 全模板：正文 + 一维 DP 两行表 / `.scrub` 拖末步 LIS 绿环 + caption 含 1→3→4→5 / Shiki（C-061 新增）                    | `e2e/lis.e2e.ts`                   | active     |
 | TC-E2E-KMP-01       | KMP 全模板：正文 + 文本/模式/LPS 三行 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-062 新增）             | `e2e/kmp.e2e.ts`                   | active     |
+| TC-E2E-RK-01        | Rabin-Karp 全模板：正文 + 滚动哈希窗口 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-063 新增）            | `e2e/rabin-karp.e2e.ts`            | active     |
 
 ---
 

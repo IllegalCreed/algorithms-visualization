@@ -188,131 +188,132 @@
 
 ## viz-engine（可视化引擎基础组件）
 
-| Case ID              | 标题                                                                    | 层级 | 自动化路径                                      |
-| -------------------- | ----------------------------------------------------------------------- | ---- | ----------------------------------------------- |
-| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                                            | L4   | `src/components/Arrow.spec.ts`                  |
-| TC-VIZ-ARROW-02      | 非预设色按原值透传                                                      | L4   | `src/components/Arrow.spec.ts`                  |
-| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位                             | L4   | `src/components/ArrowTrack.spec.ts`             |
-| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）                                     | L4   | `src/components/ArrowTrack.spec.ts`             |
-| TC-VIZ-BLOCK-01      | 渲染数值                                                                | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-BLOCK-02      | 背景透明度随 percent                                                    | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white                                    | L4   | `src/components/Block.spec.ts`                  |
-| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                                                  | L4   | `src/components/List.spec.ts`                   |
-| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                                      | L4   | `src/components/List.spec.ts`                   |
-| TC-VIZ-BAR-01        | 渲染数值（C-006）                                                       | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                                            | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                                           | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                                           | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）                                     | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）                                | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）                                  | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）                                    | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）                                   | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）                                | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）                                  | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）                                         | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）                                   | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）                                | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）                                          | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）                                         | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）                             | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-12   | 组内柱保持 idle、组外柱 dimmed（C-010）                                 | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 取本态（C-010）                       | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）                                   | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BAR-07        | state='empty' 时柱体加 empty class（C-011）                             | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-AUXVIEW-01    | 渲染与 aux.array 等长的槽（C-011）                                      | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-02    | filled 的槽为 sorted、其余为 empty（C-011）                             | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-03    | pointer 定位 k 箭头到对应槽（C-011）                                    | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-04    | 无 pointer 时不渲染箭头（C-011）                                        | L4   | `src/components/AuxView.spec.ts`                |
-| TC-VIZ-AUXVIEW-05    | filled 槽高度用主轨 min/max 同尺度（C-011）                             | L4   | `src/components/AuxView.spec.ts`                |
-| TC-PLAYER-AUX-01     | module 无 aux 时不渲染 AuxView（C-011）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-AUX-02     | 当前步带 aux 时渲染 AuxView（C-011）                                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BAR-08        | state=pivot 时柱体加 pivot class（C-012）                               | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-15   | pivotIndex 指向的 Bar 进入 pivot 态（C-012）                            | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-16   | pivot 优先级最高：压过 comparing/groupMembers/sortedIndices（C-012）    | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-17   | sortedIndices 内的离散下标进入 sorted 态（C-012）                       | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-STACKVIEW-01  | 渲染与 frames 等量的栈帧（C-012）                                       | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-02  | 栈顶在最上、内容为 a[lo..hi]（C-012）                                   | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-03  | 栈顶帧高亮（.top）（C-012）                                             | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-04  | 固定等宽居中（无 inline left/width）（C-012）                           | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-05  | 空栈渲染占位、无栈帧（C-012）                                           | L4   | `src/components/StackView.spec.ts`              |
-| TC-VIZ-STACKVIEW-06  | 稳定 key 入栈渲染（setProps 增帧后旧帧保留）（C-012）                   | L4   | `src/components/StackView.spec.ts`              |
-| TC-PLAYER-STACK-01   | module 无 stack 时不渲染 StackView（向后兼容）（C-012）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-STACK-02   | 当前步带 stack 时渲染 StackView（C-012）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-STACK-03   | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）（C-012）               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-STACK-04   | 同时带 aux + stack 双辅助轨并存都渲染（C-043 自顶向下归并）             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BAR-09        | state=heapNode 时柱体加 heapNode class（C-013）                         | L4   | `src/components/Bar.spec.ts`                    |
-| TC-VIZ-BARSVIEW-18   | heapNode 指向的 Bar 进入 heapNode 态（C-013）                           | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-19   | heapNode 让位 sorted：已就位后缀优先（C-013）                           | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-20   | heapNode 压过 comparing（C-013）                                        | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-TREEVIEW-01   | 渲染节点数 = array.length（C-013）                                      | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-02   | 完全二叉树布局坐标（C-013）                                             | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-03   | 父子边数 = n-1（C-013）                                                 | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-04   | heapNode 节点带 heapNode 类（C-013）                                    | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-05   | heapSize 区分就位（k≥heapSize 为 sorted）（C-013）                      | L4   | `src/components/TreeView.spec.ts`               |
-| TC-VIZ-TREEVIEW-06   | comparing 黄 / swapped 橙节点态（C-013）                                | L4   | `src/components/TreeView.spec.ts`               |
-| TC-PLAYER-TREE-01    | 当前步带 tree 时渲染 TreeView（C-013）                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-TREE-02    | module 无 tree 时不渲染 TreeView（向后兼容）（C-013）                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-TREE-03    | 带 aux 不带 tree 不渲染 TreeView（多轨互不干扰）（C-013）               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）（C-014）                 | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡（C-014）            | L4   | `src/components/BarsView.spec.ts`               |
-| TC-VIZ-BARSVIEW-23   | pivotIndices 双基准都进入 pivot 态（C-042 双轴快排）                    | L4   | `src/components/BarsView.spec.ts`               |
-| TC-E2E-CODEPANEL-01  | 缺陷回归：代码面板长行可横滚、不截断（C-042 Owner 反馈，overflow-x）    | L5   | `e2e/code-panel-hscroll.e2e.ts`                 |
-| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min（C-014）                                           | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值与计数 0（C-014）                                  | L4   | `src/components/CountView.spec.ts`              |
-| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]（C-014）                                      | L4   | `src/components/CountView.spec.ts`              |
-| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView（C-014）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）（C-014）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰）（C-014）            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签（C-040 新桶轨）                                    | L4   | `src/components/BucketView.spec.ts`             |
-| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值（C-040）                                       | L4   | `src/components/BucketView.spec.ts`             |
-| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active（C-040）                                      | L4   | `src/components/BucketView.spec.ts`             |
-| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签（C-040）                                    | L4   | `src/components/BucketView.spec.ts`             |
-| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView（C-040）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）（C-040）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-GRAPHVIEW-01  | 6 .graph-node + 9 .graph-edge + 权重文本（C-047 新第 7 轨，通用带权图） | L4   | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active（C-047）                            | L4   | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree（C-047）                              | L4   | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）（C-047）                        | L4   | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-MATRIXVIEW-01 | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                           | L4   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）（C-052）                                | L4   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                         | L4   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-04 | active .mx-active；sources 两单元 .mx-source（C-052）                   | L4   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-05 | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）（C-053）               | L4   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-06 | emptyText='' → null 单元显示空白（非 ∞）（C-053）                       | L4   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-07 | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）           | L4   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-BOARDVIEW-01  | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛（C-055）              | L4   | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-02  | 交错着色：深格 8 个（C-055）                                            | L4   | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-03  | tryCell=[2,1] → 对应格带 .bc-try（C-055）                               | L4   | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-04  | conflictCells=[[0,0]] → 对应格带 .bc-conflict（C-055）                  | L4   | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-DTREEVIEW-01  | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge（C-056）                     | L4   | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-02  | activeId=1 → 恰 1 个 .active 节点（C-056）                              | L4   | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点（C-056）                       | L4   | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字（C-056）                    | L4   | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-05  | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）           | L4   | `src/components/DecisionTreeView.spec.ts`       |
-| TC-PLAYER-GRAPH-01   | 当前步带 graph 时渲染 GraphView（C-047）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-GRAPH-02   | array:[] 不渲染 BarsView；排序 array 非空仍渲染（零回归）（C-047）      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView（C-052）                               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step 空数组→不渲 BarsView（C-052）   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-01   | step 带 board → 渲染 BoardView（C-055）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-02   | 排序 step 无 board→不渲染 BoardView（零回归）（C-055）                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-01   | step 带 decisionTree → 渲染 DecisionTreeView（C-056）                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）（C-056）                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-VIZ-MAZEVIEW-01   | 5×5 → 25 格；2 墙 → 2 .mz-wall（C-059）                                 | L4   | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）（C-059）                            | L4   | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path（C-059）                   | L4   | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution（C-059）           | L4   | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格（C-062）                                 | L4   | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare（C-062）                   | L4   | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）（C-062）                   | L4   | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-04    | found=[2] → 文本下标 2 起 5 格带 .kmp-found（C-062）                    | L4   | `src/components/KmpView.spec.ts`                |
-| TC-PLAYER-MAZE-01    | step 带 maze → 渲染 MazeView（C-059）                                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MAZE-02    | 排序 step 无 maze→不渲染 MazeView（零回归）（C-059）                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-01     | step 带 kmp → 渲染 KmpView（C-062）                                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-02     | 排序 step 无 kmp→不渲染 KmpView（零回归）（C-062）                      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| Case ID              | 标题                                                                      | 层级 | 自动化路径                                      |
+| -------------------- | ------------------------------------------------------------------------- | ---- | ----------------------------------------------- |
+| TC-VIZ-ARROW-01      | 语义色映射柔和色描在雪佛龙上                                              | L4   | `src/components/Arrow.spec.ts`                  |
+| TC-VIZ-ARROW-02      | 非预设色按原值透传                                                        | L4   | `src/components/Arrow.spec.ts`                  |
+| TC-VIZ-ARROWTRACK-01 | 每个 Pointer 渲染一个 Arrow 并按 index 定位                               | L4   | `src/components/ArrowTrack.spec.ts`             |
+| TC-VIZ-ARROWTRACK-02 | slotWidth 自定义时按其定位（C-006）                                       | L4   | `src/components/ArrowTrack.spec.ts`             |
+| TC-VIZ-BLOCK-01      | 渲染数值                                                                  | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-BLOCK-02      | 背景透明度随 percent                                                      | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-BLOCK-03      | percent<0.5 文字色 black，否则 white                                      | L4   | `src/components/Block.spec.ts`                  |
+| TC-VIZ-LIST-01       | 渲染与数据等量的 Block                                                    | L4   | `src/components/List.spec.ts`                   |
+| TC-VIZ-LIST-02       | 最小值 percent=0、最大值 percent=1                                        | L4   | `src/components/List.spec.ts`                   |
+| TC-VIZ-BAR-01        | 渲染数值（C-006）                                                         | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BAR-02        | 高度随 percent 增大（C-006）                                              | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BAR-03        | state 决定柱体 class（C-006）                                             | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-01   | 渲染与数据等量的 Bar（C-006）                                             | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-02   | 最大值柱最高、最小值柱最低（C-006）                                       | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-03   | comparing 下标进入 comparing 态（C-006）                                  | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-04   | sortedFrom 之后进入 sorted 态（C-006）                                    | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-05   | slotWidth 透传给 ArrowTrack（C-006）                                      | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-04        | state=min 时柱体加 min class（C-007）                                     | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-06   | minIndex 指向的 Bar 进入 min 态（C-007）                                  | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-07   | sortedUpTo 左侧进入 sorted 态（C-007）                                    | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-08   | 比较帧 minIndex 取 min（C-007）                                           | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-05        | state=key 时柱体加 key class（C-008）                                     | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-09   | keyIndex 指向的 Bar 进入 key 态（C-008）                                  | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-10   | key 优先级压过 sorted（C-008）                                            | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-11   | 比较帧 keyIndex 取 key（C-008）                                           | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-06        | state=dimmed 时柱体加 dimmed class（C-010）                               | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-12   | 组内柱保持 idle、组外柱 dimmed（C-010）                                   | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-13   | dimmed 最低档：组外 key/comparing 取本态（C-010）                         | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-14   | 空 groupMembers 不淡化任何柱（C-010）                                     | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BAR-07        | state='empty' 时柱体加 empty class（C-011）                               | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-AUXVIEW-01    | 渲染与 aux.array 等长的槽（C-011）                                        | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-02    | filled 的槽为 sorted、其余为 empty（C-011）                               | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-03    | pointer 定位 k 箭头到对应槽（C-011）                                      | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-04    | 无 pointer 时不渲染箭头（C-011）                                          | L4   | `src/components/AuxView.spec.ts`                |
+| TC-VIZ-AUXVIEW-05    | filled 槽高度用主轨 min/max 同尺度（C-011）                               | L4   | `src/components/AuxView.spec.ts`                |
+| TC-PLAYER-AUX-01     | module 无 aux 时不渲染 AuxView（C-011）                                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-AUX-02     | 当前步带 aux 时渲染 AuxView（C-011）                                      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BAR-08        | state=pivot 时柱体加 pivot class（C-012）                                 | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-15   | pivotIndex 指向的 Bar 进入 pivot 态（C-012）                              | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-16   | pivot 优先级最高：压过 comparing/groupMembers/sortedIndices（C-012）      | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-17   | sortedIndices 内的离散下标进入 sorted 态（C-012）                         | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-STACKVIEW-01  | 渲染与 frames 等量的栈帧（C-012）                                         | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-02  | 栈顶在最上、内容为 a[lo..hi]（C-012）                                     | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-03  | 栈顶帧高亮（.top）（C-012）                                               | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-04  | 固定等宽居中（无 inline left/width）（C-012）                             | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-05  | 空栈渲染占位、无栈帧（C-012）                                             | L4   | `src/components/StackView.spec.ts`              |
+| TC-VIZ-STACKVIEW-06  | 稳定 key 入栈渲染（setProps 增帧后旧帧保留）（C-012）                     | L4   | `src/components/StackView.spec.ts`              |
+| TC-PLAYER-STACK-01   | module 无 stack 时不渲染 StackView（向后兼容）（C-012）                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-02   | 当前步带 stack 时渲染 StackView（C-012）                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-03   | 带 aux 不带 stack 只渲染 AuxView（两轨互不干扰）（C-012）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-STACK-04   | 同时带 aux + stack 双辅助轨并存都渲染（C-043 自顶向下归并）               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BAR-09        | state=heapNode 时柱体加 heapNode class（C-013）                           | L4   | `src/components/Bar.spec.ts`                    |
+| TC-VIZ-BARSVIEW-18   | heapNode 指向的 Bar 进入 heapNode 态（C-013）                             | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-19   | heapNode 让位 sorted：已就位后缀优先（C-013）                             | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-20   | heapNode 压过 comparing（C-013）                                          | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-TREEVIEW-01   | 渲染节点数 = array.length（C-013）                                        | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-02   | 完全二叉树布局坐标（C-013）                                               | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-03   | 父子边数 = n-1（C-013）                                                   | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-04   | heapNode 节点带 heapNode 类（C-013）                                      | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-05   | heapSize 区分就位（k≥heapSize 为 sorted）（C-013）                        | L4   | `src/components/TreeView.spec.ts`               |
+| TC-VIZ-TREEVIEW-06   | comparing 黄 / swapped 橙节点态（C-013）                                  | L4   | `src/components/TreeView.spec.ts`               |
+| TC-PLAYER-TREE-01    | 当前步带 tree 时渲染 TreeView（C-013）                                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-TREE-02    | module 无 tree 时不渲染 TreeView（向后兼容）（C-013）                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-TREE-03    | 带 aux 不带 tree 不渲染 TreeView（多轨互不干扰）（C-013）                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BARSVIEW-21   | dimFrom 连续后缀淡化（index≥dimFrom → dimmed）（C-014）                   | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-22   | dimFrom 与 sortedUpTo 共存：前缀绿/活跃 idle/后缀淡（C-014）              | L4   | `src/components/BarsView.spec.ts`               |
+| TC-VIZ-BARSVIEW-23   | pivotIndices 双基准都进入 pivot 态（C-042 双轴快排）                      | L4   | `src/components/BarsView.spec.ts`               |
+| TC-E2E-CODEPANEL-01  | 缺陷回归：代码面板长行可横滚、不截断（C-042 Owner 反馈，overflow-x）      | L5   | `e2e/code-panel-hscroll.e2e.ts`                 |
+| TC-VIZ-COUNTVIEW-01  | 渲染桶数 = buckets.length（C-014）                                        | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-02  | 每桶单元格数 = buckets[b]（C-014）                                        | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-03  | 桶底值标签 = b + min（C-014）                                             | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-04  | activeBucket 桶带 .active（C-014）                                        | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-05  | 空桶渲染 0 格、仍显值与计数 0（C-014）                                    | L4   | `src/components/CountView.spec.ts`              |
+| TC-VIZ-COUNTVIEW-06  | 桶顶计数数字 = buckets[b]（C-014）                                        | L4   | `src/components/CountView.spec.ts`              |
+| TC-PLAYER-COUNT-01   | 当前步带 count 时渲染 CountView（C-014）                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-COUNT-02   | module 无 count 时不渲染 CountView（向后兼容）（C-014）                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-COUNT-03   | 带 tree 不带 count 不渲染 CountView（多轨互不干扰）（C-014）              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-BUCKETVIEW-01 | 渲染 5 桶 + 值域标签（C-040 新桶轨）                                      | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-02 | 桶内每元素一格、文本为值（C-040）                                         | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-03 | activeBucket 桶带 .active（C-040）                                        | L4   | `src/components/BucketView.spec.ts`             |
+| TC-VIZ-BUCKETVIEW-04 | 空桶渲染 0 格、仍显值域标签（C-040）                                      | L4   | `src/components/BucketView.spec.ts`             |
+| TC-PLAYER-BUCKET-01  | 当前步带 bucket 时渲染 BucketView（C-040）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BUCKET-02  | module 无 bucket 不渲染 BucketView（向后兼容）（C-040）                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-GRAPHVIEW-01  | 6 .graph-node + 9 .graph-edge + 权重文本（C-047 新第 7 轨，通用带权图）   | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active（C-047）                              | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree（C-047）                                | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）（C-047）                          | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-MATRIXVIEW-01 | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                             | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）（C-052）                                  | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                           | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-04 | active .mx-active；sources 两单元 .mx-source（C-052）                     | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-05 | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）（C-053）                 | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-06 | emptyText='' → null 单元显示空白（非 ∞）（C-053）                         | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-07 | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）             | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-BOARDVIEW-01  | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛（C-055）                | L4   | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-02  | 交错着色：深格 8 个（C-055）                                              | L4   | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-03  | tryCell=[2,1] → 对应格带 .bc-try（C-055）                                 | L4   | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-04  | conflictCells=[[0,0]] → 对应格带 .bc-conflict（C-055）                    | L4   | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-DTREEVIEW-01  | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge（C-056）                       | L4   | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-02  | activeId=1 → 恰 1 个 .active 节点（C-056）                                | L4   | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点（C-056）                         | L4   | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字（C-056）                      | L4   | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-05  | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）             | L4   | `src/components/DecisionTreeView.spec.ts`       |
+| TC-PLAYER-GRAPH-01   | 当前步带 graph 时渲染 GraphView（C-047）                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GRAPH-02   | array:[] 不渲染 BarsView；排序 array 非空仍渲染（零回归）（C-047）        | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView（C-052）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step 空数组→不渲 BarsView（C-052）     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-01   | step 带 board → 渲染 BoardView（C-055）                                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-02   | 排序 step 无 board→不渲染 BoardView（零回归）（C-055）                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-01   | step 带 decisionTree → 渲染 DecisionTreeView（C-056）                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）（C-056）                       | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-VIZ-MAZEVIEW-01   | 5×5 → 25 格；2 墙 → 2 .mz-wall（C-059）                                   | L4   | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）（C-059）                              | L4   | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path（C-059）                     | L4   | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution（C-059）             | L4   | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格（C-062）                                   | L4   | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare（C-062）                     | L4   | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）（C-062）                     | L4   | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-04    | found=[2] → 文本下标 2 起 5 格带 .kmp-found（C-062）                      | L4   | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-05    | windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展） | L4   | `src/components/KmpView.spec.ts`                |
+| TC-PLAYER-MAZE-01    | step 带 maze → 渲染 MazeView（C-059）                                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-02    | 排序 step 无 maze→不渲染 MazeView（零回归）（C-059）                      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-01     | step 带 kmp → 渲染 KmpView（C-062）                                       | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-02     | 排序 step 无 kmp→不渲染 KmpView（零回归）（C-062）                        | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -352,67 +353,67 @@
 
 ## home（首页）
 
-| Case ID              | 标题                                           | 层级 | 自动化路径                                       |
-| -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
-| TC-HOOK-01-1         | 三分类，6 顶层分类·新增字符串·KMP（C-062）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-5         | 每个分类含 desc                                | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                   | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                   | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true    | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                         | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                            | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-CATEGORY-01  | 渲染分类标题                                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-02  | 渲染分类描述                                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                  | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                 | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                 | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                          | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                     | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name  | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                      | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                         | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                   | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                             | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                           | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页           | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-E2E-HOME-01       | 首页加载并能进入 docs                          | L5   | `e2e/home-navigation.e2e.ts`                     |
+| Case ID              | 标题                                                | 层级 | 自动化路径                                       |
+| -------------------- | --------------------------------------------------- | ---- | ------------------------------------------------ |
+| TC-HOOK-01-1         | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp（C-063） | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）          | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                      | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-4         | 所有 url 唯一                                       | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-5         | 每个分类含 desc                                     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                        | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                        | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true         | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false      | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                              | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                                 | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                                  | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                                  | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-CATEGORY-01  | 渲染分类标题                                        | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-02  | 渲染分类描述                                        | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                       | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                        | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                        | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                         | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                      | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                      | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                               | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                          | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name       | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                           | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                              | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                        | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                                  | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                                | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页                | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-E2E-HOME-01       | 首页加载并能进入 docs                               | L5   | `e2e/home-navigation.e2e.ts`                     |
 
 ---
 
 ## docs（文档页侧边菜单）
 
-| Case ID              | 标题                                               | 层级 | 自动化路径                                     |
-| -------------------- | -------------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 三分类，6 顶层分类·新增字符串·KMP（C-062）         | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-2         | 每项含 title/url 且均非空                          | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-3         | 所有 url 唯一                                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构 15 项，排序 15 项（新增鸡尾酒排序 C-045） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true            | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false         | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                               | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                           | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                           | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-E2E-MENU-01       | docs 菜单点击切换路由                              | L5   | `e2e/docs-menu.e2e.ts`                         |
+| Case ID              | 标题                                                | 层级 | 自动化路径                                     |
+| -------------------- | --------------------------------------------------- | ---- | ---------------------------------------------- |
+| TC-HOOK-02-1         | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp（C-063） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-2         | 每项含 title/url 且均非空                           | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-3         | 所有 url 唯一                                       | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构 15 项，排序 15 项（新增鸡尾酒排序 C-045）  | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true             | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false          | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                                 | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url                 | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class               | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                               | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                            | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）          | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                            | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-E2E-MENU-01       | docs 菜单点击切换路由                               | L5   | `e2e/docs-menu.e2e.ts`                         |
 
 ---
 
@@ -947,7 +948,7 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法 C-037~052 + 动态规划 C-053/054/060/061 + 回溯 C-055~059 + 字符串 C-062；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
+## article-algo（图算法 C-037~052 + 动态规划 C-053/054/060/061 + 回溯 C-055~059 + 字符串 C-062/063；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
 > **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。
@@ -966,6 +967,7 @@
 > **C-060（M6 动态规划第 3 页 · 新页）**：最长公共子序列 LCS——DP 从「填表求最优值」延伸到「填表 + 回溯求最优解」。前两页（编辑距离/背包）只填表求数值，本页填完二维 DP 表后**从右下角回走恢复出 LCS 字符串本身**。**扩展 MatrixView**（第 4 消费者：additive `pathCells` + `.mx-path` 回溯路径绿环，见 viz-engine 段 `TC-VIZ-MATRIXVIEW-07`）。`lcs.module`（X=ABCD/Y=ACDF，5×5 DP 表填表 + 回溯 24 步 + oracle，LCS=ACD 长 3）。新页 + 路由 + 菜单/首页「动态规划」第 3 项 + 新 `lcs.svg` + 改 `TC-HOOK-01-1/02-1`（动态规划 children +lcs）。MatrixView 四验（方阵/字符轴/数值轴/回溯路径）。`TC-LCS-MOD-*` + `TC-VIEW-LCS-*` + `TC-E2E-LCS-01`。
 > **C-061（M6 动态规划第 4 页 · 新页）**：最长递增子序列 LIS——补 DP 的**一维 dp 数组**形态（前三页编辑距离/背包/LCS 都是二维表）。`dp[i]` = 以 i 结尾的最长递增子序列长，回看前面所有 `dp[j]` 取 max+1；`max(dp)` = 答案，回溯 pred 恢复 LIS。**复用 MatrixView 两行表零改动**（第 5 消费者：值行 + dp 行，当前 i 琥珀/回看 j 黄源/更新绿闪，复用 C-060 的 pathCells 高亮 LIS）。`lis.module`（输入 [1,3,2,4,3,5]，2×6 表 18 步 + oracle，LIS=1→3→4→5 长 4）。新页 + 路由 + 菜单/首页「动态规划」第 4 项 + 新 `lis.svg` + 改 `TC-HOOK-01-1/02-1`（动态规划 children +lis）。MatrixView 五验（方阵/字符轴/数值轴/回溯路径/两行表）。`TC-LIS-MOD-*` + `TC-VIEW-LIS-*` + `TC-E2E-LIS-01`。
 > **C-062（M6 字符串大类首发 · 新页）**：KMP 字符串匹配——开第 6 顶层大类「字符串」。朴素匹配失配回退整个模式串 + 文本指针 O(nm)；KMP 预处理部分匹配表 π，失配时**文本指针不回退**、j 跳到 `lps[j-1]` 复用已匹配前缀，O(n+m)。**新建第 12 条 KmpView 字符串匹配轨**（文本行 + 模式串行按对齐偏移滑动 + LPS 行 + 比较/匹配/失配/跳转高亮，见 viz-engine 段 `TC-VIZ-KMPVIEW-*`/`TC-PLAYER-KMP-*`；为 Rabin-Karp/BM/AC 自动机铺路）。`kmp.module`（T=abababcab/P=ababc，π=[0,0,1,2,0]，匹配循环 12 步含 1 次关键跳转 j 4→2 + oracle，命中下标 2）。新页 + 路由 + 菜单/首页开「字符串」第 6 大类 + 新 `kmp.svg` + 改 `TC-HOOK-01-1/02-1`（顶层分类 5→6）。`TC-KMP-MOD-*` + `TC-VIEW-KMP-*` + `TC-E2E-KMP-01`。
+> **C-063（M6 字符串第 2 页 · 新页）**：Rabin-Karp 滚动哈希匹配——与 KMP（部分匹配表）对照的另一思路。把长 m 窗口压成一个哈希，滑动时 O(1) 更新（去首字符 + 加尾字符），每格只比一个数；哈希相等才逐字符验证防冲突。**复用 KmpView 字符串匹配轨**（第 2 消费者：+`windowStart` 窗口带 + 空 LPS 隐 π 行，见 viz-engine 段 `TC-VIZ-KMPVIEW-05`）。`rabinkarp.module`（T=abcabcab/P=cab，B=10/M=997，模式哈希 312，6 窗口 12 步 + oracle，命中 [2,5]）。新页 + 路由 + 菜单/首页「字符串」第 2 项 + 新 `rabinkarp.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +rabin-karp）。KmpView 服务 KMP + Rabin-Karp。`TC-RK-MOD-*` + `TC-VIEW-RK-*` + `TC-E2E-RK-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                      |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -1264,3 +1266,19 @@
 | TC-VIEW-KMP-02        | h1 含「KMP」+ KmpView + 无 .bars-view（C-062）                                                     | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`       |
 | TC-VIEW-KMP-03        | 全模板同屏：Article 含「字符串」+ KmpView（C-062）                                                 | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`       |
 | TC-E2E-KMP-01         | KMP 全模板：文本/模式/LPS 三行 / 拖末步 命中高亮 / Shiki（C-062 新增）                             | L5   | `e2e/kmp.e2e.ts`                                |
+| TC-RK-MOD-01          | 末步 done，found = rkMatches() = [2,5]（C-063）                                                    | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-02          | 每步执行点合法且带匹配轨（array:[]）（C-063）                                                      | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-03          | 无 π 行：每步 lps = []（C-063）                                                                    | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-04          | 窗口对齐：windowStart = offset（C-063）                                                            | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-05          | vars/caption 含模式哈希 312（C-063）                                                               | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-06          | 存在跳过 + 恰 2 命中（C-063）                                                                      | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-07          | skip 步该窗口哈希 ≠ 模式哈希（C-063）                                                              | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-08          | hashHit 步该窗口哈希 = 模式哈希（C-063）                                                           | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-09          | found 步命中起点 ∈ {2,5}，末步 found=[2,5]（C-063）                                                | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-10          | 命中区间不越界：T.substr(s,m)===P（C-063）                                                         | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-11          | 四语言 sources + 行号在范围内（C-063）                                                             | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-RK-MOD-12          | module 元信息 title 含 Rabin-Karp/哈希、initialInput()=[]（C-063）                                 | L3   | `src/algorithms/rabinkarp.module.spec.ts`       |
+| TC-VIEW-RK-01         | 挂载渲染 Article + AlgorithmPlayer（C-063）                                                        | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
+| TC-VIEW-RK-02         | h1 含「Rabin-Karp」+ KmpView + 无 .bars-view + 无 π 行（C-063）                                    | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
+| TC-VIEW-RK-03         | 全模板同屏：Article 含「哈希」+ KmpView（C-063）                                                   | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
+| TC-E2E-RK-01          | Rabin-Karp 全模板：滚动哈希窗口 / 拖末步 命中高亮 / Shiki（C-063 新增）                            | L5   | `e2e/rabin-karp.e2e.ts`                         |
