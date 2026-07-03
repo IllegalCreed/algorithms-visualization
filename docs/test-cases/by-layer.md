@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **558** 个用例。运行命令：`pnpm test:unit`
+共 **570** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集生成（C-056）           | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+全排列（C-057）        | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集生成（C-056）           | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+全排列（C-057）        | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -926,11 +926,30 @@
 | TC-SUBSETS-MOD-11 | 四语言 sources + 行号在范围内                            | `src/algorithms/subsets.module.spec.ts` |
 | TC-SUBSETS-MOD-12 | module 元信息 title 含子集、initialInput()=[]            | `src/algorithms/subsets.module.spec.ts` |
 
+### 全排列模块 permute.module（C-057 · 回溯第 3 页，多叉排列树 DFS 28 步 + 复用 DecisionTreeView 轨）
+
+固定元素 `[1,2,3]`；oracle `permutationsAll`；每位从剩余未用元素挑一个的多叉决策树 DFS 求全部 3! 排列。
+
+| Case ID           | 标题                                               | 自动化路径                              |
+| ----------------- | -------------------------------------------------- | --------------------------------------- |
+| TC-PERMUTE-MOD-01 | 末步 done，solutionIds 覆盖全部 6 叶               | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-02 | 每步执行点合法且带决策树轨（array:[]）             | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-03 | 决策树 16 节点、15 边、6 叶                        | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-04 | 6 个 record 步按序 = permutationsAll()             | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-05 | 首步 start：根空排列、pathIds=[根]、solutionIds 空 | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-06 | 恰 6 个 record（= 3!）                             | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-07 | 存在回溯，backtrack 步 active 为内部节点           | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-08 | 每步 pathIds 从根到 active 连贯（相邻父子边）      | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-09 | 每个解是 [1,2,3] 的合法排列（长 3/互异/值域）      | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-10 | 首个 choose 步 active=根首子、边 label 含「选 1」  | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-11 | 四语言 sources + 行号在范围内                      | `src/algorithms/permute.module.spec.ts` |
+| TC-PERMUTE-MOD-12 | module 元信息 title 含排列、initialInput()=[]      | `src/algorithms/permute.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **360** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **363** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1615,11 +1634,19 @@
 | TC-VIEW-SUBSETS-02 | h1 含「子集」+ DecisionTreeView + 无 .bars-view  | `src/views/Article/Algorithm/Subsets.spec.ts` |
 | TC-VIEW-SUBSETS-03 | 全模板同屏：Article 含「子集」+ DecisionTreeView | `src/views/Article/Algorithm/Subsets.spec.ts` |
 
+### 全排列页 C-057（回溯第 3 页，新页，全模板 + 复用 DecisionTreeView 决策树）
+
+| Case ID            | 标题                                             | 自动化路径                                    |
+| ------------------ | ------------------------------------------------ | --------------------------------------------- |
+| TC-VIEW-PERMUTE-01 | 挂载渲染 Article + AlgorithmPlayer               | `src/views/Article/Algorithm/Permute.spec.ts` |
+| TC-VIEW-PERMUTE-02 | h1 含「排列」+ DecisionTreeView + 无 .bars-view  | `src/views/Article/Algorithm/Permute.spec.ts` |
+| TC-VIEW-PERMUTE-03 | 全模板同屏：Article 含「排列」+ DecisionTreeView | `src/views/Article/Algorithm/Permute.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **48** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **49** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1672,6 +1699,7 @@
 | TC-E2E-KNAP-01      | 0-1 背包全模板：正文 + DP 表 5×6 / `.scrub` 拖末步右下角=7 / Shiki（C-054 新增）                                           | `e2e/knapsack.e2e.ts`              | active     |
 | TC-E2E-QUEENS-01    | N 皇后全模板：正文 + 棋盘 4×4 / `.scrub` 拖末步 4 皇后 / Shiki（C-055 新增）                                               | `e2e/n-queens.e2e.ts`              | active     |
 | TC-E2E-SUBSETS-01   | 子集生成全模板：正文 + 决策树 15 节点 / `.scrub` 拖末步 8 解叶 / Shiki（C-056 新增）                                       | `e2e/subsets.e2e.ts`               | active     |
+| TC-E2E-PERMUTE-01   | 全排列全模板：正文 + 多叉决策树 16 节点 / `.scrub` 拖末步 6 排列叶 / Shiki（C-057 新增）                                   | `e2e/permutations.e2e.ts`          | active     |
 
 ---
 
