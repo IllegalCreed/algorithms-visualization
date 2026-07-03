@@ -145,6 +145,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Subsets.vue'),
           },
           {
+            path: '/docs/permutations',
+            name: 'permutations',
+            component: () => import('../views/Article/Algorithm/Permute.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

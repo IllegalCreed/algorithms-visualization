@@ -24,6 +24,7 @@ import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
+import PermuteIcon from '@/assets/permute.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -308,6 +309,12 @@ export function useCategoryData(): Category[] {
           desc: '枚举集合的全部 2^n 个子集：对每个元素「选/不选」构成二叉决策树，DFS 走到底记录、回退换分支',
           icon: SubsetsIcon,
           url: 'subsets',
+        },
+        {
+          title: '全排列',
+          desc: '枚举 n! 个排列：每个位置从剩余未用元素挑一个，构成多叉决策树，used 标记剪枝、回溯换选择',
+          icon: PermuteIcon,
+          url: 'permutations',
         },
       ],
     },

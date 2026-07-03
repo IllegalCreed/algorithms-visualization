@@ -283,6 +283,14 @@ export type SubsetsExecPoint =
   | 'backtrack' // 一个子树探索完，回退到父节点换另一分支
   | 'done'; // 全部 2^n 子集枚举完毕
 
+/** 全排列执行点（C-057，回溯第 3 页；复用 DecisionTreeView 决策树轨——每位从剩余挑一个的多叉决策树 DFS） */
+export type PermuteExecPoint =
+  | 'start' // 位于根：空排列，全部元素可选
+  | 'choose' // 沿「选 k」边下降：从剩余未用元素挑一个放到下一位
+  | 'record' // 到达叶（元素全用完）→ 记录一个排列
+  | 'backtrack' // 一个子树探索完，回退到父节点挑下一个剩余元素
+  | 'done'; // 全部 n! 个排列枚举完毕
+
 /** N 皇后执行点（C-055，回溯大类首发；复用 BoardView 棋盘轨——递归试探 + 剪枝 + 回溯） */
 export type NQueensExecPoint =
   | 'init' // 空棋盘

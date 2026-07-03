@@ -5,7 +5,7 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回 5 个分类（+回溯与搜索），回溯含 N 皇后 + 子集生成（C-056）', () => {
+  it('TC-HOOK-01-1: 返回 5 个分类（+回溯与搜索），回溯含 N 皇后 + 子集 + 全排列（C-057）', () => {
     expect(data).toHaveLength(5);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
@@ -14,7 +14,7 @@ describe('Home/Main useCategoryData', () => {
     expect(data[4].title).toBe('回溯与搜索');
     expect(data[2].children).toHaveLength(6);
     expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack']);
-    expect(data[4].children.map((c) => c.url)).toEqual(['n-queens', 'subsets']);
+    expect(data[4].children.map((c) => c.url)).toEqual(['n-queens', 'subsets', 'permutations']);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

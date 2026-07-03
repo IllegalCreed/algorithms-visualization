@@ -187,6 +187,10 @@ export function useCategoryData(): Category[] {
           title: '子集生成',
           url: 'subsets',
         },
+        {
+          title: '全排列',
+          url: 'permutations',
+        },
       ],
     },
   ];
