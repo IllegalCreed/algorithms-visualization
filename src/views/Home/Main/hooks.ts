@@ -21,6 +21,7 @@ import BellmanIcon from '@/assets/bellman.svg';
 import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
 import EditIcon from '@/assets/editdist.svg';
+import KnapsackIcon from '@/assets/knapsack.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -281,6 +282,12 @@ export function useCategoryData(): Category[] {
           desc: '把一个词改成另一个词的最少插入/删除/替换次数：二维 DP 逐格填表，相同取左上、不同取 1+三邻最小',
           icon: EditIcon,
           url: 'edit-distance',
+        },
+        {
+          title: '0-1 背包',
+          desc: '容量有限、物品取或不取，求最大价值：二维 DP 逐格填表，装不下沿用上行、装得下取 max(不取, 取)',
+          icon: KnapsackIcon,
+          url: 'knapsack',
         },
       ],
     },

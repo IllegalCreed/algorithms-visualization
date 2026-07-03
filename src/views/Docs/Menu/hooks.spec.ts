@@ -26,7 +26,7 @@ describe('Docs/Menu useCategoryData', () => {
       'topological-sort',
       'floyd-warshall',
     ]);
-    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance']);
+    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack']);
   });
 
   it('TC-HOOK-02-2: 每项含 title/url 且均非空', () => {

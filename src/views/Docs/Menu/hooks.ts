@@ -170,6 +170,10 @@ export function useCategoryData(): Category[] {
           title: '编辑距离',
           url: 'edit-distance',
         },
+        {
+          title: '0-1 背包',
+          url: 'knapsack',
+        },
       ],
     },
   ];

@@ -20,7 +20,7 @@ describe('Home/Main useCategoryData', () => {
       'topological-sort',
       'floyd-warshall',
     ]);
-    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance']);
+    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack']);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

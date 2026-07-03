@@ -249,6 +249,13 @@ export type EditDistExecPoint =
   | 'cellDiff' // 字符不同：dp[i][j]=1+min(左上,上,左)
   | 'done'; // 右下角 = 编辑距离
 
+/** 0-1 背包执行点（C-054，DP 大类 DP2；纯复用 MatrixView 矩阵轨——行=物品、列=容量） */
+export type KnapsackExecPoint =
+  | 'init' // 填边界：第 0 行/列 = 0
+  | 'cellSkip' // 装不下（重 > 容量）：dp[i][w]=dp[i-1][w]（沿用上一行）
+  | 'cellChoose' // 装得下：dp[i][w]=max(不取=上格, 取=左上偏移格+价值)
+  | 'done'; // 右下角 = 最大价值
+
 /** Floyd-Warshall 全源最短路执行点（C-052，矩阵上的动态规划——三重循环中转松弛） */
 export type FloydExecPoint =
   | 'init' // 矩阵 = 邻接（对角 0、边权、其余 ∞）

@@ -130,6 +130,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Edit.vue'),
           },
           {
+            path: '/docs/knapsack',
+            name: 'knapsack',
+            component: () => import('../views/Article/Algorithm/Knapsack.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

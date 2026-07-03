@@ -1,0 +1,19 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 背包提手 -->
+  <path
+    d="M380 380 Q380 250 512 250 Q644 250 644 380"
+    fill="none"
+    stroke="#333333"
+    stroke-width="40"
+    stroke-linecap="round"
+  />
+  <!-- 背包主体 -->
+  <rect x="240" y="360" width="544" height="500" rx="80" fill="none" stroke="#333333" stroke-width="44" />
+  <!-- 顶部翻盖分隔线 -->
+  <line x1="240" y1="500" x2="784" y2="500" stroke="#333333" stroke-width="38" />
+  <!-- 内装物品（价值方块） -->
+  <g fill="#333333">
+    <rect x="330" y="580" width="150" height="150" rx="24" />
+    <rect x="544" y="620" width="150" height="200" rx="24" />
+  </g>
+</svg>
