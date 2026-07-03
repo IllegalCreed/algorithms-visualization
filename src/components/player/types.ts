@@ -302,6 +302,29 @@ export type SubsetsExecPoint =
   | 'backtrack' // 一个子树探索完，回退到父节点换另一分支
   | 'done'; // 全部 2^n 子集枚举完毕
 
+/** 字符串匹配轨快照——字符串大类原语（KMP 文本+模式对齐滑动 + LPS；为 Rabin-Karp/BM 铺路） */
+export interface KmpTrack {
+  text: string; // 文本 T
+  pattern: string; // 模式 P
+  lps: number[]; // 部分匹配表（预置展示）
+  offset: number; // 模式串行相对文本行的左偏移（对齐起点 = i - j）
+  matchedLen: number; // pattern[0..matchedLen) 已匹配前缀（绿）
+  compareText?: number | null; // 当前比较的文本下标（琥珀）
+  comparePat?: number | null; // 当前比较的模式下标（琥珀）
+  lpsActive?: number | null; // 跳转时用到的 lps 下标（高亮）
+  status?: 'match' | 'mismatch' | 'found' | null; // 当前比较结果
+  found: number[]; // 已命中的匹配起点（文本下标）
+}
+
+/** KMP 执行点（C-062，字符串大类首发；新建 KmpView——失配用 LPS 跳转、文本指针不回退） */
+export type KmpExecPoint =
+  | 'start' // 开始，i=0 j=0 对齐开头
+  | 'match' // T[i]===P[j]：双指针前进，已匹配前缀 +1
+  | 'jump' // 失配且 j>0：j 跳到 lps[j-1]，模式串右滑（文本指针不回退）
+  | 'advance' // 失配且 j=0：文本指针 +1，模式串右移一格
+  | 'found' // j 到模式末尾：命中，记录起点，j 跳到 lps[j-1] 继续
+  | 'done'; // 文本扫描完
+
 /** 迷宫轨快照——回溯与搜索网格搜索原语（迷宫寻路 DFS + 回溯；为岛屿/单词搜索/BFS 铺路） */
 export interface MazeTrack {
   rows: number;
@@ -375,6 +398,7 @@ export interface Step<P extends string = string> {
   board?: BoardTrack; // 纯加法：回溯的棋盘轨；其它算法不设 → BoardView 不渲染
   decisionTree?: DecisionTreeTrack; // 纯加法：回溯的决策树轨；其它算法不设 → DecisionTreeView 不渲染
   maze?: MazeTrack; // 纯加法：回溯的迷宫轨；其它算法不设 → MazeView 不渲染
+  kmp?: KmpTrack; // 纯加法：字符串匹配轨；其它算法不设 → KmpView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

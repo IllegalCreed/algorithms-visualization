@@ -209,6 +209,15 @@ export function useCategoryData(): Category[] {
         },
       ],
     },
+    {
+      title: '字符串',
+      children: [
+        {
+          title: 'KMP 字符串匹配',
+          url: 'kmp',
+        },
+      ],
+    },
   ];
   return categoryData;
 }

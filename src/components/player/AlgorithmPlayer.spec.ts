@@ -16,6 +16,7 @@ import MatrixView from '@/components/MatrixView.vue';
 import BoardView from '@/components/BoardView.vue';
 import DecisionTreeView from '@/components/DecisionTreeView.vue';
 import MazeView from '@/components/MazeView.vue';
+import KmpView from '@/components/KmpView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -379,6 +380,45 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 maze
     await flushPromises();
     expect(wSort.findComponent(MazeView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 kmp 且 array 空（KMP C-062：KmpView 字符串匹配轨 + 无柱主轨）
+  const kmpModule: AlgorithmModule = {
+    title: 'kmp-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'start',
+        kmp: {
+          text: 'abc',
+          pattern: 'bc',
+          lps: [0, 0],
+          offset: 1,
+          matchedLen: 0,
+          found: [],
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { start: 1 } }],
+  };
+
+  it('TC-PLAYER-KMP-01 当前步带 kmp 时渲染 KmpView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: kmpModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(KmpView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-KMP-02 既有排序 step（无 kmp）不渲染 KmpView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 kmp
+    await flushPromises();
+    expect(wSort.findComponent(KmpView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

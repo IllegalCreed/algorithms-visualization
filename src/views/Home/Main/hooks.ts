@@ -29,6 +29,7 @@ import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
 import CombsumIcon from '@/assets/combsum.svg';
 import MazeIcon from '@/assets/maze.svg';
+import KmpIcon from '@/assets/kmp.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -343,6 +344,18 @@ export function useCategoryData(): Category[] {
           desc: '在带墙网格里用 DFS 从起点找到终点：沿一个方向深入，撞死路就回退换方向，回溯的网格搜索形态',
           icon: MazeIcon,
           url: 'maze',
+        },
+      ],
+    },
+    {
+      title: '字符串',
+      desc: '在文本里查找、比对、处理模式串——编辑器查找、grep、DNA 比对的底层算法',
+      children: [
+        {
+          title: 'KMP 字符串匹配',
+          desc: '在文本里找模式串：预处理出部分匹配表，失配时文本指针不回退、模式串聪明滑动，O(n+m)',
+          icon: KmpIcon,
+          url: 'kmp',
         },
       ],
     },

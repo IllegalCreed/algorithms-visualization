@@ -1,0 +1,23 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 文本行：命中的一段实心、其余空心 -->
+  <g stroke="#333333" stroke-width="24">
+    <rect x="70" y="300" width="120" height="120" rx="16" fill="#ffffff" />
+    <rect x="210" y="300" width="120" height="120" rx="16" fill="#ffffff" />
+    <rect x="350" y="300" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="490" y="300" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="630" y="300" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="770" y="300" width="120" height="120" rx="16" fill="#ffffff" />
+  </g>
+  <!-- 对齐连线（文本命中段 ↓ 模式串） -->
+  <g stroke="#333333" stroke-width="16" stroke-dasharray="10 22" stroke-linecap="round">
+    <line x1="410" y1="430" x2="410" y2="600" />
+    <line x1="550" y1="430" x2="550" y2="600" />
+    <line x1="690" y1="430" x2="690" y2="600" />
+  </g>
+  <!-- 模式串行：对齐到命中段，全实心 -->
+  <g fill="#333333">
+    <rect x="350" y="600" width="120" height="120" rx="16" />
+    <rect x="490" y="600" width="120" height="120" rx="16" />
+    <rect x="630" y="600" width="120" height="120" rx="16" />
+  </g>
+</svg>

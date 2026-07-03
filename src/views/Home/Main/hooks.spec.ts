@@ -5,13 +5,14 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回 5 个分类，动态规划含编辑距离/背包/LCS/LIS（4 项）+ 回溯 5 项（C-061）', () => {
-    expect(data).toHaveLength(5);
+  it('TC-HOOK-01-1: 返回 6 个分类（+字符串），字符串含 KMP（C-062）', () => {
+    expect(data).toHaveLength(6);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
     expect(data[2].title).toBe('图算法');
     expect(data[3].title).toBe('动态规划');
     expect(data[4].title).toBe('回溯与搜索');
+    expect(data[5].title).toBe('字符串');
     expect(data[2].children).toHaveLength(6);
     expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack', 'lcs', 'lis']);
     expect(data[4].children.map((c) => c.url)).toEqual([
@@ -21,6 +22,7 @@ describe('Home/Main useCategoryData', () => {
       'combination-sum',
       'maze',
     ]);
+    expect(data[5].children.map((c) => c.url)).toEqual(['kmp']);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

@@ -170,6 +170,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Maze.vue'),
           },
           {
+            path: '/docs/kmp',
+            name: 'kmp',
+            component: () => import('../views/Article/Algorithm/Kmp.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
