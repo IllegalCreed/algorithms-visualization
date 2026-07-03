@@ -256,6 +256,22 @@ export type KnapsackExecPoint =
   | 'cellChoose' // 装得下：dp[i][w]=max(不取=上格, 取=左上偏移格+价值)
   | 'done'; // 右下角 = 最大价值
 
+/** 棋盘轨快照——回溯与搜索专用（通用棋盘原语，为回溯题数独/排列/迷宫铺路） */
+export interface BoardTrack {
+  n: number; // 棋盘大小
+  queens: (number | null)[]; // queens[col] = 该列皇后所在行；null=未放
+  tryCell?: [number, number] | null; // 当前尝试格 [row, col]（琥珀环）
+  conflictCells?: [number, number][]; // 与 tryCell 冲突的已放皇后 [row, col]（红）
+}
+
+/** N 皇后执行点（C-055，回溯大类首发；复用 BoardView 棋盘轨——递归试探 + 剪枝 + 回溯） */
+export type NQueensExecPoint =
+  | 'init' // 空棋盘
+  | 'tryConflict' // 试探 (row,col) 但与已放皇后冲突（红显冲突）
+  | 'place' // 试探 (row,col) 不冲突 → 放下皇后
+  | 'backtrack' // 本列无处可放 → 退回上一列、挪走那里的皇后
+  | 'solved'; // N 个皇后全放好，得到一个解
+
 /** Floyd-Warshall 全源最短路执行点（C-052，矩阵上的动态规划——三重循环中转松弛） */
 export type FloydExecPoint =
   | 'init' // 矩阵 = 邻接（对角 0、边权、其余 ∞）
@@ -279,6 +295,7 @@ export interface Step<P extends string = string> {
   bucket?: BucketTrack; // 纯加法：桶排序的桶轨（桶装实际元素）；其它算法不设 → BucketView 不渲染
   graph?: GraphTrack; // 纯加法：图算法的图轨；其它算法不设 → GraphView 不渲染
   matrix?: MatrixTrack; // 纯加法：Floyd 的矩阵轨；其它算法不设 → MatrixView 不渲染
+  board?: BoardTrack; // 纯加法：回溯的棋盘轨；其它算法不设 → BoardView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

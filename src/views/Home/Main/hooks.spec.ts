@@ -5,22 +5,16 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回 4 个分类（+动态规划），图算法 6 项 + 编辑距离（C-053）', () => {
-    expect(data).toHaveLength(4);
+  it('TC-HOOK-01-1: 返回 5 个分类（+回溯与搜索），动态规划 2 项 + N 皇后（C-055）', () => {
+    expect(data).toHaveLength(5);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
     expect(data[2].title).toBe('图算法');
     expect(data[3].title).toBe('动态规划');
+    expect(data[4].title).toBe('回溯与搜索');
     expect(data[2].children).toHaveLength(6);
-    expect(data[2].children.map((c) => c.url)).toEqual([
-      'dijkstra',
-      'kruskal',
-      'prim',
-      'bellman-ford',
-      'topological-sort',
-      'floyd-warshall',
-    ]);
     expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack']);
+    expect(data[4].children.map((c) => c.url)).toEqual(['n-queens']);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

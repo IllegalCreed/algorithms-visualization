@@ -22,6 +22,7 @@ import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
+import QueensIcon from '@/assets/queens.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -288,6 +289,18 @@ export function useCategoryData(): Category[] {
           desc: '容量有限、物品取或不取，求最大价值：二维 DP 逐格填表，装不下沿用上行、装得下取 max(不取, 取)',
           icon: KnapsackIcon,
           url: 'knapsack',
+        },
+      ],
+    },
+    {
+      title: '回溯与搜索',
+      desc: '一步步做选择、错了就退回重来——递归试探 + 剪枝 + 回溯地搜索解空间',
+      children: [
+        {
+          title: 'N 皇后',
+          desc: '在 N×N 棋盘放 N 个互不攻击的皇后：逐列试探，冲突就剪枝换行，一列走投无路就回溯挪子',
+          icon: QueensIcon,
+          url: 'n-queens',
         },
       ],
     },

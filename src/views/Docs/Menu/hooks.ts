@@ -176,6 +176,15 @@ export function useCategoryData(): Category[] {
         },
       ],
     },
+    {
+      title: '回溯与搜索',
+      children: [
+        {
+          title: 'N 皇后',
+          url: 'n-queens',
+        },
+      ],
+    },
   ];
   return categoryData;
 }

@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 棋盘外框 -->
+  <rect x="82" y="82" width="840" height="840" rx="40" fill="none" stroke="#333333" stroke-width="34" />
+  <!-- 交错深格（(行+列) 为奇） -->
+  <g fill="#333333">
+    <rect x="362" y="82" width="280" height="280" />
+    <rect x="82" y="362" width="280" height="280" />
+    <rect x="642" y="362" width="280" height="280" />
+    <rect x="362" y="642" width="280" height="280" />
+  </g>
+  <!-- 内部网格线 -->
+  <g stroke="#333333" stroke-width="20">
+    <line x1="362" y1="82" x2="362" y2="922" />
+    <line x1="642" y1="82" x2="642" y2="922" />
+    <line x1="82" y1="362" x2="922" y2="362" />
+    <line x1="82" y1="642" x2="922" y2="642" />
+  </g>
+  <!-- 皇后棋子（浅格上深子、深格上浅子，互不攻击的两枚） -->
+  <circle cx="222" cy="222" r="92" fill="#333333" />
+  <circle cx="782" cy="502" r="92" fill="#ffffff" stroke="#333333" stroke-width="18" />
+</svg>

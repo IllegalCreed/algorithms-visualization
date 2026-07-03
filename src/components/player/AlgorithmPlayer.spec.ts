@@ -13,6 +13,7 @@ import CountView from '@/components/CountView.vue';
 import BucketView from '@/components/BucketView.vue';
 import GraphView from '@/components/GraphView.vue';
 import MatrixView from '@/components/MatrixView.vue';
+import BoardView from '@/components/BoardView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -263,6 +264,38 @@ describe('AlgorithmPlayer', () => {
     await flushPromises();
     expect(wMatrix.findComponent(MatrixView).exists()).toBe(true);
     expect(wMatrix.findComponent(BarsView).exists()).toBe(false); // array:[] → 主轨隐藏
+  });
+
+  // 内联最小 module：单步带 board 且 array 空（N 皇后 C-055：BoardView 棋盘轨 + 无柱主轨）
+  const boardModule: AlgorithmModule = {
+    title: 'board-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        board: { n: 4, queens: [1, 3, 0, 2] },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-BOARD-01 当前步带 board 时渲染 BoardView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: boardModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(BoardView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-BOARD-02 既有排序 step（无 board）不渲染 BoardView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 board
+    await flushPromises();
+    expect(wSort.findComponent(BoardView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

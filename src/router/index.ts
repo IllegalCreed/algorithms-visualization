@@ -135,6 +135,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Knapsack.vue'),
           },
           {
+            path: '/docs/n-queens',
+            name: 'n-queens',
+            component: () => import('../views/Article/Algorithm/Queens.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
