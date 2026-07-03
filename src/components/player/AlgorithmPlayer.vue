@@ -10,6 +10,7 @@ import TreeView from '@/components/TreeView.vue';
 import CountView from '@/components/CountView.vue';
 import BucketView from '@/components/BucketView.vue';
 import GraphView from '@/components/GraphView.vue';
+import MatrixView from '@/components/MatrixView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
@@ -51,6 +52,7 @@ const prevVars = computed(() => steps[index.value - 1]?.vars);
       :emphasis="current.emphasis"
     />
     <GraphView v-if="current.graph" :graph="current.graph" />
+    <MatrixView v-if="current.matrix" :matrix="current.matrix" />
     <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
     <StackView v-if="current.stack" :stack="current.stack" />
     <CountView v-if="current.count" :count="current.count" />

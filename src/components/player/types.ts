@@ -229,6 +229,24 @@ export interface GraphTrack {
   edgeClass?: Record<string, string>; // 边 key → 状态类（relaxed/tree（Dijkstra）| current/mst/rejected（Kruskal））
 }
 
+/** 矩阵轨快照——Floyd 全源最短路专用（通用 n×n 矩阵原语，为 DP 大类铺路） */
+export interface MatrixTrack {
+  labels: string[]; // 行/列标签（节点名 A,B,C,D）
+  cells: (number | null)[][]; // n×n 距离矩阵；null = ∞（不可达）
+  pivot?: number | null; // 当前中转点 k（高亮第 k 行 + 第 k 列）
+  active?: [number, number] | null; // 当前考察/更新的单元 (i,j)（琥珀环）
+  sources?: [number, number][]; // 参与求和的源单元 [(i,k),(k,j)]（黄高亮）
+  updatedCell?: [number, number] | null; // 本步刚更新的单元（绿闪）
+}
+
+/** Floyd-Warshall 全源最短路执行点（C-052，矩阵上的动态规划——三重循环中转松弛） */
+export type FloydExecPoint =
+  | 'init' // 矩阵 = 邻接（对角 0、边权、其余 ∞）
+  | 'pivotStart' // 开始以 k 为中转：高亮第 k 行/列
+  | 'relaxUpdate' // (i,j)：dist[i][k]+dist[k][j] < dist[i][j] → 更新
+  | 'relaxSkip' // (i,j)：经 k 不更短，跳过
+  | 'done'; // 三重循环完成，全源最短距离矩阵定
+
 /** 胖步骤：自带渲染所需的一切。P = 该算法的执行点集合 */
 export interface Step<P extends string = string> {
   array: [string, number][]; // 当前数组快照；[0]=稳定 key（驱动柱子 FLIP），[1]=值
@@ -243,6 +261,7 @@ export interface Step<P extends string = string> {
   count?: CountTrack; // 纯加法：计数排序的计数桶轨；其它算法不设 → CountView 不渲染
   bucket?: BucketTrack; // 纯加法：桶排序的桶轨（桶装实际元素）；其它算法不设 → BucketView 不渲染
   graph?: GraphTrack; // 纯加法：图算法的图轨；其它算法不设 → GraphView 不渲染
+  matrix?: MatrixTrack; // 纯加法：Floyd 的矩阵轨；其它算法不设 → MatrixView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

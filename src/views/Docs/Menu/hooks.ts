@@ -157,6 +157,10 @@ export function useCategoryData(): Category[] {
           title: '拓扑排序',
           url: 'topological-sort',
         },
+        {
+          title: 'Floyd 多源最短路',
+          url: 'floyd-warshall',
+        },
       ],
     },
   ];

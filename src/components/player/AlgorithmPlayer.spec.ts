@@ -12,6 +12,7 @@ import TreeView from '@/components/TreeView.vue';
 import CountView from '@/components/CountView.vue';
 import BucketView from '@/components/BucketView.vue';
 import GraphView from '@/components/GraphView.vue';
+import MatrixView from '@/components/MatrixView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -216,6 +217,52 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，array 恒非空
     await flushPromises();
     expect(wSort.findComponent(BarsView).exists()).toBe(true); // 排序主轨照常
+  });
+
+  // 内联最小 module：单步带 matrix 且 array 空（Floyd C-052：MatrixView 矩阵轨 + 无柱主轨）
+  const matrixModule: AlgorithmModule = {
+    title: 'matrix-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        matrix: {
+          labels: ['A', 'B'],
+          cells: [
+            [0, 3],
+            [null, 0],
+          ],
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-MATRIX-01 当前步带 matrix 时渲染 MatrixView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: matrixModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(MatrixView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-MATRIX-02 既有排序 step（无 matrix）不渲染 MatrixView；matrix step 空数组不渲染 BarsView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 matrix
+    await flushPromises();
+    expect(wSort.findComponent(MatrixView).exists()).toBe(false); // 零回归
+
+    const wMatrix = mount(AlgorithmPlayer, {
+      props: { module: matrixModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(wMatrix.findComponent(MatrixView).exists()).toBe(true);
+    expect(wMatrix.findComponent(BarsView).exists()).toBe(false); // array:[] → 主轨隐藏
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

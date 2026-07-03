@@ -1,0 +1,26 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 距离矩阵 3×3 网格（对角实心=自己到自己 0，中转行列浅染） -->
+  <!-- 中转点行/列（第 2 行、第 2 列）浅染底 -->
+  <g fill="#c9d8ce">
+    <rect x="140" y="410" width="744" height="204" rx="26" />
+    <rect x="410" y="140" width="204" height="744" rx="26" />
+  </g>
+  <!-- 9 个单元格边框 -->
+  <g fill="none" stroke="#333333" stroke-width="22">
+    <rect x="140" y="140" width="204" height="204" rx="26" />
+    <rect x="410" y="140" width="204" height="204" rx="26" />
+    <rect x="680" y="140" width="204" height="204" rx="26" />
+    <rect x="140" y="410" width="204" height="204" rx="26" />
+    <rect x="410" y="410" width="204" height="204" rx="26" />
+    <rect x="680" y="410" width="204" height="204" rx="26" />
+    <rect x="140" y="680" width="204" height="204" rx="26" />
+    <rect x="410" y="680" width="204" height="204" rx="26" />
+    <rect x="680" y="680" width="204" height="204" rx="26" />
+  </g>
+  <!-- 对角线单元实心（距离矩阵对角=0） -->
+  <g fill="#333333">
+    <rect x="140" y="140" width="204" height="204" rx="26" />
+    <rect x="410" y="410" width="204" height="204" rx="26" />
+    <rect x="680" y="680" width="204" height="204" rx="26" />
+  </g>
+</svg>

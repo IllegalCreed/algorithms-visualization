@@ -120,6 +120,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Topo.vue'),
           },
           {
+            path: '/docs/floyd-warshall',
+            name: 'floyd-warshall',
+            component: () => import('../views/Article/Algorithm/Floyd.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

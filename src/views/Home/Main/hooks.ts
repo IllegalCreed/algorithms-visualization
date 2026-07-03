@@ -19,6 +19,7 @@ import KruskalIcon from '@/assets/kruskal.svg';
 import PrimIcon from '@/assets/prim.svg';
 import BellmanIcon from '@/assets/bellman.svg';
 import TopoIcon from '@/assets/topo.svg';
+import FloydIcon from '@/assets/floyd.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -261,6 +262,12 @@ export function useCategoryData(): Category[] {
           desc: '有向无环图的依赖排序：反复取入度 0 的点输出（Kahn），得到满足所有先后依赖的线性顺序',
           icon: TopoIcon,
           url: 'topological-sort',
+        },
+        {
+          title: 'Floyd 多源最短路',
+          desc: '一张距离矩阵 + 三重循环，逐个点试作中转，一次算出任意两点间的最短路（矩阵动态规划）',
+          icon: FloydIcon,
+          url: 'floyd-warshall',
         },
       ],
     },
