@@ -264,6 +264,25 @@ export interface BoardTrack {
   conflictCells?: [number, number][]; // 与 tryCell 冲突的已放皇后 [row, col]（红）
 }
 
+/** 决策树轨快照——回溯与搜索通用原语（子集/排列/组合/组合总和：DFS 走决策树 + 回溯） */
+export interface DecisionTreeTrack {
+  nodes: { id: number; label: string; x: number; y: number }[]; // 固定布局决策树；label 仅叶子标最终解、内部为空
+  edges: { from: number; to: number; label?: string }[]; // 父→子；label = 决策（「选 k」/「跳过 k」）
+  activeId?: number | null; // 当前访问节点（琥珀环）
+  pathIds?: number[]; // 当前递归栈 root→current（路径高亮）
+  visitedIds?: number[]; // 已进入过的节点（淡实色）
+  solutionIds?: number[]; // 已到达并记录的解叶（绿）
+}
+
+/** 子集生成执行点（C-056，回溯第 2 页；新建 DecisionTreeView 决策树轨——选/不选二叉决策树 DFS） */
+export type SubsetsExecPoint =
+  | 'start' // 位于根：空集，准备对元素 0 决策
+  | 'include' // 沿「选 k」边下降到 include 子节点
+  | 'exclude' // 沿「跳过 k」边下降到 exclude 子节点
+  | 'record' // 到达叶（决策完所有元素）→ 记录一个子集
+  | 'backtrack' // 一个子树探索完，回退到父节点换另一分支
+  | 'done'; // 全部 2^n 子集枚举完毕
+
 /** N 皇后执行点（C-055，回溯大类首发；复用 BoardView 棋盘轨——递归试探 + 剪枝 + 回溯） */
 export type NQueensExecPoint =
   | 'init' // 空棋盘
@@ -296,6 +315,7 @@ export interface Step<P extends string = string> {
   graph?: GraphTrack; // 纯加法：图算法的图轨；其它算法不设 → GraphView 不渲染
   matrix?: MatrixTrack; // 纯加法：Floyd 的矩阵轨；其它算法不设 → MatrixView 不渲染
   board?: BoardTrack; // 纯加法：回溯的棋盘轨；其它算法不设 → BoardView 不渲染
+  decisionTree?: DecisionTreeTrack; // 纯加法：回溯的决策树轨；其它算法不设 → DecisionTreeView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

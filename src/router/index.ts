@@ -140,6 +140,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Queens.vue'),
           },
           {
+            path: '/docs/subsets',
+            name: 'subsets',
+            component: () => import('../views/Article/Algorithm/Subsets.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

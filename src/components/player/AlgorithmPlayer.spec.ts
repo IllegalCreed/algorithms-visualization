@@ -14,6 +14,7 @@ import BucketView from '@/components/BucketView.vue';
 import GraphView from '@/components/GraphView.vue';
 import MatrixView from '@/components/MatrixView.vue';
 import BoardView from '@/components/BoardView.vue';
+import DecisionTreeView from '@/components/DecisionTreeView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -296,6 +297,44 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 board
     await flushPromises();
     expect(wSort.findComponent(BoardView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 decisionTree 且 array 空（子集 C-056：决策树轨 + 无柱主轨）
+  const dtreeModule: AlgorithmModule = {
+    title: 'dtree-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'start',
+        decisionTree: {
+          nodes: [
+            { id: 0, label: '', x: 100, y: 30 },
+            { id: 1, label: '{1}', x: 60, y: 110 },
+          ],
+          edges: [{ from: 0, to: 1, label: '选 1' }],
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { start: 1 } }],
+  };
+
+  it('TC-PLAYER-DTREE-01 当前步带 decisionTree 时渲染 DecisionTreeView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: dtreeModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(DecisionTreeView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-DTREE-02 既有排序 step（无 decisionTree）不渲染 DecisionTreeView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 decisionTree
+    await flushPromises();
+    expect(wSort.findComponent(DecisionTreeView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

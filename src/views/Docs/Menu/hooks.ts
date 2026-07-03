@@ -183,6 +183,10 @@ export function useCategoryData(): Category[] {
           title: 'N 皇后',
           url: 'n-queens',
         },
+        {
+          title: '子集生成',
+          url: 'subsets',
+        },
       ],
     },
   ];

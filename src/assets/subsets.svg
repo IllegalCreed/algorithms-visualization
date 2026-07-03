@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 决策树的边（根 → 两枝 → 四叶） -->
+  <g stroke="#333333" stroke-width="34" stroke-linecap="round" fill="none">
+    <line x1="512" y1="180" x2="300" y2="470" />
+    <line x1="512" y1="180" x2="724" y2="470" />
+    <line x1="300" y1="470" x2="196" y2="810" />
+    <line x1="300" y1="470" x2="404" y2="810" />
+    <line x1="724" y1="470" x2="620" y2="810" />
+    <line x1="724" y1="470" x2="828" y2="810" />
+  </g>
+  <!-- 根 + 两个内部节点（空心） -->
+  <g fill="#ffffff" stroke="#333333" stroke-width="30">
+    <circle cx="512" cy="180" r="78" />
+    <circle cx="300" cy="470" r="66" />
+    <circle cx="724" cy="470" r="66" />
+  </g>
+  <!-- 四个叶子：交替实心（选中的子集）/空心 -->
+  <g stroke="#333333" stroke-width="26">
+    <circle cx="196" cy="810" r="62" fill="#333333" />
+    <circle cx="404" cy="810" r="62" fill="#ffffff" />
+    <circle cx="620" cy="810" r="62" fill="#333333" />
+    <circle cx="828" cy="810" r="62" fill="#ffffff" />
+  </g>
+</svg>

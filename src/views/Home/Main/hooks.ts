@@ -23,6 +23,7 @@ import FloydIcon from '@/assets/floyd.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import QueensIcon from '@/assets/queens.svg';
+import SubsetsIcon from '@/assets/subsets.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -301,6 +302,12 @@ export function useCategoryData(): Category[] {
           desc: '在 N×N 棋盘放 N 个互不攻击的皇后：逐列试探，冲突就剪枝换行，一列走投无路就回溯挪子',
           icon: QueensIcon,
           url: 'n-queens',
+        },
+        {
+          title: '子集生成',
+          desc: '枚举集合的全部 2^n 个子集：对每个元素「选/不选」构成二叉决策树，DFS 走到底记录、回退换分支',
+          icon: SubsetsIcon,
+          url: 'subsets',
         },
       ],
     },
