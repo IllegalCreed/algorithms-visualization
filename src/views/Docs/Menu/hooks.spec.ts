@@ -10,18 +10,19 @@ vi.mock('vue-router', () => ({
 }));
 
 describe('Docs/Menu useCategoryData', () => {
-  it('TC-HOOK-02-1: 返回 3 个分类，图算法含 Dijkstra+Kruskal+Prim+Bellman-Ford（C-050）', () => {
+  it('TC-HOOK-02-1: 返回 3 个分类，图算法含 5 项（含拓扑排序 C-051）', () => {
     const data = useCategoryData();
     expect(data).toHaveLength(3);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
     expect(data[2].title).toBe('图算法');
-    expect(data[2].children).toHaveLength(4);
+    expect(data[2].children).toHaveLength(5);
     expect(data[2].children.map((c) => c.url)).toEqual([
       'dijkstra',
       'kruskal',
       'prim',
       'bellman-ford',
+      'topological-sort',
     ]);
   });
 

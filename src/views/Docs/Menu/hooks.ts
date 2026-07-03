@@ -153,6 +153,10 @@ export function useCategoryData(): Category[] {
           title: 'Bellman-Ford 最短路',
           url: 'bellman-ford',
         },
+        {
+          title: '拓扑排序',
+          url: 'topological-sort',
+        },
       ],
     },
   ];

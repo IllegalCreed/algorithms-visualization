@@ -18,6 +18,7 @@ import DijkstraIcon from '@/assets/dijkstra.svg';
 import KruskalIcon from '@/assets/kruskal.svg';
 import PrimIcon from '@/assets/prim.svg';
 import BellmanIcon from '@/assets/bellman.svg';
+import TopoIcon from '@/assets/topo.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -254,6 +255,12 @@ export function useCategoryData(): Category[] {
           desc: '反复松弛所有边 V−1 轮，能处理负权边（Dijkstra 不能）、还能检测负环',
           icon: BellmanIcon,
           url: 'bellman-ford',
+        },
+        {
+          title: '拓扑排序',
+          desc: '有向无环图的依赖排序：反复取入度 0 的点输出（Kahn），得到满足所有先后依赖的线性顺序',
+          icon: TopoIcon,
+          url: 'topological-sort',
         },
       ],
     },

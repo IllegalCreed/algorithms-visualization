@@ -1,0 +1,23 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <defs>
+    <marker id="topo-ah" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#333333" />
+    </marker>
+  </defs>
+  <!-- 有向边（带箭头，左→右体现依赖顺序） -->
+  <g fill="none" stroke="#333333" stroke-width="28" stroke-linecap="round" marker-end="url(#topo-ah)">
+    <line x1="235" y1="470" x2="360" y2="360" />
+    <line x1="235" y1="554" x2="360" y2="672" />
+    <line x1="470" y1="330" x2="600" y2="470" />
+    <line x1="470" y1="700" x2="600" y2="560" />
+    <line x1="710" y1="512" x2="810" y2="512" />
+  </g>
+  <!-- 顶点（最左为首个可输出点，实心强调；从左到右即拓扑序） -->
+  <g fill="#333333">
+    <circle cx="410" cy="300" r="66" />
+    <circle cx="410" cy="724" r="66" />
+    <circle cx="660" cy="512" r="66" />
+    <circle cx="880" cy="512" r="66" />
+  </g>
+  <circle cx="170" cy="512" r="86" fill="#333333" />
+</svg>

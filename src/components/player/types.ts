@@ -157,6 +157,13 @@ export type BellmanFordExecPoint =
   | 'relaxSkip' // 当前边：不更短，跳过
   | 'done'; // V−1 轮完成，最短路确定
 
+/** 拓扑排序执行点（C-051，Kahn；复用 GraphView 有向图轨——nodeBadge=入度、doneNodes=已输出） */
+export type TopoExecPoint =
+  | 'init' // 计算各点入度
+  | 'selectNode' // 取一个入度为 0（且下标最小）的点（activeNode 环）
+  | 'removeNode' // 输出该点（doneNodes 绿）+ 其后继入度各减 1
+  | 'done'; // 所有点输出，拓扑序完成
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;
@@ -214,7 +221,7 @@ export interface BucketTrack {
 /** 图轨快照——图算法专用（通用：Dijkstra 有向 + dist 徽标 + settled；Kruskal 无向 + 边分类 + 分量） */
 export interface GraphTrack {
   vertices: { id: number; label: string; x: number; y: number }[]; // 固定布局节点
-  edges: { key: string; from: number; to: number; w: number }[]; // 带权边（key 唯一，如 '0-1'）
+  edges: { key: string; from: number; to: number; w?: number }[]; // 边（key 唯一，如 '0-1'）；w 可选——无权图（如拓扑排序 C-051）省略，GraphView 权重标签渲染空
   directed: boolean; // 有向（Dijkstra 画箭头）/ 无向（Kruskal）
   nodeBadge?: (string | null)[]; // 每节点徽标（Dijkstra=dist，∞ 记 '∞'；null=不显）
   activeNode?: number | null; // 当前操作节点（琥珀高亮环）

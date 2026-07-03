@@ -115,6 +115,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Bellman.vue'),
           },
           {
+            path: '/docs/topological-sort',
+            name: 'topological-sort',
+            component: () => import('../views/Article/Algorithm/Topo.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
