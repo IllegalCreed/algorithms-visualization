@@ -229,15 +229,25 @@ export interface GraphTrack {
   edgeClass?: Record<string, string>; // 边 key → 状态类（relaxed/tree（Dijkstra）| current/mst/rejected（Kruskal））
 }
 
-/** 矩阵轨快照——Floyd 全源最短路专用（通用 n×n 矩阵原语，为 DP 大类铺路） */
+/** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
-  labels: string[]; // 行/列标签（节点名 A,B,C,D）
-  cells: (number | null)[][]; // n×n 距离矩阵；null = ∞（不可达）
-  pivot?: number | null; // 当前中转点 k（高亮第 k 行 + 第 k 列）
+  labels: string[]; // 行/列标签（方阵：节点名 A,B,C,D；缺省行列标签时双用）
+  cells: (number | null)[][]; // 矩阵；null = 未定义（Floyd=∞、DP=未填，由 emptyText 决定显示）
+  rowLabels?: string[]; // 行标签（缺省用 labels）——DP 表源串（C-053）
+  colLabels?: string[]; // 列标签（缺省用 labels）——DP 表目标串（C-053）
+  emptyText?: string; // null 单元显示文案（缺省 '∞'）——DP 未填格设 '' 空白（C-053）
+  pivot?: number | null; // 当前中转点 k（高亮第 k 行 + 第 k 列）——Floyd
   active?: [number, number] | null; // 当前考察/更新的单元 (i,j)（琥珀环）
-  sources?: [number, number][]; // 参与求和的源单元 [(i,k),(k,j)]（黄高亮）
-  updatedCell?: [number, number] | null; // 本步刚更新的单元（绿闪）
+  sources?: [number, number][]; // 参与计算的源单元（Floyd=(i,k)/(k,j)；DP=依赖格）（黄高亮）
+  updatedCell?: [number, number] | null; // 本步刚更新/填入的单元（绿闪）
 }
+
+/** 编辑距离执行点（C-053，DP 大类首发；复用 MatrixView 矩阵轨——填 DP 表） */
+export type EditDistExecPoint =
+  | 'init' // 填边界：第 0 行 [0..n]、第 0 列 [0..m]
+  | 'cellMatch' // 字符相同：dp[i][j]=dp[i-1][j-1]（取左上）
+  | 'cellDiff' // 字符不同：dp[i][j]=1+min(左上,上,左)
+  | 'done'; // 右下角 = 编辑距离
 
 /** Floyd-Warshall 全源最短路执行点（C-052，矩阵上的动态规划——三重循环中转松弛） */
 export type FloydExecPoint =

@@ -20,6 +20,7 @@ import PrimIcon from '@/assets/prim.svg';
 import BellmanIcon from '@/assets/bellman.svg';
 import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
+import EditIcon from '@/assets/editdist.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -268,6 +269,18 @@ export function useCategoryData(): Category[] {
           desc: '一张距离矩阵 + 三重循环，逐个点试作中转，一次算出任意两点间的最短路（矩阵动态规划）',
           icon: FloydIcon,
           url: 'floyd-warshall',
+        },
+      ],
+    },
+    {
+      title: '动态规划',
+      desc: '把大问题拆成子问题、子问题的解填进表格、后面直接查表复用——「填表」范式',
+      children: [
+        {
+          title: '编辑距离',
+          desc: '把一个词改成另一个词的最少插入/删除/替换次数：二维 DP 逐格填表，相同取左上、不同取 1+三邻最小',
+          icon: EditIcon,
+          url: 'edit-distance',
         },
       ],
     },

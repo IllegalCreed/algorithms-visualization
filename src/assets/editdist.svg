@@ -1,0 +1,27 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- DP 表 3×3 网格，反对角浅染（填表波前），右下角实心（答案） -->
+  <!-- 填表波前（反对角三格）浅染 -->
+  <g fill="#c9d8ce">
+    <rect x="140" y="410" width="204" height="204" rx="26" />
+    <rect x="410" y="140" width="204" height="204" rx="26" />
+    <rect x="410" y="680" width="204" height="204" rx="26" />
+    <rect x="680" y="410" width="204" height="204" rx="26" />
+  </g>
+  <!-- 9 格边框 -->
+  <g fill="none" stroke="#333333" stroke-width="22">
+    <rect x="140" y="140" width="204" height="204" rx="26" />
+    <rect x="410" y="140" width="204" height="204" rx="26" />
+    <rect x="680" y="140" width="204" height="204" rx="26" />
+    <rect x="140" y="410" width="204" height="204" rx="26" />
+    <rect x="410" y="410" width="204" height="204" rx="26" />
+    <rect x="680" y="410" width="204" height="204" rx="26" />
+    <rect x="140" y="680" width="204" height="204" rx="26" />
+    <rect x="410" y="680" width="204" height="204" rx="26" />
+    <rect x="680" y="680" width="204" height="204" rx="26" />
+  </g>
+  <!-- 起点（左上，边界）+ 答案（右下角）实心强调 -->
+  <g fill="#333333">
+    <rect x="140" y="140" width="204" height="204" rx="26" />
+    <rect x="680" y="680" width="204" height="204" rx="26" />
+  </g>
+</svg>

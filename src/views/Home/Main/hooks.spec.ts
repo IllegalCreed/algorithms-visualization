@@ -5,11 +5,12 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回数据结构/排序/图算法三个分类，图算法含 6 项（含 Floyd C-052）', () => {
-    expect(data).toHaveLength(3);
+  it('TC-HOOK-01-1: 返回 4 个分类（+动态规划），图算法 6 项 + 编辑距离（C-053）', () => {
+    expect(data).toHaveLength(4);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
     expect(data[2].title).toBe('图算法');
+    expect(data[3].title).toBe('动态规划');
     expect(data[2].children).toHaveLength(6);
     expect(data[2].children.map((c) => c.url)).toEqual([
       'dijkstra',
@@ -19,6 +20,7 @@ describe('Home/Main useCategoryData', () => {
       'topological-sort',
       'floyd-warshall',
     ]);
+    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance']);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

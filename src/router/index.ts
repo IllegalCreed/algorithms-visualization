@@ -125,6 +125,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Floyd.vue'),
           },
           {
+            path: '/docs/edit-distance',
+            name: 'edit-distance',
+            component: () => import('../views/Article/Algorithm/Edit.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

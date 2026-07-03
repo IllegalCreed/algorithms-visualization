@@ -163,6 +163,15 @@ export function useCategoryData(): Category[] {
         },
       ],
     },
+    {
+      title: '动态规划',
+      children: [
+        {
+          title: '编辑距离',
+          url: 'edit-distance',
+        },
+      ],
+    },
   ];
   return categoryData;
 }

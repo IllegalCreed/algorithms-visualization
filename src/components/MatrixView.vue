@@ -5,7 +5,12 @@ import type { MatrixTrack } from '@/components/player/types';
 
 const props = defineProps<{ matrix: MatrixTrack }>();
 
-const n = computed(() => props.matrix.labels.length);
+// 维度由 cells 推导（兼容方阵 Floyd 与非方阵 DP 表）
+const rows = computed(() => props.matrix.cells.length);
+const cols = computed(() => props.matrix.cells[0]?.length ?? 0);
+const rowHeads = computed(() => props.matrix.rowLabels ?? props.matrix.labels);
+const colHeads = computed(() => props.matrix.colLabels ?? props.matrix.labels);
+const emptyText = computed(() => props.matrix.emptyText ?? '∞');
 
 const eq = (a: [number, number] | null | undefined, i: number, j: number) =>
   !!a && a[0] === i && a[1] === j;
@@ -14,7 +19,7 @@ const cellOf = (i: number, j: number) => {
   const m = props.matrix;
   const v = m.cells[i][j];
   return {
-    text: v === null ? '∞' : String(v),
+    text: v === null ? emptyText.value : String(v),
     cls: {
       'mx-pivot': m.pivot != null && (i === m.pivot || j === m.pivot),
       'mx-active': eq(m.active, i, j),
@@ -32,19 +37,19 @@ const cellOf = (i: number, j: number) => {
       <thead>
         <tr>
           <th class="mx-corner"></th>
-          <th v-for="(l, j) in matrix.labels" :key="'h' + j" class="mx-head">{{ l }}</th>
+          <th v-for="(l, j) in colHeads.slice(0, cols)" :key="'h' + j" class="mx-head">{{ l }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(l, i) in matrix.labels" :key="'r' + i">
-          <th class="mx-head">{{ l }}</th>
+        <tr v-for="i in rows" :key="'r' + (i - 1)">
+          <th class="mx-head">{{ rowHeads[i - 1] }}</th>
           <td
-            v-for="j in n"
-            :key="'c' + i + '-' + (j - 1)"
+            v-for="j in cols"
+            :key="'c' + (i - 1) + '-' + (j - 1)"
             class="matrix-cell"
-            :class="cellOf(i, j - 1).cls"
+            :class="cellOf(i - 1, j - 1).cls"
           >
-            {{ cellOf(i, j - 1).text }}
+            {{ cellOf(i - 1, j - 1).text }}
           </td>
         </tr>
       </tbody>

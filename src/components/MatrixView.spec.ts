@@ -49,4 +49,22 @@ describe('MatrixView 矩阵轨', () => {
     expect(w.findAll('.matrix-cell.mx-active')).toHaveLength(1);
     expect(w.findAll('.matrix-cell.mx-source')).toHaveLength(2);
   });
+
+  it('TC-VIZ-MATRIXVIEW-05 行列异标签：rowLabels/colLabels 各自渲染（DP 表）', () => {
+    const w = mountIt({ rowLabels: ['∅', 'S', 'A', 'T'], colLabels: ['∅', 'S', 'U', 'N'] });
+    const heads = w.findAll('.mx-head').map((h) => h.text());
+    // 列头（首行）含目标串 S/U/N；行头（每行首列）含源串 A/T
+    expect(heads).toContain('U'); // 仅列标签有 U
+    expect(heads).toContain('A'); // 仅行标签有 A
+    expect(heads).toContain('N'); // 仅列标签有 N
+    expect(heads).toContain('T'); // 仅行标签有 T
+  });
+
+  it('TC-VIZ-MATRIXVIEW-06 emptyText="" → null 单元显示空白（非 ∞）', () => {
+    const w = mountIt({ emptyText: '' });
+    const infCells = w.findAll('.matrix-cell').filter((c) => c.text() === '∞');
+    expect(infCells.length).toBe(0); // 不再显示 ∞
+    const blankCells = w.findAll('.matrix-cell').filter((c) => c.text() === '');
+    expect(blankCells.length).toBe(6); // 原 6 个 null 单元显示空白
+  });
 });

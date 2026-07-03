@@ -10,12 +10,13 @@ vi.mock('vue-router', () => ({
 }));
 
 describe('Docs/Menu useCategoryData', () => {
-  it('TC-HOOK-02-1: 返回 3 个分类，图算法含 6 项（含 Floyd C-052）', () => {
+  it('TC-HOOK-02-1: 返回 4 个分类，图算法 6 项 + 新增「动态规划」含编辑距离（C-053）', () => {
     const data = useCategoryData();
-    expect(data).toHaveLength(3);
+    expect(data).toHaveLength(4);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
     expect(data[2].title).toBe('图算法');
+    expect(data[3].title).toBe('动态规划');
     expect(data[2].children).toHaveLength(6);
     expect(data[2].children.map((c) => c.url)).toEqual([
       'dijkstra',
@@ -25,6 +26,7 @@ describe('Docs/Menu useCategoryData', () => {
       'topological-sort',
       'floyd-warshall',
     ]);
+    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance']);
   });
 
   it('TC-HOOK-02-2: 每项含 title/url 且均非空', () => {
