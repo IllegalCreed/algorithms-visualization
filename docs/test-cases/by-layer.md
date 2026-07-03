@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **642** 个用例。运行命令：`pnpm test:unit`
+共 **654** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -143,27 +143,27 @@
 
 ### hooks
 
-| Case ID      | 标题                                                         | 自动化路径                              |
-| ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp（C-063）          | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp（C-063）          | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4） | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）              | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                            | 自动化路径                              |
+| ------------ | --------------------------------------------------------------- | --------------------------------------- |
+| TC-HOOK-01-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp+Boyer-Moore（C-064） | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）         | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                  | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                                 | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp+Boyer-Moore（C-064） | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                       | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                   | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）          | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                     | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                         | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                      | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）    | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）            | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）       | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）                 | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
@@ -1059,11 +1059,30 @@
 | TC-RK-MOD-11 | 四语言 sources + 行号在范围内                             | `src/algorithms/rabinkarp.module.spec.ts` |
 | TC-RK-MOD-12 | module 元信息 title 含 Rabin-Karp/哈希、initialInput()=[] | `src/algorithms/rabinkarp.module.spec.ts` |
 
+### Boyer-Moore 模块 boyermoore.module（C-064 · 字符串第 3 页，坏字符规则右往左 12 步 + 复用 KmpView 轨）
+
+固定 T=`abcabxabc`、P=`abc`，坏字符表 `{a:0,b:1,c:2}`；oracle `bmLast`/`bmMatches`；从模式末尾从右往左比 + 坏字符大步跳，命中 [0,6]。
+
+| Case ID      | 标题                                                         | 自动化路径                                 |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------ |
+| TC-BM-MOD-01 | 末步 done，found = bmMatches() = [0,6]                       | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-02 | 每步执行点合法且带匹配轨（array:[]）                         | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-03 | 无 π 行：每步 lps = []                                       | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-04 | 窗口对齐：windowStart = offset                               | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-05 | vars 含坏字符表 a:0/b:1/c:2                                  | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-06 | 存在两种跳（#badChar≥2）+ 恰 2 命中                          | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-07 | match 步字符相等且 matchedFrom = comparePat                  | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-08 | badChar 步字符不等                                           | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-09 | 存在坏字符不在模式的大步跳（如 x）                           | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-10 | 命中区间不越界：T.substr(s,m)===P                            | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-11 | 四语言 sources + 行号在范围内                                | `src/algorithms/boyermoore.module.spec.ts` |
+| TC-BM-MOD-12 | module 元信息 title 含 Boyer-Moore/坏字符、initialInput()=[] | `src/algorithms/boyermoore.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **396** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **400** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1668,6 +1687,7 @@
 | TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                              | `src/components/KmpView.spec.ts`                |
 | TC-VIZ-KMPVIEW-04    | found=[2] → 文本下标 2 起 5 格带 .kmp-found                               | `src/components/KmpView.spec.ts`                |
 | TC-VIZ-KMPVIEW-05    | windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展） | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-06    | matchedFrom=1（matchedLen=0）→ 2 格 .kmp-matched（后缀标绿，C-064 扩展）  | `src/components/KmpView.spec.ts`                |
 | TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                           | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                  | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                                          | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -1819,11 +1839,19 @@
 | TC-VIEW-RK-02 | h1 含「Rabin-Karp」+ KmpView + 无 .bars-view + 无 π 行 | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
 | TC-VIEW-RK-03 | 全模板同屏：Article 含「哈希」+ KmpView                | `src/views/Article/Algorithm/RabinKarp.spec.ts` |
 
+### Boyer-Moore 页 C-064（字符串第 3 页，新页，全模板 + 复用 KmpView 轨·无 π 行）
+
+| Case ID       | 标题                                                    | 自动化路径                                       |
+| ------------- | ------------------------------------------------------- | ------------------------------------------------ |
+| TC-VIEW-BM-01 | 挂载渲染 Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/BoyerMoore.spec.ts` |
+| TC-VIEW-BM-02 | h1 含「Boyer-Moore」+ KmpView + 无 .bars-view + 无 π 行 | `src/views/Article/Algorithm/BoyerMoore.spec.ts` |
+| TC-VIEW-BM-03 | 全模板同屏：Article 含「坏字符」+ KmpView               | `src/views/Article/Algorithm/BoyerMoore.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **55** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **56** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1883,6 +1911,7 @@
 | TC-E2E-LIS-01       | LIS 全模板：正文 + 一维 DP 两行表 / `.scrub` 拖末步 LIS 绿环 + caption 含 1→3→4→5 / Shiki（C-061 新增）                    | `e2e/lis.e2e.ts`                   | active     |
 | TC-E2E-KMP-01       | KMP 全模板：正文 + 文本/模式/LPS 三行 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-062 新增）             | `e2e/kmp.e2e.ts`                   | active     |
 | TC-E2E-RK-01        | Rabin-Karp 全模板：正文 + 滚动哈希窗口 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-063 新增）            | `e2e/rabin-karp.e2e.ts`            | active     |
+| TC-E2E-BM-01        | Boyer-Moore 全模板：正文 + 对齐窗口带 3 格 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-064 新增）        | `e2e/boyer-moore.e2e.ts`           | active     |
 
 ---
 
