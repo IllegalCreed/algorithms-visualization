@@ -216,6 +216,10 @@ export function useCategoryData(): Category[] {
           title: 'KMP 字符串匹配',
           url: 'kmp',
         },
+        {
+          title: 'Rabin-Karp',
+          url: 'rabin-karp',
+        },
       ],
     },
   ];

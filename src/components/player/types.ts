@@ -314,7 +314,17 @@ export interface KmpTrack {
   lpsActive?: number | null; // 跳转时用到的 lps 下标（高亮）
   status?: 'match' | 'mismatch' | 'found' | null; // 当前比较结果
   found: number[]; // 已命中的匹配起点（文本下标）
+  windowStart?: number | null; // 当前窗口在文本的起点（高亮 [windowStart, windowStart+m)）——Rabin-Karp 设，KMP 不设
 }
+
+/** Rabin-Karp 执行点（C-063，字符串第 2 页；复用 KmpView——滚动哈希 + 命中才验证） */
+export type RabinKarpExecPoint =
+  | 'start' // 算出模式哈希，窗口停在开头
+  | 'skip' // 窗口哈希 ≠ 模式哈希 → 滑到下一个窗口（不逐字符比）
+  | 'hashHit' // 窗口哈希 = 模式哈希 → 需要逐字符验证
+  | 'verify' // 逐字符验证窗口 = 模式
+  | 'found' // 验证通过 → 命中
+  | 'done'; // 文本扫描完
 
 /** KMP 执行点（C-062，字符串大类首发；新建 KmpView——失配用 LPS 跳转、文本指针不回退） */
 export type KmpExecPoint =

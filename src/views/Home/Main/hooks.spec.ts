@@ -5,7 +5,7 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回 6 个分类（+字符串），字符串含 KMP（C-062）', () => {
+  it('TC-HOOK-01-1: 返回 6 个分类，字符串含 KMP + Rabin-Karp（C-063）', () => {
     expect(data).toHaveLength(6);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
@@ -22,7 +22,7 @@ describe('Home/Main useCategoryData', () => {
       'combination-sum',
       'maze',
     ]);
-    expect(data[5].children.map((c) => c.url)).toEqual(['kmp']);
+    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp']);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

@@ -11,11 +11,14 @@ const textCells = computed(() => {
   const k = props.kmp;
   const m = k.pattern.length;
   const inFound = (idx: number) => k.found.some((s) => idx >= s && idx < s + m);
+  const inWindow = (idx: number) =>
+    k.windowStart != null && idx >= k.windowStart && idx < k.windowStart + m;
   return k.text.split('').map((ch, idx) => ({
     ch,
     idx,
     compare: k.compareText === idx,
     found: inFound(idx),
+    window: inWindow(idx),
   }));
 });
 const patCells = computed(() => {
@@ -56,7 +59,7 @@ const statusText = computed(() => {
           v-for="c in textCells"
           :key="'t' + c.idx"
           class="kmp-cell kmp-text-cell center"
-          :class="{ 'kmp-compare': c.compare, 'kmp-found': c.found }"
+          :class="{ 'kmp-compare': c.compare, 'kmp-found': c.found, 'kmp-window': c.window }"
         >
           {{ c.ch }}
         </div>
@@ -75,7 +78,7 @@ const statusText = computed(() => {
         </div>
       </div>
     </div>
-    <div class="kmp-row">
+    <div v-if="kmp.lps.length" class="kmp-row">
       <span class="kmp-label">π</span>
       <div class="kmp-cells" :style="{ marginLeft: shift + 'px' }">
         <div
@@ -152,7 +155,11 @@ const statusText = computed(() => {
   background-color: #8bd3a0;
   color: #1f5e3a;
 }
-/* 命中区间：浅绿底 */
+/* 当前窗口带（Rabin-Karp）：浅蓝底 */
+.kmp-cell.kmp-window {
+  background-color: #d7e6f2;
+}
+/* 命中区间：浅绿底（覆盖窗口带） */
 .kmp-cell.kmp-found {
   background-color: #cfe9d6;
   color: #1f5e3a;

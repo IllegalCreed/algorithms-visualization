@@ -30,6 +30,7 @@ import PermuteIcon from '@/assets/permute.svg';
 import CombsumIcon from '@/assets/combsum.svg';
 import MazeIcon from '@/assets/maze.svg';
 import KmpIcon from '@/assets/kmp.svg';
+import RabinKarpIcon from '@/assets/rabinkarp.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -356,6 +357,12 @@ export function useCategoryData(): Category[] {
           desc: '在文本里找模式串：预处理出部分匹配表，失配时文本指针不回退、模式串聪明滑动，O(n+m)',
           icon: KmpIcon,
           url: 'kmp',
+        },
+        {
+          title: 'Rabin-Karp',
+          desc: '滚动哈希匹配：把窗口压成一个哈希数，滑动 O(1) 更新，每格只比一个数、哈希相等才逐字符验证',
+          icon: RabinKarpIcon,
+          url: 'rabin-karp',
         },
       ],
     },

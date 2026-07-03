@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 哈希 #（把窗口压成一个哈希数） -->
+  <g stroke="#333333" stroke-width="42" stroke-linecap="round">
+    <line x1="430" y1="170" x2="380" y2="410" />
+    <line x1="600" y1="170" x2="550" y2="410" />
+    <line x1="360" y1="250" x2="620" y2="250" />
+    <line x1="345" y1="330" x2="605" y2="330" />
+  </g>
+  <!-- 文本格 -->
+  <g stroke="#333333" stroke-width="22">
+    <rect x="90" y="600" width="120" height="120" rx="16" fill="#ffffff" />
+    <rect x="230" y="600" width="120" height="120" rx="16" fill="#ffffff" />
+    <rect x="370" y="600" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="510" y="600" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="650" y="600" width="120" height="120" rx="16" fill="#333333" />
+    <rect x="790" y="600" width="120" height="120" rx="16" fill="#ffffff" />
+  </g>
+  <!-- 滑动窗口框（罩住命中的 3 格） -->
+  <rect x="348" y="578" width="444" height="164" rx="24" fill="none" stroke="#333333" stroke-width="30" />
+  <!-- 向右滑动箭头 -->
+  <g stroke="#333333" stroke-width="30" stroke-linecap="round" fill="none">
+    <line x1="820" y1="500" x2="920" y2="500" />
+    <polyline points="880,468 920,500 880,532" stroke-linejoin="round" />
+  </g>
+</svg>

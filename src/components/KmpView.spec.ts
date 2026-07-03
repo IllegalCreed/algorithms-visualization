@@ -37,4 +37,10 @@ describe('KmpView 字符串匹配轨', () => {
     const w = mountIt({ found: [2] });
     expect(w.findAll('.kmp-found')).toHaveLength(5); // P 长 5
   });
+
+  it('TC-VIZ-KMPVIEW-05 windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展）', () => {
+    const w = mountIt({ pattern: 'cab', windowStart: 2, lps: [] });
+    expect(w.findAll('.kmp-window')).toHaveLength(3); // 窗口 [2,5) 共 3 格
+    expect(w.findAll('.kmp-lps-cell')).toHaveLength(0); // lps 空 → π 行隐藏
+  });
 });

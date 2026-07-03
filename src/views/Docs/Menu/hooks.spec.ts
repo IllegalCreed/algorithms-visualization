@@ -10,7 +10,7 @@ vi.mock('vue-router', () => ({
 }));
 
 describe('Docs/Menu useCategoryData', () => {
-  it('TC-HOOK-02-1: 返回 6 个分类（+字符串），字符串含 KMP（C-062）', () => {
+  it('TC-HOOK-02-1: 返回 6 个分类，字符串含 KMP + Rabin-Karp（C-063）', () => {
     const data = useCategoryData();
     expect(data).toHaveLength(6);
     expect(data[0].title).toBe('数据结构');
@@ -36,7 +36,7 @@ describe('Docs/Menu useCategoryData', () => {
       'combination-sum',
       'maze',
     ]);
-    expect(data[5].children.map((c) => c.url)).toEqual(['kmp']);
+    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp']);
   });
 
   it('TC-HOOK-02-2: 每项含 title/url 且均非空', () => {
