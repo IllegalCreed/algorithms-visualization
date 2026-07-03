@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **474** 个用例。运行命令：`pnpm test:unit`
+共 **486** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim（C-049）              | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim+Bellman-Ford（C-050） | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim（C-049）              | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim+Bellman-Ford（C-050） | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -793,11 +793,30 @@
 | TC-PRIM-MOD-11 | 四语言 sources + 行号在范围内                            | `src/algorithms/prim.module.spec.ts` |
 | TC-PRIM-MOD-12 | module 元信息 title 含 Prim、initialInput()=[]           | `src/algorithms/prim.module.spec.ts` |
 
+### Bellman-Ford 播放器模块 bellman-ford.module（C-050 · M6 图算法 G3，含负权 V−1 轮松弛 34 步）
+
+固定含负权有向图（源 A，B→C=-3、D→E=-2 无负环）；oracle `bellmanFordTrace`；边序逆序演示 V−1=4 轮收敛。
+
+| Case ID           | 标题                                                  | 自动化路径                                   |
+| ----------------- | ----------------------------------------------------- | -------------------------------------------- |
+| TC-BELLMAN-MOD-01 | 末步 nodeBadge 数值 = oracle dist [0,4,1,3,1]         | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-02 | 每步执行点合法且带有向图轨（array:[]、directed=true） | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-03 | V−1 轮：#roundStart == 4                              | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-04 | 松弛统计 #relaxUpdate==8、#relaxSkip==20、和==28      | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-05 | init 步 dist[A]=0、其余 ∞                             | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-06 | 逐轮 dist：各 roundStart nodeBadge = 进入该轮 dist    | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-07 | 首个 relaxUpdate（B←A）后 nodeBadge[1]=4              | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-08 | dist 单调不增（松弛不变量）                           | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-09 | done 最短路树 tree 恰 4：{0-1,1-2,2-3,3-4}            | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-10 | 含负权边 B→C=-3、D→E=-2；done doneNodes 全 5 点       | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-11 | 四语言 sources + 行号在范围内                         | `src/algorithms/bellman-ford.module.spec.ts` |
+| TC-BELLMAN-MOD-12 | module 元信息 title 含 Bellman、initialInput()=[]     | `src/algorithms/bellman-ford.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **319** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **322** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1406,11 +1425,19 @@
 | TC-VIEW-PRIM-02 | h1 含「Prim」+ GraphView + 6 .graph-node + 无 .bars-view | `src/views/Article/Algorithm/Prim.spec.ts` |
 | TC-VIEW-PRIM-03 | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge     | `src/views/Article/Algorithm/Prim.spec.ts` |
 
+### Bellman-Ford 页 C-050（M6 图算法 G3，新页，全模板 + GraphView 有向轨含负权）
+
+| Case ID            | 标题                                                        | 自动化路径                                    |
+| ------------------ | ----------------------------------------------------------- | --------------------------------------------- |
+| TC-VIEW-BELLMAN-01 | 挂载渲染 Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Bellman.spec.ts` |
+| TC-VIEW-BELLMAN-02 | h1 含「Bellman」+ GraphView + 5 .graph-node + 无 .bars-view | `src/views/Article/Algorithm/Bellman.spec.ts` |
+| TC-VIEW-BELLMAN-03 | 全模板同屏：Article 含「最短」+ ≥7 .graph-edge              | `src/views/Article/Algorithm/Bellman.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **41** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **42** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1456,6 +1483,7 @@
 | TC-E2E-DIJKSTRA-01  | Dijkstra 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写）                           | `e2e/dijkstra.e2e.ts`              | active     |
 | TC-E2E-KRUSKAL-01   | Kruskal 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 5 `.mst` 绿边 + 4 `.rejected` 虚线 + 字幕 18 / Shiki（C-048 改写） | `e2e/kruskal.e2e.ts`               | active     |
 | TC-E2E-PRIM-01      | Prim 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 5 `.mst` 绿边 + 6 点全绿 + 字幕 18 / Shiki（C-049 新增）              | `e2e/prim.e2e.ts`                  | active     |
+| TC-E2E-BELLMAN-01   | Bellman-Ford 全模板：正文 + 图轨 5 点 7 边（含负权）/ `.scrub` 拖末步 4 `.tree` 绿边 + 5 点全绿 / Shiki（C-050 新增）      | `e2e/bellman-ford.e2e.ts`          | active     |
 
 ---
 
