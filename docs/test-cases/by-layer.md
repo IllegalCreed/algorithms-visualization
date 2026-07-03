@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **582** 个用例。运行命令：`pnpm test:unit`
+共 **594** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -143,27 +143,27 @@
 
 ### hooks
 
-| Case ID      | 标题                                                         | 自动化路径                              |
-| ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+排列+组合总和（C-058） | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+排列+组合总和（C-058） | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4） | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）              | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                          | 自动化路径                              |
+| ------------ | ------------------------------------------------------------- | --------------------------------------- |
+| TC-HOOK-01-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+排列+组合+迷宫（C-059） | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）       | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                 | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                               | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+排列+组合+迷宫（C-059） | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                     | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                 | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）        | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                   | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                       | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                    | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）  | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）          | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）     | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）               | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
@@ -964,11 +964,30 @@
 | TC-COMBSUM-MOD-11 | 四语言 sources + 行号在范围内                          | `src/algorithms/combsum.module.spec.ts` |
 | TC-COMBSUM-MOD-12 | module 元信息 title 含组合、initialInput()=[]          | `src/algorithms/combsum.module.spec.ts` |
 
+### 迷宫寻路模块 maze.module（C-059 · 回溯第 5 页，网格 DFS 回溯 19 步 2 死路 + MazeView 迷宫轨）
+
+固定 5×5 迷宫；oracle `mazeSolve`；DFS 四方向深入、撞死路回溯、visited 防绕圈，求 起点→终点 一条路径。
+
+| Case ID        | 标题                                          | 自动化路径                           |
+| -------------- | --------------------------------------------- | ------------------------------------ |
+| TC-MAZE-MOD-01 | 末步 done、solved，path = mazeSolve()         | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-02 | 每步执行点合法且带迷宫轨（array:[]）          | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-03 | 解路径有效：首=起点、尾=终点、四连通、不穿墙  | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-04 | 首步 start：current=起点、path=[起点]         | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-05 | 恰一 goal 步，current=终点                    | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-06 | 存在死路 + 回溯（#deadend/#backtrack >=1）    | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-07 | deadend 步 current 四邻皆墙/越界/已访问       | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-08 | 每步 path 相邻格四连通                        | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-09 | visited 数量单调不减，含起点                  | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-10 | 每步 current = path 末元素                    | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-11 | 四语言 sources + 行号在范围内                 | `src/algorithms/maze.module.spec.ts` |
+| TC-MAZE-MOD-12 | module 元信息 title 含迷宫、initialInput()=[] | `src/algorithms/maze.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **367** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **376** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1563,6 +1582,10 @@
 | TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点                       | `src/components/DecisionTreeView.spec.ts`       |
 | TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                    | `src/components/DecisionTreeView.spec.ts`       |
 | TC-VIZ-DTREEVIEW-05  | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）  | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-MAZEVIEW-01   | 5×5 → 25 格；2 墙 → 2 .mz-wall                                 | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）                            | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path                   | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution           | `src/components/MazeView.spec.ts`               |
 | TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）       | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                               | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -1571,6 +1594,8 @@
 | TC-PLAYER-BOARD-02   | 排序 step 无 board→不渲染 BoardView（零回归）                  | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-DTREE-01   | step 带 decisionTree → 渲染 DecisionTreeView                   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）                     | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-01    | step 带 maze → 渲染 MazeView                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-02    | 排序 step 无 maze→不渲染 MazeView（零回归）                    | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -1670,11 +1695,19 @@
 | TC-VIEW-COMBSUM-02 | h1 含「组合」+ DecisionTreeView + 无 .bars-view  | `src/views/Article/Algorithm/Combsum.spec.ts` |
 | TC-VIEW-COMBSUM-03 | 全模板同屏：Article 含「组合」+ DecisionTreeView | `src/views/Article/Algorithm/Combsum.spec.ts` |
 
+### 迷宫寻路页 C-059（回溯第 5 页，新页，全模板 + MazeView 迷宫）
+
+| Case ID         | 标题                                            | 自动化路径                                 |
+| --------------- | ----------------------------------------------- | ------------------------------------------ |
+| TC-VIEW-MAZE-01 | 挂载渲染 Article + AlgorithmPlayer              | `src/views/Article/Algorithm/Maze.spec.ts` |
+| TC-VIEW-MAZE-02 | h1 含「迷宫」+ MazeView + 25 格 + 无 .bars-view | `src/views/Article/Algorithm/Maze.spec.ts` |
+| TC-VIEW-MAZE-03 | 全模板同屏：Article 含「迷宫」+ MazeView        | `src/views/Article/Algorithm/Maze.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **50** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **51** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1729,6 +1762,7 @@
 | TC-E2E-SUBSETS-01   | 子集生成全模板：正文 + 决策树 15 节点 / `.scrub` 拖末步 8 解叶 / Shiki（C-056 新增）                                       | `e2e/subsets.e2e.ts`               | active     |
 | TC-E2E-PERMUTE-01   | 全排列全模板：正文 + 多叉决策树 16 节点 / `.scrub` 拖末步 6 排列叶 / Shiki（C-057 新增）                                   | `e2e/permutations.e2e.ts`          | active     |
 | TC-E2E-COMBSUM-01   | 组合总和全模板：正文 + 决策树剪枝 / `.scrub` 拖末步 5 剪枝支 + 2 解 / Shiki（C-058 新增）                                  | `e2e/combination-sum.e2e.ts`       | active     |
+| TC-E2E-MAZE-01      | 迷宫寻路全模板：正文 + 网格 DFS 回溯 / `.scrub` 拖末步 解路径绿 / Shiki（C-059 新增）                                      | `e2e/maze.e2e.ts`                  | active     |
 
 ---
 
