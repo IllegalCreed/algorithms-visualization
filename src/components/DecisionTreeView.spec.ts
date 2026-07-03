@@ -41,4 +41,9 @@ describe('DecisionTreeView 决策树轨', () => {
     expect(txt).toContain('选 1'); // 决策边标签
     expect(txt).toContain('{1}'); // 叶节点最终子集标签
   });
+
+  it('TC-VIZ-DTREEVIEW-05 prunedIds=[2] → 恰 1 个 .pruned 节点；不设时 0 个（C-058 扩展）', () => {
+    expect(mountIt({ prunedIds: [2] }).findAll('.dtree-node.pruned')).toHaveLength(1);
+    expect(mountIt().findAll('.dtree-node.pruned')).toHaveLength(0); // 子集/排列不设 → 零回归
+  });
 });

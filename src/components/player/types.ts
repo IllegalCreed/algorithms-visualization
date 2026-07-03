@@ -272,6 +272,7 @@ export interface DecisionTreeTrack {
   pathIds?: number[]; // 当前递归栈 root→current（路径高亮）
   visitedIds?: number[]; // 已进入过的节点（淡实色）
   solutionIds?: number[]; // 已到达并记录的解叶（绿）
+  prunedIds?: number[]; // 剪枝节点（红/虚线 ✗）——组合总和等带剪枝的回溯题设，子集/排列不设 → 无 .pruned
 }
 
 /** 子集生成执行点（C-056，回溯第 2 页；新建 DecisionTreeView 决策树轨——选/不选二叉决策树 DFS） */
@@ -282,6 +283,15 @@ export type SubsetsExecPoint =
   | 'record' // 到达叶（决策完所有元素）→ 记录一个子集
   | 'backtrack' // 一个子树探索完，回退到父节点换另一分支
   | 'done'; // 全部 2^n 子集枚举完毕
+
+/** 组合总和执行点（C-058，回溯第 4 页；扩展 DecisionTreeView——决策树 + 剪枝：和 > 目标即砍枝） */
+export type CombSumExecPoint =
+  | 'start' // 根：空组合，和 0
+  | 'include' // 加一个数（和 ≤ 目标），下降
+  | 'prune' // 加一个数会使和 > 目标 → 剪枝，标红、不展开
+  | 'record' // 和 = 目标 → 记录一个组合
+  | 'backtrack' // 一支探索完，回退换下一个数
+  | 'done'; // 全部探索完
 
 /** 全排列执行点（C-057，回溯第 3 页；复用 DecisionTreeView 决策树轨——每位从剩余挑一个的多叉决策树 DFS） */
 export type PermuteExecPoint =

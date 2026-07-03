@@ -12,8 +12,9 @@ const nodeById = computed(() => {
 });
 
 const inPath = (id: number) => props.decisionTree.pathIds?.includes(id) ?? false;
+const isPruned = (id: number) => props.decisionTree.prunedIds?.includes(id) ?? false;
 
-// 边视图：父→子直线 + 决策标签放中点略上；父子同在递归路径上 → on-path 高亮
+// 边视图：父→子直线 + 决策标签放中点略上；父子同在递归路径上 → on-path 高亮；指向剪枝节点 → pruned 虚线
 const edgeViews = computed(() =>
   props.decisionTree.edges.map((e) => {
     const a = nodeById.value[e.from];
@@ -28,6 +29,7 @@ const edgeViews = computed(() =>
       ly: (a.y + b.y) / 2 - 4,
       label: e.label ?? '',
       onPath: inPath(e.from) && inPath(e.to),
+      pruned: isPruned(e.to),
     };
   }),
 );
@@ -41,7 +43,12 @@ const isSolution = (id: number) => props.decisionTree.solutionIds?.includes(id) 
   <div class="dtree-view center">
     <svg viewBox="0 0 640 300" width="640" height="300">
       <g class="edges">
-        <g v-for="e in edgeViews" :key="e.key" class="dtree-edge" :class="{ 'on-path': e.onPath }">
+        <g
+          v-for="e in edgeViews"
+          :key="e.key"
+          class="dtree-edge"
+          :class="{ 'on-path': e.onPath, pruned: e.pruned }"
+        >
           <line :x1="e.x1" :y1="e.y1" :x2="e.x2" :y2="e.y2" />
           <text :x="e.lx" :y="e.ly">{{ e.label }}</text>
         </g>
@@ -56,6 +63,7 @@ const isSolution = (id: number) => props.decisionTree.solutionIds?.includes(id) 
             'on-path': inPath(n.id),
             visited: isVisited(n.id),
             solution: isSolution(n.id),
+            pruned: isPruned(n.id),
           }"
           :transform="`translate(${n.x},${n.y})`"
         >
@@ -134,5 +142,18 @@ svg {
 }
 .dtree-node.solution .node-label {
   fill: #1f5e3a;
+}
+/* 剪枝支：红（和超目标被砍） */
+.dtree-edge.pruned line {
+  stroke: #d9a0a0;
+  stroke-width: 2.5;
+  stroke-dasharray: 5 4;
+}
+.dtree-node.pruned circle {
+  fill: #e58a8a;
+  stroke: #7a1f1f;
+}
+.dtree-node.pruned .node-label {
+  fill: #7a1f1f;
 }
 </style>

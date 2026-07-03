@@ -25,6 +25,7 @@ import KnapsackIcon from '@/assets/knapsack.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
+import CombsumIcon from '@/assets/combsum.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -315,6 +316,12 @@ export function useCategoryData(): Category[] {
           desc: '枚举 n! 个排列：每个位置从剩余未用元素挑一个，构成多叉决策树，used 标记剪枝、回溯换选择',
           icon: PermuteIcon,
           url: 'permutations',
+        },
+        {
+          title: '组合总和',
+          desc: '从一组数选若干个凑目标和：决策树上逐个加数，当前和超过目标就剪枝砍支，演示回溯剪枝的威力',
+          icon: CombsumIcon,
+          url: 'combination-sum',
         },
       ],
     },

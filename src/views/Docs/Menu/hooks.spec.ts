@@ -10,7 +10,7 @@ vi.mock('vue-router', () => ({
 }));
 
 describe('Docs/Menu useCategoryData', () => {
-  it('TC-HOOK-02-1: 返回 5 个分类，「回溯与搜索」含 N 皇后 + 子集 + 全排列（C-057）', () => {
+  it('TC-HOOK-02-1: 返回 5 个分类，「回溯与搜索」含 N 皇后 + 子集 + 排列 + 组合总和（C-058）', () => {
     const data = useCategoryData();
     expect(data).toHaveLength(5);
     expect(data[0].title).toBe('数据结构');
@@ -28,7 +28,12 @@ describe('Docs/Menu useCategoryData', () => {
       'floyd-warshall',
     ]);
     expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack']);
-    expect(data[4].children.map((c) => c.url)).toEqual(['n-queens', 'subsets', 'permutations']);
+    expect(data[4].children.map((c) => c.url)).toEqual([
+      'n-queens',
+      'subsets',
+      'permutations',
+      'combination-sum',
+    ]);
   });
 
   it('TC-HOOK-02-2: 每项含 title/url 且均非空', () => {

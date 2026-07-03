@@ -150,6 +150,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Permute.vue'),
           },
           {
+            path: '/docs/combination-sum',
+            name: 'combination-sum',
+            component: () => import('../views/Article/Algorithm/Combsum.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

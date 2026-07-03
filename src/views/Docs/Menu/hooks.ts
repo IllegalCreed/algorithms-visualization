@@ -191,6 +191,10 @@ export function useCategoryData(): Category[] {
           title: '全排列',
           url: 'permutations',
         },
+        {
+          title: '组合总和',
+          url: 'combination-sum',
+        },
       ],
     },
   ];

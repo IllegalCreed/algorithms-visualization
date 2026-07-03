@@ -1,0 +1,37 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 决策树的边：三支，中间一支虚线（被剪枝） -->
+  <g stroke="#333333" stroke-width="30" stroke-linecap="round" fill="none">
+    <line x1="512" y1="150" x2="250" y2="470" />
+    <line x1="512" y1="150" x2="774" y2="470" />
+    <line x1="250" y1="470" x2="250" y2="790" />
+    <line x1="774" y1="470" x2="774" y2="790" />
+  </g>
+  <!-- 中间被剪枝的支：虚线 -->
+  <line
+    x1="512"
+    y1="150"
+    x2="512"
+    y2="450"
+    stroke="#333333"
+    stroke-width="28"
+    stroke-linecap="round"
+    stroke-dasharray="40 36"
+    fill="none"
+  />
+  <!-- 根 + 两个内部节点（空心） -->
+  <g fill="#ffffff" stroke="#333333" stroke-width="30">
+    <circle cx="512" cy="150" r="74" />
+    <circle cx="250" cy="470" r="56" />
+    <circle cx="774" cy="470" r="56" />
+  </g>
+  <!-- 被剪枝节点：红叉 ✗ -->
+  <g stroke="#333333" stroke-width="46" stroke-linecap="round">
+    <line x1="470" y1="510" x2="554" y2="594" />
+    <line x1="554" y1="510" x2="470" y2="594" />
+  </g>
+  <!-- 两个解叶：实心（和 = 目标） -->
+  <g fill="#333333">
+    <circle cx="250" cy="790" r="60" />
+    <circle cx="774" cy="790" r="60" />
+  </g>
+</svg>
