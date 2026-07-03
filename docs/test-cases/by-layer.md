@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **522** 个用例。运行命令：`pnpm test:unit`
+共 **534** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，4 顶层分类（+动态规划·编辑距离 C-053）               | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，4 顶层分类·动态规划含编辑距离+0-1 背包（C-054）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，4 顶层分类（+动态规划·编辑距离 C-053）               | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，4 顶层分类·动态规划含编辑距离+0-1 背包（C-054）      | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -869,11 +869,30 @@
 | TC-EDIT-MOD-11 | 四语言 sources + 行号在范围内                       | `src/algorithms/editdist.module.spec.ts` |
 | TC-EDIT-MOD-12 | module 元信息 title 含编辑距离、initialInput()=[]   | `src/algorithms/editdist.module.spec.ts` |
 
+### 0-1 背包模块 knapsack.module（C-054 · DP2，二维 DP 逐格 22 步 + MatrixView 纯复用）
+
+固定 4 物品 A(2,3)B(3,4)C(4,5)D(5,6)+容量 5；oracle `knapsackTrace`；DP 表 5×6，最优值=7。
+
+| Case ID        | 标题                                                      | 自动化路径                               |
+| -------------- | --------------------------------------------------------- | ---------------------------------------- |
+| TC-KNAP-MOD-01 | 末步 cells = oracle knapsackTrace()，右下角=7             | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-02 | 每步执行点合法且带矩阵轨（array:[]）                      | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-03 | 取舍统计 #cellSkip==10、#cellChoose==10                   | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-04 | init 第 0 行/列全 0、内部 null                            | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-05 | 首个 cellSkip（A 容量1 重2>1）cells[1][1]=0、sources 上格 | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-06 | 每个 cellChoose 步 sources 长度 2（上格+左上偏移格）      | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-07 | 每步 rowLabels ∅ABCD / colLabels 0-5 / emptyText=''       | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-08 | 最优值 cells[4][5]=7（选 A+B）                            | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-09 | 单元写入一次不变（DP 不变量）                             | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-10 | 每个填格步 active 为当前格 (i,w)                          | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-11 | 四语言 sources + 行号在范围内                             | `src/algorithms/knapsack.module.spec.ts` |
+| TC-KNAP-MOD-12 | module 元信息 title 含背包、initialInput()=[]             | `src/algorithms/knapsack.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **339** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **342** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1522,11 +1541,19 @@
 | TC-VIEW-EDIT-02 | h1 含「编辑距离」+ MatrixView + 16 .matrix-cell + 无 .bars-view | `src/views/Article/Algorithm/Edit.spec.ts` |
 | TC-VIEW-EDIT-03 | 全模板同屏：Article 含「编辑距离」+ MatrixView                  | `src/views/Article/Algorithm/Edit.spec.ts` |
 
+### 0-1 背包页 C-054（DP2，新页，全模板 + MatrixView DP 表）
+
+| Case ID         | 标题                                                        | 自动化路径                                     |
+| --------------- | ----------------------------------------------------------- | ---------------------------------------------- |
+| TC-VIEW-KNAP-01 | 挂载渲染 Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Knapsack.spec.ts` |
+| TC-VIEW-KNAP-02 | h1 含「背包」+ MatrixView + 30 .matrix-cell + 无 .bars-view | `src/views/Article/Algorithm/Knapsack.spec.ts` |
+| TC-VIEW-KNAP-03 | 全模板同屏：Article 含「背包」+ MatrixView                  | `src/views/Article/Algorithm/Knapsack.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **45** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **46** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1576,6 +1603,7 @@
 | TC-E2E-TOPO-01      | 拓扑排序全模板：正文 + 图轨 6 点 7 边 DAG / `.scrub` 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）                    | `e2e/topological-sort.e2e.ts`      | active     |
 | TC-E2E-FLOYD-01     | Floyd 全模板：正文 + 矩阵轨 4×4 / `.scrub` 拖末步全源矩阵无 ∞ / Shiki（C-052 新增）                                        | `e2e/floyd-warshall.e2e.ts`        | active     |
 | TC-E2E-EDIT-01      | 编辑距离全模板：正文 + DP 表 4×4 / `.scrub` 拖末步右下角=2 / Shiki（C-053 新增）                                           | `e2e/edit-distance.e2e.ts`         | active     |
+| TC-E2E-KNAP-01      | 0-1 背包全模板：正文 + DP 表 5×6 / `.scrub` 拖末步右下角=7 / Shiki（C-054 新增）                                           | `e2e/knapsack.e2e.ts`              | active     |
 
 ---
 
