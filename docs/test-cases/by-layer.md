@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **462** 个用例。运行命令：`pnpm test:unit`
+共 **474** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，图算法含 Dijkstra+Kruskal（C-038）                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim（C-049）              | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal（C-038）                   | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim（C-049）              | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -774,11 +774,30 @@
 | TC-KRUSKAL-MOD-11 | 四语言 sources + 行号在范围内                         | `src/algorithms/kruskal.module.spec.ts` |
 | TC-KRUSKAL-MOD-12 | module 元信息 title 含 Kruskal、initialInput()=[]     | `src/algorithms/kruskal.module.spec.ts` |
 
+### Prim 播放器模块 prim.module（C-049 · M6 图算法 G7，从起点生长 12 步，复用 useKruskal 同图）
+
+从 A 生长选最小横切边；oracle `primTrace`；与 `kruskalTrace` 同 MST 集互验。
+
+| Case ID        | 标题                                                     | 自动化路径                           |
+| -------------- | -------------------------------------------------------- | ------------------------------------ |
+| TC-PRIM-MOD-01 | 末步 mst 边 = oracle primTrace().mstEdges                | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-02 | 与 Kruskal 同一张图 → 同 MST 集（序可不同）              | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-03 | 每步执行点合法且携带无向图轨（array:[]、directed=false） | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-04 | 生长 5 边：#selectEdge==5、#addVertex==5                 | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-05 | init 步 doneNodes=[0]（仅起点 A）、无 mst 边             | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-06 | 每个 selectEdge 步唯一 1 条 current 且为横切边           | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-07 | 首个 addVertex 并入 C(2)、edgeClass[AC]=mst、权重=1      | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-08 | 生长顺序：新增点序列 = [C,B,D,E,F]                       | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-09 | done 步 mst 恰 5                                         | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-10 | done 步总权 18、doneNodes 含全 6 点                      | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-11 | 四语言 sources + 行号在范围内                            | `src/algorithms/prim.module.spec.ts` |
+| TC-PRIM-MOD-12 | module 元信息 title 含 Prim、initialInput()=[]           | `src/algorithms/prim.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **316** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **319** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1379,11 +1398,19 @@
 | TC-VIEW-KRUSKAL-02       | h1 含「Kruskal」+ GraphView + 6 .graph-node + 无 .bars-view          | `src/views/Article/Algorithm/Kruskal.spec.ts` |
 | TC-VIEW-KRUSKAL-03       | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge                 | `src/views/Article/Algorithm/Kruskal.spec.ts` |
 
+### Prim 页 C-049（M6 图算法 G7，新页，全模板 + GraphView 无向轨）
+
+| Case ID         | 标题                                                     | 自动化路径                                 |
+| --------------- | -------------------------------------------------------- | ------------------------------------------ |
+| TC-VIEW-PRIM-01 | 挂载渲染 Article + AlgorithmPlayer                       | `src/views/Article/Algorithm/Prim.spec.ts` |
+| TC-VIEW-PRIM-02 | h1 含「Prim」+ GraphView + 6 .graph-node + 无 .bars-view | `src/views/Article/Algorithm/Prim.spec.ts` |
+| TC-VIEW-PRIM-03 | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge     | `src/views/Article/Algorithm/Prim.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **40** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **41** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1428,6 +1455,7 @@
 | TC-E2E-BLOOM-01     | 布隆页：16 格 / 加 3·7·11 / 查 7「可能存在」/ 查 2「误判」/ 重置                                                           | `e2e/bloom-filter.e2e.ts`          | active     |
 | TC-E2E-DIJKSTRA-01  | Dijkstra 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写）                           | `e2e/dijkstra.e2e.ts`              | active     |
 | TC-E2E-KRUSKAL-01   | Kruskal 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 5 `.mst` 绿边 + 4 `.rejected` 虚线 + 字幕 18 / Shiki（C-048 改写） | `e2e/kruskal.e2e.ts`               | active     |
+| TC-E2E-PRIM-01      | Prim 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 5 `.mst` 绿边 + 6 点全绿 + 字幕 18 / Shiki（C-049 新增）              | `e2e/prim.e2e.ts`                  | active     |
 
 ---
 
