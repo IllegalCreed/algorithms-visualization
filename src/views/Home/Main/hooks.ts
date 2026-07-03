@@ -23,6 +23,7 @@ import FloydIcon from '@/assets/floyd.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import LcsIcon from '@/assets/lcs.svg';
+import LisIcon from '@/assets/lis.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
@@ -300,6 +301,12 @@ export function useCategoryData(): Category[] {
           desc: '两串最长公共子序列：二维 DP 相同取左上+1、不同取上左最大，填表求长度后从右下角回溯恢复出 LCS 串',
           icon: LcsIcon,
           url: 'lcs',
+        },
+        {
+          title: '最长递增子序列',
+          desc: '一串里最长的严格递增子序列：一维 DP，dp[i] 回看前面所有 dp[j] 取最大 +1，max(dp) 即答案，回溯恢复',
+          icon: LisIcon,
+          url: 'lis',
         },
       ],
     },

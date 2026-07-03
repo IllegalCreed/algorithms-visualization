@@ -5,7 +5,7 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回 5 个分类，动态规划含编辑距离/背包/LCS（3 项）+ 回溯 5 项（C-060）', () => {
+  it('TC-HOOK-01-1: 返回 5 个分类，动态规划含编辑距离/背包/LCS/LIS（4 项）+ 回溯 5 项（C-061）', () => {
     expect(data).toHaveLength(5);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
@@ -13,7 +13,7 @@ describe('Home/Main useCategoryData', () => {
     expect(data[3].title).toBe('动态规划');
     expect(data[4].title).toBe('回溯与搜索');
     expect(data[2].children).toHaveLength(6);
-    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack', 'lcs']);
+    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack', 'lcs', 'lis']);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',
       'subsets',

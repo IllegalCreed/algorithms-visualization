@@ -140,6 +140,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Lcs.vue'),
           },
           {
+            path: '/docs/lis',
+            name: 'lis',
+            component: () => import('../views/Article/Algorithm/Lis.vue'),
+          },
+          {
             path: '/docs/n-queens',
             name: 'n-queens',
             component: () => import('../views/Article/Algorithm/Queens.vue'),

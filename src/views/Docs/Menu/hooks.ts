@@ -178,6 +178,10 @@ export function useCategoryData(): Category[] {
           title: '最长公共子序列',
           url: 'lcs',
         },
+        {
+          title: '最长递增子序列',
+          url: 'lis',
+        },
       ],
     },
     {

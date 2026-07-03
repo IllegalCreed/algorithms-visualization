@@ -243,6 +243,14 @@ export interface MatrixTrack {
   pathCells?: [number, number][]; // 回溯路径格（绿环）——LCS 等需从 DP 表恢复解的题设，编辑距离/背包/Floyd 不设 → 无 .mx-path
 }
 
+/** 最长递增子序列 LIS 执行点（C-061，DP 第 4 页；复用 MatrixView 两行表——一维 dp 数组） */
+export type LisExecPoint =
+  | 'init' // dp[i] 全部初始化为 1（每个元素自身是长度 1 的递增子序列）
+  | 'scan' // 回看某个 j<i：比较 a[j] 与 a[i]（不更新）
+  | 'extend' // a[j]<a[i] 且 dp[j]+1>dp[i] → dp[i]=dp[j]+1（接在 a[j] 结尾的 LIS 后）
+  | 'fillDone' // dp 填完：max(dp) = LIS 长度
+  | 'result'; // 回溯 pred 恢复出 LIS，高亮构成元素
+
 /** 最长公共子序列 LCS 执行点（C-060，DP 第 3 页；扩展 MatrixView——填表 + 回溯恢复解） */
 export type LcsExecPoint =
   | 'init' // 填边界：第 0 行 / 第 0 列 = 0（空串无公共子序列）

@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 输入柱：LIS 元素实心、其余空心（值 1 3 2 4 3 5，LIS = 1 3 4 5） -->
+  <g stroke="#333333" stroke-width="20">
+    <rect x="82" y="780" width="110" height="130" fill="#333333" />
+    <rect x="232" y="520" width="110" height="390" fill="#333333" />
+    <rect x="382" y="650" width="110" height="260" fill="#ffffff" />
+    <rect x="532" y="390" width="110" height="520" fill="#333333" />
+    <rect x="682" y="520" width="110" height="390" fill="#ffffff" />
+    <rect x="832" y="260" width="110" height="650" fill="#333333" />
+  </g>
+  <!-- LIS 上升折线（连 LIS 柱顶） -->
+  <polyline
+    points="137,780 287,520 587,390 887,260"
+    fill="none"
+    stroke="#333333"
+    stroke-width="26"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-dasharray="6 34"
+  />
+</svg>
