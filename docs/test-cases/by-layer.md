@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **510** 个用例。运行命令：`pnpm test:unit`
+共 **522** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，图算法含 6 项（+Floyd C-052）                        | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，4 顶层分类（+动态规划·编辑距离 C-053）               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，图算法含 6 项（+Floyd C-052）                        | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，4 顶层分类（+动态规划·编辑距离 C-053）               | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -850,11 +850,30 @@
 | TC-FLOYD-MOD-11 | 四语言 sources + 行号在范围内                   | `src/algorithms/floyd.module.spec.ts` |
 | TC-FLOYD-MOD-12 | module 元信息 title 含 Floyd、initialInput()=[] | `src/algorithms/floyd.module.spec.ts` |
 
+### 编辑距离模块 editdist.module（C-053 · DP 大类首发，二维 DP 逐格 11 步 + MatrixView 复用）
+
+固定 SOURCE="SAT"、TARGET="SUN"；oracle `editDistTrace`；DP 表 4×4，编辑距离=2。
+
+| Case ID        | 标题                                                | 自动化路径                               |
+| -------------- | --------------------------------------------------- | ---------------------------------------- |
+| TC-EDIT-MOD-01 | 末步 cells = oracle editDistTrace()，右下角=2       | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-02 | 每步执行点合法且带矩阵轨（array:[]）                | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-03 | #cellMatch==1（仅 S==S）、#cellDiff==8              | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-04 | init 边界 第 0 行/列=[0,1,2,3]、内部 null           | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-05 | (1,1) match：cells[1][1]=0、sources 单个左上        | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-06 | 每个 cellDiff 步 sources 长度 3（左上/上/左）       | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-07 | 每步 rowLabels ∅SAT / colLabels ∅SUN / emptyText='' | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-08 | 编辑距离答案 cells[3][3]=2                          | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-09 | 单元写入一次不变（DP 不变量）                       | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-10 | 每个填格步 active 为当前格 (i,j)                    | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-11 | 四语言 sources + 行号在范围内                       | `src/algorithms/editdist.module.spec.ts` |
+| TC-EDIT-MOD-12 | module 元信息 title 含编辑距离、initialInput()=[]   | `src/algorithms/editdist.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **334** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **339** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1438,6 +1457,8 @@
 | TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）                                | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-04 | active 单元 .mx-active；sources 两单元 .mx-source              | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-05 | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）               | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-06 | emptyText='' → null 单元显示空白（非 ∞）                       | `src/components/MatrixView.spec.ts`             |
 | TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）       | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                               | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -1493,11 +1514,19 @@
 | TC-VIEW-FLOYD-02 | h1 含「Floyd」+ MatrixView + 16 .matrix-cell + 无 .bars-view | `src/views/Article/Algorithm/Floyd.spec.ts` |
 | TC-VIEW-FLOYD-03 | 全模板同屏：Article 含「最短」+ MatrixView                   | `src/views/Article/Algorithm/Floyd.spec.ts` |
 
+### 编辑距离页 C-053（DP 大类首发，新页，全模板 + MatrixView DP 表）
+
+| Case ID         | 标题                                                            | 自动化路径                                 |
+| --------------- | --------------------------------------------------------------- | ------------------------------------------ |
+| TC-VIEW-EDIT-01 | 挂载渲染 Article + AlgorithmPlayer                              | `src/views/Article/Algorithm/Edit.spec.ts` |
+| TC-VIEW-EDIT-02 | h1 含「编辑距离」+ MatrixView + 16 .matrix-cell + 无 .bars-view | `src/views/Article/Algorithm/Edit.spec.ts` |
+| TC-VIEW-EDIT-03 | 全模板同屏：Article 含「编辑距离」+ MatrixView                  | `src/views/Article/Algorithm/Edit.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **44** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **45** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1546,6 +1575,7 @@
 | TC-E2E-BELLMAN-01   | Bellman-Ford 全模板：正文 + 图轨 5 点 7 边（含负权）/ `.scrub` 拖末步 4 `.tree` 绿边 + 5 点全绿 / Shiki（C-050 新增）      | `e2e/bellman-ford.e2e.ts`          | active     |
 | TC-E2E-TOPO-01      | 拓扑排序全模板：正文 + 图轨 6 点 7 边 DAG / `.scrub` 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）                    | `e2e/topological-sort.e2e.ts`      | active     |
 | TC-E2E-FLOYD-01     | Floyd 全模板：正文 + 矩阵轨 4×4 / `.scrub` 拖末步全源矩阵无 ∞ / Shiki（C-052 新增）                                        | `e2e/floyd-warshall.e2e.ts`        | active     |
+| TC-E2E-EDIT-01      | 编辑距离全模板：正文 + DP 表 4×4 / `.scrub` 拖末步右下角=2 / Shiki（C-053 新增）                                           | `e2e/edit-distance.e2e.ts`         | active     |
 
 ---
 
