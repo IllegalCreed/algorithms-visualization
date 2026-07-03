@@ -105,6 +105,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Kruskal.vue'),
           },
           {
+            path: '/docs/prim',
+            name: 'prim',
+            component: () => import('../views/Article/Algorithm/Prim.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

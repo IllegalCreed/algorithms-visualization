@@ -142,6 +142,13 @@ export type KruskalExecPoint =
   | 'reject' // 两端已连通 → 成环跳过（rejected 虚线）
   | 'done'; // V-1 条边选齐，MST 完成
 
+/** Prim 最小生成树执行点（C-049，复用 GraphView 无向图轨——从起点生长选最小横切边） */
+export type PrimExecPoint =
+  | 'init' // 树 = {起点 A}
+  | 'selectEdge' // 在横切边（一端在树、一端在树外）里选权最小（current 黄）
+  | 'addVertex' // 把该边 + 树外端点并入树（mst 绿 + 新点变绿）
+  | 'done'; // V-1 条边选齐，MST 完成
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;

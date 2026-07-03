@@ -16,6 +16,7 @@ import BTreeIcon from '@/assets/b-tree.svg';
 import BloomIcon from '@/assets/bloom-filter.svg';
 import DijkstraIcon from '@/assets/dijkstra.svg';
 import KruskalIcon from '@/assets/kruskal.svg';
+import PrimIcon from '@/assets/prim.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -240,6 +241,12 @@ export function useCategoryData(): Category[] {
           desc: '边按权重排序 + 并查集判环，不成环就加入，逐条生成总权最小的生成树',
           icon: KruskalIcon,
           url: 'kruskal',
+        },
+        {
+          title: 'Prim 最小生成树',
+          desc: '从一个起点生长：每步选「一端在树、一端在树外」的最小横切边并入，同图与 Kruskal 得同一棵 MST',
+          icon: PrimIcon,
+          url: 'prim',
         },
       ],
     },

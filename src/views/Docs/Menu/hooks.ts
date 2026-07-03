@@ -145,6 +145,10 @@ export function useCategoryData(): Category[] {
           title: 'Kruskal 最小生成树',
           url: 'kruskal',
         },
+        {
+          title: 'Prim 最小生成树',
+          url: 'prim',
+        },
       ],
     },
   ];
