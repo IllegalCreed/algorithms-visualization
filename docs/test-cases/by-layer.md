@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **486** 个用例。运行命令：`pnpm test:unit`
+共 **498** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim+Bellman-Ford（C-050） | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，图算法含 5 项（+拓扑排序 C-051）                     | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，图算法含 Dijkstra+Kruskal+Prim+Bellman-Ford（C-050） | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，图算法含 5 项（+拓扑排序 C-051）                     | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -812,11 +812,30 @@
 | TC-BELLMAN-MOD-11 | 四语言 sources + 行号在范围内                         | `src/algorithms/bellman-ford.module.spec.ts` |
 | TC-BELLMAN-MOD-12 | module 元信息 title 含 Bellman、initialInput()=[]     | `src/algorithms/bellman-ford.module.spec.ts` |
 
+### 拓扑排序模块 topo.module（C-051 · M6 图算法 G5，Kahn 14 步，非平凡 DAG）
+
+固定非平凡 DAG（6 点 7 边，无环）；oracle `topoTrace`；Kahn 取入度 0 输出、后继减度。
+
+| Case ID        | 标题                                                   | 自动化路径                           |
+| -------------- | ------------------------------------------------------ | ------------------------------------ |
+| TC-TOPO-MOD-01 | 末步输出序 = oracle order [2,0,4,1,3,5]（C→A→E→B→D→F） | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-02 | 每步执行点合法且带有向图轨（array:[]、directed=true）  | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-03 | 取/输出 6 点 #selectNode==6、#removeNode==6            | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-04 | init 步 nodeBadge = 初始入度 [1,2,0,1,0,3]             | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-05 | 首个 selectNode 取 C（activeNode=2）                   | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-06 | 首个 removeNode 后 doneNodes=[2]、A 入度→0             | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-07 | 输出序是合法拓扑序（每边 u→v，u 先于 v）               | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-08 | 入度徽标单调不增（减度不变量）                         | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-09 | removeNode 新增 doneNodes 序列 = [2,0,4,1,3,5]         | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-10 | done 步 doneNodes 全 6 点、nodeBadge 全 0              | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-11 | 四语言 sources + 行号在范围内                          | `src/algorithms/topo.module.spec.ts` |
+| TC-TOPO-MOD-12 | module 元信息 title 含拓扑、initialInput()=[]          | `src/algorithms/topo.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **322** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **325** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1433,11 +1452,19 @@
 | TC-VIEW-BELLMAN-02 | h1 含「Bellman」+ GraphView + 5 .graph-node + 无 .bars-view | `src/views/Article/Algorithm/Bellman.spec.ts` |
 | TC-VIEW-BELLMAN-03 | 全模板同屏：Article 含「最短」+ ≥7 .graph-edge              | `src/views/Article/Algorithm/Bellman.spec.ts` |
 
+### 拓扑排序页 C-051（M6 图算法 G5，新页，全模板 + GraphView 有向无权轨）
+
+| Case ID         | 标题                                                     | 自动化路径                                 |
+| --------------- | -------------------------------------------------------- | ------------------------------------------ |
+| TC-VIEW-TOPO-01 | 挂载渲染 Article + AlgorithmPlayer                       | `src/views/Article/Algorithm/Topo.spec.ts` |
+| TC-VIEW-TOPO-02 | h1 含「拓扑」+ GraphView + 6 .graph-node + 无 .bars-view | `src/views/Article/Algorithm/Topo.spec.ts` |
+| TC-VIEW-TOPO-03 | 全模板同屏：Article 含「拓扑」+ ≥7 .graph-edge           | `src/views/Article/Algorithm/Topo.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **42** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **43** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1484,6 +1511,7 @@
 | TC-E2E-KRUSKAL-01   | Kruskal 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 5 `.mst` 绿边 + 4 `.rejected` 虚线 + 字幕 18 / Shiki（C-048 改写） | `e2e/kruskal.e2e.ts`               | active     |
 | TC-E2E-PRIM-01      | Prim 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 5 `.mst` 绿边 + 6 点全绿 + 字幕 18 / Shiki（C-049 新增）              | `e2e/prim.e2e.ts`                  | active     |
 | TC-E2E-BELLMAN-01   | Bellman-Ford 全模板：正文 + 图轨 5 点 7 边（含负权）/ `.scrub` 拖末步 4 `.tree` 绿边 + 5 点全绿 / Shiki（C-050 新增）      | `e2e/bellman-ford.e2e.ts`          | active     |
+| TC-E2E-TOPO-01      | 拓扑排序全模板：正文 + 图轨 6 点 7 边 DAG / `.scrub` 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）                    | `e2e/topological-sort.e2e.ts`      | active     |
 
 ---
 

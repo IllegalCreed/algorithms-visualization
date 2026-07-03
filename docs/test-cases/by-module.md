@@ -318,67 +318,67 @@
 
 ## home（首页）
 
-| Case ID              | 标题                                                         | 层级 | 自动化路径                                       |
-| -------------------- | ------------------------------------------------------------ | ---- | ------------------------------------------------ |
-| TC-HOOK-01-1         | 三分类，图算法含 Dijkstra+Kruskal+Prim+Bellman-Ford（C-050） | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）                   | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                               | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-4         | 所有 url 唯一                                                | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-5         | 每个分类含 desc                                              | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                                 | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                                 | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true                  | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false               | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                                       | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                                          | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                                           | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                                           | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-CATEGORY-01  | 渲染分类标题                                                 | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-02  | 渲染分类描述                                                 | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                                | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                                 | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                                 | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                                  | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                               | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                               | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                                        | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                                   | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name                | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                                    | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                                       | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                                 | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                                           | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                                         | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页                         | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-E2E-HOME-01       | 首页加载并能进入 docs                                        | L5   | `e2e/home-navigation.e2e.ts`                     |
+| Case ID              | 标题                                           | 层级 | 自动化路径                                       |
+| -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
+| TC-HOOK-01-1         | 三分类，图算法含 5 项（+拓扑排序 C-051）       | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-5         | 每个分类含 desc                                | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                   | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                   | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true    | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                         | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                            | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-CATEGORY-01  | 渲染分类标题                                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-02  | 渲染分类描述                                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                  | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                 | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                 | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                          | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                     | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name  | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                      | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                         | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                   | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                             | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                           | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页           | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-E2E-HOME-01       | 首页加载并能进入 docs                          | L5   | `e2e/home-navigation.e2e.ts`                     |
 
 ---
 
 ## docs（文档页侧边菜单）
 
-| Case ID              | 标题                                                         | 层级 | 自动化路径                                     |
-| -------------------- | ------------------------------------------------------------ | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 三分类，图算法含 Dijkstra+Kruskal+Prim+Bellman-Ford（C-050） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-2         | 每项含 title/url 且均非空                                    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-3         | 所有 url 唯一                                                | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构 15 项，排序 15 项（新增鸡尾酒排序 C-045）           | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true                      | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false                   | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                                          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                                         | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url                          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class                        | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class                      | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                                        | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                                  | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                                 | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）                   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                                 | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮                | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新                 | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-E2E-MENU-01       | docs 菜单点击切换路由                                        | L5   | `e2e/docs-menu.e2e.ts`                         |
+| Case ID              | 标题                                               | 层级 | 自动化路径                                     |
+| -------------------- | -------------------------------------------------- | ---- | ---------------------------------------------- |
+| TC-HOOK-02-1         | 三分类，图算法含 5 项（+拓扑排序 C-051）           | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-2         | 每项含 title/url 且均非空                          | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-3         | 所有 url 唯一                                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构 15 项，排序 15 项（新增鸡尾酒排序 C-045） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true            | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false         | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                               | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url                | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                           | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                           | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-E2E-MENU-01       | docs 菜单点击切换路由                              | L5   | `e2e/docs-menu.e2e.ts`                         |
 
 ---
 
@@ -913,13 +913,14 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法，C-037/038/049/050；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
+## article-algo（图算法，C-037/038/049/050/051；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
 > **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。
 > **C-048（M8②-2 · 收官 M8）**：Kruskal 页同法返工——新增 `kruskal.module`（并查集细粒度重走 20 步，复用 useKruskal 图 + oracle）走 **GraphView 无向图轨（零改动复用 C-047）**；`KruskalViz.vue`/spec 删除，8 个 `TC-VIZ-KRUSKALVIZ-*` **superseded**；`TC-VIEW-KRUSKAL-01/02` 改写 + 新增 -03；`TC-E2E-KRUSKAL-01` 改写。useKruskal 保留复用。**至此 M8 全收官。**
 > **C-049（M6 图算法 G7 · 新页）**：Prim 最小生成树新页——`prim.module`（从起点 A 生长选最小横切边 12 步，**复用 useKruskal 同一张图** + oracle）走 **GraphView 无向图轨（零改动复用，第 3 消费者）**；与 Kruskal 配对「同图两策略」，MST 同集不同序（权 18）。新页 + 路由/菜单/首页接线 + 新 `prim.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 2→3）。`TC-PRIM-MOD-*` + `TC-VIEW-PRIM-*` + `TC-E2E-PRIM-01`。
 > **C-050（M6 图算法 G3 · 新页）**：Bellman-Ford 最短路新页——`bellman-ford.module`（新建含负权固定有向图 5 点 7 边 B→C=-3/D→E=-2 无负环，V−1=4 轮盲扫松弛 34 步 + oracle）走 **GraphView 有向图轨（零改动复用，第 4 消费者）**；与 Dijkstra 配对「正权贪心 vs 负权松弛」，dist=[0,4,1,3,1]、边序逆序演示 V−1 轮。新页 + 路由/菜单/首页接线 + 新 `bellman.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 3→4）。`TC-BELLMAN-MOD-*` + `TC-VIEW-BELLMAN-*` + `TC-E2E-BELLMAN-01`。
+> **C-051（M6 图算法 G5 · 新页 · 三大范式收官）**：拓扑排序新页——`topo.module`（新建非平凡 DAG 6 点 7 边，Kahn 取入度 0 输出 + 后继减度 14 步 + oracle，拓扑序 C→A→E→B→D→F）走 **GraphView 有向图轨（第 5 消费者：nodeBadge=入度、doneNodes=输出序）**；GraphView.vue 零改动，仅 `GraphTrack.edges.w` 放宽为可选以支持无权图（向后兼容）。新页 + 路由/菜单/首页接线 + 新 `topo.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 4→5）。`TC-TOPO-MOD-*` + `TC-VIEW-TOPO-*` + `TC-E2E-TOPO-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                      |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -1026,3 +1027,19 @@
 | TC-VIEW-BELLMAN-02    | h1 含「Bellman」+ GraphView + 5 .graph-node + 无 .bars-view（C-050）                               | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`   |
 | TC-VIEW-BELLMAN-03    | 全模板同屏：Article 含「最短」+ ≥7 .graph-edge（C-050）                                            | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`   |
 | TC-E2E-BELLMAN-01     | Bellman-Ford 全模板：图轨 5 点 7 边（含负权）/ 拖末步 4 tree 绿边 + 5 点全绿 / Shiki（C-050 新增） | L5   | `e2e/bellman-ford.e2e.ts`                       |
+| TC-TOPO-MOD-01        | 末步输出序 = oracle order [2,0,4,1,3,5]（C-051）                                                   | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-02        | 每步执行点合法且带有向图轨（array:[]、directed=true）（C-051）                                     | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-03        | 取/输出 6 点 #selectNode==6、#removeNode==6（C-051）                                               | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-04        | init 步 nodeBadge = 初始入度 [1,2,0,1,0,3]（C-051）                                                | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-05        | 首个 selectNode 取 C（activeNode=2）（C-051）                                                      | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-06        | 首个 removeNode 后 doneNodes=[2]、A 入度→0（C-051）                                                | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-07        | 输出序是合法拓扑序（每边 u→v，u 先于 v）（C-051）                                                  | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-08        | 入度徽标单调不增（减度不变量）（C-051）                                                            | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-09        | removeNode 新增 doneNodes 序列 = [2,0,4,1,3,5]（C-051）                                            | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-10        | done 步 doneNodes 全 6 点、nodeBadge 全 0（C-051）                                                 | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-11        | 四语言 sources + 行号在范围内（C-051）                                                             | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-TOPO-MOD-12        | module 元信息 title 含拓扑、initialInput()=[]（C-051）                                             | L3   | `src/algorithms/topo.module.spec.ts`            |
+| TC-VIEW-TOPO-01       | 挂载渲染 Article + AlgorithmPlayer（C-051）                                                        | L4   | `src/views/Article/Algorithm/Topo.spec.ts`      |
+| TC-VIEW-TOPO-02       | h1 含「拓扑」+ GraphView + 6 .graph-node + 无 .bars-view（C-051）                                  | L4   | `src/views/Article/Algorithm/Topo.spec.ts`      |
+| TC-VIEW-TOPO-03       | 全模板同屏：Article 含「拓扑」+ ≥7 .graph-edge（C-051）                                            | L4   | `src/views/Article/Algorithm/Topo.spec.ts`      |
+| TC-E2E-TOPO-01        | 拓扑排序全模板：图轨 6 点 7 边 DAG / 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）            | L5   | `e2e/topological-sort.e2e.ts`                   |
