@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **546** 个用例。运行命令：`pnpm test:unit`
+共 **558** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，5 顶层分类·新增回溯与搜索·N 皇后（C-055）            | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集生成（C-056）           | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，5 顶层分类·新增回溯与搜索·N 皇后（C-055）            | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集生成（C-056）           | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -907,11 +907,30 @@
 | TC-QUEENS-MOD-11 | 四语言 sources + 行号在范围内                 | `src/algorithms/queens.module.spec.ts` |
 | TC-QUEENS-MOD-12 | module 元信息 title 含皇后、initialInput()=[] | `src/algorithms/queens.module.spec.ts` |
 
+### 子集生成模块 subsets.module（C-056 · 回溯第 2 页，选/不选决策树 DFS 31 步 + DecisionTreeView 轨）
+
+固定元素 `[1,2,3]`；oracle `subsetsAll`；逐元素选/不选二叉决策树 DFS 求全部 2^3 子集。
+
+| Case ID           | 标题                                                     | 自动化路径                              |
+| ----------------- | -------------------------------------------------------- | --------------------------------------- |
+| TC-SUBSETS-MOD-01 | 末步 done，solutionIds 覆盖全部 8 叶                     | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-02 | 每步执行点合法且带决策树轨（array:[]）                   | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-03 | 决策树 15 节点、14 边、8 叶                              | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-04 | 8 个 record 步按序 = subsetsAll() 幂集                   | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-05 | 首步 start：根空集、pathIds=[根]、solutionIds 空         | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-06 | 恰 8 个 record（= 2^3）                                  | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-07 | 存在回溯，backtrack 步 active 为内部节点                 | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-08 | 每步 pathIds 从根到 active 连贯（相邻父子边）            | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-09 | solutionIds 长度单调不减，末步=8                         | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-10 | 首个 include 步 active=根「选 1」子、边 label 含「选 1」 | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-11 | 四语言 sources + 行号在范围内                            | `src/algorithms/subsets.module.spec.ts` |
+| TC-SUBSETS-MOD-12 | module 元信息 title 含子集、initialInput()=[]            | `src/algorithms/subsets.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **351** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **360** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1501,12 +1520,18 @@
 | TC-VIZ-BOARDVIEW-02  | 交错着色：深格 8 个                                            | `src/components/BoardView.spec.ts`              |
 | TC-VIZ-BOARDVIEW-03  | tryCell=[2,1] → 对应格带 .bc-try                               | `src/components/BoardView.spec.ts`              |
 | TC-VIZ-BOARDVIEW-04  | conflictCells=[[0,0]] → 对应格带 .bc-conflict                  | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-DTREEVIEW-01  | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge                     | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-02  | activeId=1 → 恰 1 个 .active 节点                              | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点                       | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                    | `src/components/DecisionTreeView.spec.ts`       |
 | TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）       | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                               | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-BOARD-01   | step 带 board → 渲染 BoardView                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-BOARD-02   | 排序 step 无 board→不渲染 BoardView（零回归）                  | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-01   | step 带 decisionTree → 渲染 DecisionTreeView                   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）                     | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -1582,11 +1607,19 @@
 | TC-VIEW-QUEENS-02 | h1 含「皇后」+ BoardView + 16 .board-cell + 无 .bars-view | `src/views/Article/Algorithm/Queens.spec.ts` |
 | TC-VIEW-QUEENS-03 | 全模板同屏：Article 含「皇后」+ BoardView                 | `src/views/Article/Algorithm/Queens.spec.ts` |
 
+### 子集生成页 C-056（回溯第 2 页，新页，全模板 + DecisionTreeView 决策树）
+
+| Case ID            | 标题                                             | 自动化路径                                    |
+| ------------------ | ------------------------------------------------ | --------------------------------------------- |
+| TC-VIEW-SUBSETS-01 | 挂载渲染 Article + AlgorithmPlayer               | `src/views/Article/Algorithm/Subsets.spec.ts` |
+| TC-VIEW-SUBSETS-02 | h1 含「子集」+ DecisionTreeView + 无 .bars-view  | `src/views/Article/Algorithm/Subsets.spec.ts` |
+| TC-VIEW-SUBSETS-03 | 全模板同屏：Article 含「子集」+ DecisionTreeView | `src/views/Article/Algorithm/Subsets.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **47** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **48** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1638,6 +1671,7 @@
 | TC-E2E-EDIT-01      | 编辑距离全模板：正文 + DP 表 4×4 / `.scrub` 拖末步右下角=2 / Shiki（C-053 新增）                                           | `e2e/edit-distance.e2e.ts`         | active     |
 | TC-E2E-KNAP-01      | 0-1 背包全模板：正文 + DP 表 5×6 / `.scrub` 拖末步右下角=7 / Shiki（C-054 新增）                                           | `e2e/knapsack.e2e.ts`              | active     |
 | TC-E2E-QUEENS-01    | N 皇后全模板：正文 + 棋盘 4×4 / `.scrub` 拖末步 4 皇后 / Shiki（C-055 新增）                                               | `e2e/n-queens.e2e.ts`              | active     |
+| TC-E2E-SUBSETS-01   | 子集生成全模板：正文 + 决策树 15 节点 / `.scrub` 拖末步 8 解叶 / Shiki（C-056 新增）                                       | `e2e/subsets.e2e.ts`               | active     |
 
 ---
 
