@@ -17,6 +17,7 @@ import BloomIcon from '@/assets/bloom-filter.svg';
 import DijkstraIcon from '@/assets/dijkstra.svg';
 import KruskalIcon from '@/assets/kruskal.svg';
 import PrimIcon from '@/assets/prim.svg';
+import BellmanIcon from '@/assets/bellman.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -247,6 +248,12 @@ export function useCategoryData(): Category[] {
           desc: '从一个起点生长：每步选「一端在树、一端在树外」的最小横切边并入，同图与 Kruskal 得同一棵 MST',
           icon: PrimIcon,
           url: 'prim',
+        },
+        {
+          title: 'Bellman-Ford 最短路',
+          desc: '反复松弛所有边 V−1 轮，能处理负权边（Dijkstra 不能）、还能检测负环',
+          icon: BellmanIcon,
+          url: 'bellman-ford',
         },
       ],
     },

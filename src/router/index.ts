@@ -110,6 +110,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Prim.vue'),
           },
           {
+            path: '/docs/bellman-ford',
+            name: 'bellman-ford',
+            component: () => import('../views/Article/Algorithm/Bellman.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

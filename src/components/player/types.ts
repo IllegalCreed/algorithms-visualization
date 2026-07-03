@@ -149,6 +149,14 @@ export type PrimExecPoint =
   | 'addVertex' // 把该边 + 树外端点并入树（mst 绿 + 新点变绿）
   | 'done'; // V-1 条边选齐，MST 完成
 
+/** Bellman-Ford 最短路执行点（C-050，复用 GraphView 有向图轨——含负权、V−1 轮盲扫松弛） */
+export type BellmanFordExecPoint =
+  | 'init' // dist[源]=0，其余 ∞
+  | 'roundStart' // 开始第 k 轮：松弛所有边
+  | 'relaxUpdate' // 当前边 (u,v,w)：dist[u]+w < dist[v] → 更新 dist[v]
+  | 'relaxSkip' // 当前边：不更短，跳过
+  | 'done'; // V−1 轮完成，最短路确定
+
 /** 变量面板的一行 */
 export interface VarRow {
   name: string;

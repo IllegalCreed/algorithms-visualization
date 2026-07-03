@@ -149,6 +149,10 @@ export function useCategoryData(): Category[] {
           title: 'Prim 最小生成树',
           url: 'prim',
         },
+        {
+          title: 'Bellman-Ford 最短路',
+          url: 'bellman-ford',
+        },
       ],
     },
   ];
