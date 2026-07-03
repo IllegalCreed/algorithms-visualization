@@ -277,8 +277,14 @@
 | TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active（C-047）                            | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree（C-047）                              | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）（C-047）                        | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-MATRIXVIEW-01 | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                           | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）（C-052）                                | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                         | L4   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-04 | active .mx-active；sources 两单元 .mx-source（C-052）                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-PLAYER-GRAPH-01   | 当前步带 graph 时渲染 GraphView（C-047）                                | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02   | array:[] 不渲染 BarsView；排序 array 非空仍渲染（零回归）（C-047）      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView（C-052）                               | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step 空数组→不渲 BarsView（C-052）   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -320,7 +326,7 @@
 
 | Case ID              | 标题                                           | 层级 | 自动化路径                                       |
 | -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
-| TC-HOOK-01-1         | 三分类，图算法含 5 项（+拓扑排序 C-051）       | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-1         | 三分类，图算法含 6 项（+Floyd C-052）          | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）     | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
 | TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
@@ -358,7 +364,7 @@
 
 | Case ID              | 标题                                               | 层级 | 自动化路径                                     |
 | -------------------- | -------------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 三分类，图算法含 5 项（+拓扑排序 C-051）           | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-1         | 三分类，图算法含 6 项（+Floyd C-052）              | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-2         | 每项含 title/url 且均非空                          | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-3         | 所有 url 唯一                                      | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
 | TC-HOOK-02-4         | 数据结构 15 项，排序 15 项（新增鸡尾酒排序 C-045） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
@@ -913,7 +919,7 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法，C-037/038/049/050/051；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
+## article-algo（图算法，C-037/038/049/050/051/052；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
 > **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。
@@ -921,6 +927,7 @@
 > **C-049（M6 图算法 G7 · 新页）**：Prim 最小生成树新页——`prim.module`（从起点 A 生长选最小横切边 12 步，**复用 useKruskal 同一张图** + oracle）走 **GraphView 无向图轨（零改动复用，第 3 消费者）**；与 Kruskal 配对「同图两策略」，MST 同集不同序（权 18）。新页 + 路由/菜单/首页接线 + 新 `prim.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 2→3）。`TC-PRIM-MOD-*` + `TC-VIEW-PRIM-*` + `TC-E2E-PRIM-01`。
 > **C-050（M6 图算法 G3 · 新页）**：Bellman-Ford 最短路新页——`bellman-ford.module`（新建含负权固定有向图 5 点 7 边 B→C=-3/D→E=-2 无负环，V−1=4 轮盲扫松弛 34 步 + oracle）走 **GraphView 有向图轨（零改动复用，第 4 消费者）**；与 Dijkstra 配对「正权贪心 vs 负权松弛」，dist=[0,4,1,3,1]、边序逆序演示 V−1 轮。新页 + 路由/菜单/首页接线 + 新 `bellman.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 3→4）。`TC-BELLMAN-MOD-*` + `TC-VIEW-BELLMAN-*` + `TC-E2E-BELLMAN-01`。
 > **C-051（M6 图算法 G5 · 新页 · 三大范式收官）**：拓扑排序新页——`topo.module`（新建非平凡 DAG 6 点 7 边，Kahn 取入度 0 输出 + 后继减度 14 步 + oracle，拓扑序 C→A→E→B→D→F）走 **GraphView 有向图轨（第 5 消费者：nodeBadge=入度、doneNodes=输出序）**；GraphView.vue 零改动，仅 `GraphTrack.edges.w` 放宽为可选以支持无权图（向后兼容）。新页 + 路由/菜单/首页接线 + 新 `topo.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 4→5）。`TC-TOPO-MOD-*` + `TC-VIEW-TOPO-*` + `TC-E2E-TOPO-01`。
+> **C-052（M6 图算法 G4 · 新页 · 新 MatrixView 轨）**：Floyd-Warshall 全源最短路新页——**新建第 8 条 MatrixView 矩阵轨**（通用 n×n 原语：cells + 中转 k 行列高亮 + active/sources 单元 + 更新绿，见 viz-engine 段 `TC-VIZ-MATRIXVIEW-*`/`TC-PLAYER-MATRIX-*`；为 DP 大类铺路）。`floyd.module`（固定 4 点 6 边含环有向图，三重循环重走 19 步 + oracle，终态全源矩阵 [0,3,5,6/8,0,2,3/6,9,0,1/5,8,10,0]）。既有 7 轨零改动、AlgorithmPlayer 仅 additive 加 v-if。新页 + 路由/菜单/首页接线 + 新 `floyd.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 5→6）。`TC-FLOYD-MOD-*` + `TC-VIEW-FLOYD-*` + `TC-E2E-FLOYD-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                      |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ----------------------------------------------- |
@@ -1043,3 +1050,19 @@
 | TC-VIEW-TOPO-02       | h1 含「拓扑」+ GraphView + 6 .graph-node + 无 .bars-view（C-051）                                  | L4   | `src/views/Article/Algorithm/Topo.spec.ts`      |
 | TC-VIEW-TOPO-03       | 全模板同屏：Article 含「拓扑」+ ≥7 .graph-edge（C-051）                                            | L4   | `src/views/Article/Algorithm/Topo.spec.ts`      |
 | TC-E2E-TOPO-01        | 拓扑排序全模板：图轨 6 点 7 边 DAG / 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）            | L5   | `e2e/topological-sort.e2e.ts`                   |
+| TC-FLOYD-MOD-01       | 末步 cells = oracle floydTrace() 终态矩阵（C-052）                                                 | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-02       | 每步执行点合法且带矩阵轨（array:[]）（C-052）                                                      | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-03       | 4 个中转点 #pivotStart==4（C-052）                                                                 | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-04       | 松弛统计 #relaxUpdate==10、#relaxSkip==3（C-052）                                                  | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-05       | init cells = 邻接（对角 0、A→B=3、A→D=null）（C-052）                                              | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-06       | done 矩阵无 ∞（含环→全点对可达）（C-052）                                                          | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-07       | 关键距离 [1][0]=8、[0][3]=6、[2][1]=9（C-052）                                                     | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-08       | 第 k 个 pivotStart 步 matrix.pivot===k（C-052）                                                    | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-09       | 每个单元值单调不增（松弛不变量）（C-052）                                                          | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-10       | 每个 relax 步 active 非空、sources 长度 2（C-052）                                                 | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-11       | 四语言 sources + 行号在范围内（C-052）                                                             | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-FLOYD-MOD-12       | module 元信息 title 含 Floyd、initialInput()=[]（C-052）                                           | L3   | `src/algorithms/floyd.module.spec.ts`           |
+| TC-VIEW-FLOYD-01      | 挂载渲染 Article + AlgorithmPlayer（C-052）                                                        | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`     |
+| TC-VIEW-FLOYD-02      | h1 含「Floyd」+ MatrixView + 16 .matrix-cell + 无 .bars-view（C-052）                              | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`     |
+| TC-VIEW-FLOYD-03      | 全模板同屏：Article 含「最短」+ MatrixView（C-052）                                                | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`     |
+| TC-E2E-FLOYD-01       | Floyd 全模板：矩阵轨 4×4 / 拖末步全源矩阵无 ∞ / Shiki（C-052 新增）                                | L5   | `e2e/floyd-warshall.e2e.ts`                     |

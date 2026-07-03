@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **498** 个用例。运行命令：`pnpm test:unit`
+共 **510** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，图算法含 5 项（+拓扑排序 C-051）                     | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，图算法含 6 项（+Floyd C-052）                        | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，图算法含 5 项（+拓扑排序 C-051）                     | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，图算法含 6 项（+Floyd C-052）                        | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -831,11 +831,30 @@
 | TC-TOPO-MOD-11 | 四语言 sources + 行号在范围内                          | `src/algorithms/topo.module.spec.ts` |
 | TC-TOPO-MOD-12 | module 元信息 title 含拓扑、initialInput()=[]          | `src/algorithms/topo.module.spec.ts` |
 
+### Floyd-Warshall 模块 floyd.module（C-052 · M6 图算法 G4，三重循环 19 步 + MatrixView 矩阵轨）
+
+固定 4 点 6 边含环有向图；oracle `floydTrace`；只对候选单元（i→k→j 两腿有限）出步。
+
+| Case ID         | 标题                                            | 自动化路径                            |
+| --------------- | ----------------------------------------------- | ------------------------------------- |
+| TC-FLOYD-MOD-01 | 末步 cells = oracle floydTrace() 终态矩阵       | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-02 | 每步执行点合法且带矩阵轨（array:[]）            | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-03 | 4 个中转点 #pivotStart==4                       | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-04 | 松弛统计 #relaxUpdate==10、#relaxSkip==3        | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-05 | init cells = 邻接（对角 0、A→B=3、A→D=null）    | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-06 | done 矩阵无 ∞（含环→全点对可达）                | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-07 | 关键距离 [1][0]=8、[0][3]=6、[2][1]=9           | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-08 | 第 k 个 pivotStart 步 matrix.pivot===k          | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-09 | 每个单元值单调不增（松弛不变量）                | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-10 | 每个 relax 步 active 非空、sources 长度 2       | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-11 | 四语言 sources + 行号在范围内                   | `src/algorithms/floyd.module.spec.ts` |
+| TC-FLOYD-MOD-12 | module 元信息 title 含 Floyd、initialInput()=[] | `src/algorithms/floyd.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **325** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **334** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1409,14 +1428,20 @@
 
 ### GraphView 图轨 + 播放器接图轨（C-047 · M8②-1，新第 7 轨，通用带权图，供 Kruskal C-048 复用）
 
-| Case ID             | 标题                                                     | 自动化路径                                      |
-| ------------------- | -------------------------------------------------------- | ----------------------------------------------- |
-| TC-VIZ-GRAPHVIEW-01 | 6 .graph-node + 9 .graph-edge + 权重文本可见             | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-02 | doneNodes→.done、activeNode→.active                      | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-03 | edgeClass→对应边 .relaxed / .tree                        | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-04 | nodeBadge→.node-badge 显示 dist（含 ∞）                  | `src/components/GraphView.spec.ts`              |
-| TC-PLAYER-GRAPH-01  | 当前步带 graph → 渲染 GraphView                          | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-GRAPH-02  | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归） | `src/components/player/AlgorithmPlayer.spec.ts` |
+| Case ID              | 标题                                                           | 自动化路径                                      |
+| -------------------- | -------------------------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-GRAPHVIEW-01  | 6 .graph-node + 9 .graph-edge + 权重文本可见                   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active                            | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree                              | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）                        | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-MATRIXVIEW-01 | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                           | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）                                | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-04 | active 单元 .mx-active；sources 两单元 .mx-source              | `src/components/MatrixView.spec.ts`             |
+| TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）       | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                               | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -1460,11 +1485,19 @@
 | TC-VIEW-TOPO-02 | h1 含「拓扑」+ GraphView + 6 .graph-node + 无 .bars-view | `src/views/Article/Algorithm/Topo.spec.ts` |
 | TC-VIEW-TOPO-03 | 全模板同屏：Article 含「拓扑」+ ≥7 .graph-edge           | `src/views/Article/Algorithm/Topo.spec.ts` |
 
+### Floyd-Warshall 页 C-052（M6 图算法 G4，新页，全模板 + MatrixView 矩阵轨）
+
+| Case ID          | 标题                                                         | 自动化路径                                  |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------- |
+| TC-VIEW-FLOYD-01 | 挂载渲染 Article + AlgorithmPlayer                           | `src/views/Article/Algorithm/Floyd.spec.ts` |
+| TC-VIEW-FLOYD-02 | h1 含「Floyd」+ MatrixView + 16 .matrix-cell + 无 .bars-view | `src/views/Article/Algorithm/Floyd.spec.ts` |
+| TC-VIEW-FLOYD-03 | 全模板同屏：Article 含「最短」+ MatrixView                   | `src/views/Article/Algorithm/Floyd.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **43** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **44** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1512,6 +1545,7 @@
 | TC-E2E-PRIM-01      | Prim 全模板：正文 + 图轨 6 点 9 边 / `.scrub` 拖末步 5 `.mst` 绿边 + 6 点全绿 + 字幕 18 / Shiki（C-049 新增）              | `e2e/prim.e2e.ts`                  | active     |
 | TC-E2E-BELLMAN-01   | Bellman-Ford 全模板：正文 + 图轨 5 点 7 边（含负权）/ `.scrub` 拖末步 4 `.tree` 绿边 + 5 点全绿 / Shiki（C-050 新增）      | `e2e/bellman-ford.e2e.ts`          | active     |
 | TC-E2E-TOPO-01      | 拓扑排序全模板：正文 + 图轨 6 点 7 边 DAG / `.scrub` 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）                    | `e2e/topological-sort.e2e.ts`      | active     |
+| TC-E2E-FLOYD-01     | Floyd 全模板：正文 + 矩阵轨 4×4 / `.scrub` 拖末步全源矩阵无 ∞ / Shiki（C-052 新增）                                        | `e2e/floyd-warshall.e2e.ts`        | active     |
 
 ---
 
