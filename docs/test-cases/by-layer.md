@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **618** 个用例。运行命令：`pnpm test:unit`
+共 **630** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -143,27 +143,27 @@
 
 ### hooks
 
-| Case ID      | 标题                                                                  | 自动化路径                              |
-| ------------ | --------------------------------------------------------------------- | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，5 顶层分类·动态规划含编辑距离+背包+LCS+LIS·回溯 5 项（C-061） | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）               | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                        | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                                         | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                                       | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，5 顶层分类·动态规划含编辑距离+背包+LCS+LIS·回溯 5 项（C-061） | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                                             | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                                         | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）                | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                          | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                          | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                           | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                        | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                               | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                            | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）          | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）                  | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）             | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）                       | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                         | 自动化路径                              |
+| ------------ | ------------------------------------------------------------ | --------------------------------------- |
+| TC-HOOK-01-1 | 三分类，6 顶层分类·新增字符串·KMP（C-062）                   | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，6 顶层分类·新增字符串·KMP（C-062）                   | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4） | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）              | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
@@ -1021,11 +1021,30 @@
 | TC-LIS-MOD-11 | 四语言 sources + 行号在范围内                           | `src/algorithms/lis.module.spec.ts` |
 | TC-LIS-MOD-12 | module 元信息 title 含递增子序列/LIS、initialInput()=[] | `src/algorithms/lis.module.spec.ts` |
 
+### KMP 字符串匹配模块 kmp.module（C-062 · 字符串大类首发，匹配循环 12 步 + KmpView 轨）
+
+固定 T=`abababcab`、P=`ababc`；oracle `kmpLps`/`kmpMatches`；失配用 π 跳转、文本 i 不回退，命中下标 2。
+
+| Case ID       | 标题                                                  | 自动化路径                          |
+| ------------- | ----------------------------------------------------- | ----------------------------------- |
+| TC-KMP-MOD-01 | 末步 done，found = kmpMatches() = [2]                 | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-02 | 每步执行点合法且带匹配轨（array:[]）                  | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-03 | 每步 lps = kmpLps() = [0,0,1,2,0]                     | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-04 | 存在关键跳转 #jump>=1、jump 步 lpsActive=comparePat-1 | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-05 | 恰一 found，命中起点 = 2                              | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-06 | match 步字符相等 T[compareText]===P[comparePat]       | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-07 | 文本指针不回退：compareText 单调不减                  | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-08 | offset = compareText - comparePat（≥0）               | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-09 | matchedLen = comparePat                               | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-10 | 命中区间不越界：T.substr(s,m)===P                     | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-11 | 四语言 sources + 行号在范围内                         | `src/algorithms/kmp.module.spec.ts` |
+| TC-KMP-MOD-12 | module 元信息 title 含 KMP/字符串、initialInput()=[]  | `src/algorithms/kmp.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **383** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **392** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1625,6 +1644,10 @@
 | TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）                            | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path                   | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution           | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格                                 | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare                   | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                   | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-04    | found=[2] → 文本下标 2 起 5 格带 .kmp-found                    | `src/components/KmpView.spec.ts`                |
 | TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）       | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                               | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -1635,6 +1658,8 @@
 | TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）                     | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MAZE-01    | step 带 maze → 渲染 MazeView                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MAZE-02    | 排序 step 无 maze→不渲染 MazeView（零回归）                    | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-01     | step 带 kmp → 渲染 KmpView                                     | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-02     | 排序 step 无 kmp→不渲染 KmpView（零回归）                      | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -1758,11 +1783,19 @@
 | TC-VIEW-LIS-02 | h1 含「递增子序列」+ MatrixView + 无 .bars-view  | `src/views/Article/Algorithm/Lis.spec.ts` |
 | TC-VIEW-LIS-03 | 全模板同屏：Article 含「递增子序列」+ MatrixView | `src/views/Article/Algorithm/Lis.spec.ts` |
 
+### KMP 字符串匹配页 C-062（字符串大类首发，新页，全模板 + 字符串匹配轨）
+
+| Case ID        | 标题                                      | 自动化路径                                |
+| -------------- | ----------------------------------------- | ----------------------------------------- |
+| TC-VIEW-KMP-01 | 挂载渲染 Article + AlgorithmPlayer        | `src/views/Article/Algorithm/Kmp.spec.ts` |
+| TC-VIEW-KMP-02 | h1 含「KMP」+ KmpView + 无 .bars-view     | `src/views/Article/Algorithm/Kmp.spec.ts` |
+| TC-VIEW-KMP-03 | 全模板同屏：Article 含「字符串」+ KmpView | `src/views/Article/Algorithm/Kmp.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **53** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **54** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1820,6 +1853,7 @@
 | TC-E2E-MAZE-01      | 迷宫寻路全模板：正文 + 网格 DFS 回溯 / `.scrub` 拖末步 解路径绿 / Shiki（C-059 新增）                                      | `e2e/maze.e2e.ts`                  | active     |
 | TC-E2E-LCS-01       | LCS 全模板：正文 + DP 填表 + 回溯 / `.scrub` 拖末步 路径绿环 + caption 含 ACD / Shiki（C-060 新增）                        | `e2e/lcs.e2e.ts`                   | active     |
 | TC-E2E-LIS-01       | LIS 全模板：正文 + 一维 DP 两行表 / `.scrub` 拖末步 LIS 绿环 + caption 含 1→3→4→5 / Shiki（C-061 新增）                    | `e2e/lis.e2e.ts`                   | active     |
+| TC-E2E-KMP-01       | KMP 全模板：正文 + 文本/模式/LPS 三行 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-062 新增）             | `e2e/kmp.e2e.ts`                   | active     |
 
 ---
 
