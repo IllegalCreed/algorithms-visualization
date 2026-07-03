@@ -25,6 +25,7 @@ const cellOf = (i: number, j: number) => {
       'mx-active': eq(m.active, i, j),
       'mx-source': (m.sources ?? []).some((s) => s[0] === i && s[1] === j),
       'mx-updated': eq(m.updatedCell, i, j),
+      'mx-path': (m.pathCells ?? []).some((p) => p[0] === i && p[1] === j),
       'mx-diag': i === j,
     },
   };
@@ -115,6 +116,11 @@ const cellOf = (i: number, j: number) => {
 /* 刚被降低的单元：绿 */
 .matrix-cell.mx-updated {
   background-color: #8bd3a0;
+  color: #1f5e3a;
+}
+/* 回溯路径格：绿环（LCS 从右下角回走恢复解） */
+.matrix-cell.mx-path {
+  box-shadow: 0 0 0 3px #4caf50;
   color: #1f5e3a;
 }
 </style>

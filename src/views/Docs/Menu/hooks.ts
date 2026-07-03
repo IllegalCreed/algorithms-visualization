@@ -174,6 +174,10 @@ export function useCategoryData(): Category[] {
           title: '0-1 背包',
           url: 'knapsack',
         },
+        {
+          title: '最长公共子序列',
+          url: 'lcs',
+        },
       ],
     },
     {

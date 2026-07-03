@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 公共子序列连线（按顺序挑出的公共字符，X 上排 → Y 下排） -->
+  <g stroke="#333333" stroke-width="22" stroke-linecap="round">
+    <line x1="180" y1="300" x2="180" y2="720" />
+    <line x1="580" y1="300" x2="380" y2="720" />
+    <line x1="780" y1="300" x2="580" y2="720" />
+  </g>
+  <!-- 上排串 X：匹配字符实心、非匹配空心 -->
+  <g stroke="#333333" stroke-width="26">
+    <circle cx="180" cy="300" r="66" fill="#333333" />
+    <circle cx="380" cy="300" r="66" fill="#ffffff" />
+    <circle cx="580" cy="300" r="66" fill="#333333" />
+    <circle cx="780" cy="300" r="66" fill="#333333" />
+  </g>
+  <!-- 下排串 Y：匹配字符实心、非匹配空心 -->
+  <g stroke="#333333" stroke-width="26">
+    <circle cx="180" cy="720" r="66" fill="#333333" />
+    <circle cx="380" cy="720" r="66" fill="#333333" />
+    <circle cx="580" cy="720" r="66" fill="#333333" />
+    <circle cx="780" cy="720" r="66" fill="#ffffff" />
+  </g>
+</svg>

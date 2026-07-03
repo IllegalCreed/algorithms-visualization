@@ -240,7 +240,17 @@ export interface MatrixTrack {
   active?: [number, number] | null; // 当前考察/更新的单元 (i,j)（琥珀环）
   sources?: [number, number][]; // 参与计算的源单元（Floyd=(i,k)/(k,j)；DP=依赖格）（黄高亮）
   updatedCell?: [number, number] | null; // 本步刚更新/填入的单元（绿闪）
+  pathCells?: [number, number][]; // 回溯路径格（绿环）——LCS 等需从 DP 表恢复解的题设，编辑距离/背包/Floyd 不设 → 无 .mx-path
 }
+
+/** 最长公共子序列 LCS 执行点（C-060，DP 第 3 页；扩展 MatrixView——填表 + 回溯恢复解） */
+export type LcsExecPoint =
+  | 'init' // 填边界：第 0 行 / 第 0 列 = 0（空串无公共子序列）
+  | 'match' // X[i-1]===Y[j-1]：dp[i][j]=dp[i-1][j-1]+1（取左上对角 + 1）
+  | 'mismatch' // 不同：dp[i][j]=max(dp[i-1][j], dp[i][j-1])（取上/左较大）
+  | 'fillDone' // 表填满：右下角 = LCS 长度
+  | 'trace' // 回溯：从右下角沿路径回走一步（匹配则收字符走对角，否则走上/左）
+  | 'done'; // 回溯完：恢复出 LCS 字符串
 
 /** 编辑距离执行点（C-053，DP 大类首发；复用 MatrixView 矩阵轨——填 DP 表） */
 export type EditDistExecPoint =

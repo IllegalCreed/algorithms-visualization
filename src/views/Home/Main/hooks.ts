@@ -22,6 +22,7 @@ import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
+import LcsIcon from '@/assets/lcs.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
@@ -293,6 +294,12 @@ export function useCategoryData(): Category[] {
           desc: '容量有限、物品取或不取，求最大价值：二维 DP 逐格填表，装不下沿用上行、装得下取 max(不取, 取)',
           icon: KnapsackIcon,
           url: 'knapsack',
+        },
+        {
+          title: '最长公共子序列',
+          desc: '两串最长公共子序列：二维 DP 相同取左上+1、不同取上左最大，填表求长度后从右下角回溯恢复出 LCS 串',
+          icon: LcsIcon,
+          url: 'lcs',
         },
       ],
     },

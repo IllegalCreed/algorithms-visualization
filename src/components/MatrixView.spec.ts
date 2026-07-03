@@ -67,4 +67,16 @@ describe('MatrixView 矩阵轨', () => {
     const blankCells = w.findAll('.matrix-cell').filter((c) => c.text() === '');
     expect(blankCells.length).toBe(6); // 原 6 个 null 单元显示空白
   });
+
+  it('TC-VIZ-MATRIXVIEW-07 pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设时 0（C-060 扩展）', () => {
+    expect(
+      mountIt({
+        pathCells: [
+          [1, 1],
+          [2, 2],
+        ],
+      }).findAll('.matrix-cell.mx-path'),
+    ).toHaveLength(2);
+    expect(mountIt().findAll('.matrix-cell.mx-path')).toHaveLength(0); // 编辑距离/背包/Floyd 不设 → 零回归
+  });
 });
