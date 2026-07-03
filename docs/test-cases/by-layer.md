@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **570** 个用例。运行命令：`pnpm test:unit`
+共 **582** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -145,12 +145,12 @@
 
 | Case ID      | 标题                                                         | 自动化路径                              |
 | ------------ | ------------------------------------------------------------ | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+全排列（C-057）        | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+排列+组合总和（C-058） | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）      | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
 | TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+全排列（C-057）        | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，5 顶层分类·回溯含 N 皇后+子集+排列+组合总和（C-058） | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
 | TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）       | `src/views/Docs/Menu/hooks.spec.ts`     |
@@ -945,11 +945,30 @@
 | TC-PERMUTE-MOD-11 | 四语言 sources + 行号在范围内                      | `src/algorithms/permute.module.spec.ts` |
 | TC-PERMUTE-MOD-12 | module 元信息 title 含排列、initialInput()=[]      | `src/algorithms/permute.module.spec.ts` |
 
+### 组合总和模块 combsum.module（C-058 · 回溯第 4 页，决策树剪枝 DFS 24 步 + 扩展 DecisionTreeView prunedIds）
+
+固定候选 `[1,2,3,4]`、目标 `5`；oracle `combSumAll`；start-index 决策树逐个加数，和 > 目标剪枝、= 目标记录。
+
+| Case ID           | 标题                                                   | 自动化路径                              |
+| ----------------- | ------------------------------------------------------ | --------------------------------------- |
+| TC-COMBSUM-MOD-01 | 末步 done，solutionIds = 全部解叶（2 个）              | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-02 | 每步执行点合法且带决策树轨（array:[]）                 | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-03 | 决策树 14 节点；解 2、剪枝 5                           | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-04 | record 步组合按序 = combSumAll() [[1,4],[2,3]]，和=5   | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-05 | 首步 start：根空组合、pathIds=[根]、solution/pruned 空 | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-06 | 存在剪枝 #prune>=1，末步 prunedIds 覆盖全部剪枝（5）   | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-07 | 每个剪枝节点其组合之和 > 目标 5                        | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-08 | 每个解节点其组合之和 = 目标 5                          | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-09 | 每步 pathIds 从根到 active 连贯（相邻父子边）          | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-10 | 每个剪枝节点在决策树中无出边（不展开）                 | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-11 | 四语言 sources + 行号在范围内                          | `src/algorithms/combsum.module.spec.ts` |
+| TC-COMBSUM-MOD-12 | module 元信息 title 含组合、initialInput()=[]          | `src/algorithms/combsum.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **363** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **367** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1543,6 +1562,7 @@
 | TC-VIZ-DTREEVIEW-02  | activeId=1 → 恰 1 个 .active 节点                              | `src/components/DecisionTreeView.spec.ts`       |
 | TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点                       | `src/components/DecisionTreeView.spec.ts`       |
 | TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                    | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-05  | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）  | `src/components/DecisionTreeView.spec.ts`       |
 | TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）       | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                               | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -1642,11 +1662,19 @@
 | TC-VIEW-PERMUTE-02 | h1 含「排列」+ DecisionTreeView + 无 .bars-view  | `src/views/Article/Algorithm/Permute.spec.ts` |
 | TC-VIEW-PERMUTE-03 | 全模板同屏：Article 含「排列」+ DecisionTreeView | `src/views/Article/Algorithm/Permute.spec.ts` |
 
+### 组合总和页 C-058（回溯第 4 页，新页，全模板 + 决策树剪枝）
+
+| Case ID            | 标题                                             | 自动化路径                                    |
+| ------------------ | ------------------------------------------------ | --------------------------------------------- |
+| TC-VIEW-COMBSUM-01 | 挂载渲染 Article + AlgorithmPlayer               | `src/views/Article/Algorithm/Combsum.spec.ts` |
+| TC-VIEW-COMBSUM-02 | h1 含「组合」+ DecisionTreeView + 无 .bars-view  | `src/views/Article/Algorithm/Combsum.spec.ts` |
+| TC-VIEW-COMBSUM-03 | 全模板同屏：Article 含「组合」+ DecisionTreeView | `src/views/Article/Algorithm/Combsum.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **49** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **50** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1700,6 +1728,7 @@
 | TC-E2E-QUEENS-01    | N 皇后全模板：正文 + 棋盘 4×4 / `.scrub` 拖末步 4 皇后 / Shiki（C-055 新增）                                               | `e2e/n-queens.e2e.ts`              | active     |
 | TC-E2E-SUBSETS-01   | 子集生成全模板：正文 + 决策树 15 节点 / `.scrub` 拖末步 8 解叶 / Shiki（C-056 新增）                                       | `e2e/subsets.e2e.ts`               | active     |
 | TC-E2E-PERMUTE-01   | 全排列全模板：正文 + 多叉决策树 16 节点 / `.scrub` 拖末步 6 排列叶 / Shiki（C-057 新增）                                   | `e2e/permutations.e2e.ts`          | active     |
+| TC-E2E-COMBSUM-01   | 组合总和全模板：正文 + 决策树剪枝 / `.scrub` 拖末步 5 剪枝支 + 2 解 / Shiki（C-058 新增）                                  | `e2e/combination-sum.e2e.ts`       | active     |
 
 ---
 
