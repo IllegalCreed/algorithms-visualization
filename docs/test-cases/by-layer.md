@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **606** 个用例。运行命令：`pnpm test:unit`
+共 **618** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -143,27 +143,27 @@
 
 ### hooks
 
-| Case ID      | 标题                                                              | 自动化路径                              |
-| ------------ | ----------------------------------------------------------------- | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，5 顶层分类·动态规划含编辑距离+背包+LCS·回溯 5 项（C-060） | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）           | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                    | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                                     | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，5 顶层分类·动态规划含编辑距离+背包+LCS·回溯 5 项（C-060） | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                                         | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                                     | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）            | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                      | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                      | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                       | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                    | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                           | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                        | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）      | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）              | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）                   | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                                  | 自动化路径                              |
+| ------------ | --------------------------------------------------------------------- | --------------------------------------- |
+| TC-HOOK-01-1 | 三分类，5 顶层分类·动态规划含编辑距离+背包+LCS+LIS·回溯 5 项（C-061） | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）               | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                        | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                         | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                                       | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 三分类，5 顶层分类·动态规划含编辑距离+背包+LCS+LIS·回溯 5 项（C-061） | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                             | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                         | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                          | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                          | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                           | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                        | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                               | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                            | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）          | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）                  | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）             | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）                       | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
@@ -1002,11 +1002,30 @@
 | TC-LCS-MOD-11 | 四语言 sources + 行号在范围内                           | `src/algorithms/lcs.module.spec.ts` |
 | TC-LCS-MOD-12 | module 元信息 title 含公共子序列/LCS、initialInput()=[] | `src/algorithms/lcs.module.spec.ts` |
 
+### 最长递增子序列模块 lis.module（C-061 · DP 第 4 页，一维 DP 两行表 18 步 + 复用 MatrixView 零改动）
+
+固定输入 `[1,3,2,4,3,5]`；oracle `lisLength`/`lisIndices`/`lisValues`；一维 dp 回看前面取 max+1，回溯恢复 LIS=1→3→4→5。
+
+| Case ID       | 标题                                                    | 自动化路径                          |
+| ------------- | ------------------------------------------------------- | ----------------------------------- |
+| TC-LIS-MOD-01 | fillDone dp 行最大值 = lisLength() = 4                  | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-02 | 每步执行点合法且带矩阵轨（array:[]）                    | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-03 | 两行表 2 行×n 列，rowLabels 含「值」「dp」              | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-04 | init 步 dp 行全 1                                       | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-05 | extend 步 active=[1,i]、dp[i]=dp[j]+1                   | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-06 | scan 步不更新（updatedCell 空）                         | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-07 | 末步 result，含 lisValues 连接 1→3→4→5                  | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-08 | result 步 pathCells = LIS 位置 [0,1,3,5]（值行）        | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-09 | 末步 dp 行 = lisDp().dp = [1,2,2,3,3,4]                 | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-10 | 存在 scan + extend                                      | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-11 | 四语言 sources + 行号在范围内                           | `src/algorithms/lis.module.spec.ts` |
+| TC-LIS-MOD-12 | module 元信息 title 含递增子序列/LIS、initialInput()=[] | `src/algorithms/lis.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **380** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **383** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1731,11 +1750,19 @@
 | TC-VIEW-LCS-02 | h1 含「子序列」+ MatrixView + 无 .bars-view  | `src/views/Article/Algorithm/Lcs.spec.ts` |
 | TC-VIEW-LCS-03 | 全模板同屏：Article 含「子序列」+ MatrixView | `src/views/Article/Algorithm/Lcs.spec.ts` |
 
+### 最长递增子序列页 C-061（DP 第 4 页，新页，全模板 + 一维 DP 两行表）
+
+| Case ID        | 标题                                             | 自动化路径                                |
+| -------------- | ------------------------------------------------ | ----------------------------------------- |
+| TC-VIEW-LIS-01 | 挂载渲染 Article + AlgorithmPlayer               | `src/views/Article/Algorithm/Lis.spec.ts` |
+| TC-VIEW-LIS-02 | h1 含「递增子序列」+ MatrixView + 无 .bars-view  | `src/views/Article/Algorithm/Lis.spec.ts` |
+| TC-VIEW-LIS-03 | 全模板同屏：Article 含「递增子序列」+ MatrixView | `src/views/Article/Algorithm/Lis.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **52** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **53** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1792,6 +1819,7 @@
 | TC-E2E-COMBSUM-01   | 组合总和全模板：正文 + 决策树剪枝 / `.scrub` 拖末步 5 剪枝支 + 2 解 / Shiki（C-058 新增）                                  | `e2e/combination-sum.e2e.ts`       | active     |
 | TC-E2E-MAZE-01      | 迷宫寻路全模板：正文 + 网格 DFS 回溯 / `.scrub` 拖末步 解路径绿 / Shiki（C-059 新增）                                      | `e2e/maze.e2e.ts`                  | active     |
 | TC-E2E-LCS-01       | LCS 全模板：正文 + DP 填表 + 回溯 / `.scrub` 拖末步 路径绿环 + caption 含 ACD / Shiki（C-060 新增）                        | `e2e/lcs.e2e.ts`                   | active     |
+| TC-E2E-LIS-01       | LIS 全模板：正文 + 一维 DP 两行表 / `.scrub` 拖末步 LIS 绿环 + caption 含 1→3→4→5 / Shiki（C-061 新增）                    | `e2e/lis.e2e.ts`                   | active     |
 
 ---
 
