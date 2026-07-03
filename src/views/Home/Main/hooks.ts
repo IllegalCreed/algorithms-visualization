@@ -22,6 +22,7 @@ import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
+import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
 import LcsIcon from '@/assets/lcs.svg';
 import LisIcon from '@/assets/lis.svg';
 import QueensIcon from '@/assets/queens.svg';
@@ -298,6 +299,12 @@ export function useCategoryData(): Category[] {
           desc: '容量有限、物品取或不取，求最大价值：二维 DP 逐格填表，装不下沿用上行、装得下取 max(不取, 取)',
           icon: KnapsackIcon,
           url: 'knapsack',
+        },
+        {
+          title: '完全背包',
+          desc: '0-1 背包的变体，同一物品可无限次取：递推只改一处——「取」从上一行 dp[i-1] 改看本行 dp[i]，取完还能再取',
+          icon: CompleteKnapsackIcon,
+          url: 'complete-knapsack',
         },
         {
           title: '最长公共子序列',

@@ -14,7 +14,13 @@ describe('Home/Main useCategoryData', () => {
     expect(data[4].title).toBe('回溯与搜索');
     expect(data[5].title).toBe('字符串');
     expect(data[2].children).toHaveLength(6);
-    expect(data[3].children.map((c) => c.url)).toEqual(['edit-distance', 'knapsack', 'lcs', 'lis']);
+    expect(data[3].children.map((c) => c.url)).toEqual([
+      'edit-distance',
+      'knapsack',
+      'complete-knapsack',
+      'lcs',
+      'lis',
+    ]);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',
       'subsets',

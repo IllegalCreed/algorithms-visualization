@@ -135,6 +135,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Knapsack.vue'),
           },
           {
+            path: '/docs/complete-knapsack',
+            name: 'complete-knapsack',
+            component: () => import('../views/Article/Algorithm/CompleteKnapsack.vue'),
+          },
+          {
             path: '/docs/lcs',
             name: 'lcs',
             component: () => import('../views/Article/Algorithm/Lcs.vue'),
