@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **654** 个用例。运行命令：`pnpm test:unit`
+共 **666** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -888,6 +888,25 @@
 | TC-KNAP-MOD-11 | 四语言 sources + 行号在范围内                             | `src/algorithms/knapsack.module.spec.ts` |
 | TC-KNAP-MOD-12 | module 元信息 title 含背包、initialInput()=[]             | `src/algorithms/knapsack.module.spec.ts` |
 
+### 完全背包模块 completeknapsack.module（C-065 · 动态规划第 5 页，可重复取 20 步 + 复用 MatrixView 轨/KnapsackExecPoint）
+
+固定物品 A(重2,值5)/B(重3,值6)/C(重4,值7)、容量 6；oracle `completeKnapsackTrace()`，右下角 15（A×3）。与 0-1 唯一差别：「取」来源在本行 dp[i][w-wt]。
+
+| Case ID      | 标题                                                    | 自动化路径                                       |
+| ------------ | ------------------------------------------------------- | ------------------------------------------------ |
+| TC-CK-MOD-01 | 末步 done，右下角 = 15                                  | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-02 | 每步执行点合法且带矩阵轨（array 空）                    | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-03 | 终态表深等 oracle                                       | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-04 | init 步第 0 行/列全 0                                   | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-05 | 「取」来源在本行：cellChoose sources 含同行 [i, w-wt]   | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-06 | 「不取」来源在上一行：填格步 sources 含 [i-1, w]        | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-07 | cellChoose 恰 2 源（不取上一行 + 取本行）               | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-08 | active === updatedCell === [i,w]                        | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-09 | 可重复取：第 1 行末格 cells[1][6] = 15（A 取 3 次）     | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-10 | vars 展示物品清单 A(重2,值5)/B/C                        | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-11 | 四语言 sources + 行号在范围内                           | `src/algorithms/completeknapsack.module.spec.ts` |
+| TC-CK-MOD-12 | module 元信息 title 含 完全背包/背包、initialInput()=[] | `src/algorithms/completeknapsack.module.spec.ts` |
+
 ### N 皇后模块 queens.module（C-055 · 回溯大类首发，逐列回溯 32 步 + BoardView 棋盘轨）
 
 固定 N=4；oracle `queensTrace`；逐列试探-剪枝-回溯求首解 [1,3,0,2]。
@@ -1082,7 +1101,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **400** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **403** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1767,6 +1786,14 @@
 | TC-VIEW-KNAP-02 | h1 含「背包」+ MatrixView + 30 .matrix-cell + 无 .bars-view | `src/views/Article/Algorithm/Knapsack.spec.ts` |
 | TC-VIEW-KNAP-03 | 全模板同屏：Article 含「背包」+ MatrixView                  | `src/views/Article/Algorithm/Knapsack.spec.ts` |
 
+### 完全背包页 C-065（动态规划第 5 页，新页，全模板 + 复用 MatrixView 轨）
+
+| Case ID       | 标题                                               | 自动化路径                                             |
+| ------------- | -------------------------------------------------- | ------------------------------------------------------ |
+| TC-VIEW-CK-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
+| TC-VIEW-CK-02 | h1 含「完全背包」+ MatrixView（28 单元）+ 无柱数组 | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
+| TC-VIEW-CK-03 | 全模板同屏：正文含「本行」+ MatrixView             | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
+
 ### N 皇后页 C-055（回溯大类首发，新页，全模板 + BoardView 棋盘）
 
 | Case ID           | 标题                                                      | 自动化路径                                   |
@@ -1851,7 +1878,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **56** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **57** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1912,6 +1939,7 @@
 | TC-E2E-KMP-01       | KMP 全模板：正文 + 文本/模式/LPS 三行 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-062 新增）             | `e2e/kmp.e2e.ts`                   | active     |
 | TC-E2E-RK-01        | Rabin-Karp 全模板：正文 + 滚动哈希窗口 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-063 新增）            | `e2e/rabin-karp.e2e.ts`            | active     |
 | TC-E2E-BM-01        | Boyer-Moore 全模板：正文 + 对齐窗口带 3 格 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-064 新增）        | `e2e/boyer-moore.e2e.ts`           | active     |
+| TC-E2E-CK-01        | 完全背包全模板：正文 + DP 表 4×7 / `.scrub` 拖末步 右下角=15 + caption 含 15 / Shiki（C-065 新增）                         | `e2e/complete-knapsack.e2e.ts`     | active     |
 
 ---
 
