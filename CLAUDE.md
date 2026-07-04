@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### 本项目适配要点
 
 - 该测试规范以「Spring Boot 后端 + Vue 前端」为底座，但**本项目是纯 Vue 前端、无后端**：L1（后端单元）、L2（后端集成）不适用；实际适用 **L3**（前端单元，纯函数/composable/store，Vitest 不 mount）、**L4**（前端组件，Vitest + `@vue/test-utils` mount）、**L5**（端到端，需另装 Playwright/Cypress）。
-- 现状基线：`docs/` 分层文档体系已建立（`overview.md` / `roadmap.md` / `documentation-adapter.md` / `plans/` / `test-cases/`）；首个变更 C-20260618-001（工具链现代化）见 `docs/plans/index.md`。仍无任何业务测试文件、无覆盖率配置、无 e2e 框架（归 M1）。按规范「碰到再做、新变更先规范」**渐进落地**，不要为补规范一次性重写历史文档。
+- 现状：`docs/` 分层文档体系已建立（`overview.md` / `roadmap.md` / `documentation-adapter.md` / `plans/`(每变更四文档 + 三表 `index.md`) / `test-cases/`(三索引 `index`/`by-layer`/`by-module`)）；L3/L4 单元/组件测试 + L5 Playwright e2e + 覆盖率均已就位。按规范「碰到再做、新变更先规范」**渐进落地**，不为补规范一次性重写历史文档。
 - 提交前对照检查清单：文档规范 §11、测试规范 §9。
 
 ## 常用命令
@@ -30,7 +30,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm lint` —— `eslint . --fix`；CI 用只读的 `pnpm lint:check`
 - `pnpm format` —— `prettier --write src/`；CI 用只读的 `pnpm format:check`
 - `pnpm preview` —— 预览已构建的 `dist/`
-- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式。**目前还没有任何测试文件。** 单次运行某个文件用 `pnpm test:unit run <file>`，按名称过滤加 `-t "<name>"`。
+- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率 `--coverage`。当前已有 750+ 个 L3/L4 用例。
+- `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（当前 64 个）。
 
 **门禁：** ESLint 10（flat config，`eslint.config.ts`，用 `eslint-plugin-vue` + `@vue/eslint-config-typescript`）+ Prettier（`.prettierrc.json`，`skip-formatting` 让两者不冲突）。`vue/multi-word-component-names` 已关闭（项目单字组件名惯例）。pre-commit 由 husky（`.husky/pre-commit`）+ lint-staged 触发，对暂存的 `*.{ts,vue}` 跑 `eslint --fix`、对更多类型跑 `prettier --write`。CI（`deploy.yml`）在构建前卡 `lint:check` + `format:check` + `type-check`。
 
@@ -69,19 +70,41 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 移动指针 = 给 `pointerArray[n].index` 赋值；交换数值 = 交换 `[string,number][]` 数组中的元素（因为 key 保持稳定，会自动产生动画）。
 - 提供 `getInitial*()` 工厂函数返回全新数据，以便重置状态。
 
-### 新增一个算法 / 数据结构页面（涉及多个文件）
+### 算法播放器与可插拔轨（`src/components/player/`）—— 现在的主力范式
 
-1. 在 `src/views/Article/{SortAlgorithm,DataStructure}/<Name>.vue` 下用上述组件/范式创建视图。
-2. 在 `src/router/index.ts` 注册懒加载路由，`name` = slug。
-3. 在 `src/views/Docs/Menu/hooks.ts`（`useCategoryData`）的侧边菜单中添加条目。
-4. 在 `src/views/Home/Main/hooks.ts` 的首页网格中添加条目（图标 + 描述）。
+早期页（如 `BubbleSort.vue`）用 `reactive` + `async delay` 手写动画；**后续绝大多数页改用 `AlgorithmPlayer.vue`**：module 产出一串「胖步骤」`Step[]`（含数组快照 + 各轨快照 + `vars` + 执行点 `point` + 字幕），播放器负责逐步回放、进度条 `.scrub`、代码同步高亮（Shiki，`point` 经 `lineMap` 查每语言行号）。
 
-当前状态：第 3 步的侧边菜单已经列出了许多尚无路由/视图的排序算法（selection-sort、merge-sort……）—— 点击这些会 404。冒泡排序是唯一完整实现的动画。首页网格（`Home/Main/hooks.ts`）中 bucket/radix 被注释掉了。
+- **可插拔轨**：`Step` 上每条轨是一个可选字段（`array`/`aux`/`stack`/`tree`/`count`/`bucket`/`graph`/`matrix`/`board`/`decisionTree`/`maze`/`kmp`/`manacher`/`sudoku`/`suffixArray`…），`AlgorithmPlayer` 里一行 `<XxxView v-if="current.xxx" :.../>` 条件渲染。**某算法不设某字段 → 该轨不渲染**，天然零回归。
+- **复用优先**：一个 View 常服务多个算法（MatrixView 服务 7 个 DP、GraphView 服务图算法、MazeView 服务迷宫/岛屿/单词搜索、KmpView 服务 KMP/RK/BM）。新算法**先看能否复用/additive 扩展已有轨**（加可选字段、旧消费者不传即不受影响），复用不了再新建 View。
+- **module 三件套**：`src/algorithms/<name>.{ts(oracle),module.ts(buildSteps),sources.ts(TS/Python/Go/Rust 四语言 + lineMap)}`；oracle 独立算真值，module.spec 末步与 oracle 对拍。
 
-## 部署与 GitHub Pages SPA 路由
+**新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-`.github/workflows/deploy.yml` 在推送到 `main` 时运行：`pnpm install --frozen-lockfile` → 门禁（`lint:check` + `format:check` + `type-check`）→ `pnpm build-only` → 上传 `dist/` → 部署到 Pages（Node 22 + `pnpm/action-setup`）。
+当前状态：六大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串）已铺开 70+ 页，播放器可插拔轨 15 条；测试 750+ 单元/组件（L3/L4）+ 64 e2e（L5），聚合覆盖率 ~95%。进展见 `docs/roadmap.md` 与 `docs/plans/index.md`。
 
-由于应用使用 `createWebHistory`，深层链接需要 [spa-github-pages](https://github.com/rafgraph/spa-github-pages) 方案：`404.html`（由 `build-only` 复制进 `dist/`）把路径编码进 query string，`index.html` 里有一段内联脚本负责还原它。改动路由时要让两者保持一致。
+## 部署（双轨，两步都要做）
 
-`VITE_BASE_URL` 同时驱动 Vite 的 `base` 和路由的 base：开发环境为 `/`（`.env.development`），生产环境为 `/algorithms-visualization/`（`.env.production`）。更换仓库/Pages 路径时需要同步修改 `.env.production`。
+线上有**两个独立部署**，发版必须两步做全，否则自有域名滞后旧版：
+
+1. **GitHub Pages**（`/algorithms-visualization/` 子路径）：`git push` 到 `main` 后 `.github/workflows/deploy.yml` **自动**部署——`pnpm install --frozen-lockfile` → 门禁（`lint:check` + `format:check` + `type-check`）→ `pnpm build-only`（base=`/algorithms-visualization/`）→ 上传 `dist/` → Pages（Node 22 + `pnpm/action-setup`）。
+2. **自有域名 algo.illegalscreed.cn**（自有域，用户主用）：本地**手动**跑 `./scripts/deploy.sh`（selfhost 构建 base=`/` → tar → scp → 远程原子切换，旧版备份 `/var/www/algorithms/dist.old`）。**deploy.yml 不碰这台服务器。**
+
+发版验证：两个域名各 `curl` 一下目标页 200，且 Pages 部署 SHA = HEAD；不要只看一个域名就下结论（C-007 只 push、自有域滞留旧版，因新路由未上线表现为「跳转静默失败」，排查绕弯）。
+
+**⚠ 已知问题：GitHub Pages 部署反复卡死。** build job 绿、但 "Deploy to GitHub Pages" 步 ~6s 快失败报 `Deployment failed, try again later`（`gh api .../pages` 的 `status` 为 `null`）。非全站故障、非限流；单纯 rerun / 重推 / 冷却均无效。**已验证解卡三步**（几乎每次部署都可能复发，直接套用）：
+
+```
+gh api --method DELETE repos/IllegalCreed/algorithms-visualization/pages
+sleep 3; gh api --method POST repos/IllegalCreed/algorithms-visualization/pages -f build_type=workflow
+sleep 8; gh run rerun <失败runId> --failed   # build 已绿，只重跑 Deploy job
+```
+
+重置**不动 cname**（始终 `null`），故自有域走独立自托管、完全不受影响。属外部基础设施操作，套用前一句话告知用户即可。
+
+**SPA 路由：** 应用用 `createWebHistory`，深层链接靠 [spa-github-pages](https://github.com/rafgraph/spa-github-pages)：`404.html`（`build-only` 复制进 `dist/`）把路径编码进 query string，`index.html` 内联脚本还原。改动路由时两者保持一致。`VITE_BASE_URL` 同驱 Vite `base` 与路由 base：开发 `/`（`.env.development`）、生产 `/algorithms-visualization/`（`.env.production`）。换仓库/Pages 路径需同步改 `.env.production`。
+
+## 仓库工作流与变更交付流程
+
+- **单人仓库：直接在 `main` 提交开发，不开 feature 分支 / PR。** 提交时机仍遵循「用户明确要求时才提交」。只 `git add` 本次变更自己的文件（不用 `-A`）；提交前三查（`git fetch` + `rev-list --count` 确认与 origin/main 同步）。
+- **每个变更（复杂/新页）走固定 7 步**：① 简述设计要点（让用户能随时拦）→ ② 建 `docs/plans/YYYYMMDD-cNNN-<name>/` 四文档 + 注册 `docs/plans/index.md`(3 表) → ③ TDD 先红后绿，按层推进（T0 可视化轨 + 播放器接线 / T1 module+oracle+sources / T2 页+接线+改 TC-HOOK）→ ④ 全门禁（`format` 后 `format:check`/`lint:check`/`type-check`/`test:unit run --coverage`/`playwright test`）+ 真机自检 → ⑤ 回写（四档翻 `verified` + 自测报告、`roadmap.md`、三索引 `docs/test-cases/{index,by-layer,by-module}.md`、双向链接）→ ⑥ 两提交（feat + docs，中文 msg，直接 main）→ ⑦ 双轨部署 + 验证。
+- 提交信息 footer 用户会指定协作者署名行（历史为 `Co-Authored-By: Claude ... <noreply@anthropic.com>`）。
