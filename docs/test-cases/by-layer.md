@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **714** 个用例。运行命令：`pnpm test:unit`
+共 **726** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -926,6 +926,25 @@
 | TC-CK-MOD-11 | 四语言 sources + 行号在范围内                           | `src/algorithms/completeknapsack.module.spec.ts` |
 | TC-CK-MOD-12 | module 元信息 title 含 完全背包/背包、initialInput()=[] | `src/algorithms/completeknapsack.module.spec.ts` |
 
+### 硬币找零方案数模块 coinchange.module（C-070 · DP 第 6 页，计数 DP 20 步 + 复用 MatrixView 轨）
+
+固定硬币 [1,2,5]、金额 5；oracle `coinChangeTrace()`，右下角 4（dp[0][0]=1 种子、计数相加）。
+
+| Case ID      | 标题                                 | 自动化路径                                 |
+| ------------ | ------------------------------------ | ------------------------------------------ |
+| TC-CC-MOD-01 | 末步 done，右下角 = 4                | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-02 | 每步执行点合法且带矩阵轨（array 空） | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-03 | 终态表深等 oracle                    | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-04 | init 边界 dp[0][0]=1、第 0 行其余 0  | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-05 | 「用一枚」来源在本行 [i,a-coin]      | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-06 | 「不用」来源在上一行 [i-1,a]         | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-07 | add 恰 2 源，值为两源之和            | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-08 | 计数单调不减                         | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-09 | vars 展示硬币 1,2,5 / 金额 5         | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-10 | 四语言 sources + 行号在范围内        | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-11 | module 元信息 title 含 硬币/找零     | `src/algorithms/coinchange.module.spec.ts` |
+| TC-CC-MOD-12 | done 方案数 4                        | `src/algorithms/coinchange.module.spec.ts` |
+
 ### N 皇后模块 queens.module（C-055 · 回溯大类首发，逐列回溯 32 步 + BoardView 棋盘轨）
 
 固定 N=4；oracle `queensTrace`；逐列试探-剪枝-回溯求首解 [1,3,0,2]。
@@ -1177,7 +1196,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **425** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **428** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1888,6 +1907,14 @@
 | TC-VIEW-CK-02 | h1 含「完全背包」+ MatrixView（28 单元）+ 无柱数组 | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
 | TC-VIEW-CK-03 | 全模板同屏：正文含「本行」+ MatrixView             | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
 
+### 硬币找零方案数页 C-070（DP 第 6 页，新页，全模板 + 复用 MatrixView 轨）
+
+| Case ID       | 标题                                           | 自动化路径                                       |
+| ------------- | ---------------------------------------------- | ------------------------------------------------ |
+| TC-VIEW-CC-01 | 挂载渲染 Article + AlgorithmPlayer             | `src/views/Article/Algorithm/CoinChange.spec.ts` |
+| TC-VIEW-CC-02 | h1 含「硬币」+ MatrixView（24 单元）+ 无柱数组 | `src/views/Article/Algorithm/CoinChange.spec.ts` |
+| TC-VIEW-CC-03 | 全模板同屏：正文含「计数」+ MatrixView         | `src/views/Article/Algorithm/CoinChange.spec.ts` |
+
 ### N 皇后页 C-055（回溯大类首发，新页，全模板 + BoardView 棋盘）
 
 | Case ID           | 标题                                                      | 自动化路径                                   |
@@ -1996,7 +2023,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **61** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **62** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2062,6 +2089,7 @@
 | TC-E2E-MAN-01       | Manacher 全模板：正文 + 转换串/半径两行 / `.scrub` 拖末步 7 .mn-best（bab）+ caption 含 bab / Shiki（C-067 新增）          | `e2e/manacher.e2e.ts`              | active     |
 | TC-E2E-WS-01        | 单词搜索全模板：正文 + 3×4 字母网格 / `.scrub` 拖末步 4 .mz-solution（ADEE 路径绿）+ caption 含 ADEE / Shiki（C-068 新增） | `e2e/word-search.e2e.ts`           | active     |
 | TC-E2E-SCC-01       | 强连通分量全模板：正文 + 有向图 6 点 / `.scrub` 拖末步 caption 含 3 个 SCC + 栈空（0 .on-stack）/ Shiki（C-069 新增）      | `e2e/scc.e2e.ts`                   | active     |
+| TC-E2E-CC-01        | 硬币找零方案数全模板：正文 + DP 表 4×6 / `.scrub` 拖末步 右下角=4 + caption 含 4 / Shiki（C-070 新增）                     | `e2e/coin-change.e2e.ts`           | active     |
 
 ---
 
