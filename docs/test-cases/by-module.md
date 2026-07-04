@@ -1073,6 +1073,8 @@
 
 > **C-088（M7 计算几何第 5 页 · 新页）**：扫描线求交 Bentley-Ottmann——n 线段求全部交点 O((n+k) log n)：事件队列（起点/终点/交点）驱动扫描线、状态结构按 y 有序，「相交前必相邻」只查新相邻对。**HullView additive 第 5 消费者**（+marks/markActive 交点标记 2 可选字段，divider 当扫描线、edgeClasses 表状态，4 既有消费者零回归）。bentley.module 11 步 + boEvents 事件流与 bruteCrosses 暴力对拍。`TC-VIZ-HULLVIEW-BO-*`+`TC-BO-MOD-*`+`TC-VIEW-BO-*`+`TC-E2E-BO-01`。
 
+> **C-089（M7 数学与数论第 7 页 · 新页）**：欧拉函数 φ(n)——互质计数的筛法直观：按比例划掉含质因子 p 的数、res·(1−1/p) 记账、幸存者即互质；欧拉定理给指数打折、RSA φ(pq)。**纯复用 SieveView 第 3 消费者零改动**（states 作颜色语义）。phi.module 7 步 + phiBrute gcd 暴力对拍。`TC-PHI-MOD-*`+`TC-VIEW-PHI-*`+`TC-E2E-PHI-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1788,3 +1790,19 @@
 | TC-VIEW-BO-02         | h1 含扫描线 + HullView + 无柱数组（C-088）                                                         | L4   | `src/views/Article/Algorithm/BentleyOttmann.spec.ts`      |
 | TC-VIEW-BO-03         | 正文含事件与相邻 + HullView 同屏（C-088）                                                          | L4   | `src/views/Article/Algorithm/BentleyOttmann.spec.ts`      |
 | TC-E2E-BO-01          | 扫描线求交全模板：点平面轨 / 拖末步 3 交点红标 / Shiki（C-088 新增）                               | L5   | `e2e/bentley-ottmann.e2e.ts`                              |
+| TC-PHI-MOD-01         | phiBrute=4=phiFormula；factors=[2,3]（C-089）                                                      | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-02         | point∈{init,find,cross,survive,done} 带 sieve（C-089）                                             | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-03         | n=12 cols=6；init 全 unknown 含 1（C-089）                                                         | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-04         | find 依次 current=2、3 + 试除语义（C-089）                                                         | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-05         | cross：p=2 [2,4,6,8,10,12]、p=3 [3,9] 增量（C-089）                                                | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-06         | res 记账链 12→6→4（vars）（C-089）                                                                 | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-07         | survive 幸存者全 prime、composite 恰 8（C-089）                                                    | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-08         | 幸存者 = gcd 暴力互质集合（C-089）                                                                 | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-09         | 7 步 init/find/cross×2/survive/done（C-089）                                                       | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-10         | done caption 含 φ(12) = 4 与欧拉定理（C-089）                                                      | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-11         | 四语言+行号+五执行点（C-089）                                                                      | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-PHI-MOD-12         | title 含欧拉函数；initialInput=[]（C-089）                                                         | L3   | `src/algorithms/phi.module.spec.ts`                       |
+| TC-VIEW-PHI-01        | Article + AlgorithmPlayer（C-089）                                                                 | L4   | `src/views/Article/Algorithm/EulerPhi.spec.ts`            |
+| TC-VIEW-PHI-02        | h1 含欧拉函数 + SieveView + 无柱数组（C-089）                                                      | L4   | `src/views/Article/Algorithm/EulerPhi.spec.ts`            |
+| TC-VIEW-PHI-03        | 正文含互质与欧拉定理 + SieveView 同屏（C-089）                                                     | L4   | `src/views/Article/Algorithm/EulerPhi.spec.ts`            |
+| TC-E2E-PHI-01         | 欧拉函数全模板：互质筛网格 / 拖末步 φ(12)=4 / Shiki（C-089 新增）                                  | L5   | `e2e/euler-phi.e2e.ts`                                    |

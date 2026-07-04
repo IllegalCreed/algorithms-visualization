@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **942** 个用例。运行命令：`pnpm test:unit`
+共 **954** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1421,12 +1421,24 @@
 | TC-BO-MOD-10    | done caption 含 3 个交点与相邻语义                                      | `src/algorithms/bentley.module.spec.ts`     |
 | TC-BO-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/bentley.module.spec.ts`     |
 | TC-BO-MOD-12    | title 含扫描线；initialInput=[]                                         | `src/algorithms/bentley.module.spec.ts`     |
+| TC-PHI-MOD-01   | phiBrute=4=phiFormula；factors=[2,3]                                    | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-02   | point∈{init,find,cross,survive,done} 带 sieve                           | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-03   | n=12 cols=6；init 全 unknown 含 1                                       | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-04   | find 依次 current=2、3 + 试除语义                                       | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-05   | cross：p=2 [2,4,6,8,10,12]、p=3 [3,9] 增量                              | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-06   | res 记账链 12→6→4（vars）                                               | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-07   | survive 幸存者全 prime、composite 恰 8                                  | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-08   | 幸存者 = gcd 暴力互质集合                                               | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-09   | 7 步 init/find/cross×2/survive/done                                     | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-10   | done caption 含 φ(12) = 4 与欧拉定理                                    | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-11   | 四语言+行号+五执行点                                                    | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-12   | title 含欧拉函数；initialInput=[]                                       | `src/algorithms/phi.module.spec.ts`         |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **536** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **539** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2441,6 +2453,14 @@
 | TC-VIEW-BO-02         | h1 含扫描线 + HullView + 无柱数组 | `src/views/Article/Algorithm/BentleyOttmann.spec.ts` |
 | TC-VIEW-BO-03         | 正文含事件与相邻 + HullView 同屏  | `src/views/Article/Algorithm/BentleyOttmann.spec.ts` |
 
+### 欧拉函数页 C-089（数学与数论第 7 页，新页，纯复用 SieveView 第 3 消费者）
+
+| 用例 ID        | 场景                                  | 文件                                           |
+| -------------- | ------------------------------------- | ---------------------------------------------- |
+| TC-VIEW-PHI-01 | Article + AlgorithmPlayer             | `src/views/Article/Algorithm/EulerPhi.spec.ts` |
+| TC-VIEW-PHI-02 | h1 含欧拉函数 + SieveView + 无柱数组  | `src/views/Article/Algorithm/EulerPhi.spec.ts` |
+| TC-VIEW-PHI-03 | 正文含互质与欧拉定理 + SieveView 同屏 | `src/views/Article/Algorithm/EulerPhi.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2451,7 +2471,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **80** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **81** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2536,6 +2556,7 @@
 | TC-E2E-EG-01        | 扩展欧几里得全模板：回代表 / 拖末步 −1 与 2 / Shiki（C-086 新增）                                                          | `e2e/ext-gcd.e2e.ts`               | active     |
 | TC-E2E-CRT-01       | 中国剩余定理全模板：构造表 / 拖末步 23 与 105 / Shiki（C-087 新增）                                                        | `e2e/crt.e2e.ts`                   | active     |
 | TC-E2E-BO-01        | 扫描线求交全模板：点平面轨 / 拖末步 3 交点红标 / Shiki（C-088 新增）                                                       | `e2e/bentley-ottmann.e2e.ts`       | active     |
+| TC-E2E-PHI-01       | 欧拉函数全模板：互质筛网格 / 拖末步 φ(12)=4 / Shiki（C-089 新增）                                                          | `e2e/euler-phi.e2e.ts`             | active     |
 
 ---
 
