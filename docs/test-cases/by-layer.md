@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **762** 个用例。运行命令：`pnpm test:unit`
+共 **774** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1215,38 +1215,50 @@
 
 固定 `"banana"`；oracle `suffixArray()`=`[5,3,1,0,4,2]`（与字典序一致）。
 
-| Case ID       | 标题                                                          | 自动化路径                                  |
-| ------------- | ------------------------------------------------------------- | ------------------------------------------- |
-| TC-SA-MOD-01  | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]                  | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-02  | 每步执行点合法且带后缀轨（array 空）                          | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-03  | 原串不变 banana                                               | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-04  | 终态字典序（相邻后缀升序）                                    | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-05  | order 恒为 0..n-1 的排列                                      | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-06  | rank 值域合法；末步 rank 全不同                               | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-07  | rank 步之间 k 依次翻倍 1,2,…                                  | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-08  | sort 步 phase=sort；rank 步 phase=rank                        | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-09  | 收敛即止（末步 k ≤ n）                                        | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-10  | vars 展示原串/sa                                              | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-11  | 四语言 sources + 行号在范围内                                 | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-12  | module 元信息 title 含后缀数组、initialInput()=[]             | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-LCP-MOD-01 | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2]                   | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-02 | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空）       | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-03 | order = suffixArray() 恒定（LCP 阶段不重排后缀）              | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-04 | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0  | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-05 | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1 | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-06 | skip 步 current=0（rank 0 后缀无排序前驱）                    | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-07 | fill 步恰 5 次（n-1）；skip 恰 1                              | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-08 | Kasai 按原始下标 i=0..5；LCP 列非顺序填充                     | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-09 | 相邻两步已填 lcp 非空格数单调不减                             | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-10 | done caption 含最长重复子串 3（max lcp）与不同子串数 15       | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内    | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-12 | module 元信息 title 含「LCP」或「height」；initialInput()=[]  | `src/algorithms/lcparray.module.spec.ts`    |
+| Case ID        | 标题                                                                    | 自动化路径                                  |
+| -------------- | ----------------------------------------------------------------------- | ------------------------------------------- |
+| TC-SA-MOD-01   | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]                            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-02   | 每步执行点合法且带后缀轨（array 空）                                    | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-03   | 原串不变 banana                                                         | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-04   | 终态字典序（相邻后缀升序）                                              | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-05   | order 恒为 0..n-1 的排列                                                | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-06   | rank 值域合法；末步 rank 全不同                                         | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-07   | rank 步之间 k 依次翻倍 1,2,…                                            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-08   | sort 步 phase=sort；rank 步 phase=rank                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-09   | 收敛即止（末步 k ≤ n）                                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-10   | vars 展示原串/sa                                                        | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-11   | 四语言 sources + 行号在范围内                                           | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-12   | module 元信息 title 含后缀数组、initialInput()=[]                       | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-LCP-MOD-01  | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2]                             | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-02  | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空）                 | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-03  | order = suffixArray() 恒定（LCP 阶段不重排后缀）                        | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-04  | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0            | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-05  | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1           | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-06  | skip 步 current=0（rank 0 后缀无排序前驱）                              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-07  | fill 步恰 5 次（n-1）；skip 恰 1                                        | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-08  | Kasai 按原始下标 i=0..5；LCP 列非顺序填充                               | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-09  | 相邻两步已填 lcp 非空格数单调不减                                       | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-10  | done caption 含最长重复子串 3（max lcp）与不同子串数 15                 | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-11  | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-12  | module 元信息 title 含「LCP」或「height」；initialInput()=[]            | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-2SAT-MOD-01 | 末步 done；解 = twoSatSolve().assign = [true,false,true]（A真/B假/C真） | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-02 | 每步 point∈{init,clause,scc,check,assign,done} 且带图轨（array 空）     | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-03 | init 步 0 边；末步 8 边（= twoSatImplications().length）                | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-04 | clause 步恰 4 个；边数累计 2,4,6,8（每子句 +2 条蕴含）                  | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-05 | scc 步恰 4 个；nodeGroup 已上色节点数单调不减                           | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-06 | 末步 nodeGroup = comp = [0,2,2,0,1,3]                                   | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-07 | check 步恰 3 个；第 i 个 checkPair=[2i,2i+1]                            | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-08 | 每对 comp[2i]≠comp[2i+1]（无同组）→ 可满足                              | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-09 | assign 步恰 3 个；真值 = comp[2v] < comp[2v+1]                          | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-10 | done caption 含解值（A=真/B=假/C=真 + 可满足）                          | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-12 | module 元信息 title 含「2-SAT」；initialInput()=[]                      | `src/algorithms/twosat.module.spec.ts`      |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **450** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **455** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1820,73 +1832,75 @@
 
 ### GraphView 图轨 + 播放器接图轨（C-047 · M8②-1，新第 7 轨，通用带权图，供 Kruskal C-048 复用）
 
-| Case ID                 | 标题                                                                            | 自动化路径                                      |
-| ----------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------- |
-| TC-VIZ-GRAPHVIEW-01     | 6 .graph-node + 9 .graph-edge + 权重文本可见                                    | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-02     | doneNodes→.done、activeNode→.active                                             | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-03     | edgeClass→对应边 .relaxed / .tree                                               | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-04     | nodeBadge→.node-badge 显示 dist（含 ∞）                                         | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-SCC-01 | nodeGroup 分组着色（同组同色、异组异色）（C-069）                               | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-SCC-02 | stackNodes → 1 个 .on-stack（虚线环）（C-069）                                  | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-MATRIXVIEW-01    | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-02    | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-03    | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-04    | active 单元 .mx-active；sources 两单元 .mx-source                               | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-05    | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）                                | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-06    | emptyText='' → null 单元显示空白（非 ∞）                                        | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-07    | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）                   | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-BOARDVIEW-01     | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛                               | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-02     | 交错着色：深格 8 个                                                             | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-03     | tryCell=[2,1] → 对应格带 .bc-try                                                | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-04     | conflictCells=[[0,0]] → 对应格带 .bc-conflict                                   | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-DTREEVIEW-01     | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge                                      | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-02     | activeId=1 → 恰 1 个 .active 节点                                               | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-03     | solutionIds=[2] → 恰 1 个 .solution 节点                                        | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-04     | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                                     | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-05     | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）                   | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-MAZEVIEW-01      | 5×5 → 25 格；2 墙 → 2 .mz-wall                                                  | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-02      | 起点/终点各 1（.mz-start/.mz-goal）                                             | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-03      | current → 1 .mz-current；path=3 → 3 .mz-path                                    | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-04      | visited → .mz-visited；solved → path 带 .mz-solution                            | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-05      | filled 标绿 + mark 覆盖图标 + 无起终点（C-066 网格搜索扩展）                    | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-06      | letters=[['A','B'],['C','D']] → 4 格 .mz-letter，文本 A/B/C/D（C-068 字母扩展） | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-KMPVIEW-01       | 文本 9 格、模式 5 格、LPS 5 格                                                  | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-02       | compareText/comparePat=4 → 2 个 .kmp-compare                                    | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-03       | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                                    | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-04       | found=[2] → 文本下标 2 起 5 格带 .kmp-found                                     | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-05       | windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展）       | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-06       | matchedFrom=1（matchedLen=0）→ 2 格 .kmp-matched（后缀标绿，C-064 扩展）        | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-MANACHERVIEW-01  | s 长 11 → 11 .mn-s-cell + 11 .mn-p-cell；p 含 null 显示空（C-067）              | `src/components/ManacherView.spec.ts`           |
-| TC-VIZ-MANACHERVIEW-02  | center=3 → 1 .mn-center；mirror=1 → 1 .mn-mirror（C-067）                       | `src/components/ManacherView.spec.ts`           |
-| TC-VIZ-MANACHERVIEW-03  | boxL=0,boxR=6 → 7 格 .mn-box（C-067）                                           | `src/components/ManacherView.spec.ts`           |
-| TC-VIZ-MANACHERVIEW-04  | best=[0,6] → 7 格 .mn-best（C-067）                                             | `src/components/ManacherView.spec.ts`           |
-| TC-VIZ-SUDOKUVIEW-01    | n=4 → 16 .sudoku-cell；给定格数 = given true 数 → .sk-given（C-071）            | `src/components/SudokuView.spec.ts`             |
-| TC-VIZ-SUDOKUVIEW-02    | current=[2,1],tryNum=3 → 1 .sk-current 显示 3（C-071）                          | `src/components/SudokuView.spec.ts`             |
-| TC-VIZ-SUDOKUVIEW-03    | status reject → .sk-reject；place → .sk-place（C-071）                          | `src/components/SudokuView.spec.ts`             |
-| TC-VIZ-SAVIEW-01        | s=banana,order=[5,3,1,0,4,2] → 6 .sa-row，首行后缀以 a 开头（C-072）            | `src/components/SuffixArrayView.spec.ts`        |
-| TC-VIZ-SAVIEW-02        | 每行 .sa-index = order[row]（起点下标）（C-072）                                | `src/components/SuffixArrayView.spec.ts`        |
-| TC-VIZ-SAVIEW-03        | phase sort→.sa-key-active；rank→.sa-rank-active（C-072）                        | `src/components/SuffixArrayView.spec.ts`        |
-| TC-VIZ-SAVIEW-LCP-01    | 传 lcp=[null,1,3,0,0,2] → 渲染 .sa-lcp 列，非 null 行显示对应值（C-073）        | `src/components/SuffixArrayView.spec.ts`        |
-| TC-VIZ-SAVIEW-LCP-02    | current=2,compareRow=1 → 1 .sa-current + 1 .sa-compare（C-073）                 | `src/components/SuffixArrayView.spec.ts`        |
-| TC-VIZ-SAVIEW-LCP-03    | 不传 lcp（构造模式）→ 仍渲染关键字列 .sa-key、无 .sa-lcp（C-073）               | `src/components/SuffixArrayView.spec.ts`        |
-| TC-PLAYER-GRAPH-01      | 当前步带 graph → 渲染 GraphView                                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-GRAPH-02      | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-01     | step 带 matrix → 渲染 MatrixView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-02     | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView                  | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-01      | step 带 board → 渲染 BoardView                                                  | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-02      | 排序 step 无 board→不渲染 BoardView（零回归）                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-01      | step 带 decisionTree → 渲染 DecisionTreeView                                    | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-02      | 排序 step 无 decisionTree→不渲染（零回归）                                      | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MAZE-01       | step 带 maze → 渲染 MazeView                                                    | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MAZE-02       | 排序 step 无 maze→不渲染 MazeView（零回归）                                     | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-01        | step 带 kmp → 渲染 KmpView                                                      | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-02        | 排序 step 无 kmp→不渲染 KmpView（零回归）                                       | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MANACHER-01   | step 带 manacher → 渲染 ManacherView（C-067）                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MANACHER-02   | 排序 step 无 manacher→不渲染 ManacherView（零回归）（C-067）                    | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-SUDOKU-01     | step 带 sudoku → 渲染 SudokuView（C-071）                                       | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-SUDOKU-02     | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-SA-01         | step 带 suffixArray → 渲染 SuffixArrayView（C-072）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-SA-02         | 排序 step 无 suffixArray→不渲染（零回归）（C-072）                              | `src/components/player/AlgorithmPlayer.spec.ts` |
+| Case ID                   | 标题                                                                            | 自动化路径                                      |
+| ------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-GRAPHVIEW-01       | 6 .graph-node + 9 .graph-edge + 权重文本可见                                    | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-02       | doneNodes→.done、activeNode→.active                                             | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-03       | edgeClass→对应边 .relaxed / .tree                                               | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-04       | nodeBadge→.node-badge 显示 dist（含 ∞）                                         | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-SCC-01   | nodeGroup 分组着色（同组同色、异组异色）（C-069）                               | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-SCC-02   | stackNodes → 1 个 .on-stack（虚线环）（C-069）                                  | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-CHECK-01 | 传 checkPair=[0,1] → 节点 0、1 两个带 .checking 类（蓝环）                      | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-CHECK-02 | 不传 checkPair → 无 .checking（其它 7 图算法零回归）                            | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-04      | active 单元 .mx-active；sources 两单元 .mx-source                               | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-05      | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）                                | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-06      | emptyText='' → null 单元显示空白（非 ∞）                                        | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-07      | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）                   | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-BOARDVIEW-01       | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛                               | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-02       | 交错着色：深格 8 个                                                             | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-03       | tryCell=[2,1] → 对应格带 .bc-try                                                | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-04       | conflictCells=[[0,0]] → 对应格带 .bc-conflict                                   | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-DTREEVIEW-01       | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge                                      | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-02       | activeId=1 → 恰 1 个 .active 节点                                               | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-03       | solutionIds=[2] → 恰 1 个 .solution 节点                                        | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-04       | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                                     | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-05       | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）                   | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-MAZEVIEW-01        | 5×5 → 25 格；2 墙 → 2 .mz-wall                                                  | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-02        | 起点/终点各 1（.mz-start/.mz-goal）                                             | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-03        | current → 1 .mz-current；path=3 → 3 .mz-path                                    | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-04        | visited → .mz-visited；solved → path 带 .mz-solution                            | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-05        | filled 标绿 + mark 覆盖图标 + 无起终点（C-066 网格搜索扩展）                    | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-06        | letters=[['A','B'],['C','D']] → 4 格 .mz-letter，文本 A/B/C/D（C-068 字母扩展） | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-KMPVIEW-01         | 文本 9 格、模式 5 格、LPS 5 格                                                  | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-02         | compareText/comparePat=4 → 2 个 .kmp-compare                                    | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-03         | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                                    | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-04         | found=[2] → 文本下标 2 起 5 格带 .kmp-found                                     | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-05         | windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展）       | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-06         | matchedFrom=1（matchedLen=0）→ 2 格 .kmp-matched（后缀标绿，C-064 扩展）        | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-MANACHERVIEW-01    | s 长 11 → 11 .mn-s-cell + 11 .mn-p-cell；p 含 null 显示空（C-067）              | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-02    | center=3 → 1 .mn-center；mirror=1 → 1 .mn-mirror（C-067）                       | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-03    | boxL=0,boxR=6 → 7 格 .mn-box（C-067）                                           | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-04    | best=[0,6] → 7 格 .mn-best（C-067）                                             | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-SUDOKUVIEW-01      | n=4 → 16 .sudoku-cell；给定格数 = given true 数 → .sk-given（C-071）            | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SUDOKUVIEW-02      | current=[2,1],tryNum=3 → 1 .sk-current 显示 3（C-071）                          | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SUDOKUVIEW-03      | status reject → .sk-reject；place → .sk-place（C-071）                          | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SAVIEW-01          | s=banana,order=[5,3,1,0,4,2] → 6 .sa-row，首行后缀以 a 开头（C-072）            | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-02          | 每行 .sa-index = order[row]（起点下标）（C-072）                                | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-03          | phase sort→.sa-key-active；rank→.sa-rank-active（C-072）                        | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-01      | 传 lcp=[null,1,3,0,0,2] → 渲染 .sa-lcp 列，非 null 行显示对应值（C-073）        | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-02      | current=2,compareRow=1 → 1 .sa-current + 1 .sa-compare（C-073）                 | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-03      | 不传 lcp（构造模式）→ 仍渲染关键字列 .sa-key、无 .sa-lcp（C-073）               | `src/components/SuffixArrayView.spec.ts`        |
+| TC-PLAYER-GRAPH-01        | 当前步带 graph → 渲染 GraphView                                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GRAPH-02        | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-01       | step 带 matrix → 渲染 MatrixView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-02       | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView                  | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-01        | step 带 board → 渲染 BoardView                                                  | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-02        | 排序 step 无 board→不渲染 BoardView（零回归）                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-01        | step 带 decisionTree → 渲染 DecisionTreeView                                    | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-02        | 排序 step 无 decisionTree→不渲染（零回归）                                      | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-01         | step 带 maze → 渲染 MazeView                                                    | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-02         | 排序 step 无 maze→不渲染 MazeView（零回归）                                     | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-01          | step 带 kmp → 渲染 KmpView                                                      | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-02          | 排序 step 无 kmp→不渲染 KmpView（零回归）                                       | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MANACHER-01     | step 带 manacher → 渲染 ManacherView（C-067）                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MANACHER-02     | 排序 step 无 manacher→不渲染 ManacherView（零回归）（C-067）                    | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SUDOKU-01       | step 带 sudoku → 渲染 SudokuView（C-071）                                       | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SUDOKU-02       | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SA-01           | step 带 suffixArray → 渲染 SuffixArrayView（C-072）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SA-02           | 排序 step 无 suffixArray→不渲染（零回归）（C-072）                              | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -2100,6 +2114,14 @@
 | TC-VIEW-LCP-02 | h1 含「LCP」+ SuffixArrayView + 无柱数组     | `src/views/Article/Algorithm/LcpArray.spec.ts` |
 | TC-VIEW-LCP-03 | 全模板同屏：正文含「Kasai」+ SuffixArrayView | `src/views/Article/Algorithm/LcpArray.spec.ts` |
 
+### 2-SAT 页 C-074（图算法第 8 页，新页，全模板 + 复用 GraphView·additive checkPair）
+
+| 用例 ID         | 场景                                  | 文件                                         |
+| --------------- | ------------------------------------- | -------------------------------------------- |
+| TC-VIEW-2SAT-01 | 挂载渲染 Article + AlgorithmPlayer    | `src/views/Article/Algorithm/TwoSat.spec.ts` |
+| TC-VIEW-2SAT-02 | h1 含「2-SAT」+ GraphView + 无柱数组  | `src/views/Article/Algorithm/TwoSat.spec.ts` |
+| TC-VIEW-2SAT-03 | 全模板同屏：正文含「蕴含」+ GraphView | `src/views/Article/Algorithm/TwoSat.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2110,7 +2132,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **65** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **66** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2180,6 +2202,7 @@
 | TC-E2E-SDK-01       | 数独全模板：正文 + 4×4 盘 / `.scrub` 拖末步 16 格全填 + caption 含完成 / Shiki（C-071 新增）                               | `e2e/sudoku.e2e.ts`                | active     |
 | TC-E2E-SA-01        | 后缀数组全模板：正文 + 后缀表 / `.scrub` 拖末步 首行后缀以 a 开头 + caption 含 sa / Shiki（C-072 新增）                    | `e2e/suffix-array.e2e.ts`          | active     |
 | TC-E2E-LCP-01       | LCP 数组全模板：正文 + 后缀表 LCP 列 / `.scrub` 拖末步 caption 含 3（最长重复子串）+ .sa-lcp 列 / Shiki（C-073 新增）      | `e2e/lcp-array.e2e.ts`             | active     |
+| TC-E2E-2SAT-01      | 2-SAT 全模板：正文 + 蕴含图 6 点 8 边 / `.scrub` 拖末步 caption 含「可满足」+ badge 真/假 / Shiki（C-074 新增）            | `e2e/two-sat.e2e.ts`               | active     |
 
 ---
 
