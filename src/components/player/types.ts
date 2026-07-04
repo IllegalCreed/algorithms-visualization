@@ -302,6 +302,13 @@ export type BsExecPoint =
   | 'empty' // 区间清空：不存在，返回 −1
   | 'done'; // O(log n) 语义
 
+/** 三分查找执行点（C-095，查找第 5 页；纯复用主柱轨——单峰双探针对决） */
+export type TerExecPoint =
+  | 'init' // 单峰山形登场
+  | 'probe' // 双探针 m1/m2 对决 → 丢外侧 1/3
+  | 'peak' // lo == hi：峰顶定格
+  | 'done'; // 复杂度与变体
+
 /** 二分答案执行点（C-094，查找第 4 页；纯复用主柱轨——柱子=候选答案的语义反转） */
 export type BaExecPoint =
   | 'init' // 答案空间 [1, max] 登场

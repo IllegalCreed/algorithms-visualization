@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 单峰山形 + 双探针对决 -->
+  <g stroke="#333" stroke-width="10">
+    <rect x="60" y="700" width="90" height="120" rx="14" fill="#d7dedb" />
+    <rect x="176" y="600" width="90" height="220" rx="14" fill="#d7dedb" />
+    <rect x="292" y="470" width="90" height="350" rx="14" fill="#a5d8ff" />
+    <rect x="408" y="330" width="90" height="490" rx="14" fill="#d7dedb" />
+    <rect x="524" y="180" width="90" height="640" rx="14" fill="#8bd3a0" />
+    <rect x="640" y="360" width="90" height="460" rx="14" fill="#d7dedb" />
+    <rect x="756" y="540" width="90" height="280" rx="14" fill="#ffe08a" />
+    <rect x="872" y="680" width="90" height="140" rx="14" fill="#d7dedb" />
+  </g>
+  <!-- 双探针箭头 -->
+  <g font-family="sans-serif" font-weight="bold" font-size="60" text-anchor="middle">
+    <polygon points="337,860 277,950 397,950" fill="#4a90d9" />
+    <text x="337" y="1008" fill="#4a90d9">m1</text>
+    <polygon points="801,860 741,950 861,950" fill="#f0a000" />
+    <text x="801" y="1008" fill="#f0a000">m2</text>
+  </g>
+  <text x="569" y="100" font-family="sans-serif" font-weight="bold" font-size="80" fill="#2e7d32" text-anchor="middle">⛰ 峰顶</text>
+</svg>

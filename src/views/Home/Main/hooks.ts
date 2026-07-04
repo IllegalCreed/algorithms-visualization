@@ -40,6 +40,7 @@ import BinarySearchIcon from '@/assets/binary-search.svg';
 import BinaryBoundsIcon from '@/assets/binary-bounds.svg';
 import RotatedSearchIcon from '@/assets/rotated-search.svg';
 import BinaryAnswerIcon from '@/assets/binary-answer.svg';
+import TernarySearchIcon from '@/assets/ternary-search.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -598,6 +599,12 @@ export function useCategoryData(): Category[] {
           desc: '数组没了也能二分：候选答案排成一排，可行性单调 ✗✗✗✓✓✓ 找第一个 ✓；最小化最大值一族的通用降维打击，O(check·log 答案空间)',
           icon: BinaryAnswerIcon,
           url: 'binary-answer',
+        },
+        {
+          title: '三分查找',
+          desc: '单峰找峰顶：二分失灵（不知在上坡还是下坡），双探针 m1/m2 对决——谁小丢谁外侧 1/3，每轮区间 ×2/3；坡度二分与实数三分同族',
+          icon: TernarySearchIcon,
+          url: 'ternary-search',
         },
       ],
     },

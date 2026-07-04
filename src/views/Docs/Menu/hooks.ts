@@ -359,6 +359,10 @@ export function useCategoryData(): Category[] {
           title: '二分答案',
           url: 'binary-answer',
         },
+        {
+          title: '三分查找',
+          url: 'ternary-search',
+        },
       ],
     },
   ];

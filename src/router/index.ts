@@ -330,6 +330,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/BinaryAnswer.vue'),
           },
           {
+            path: '/docs/ternary-search',
+            name: 'ternary-search',
+            component: () => import('../views/Article/Algorithm/TernarySearch.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
