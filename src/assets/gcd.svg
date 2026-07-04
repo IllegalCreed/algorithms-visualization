@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- gcd(30,18) 矩形铺砖缩略：18 大方块 + 12 方块 + 两个 6 小方块 -->
+  <!-- 矩形整体 850×510，缩放置于 (90,260) -->
+  <g stroke="#ffffff" stroke-width="10">
+    <!-- 18×18（step0） 510×510 -->
+    <rect x="90" y="260" width="510" height="510" fill="#a5d8ff" />
+    <!-- 12×12（step1） 340×340 -->
+    <rect x="600" y="260" width="340" height="340" fill="#b2f2bb" />
+    <!-- 6×6 两个（step2） 170×170 -->
+    <rect x="600" y="600" width="170" height="170" fill="#ffd8a8" />
+    <rect x="770" y="600" width="170" height="170" fill="#ffd8a8" />
+  </g>
+  <!-- 外框 -->
+  <rect x="90" y="260" width="850" height="510" fill="none" stroke="#333333" stroke-width="14" />
+  <!-- 边长标注 -->
+  <g fill="#1f5e3a" font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <text x="345" y="515" font-size="150">18</text>
+    <text x="770" y="430" font-size="110">12</text>
+    <text x="685" y="685" font-size="66">6</text>
+    <text x="855" y="685" font-size="66">6</text>
+  </g>
+</svg>

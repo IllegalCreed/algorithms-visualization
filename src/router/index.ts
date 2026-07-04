@@ -255,6 +255,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/LinearSieve.vue'),
           },
           {
+            path: '/docs/gcd',
+            name: 'gcd',
+            component: () => import('../views/Article/Algorithm/Gcd.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

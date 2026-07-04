@@ -20,7 +20,11 @@ describe('Docs/Menu useCategoryData', () => {
     expect(data[4].title).toBe('回溯与搜索');
     expect(data[5].title).toBe('字符串');
     expect(data[6].title).toBe('数学与数论');
-    expect(data[6].children.map((c) => c.url)).toEqual(['sieve-of-eratosthenes', 'linear-sieve']);
+    expect(data[6].children.map((c) => c.url)).toEqual([
+      'sieve-of-eratosthenes',
+      'linear-sieve',
+      'gcd',
+    ]);
     expect(data[2].children).toHaveLength(9);
     expect(data[2].children.map((c) => c.url)).toEqual([
       'dijkstra',

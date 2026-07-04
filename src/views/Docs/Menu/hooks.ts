@@ -285,6 +285,10 @@ export function useCategoryData(): Category[] {
           title: '线性筛',
           url: 'linear-sieve',
         },
+        {
+          title: '欧几里得算法',
+          url: 'gcd',
+        },
       ],
     },
   ];

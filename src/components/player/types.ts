@@ -293,6 +293,29 @@ export type LinearSieveExecPoint =
   | 'rest' // i×2>N 后不再划，剩余未划的都是素数
   | 'done'; // 筛完，每合数角标 = 其最小质因子
 
+/** 一个铺砖正方形（C-079，欧几里得 GCD 几何铺砖）：左上角 (x,y) + 边长 + 所属除法步 */
+export interface GcdSquare {
+  x: number;
+  y: number;
+  size: number;
+  step: number;
+}
+
+/** 矩形铺砖轨快照——欧几里得 GCD 专用（数学与数论第 3 页，第 17 轨 C-079） */
+export interface GcdTrack {
+  a: number; // 原矩形宽
+  b: number; // 原矩形高
+  squares: GcdSquare[]; // 已切下的正方形（累加）
+  current?: number[]; // 本步新切方块在 squares 中的下标（琥珀高亮）
+  remaining?: { x: number; y: number; w: number; h: number } | null; // 剩余子矩形（虚线框）
+}
+
+/** 欧几里得算法执行点（C-079，数学与数论第 3 页；新建 GcdView 矩形铺砖轨） */
+export type GcdExecPoint =
+  | 'init' // 展示 a×b 矩形，未切
+  | 'cut' // 一个除法步：从长边切 ⌊a/b⌋ 个 b×b 正方形，剩余收缩
+  | 'done'; // 铺满，最小正方形边长 = gcd
+
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
   labels: string[]; // 行/列标签（方阵：节点名 A,B,C,D；缺省行列标签时双用）
@@ -577,6 +600,7 @@ export interface Step<P extends string = string> {
   sudoku?: SudokuTrack; // 纯加法：数独轨；其它算法不设 → SudokuView 不渲染
   suffixArray?: SuffixArrayTrack; // 纯加法：后缀数组轨；其它算法不设 → SuffixArrayView 不渲染
   sieve?: SieveTrack; // 纯加法：埃氏筛数字网格轨（C-077）；其它算法不设 → SieveView 不渲染
+  gcd?: GcdTrack; // 纯加法：欧几里得 GCD 矩形铺砖轨（C-079）；其它算法不设 → GcdView 不渲染
 }
 
 export interface LangSource<P extends string = string> {
