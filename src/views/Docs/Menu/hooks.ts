@@ -301,6 +301,10 @@ export function useCategoryData(): Category[] {
           title: '扩展欧几里得',
           url: 'ext-gcd',
         },
+        {
+          title: '中国剩余定理',
+          url: 'crt',
+        },
       ],
     },
     {

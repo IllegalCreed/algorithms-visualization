@@ -28,6 +28,7 @@ import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import GcdIcon from '@/assets/gcd.svg';
 import FastPowerIcon from '@/assets/fast-power.svg';
 import ExtGcdIcon from '@/assets/ext-gcd.svg';
+import CrtIcon from '@/assets/crt.svg';
 import ConvexHullIcon from '@/assets/convex-hull.svg';
 import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import ClosestPairIcon from '@/assets/closest-pair.svg';
@@ -506,6 +507,12 @@ export function useCategoryData(): Category[] {
           desc: '在辗转相除回程上带货：基例 (1,0)，逐层 (x,y)=(y′, x′−q·y′)，求出 ax+by=gcd 的 Bézout 系数——模逆元与 RSA 解密的钥匙',
           icon: ExtGcdIcon,
           url: 'ext-gcd',
+        },
+        {
+          title: '中国剩余定理',
+          desc: '孙子算经：模两两互质时，Mᵢ=M/mᵢ 只在本条同余「有声音」，扩欧求逆校准成 1，专属项相加 mod M 得唯一解——RSA-CRT 拆大为小的合并器',
+          icon: CrtIcon,
+          url: 'crt',
         },
       ],
     },

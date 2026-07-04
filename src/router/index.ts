@@ -270,6 +270,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/ExtGcd.vue'),
           },
           {
+            path: '/docs/crt',
+            name: 'crt',
+            component: () => import('../views/Article/Algorithm/Crt.vue'),
+          },
+          {
             path: '/docs/convex-hull',
             name: 'convex-hull',
             component: () => import('../views/Article/Algorithm/ConvexHull.vue'),

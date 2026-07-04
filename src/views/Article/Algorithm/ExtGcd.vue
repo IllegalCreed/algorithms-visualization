@@ -51,9 +51,9 @@ import { extGcdModule } from '@/algorithms/extgcd.module';
     </Callout>
     <p>
       模逆元让「除法」在模运算里成为可能：解同余方程
-      <code>ax ≡ c (mod m)</code>、中国剩余定理合并同余组、以及 <strong>RSA</strong> 里由加密指数 e
-      反解解密指数 <code>d ≡ e⁻¹ (mod φ(n))</code>——配合<router-link to="/docs/fast-power"
-        >快速幂</router-link
+      <code>ax ≡ c (mod m)</code>、<router-link to="/docs/crt">中国剩余定理</router-link
+      >合并同余组、以及 <strong>RSA</strong> 里由加密指数 e 反解解密指数
+      <code>d ≡ e⁻¹ (mod φ(n))</code>——配合<router-link to="/docs/fast-power">快速幂</router-link
       >做模幂，这两页合起来就是 RSA 数学核心的完整拼图。
     </p>
   </Article>

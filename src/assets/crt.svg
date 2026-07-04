@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 三条同余各自「发声」，汇聚合并出 x=23 -->
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <rect x="80" y="120" width="256" height="150" rx="24" fill="#a5d8ff" stroke="#333" stroke-width="12" />
+    <text x="208" y="195" font-size="64" fill="#1f3a5e">≡2 ⑶</text>
+    <rect x="384" y="120" width="256" height="150" rx="24" fill="#ffe08a" stroke="#333" stroke-width="12" />
+    <text x="512" y="195" font-size="64" fill="#6b4e00">≡3 ⑸</text>
+    <rect x="688" y="120" width="256" height="150" rx="24" fill="#f4b8c1" stroke="#333" stroke-width="12" />
+    <text x="816" y="195" font-size="64" fill="#6e2434">≡2 ⑺</text>
+    <rect x="272" y="620" width="480" height="200" rx="28" fill="#8bd3a0" stroke="#333" stroke-width="14" />
+    <text x="512" y="720" font-size="96" fill="#1f5e3a">x = 23</text>
+  </g>
+  <!-- 三路汇聚箭头 -->
+  <g stroke="#9aa8a0" stroke-width="18" fill="none" stroke-linecap="round">
+    <path d="M 208 300 C 208 460, 400 480, 460 580" />
+    <path d="M 512 300 L 512 580" />
+    <path d="M 816 300 C 816 460, 624 480, 564 580" />
+  </g>
+  <g fill="#9aa8a0">
+    <polygon points="430,570 490,570 466,630" />
+    <polygon points="482,570 542,570 512,630" />
+    <polygon points="534,570 594,570 558,630" />
+  </g>
+  <text x="512" y="480" font-size="60" fill="#2e7d32" font-family="sans-serif" font-weight="bold" text-anchor="middle">mod 105</text>
+</svg>

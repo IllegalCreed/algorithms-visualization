@@ -387,6 +387,15 @@ export type ExtGcdExecPoint =
   | 'up' // 回代：x=y'、y=x'−q·y'
   | 'done'; // Bézout 系数出炉
 
+/** 中国剩余定理执行点（C-087，数学与数论第 6 页；纯复用 MatrixView——构造表） */
+export type CrtExecPoint =
+  | 'init' // 同余组 + M = ∏mᵢ
+  | 'mi' // Mᵢ = M/mᵢ：对异模 ≡0，只在第 i 条同余「有声音」
+  | 'inv' // tᵢ = Mᵢ⁻¹ (mod mᵢ)：扩欧求逆，把声音校准成 1
+  | 'term' // 专属项 rᵢ·Mᵢ·tᵢ：本模 ≡rᵢ、异模 ≡0
+  | 'sum' // 各项相加
+  | 'done'; // mod M 归约出最小非负解
+
 /** 一个比较器（C-085，双调排序网络）：连接 wire a、b，dir 决定小值去向 */
 export interface Comparator {
   col: number; // 所在列（同列可并行）

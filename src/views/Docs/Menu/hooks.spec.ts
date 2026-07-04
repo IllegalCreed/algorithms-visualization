@@ -33,6 +33,7 @@ describe('Docs/Menu useCategoryData', () => {
       'gcd',
       'fast-power',
       'ext-gcd',
+      'crt',
     ]);
     expect(data[2].children).toHaveLength(9);
     expect(data[2].children.map((c) => c.url)).toEqual([
