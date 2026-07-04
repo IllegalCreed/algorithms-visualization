@@ -22,6 +22,7 @@ import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
 import SccIcon from '@/assets/scc.svg';
 import TwoSatIcon from '@/assets/two-sat.svg';
+import MaxFlowIcon from '@/assets/max-flow.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -303,6 +304,12 @@ export function useCategoryData(): Category[] {
           desc: '布尔可满足性：子句 (a∨b) 翻成蕴含边 ¬a→b/¬b→a，跑 Tarjan 求 SCC，x 与 ¬x 同组即无解，否则按逆拓扑序赋值，O(V+E)',
           icon: TwoSatIcon,
           url: 'two-sat',
+        },
+        {
+          title: '最大流',
+          desc: '网络流 Ford-Fulkerson：残量网络反复找增广路推满瓶颈，反向边允许退流改道，直到无增广路；最大流 = 最小割',
+          icon: MaxFlowIcon,
+          url: 'max-flow',
         },
       ],
     },

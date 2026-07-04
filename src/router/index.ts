@@ -135,6 +135,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/TwoSat.vue'),
           },
           {
+            path: '/docs/max-flow',
+            name: 'max-flow',
+            component: () => import('../views/Article/Algorithm/MaxFlow.vue'),
+          },
+          {
             path: '/docs/edit-distance',
             name: 'edit-distance',
             component: () => import('../views/Article/Algorithm/Edit.vue'),

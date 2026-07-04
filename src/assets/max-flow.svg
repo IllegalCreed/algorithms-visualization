@@ -1,0 +1,26 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 网络边（实线）：s→a、s→b、a→t、b→t -->
+  <g fill="none" stroke="#333333" stroke-width="18" stroke-linecap="round">
+    <line x1="200" y1="512" x2="470" y2="280" />
+    <line x1="200" y1="512" x2="470" y2="744" />
+    <line x1="560" y1="280" x2="830" y2="512" />
+    <line x1="560" y1="744" x2="830" y2="512" />
+  </g>
+  <!-- 反向退流边（红虚线）：a→b 之间 -->
+  <g fill="none" stroke="#e03131" stroke-width="16" stroke-dasharray="30 20" stroke-linecap="round">
+    <line x1="515" y1="330" x2="515" y2="694" />
+  </g>
+  <polygon points="497 360 515 318 533 360" fill="#e03131" />
+  <!-- 节点 -->
+  <g stroke="#333333" stroke-width="16">
+    <circle cx="200" cy="512" r="78" fill="#b2f2bb" />
+    <circle cx="515" cy="280" r="70" fill="#a5d8ff" />
+    <circle cx="515" cy="744" r="70" fill="#a5d8ff" />
+    <circle cx="830" cy="512" r="78" fill="#ffd8a8" />
+  </g>
+  <!-- 源 s / 汇 t 文字 -->
+  <g fill="#1f5e3a" font-family="sans-serif" font-weight="bold" font-size="72" text-anchor="middle" dominant-baseline="central">
+    <text x="200" y="512">s</text>
+    <text x="830" y="512" fill="#8a5300">t</text>
+  </g>
+</svg>

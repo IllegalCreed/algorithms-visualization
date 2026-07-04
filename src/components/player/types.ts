@@ -230,6 +230,7 @@ export interface GraphTrack {
   nodeGroup?: (number | null)[]; // 每节点分组号 → 调色板填充（SCC 着色，C-069）；null=未归组（中性灰）；其它算法不设 → 用默认绿
   stackNodes?: number[]; // 当前在栈上的节点（虚线琥珀环）——Tarjan 栈（C-069）；其它算法不设
   checkPair?: [number, number] | null; // 判定阶段高亮的一对文字节点 x/¬x（蓝实线环，C-074 2-SAT）；其它算法不设
+  edgeLabel?: Record<string, string>; // 边 key → 文本标签（如 '1/3' 流量/容量，C-076 最大流）；缺省回退到 w
 }
 
 /** Tarjan 强连通分量执行点（C-069，图算法第 7 页；扩展 GraphView——一趟 DFS + dfn/low + 栈） */
@@ -256,6 +257,13 @@ export type AcExecPoint =
   | 'match' // 匹配：文本走一个字符（含沿 fail 跳）
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
+
+/** 最大流 Ford-Fulkerson 执行点（C-076，图算法第 9 页；复用 GraphView——残量网络 + 增广路 + 反向边） */
+export type MaxFlowExecPoint =
+  | 'init' // 展示网络，全部 0/cap，标源汇
+  | 'find' // 找到一条增广路（高亮路径 + 瓶颈；反向段红色）
+  | 'augment' // 沿路增流，更新流量标签（反向边流量减少）
+  | 'done'; // 无增广路：最大流 = 最小割
 
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {

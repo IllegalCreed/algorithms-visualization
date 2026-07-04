@@ -31,7 +31,8 @@ const edgeViews = computed(() =>
       y2: b.y - uy * R,
       wx: (a.x + b.x) / 2 + uy * 12,
       wy: (a.y + b.y) / 2 - ux * 12,
-      w: e.w,
+      // 边标签：优先 edgeLabel（流量/容量，C-076），否则回退权重 w
+      w: props.graph.edgeLabel?.[e.key] ?? (e.w != null ? String(e.w) : ''),
     };
   }),
 );
@@ -140,6 +141,12 @@ svg {
 .graph-edge.fail line {
   stroke: #9c6ade;
   stroke-width: 2.5;
+  stroke-dasharray: 6 4;
+}
+/* 最大流反向退流边（C-076）：红虚线，区别于正向增广（current 琥珀） */
+.graph-edge.reverse line {
+  stroke: #e03131;
+  stroke-width: 4;
   stroke-dasharray: 6 4;
 }
 .graph-node {

@@ -169,6 +169,10 @@ export function useCategoryData(): Category[] {
           title: '2-SAT',
           url: 'two-sat',
         },
+        {
+          title: '最大流',
+          url: 'max-flow',
+        },
       ],
     },
     {

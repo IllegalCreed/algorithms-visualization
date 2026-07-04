@@ -102,4 +102,16 @@ describe('GraphView', () => {
     const w = mountIt(base);
     expect(w.findAll('.graph-edge.fail')).toHaveLength(0);
   });
+
+  it('TC-VIZ-GRAPHVIEW-LABEL-01 edgeLabel 边标签流量/容量优先于 w（C-076 最大流）', () => {
+    const w = mountIt({ ...base, edgeLabel: { '0-1': '1/3' } });
+    const edges = w.findAll('.graph-edge');
+    expect(edges[0].find('text').text()).toBe('1/3'); // '0-1' 用 edgeLabel
+    expect(edges[1].find('text').text()).toBe('1'); // '0-2' 无 edgeLabel → 回退 w=1
+  });
+
+  it('TC-VIZ-GRAPHVIEW-LABEL-02 不设 edgeLabel 则回退到 w（零回归）（C-076）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.graph-edge')[0].find('text').text()).toBe('4'); // w=4
+  });
 });
