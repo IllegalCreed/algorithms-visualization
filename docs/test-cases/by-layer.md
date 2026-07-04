@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1026** 个用例。运行命令：`pnpm test:unit`
+共 **1038** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1505,12 +1505,24 @@
 | TC-TER-MOD-10   | done 含 log 与坡度变体                                                  | `src/algorithms/ternary.module.spec.ts`     |
 | TC-TER-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/ternary.module.spec.ts`     |
 | TC-TER-MOD-12   | title 含三分；initialInput 单峰                                         | `src/algorithms/ternary.module.spec.ts`     |
+| TC-AS-MOD-01    | 路径 8 步 = BFS 最短且逐步相邻                                          | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-02    | 扩展 10 < BFS 可达 22                                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-03    | 扩展序 10 项全等（tie-break f,h,r,c）                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-04    | point 五集 + maze + array 空                                            | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-05    | 13 步 = init+expand×9+goal+trace+done                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-06    | expand current=弹出格、visited 累积                                     | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-07    | letters f 值累积、墙/未触达为空                                         | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-08    | goal current=G + 终点语义                                               | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-09    | trace 8 步路径 + solved                                                 | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-10    | done 含 10 与 22 与高估语义                                             | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-12    | title 含 A\*；mark=🧭                                                   | `src/algorithms/astar.module.spec.ts`       |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **557** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **560** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2581,6 +2593,14 @@
 | TC-VIEW-TER-02 | h1 含三分 + BarsView 主柱轨 | `src/views/Article/Algorithm/TernarySearch.spec.ts` |
 | TC-VIEW-TER-03 | 正文含单峰与探针            | `src/views/Article/Algorithm/TernarySearch.spec.ts` |
 
+### A\* 寻路页 C-096（回溯与搜索第 9 页，新页，纯复用 MazeView 第 4 消费者）
+
+| 用例 ID       | 场景                            | 文件                                        |
+| ------------- | ------------------------------- | ------------------------------------------- |
+| TC-VIEW-AS-01 | Article + AlgorithmPlayer       | `src/views/Article/Algorithm/Astar.spec.ts` |
+| TC-VIEW-AS-02 | h1 含 A\* + MazeView + 无柱数组 | `src/views/Article/Algorithm/Astar.spec.ts` |
+| TC-VIEW-AS-03 | 正文含启发与 f = g + h          | `src/views/Article/Algorithm/Astar.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2591,7 +2611,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **87** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **88** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2683,6 +2703,7 @@
 | TC-E2E-RS-01        | 旋转数组搜索全模板：断崖柱轨 / 拖末步 O(log n) / Shiki（C-093 新增）                                                       | `e2e/rotated-search.e2e.ts`        | active     |
 | TC-E2E-BA-01        | 二分答案全模板：答案空间柱轨 / 拖末步收官语义 / Shiki（C-094 新增）                                                        | `e2e/binary-answer.e2e.ts`         | active     |
 | TC-E2E-TER-01       | 三分查找全模板：山形柱轨 / 拖末步 log 语义 / Shiki（C-095 新增）                                                           | `e2e/ternary-search.e2e.ts`        | active     |
+| TC-E2E-AS-01        | A\* 寻路全模板：迷宫轨 f 值 / 拖末步 10 vs 22 / Shiki（C-096 新增）                                                        | `e2e/astar.e2e.ts`                 | active     |
 
 ---
 

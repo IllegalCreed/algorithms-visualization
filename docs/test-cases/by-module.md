@@ -1087,6 +1087,8 @@
 
 > **C-095（M8 查找第 5 页收官 · 新页）**：三分查找——单峰找峰顶：双探针 m1/m2 对决、谁小丢谁外侧 1/3，O(log₍₃⁄₂₎ n)；坡度二分/实数三分变体。**纯复用主柱轨（四指针四色首次全用 + comparing 对决高亮）**。ternary.module 7 步 + brutePeak argmax 对拍 + isUnimodal 断言。`TC-TER-MOD-*`+`TC-VIEW-TER-*`+`TC-E2E-TER-01`。
 
+> **C-096（M8 回溯与搜索第 9 页 · 新页）**：A* 寻路——f=g+h 启发式搜索：每次扩展 f 最小格，h 可采纳（曼哈顿）保证最优；4×6 L 墙实例扩展 10 vs BFS 22、路径 8 = BFS 最短双对拍。**纯复用 MazeView 第 4 消费者零改动**（letters 复用为 f 值标注）。astar.module 13 步 + tie-break 全确定扩展序。`TC-AS-MOD-*`+`TC-VIEW-AS-\*`+`TC-E2E-AS-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1914,3 +1916,19 @@
 | TC-VIEW-TER-02        | h1 含三分 + BarsView 主柱轨（C-095）                                                               | L4   | `src/views/Article/Algorithm/TernarySearch.spec.ts`       |
 | TC-VIEW-TER-03        | 正文含单峰与探针（C-095）                                                                          | L4   | `src/views/Article/Algorithm/TernarySearch.spec.ts`       |
 | TC-E2E-TER-01         | 三分查找全模板：山形柱轨 / 拖末步 log 语义 / Shiki（C-095 新增）                                   | L5   | `e2e/ternary-search.e2e.ts`                               |
+| TC-AS-MOD-01          | 路径 8 步 = BFS 最短且逐步相邻（C-096）                                                            | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-02          | 扩展 10 < BFS 可达 22（C-096）                                                                     | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-03          | 扩展序 10 项全等（tie-break f,h,r,c）（C-096）                                                     | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-04          | point 五集 + maze + array 空（C-096）                                                              | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-05          | 13 步 = init+expand×9+goal+trace+done（C-096）                                                     | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-06          | expand current=弹出格、visited 累积（C-096）                                                       | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-07          | letters f 值累积、墙/未触达为空（C-096）                                                           | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-08          | goal current=G + 终点语义（C-096）                                                                 | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-09          | trace 8 步路径 + solved（C-096）                                                                   | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-10          | done 含 10 与 22 与高估语义（C-096）                                                               | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-11          | 四语言+行号+五执行点（C-096）                                                                      | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-AS-MOD-12          | title 含 A\*；mark=🧭（C-096）                                                                     | L3   | `src/algorithms/astar.module.spec.ts`                     |
+| TC-VIEW-AS-01         | Article + AlgorithmPlayer（C-096）                                                                 | L4   | `src/views/Article/Algorithm/Astar.spec.ts`               |
+| TC-VIEW-AS-02         | h1 含 A\* + MazeView + 无柱数组（C-096）                                                           | L4   | `src/views/Article/Algorithm/Astar.spec.ts`               |
+| TC-VIEW-AS-03         | 正文含启发与 f = g + h（C-096）                                                                    | L4   | `src/views/Article/Algorithm/Astar.spec.ts`               |
+| TC-E2E-AS-01          | A\* 寻路全模板：迷宫轨 f 值 / 拖末步 10 vs 22 / Shiki（C-096 新增）                                | L5   | `e2e/astar.e2e.ts`                                        |
