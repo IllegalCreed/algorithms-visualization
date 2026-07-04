@@ -29,6 +29,7 @@ import GcdIcon from '@/assets/gcd.svg';
 import FastPowerIcon from '@/assets/fast-power.svg';
 import ExtGcdIcon from '@/assets/ext-gcd.svg';
 import CrtIcon from '@/assets/crt.svg';
+import EulerPhiIcon from '@/assets/euler-phi.svg';
 import ConvexHullIcon from '@/assets/convex-hull.svg';
 import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import ClosestPairIcon from '@/assets/closest-pair.svg';
@@ -514,6 +515,12 @@ export function useCategoryData(): Category[] {
           desc: '孙子算经：模两两互质时，Mᵢ=M/mᵢ 只在本条同余「有声音」，扩欧求逆校准成 1，专属项相加 mod M 得唯一解——RSA-CRT 拆大为小的合并器',
           icon: CrtIcon,
           url: 'crt',
+        },
+        {
+          title: '欧拉函数',
+          desc: 'φ(n) 数与 n 互质的个数：按比例划掉含质因子 p 的数，φ(n)=n·∏(1−1/p)；欧拉定理 a^φ≡1 给指数打折，RSA 的 φ(pq)=(p−1)(q−1)',
+          icon: EulerPhiIcon,
+          url: 'euler-phi',
         },
       ],
     },

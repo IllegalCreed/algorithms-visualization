@@ -293,6 +293,14 @@ export type LinearSieveExecPoint =
   | 'rest' // i×2>N 后不再划，剩余未划的都是素数
   | 'done'; // 筛完，每合数角标 = 其最小质因子
 
+/** 欧拉函数执行点（C-089，数学与数论第 7 页；纯复用 SieveView——互质筛网格） */
+export type PhiExecPoint =
+  | 'init' // 网格 1..n 全未定 + 分解蓝图
+  | 'find' // 试除找到质因子 p（琥珀环）
+  | 'cross' // 划掉 p 的倍数：res ← res·(1−1/p)
+  | 'survive' // 幸存者变绿 = 与 n 互质
+  | 'done'; // φ(n) + 欧拉定理/RSA 语义
+
 /** 一个铺砖正方形（C-079，欧几里得 GCD 几何铺砖）：左上角 (x,y) + 边长 + 所属除法步 */
 export interface GcdSquare {
   x: number;

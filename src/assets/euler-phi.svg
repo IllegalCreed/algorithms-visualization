@@ -1,0 +1,32 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 互质筛网格：划掉含质因子的数，幸存者变绿，φ(12)=4 -->
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central" font-size="72">
+    <!-- 第一行 1..4 -->
+    <rect x="90" y="120" width="180" height="160" rx="22" fill="#8bd3a0" stroke="#333" stroke-width="12" />
+    <text x="180" y="202" fill="#1f5e3a">1</text>
+    <rect x="310" y="120" width="180" height="160" rx="22" fill="#d7dedb" stroke="#333" stroke-width="12" />
+    <text x="400" y="202" fill="#9aa8a0">2</text>
+    <rect x="530" y="120" width="180" height="160" rx="22" fill="#d7dedb" stroke="#333" stroke-width="12" />
+    <text x="620" y="202" fill="#9aa8a0">3</text>
+    <rect x="750" y="120" width="180" height="160" rx="22" fill="#d7dedb" stroke="#333" stroke-width="12" />
+    <text x="840" y="202" fill="#9aa8a0">4</text>
+    <!-- 第二行 5..8 -->
+    <rect x="90" y="330" width="180" height="160" rx="22" fill="#8bd3a0" stroke="#333" stroke-width="12" />
+    <text x="180" y="412" fill="#1f5e3a">5</text>
+    <rect x="310" y="330" width="180" height="160" rx="22" fill="#d7dedb" stroke="#333" stroke-width="12" />
+    <text x="400" y="412" fill="#9aa8a0">6</text>
+    <rect x="530" y="330" width="180" height="160" rx="22" fill="#8bd3a0" stroke="#333" stroke-width="12" />
+    <text x="620" y="412" fill="#1f5e3a">7</text>
+    <rect x="750" y="330" width="180" height="160" rx="22" fill="#d7dedb" stroke="#333" stroke-width="12" />
+    <text x="840" y="412" fill="#9aa8a0">8</text>
+  </g>
+  <!-- 划线 -->
+  <g stroke="#e03131" stroke-width="14" stroke-linecap="round">
+    <line x1="330" y1="260" x2="470" y2="140" />
+    <line x1="550" y1="260" x2="690" y2="140" />
+    <line x1="770" y1="260" x2="910" y2="140" />
+    <line x1="330" y1="470" x2="470" y2="350" />
+    <line x1="770" y1="470" x2="910" y2="350" />
+  </g>
+  <text x="512" y="760" font-family="sans-serif" font-weight="bold" font-size="150" fill="#2e7d32" text-anchor="middle">φ(12)=4</text>
+</svg>

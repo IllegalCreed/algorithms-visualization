@@ -305,6 +305,10 @@ export function useCategoryData(): Category[] {
           title: '中国剩余定理',
           url: 'crt',
         },
+        {
+          title: '欧拉函数',
+          url: 'euler-phi',
+        },
       ],
     },
     {

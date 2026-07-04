@@ -29,6 +29,7 @@ describe('Home/Main useCategoryData', () => {
       'fast-power',
       'ext-gcd',
       'crt',
+      'euler-phi',
     ]);
     expect(data[2].children).toHaveLength(9);
     expect(data[2].children[7].url).toBe('two-sat');

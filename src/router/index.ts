@@ -275,6 +275,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Crt.vue'),
           },
           {
+            path: '/docs/euler-phi',
+            name: 'euler-phi',
+            component: () => import('../views/Article/Algorithm/EulerPhi.vue'),
+          },
+          {
             path: '/docs/convex-hull',
             name: 'convex-hull',
             component: () => import('../views/Article/Algorithm/ConvexHull.vue'),
