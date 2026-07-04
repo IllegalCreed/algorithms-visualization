@@ -290,6 +290,9 @@
 | TC-VIZ-SIEVEVIEW-03       | 1 号格 .sieve-special（既非素也非合）                                           | L4   | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-SIEVEVIEW-SPF-01   | composite 格传 spf[v] → 该格渲染 .sieve-spf 角标显示该值                        | L4   | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-SIEVEVIEW-SPF-02   | 不传 spf（埃氏筛）→ 无 .sieve-spf 角标（零回归）                                | L4   | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-GCDVIEW-01         | squares 4 个 → 4 个 .gcd-square；每方块标注边长（含 18/12/6）                   | L4   | `src/components/GcdView.spec.ts`                |
+| TC-VIZ-GCDVIEW-02         | current=[0] → 1 个 .gcd-current；remaining 存在 → 渲染 .gcd-remaining           | L4   | `src/components/GcdView.spec.ts`                |
+| TC-VIZ-GCDVIEW-03         | remaining=null → 无 .gcd-remaining（铺满）                                      | L4   | `src/components/GcdView.spec.ts`                |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -351,6 +354,8 @@
 | TC-PLAYER-SA-02           | 排序 step 无 suffixArray→不渲染（零回归）（C-072）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SIEVE-01        | step 含 sieve → 渲染 SieveView                                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SIEVE-02        | 排序 step 无 sieve → 不渲染 SieveView（零回归）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GCD-01          | step 含 gcd → 渲染 GcdView                                                      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GCD-02          | 排序 step 无 gcd → 不渲染 GcdView（零回归）                                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -1027,6 +1032,8 @@
 
 > **C-078（M7 数学与数论第 2 页 · 新页）**：线性筛（欧拉筛）——承接埃氏筛。埃氏筛里合数被多个素数重复划（12 被 2、3 都划），线性筛外层 `i` 遍历所有数、对素数 `p` 划 `i×p` 并在 **`i%p==0` 时立即停**：这个 break 保证 `i×p` 的最小质因子恰是 `p`，于是每个合数只被划一次（被其最小质因子），严格 **O(N)**。**复用 C-077 SieveView 数字网格轨**（不新建轨）；唯一 additive `SieveTrack.spf?`（每合数右下角标其最小质因子，见 viz-engine 段 `TC-VIZ-SIEVEVIEW-SPF-*`），埃氏筛不设即零回归。复用 `Step.sieve`、**AlgorithmPlayer 零改动**。`linearsieve.module`（固定 N=30 同网格，init+mark×(i=2..10 逐+i=11..15 合并)+rest+done 13 步 + oracle `linearSieve()` primes=[2,3,5,7,11,13,17,19,23,29]/spf 各合数最小质因子 与试除对拍）。新页 + 路由 `/docs/linear-sieve` + 菜单/首页「数学与数论」第 2 项 + 新 `linear-sieve.svg` + 改 `TC-HOOK`（数论 children +linear-sieve）+ 埃氏筛页双向链接。埃氏筛不设 spf 零回归。`TC-LS-MOD-*` + `TC-VIEW-LS-*` + `TC-E2E-LS-01`。
 
+> **C-079（M7 数学与数论第 3 页 · 新页 + 新轨）**：欧几里得算法（辗转相除求最大公约数）——换几何视角。`gcd(a,b)=gcd(b,a mod b)` 反复取模到余 0，O(log min(a,b))。几何解释：gcd(a,b) = 能把 a×b 矩形无缝铺满的**最大正方形边长**——反复从长边切 `⌊a/b⌋` 个 `b×b` 正方形（= 取模）、剩 `(a%b)×b` 递归，最小正方形边长即 gcd。**新建第 17 条 GcdView 矩形铺砖轨**（等比缩放渲染矩形 + 已切正方形〔按步着色标边长〕+ 当前琥珀描边 + 剩余虚线框，见 viz-engine 段 `TC-VIZ-GCDVIEW-*` / `TC-PLAYER-GCD-*`）。新 `Step.gcd?` additive、AlgorithmPlayer 加一行 v-if。`gcd.module`（固定 gcd(30,18)，init+cut×3+done 5 步 + oracle `gcd()`=6/`gcdSteps()`/`gcdTiling()`，方块 18/12/6/6 恰好铺满 540=30×18、最小 6=gcd）。新页 + 路由 `/docs/gcd` + 菜单/首页「数学与数论」第 3 项 + 新 `gcd.svg` + 改 `TC-HOOK`（数论 children +gcd）。既有算法不设 gcd 零回归。`TC-GCD-MOD-*` + `TC-VIEW-GCD-*` + `TC-E2E-GCD-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1580,3 +1587,19 @@
 | TC-VIEW-LS-02         | h1 含「线性筛」+ SieveView + 无柱数组 （C-078）                                                    | L4   | `src/views/Article/Algorithm/LinearSieve.spec.ts`         |
 | TC-VIEW-LS-03         | 全模板同屏：正文含「最小质因子」+ SieveView （C-078）                                              | L4   | `src/views/Article/Algorithm/LinearSieve.spec.ts`         |
 | TC-E2E-LS-01          | 线性筛全模板：数字网格 spf 角标 / 拖末步 10 素数 + caption 含 10 / Shiki（C-078 新增）             | L5   | `e2e/linear-sieve.e2e.ts`                                 |
+| TC-GCD-MOD-01         | 末步 done；gcd(30,18)=6 （C-079）                                                                  | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-02         | 每步 point∈{init,cut,done} 且带 gcd（array 空） （C-079）                                          | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-03         | gcdSteps() = 30=1·18+12 / 18=1·12+6 / 12=2·6+0（C-079）                                            | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-04         | cut 步恰 3 个（3 个除法步） （C-079）                                                              | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-05         | 末步 squares 总面积 Σsize² = 30×18 = 540（恰好铺满） （C-079）                                     | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-06         | 末步 squares 最小 size = 6 = gcd （C-079）                                                         | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-07         | 末步 4 方块，尺寸 {18,12,6}；step2 两个 6×6 （C-079）                                              | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-08         | 每方块 0≤x,0≤y,x+size≤30,y+size≤18（在矩形内） （C-079）                                           | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-09         | cut 步 remaining 面积递减（216>72）；末步 done remaining=null（C-079）                             | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-10         | done 步 caption 含 6 与 gcd/铺满语义 （C-079）                                                     | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-11         | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-079）                                | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-GCD-MOD-12         | module 元信息 title 含「欧几里得」或「公约数」；initialInput()=[]（C-079）                         | L3   | `src/algorithms/gcd.module.spec.ts`                       |
+| TC-VIEW-GCD-01        | 挂载渲染 Article + AlgorithmPlayer （C-079）                                                       | L4   | `src/views/Article/Algorithm/Gcd.spec.ts`                 |
+| TC-VIEW-GCD-02        | h1 含「欧几里得」或「公约数」+ GcdView + 无柱数组 （C-079）                                        | L4   | `src/views/Article/Algorithm/Gcd.spec.ts`                 |
+| TC-VIEW-GCD-03        | 全模板同屏：正文含「辗转相除」+ GcdView （C-079）                                                  | L4   | `src/views/Article/Algorithm/Gcd.spec.ts`                 |
+| TC-E2E-GCD-01         | 欧几里得全模板：矩形铺砖 / 拖末步 4 方块 + caption 含 6 / Shiki（C-079 新增）                      | L5   | `e2e/gcd.e2e.ts`                                          |
