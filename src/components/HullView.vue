@@ -38,6 +38,7 @@ const isPopped = (i: number) => (props.hull.popped ?? []).includes(i);
 const edgeViews = computed(() =>
   props.hull.edges.map(([a, b], i) => ({
     key: `${a}-${b}-${i}`,
+    cls: props.hull.edgeClasses?.[i] ?? '', // 线段相交（C-084）：可选边样式类
     x1: screen.value[a].x,
     y1: screen.value[a].y,
     x2: screen.value[b].x,
@@ -105,6 +106,7 @@ const stripRect = computed(() => {
         v-for="e in edgeViews"
         :key="e.key"
         class="hull-edge"
+        :class="e.cls"
         :x1="e.x1"
         :y1="e.y1"
         :x2="e.x2"
@@ -204,6 +206,19 @@ svg {
   stroke: #2e7d32;
   stroke-width: 4;
   stroke-linecap: round;
+}
+/* 线段相交（C-084）：当前测试琥珀 / 相交绿 / 不相交灰虚线 */
+.hull-edge.seg-test {
+  stroke: #f0a000;
+  stroke-width: 4;
+}
+.hull-edge.seg-yes {
+  stroke: #2e7d32;
+  stroke-width: 4;
+}
+.hull-edge.seg-no {
+  stroke: #9aa8a0;
+  stroke-dasharray: 6 4;
 }
 /* 最近点对（C-083）：δ 带浅紫 / 分治中线紫虚线 */
 .hull-strip {

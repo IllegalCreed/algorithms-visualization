@@ -1,0 +1,18 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 相交对（绿 X） + 不相交对（灰虚线平行） -->
+  <g stroke="#2e7d32" stroke-width="26" stroke-linecap="round">
+    <line x1="140" y1="200" x2="560" y2="620" />
+    <line x1="140" y1="620" x2="560" y2="200" />
+  </g>
+  <circle cx="350" cy="410" r="44" fill="#f0a000" stroke="#ffffff" stroke-width="10" />
+  <g stroke="#9aa8a0" stroke-width="24" stroke-dasharray="44 30" stroke-linecap="round">
+    <line x1="620" y1="780" x2="940" y2="640" />
+    <line x1="620" y1="920" x2="940" y2="800" />
+  </g>
+  <g fill="#333333">
+    <circle cx="140" cy="200" r="30" />
+    <circle cx="560" cy="620" r="30" />
+    <circle cx="140" cy="620" r="30" />
+    <circle cx="560" cy="200" r="30" />
+  </g>
+</svg>

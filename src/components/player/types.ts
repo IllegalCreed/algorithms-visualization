@@ -363,6 +363,7 @@ export interface HullTrack {
   best?: [number, number] | null; // 当前最优点对（绿粗线，C-082/C-083）；凸包页不设
   divider?: number | null; // 分治中线 x（数学坐标，紫竖线，C-083 最近点对）；其它页不设
   strip?: [number, number] | null; // δ 带 x 范围 [lo,hi]（浅紫矩形，C-083）；其它页不设
+  edgeClasses?: (string | null)[]; // 与 edges 平行的样式类（seg-test/seg-yes/seg-no，C-084 线段相交）；不设用默认
 }
 
 /** 凸包执行点（C-081，计算几何大类首发；新建 HullView 点平面轨——Andrew 单调链） */
@@ -377,6 +378,13 @@ export type CalipersExecPoint =
   | 'init' // 展示凸包 + 散点
   | 'spin' // 卡壳推进一条边：对踵点单调前移 + 检查两候选距离
   | 'done'; // 转完一圈，best = 直径
+
+/** 线段相交执行点（C-084，计算几何第 4 页；复用 HullView——跨立试验逐对判定） */
+export type SegIntExecPoint =
+  | 'init' // 三对线段灰显
+  | 'test' // 当前对琥珀高亮，算四叉积
+  | 'verdict' // 判定：相交绿 / 不相交灰虚线
+  | 'done'; // 三对判完，汇总
 
 /** 最近点对执行点（C-083，计算几何第 3 页；复用 HullView——分治 + δ 带合并） */
 export type ClosestPairExecPoint =

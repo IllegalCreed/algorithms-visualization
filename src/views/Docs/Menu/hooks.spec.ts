@@ -25,6 +25,7 @@ describe('Docs/Menu useCategoryData', () => {
       'convex-hull',
       'rotating-calipers',
       'closest-pair',
+      'segment-intersection',
     ]);
     expect(data[6].children.map((c) => c.url)).toEqual([
       'sieve-of-eratosthenes',

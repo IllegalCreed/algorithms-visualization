@@ -79,4 +79,20 @@ describe('HullView', () => {
     expect(w.findAll('.hull-divider')).toHaveLength(0);
     expect(w.findAll('.hull-strip')).toHaveLength(0);
   });
+
+  it('TC-VIZ-HULLVIEW-SEG-01 edgeClasses 边样式类（C-084 线段相交）', () => {
+    const w = mountIt({ ...base, edgeClasses: ['seg-yes', 'seg-no', null] });
+    const edges = w.findAll('.hull-edge');
+    expect(edges[0].classes()).toContain('seg-yes');
+    expect(edges[1].classes()).toContain('seg-no');
+    expect(edges[2].classes()).not.toContain('seg-yes');
+    expect(edges[2].classes()).not.toContain('seg-no');
+  });
+
+  it('TC-VIZ-HULLVIEW-SEG-02 不设 edgeClasses 则无 seg-* 类（零回归）（C-084）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.seg-yes')).toHaveLength(0);
+    expect(w.findAll('.seg-no')).toHaveLength(0);
+    expect(w.findAll('.seg-test')).toHaveLength(0);
+  });
 });

@@ -280,6 +280,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/ClosestPair.vue'),
           },
           {
+            path: '/docs/segment-intersection',
+            name: 'segment-intersection',
+            component: () => import('../views/Article/Algorithm/SegmentIntersection.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

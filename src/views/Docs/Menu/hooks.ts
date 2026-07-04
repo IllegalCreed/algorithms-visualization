@@ -310,6 +310,10 @@ export function useCategoryData(): Category[] {
           title: '最近点对',
           url: 'closest-pair',
         },
+        {
+          title: '线段相交',
+          url: 'segment-intersection',
+        },
       ],
     },
   ];
