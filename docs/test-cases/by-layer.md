@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **666** 个用例。运行命令：`pnpm test:unit`
+共 **678** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1002,6 +1002,25 @@
 | TC-MAZE-MOD-11 | 四语言 sources + 行号在范围内                 | `src/algorithms/maze.module.spec.ts` |
 | TC-MAZE-MOD-12 | module 元信息 title 含迷宫、initialInput()=[] | `src/algorithms/maze.module.spec.ts` |
 
+### 岛屿数量模块 islands.module（C-066 · 回溯网格搜索第 2 页，扫描 + DFS Flood Fill 20 步 + 复用 MazeView 轨）
+
+固定 4×4 网格（3 个岛，6 陆地格）；oracle `islandCount()` = 3；水为墙、已数陆地绿（filled）、当前扫描格 🔎。
+
+| Case ID       | 标题                                            | 自动化路径                              |
+| ------------- | ----------------------------------------------- | --------------------------------------- |
+| TC-ISL-MOD-01 | 末步 done + 岛屿数 3 + filled 覆盖全部陆地（6） | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-02 | 每步执行点合法且带网格轨（array 空）            | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-03 | found 恰 3 次（3 个岛）                         | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-04 | found 命中新陆地（grid=1 且此前不在 filled）    | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-05 | 水为墙：walls[r][c] === (grid===0)              | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-06 | filled 单调不减                                 | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-07 | 末步 filled = 全陆地（6 格、无重复、都是陆地）  | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-08 | flood 步陆地且四连通于同岛已 filled 格          | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-09 | 岛屿无起终点：start/goal 均为 null              | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-10 | 非 done 步当前格图标存在且非 🐭                 | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-11 | 四语言 sources + 行号在范围内                   | `src/algorithms/islands.module.spec.ts` |
+| TC-ISL-MOD-12 | module 元信息 title 含岛屿、initialInput()=[]   | `src/algorithms/islands.module.spec.ts` |
+
 ### 最长公共子序列模块 lcs.module（C-060 · DP 第 3 页，填表 + 回溯 24 步 + 扩展 MatrixView pathCells）
 
 固定 X=`ABCD`、Y=`ACDF`；oracle `lcsLength`/`lcsString`/`lcsPath`；二维 DP 填表求长度 + 回溯恢复 LCS=ACD。
@@ -1101,7 +1120,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **403** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **407** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1701,6 +1720,7 @@
 | TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）                                       | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path                              | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution                      | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-05   | filled 标绿 + mark 覆盖图标 + 无起终点（C-066 网格搜索扩展）              | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格                                            | `src/components/KmpView.spec.ts`                |
 | TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare                              | `src/components/KmpView.spec.ts`                |
 | TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                              | `src/components/KmpView.spec.ts`                |
@@ -1834,6 +1854,14 @@
 | TC-VIEW-MAZE-02 | h1 含「迷宫」+ MazeView + 25 格 + 无 .bars-view | `src/views/Article/Algorithm/Maze.spec.ts` |
 | TC-VIEW-MAZE-03 | 全模板同屏：Article 含「迷宫」+ MazeView        | `src/views/Article/Algorithm/Maze.spec.ts` |
 
+### 岛屿数量页 C-066（回溯网格搜索第 2 页，新页，全模板 + 复用 MazeView 轨）
+
+| Case ID        | 标题                                            | 自动化路径                                    |
+| -------------- | ----------------------------------------------- | --------------------------------------------- |
+| TC-VIEW-ISL-01 | 挂载渲染 Article + AlgorithmPlayer              | `src/views/Article/Algorithm/Islands.spec.ts` |
+| TC-VIEW-ISL-02 | h1 含「岛屿」+ MazeView（16 格）+ 无 .bars-view | `src/views/Article/Algorithm/Islands.spec.ts` |
+| TC-VIEW-ISL-03 | 全模板同屏：正文含「连通」+ MazeView            | `src/views/Article/Algorithm/Islands.spec.ts` |
+
 ### 最长公共子序列页 C-060（DP 第 3 页，新页，全模板 + 填表 + 回溯）
 
 | Case ID        | 标题                                         | 自动化路径                                |
@@ -1878,7 +1906,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **57** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **58** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1940,6 +1968,7 @@
 | TC-E2E-RK-01        | Rabin-Karp 全模板：正文 + 滚动哈希窗口 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-063 新增）            | `e2e/rabin-karp.e2e.ts`            | active     |
 | TC-E2E-BM-01        | Boyer-Moore 全模板：正文 + 对齐窗口带 3 格 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-064 新增）        | `e2e/boyer-moore.e2e.ts`           | active     |
 | TC-E2E-CK-01        | 完全背包全模板：正文 + DP 表 4×7 / `.scrub` 拖末步 右下角=15 + caption 含 15 / Shiki（C-065 新增）                         | `e2e/complete-knapsack.e2e.ts`     | active     |
+| TC-E2E-ISL-01       | 岛屿数量全模板：正文 + 4×4 网格 / `.scrub` 拖末步 6 绿陆地 + caption 含 3 个岛 / Shiki（C-066 新增）                       | `e2e/number-of-islands.e2e.ts`     | active     |
 
 ---
 

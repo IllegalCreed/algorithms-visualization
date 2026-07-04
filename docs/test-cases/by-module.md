@@ -305,6 +305,7 @@
 | TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）（C-059）                              | L4   | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path（C-059）                     | L4   | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution（C-059）             | L4   | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-05   | filled 标绿 + mark 覆盖图标 + 无起终点（C-066 网格搜索扩展）              | L4   | `src/components/MazeView.spec.ts`               |
 | TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格（C-062）                                   | L4   | `src/components/KmpView.spec.ts`                |
 | TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare（C-062）                     | L4   | `src/components/KmpView.spec.ts`                |
 | TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）（C-062）                     | L4   | `src/components/KmpView.spec.ts`                |
@@ -949,7 +950,7 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法 C-037~052 + 动态规划 C-053/054/060/061/065 + 回溯 C-055~059 + 字符串 C-062/063/064；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
+## article-algo（图算法 C-037~052 + 动态规划 C-053/054/060/061/065 + 回溯 C-055~059/066 + 字符串 C-062/063/064；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
 > **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。
@@ -971,6 +972,7 @@
 > **C-063（M6 字符串第 2 页 · 新页）**：Rabin-Karp 滚动哈希匹配——与 KMP（部分匹配表）对照的另一思路。把长 m 窗口压成一个哈希，滑动时 O(1) 更新（去首字符 + 加尾字符），每格只比一个数；哈希相等才逐字符验证防冲突。**复用 KmpView 字符串匹配轨**（第 2 消费者：+`windowStart` 窗口带 + 空 LPS 隐 π 行，见 viz-engine 段 `TC-VIZ-KMPVIEW-05`）。`rabinkarp.module`（T=abcabcab/P=cab，B=10/M=997，模式哈希 312，6 窗口 12 步 + oracle，命中 [2,5]）。新页 + 路由 + 菜单/首页「字符串」第 2 项 + 新 `rabinkarp.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +rabin-karp）。KmpView 服务 KMP + Rabin-Karp。`TC-RK-MOD-*` + `TC-VIEW-RK-*` + `TC-E2E-RK-01`。
 > **C-064（M6 字符串第 3 页 · 新页）**：Boyer-Moore 坏字符规则——与 KMP（部分匹配表）/ Rabin-Karp（滚动哈希）并列的第三条串匹配思路。**从模式末尾从右往左比**，失配用**坏字符表大步右移**：坏字符在模式里对齐其最右出现处、不在模式里则跳过整段，实践最快、平均亚线性。**复用 KmpView 字符串匹配轨**（第 3 消费者：+`matchedFrom` 已匹配后缀绿高亮，additive；KMP/RK 不设 → 零回归，见 viz-engine 段 `TC-VIZ-KMPVIEW-06`）。`boyermoore.module`（T=abcabxabc/P=abc，坏字符表 {a:0,b:1,c:2}，右往左 + 坏字符跳 12 步 + oracle `bmLast`/`bmMatches`，命中 [0,6]，含小跳 2/大跳 3）。新页 + 路由 `/docs/boyer-moore` + 菜单/首页「字符串」第 3 项 + 新 `boyermoore.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +boyer-moore）。KmpView 一轨服务 KMP + Rabin-Karp + Boyer-Moore 三算法。`TC-BM-MOD-*` + `TC-VIEW-BM-*` + `TC-E2E-BM-01`。
 > **C-065（M6 动态规划第 5 页 · 新页）**：完全背包——0-1 背包（C-054）的可重复取变体，把「背包问题族」讲全。状态定义/边界/装不下都与 0-1 相同，唯一差别在装得下时「取」的来源：0-1 用上一行 `dp[i-1][w-wt]`（取了换下一件），完全背包用**本行** `dp[i][w-wt]`（取了还能再取同一件）。**纯复用 MatrixView 矩阵轨 + 复用 `KnapsackExecPoint` 零改动**（第 6 消费者：`sources` 高亮把「取」源格从左上挪到同一行左侧）。`completeknapsack.module`（A重2值5/B重3值6/C重4值7、容量 6，4×7 DP 表逐格填 20 步 + oracle `completeKnapsackTrace()`，右下角 15=A×3、同批物品 0-1 只能拿 12）。新页 + 路由 `/docs/complete-knapsack` + 菜单/首页「动态规划」第 3 项 + 新 `complete-knapsack.svg` + 改 `TC-HOOK-01-1/02-1`（动态规划 children +complete-knapsack）。MatrixView 六验（方阵/字符轴/数值轴/回溯路径/两行表/本行来源）。`TC-CK-MOD-*` + `TC-VIEW-CK-*` + `TC-E2E-CK-01`。
+> **C-066（M6 回溯与搜索 · 网格搜索第 2 页 · 新页）**：岛屿数量（LeetCode 200）——网格 Flood Fill / 连通分量，与迷宫寻路（C-059）对照：迷宫找**一条路径**（DFS + 回溯撞死路退回），岛屿**数连通块**（扫描每格、遇新陆地就 Flood Fill 铺满一整片、计数 +1）。**扩展 MazeView 为通用网格搜索轨**（第 2 消费者，全 additive：+`filled` 已数陆地绿〔复用 `.mz-solution`〕 + `mark` 当前格图标〔缺省 🐭〕 + `start`/`goal` 转可选；见 viz-engine 段 `TC-VIZ-MAZEVIEW-05`）。复用 `Step.maze` 无新 Step 字段；水=墙。`islands.module`（固定 4×4 网格 3 岛 6 陆地，扫描 + DFS Flood Fill 20 步 + oracle `islandCount()`=3）。新页 + 路由 `/docs/number-of-islands` + 菜单/首页「回溯与搜索」第 6 项 + 新 `islands.svg` + 改 `TC-HOOK-01-1/02-1`（回溯 children +number-of-islands）。MazeView 服务迷宫 + 岛屿；迷宫始终传 start/goal 不传 filled/mark 零回归。`TC-ISL-MOD-*` + `TC-VIEW-ISL-*` + `TC-E2E-ISL-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                             |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------ |
@@ -1317,3 +1319,19 @@
 | TC-VIEW-CK-02         | h1 含「完全背包」+ MatrixView（28 单元）+ 无柱数组（C-065）                                        | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
 | TC-VIEW-CK-03         | 全模板同屏：正文含「本行」+ MatrixView（C-065）                                                    | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
 | TC-E2E-CK-01          | 完全背包全模板：DP 表 4×7 / 拖末步右下角=15 / Shiki（C-065 新增）                                  | L5   | `e2e/complete-knapsack.e2e.ts`                         |
+| TC-ISL-MOD-01         | 末步 done + 岛屿数 3 + filled 覆盖全部陆地（C-066）                                                | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-02         | 每步执行点合法且带网格轨（array 空）（C-066）                                                      | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-03         | found 恰 3 次（3 个岛）（C-066）                                                                   | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-04         | found 命中新陆地（此前不在 filled）（C-066）                                                       | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-05         | 水为墙：walls === (grid===0)（C-066）                                                              | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-06         | filled 单调不减（C-066）                                                                           | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-07         | 末步 filled = 全陆地（6 格无重复）（C-066）                                                        | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-08         | flood 步四连通于同岛已 filled（C-066）                                                             | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-09         | 岛屿无起终点：start/goal 均 null（C-066）                                                          | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-10         | 非 done 步当前格图标非 🐭（C-066）                                                                 | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-11         | 四语言 sources + 行号在范围内（C-066）                                                             | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-ISL-MOD-12         | module 元信息 title 含岛屿（C-066）                                                                | L3   | `src/algorithms/islands.module.spec.ts`                |
+| TC-VIEW-ISL-01        | 挂载渲染 Article + AlgorithmPlayer（C-066）                                                        | L4   | `src/views/Article/Algorithm/Islands.spec.ts`          |
+| TC-VIEW-ISL-02        | h1 含「岛屿」+ MazeView（16 格）+ 无柱数组（C-066）                                                | L4   | `src/views/Article/Algorithm/Islands.spec.ts`          |
+| TC-VIEW-ISL-03        | 全模板同屏：正文含「连通」+ MazeView（C-066）                                                      | L4   | `src/views/Article/Algorithm/Islands.spec.ts`          |
+| TC-E2E-ISL-01         | 岛屿数量全模板：4×4 网格 / 拖末步 6 绿陆地 + 3 个岛 / Shiki（C-066 新增）                          | L5   | `e2e/number-of-islands.e2e.ts`                         |
