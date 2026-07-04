@@ -64,11 +64,40 @@ const lineOf = (pair: [number, number] | null | undefined) => {
 const activeEdgeLine = computed(() => lineOf(props.hull.activeEdge));
 const caliperLine = computed(() => lineOf(props.hull.caliper));
 const bestLine = computed(() => lineOf(props.hull.best));
+
+// 最近点对（C-083）：分治中线（数学 x → 屏幕 x）与 δ 带矩形
+const dividerX = computed(() =>
+  props.hull.divider != null ? layout.value.sx(props.hull.divider) : null,
+);
+const stripRect = computed(() => {
+  const st = props.hull.strip;
+  if (!st) return null;
+  const x1 = layout.value.sx(st[0]);
+  const x2 = layout.value.sx(st[1]);
+  return { x: Math.min(x1, x2), w: Math.abs(x2 - x1) };
+});
 </script>
 
 <template>
   <div class="hull-view center">
     <svg :viewBox="`0 0 ${VW} ${VH}`" :width="VW" :height="VH">
+      <!-- 最近点对（C-083）：δ 带 + 分治中线（垫底） -->
+      <rect
+        v-if="stripRect"
+        class="hull-strip"
+        :x="stripRect.x"
+        y="0"
+        :width="stripRect.w"
+        :height="VH"
+      />
+      <line
+        v-if="dividerX != null"
+        class="hull-divider"
+        :x1="dividerX"
+        y1="0"
+        :x2="dividerX"
+        :y2="VH"
+      />
       <!-- 完整凸包多边形（done） -->
       <polygon v-if="polygonPoints" class="hull-polygon" :points="polygonPoints" />
       <!-- 当前凸壳链折线 -->
@@ -175,5 +204,14 @@ svg {
   stroke: #2e7d32;
   stroke-width: 4;
   stroke-linecap: round;
+}
+/* 最近点对（C-083）：δ 带浅紫 / 分治中线紫虚线 */
+.hull-strip {
+  fill: rgba(156, 106, 222, 0.14);
+}
+.hull-divider {
+  stroke: #9c6ade;
+  stroke-width: 2.5;
+  stroke-dasharray: 8 5;
 }
 </style>

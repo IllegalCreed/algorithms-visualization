@@ -306,6 +306,10 @@ export function useCategoryData(): Category[] {
           title: '旋转卡壳',
           url: 'rotating-calipers',
         },
+        {
+          title: '最近点对',
+          url: 'closest-pair',
+        },
       ],
     },
   ];

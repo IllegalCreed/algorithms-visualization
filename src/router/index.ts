@@ -275,6 +275,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/RotatingCalipers.vue'),
           },
           {
+            path: '/docs/closest-pair',
+            name: 'closest-pair',
+            component: () => import('../views/Article/Algorithm/ClosestPair.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

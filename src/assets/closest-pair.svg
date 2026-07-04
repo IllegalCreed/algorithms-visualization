@@ -1,0 +1,18 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- δ 带（浅紫） + 中线（紫虚线） + 散点 + 最近对绿线 -->
+  <rect x="360" y="80" width="300" height="864" fill="rgba(156,106,222,0.16)" />
+  <line x1="510" y1="60" x2="510" y2="964" stroke="#9c6ade" stroke-width="16" stroke-dasharray="46 30" />
+  <g fill="#333333">
+    <circle cx="150" cy="300" r="34" />
+    <circle cx="230" cy="700" r="34" />
+    <circle cx="820" cy="240" r="34" />
+    <circle cx="880" cy="640" r="34" />
+    <circle cx="640" cy="820" r="34" />
+  </g>
+  <!-- 最近对（跨中线，绿） -->
+  <line x1="430" y1="430" x2="590" y2="520" stroke="#1f5e3a" stroke-width="20" stroke-linecap="round" />
+  <g fill="#1f5e3a">
+    <circle cx="430" cy="430" r="40" />
+    <circle cx="590" cy="520" r="40" />
+  </g>
+</svg>

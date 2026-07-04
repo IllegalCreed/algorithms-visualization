@@ -29,6 +29,7 @@ import GcdIcon from '@/assets/gcd.svg';
 import FastPowerIcon from '@/assets/fast-power.svg';
 import ConvexHullIcon from '@/assets/convex-hull.svg';
 import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
+import ClosestPairIcon from '@/assets/closest-pair.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -508,6 +509,12 @@ export function useCategoryData(): Category[] {
           desc: '两块平行卡板夹凸包转一圈求直径：每条边的对踵点只单调前移（面积比较），每边查两候选距离，O(n) 得最远点对',
           icon: RotatingCalipersIcon,
           url: 'rotating-calipers',
+        },
+        {
+          title: '最近点对',
+          desc: '分治求最近点对：中线分半各自递归取 δ，合并只查中线两侧 δ 带、带内 y 序比常数个邻居，O(n log n)',
+          icon: ClosestPairIcon,
+          url: 'closest-pair',
         },
       ],
     },

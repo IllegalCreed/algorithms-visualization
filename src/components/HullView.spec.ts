@@ -67,4 +67,16 @@ describe('HullView', () => {
     expect(w.findAll('.hull-caliper')).toHaveLength(0);
     expect(w.findAll('.hull-best')).toHaveLength(0);
   });
+
+  it('TC-VIZ-HULLVIEW-CP-01 分治中线 + δ 带（C-083 最近点对）', () => {
+    const w = mountIt({ ...base, divider: 3.25, strip: [1.45, 5.05] });
+    expect(w.findAll('.hull-divider')).toHaveLength(1);
+    expect(w.findAll('.hull-strip')).toHaveLength(1);
+  });
+
+  it('TC-VIZ-HULLVIEW-CP-02 不设 divider/strip 则无中线带（零回归）（C-083）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.hull-divider')).toHaveLength(0);
+    expect(w.findAll('.hull-strip')).toHaveLength(0);
+  });
 });

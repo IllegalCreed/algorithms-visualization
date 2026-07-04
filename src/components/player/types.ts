@@ -361,6 +361,8 @@ export interface HullTrack {
   activeEdge?: [number, number] | null; // 当前卡壳边（琥珀粗线，C-082 旋转卡壳）；凸包页不设
   caliper?: [number, number] | null; // 当前候选点对（蓝虚线，C-082）；凸包页不设
   best?: [number, number] | null; // 当前最优点对（绿粗线，C-082/C-083）；凸包页不设
+  divider?: number | null; // 分治中线 x（数学坐标，紫竖线，C-083 最近点对）；其它页不设
+  strip?: [number, number] | null; // δ 带 x 范围 [lo,hi]（浅紫矩形，C-083）；其它页不设
 }
 
 /** 凸包执行点（C-081，计算几何大类首发；新建 HullView 点平面轨——Andrew 单调链） */
@@ -375,6 +377,15 @@ export type CalipersExecPoint =
   | 'init' // 展示凸包 + 散点
   | 'spin' // 卡壳推进一条边：对踵点单调前移 + 检查两候选距离
   | 'done'; // 转完一圈，best = 直径
+
+/** 最近点对执行点（C-083，计算几何第 3 页；复用 HullView——分治 + δ 带合并） */
+export type ClosestPairExecPoint =
+  | 'init' // 散点（已按 x 排序）
+  | 'divide' // 中线出现，分左右两半
+  | 'half' // 一侧递归（此处暴力）求最近，更新 δ
+  | 'strip' // 高亮中线两侧 δ 带，收集带内点（按 y 排序）
+  | 'merge' // 带内一次近邻比较（可能刷新最近对）
+  | 'done'; // 最近点对确定
 
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
