@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **858** 个用例。运行命令：`pnpm test:unit`
+共 **870** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1337,12 +1337,24 @@
 | TC-CH-MOD-10    | done 步 caption 含凸包点数 6 与内部点排除语义                           | `src/algorithms/convexhull.module.spec.ts`  |
 | TC-CH-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/convexhull.module.spec.ts`  |
 | TC-CH-MOD-12    | module 元信息 title 含「凸包」；initialInput()=[]                       | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CAL-MOD-01   | 末步 done；diameter()={d2:36,pair:[0,6]}；末步 best=[0,6]               | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-02   | 每步 point∈{init,spin,done} 且带 hull（array 空）                       | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-03   | 与 bruteDiameter() 全点对对拍：d2/无序对一致                            | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-04   | spin 步恰 6 个（凸包 6 边）                                             | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-05   | 每步 finalHull=[0,1,4,6,5,2] 且 phase=done（凸包常显）                  | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-06   | activeEdge 为凸包相邻顶点对且按序推进                                   | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-07   | spin 步 caliper 非空；best 从首个 spin 起非空                           | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-08   | best 距离²单调不减，末步=36                                             | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-09   | best 两端都是凸包顶点                                                   | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-10   | done caption 含 6 与「最远」                                            | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-11   | 四语言 sources；每 point 行号在源码内                                   | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-12   | module title 含「卡壳」；initialInput()=[]                              | `src/algorithms/calipers.module.spec.ts`    |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **502** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **507** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1944,6 +1956,8 @@
 | TC-VIZ-HULLVIEW-01        | points 7 个 → 7 个 .hull-point；edges 3 条 → 3 条 .hull-edge                    | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-02        | current=3 → 1 个 .hull-current；popped=[2] → 1 个 .hull-popped                  | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-03        | phase='done' + finalHull → 渲染 .hull-polygon                                   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CAL-01    | 传 activeEdge/caliper/best → 各 1 条 .hull-active-edge/.hull-caliper/.hull-best | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CAL-02    | 不传三字段（凸包页）→ 无卡壳连线（零回归）                                      | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -2288,6 +2302,14 @@
 | TC-VIEW-CH-02 | h1 含「凸包」+ HullView + 无柱数组   | `src/views/Article/Algorithm/ConvexHull.spec.ts` |
 | TC-VIEW-CH-03 | 全模板同屏：正文含「叉积」+ HullView | `src/views/Article/Algorithm/ConvexHull.spec.ts` |
 
+### 旋转卡壳页 C-082（计算几何第 2 页，新页，全模板 + 复用 HullView 三字段）
+
+| 用例 ID       | 场景                                   | 文件                                                   |
+| ------------- | -------------------------------------- | ------------------------------------------------------ |
+| TC-VIEW-RC-01 | 挂载渲染 Article + AlgorithmPlayer     | `src/views/Article/Algorithm/RotatingCalipers.spec.ts` |
+| TC-VIEW-RC-02 | h1 含「旋转卡壳」+ HullView + 无柱数组 | `src/views/Article/Algorithm/RotatingCalipers.spec.ts` |
+| TC-VIEW-RC-03 | 全模板同屏：正文含「对踵」+ HullView   | `src/views/Article/Algorithm/RotatingCalipers.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2298,7 +2320,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **73** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **74** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2376,6 +2398,7 @@
 | TC-E2E-GCD-01       | 欧几里得全模板：正文 + 矩形铺砖 / `.scrub` 拖末步 4 个 .gcd-square + caption 含 6 / Shiki（C-079 新增）                    | `e2e/gcd.e2e.ts`                   | active     |
 | TC-E2E-FP-01        | 快速幂全模板：正文 + 幂块行 / `.scrub` 拖末步 4 个 .power-block + caption 含 1594323 / Shiki（C-080 新增）                 | `e2e/fast-power.e2e.ts`            | active     |
 | TC-E2E-CH-01        | 凸包全模板：正文 + 点平面 7 点 / `.scrub` 拖末步 凸包多边形 + caption 含 6 / Shiki（C-081 新增）                           | `e2e/convex-hull.e2e.ts`           | active     |
+| TC-E2E-RC-01        | 旋转卡壳全模板：凸包+卡壳 / 拖末步 best 线 + caption 含 6 / Shiki（C-082 新增）                                            | `e2e/rotating-calipers.e2e.ts`     | active     |
 
 ---
 

@@ -299,6 +299,8 @@
 | TC-VIZ-HULLVIEW-01        | points 7 个 → 7 个 .hull-point；edges 3 条 → 3 条 .hull-edge                    | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-02        | current=3 → 1 个 .hull-current；popped=[2] → 1 个 .hull-popped                  | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-03        | phase='done' + finalHull → 渲染 .hull-polygon                                   | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CAL-01    | 传 activeEdge/caliper/best → 各 1 条 .hull-active-edge/.hull-caliper/.hull-best | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CAL-02    | 不传三字段（凸包页）→ 无卡壳连线（零回归）                                      | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -1048,6 +1050,8 @@
 
 > **C-081（M7 新顶层大类「计算几何」首发 · 新页 + 新轨）**：凸包（Convex Hull）——把平面点用最紧的凸多边形套住，内部点排除。**Andrew 单调链**：按 (x,y) 排序，从左到右构下凸壳、从右到左构上凸壳；维护栈，每加点用叉积 `cross(O,A,B)` 判转向，≤0（非左转）就弹栈、直到左转再压入，O(n log n)。叉积正负=转向左右，是计算几何核心原语。**新建第 19 条 HullView 点平面轨**（散点 y 上翻 + 凸壳折线 + 当前琥珀 + 弹出点红 + 凸包多边形，见 viz-engine 段 `TC-VIZ-HULLVIEW-*` / `TC-PLAYER-HULL-*`）。新 `Step.hull?` additive、AlgorithmPlayer 加一行 v-if。`convexhull.module`（固定 7 点，init+lower×7+upper×7+done 16 步 + oracle `cross()`/`convexHull()`=[0,1,4,6,5,2]，凸包 6 点、内部点 (3,3) 排除、下上凸壳各 3 次弹栈）。新页 + 路由 `/docs/convex-hull` + **菜单/首页新增第 8 大类「计算几何」** + 新 `convex-hull.svg` + 改 `TC-HOOK`（分类 7→8 + data[7] 计算几何）。7 大类不设 hull 零回归。`TC-CH-MOD-*` + `TC-VIEW-CH-*` + `TC-E2E-CH-01`。
 
+> **C-082（M7 计算几何第 2 页 · 新页）**：旋转卡壳——承接凸包在凸包上 O(n) 求直径。对踵点随边推进单调前移（面积比较），每边查两候选。**复用 HullView**（additive activeEdge/caliper/best 三连线，见 `TC-VIZ-HULLVIEW-CAL-*`）。`calipers.module`（init+spin×6+done 8 步 + oracle diameter()={d2:36,pair:[0,6]} 暴力对拍、直径 6）。新页 + 路由 `/docs/rotating-calipers` + 「计算几何」第 2 项 + 改 TC-HOOK。凸包页零回归。`TC-CAL-MOD-*` + `TC-VIEW-RC-*` + `TC-E2E-RC-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1649,3 +1653,19 @@
 | TC-VIEW-CH-02         | h1 含「凸包」+ HullView + 无柱数组 （C-081）                                                       | L4   | `src/views/Article/Algorithm/ConvexHull.spec.ts`          |
 | TC-VIEW-CH-03         | 全模板同屏：正文含「叉积」+ HullView （C-081）                                                     | L4   | `src/views/Article/Algorithm/ConvexHull.spec.ts`          |
 | TC-E2E-CH-01          | 凸包全模板：点平面 7 点 / 拖末步 凸包多边形 + caption 含 6 / Shiki（C-081 新增）                   | L5   | `e2e/convex-hull.e2e.ts`                                  |
+| TC-CAL-MOD-01         | 末步 done；diameter()={d2:36,pair:[0,6]}；末步 best=[0,6]（C-082）                                 | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-02         | 每步 point∈{init,spin,done} 且带 hull（array 空）（C-082）                                         | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-03         | 与 bruteDiameter() 全点对对拍：d2/无序对一致（C-082）                                              | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-04         | spin 步恰 6 个（凸包 6 边）（C-082）                                                               | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-05         | 每步 finalHull=[0,1,4,6,5,2] 且 phase=done（凸包常显）（C-082）                                    | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-06         | activeEdge 为凸包相邻顶点对且按序推进（C-082）                                                     | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-07         | spin 步 caliper 非空；best 从首个 spin 起非空（C-082）                                             | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-08         | best 距离²单调不减，末步=36（C-082）                                                               | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-09         | best 两端都是凸包顶点（C-082）                                                                     | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-10         | done caption 含 6 与「最远」（C-082）                                                              | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-11         | 四语言 sources；每 point 行号在源码内（C-082）                                                     | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-CAL-MOD-12         | module title 含「卡壳」；initialInput()=[]（C-082）                                                | L3   | `src/algorithms/calipers.module.spec.ts`                  |
+| TC-VIEW-RC-01         | 挂载渲染 Article + AlgorithmPlayer（C-082）                                                        | L4   | `src/views/Article/Algorithm/RotatingCalipers.spec.ts`    |
+| TC-VIEW-RC-02         | h1 含「旋转卡壳」+ HullView + 无柱数组（C-082）                                                    | L4   | `src/views/Article/Algorithm/RotatingCalipers.spec.ts`    |
+| TC-VIEW-RC-03         | 全模板同屏：正文含「对踵」+ HullView（C-082）                                                      | L4   | `src/views/Article/Algorithm/RotatingCalipers.spec.ts`    |
+| TC-E2E-RC-01          | 旋转卡壳全模板：凸包+卡壳 / 拖末步 best + caption 6 / Shiki（C-082 新增）                          | L5   | `e2e/rotating-calipers.e2e.ts`                            |
