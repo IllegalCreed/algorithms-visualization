@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 网格外框（海域） -->
+  <rect x="110" y="110" width="804" height="804" rx="48" fill="none" stroke="#333333" stroke-width="34" />
+  <!-- 陆地块：3 个四连通岛（对应演示网格 3 岛） -->
+  <g fill="#333333">
+    <!-- 岛 1：左上 L 形（3 格） -->
+    <rect x="150" y="150" width="160" height="160" rx="26" />
+    <rect x="330" y="150" width="160" height="160" rx="26" />
+    <rect x="150" y="330" width="160" height="160" rx="26" />
+    <!-- 岛 2：右侧竖条（2 格） -->
+    <rect x="690" y="330" width="160" height="160" rx="26" />
+    <rect x="690" y="510" width="160" height="160" rx="26" />
+    <!-- 岛 3：左下单格 -->
+    <rect x="150" y="690" width="160" height="160" rx="26" />
+  </g>
+  <!-- 水波（海域提示） -->
+  <g fill="none" stroke="#333333" stroke-width="20" stroke-linecap="round">
+    <path d="M360 600 q40 -40 80 0 q40 40 80 0" />
+    <path d="M360 730 q40 -40 80 0 q40 40 80 0" />
+    <path d="M560 780 q40 -40 80 0 q40 40 80 0" />
+  </g>
+</svg>

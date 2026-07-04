@@ -27,6 +27,7 @@ describe('Home/Main useCategoryData', () => {
       'permutations',
       'combination-sum',
       'maze',
+      'number-of-islands',
     ]);
     expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp', 'boyer-moore']);
   });

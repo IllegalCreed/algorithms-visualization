@@ -62,4 +62,21 @@ describe('MazeView 迷宫轨', () => {
     expect(wS.findAll('.mz-solution')).toHaveLength(2);
     expect(wS.findAll('.mz-path')).toHaveLength(0); // solved 时路径转绿，非琥珀
   });
+
+  it('TC-VIZ-MAZEVIEW-05 filled 标绿 + mark 覆盖图标 + 无起终点（C-066 网格搜索扩展）', () => {
+    const w = mountIt({
+      start: null,
+      goal: null,
+      current: [0, 2],
+      mark: '🔎',
+      filled: [
+        [0, 0],
+        [0, 1],
+      ],
+    });
+    expect(w.findAll('.mz-solution')).toHaveLength(2); // filled 陆地复用绿
+    expect(w.findAll('.mz-start')).toHaveLength(0); // 岛屿无起点 → 不渲染 S
+    expect(w.findAll('.mz-goal')).toHaveLength(0); // 岛屿无终点 → 不渲染 🚩
+    expect(w.find('.mz-current').text()).toContain('🔎'); // 当前格图标覆盖 🐭
+  });
 });

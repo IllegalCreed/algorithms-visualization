@@ -348,13 +348,15 @@ export type KmpExecPoint =
 export interface MazeTrack {
   rows: number;
   cols: number;
-  walls: boolean[][]; // walls[r][c] = 是否墙
-  start: [number, number];
-  goal: [number, number];
-  current?: [number, number] | null; // 老鼠当前格（🐭 + 琥珀环）
+  walls: boolean[][]; // walls[r][c] = 是否墙（迷宫=墙；岛屿=水）
+  start?: [number, number] | null; // 起点（迷宫 S）——岛屿不设 → 不渲染
+  goal?: [number, number] | null; // 终点（迷宫 🚩）——岛屿不设 → 不渲染
+  current?: [number, number] | null; // 当前格（mark + 琥珀环）
   path?: [number, number][]; // 当前 DFS 栈路径 start..current（琥珀 trail）
   visited?: [number, number][]; // 已进入过的格（浅蓝；含已放弃的死路）
   solved?: boolean; // path 即解路径 → 整条标绿
+  filled?: [number, number][]; // 已确认属于岛屿的陆地（绿，复用 .mz-solution）——岛屿 Flood Fill（C-066）；迷宫不设
+  mark?: string; // 当前格图标（缺省 '🐭'）——岛屿用扫描图标（C-066）
 }
 
 /** 迷宫寻路执行点（C-059，回溯第 5 页；新建 MazeView 迷宫轨——网格 DFS + 回溯） */
@@ -365,6 +367,13 @@ export type MazeExecPoint =
   | 'backtrack' // 退回上一格（出栈）
   | 'goal' // 到达终点
   | 'done'; // 结束（解路径标绿）
+
+/** 岛屿数量执行点（C-066，回溯网格搜索第 2 页；复用 MazeView 网格轨——扫描 + DFS Flood Fill 数连通块） */
+export type IslandsExecPoint =
+  | 'scan' // 扫描指针移到某格（水 / 已数过的陆地 → 跳过）
+  | 'found' // 命中未访问的新陆地 → 岛屿计数 +1，开始 Flood Fill
+  | 'flood' // Flood Fill 把一个四连通陆地格并入当前岛屿（标绿）
+  | 'done'; // 扫描完毕（共 N 个岛屿）
 
 /** 组合总和执行点（C-058，回溯第 4 页；扩展 DecisionTreeView——决策树 + 剪枝：和 > 目标即砍枝） */
 export type CombSumExecPoint =

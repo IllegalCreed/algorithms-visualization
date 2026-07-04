@@ -30,6 +30,7 @@ import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
 import CombsumIcon from '@/assets/combsum.svg';
 import MazeIcon from '@/assets/maze.svg';
+import IslandsIcon from '@/assets/islands.svg';
 import KmpIcon from '@/assets/kmp.svg';
 import RabinKarpIcon from '@/assets/rabinkarp.svg';
 import BoyerMooreIcon from '@/assets/boyermoore.svg';
@@ -353,6 +354,12 @@ export function useCategoryData(): Category[] {
           desc: '在带墙网格里用 DFS 从起点找到终点：沿一个方向深入，撞死路就回退换方向，回溯的网格搜索形态',
           icon: MazeIcon,
           url: 'maze',
+        },
+        {
+          title: '岛屿数量',
+          desc: '数网格里有几片相连的陆地：逐格扫描，遇到新陆地就 Flood Fill 把整片淹掉、计数 +1，连通分量的入门形态',
+          icon: IslandsIcon,
+          url: 'number-of-islands',
         },
       ],
     },

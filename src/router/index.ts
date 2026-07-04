@@ -175,6 +175,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Maze.vue'),
           },
           {
+            path: '/docs/number-of-islands',
+            name: 'number-of-islands',
+            component: () => import('../views/Article/Algorithm/Islands.vue'),
+          },
+          {
             path: '/docs/kmp',
             name: 'kmp',
             component: () => import('../views/Article/Algorithm/Kmp.vue'),

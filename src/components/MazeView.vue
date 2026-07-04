@@ -12,6 +12,7 @@ const cells = computed(() => {
   const m = props.maze;
   const pathSet = new Set((m.path ?? []).map(([r, c]) => key(r, c)));
   const visitedSet = new Set((m.visited ?? []).map(([r, c]) => key(r, c)));
+  const filledSet = new Set((m.filled ?? []).map(([r, c]) => key(r, c)));
   const isCurrent = (r: number, c: number) =>
     !!m.current && m.current[0] === r && m.current[1] === c;
   const rows: {
@@ -29,16 +30,17 @@ const cells = computed(() => {
     const line = [];
     for (let c = 0; c < m.cols; c++) {
       const onPath = pathSet.has(key(r, c));
+      const isFilled = filledSet.has(key(r, c));
       line.push({
         r,
         c,
         wall: m.walls[r][c],
-        start: m.start[0] === r && m.start[1] === c,
-        goal: m.goal[0] === r && m.goal[1] === c,
+        start: !!m.start && m.start[0] === r && m.start[1] === c,
+        goal: !!m.goal && m.goal[0] === r && m.goal[1] === c,
         current: isCurrent(r, c),
         path: onPath && !m.solved,
-        solution: onPath && !!m.solved,
-        visited: visitedSet.has(key(r, c)) && !onPath,
+        solution: (onPath && !!m.solved) || isFilled, // filled 陆地复用绿（岛屿 C-066）
+        visited: visitedSet.has(key(r, c)) && !onPath && !isFilled,
       });
     }
     rows.push(line);
@@ -65,7 +67,7 @@ const cells = computed(() => {
             'mz-visited': cell.visited,
           }"
         >
-          <span v-if="cell.current" class="mz-mark">🐭</span>
+          <span v-if="cell.current" class="mz-mark">{{ maze.mark ?? '🐭' }}</span>
           <span v-else-if="cell.goal" class="mz-mark">🚩</span>
           <span v-else-if="cell.start" class="mz-mark mz-s">S</span>
         </div>

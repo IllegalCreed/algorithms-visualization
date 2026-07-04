@@ -211,6 +211,10 @@ export function useCategoryData(): Category[] {
           title: '迷宫寻路',
           url: 'maze',
         },
+        {
+          title: '岛屿数量',
+          url: 'number-of-islands',
+        },
       ],
     },
     {
