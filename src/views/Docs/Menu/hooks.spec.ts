@@ -43,7 +43,12 @@ describe('Docs/Menu useCategoryData', () => {
       'maze',
       'number-of-islands',
     ]);
-    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp', 'boyer-moore']);
+    expect(data[5].children.map((c) => c.url)).toEqual([
+      'kmp',
+      'rabin-karp',
+      'boyer-moore',
+      'manacher',
+    ]);
   });
 
   it('TC-HOOK-02-2: 每项含 title/url 且均非空', () => {

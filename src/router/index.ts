@@ -195,6 +195,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/BoyerMoore.vue'),
           },
           {
+            path: '/docs/manacher',
+            name: 'manacher',
+            component: () => import('../views/Article/Algorithm/Manacher.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

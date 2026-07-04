@@ -232,6 +232,10 @@ export function useCategoryData(): Category[] {
           title: 'Boyer-Moore',
           url: 'boyer-moore',
         },
+        {
+          title: 'Manacher',
+          url: 'manacher',
+        },
       ],
     },
   ];

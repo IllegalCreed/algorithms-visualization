@@ -34,6 +34,7 @@ import IslandsIcon from '@/assets/islands.svg';
 import KmpIcon from '@/assets/kmp.svg';
 import RabinKarpIcon from '@/assets/rabinkarp.svg';
 import BoyerMooreIcon from '@/assets/boyermoore.svg';
+import ManacherIcon from '@/assets/manacher.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -384,6 +385,12 @@ export function useCategoryData(): Category[] {
           desc: '实践最快的串匹配：从模式末尾往左比，失配用坏字符规则大步右移，常常跳过整段，平均亚线性',
           icon: BoyerMooreIcon,
           url: 'boyer-moore',
+        },
+        {
+          title: 'Manacher',
+          desc: '最长回文子串 O(n)：插 # 统一奇偶，维护最右回文用对称性复用镜像半径、只扩展超出部分，避免重复',
+          icon: ManacherIcon,
+          url: 'manacher',
         },
       ],
     },

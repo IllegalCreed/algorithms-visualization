@@ -318,6 +318,18 @@ export interface KmpTrack {
   matchedFrom?: number | null; // 已匹配后缀起点：pattern[matchedFrom..m) 标绿（Boyer-Moore 从右往左匹配后缀）——KMP/RK 不设
 }
 
+/** 回文轨快照——Manacher 专用（第 13 条播放器轨，C-067；转换串 + 半径数组 + 中心/镜像/最右回文带/最长回文） */
+export interface ManacherTrack {
+  s: string; // 转换串（# 分隔，如 #b#a#b#a#d#）
+  p: (number | null)[]; // 半径数组，未算为 null（显示空）
+  center?: number | null; // 当前中心 i（琥珀环）
+  mirror?: number | null; // 镜像点 2C-i（蓝环）——仅 mirror 步设
+  boxL?: number | null; // 当前最右回文左边界 L（浅蓝带 [L..R]）
+  boxR?: number | null; // 当前最右回文右边界 R
+  best?: [number, number] | null; // 目前最长回文在转换串上的区间 [l,r]（绿）
+  status?: 'mirror' | 'expand' | 'done' | null;
+}
+
 /** Boyer-Moore 执行点（C-064，字符串第 3 页；复用 KmpView——从右往左比、坏字符表大步跳） */
 export type BoyerMooreExecPoint =
   | 'start' // 模式对齐到文本开头，从模式末尾开始（右→左）
@@ -375,6 +387,13 @@ export type IslandsExecPoint =
   | 'flood' // Flood Fill 把一个四连通陆地格并入当前岛屿（标绿）
   | 'done'; // 扫描完毕（共 N 个岛屿）
 
+/** Manacher 最长回文子串执行点（C-067，字符串第 4 页；新建 ManacherView 回文轨——转换串 + 半径数组 + 对称性复用） */
+export type ManacherExecPoint =
+  | 'init' // 预处理：插 # 得转换串，半径数组 p 全空
+  | 'mirror' // 中心 i 在最右回文内 → p[i]=min(R-i, p[2C-i]) 复用对称性，再尝试扩展
+  | 'expand' // 中心 i 超出最右回文 → 从 p=0 纯中心扩展
+  | 'done'; // 全部算完，max(p) 对应最长回文（标绿）
+
 /** 组合总和执行点（C-058，回溯第 4 页；扩展 DecisionTreeView——决策树 + 剪枝：和 > 目标即砍枝） */
 export type CombSumExecPoint =
   | 'start' // 根：空组合，和 0
@@ -427,6 +446,7 @@ export interface Step<P extends string = string> {
   decisionTree?: DecisionTreeTrack; // 纯加法：回溯的决策树轨；其它算法不设 → DecisionTreeView 不渲染
   maze?: MazeTrack; // 纯加法：回溯的迷宫轨；其它算法不设 → MazeView 不渲染
   kmp?: KmpTrack; // 纯加法：字符串匹配轨；其它算法不设 → KmpView 不渲染
+  manacher?: ManacherTrack; // 纯加法：Manacher 回文轨；其它算法不设 → ManacherView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

@@ -29,7 +29,12 @@ describe('Home/Main useCategoryData', () => {
       'maze',
       'number-of-islands',
     ]);
-    expect(data[5].children.map((c) => c.url)).toEqual(['kmp', 'rabin-karp', 'boyer-moore']);
+    expect(data[5].children.map((c) => c.url)).toEqual([
+      'kmp',
+      'rabin-karp',
+      'boyer-moore',
+      'manacher',
+    ]);
   });
 
   it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {

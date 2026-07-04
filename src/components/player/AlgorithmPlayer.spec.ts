@@ -17,6 +17,7 @@ import BoardView from '@/components/BoardView.vue';
 import DecisionTreeView from '@/components/DecisionTreeView.vue';
 import MazeView from '@/components/MazeView.vue';
 import KmpView from '@/components/KmpView.vue';
+import ManacherView from '@/components/ManacherView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -419,6 +420,38 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 kmp
     await flushPromises();
     expect(wSort.findComponent(KmpView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 manacher 且 array 空（Manacher C-067：ManacherView 回文轨 + 无柱主轨）
+  const manacherModule: AlgorithmModule = {
+    title: 'manacher-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        manacher: { s: '#a#', p: [null, null, null] },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-MANACHER-01 当前步带 manacher 时渲染 ManacherView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: manacherModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(ManacherView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-MANACHER-02 既有排序 step（无 manacher）不渲染 ManacherView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 manacher
+    await flushPromises();
+    expect(wSort.findComponent(ManacherView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

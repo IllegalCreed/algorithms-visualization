@@ -1,0 +1,18 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 对称轴（回文中心） -->
+  <line x1="512" y1="150" x2="512" y2="874" stroke="#333333" stroke-width="16" stroke-dasharray="6 34" stroke-linecap="round" />
+  <!-- 从中心向两侧对称扩展的嵌套回文括号 -->
+  <g fill="none" stroke="#333333" stroke-linecap="round">
+    <!-- 内层 -->
+    <path d="M402 400 Q357 512 402 624" stroke-width="30" />
+    <path d="M622 400 Q667 512 622 624" stroke-width="30" />
+    <!-- 中层 -->
+    <path d="M312 348 Q257 512 312 676" stroke-width="28" />
+    <path d="M712 348 Q767 512 712 676" stroke-width="28" />
+    <!-- 外层 -->
+    <path d="M222 300 Q157 512 222 724" stroke-width="26" />
+    <path d="M802 300 Q867 512 802 724" stroke-width="26" />
+  </g>
+  <!-- 中心点 -->
+  <circle cx="512" cy="512" r="34" fill="#333333" />
+</svg>

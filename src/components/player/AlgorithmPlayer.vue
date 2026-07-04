@@ -15,6 +15,7 @@ import BoardView from '@/components/BoardView.vue';
 import DecisionTreeView from '@/components/DecisionTreeView.vue';
 import MazeView from '@/components/MazeView.vue';
 import KmpView from '@/components/KmpView.vue';
+import ManacherView from '@/components/ManacherView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
@@ -61,6 +62,7 @@ const prevVars = computed(() => steps[index.value - 1]?.vars);
     <DecisionTreeView v-if="current.decisionTree" :decision-tree="current.decisionTree" />
     <MazeView v-if="current.maze" :maze="current.maze" />
     <KmpView v-if="current.kmp" :kmp="current.kmp" />
+    <ManacherView v-if="current.manacher" :manacher="current.manacher" />
     <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
     <StackView v-if="current.stack" :stack="current.stack" />
     <CountView v-if="current.count" :count="current.count" />
