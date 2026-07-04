@@ -27,6 +27,7 @@ import SieveIcon from '@/assets/sieve.svg';
 import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import GcdIcon from '@/assets/gcd.svg';
 import FastPowerIcon from '@/assets/fast-power.svg';
+import ExtGcdIcon from '@/assets/ext-gcd.svg';
 import ConvexHullIcon from '@/assets/convex-hull.svg';
 import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import ClosestPairIcon from '@/assets/closest-pair.svg';
@@ -499,6 +500,12 @@ export function useCategoryData(): Category[] {
           desc: '二进制取幂求 aⁿ：指数拆二进制、底数反复平方 a¹→a²→a⁴→a⁸，位为 1 就乘入结果，O(log n)；模幂是 RSA 的核心',
           icon: FastPowerIcon,
           url: 'fast-power',
+        },
+        {
+          title: '扩展欧几里得',
+          desc: '在辗转相除回程上带货：基例 (1,0)，逐层 (x,y)=(y′, x′−q·y′)，求出 ax+by=gcd 的 Bézout 系数——模逆元与 RSA 解密的钥匙',
+          icon: ExtGcdIcon,
+          url: 'ext-gcd',
         },
       ],
     },

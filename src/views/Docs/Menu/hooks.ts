@@ -297,6 +297,10 @@ export function useCategoryData(): Category[] {
           title: '快速幂',
           url: 'fast-power',
         },
+        {
+          title: '扩展欧几里得',
+          url: 'ext-gcd',
+        },
       ],
     },
     {

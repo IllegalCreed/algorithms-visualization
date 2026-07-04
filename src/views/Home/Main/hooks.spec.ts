@@ -26,6 +26,7 @@ describe('Home/Main useCategoryData', () => {
       'linear-sieve',
       'gcd',
       'fast-power',
+      'ext-gcd',
     ]);
     expect(data[2].children).toHaveLength(9);
     expect(data[2].children[7].url).toBe('two-sat');

@@ -265,6 +265,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/FastPower.vue'),
           },
           {
+            path: '/docs/ext-gcd',
+            name: 'ext-gcd',
+            component: () => import('../views/Article/Algorithm/ExtGcd.vue'),
+          },
+          {
             path: '/docs/convex-hull',
             name: 'convex-hull',
             component: () => import('../views/Article/Algorithm/ConvexHull.vue'),

@@ -53,8 +53,9 @@ import { gcdModule } from '@/algorithms/gcd.module';
     </Callout>
     <p>
       欧几里得算法是数论与密码学的地基：约分、通分、求<strong>模逆元</strong>（RSA
-      解密的一步）、中国剩余定理都离不开它。它的<strong>扩展版</strong>还能一并算出让
-      <code>ax + by = gcd(a, b)</code> 成立的整数 <code>x, y</code>（Bézout
+      解密的一步）、中国剩余定理都离不开它。它的<strong
+        ><router-link to="/docs/ext-gcd">扩展版</router-link></strong
+      >还能一并算出让 <code>ax + by = gcd(a, b)</code> 成立的整数 <code>x, y</code>（Bézout
       系数）——那是这条线自然的下一站。
     </p>
   </Article>

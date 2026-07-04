@@ -379,6 +379,14 @@ export type CalipersExecPoint =
   | 'spin' // 卡壳推进一条边：对踵点单调前移 + 检查两候选距离
   | 'done'; // 转完一圈，best = 直径
 
+/** 扩展欧几里得执行点（C-086，数学与数论第 5 页；纯复用 MatrixView——回代表） */
+export type ExtGcdExecPoint =
+  | 'init' // 空表
+  | 'down' // 下行：填一行 a, b, q（除法链）
+  | 'base' // 基例：b=0，gcd=a，(x,y)=(1,0)
+  | 'up' // 回代：x=y'、y=x'−q·y'
+  | 'done'; // Bézout 系数出炉
+
 /** 一个比较器（C-085，双调排序网络）：连接 wire a、b，dir 决定小值去向 */
 export interface Comparator {
   col: number; // 所在列（同列可并行）

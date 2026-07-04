@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 回代表意象：下行箭头 + 回代箭头 + ax+by=g -->
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <rect x="140" y="140" width="744" height="180" rx="28" fill="#a5d8ff" stroke="#333" stroke-width="14" />
+    <text x="512" y="230" font-size="96" fill="#1f3a5e">30x + 18y = 6</text>
+    <rect x="240" y="420" width="544" height="150" rx="24" fill="#eef3ef" stroke="#333" stroke-width="12" />
+    <text x="512" y="495" font-size="72" fill="#333">18x′ + 12y′ = 6</text>
+    <rect x="320" y="660" width="384" height="130" rx="22" fill="#8bd3a0" stroke="#333" stroke-width="12" />
+    <text x="512" y="725" font-size="64" fill="#1f5e3a">(1, 0)</text>
+  </g>
+  <!-- 下行（左，灰） / 回代（右，绿） -->
+  <g stroke="#9aa8a0" stroke-width="18" fill="#9aa8a0" stroke-linecap="round">
+    <line x1="230" y1="340" x2="230" y2="620" />
+    <polygon points="200,610 260,610 230,670" />
+  </g>
+  <g stroke="#2e7d32" stroke-width="20" fill="#2e7d32" stroke-linecap="round">
+    <line x1="800" y1="640" x2="800" y2="360" />
+    <polygon points="770,370 830,370 800,310" />
+  </g>
+  <text x="880" y="500" font-size="60" fill="#2e7d32" font-family="sans-serif" font-weight="bold" text-anchor="middle">回代</text>
+</svg>
