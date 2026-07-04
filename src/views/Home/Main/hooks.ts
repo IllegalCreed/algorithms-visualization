@@ -54,6 +54,7 @@ import LcpArrayIcon from '@/assets/lcp-array.svg';
 import AhoCorasickIcon from '@/assets/aho-corasick.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
+import BitonicIcon from '@/assets/bitonic.svg';
 import SelectionIcon from '@/assets/selection.svg';
 import InsertionIcon from '@/assets/insertion.svg';
 import BinaryInsertionIcon from '@/assets/binary-insertion.svg';
@@ -180,6 +181,12 @@ export function useCategoryData(): Category[] {
           desc: '双向冒泡,来回扫描两端收缩,尾部小元素一趟到家,零交换提前收工',
           icon: CocktailIcon,
           url: 'cocktail-sort',
+        },
+        {
+          title: '双调排序',
+          desc: '排序网络：比较器位置与数据无关、同列可并行执行，先构造双调序列再距离减半合并，深度 O(log²n)，GPU 排序思想根基',
+          icon: BitonicIcon,
+          url: 'bitonic-sort',
         },
         {
           title: '选择排序',

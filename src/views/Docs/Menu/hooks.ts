@@ -81,6 +81,10 @@ export function useCategoryData(): Category[] {
           url: 'cocktail-sort',
         },
         {
+          title: '双调排序',
+          url: 'bitonic-sort',
+        },
+        {
           title: '选择排序',
           url: 'selection-sort',
         },

@@ -24,6 +24,7 @@ import SieveView from '@/components/SieveView.vue';
 import GcdView from '@/components/GcdView.vue';
 import PowerView from '@/components/PowerView.vue';
 import HullView from '@/components/HullView.vue';
+import NetworkView from '@/components/NetworkView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -684,6 +685,42 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 hull
     await flushPromises();
     expect(wSort.findComponent(HullView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 network 且 array 空（双调排序 C-085：NetworkView 比较器网络轨）
+  const networkModule: AlgorithmModule = {
+    title: 'network-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        network: {
+          wires: [2, 1],
+          comparators: [{ col: 0, a: 0, b: 1, dir: 'asc' }],
+          cols: 1,
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-NET-01 当前步带 network 时渲染 NetworkView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: networkModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(NetworkView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-NET-02 既有排序 step（无 network）不渲染 NetworkView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 network
+    await flushPromises();
+    expect(wSort.findComponent(NetworkView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

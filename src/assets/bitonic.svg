@@ -1,0 +1,30 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 4 wire + 比较器网络缩影 -->
+  <g stroke="#9aa8a0" stroke-width="14">
+    <line x1="80" y1="220" x2="944" y2="220" />
+    <line x1="80" y1="420" x2="944" y2="420" />
+    <line x1="80" y1="620" x2="944" y2="620" />
+    <line x1="80" y1="820" x2="944" y2="820" />
+  </g>
+  <!-- 列 1（绿=已执行） -->
+  <g stroke="#2e7d32" stroke-width="22" fill="#2e7d32">
+    <line x1="280" y1="220" x2="280" y2="420" />
+    <circle cx="280" cy="220" r="30" /><circle cx="280" cy="420" r="30" />
+    <line x1="360" y1="620" x2="360" y2="820" />
+    <circle cx="360" cy="620" r="30" /><circle cx="360" cy="820" r="30" />
+  </g>
+  <!-- 列 2（琥珀=当前） -->
+  <g stroke="#f0a000" stroke-width="24" fill="#f0a000">
+    <line x1="600" y1="220" x2="600" y2="620" />
+    <circle cx="600" cy="220" r="32" /><circle cx="600" cy="620" r="32" />
+    <line x1="700" y1="420" x2="700" y2="820" />
+    <circle cx="700" cy="420" r="32" /><circle cx="700" cy="820" r="32" />
+  </g>
+  <!-- 列 3（灰=未执行） -->
+  <g stroke="#b9c6bd" stroke-width="20" fill="#b9c6bd">
+    <line x1="870" y1="220" x2="870" y2="420" />
+    <circle cx="870" cy="220" r="28" /><circle cx="870" cy="420" r="28" />
+    <line x1="870" y1="620" x2="870" y2="820" />
+    <circle cx="870" cy="620" r="28" /><circle cx="870" cy="820" r="28" />
+  </g>
+</svg>

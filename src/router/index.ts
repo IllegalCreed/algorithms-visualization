@@ -290,6 +290,11 @@ const routes = [
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),
           },
           {
+            path: '/docs/bitonic-sort',
+            name: 'bitonic-sort',
+            component: () => import('../views/Article/SortAlgorithm/BitonicSort.vue'),
+          },
+          {
             path: '/docs/cocktail-sort',
             name: 'cocktail-sort',
             component: () => import('../views/Article/SortAlgorithm/CocktailSort.vue'),

@@ -379,6 +379,29 @@ export type CalipersExecPoint =
   | 'spin' // 卡壳推进一条边：对踵点单调前移 + 检查两候选距离
   | 'done'; // 转完一圈，best = 直径
 
+/** 一个比较器（C-085，双调排序网络）：连接 wire a、b，dir 决定小值去向 */
+export interface Comparator {
+  col: number; // 所在列（同列可并行）
+  a: number;
+  b: number;
+  dir: 'asc' | 'desc'; // asc：保证 wire[a]<=wire[b]；desc 反之
+}
+
+/** 比较器网络轨快照——双调排序专用（排序阶段三，第 20 轨 C-085） */
+export interface NetworkTrack {
+  wires: number[]; // 各 wire 当前值（随交换更新）
+  comparators: Comparator[]; // 全部比较器（网络固定，与数据无关）
+  cols: number; // 列数
+  currentCol?: number | null; // 当前执行列（琥珀）；小于它的列已执行（绿）
+  done?: boolean;
+}
+
+/** 双调排序执行点（C-085，排序阶段三；新建 NetworkView 比较器网络轨） */
+export type NetworkExecPoint =
+  | 'init' // 展示固定网络 + 输入值
+  | 'column' // 执行一列比较器（同列并行）
+  | 'done'; // 全部列执行完，输出有序
+
 /** 线段相交执行点（C-084，计算几何第 4 页；复用 HullView——跨立试验逐对判定） */
 export type SegIntExecPoint =
   | 'init' // 三对线段灰显
@@ -682,6 +705,7 @@ export interface Step<P extends string = string> {
   gcd?: GcdTrack; // 纯加法：欧几里得 GCD 矩形铺砖轨（C-079）；其它算法不设 → GcdView 不渲染
   power?: PowerTrack; // 纯加法：快速幂幂块轨（C-080）；其它算法不设 → PowerView 不渲染
   hull?: HullTrack; // 纯加法：凸包点平面轨（C-081）；其它算法不设 → HullView 不渲染
+  network?: NetworkTrack; // 纯加法：双调排序比较器网络轨（C-085）；其它算法不设 → NetworkView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

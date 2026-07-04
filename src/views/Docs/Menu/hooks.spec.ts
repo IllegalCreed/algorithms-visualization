@@ -94,7 +94,8 @@ describe('Docs/Menu useCategoryData', () => {
   it('TC-HOOK-02-4: 数据结构含 15 项，排序算法含 15 项（新增鸡尾酒排序 C-045）', () => {
     const data = useCategoryData();
     expect(data[0].children).toHaveLength(15);
-    expect(data[1].children).toHaveLength(15);
+    expect(data[1].children).toHaveLength(16);
+    expect(data[1].children[2].url).toBe('bitonic-sort');
     expect(data[1].children.map((c) => c.url)).toContain('binary-insertion-sort');
     expect(data[1].children.map((c) => c.url)).toContain('cocktail-sort');
   });
