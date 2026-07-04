@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **882** 个用例。运行命令：`pnpm test:unit`
+共 **894** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1361,12 +1361,24 @@
 | TC-CP-MOD-10    | done caption 含 1.118 与「最近」                                        | `src/algorithms/closestpair.module.spec.ts` |
 | TC-CP-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/closestpair.module.spec.ts` |
 | TC-CP-MOD-12    | title 含「最近点对」；initialInput=[]                                   | `src/algorithms/closestpair.module.spec.ts` |
+| TC-SI-MOD-01    | 末步 done；三对结论 [proper,none,touch]                                 | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-02    | point∈{init,test,verdict,done} 带 hull                                  | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-03    | 对 1 ds=(-4,4,4,-4) 两两异号 → proper                                   | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-04    | 对 2 D1、D2 同负 → none                                                 | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-05    | 对 3 D3=0 且 (7,1) 在框上 → touch                                       | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-06    | test 3 + verdict 3；init 全默认                                         | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-07    | test 步该对两边 seg-test                                                | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-08    | verdict 累积 [yes,yes,no,no,yes,yes]                                    | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-09    | 每步 12 点 6 边                                                         | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-10    | done caption 含 2 相交 1 不相交                                         | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-12    | title 含「线段相交」；initialInput=[]                                   | `src/algorithms/segint.module.spec.ts`      |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **512** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **517** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1972,6 +1984,8 @@
 | TC-VIZ-HULLVIEW-CAL-02    | 不传三字段（凸包页）→ 无卡壳连线（零回归）                                      | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CP-01     | 传 divider/strip → 1 条 .hull-divider + 1 个 .hull-strip                        | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CP-02     | 不传 → 无中线/带（零回归）                                                      | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-SEG-01    | edgeClasses=['seg-yes','seg-no',null] → 对应边带类                              | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-SEG-02    | 不传 edgeClasses → 无 seg-\* 类（零回归）                                       | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -2332,6 +2346,14 @@
 | TC-VIEW-CP-02 | h1 含「最近点对」+ HullView + 无柱数组 | `src/views/Article/Algorithm/ClosestPair.spec.ts` |
 | TC-VIEW-CP-03 | 正文含「分治」+ HullView 同屏          | `src/views/Article/Algorithm/ClosestPair.spec.ts` |
 
+### 线段相交页 C-084（计算几何第 4 页，新页，复用 HullView edgeClasses）
+
+| 用例 ID       | 场景                                   | 文件                                                      |
+| ------------- | -------------------------------------- | --------------------------------------------------------- |
+| TC-VIEW-SI-01 | Article + AlgorithmPlayer              | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
+| TC-VIEW-SI-02 | h1 含「线段相交」+ HullView + 无柱数组 | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
+| TC-VIEW-SI-03 | 正文含「跨立」+ HullView 同屏          | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2342,7 +2364,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **75** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **76** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2422,6 +2444,7 @@
 | TC-E2E-CH-01        | 凸包全模板：正文 + 点平面 7 点 / `.scrub` 拖末步 凸包多边形 + caption 含 6 / Shiki（C-081 新增）                           | `e2e/convex-hull.e2e.ts`           | active     |
 | TC-E2E-RC-01        | 旋转卡壳全模板：凸包+卡壳 / 拖末步 best 线 + caption 含 6 / Shiki（C-082 新增）                                            | `e2e/rotating-calipers.e2e.ts`     | active     |
 | TC-E2E-CP-01        | 最近点对全模板：δ 带 / 拖末步 best + caption 1.118 / Shiki（C-083 新增）                                                   | `e2e/closest-pair.e2e.ts`          | active     |
+| TC-E2E-SI-01        | 线段相交全模板：三对判定 / 拖末步 4 yes+2 no + caption 2 / Shiki（C-084 新增）                                             | `e2e/segment-intersection.e2e.ts`  | active     |
 
 ---
 

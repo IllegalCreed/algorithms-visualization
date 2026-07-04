@@ -303,6 +303,8 @@
 | TC-VIZ-HULLVIEW-CAL-02    | 不传三字段（凸包页）→ 无卡壳连线（零回归）                                      | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CP-01     | 传 divider/strip → 1 条 .hull-divider + 1 个 .hull-strip                        | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CP-02     | 不传 → 无中线/带（零回归）                                                      | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-SEG-01    | edgeClasses=['seg-yes','seg-no',null] → 对应边带类                              | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-SEG-02    | 不传 edgeClasses → 无 seg-\* 类（零回归）                                       | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -1056,6 +1058,8 @@
 
 > **C-083（M7 计算几何第 3 页 · 新页）**：最近点对——分治 O(n log n)：中线分半各求最近取 δ，合并只查 δ 带、带内 y 序比常数邻居（鸽笼）。**复用 HullView**（additive divider/strip，见 `TC-VIZ-HULLVIEW-CP-*`）。closestpair.module 10 步 + oracle≈{d:1.118,pair:[3,5]} 暴力对拍；跨带两次刷新、答案跨中线。`TC-CP-MOD-*`+`TC-VIEW-CP-*`+`TC-E2E-CP-01`。
 
+> **C-084（M7 计算几何第 4 页 · 新页）**：线段相交——跨立试验：四叉积两两异号 → 规范相交、D=0 补框查相触、同号速判否，全程无除法。**复用 HullView**（additive edgeClasses，见 `TC-VIZ-HULLVIEW-SEG-*`）。segint.module 8 步（三对三结局）+ oracle 手算对拍。HullView 一轨服务四页几何。`TC-SI-MOD-*`+`TC-VIEW-SI-*`+`TC-E2E-SI-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1689,3 +1693,19 @@
 | TC-VIEW-CP-02         | h1 含「最近点对」+ HullView + 无柱数组（C-083）                                                    | L4   | `src/views/Article/Algorithm/ClosestPair.spec.ts`         |
 | TC-VIEW-CP-03         | 正文含「分治」+ HullView 同屏（C-083）                                                             | L4   | `src/views/Article/Algorithm/ClosestPair.spec.ts`         |
 | TC-E2E-CP-01          | 最近点对全模板：δ 带 / 拖末步 1.118 / Shiki（C-083 新增）                                          | L5   | `e2e/closest-pair.e2e.ts`                                 |
+| TC-SI-MOD-01          | 末步 done；三对结论 [proper,none,touch]（C-084）                                                   | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-02          | point∈{init,test,verdict,done} 带 hull（C-084）                                                    | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-03          | 对 1 ds=(-4,4,4,-4) 两两异号 → proper（C-084）                                                     | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-04          | 对 2 D1、D2 同负 → none（C-084）                                                                   | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-05          | 对 3 D3=0 且 (7,1) 在框上 → touch（C-084）                                                         | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-06          | test 3 + verdict 3；init 全默认（C-084）                                                           | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-07          | test 步该对两边 seg-test（C-084）                                                                  | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-08          | verdict 累积 [yes,yes,no,no,yes,yes]（C-084）                                                      | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-09          | 每步 12 点 6 边（C-084）                                                                           | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-10          | done caption 含 2 相交 1 不相交（C-084）                                                           | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-11          | 四语言+行号+四执行点（C-084）                                                                      | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-SI-MOD-12          | title 含「线段相交」；initialInput=[]（C-084）                                                     | L3   | `src/algorithms/segint.module.spec.ts`                    |
+| TC-VIEW-SI-01         | Article + AlgorithmPlayer（C-084）                                                                 | L4   | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
+| TC-VIEW-SI-02         | h1 含「线段相交」+ HullView + 无柱数组（C-084）                                                    | L4   | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
+| TC-VIEW-SI-03         | 正文含「跨立」+ HullView 同屏（C-084）                                                             | L4   | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
+| TC-E2E-SI-01          | 线段相交全模板：三对判定 / 拖末步 4 yes+2 no / Shiki（C-084 新增）                                 | L5   | `e2e/segment-intersection.e2e.ts`                         |
