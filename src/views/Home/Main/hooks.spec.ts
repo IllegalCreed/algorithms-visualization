@@ -38,6 +38,7 @@ describe('Home/Main useCategoryData', () => {
       'boyer-moore',
       'manacher',
       'suffix-array',
+      'lcp-array',
     ]);
   });
 

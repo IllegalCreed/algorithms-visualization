@@ -433,14 +433,17 @@ export type SudokuExecPoint =
   | 'backtrack' // 当前格 1..n 都填不了 → 撤销上一个填入、回退
   | 'done'; // 全部填满，终盘
 
-/** 后缀数组轨快照——字符串后缀结构（C-072，第 15 条播放器轨；倍增法：原串 + 后缀表逐轮细化） */
+/** 后缀数组轨快照——字符串后缀结构（C-072 倍增构造 + C-073 LCP 模式；原串 + 后缀表） */
 export interface SuffixArrayTrack {
   s: string; // 原串（如 banana）
   k: number; // 当前倍增长度（1 = 已按首字符；下一轮比较 2k）
   order: number[]; // 当前 sa（排序后的后缀起点）
   rank: number[]; // 每个起点 i 的当前 rank（0 基）
-  phase?: 'sort' | 'rank' | null; // 本步高亮：重排 / 重编号
-  done?: boolean; // rank 全不同 → sa 定型
+  phase?: 'sort' | 'rank' | null; // 本步高亮：重排 / 重编号（构造模式）
+  done?: boolean; // 构造：rank 全不同 sa 定型 / LCP：全填完
+  lcp?: (number | null)[]; // LCP 列：lcp[i]=LCP(sa[i-1], sa[i])，null=未算（C-073 LCP 模式；构造不设 → 不渲染 LCP 列）
+  current?: number | null; // 当前处理行（排序位次）——LCP 模式琥珀高亮（C-073）
+  compareRow?: number | null; // 排序前驱行——LCP 模式蓝高亮（C-073）
 }
 
 /** 后缀数组执行点（C-072，字符串第 5 页；新建 SuffixArrayView——倍增 sort → rerank） */
@@ -449,6 +452,13 @@ export type SuffixArrayExecPoint =
   | 'sort' // 按 (rank[i], rank[i+k]) 稳定重排
   | 'rank' // 由相邻关键字是否相等重编 0 基 rank，k 翻倍
   | 'done'; // rank 全不同，sa 定型
+
+/** LCP/height 数组执行点（C-073，字符串第 6 页；扩展 SuffixArrayView LCP 模式——Kasai 逐原始下标） */
+export type LcpExecPoint =
+  | 'init' // 展示已排好的后缀表 + 空 LCP 列
+  | 'fill' // 处理原始下标 i（rank>0）：与排序前驱比较、h 只减 1 起扩、填 lcp[rank[i]]
+  | 'skip' // 原始下标 i 的 rank=0，无排序前驱，跳过（h 归 0）
+  | 'done'; // LCP 全填完（不同子串数 / 最长重复子串）
 
 /** Manacher 最长回文子串执行点（C-067，字符串第 4 页；新建 ManacherView 回文轨——转换串 + 半径数组 + 对称性复用） */
 export type ManacherExecPoint =

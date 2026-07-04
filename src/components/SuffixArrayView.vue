@@ -7,6 +7,8 @@ const props = defineProps<{ suffixArray: SuffixArrayTrack }>();
 
 const strCells = computed(() => props.suffixArray.s.split('').map((ch, idx) => ({ ch, idx })));
 
+const isLcp = computed(() => props.suffixArray.lcp != null); // LCP 模式（C-073）
+
 const rows = computed(() => {
   const t = props.suffixArray;
   const n = t.s.length;
@@ -17,6 +19,9 @@ const rows = computed(() => {
     rank: t.rank[i],
     k1: t.rank[i],
     k2: i + t.k < n ? t.rank[i + t.k] : -1, // -1 = ∞（越界）
+    lcp: t.lcp ? t.lcp[row] : null,
+    current: t.current === row,
+    compare: t.compareRow === row,
   }));
 });
 const kNum = (v: number) => (v < 0 ? '∞' : String(v));
@@ -30,21 +35,35 @@ const kNum = (v: number) => (v < 0 ? '∞' : String(v));
         <span class="sa-str-idx">{{ c.idx }}</span>
       </div>
     </div>
-    <div class="sa-badge">倍增长度 k = {{ suffixArray.k }}</div>
+    <div class="sa-badge">
+      {{ isLcp ? 'LCP：相邻后缀最长公共前缀（Kasai）' : '倍增长度 k = ' + suffixArray.k }}
+    </div>
     <div class="sa-table">
       <div class="sa-head">
         <span class="sa-col">起点</span>
         <span class="sa-col sa-suffix">后缀</span>
         <span class="sa-col">rank</span>
-        <span class="sa-col">关键字 (前, 后)</span>
+        <span v-if="isLcp" class="sa-col">LCP↑</span>
+        <span v-else class="sa-col">关键字 (前, 后)</span>
       </div>
-      <div v-for="r in rows" :key="'r' + r.i" class="sa-row">
+      <div
+        v-for="r in rows"
+        :key="'r' + r.i"
+        class="sa-row"
+        :class="{ 'sa-current': r.current, 'sa-compare': r.compare }"
+      >
         <span class="sa-col sa-index">{{ r.i }}</span>
         <span class="sa-col sa-suffix">{{ r.suffix }}</span>
         <span class="sa-col sa-rank" :class="{ 'sa-rank-active': suffixArray.phase === 'rank' }">{{
           r.rank
         }}</span>
-        <span class="sa-col sa-key" :class="{ 'sa-key-active': suffixArray.phase === 'sort' }"
+        <span v-if="isLcp" class="sa-col sa-lcp">{{
+          r.row === 0 ? '-' : r.lcp == null ? '' : r.lcp
+        }}</span>
+        <span
+          v-else
+          class="sa-col sa-key"
+          :class="{ 'sa-key-active': suffixArray.phase === 'sort' }"
           >({{ kNum(r.k1) }}, {{ kNum(r.k2) }})</span
         >
       </div>
@@ -132,5 +151,16 @@ const kNum = (v: number) => (v < 0 ? '∞' : String(v));
   background-color: #ffe6a8;
   border-radius: 4px;
   color: #7a5a00;
+}
+/* LCP 模式（C-073） */
+.sa-lcp {
+  font-weight: bold;
+  color: #7a5a00;
+}
+.sa-row.sa-current {
+  box-shadow: inset 0 0 0 2px #f0a000; /* 当前后缀行：琥珀环 */
+}
+.sa-row.sa-compare {
+  box-shadow: inset 0 0 0 2px #1565c0; /* 排序前驱行：蓝环 */
 }
 </style>

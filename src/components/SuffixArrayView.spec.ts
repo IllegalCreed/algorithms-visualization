@@ -33,4 +33,24 @@ describe('SuffixArrayView 后缀轨', () => {
     const wRank = mountIt({ phase: 'rank' });
     expect(wRank.findAll('.sa-rank-active').length).toBeGreaterThanOrEqual(1);
   });
+
+  it('TC-VIZ-SAVIEW-LCP-01 LCP 模式渲染 .sa-lcp 列，非 null 行显值（C-073）', () => {
+    const w = mountIt({ lcp: [null, 1, 3, 0, 0, 2] });
+    const lcpCells = w.findAll('.sa-row .sa-lcp');
+    expect(lcpCells).toHaveLength(6);
+    expect(lcpCells[1].text()).toBe('1');
+    expect(lcpCells[2].text()).toBe('3');
+  });
+
+  it('TC-VIZ-SAVIEW-LCP-02 current/compareRow 行高亮（C-073）', () => {
+    const w = mountIt({ lcp: [null, 1, 3, 0, 0, 2], current: 2, compareRow: 1 });
+    expect(w.findAll('.sa-current')).toHaveLength(1);
+    expect(w.findAll('.sa-compare')).toHaveLength(1);
+  });
+
+  it('TC-VIZ-SAVIEW-LCP-03 不传 lcp（构造模式）→ 有关键字列、无 .sa-lcp（C-073 零回归）', () => {
+    const w = mountIt(); // 构造模式
+    expect(w.findAll('.sa-lcp')).toHaveLength(0);
+    expect(w.findAll('.sa-row .sa-key').length).toBeGreaterThanOrEqual(1);
+  });
 });

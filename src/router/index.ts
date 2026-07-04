@@ -225,6 +225,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/SuffixArray.vue'),
           },
           {
+            path: '/docs/lcp-array',
+            name: 'lcp-array',
+            component: () => import('../views/Article/Algorithm/LcpArray.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

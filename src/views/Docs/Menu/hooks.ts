@@ -256,6 +256,10 @@ export function useCategoryData(): Category[] {
           title: '后缀数组',
           url: 'suffix-array',
         },
+        {
+          title: 'LCP / height 数组',
+          url: 'lcp-array',
+        },
       ],
     },
   ];

@@ -40,6 +40,7 @@ import RabinKarpIcon from '@/assets/rabinkarp.svg';
 import BoyerMooreIcon from '@/assets/boyermoore.svg';
 import ManacherIcon from '@/assets/manacher.svg';
 import SuffixArrayIcon from '@/assets/suffix-array.svg';
+import LcpArrayIcon from '@/assets/lcp-array.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -426,6 +427,12 @@ export function useCategoryData(): Category[] {
           desc: '把所有后缀按字典序排好（sa 数组）：倍增法每轮用上一轮 rank 拼关键字、比较长度翻倍，O(n log²n)',
           icon: SuffixArrayIcon,
           url: 'suffix-array',
+        },
+        {
+          title: 'LCP / height 数组',
+          desc: '相邻后缀最长公共前缀：Kasai O(n)，按原始下标处理、h 去首字符至多减 1，一趟求最长重复子串/不同子串数',
+          icon: LcpArrayIcon,
+          url: 'lcp-array',
         },
       ],
     },

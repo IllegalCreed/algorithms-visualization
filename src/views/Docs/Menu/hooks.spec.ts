@@ -53,6 +53,7 @@ describe('Docs/Menu useCategoryData', () => {
       'boyer-moore',
       'manacher',
       'suffix-array',
+      'lcp-array',
     ]);
   });
 

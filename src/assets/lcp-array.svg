@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 排序后的相邻后缀（条），左侧实心段 = 公共前缀（LCP），其余描边 -->
+  <g stroke="#333333" stroke-width="16">
+    <!-- 行 1 -->
+    <rect x="240" y="180" width="150" height="90" rx="14" fill="#333333" stroke="none" />
+    <rect x="390" y="180" width="330" height="90" rx="14" fill="none" />
+    <!-- 行 2（与行 1 的公共前缀较长） -->
+    <rect x="240" y="340" width="150" height="90" rx="14" fill="#333333" stroke="none" />
+    <rect x="390" y="340" width="470" height="90" rx="14" fill="none" />
+    <!-- 行 3（与行 2 无公共前缀，实心段短） -->
+    <rect x="240" y="560" width="70" height="90" rx="14" fill="#333333" stroke="none" />
+    <rect x="310" y="560" width="300" height="90" rx="14" fill="none" />
+    <!-- 行 4（与行 3 公共前缀中等） -->
+    <rect x="240" y="720" width="70" height="90" rx="14" fill="#333333" stroke="none" />
+    <rect x="310" y="720" width="420" height="90" rx="14" fill="none" />
+  </g>
+  <!-- LCP 括号（左侧起点对齐处，标注相邻后缀的公共前缀） -->
+  <g stroke="#333333" stroke-width="18" fill="none" stroke-linecap="round">
+    <!-- 行1-2 之间：长括号（LCP 大） -->
+    <path d="M170 205 q-40 0 -40 45 q0 45 -40 45 q40 0 40 45 q0 45 40 45" transform="translate(0,0)" />
+    <!-- 行3-4 之间：中括号 -->
+    <path d="M170 585 q-40 0 -40 45 q0 45 -40 45 q40 0 40 45 q0 45 40 45" />
+  </g>
+</svg>
