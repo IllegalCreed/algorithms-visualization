@@ -1075,6 +1075,8 @@
 
 > **C-089（M7 数学与数论第 7 页 · 新页）**：欧拉函数 φ(n)——互质计数的筛法直观：按比例划掉含质因子 p 的数、res·(1−1/p) 记账、幸存者即互质；欧拉定理给指数打折、RSA φ(pq)。**纯复用 SieveView 第 3 消费者零改动**（states 作颜色语义）。phi.module 7 步 + phiBrute gcd 暴力对拍。`TC-PHI-MOD-*`+`TC-VIEW-PHI-*`+`TC-E2E-PHI-01`。
 
+> **C-090（M7 数学与数论第 8 页 · 新页）**：米勒-拉宾素性测试——费马测试被卡迈克尔数 561 骗过（2^560≡1），MR 在开平方处设卡：n−1=2^s·d 从 a^d 连续平方，非平凡平方根现形即合数；1/4 概率界、64 位确定性底数集。**纯复用 MatrixView 第 10 消费者零改动**（verdict 步 sources 黄高亮判定依据）。mr.module 12 步 + isPrimeBrute 试除对拍 + 费马被骗 spec 断言。`TC-MR-MOD-*`+`TC-VIEW-MR-*`+`TC-E2E-MR-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1806,3 +1808,19 @@
 | TC-VIEW-PHI-02        | h1 含欧拉函数 + SieveView + 无柱数组（C-089）                                                      | L4   | `src/views/Article/Algorithm/EulerPhi.spec.ts`            |
 | TC-VIEW-PHI-03        | 正文含互质与欧拉定理 + SieveView 同屏（C-089）                                                     | L4   | `src/views/Article/Algorithm/EulerPhi.spec.ts`            |
 | TC-E2E-PHI-01         | 欧拉函数全模板：互质筛网格 / 拖末步 φ(12)=4 / Shiki（C-089 新增）                                  | L5   | `e2e/euler-phi.e2e.ts`                                    |
+| TC-MR-MOD-01          | 41 通过=试除质数；561 合数=试除（C-090）                                                           | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-02          | 2^560≡1 费马被骗而 MR 判合数（C-090）                                                              | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-03          | 分解 40=2³·5、560=2⁴·35（C-090）                                                                   | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-04          | 链 [32,40] hit-minus-1；[263,166,67,1] nontrivial（C-090）                                         | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-05          | point∈{init,decomp,pow,square,verdict,done} 带 matrix（C-090）                                     | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-06          | 2×4 表 + 标签；init 全 null（C-090）                                                               | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-07          | 填格序 [0,0]..[1,3] 值=链（C-090）                                                                 | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-08          | verdict sources ① [[0,1]]、② [[1,2],[1,3]]（C-090）                                                | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-09          | 12 步步序全等（C-090）                                                                             | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-10          | caption ① −1 通过 / ② 非平凡合数 / done 1/4（C-090）                                               | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-11          | 四语言+行号+六执行点（C-090）                                                                      | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-MR-MOD-12          | title 含米勒-拉宾；initialInput=[]（C-090）                                                        | L3   | `src/algorithms/mr.module.spec.ts`                        |
+| TC-VIEW-MR-01         | Article + AlgorithmPlayer（C-090）                                                                 | L4   | `src/views/Article/Algorithm/MillerRabin.spec.ts`         |
+| TC-VIEW-MR-02         | h1 含米勒-拉宾 + MatrixView + 无柱数组（C-090）                                                    | L4   | `src/views/Article/Algorithm/MillerRabin.spec.ts`         |
+| TC-VIEW-MR-03         | 正文含卡迈克尔与平方根 + MatrixView 同屏（C-090）                                                  | L4   | `src/views/Article/Algorithm/MillerRabin.spec.ts`         |
+| TC-E2E-MR-01          | 米勒-拉宾全模板：平方链表 / 拖末步 1/4 概率语义 / Shiki（C-090 新增）                              | L5   | `e2e/miller-rabin.e2e.ts`                                 |

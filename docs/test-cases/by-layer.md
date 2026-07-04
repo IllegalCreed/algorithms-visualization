@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **954** 个用例。运行命令：`pnpm test:unit`
+共 **966** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1433,12 +1433,24 @@
 | TC-PHI-MOD-10   | done caption 含 φ(12) = 4 与欧拉定理                                    | `src/algorithms/phi.module.spec.ts`         |
 | TC-PHI-MOD-11   | 四语言+行号+五执行点                                                    | `src/algorithms/phi.module.spec.ts`         |
 | TC-PHI-MOD-12   | title 含欧拉函数；initialInput=[]                                       | `src/algorithms/phi.module.spec.ts`         |
+| TC-MR-MOD-01    | 41 通过=试除质数；561 合数=试除                                         | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-02    | 2^560≡1 费马被骗而 MR 判合数                                            | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-03    | 分解 40=2³·5、560=2⁴·35                                                 | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-04    | 链 [32,40] hit-minus-1；[263,166,67,1] nontrivial                       | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-05    | point∈{init,decomp,pow,square,verdict,done} 带 matrix                   | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-06    | 2×4 表 + 标签；init 全 null                                             | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-07    | 填格序 [0,0]..[1,3] 值=链                                               | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-08    | verdict sources ① [[0,1]]、② [[1,2],[1,3]]                              | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-09    | 12 步步序全等                                                           | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-10    | caption ① −1 通过 / ② 非平凡合数 / done 1/4                             | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-12    | title 含米勒-拉宾；initialInput=[]                                      | `src/algorithms/mr.module.spec.ts`          |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **539** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **542** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2461,6 +2473,14 @@
 | TC-VIEW-PHI-02 | h1 含欧拉函数 + SieveView + 无柱数组  | `src/views/Article/Algorithm/EulerPhi.spec.ts` |
 | TC-VIEW-PHI-03 | 正文含互质与欧拉定理 + SieveView 同屏 | `src/views/Article/Algorithm/EulerPhi.spec.ts` |
 
+### 米勒-拉宾页 C-090（数学与数论第 8 页，新页，纯复用 MatrixView 第 10 消费者）
+
+| 用例 ID       | 场景                                     | 文件                                              |
+| ------------- | ---------------------------------------- | ------------------------------------------------- |
+| TC-VIEW-MR-01 | Article + AlgorithmPlayer                | `src/views/Article/Algorithm/MillerRabin.spec.ts` |
+| TC-VIEW-MR-02 | h1 含米勒-拉宾 + MatrixView + 无柱数组   | `src/views/Article/Algorithm/MillerRabin.spec.ts` |
+| TC-VIEW-MR-03 | 正文含卡迈克尔与平方根 + MatrixView 同屏 | `src/views/Article/Algorithm/MillerRabin.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2471,7 +2491,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **81** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **82** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2557,6 +2577,7 @@
 | TC-E2E-CRT-01       | 中国剩余定理全模板：构造表 / 拖末步 23 与 105 / Shiki（C-087 新增）                                                        | `e2e/crt.e2e.ts`                   | active     |
 | TC-E2E-BO-01        | 扫描线求交全模板：点平面轨 / 拖末步 3 交点红标 / Shiki（C-088 新增）                                                       | `e2e/bentley-ottmann.e2e.ts`       | active     |
 | TC-E2E-PHI-01       | 欧拉函数全模板：互质筛网格 / 拖末步 φ(12)=4 / Shiki（C-089 新增）                                                          | `e2e/euler-phi.e2e.ts`             | active     |
+| TC-E2E-MR-01        | 米勒-拉宾全模板：平方链表 / 拖末步 1/4 概率语义 / Shiki（C-090 新增）                                                      | `e2e/miller-rabin.e2e.ts`          | active     |
 
 ---
 
