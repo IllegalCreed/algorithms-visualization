@@ -1067,6 +1067,8 @@
 
 > **C-085（M7 排序阶段三 · 新页 + 新轨）**：双调排序——排序网络：比较器固定与数据无关、同列并行，深度 O(log²n)。**新建第 20 条 NetworkView 比较器网络轨**（wire+值+竖线比较器+流向三角，三态分色，见 `TC-VIZ-NETVIEW-*`/`TC-PLAYER-NET-*`）。bitonic.module 8 步（逐列并行、列 2 双调成形）+ runNetwork 快照对拍 + 200 随机自检。排序 children 15→16。`TC-BN-MOD-*`+`TC-VIEW-BN-*`+`TC-E2E-BN-01`。
 
+> **C-086（M7 数学与数论第 5 页 · 新页）**：扩展欧几里得——求 Bézout 系数 x,y 使 ax+by=gcd：下行除法链、基例 (1,0)、回代 (x,y)=(y′,x′−q·y′)；模逆元/RSA 钥匙。**纯复用 MatrixView 第 8 消费者零改动**（active/updatedCell/sources 全复用）。extgcd.module 9 步 + egRows 与递归对拍、逐层恒等验证。`TC-EG-MOD-*`+`TC-VIEW-EG-*`+`TC-E2E-EG-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1732,3 +1734,19 @@
 | TC-VIEW-BN-02         | h1 含双调 + NetworkView + 无柱数组（C-085）                                                        | L4   | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts`     |
 | TC-VIEW-BN-03         | 正文含排序网络 + NetworkView 同屏（C-085）                                                         | L4   | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts`     |
 | TC-E2E-BN-01          | 双调排序全模板：网络 / 拖末步 1..8 + caption 6 / Shiki（C-085 新增）                               | L5   | `e2e/bitonic-sort.e2e.ts`                                 |
+| TC-EG-MOD-01          | extGcd={6,−1,2}；末表行 0 x=−1,y=2（C-086）                                                        | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-02          | point∈{init,down,base,up,done} 带 matrix（C-086）                                                  | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-03          | 5 列×4 行 + labels/rowLabels 正确（C-086）                                                         | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-04          | 下行 3 步后 a,b,q 就位、x,y 仍 null（C-086）                                                       | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-05          | 基例行 [6,0,null,1,0] + 恒等 caption（C-086）                                                      | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-06          | 回代依次 (0,1)/(1,−1)/(−1,2)（C-086）                                                              | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-07          | up 步 sources=[[i+1,3],[i+1,4]]（C-086）                                                           | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-08          | 每层恒等 a·x+b·y=6（4 行全验）（C-086）                                                            | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-09          | down3/base1/up3 + 高亮落当前行（C-086）                                                            | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-10          | done caption 含 −1、2 与模逆元（C-086）                                                            | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-11          | 四语言+行号+五执行点（C-086）                                                                      | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-EG-MOD-12          | title 含扩展欧几里得；initialInput=[]（C-086）                                                     | L3   | `src/algorithms/extgcd.module.spec.ts`                    |
+| TC-VIEW-EG-01         | Article + AlgorithmPlayer（C-086）                                                                 | L4   | `src/views/Article/Algorithm/ExtGcd.spec.ts`              |
+| TC-VIEW-EG-02         | h1 含扩展欧几里得 + MatrixView + 无柱数组（C-086）                                                 | L4   | `src/views/Article/Algorithm/ExtGcd.spec.ts`              |
+| TC-VIEW-EG-03         | 正文含模逆元 + MatrixView 同屏（C-086）                                                            | L4   | `src/views/Article/Algorithm/ExtGcd.spec.ts`              |
+| TC-E2E-EG-01          | 扩展欧几里得全模板：回代表 / 拖末步 −1 与 2 / Shiki（C-086 新增）                                  | L5   | `e2e/ext-gcd.e2e.ts`                                      |

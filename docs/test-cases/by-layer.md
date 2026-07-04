@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **906** 个用例。运行命令：`pnpm test:unit`
+共 **918** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1385,12 +1385,24 @@
 | TC-BN-MOD-10    | done caption 含 6 拍与并行                                              | `src/algorithms/bitonic.module.spec.ts`     |
 | TC-BN-MOD-11    | 四语言+行号+三执行点                                                    | `src/algorithms/bitonic.module.spec.ts`     |
 | TC-BN-MOD-12    | title 含双调；initialInput=BS_INPUT                                     | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-EG-MOD-01    | extGcd={6,−1,2}；末表行 0 x=−1,y=2                                      | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-02    | point∈{init,down,base,up,done} 带 matrix                                | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-03    | 5 列×4 行 + labels/rowLabels 正确                                       | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-04    | 下行 3 步后 a,b,q 就位、x,y 仍 null                                     | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-05    | 基例行 [6,0,null,1,0] + 恒等 caption                                    | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-06    | 回代依次 (0,1)/(1,−1)/(−1,2)                                            | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-07    | up 步 sources=[[i+1,3],[i+1,4]]                                         | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-08    | 每层恒等 a·x+b·y=6（4 行全验）                                          | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-09    | down3/base1/up3 + 高亮落当前行                                          | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-10    | done caption 含 −1、2 与模逆元                                          | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-12    | title 含扩展欧几里得；initialInput=[]                                   | `src/algorithms/extgcd.module.spec.ts`      |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **525** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **528** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2379,6 +2391,14 @@
 | TC-VIEW-BN-02 | h1 含双调 + NetworkView + 无柱数组 | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts` |
 | TC-VIEW-BN-03 | 正文含排序网络 + NetworkView 同屏  | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts` |
 
+### 扩展欧几里得页 C-086（数学与数论第 5 页，新页，纯复用 MatrixView 第 8 消费者）
+
+| 用例 ID       | 场景                                      | 文件                                         |
+| ------------- | ----------------------------------------- | -------------------------------------------- |
+| TC-VIEW-EG-01 | Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/ExtGcd.spec.ts` |
+| TC-VIEW-EG-02 | h1 含扩展欧几里得 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/ExtGcd.spec.ts` |
+| TC-VIEW-EG-03 | 正文含模逆元 + MatrixView 同屏            | `src/views/Article/Algorithm/ExtGcd.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2389,7 +2409,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **77** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **78** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2471,6 +2491,7 @@
 | TC-E2E-CP-01        | 最近点对全模板：δ 带 / 拖末步 best + caption 1.118 / Shiki（C-083 新增）                                                   | `e2e/closest-pair.e2e.ts`          | active     |
 | TC-E2E-SI-01        | 线段相交全模板：三对判定 / 拖末步 4 yes+2 no + caption 2 / Shiki（C-084 新增）                                             | `e2e/segment-intersection.e2e.ts`  | active     |
 | TC-E2E-BN-01        | 双调排序全模板：网络 / 拖末步 1..8 有序 + caption 6 / Shiki（C-085 新增）                                                  | `e2e/bitonic-sort.e2e.ts`          | active     |
+| TC-E2E-EG-01        | 扩展欧几里得全模板：回代表 / 拖末步 −1 与 2 / Shiki（C-086 新增）                                                          | `e2e/ext-gcd.e2e.ts`               | active     |
 
 ---
 
