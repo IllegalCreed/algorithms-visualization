@@ -285,6 +285,9 @@
 | TC-VIZ-GRAPHVIEW-FAIL-02  | 无 fail 类的边 → 不带 .fail（8 图算法零回归）                                   | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-LABEL-01 | edgeLabel={'0-1':'1/3'} → 该边文本显示 1/3（优先于 w）                          | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-LABEL-02 | 不传 edgeLabel → 边文本回退到 w（8 图算法 + AC 零回归）                         | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-01       | n=30 → 30 个 .sieve-cell；prime 格 .sieve-prime、composite 格 .sieve-composite  | L4   | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-02       | current=5 → 1 个 .sieve-current；marking=[25] → 25 号格 .sieve-marking          | L4   | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-03       | 1 号格 .sieve-special（既非素也非合）                                           | L4   | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -344,6 +347,8 @@
 | TC-PLAYER-SUDOKU-02       | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SA-01           | step 带 suffixArray → 渲染 SuffixArrayView（C-072）                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SA-02           | 排序 step 无 suffixArray→不渲染（零回归）（C-072）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SIEVE-01        | step 含 sieve → 渲染 SieveView                                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SIEVE-02        | 排序 step 无 sieve → 不渲染 SieveView（零回归）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -1016,524 +1021,542 @@
 
 > **C-076（M6 图算法第 9 页 · 新页）**：最大流（Ford-Fulkerson）——图论收官，网络流。有向图每边有容量，求源 s 到汇 t 的最大流量。**Ford-Fulkerson**：反复在**残量网络**找**增广路**、推满瓶颈，直到无增广路。残量网络的**反向边**（每条用了流的边 `u→v` 生成容量=已用流量的反向边 `v→u`）允许把误走的流退回改道（贪心走错也能反悔），终止即最大流且 **最大流=最小割**（图论对偶），BFS 版即 Edmonds-Karp O(VE²)。**复用 GraphView 不新建轨**（边显示流量/容量、增广路径琥珀、反向退流红虚线）；additive `GraphTrack.edgeLabel?`（边标签，缺省回退 w，见 viz-engine 段 `TC-VIZ-GRAPHVIEW-LABEL-*`）+ `.graph-edge.reverse` 红虚线 CSS。复用 `Step.graph`、**AlgorithmPlayer 零改动**。`maxflow.module`（固定 4 节点 5 边 s→a3/s→b3/a→b1/a→t3/b→t3，init+find×4+augment×4+done 10 步 + oracle `maxFlow()`={value:6}、4 轮增广瓶颈[1,2,2,1] 末轮反向边[1,2]、最小割 {s}|{a,b,t}）。新页 + 路由 `/docs/max-flow` + 菜单/首页「图算法」第 9 项 + 新 `max-flow.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 children +max-flow）。8 图算法 + AC 不设 edgeLabel 零回归。`TC-MF-MOD-*` + `TC-VIEW-MF-*` + `TC-E2E-MF-01`。
 
-| Case ID               | 标题                                                                                               | 层级 | 自动化路径                                             |
-| --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------ |
-| TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-02        | 出边邻接                                                                                           | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-03        | 确定顺序 [0,2,1,3,4,5]                                                                             | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-04        | 最终距离 [0,3,1,4,7,9]                                                                             | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-05        | 前驱表 [null,2,0,1,3,4]                                                                            | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-06        | 最短路还原 F = [0,2,1,3,4,5]                                                                       | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-07        | 最短路还原 E = [0,2,1,3,4]                                                                         | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-08        | steps 长度 7                                                                                       | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-09        | 初始步 settled 空、dist[0]=0 余 ∞                                                                  | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-10        | 确定 C 后 steps[2]                                                                                 | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-11        | 松弛更新 D：steps[3] dist[3]→4                                                                     | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-12        | 终步 6 点全确定                                                                                    | L3   | `src/components/structures/useDijkstra.spec.ts`        |
-| TC-DIJKSTRA-MOD-01    | 末步 nodeBadge = oracle dist [0,3,1,4,7,9]（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-02    | 每步执行点合法且带 graph 轨（array:[]）（C-047）                                                   | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-03    | 确定 6 点 #selectMin==#settle==6（C-047）                                                          | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-04    | 松弛守恒 #relaxEdge==#relaxUpdate+#relaxSkip（C-047）                                              | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-05    | init 步 dist[A]=0 其余 ∞（C-047）                                                                  | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-06    | 确定顺序 settle activeNode=[0,2,1,3,4,5]（C-047）                                                  | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-07    | 首个 relaxUpdate B=4（出边序）；A→C 后 C=1（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-08    | done 最短路树 tree 边恰 5（C-047）                                                                 | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-09    | done 步 doneNodes 长度 6（C-047）                                                                  | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-10    | 四语言 sources + 行号在范围内（C-047）                                                             | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-DIJKSTRA-MOD-11    | module 元信息 title 含 Dijkstra、initialInput()=[]（C-047）                                        | L3   | `src/algorithms/dijkstra.module.spec.ts`               |
-| TC-VIZ-DIJKSTRAVIZ-01 | ~~6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置~~ (superseded C-047)                               | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-02 | ~~初始距离表 0 + ∞、settled 0~~ (superseded C-047)                                                 | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-03 | ~~下一步×1：确定 A、settled 1、现 4 与 1~~ (superseded C-047)                                      | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-04 | ~~下一步×2：B 由 4 松弛到 3~~ (superseded C-047)                                                   | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-05 | ~~下一步×1：松弛边点亮 ≥1~~ (superseded C-047)                                                     | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-06 | ~~走到底：settled 6、现 9、status「最短」~~ (superseded C-047)                                     | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-07 | ~~走到底：最短路树点亮 ≥1~~ (superseded C-047)                                                     | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIZ-DIJKSTRAVIZ-08 | ~~重置：清空 settled、距离表回 ∞~~ (superseded C-047)                                              | L4   | `src/components/structures/DijkstraViz.spec.ts`        |
-| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + AlgorithmPlayer（C-047 返工，不再含 DijkstraViz）                               | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`         |
-| TC-VIEW-DIJKSTRA-02   | h1 含「Dijkstra」+ GraphView + 6 .graph-node + 无 .bars-view（C-047）                              | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`         |
-| TC-VIEW-DIJKSTRA-03   | 全模板同屏：Article 含「最短」+ ≥9 .graph-edge（C-047）                                            | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`         |
-| TC-E2E-DIJKSTRA-01    | Dijkstra 全模板：图轨 6 点 9 边 / 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写）                   | L5   | `e2e/dijkstra.e2e.ts`                                  |
-| TC-KRUSKAL-01         | 图规模与标签（6 点 9 边）                                                                          | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-02         | 边已按权升序（[1..9]、AC 首）                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-03         | MST 边集 [AC,BC,DE,BD,DF]                                                                          | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-04         | MST 总权重 18                                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-05         | steps 长度 10                                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-06         | 初始步 mst 空、weight 0                                                                            | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-07         | 加入 B-C：steps[2]                                                                                 | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-08         | 成环跳过 A-B：steps[4]                                                                             | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-09         | 加入 B-D：steps[5] 含 BD、weight 11                                                                | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-10         | 完成步 D-F：steps[7] mst 5、weight 18                                                              | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-11         | 成环边集 [AB,CE,EF,CD]                                                                             | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-12         | 末步权重稳定 mst 5、weight 18                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`         |
-| TC-KRUSKAL-MOD-01     | 末步 mst 边（edgeClass=mst）= oracle [AC,BC,DE,BD,DF]（C-048）                                     | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-02     | 每步执行点合法且带 graph 无向轨（array:[]）（C-048）                                               | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-03     | 考虑 9 边 #consider==9（C-048）                                                                    | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-04     | 接受/拒绝守恒 #accept==5、#reject==4（C-048）                                                      | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-05     | init 步 edgeClass 全空、doneNodes 空（C-048）                                                      | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-06     | 首个 accept（AC 权1）后 edgeClass[AC]=mst、权重=1（C-048）                                         | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-07     | 首个 reject（AB 权4）后 edgeClass[AB]=rejected（C-048）                                            | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-08     | 每个 consider 步当前边 edgeClass=current（C-048）                                                  | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-09     | done 步 mst 恰 5、rejected 恰 4（C-048）                                                           | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-10     | done 步总权 18、doneNodes 含全 6 点（C-048）                                                       | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-11     | 四语言 sources + 行号在范围内（C-048）                                                             | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-KRUSKAL-MOD-12     | module 元信息 title 含 Kruskal、initialInput()=[]（C-048）                                         | L3   | `src/algorithms/kruskal.module.spec.ts`                |
-| TC-VIZ-KRUSKALVIZ-01  | ~~6 kvert + 9 kedge + 边列表 9 行 + 下一步/重置~~ (superseded C-048)                               | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIZ-KRUSKALVIZ-02  | ~~初始无 MST~~ (superseded C-048)                                                                  | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIZ-KRUSKALVIZ-03  | ~~下一步×1：加入、status「加入」~~ (superseded C-048)                                              | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIZ-KRUSKALVIZ-04  | ~~下一步×4：成环跳过、cycle ≥1、mst 3~~ (superseded C-048)                                         | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIZ-KRUSKALVIZ-05  | ~~下一步×4：当前考虑边高亮 ≥1~~ (superseded C-048)                                                 | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIZ-KRUSKALVIZ-06  | ~~走到底：mst 5、status「18」~~ (superseded C-048)                                                 | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIZ-KRUSKALVIZ-07  | ~~走到底：成环 4 条~~ (superseded C-048)                                                           | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIZ-KRUSKALVIZ-08  | ~~重置：mst 清空~~ (superseded C-048)                                                              | L4   | `src/components/structures/KruskalViz.spec.ts`         |
-| TC-VIEW-KRUSKAL-01    | 挂载渲染 Article + AlgorithmPlayer（C-048 返工，不再含 KruskalViz）                                | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`          |
-| TC-VIEW-KRUSKAL-02    | h1 含「Kruskal」+ GraphView + 6 .graph-node + 无 .bars-view（C-048）                               | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`          |
-| TC-VIEW-KRUSKAL-03    | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge（C-048）                                      | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`          |
-| TC-E2E-KRUSKAL-01     | Kruskal 全模板：图轨 6 点 9 边 / 拖末步 5 mst + 4 rejected 边 / Shiki（C-048 改写）                | L5   | `e2e/kruskal.e2e.ts`                                   |
-| TC-PRIM-MOD-01        | 末步 mst 边 = oracle primTrace().mstEdges（C-049）                                                 | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-02        | 与 Kruskal 同一张图 → 同 MST 集（序可不同）（C-049）                                               | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-03        | 每步执行点合法且带无向图轨（array:[]、directed=false）（C-049）                                    | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-04        | 生长 5 边 #selectEdge==5、#addVertex==5（C-049）                                                   | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-05        | init 步 doneNodes=[0]、无 mst 边（C-049）                                                          | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-06        | 每个 selectEdge 步唯一 1 条 current 且横切（C-049）                                                | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-07        | 首个 addVertex 并入 C(2)、edgeClass[AC]=mst、权重=1（C-049）                                       | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-08        | 生长顺序：新增点序列 = [C,B,D,E,F]（C-049）                                                        | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-09        | done 步 mst 恰 5（C-049）                                                                          | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-10        | done 步总权 18、doneNodes 含全 6 点（C-049）                                                       | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-11        | 四语言 sources + 行号在范围内（C-049）                                                             | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-PRIM-MOD-12        | module 元信息 title 含 Prim、initialInput()=[]（C-049）                                            | L3   | `src/algorithms/prim.module.spec.ts`                   |
-| TC-VIEW-PRIM-01       | 挂载渲染 Article + AlgorithmPlayer（C-049）                                                        | L4   | `src/views/Article/Algorithm/Prim.spec.ts`             |
-| TC-VIEW-PRIM-02       | h1 含「Prim」+ GraphView + 6 .graph-node + 无 .bars-view（C-049）                                  | L4   | `src/views/Article/Algorithm/Prim.spec.ts`             |
-| TC-VIEW-PRIM-03       | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge（C-049）                                      | L4   | `src/views/Article/Algorithm/Prim.spec.ts`             |
-| TC-E2E-PRIM-01        | Prim 全模板：图轨 6 点 9 边 / 拖末步 5 mst + 6 点全绿 + 字幕 18 / Shiki（C-049 新增）              | L5   | `e2e/prim.e2e.ts`                                      |
-| TC-BELLMAN-MOD-01     | 末步 nodeBadge 数值 = oracle dist [0,4,1,3,1]（C-050）                                             | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-02     | 每步执行点合法且带有向图轨（array:[]、directed=true）（C-050）                                     | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-03     | V−1 轮 #roundStart==4（C-050）                                                                     | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-04     | 松弛统计 #relaxUpdate==8、#relaxSkip==20（C-050）                                                  | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-05     | init 步 dist[A]=0、其余 ∞（C-050）                                                                 | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-06     | 逐轮 dist：各 roundStart nodeBadge = 进入该轮 dist（C-050）                                        | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-07     | 首个 relaxUpdate（B←A）后 nodeBadge[1]=4（C-050）                                                  | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-08     | dist 单调不增（松弛不变量）（C-050）                                                               | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-09     | done 最短路树 tree 恰 4：{0-1,1-2,2-3,3-4}（C-050）                                                | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-10     | 含负权边 B→C=-3、D→E=-2；done doneNodes 全 5 点（C-050）                                           | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-11     | 四语言 sources + 行号在范围内（C-050）                                                             | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-BELLMAN-MOD-12     | module 元信息 title 含 Bellman、initialInput()=[]（C-050）                                         | L3   | `src/algorithms/bellman-ford.module.spec.ts`           |
-| TC-VIEW-BELLMAN-01    | 挂载渲染 Article + AlgorithmPlayer（C-050）                                                        | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`          |
-| TC-VIEW-BELLMAN-02    | h1 含「Bellman」+ GraphView + 5 .graph-node + 无 .bars-view（C-050）                               | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`          |
-| TC-VIEW-BELLMAN-03    | 全模板同屏：Article 含「最短」+ ≥7 .graph-edge（C-050）                                            | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`          |
-| TC-E2E-BELLMAN-01     | Bellman-Ford 全模板：图轨 5 点 7 边（含负权）/ 拖末步 4 tree 绿边 + 5 点全绿 / Shiki（C-050 新增） | L5   | `e2e/bellman-ford.e2e.ts`                              |
-| TC-TOPO-MOD-01        | 末步输出序 = oracle order [2,0,4,1,3,5]（C-051）                                                   | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-02        | 每步执行点合法且带有向图轨（array:[]、directed=true）（C-051）                                     | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-03        | 取/输出 6 点 #selectNode==6、#removeNode==6（C-051）                                               | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-04        | init 步 nodeBadge = 初始入度 [1,2,0,1,0,3]（C-051）                                                | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-05        | 首个 selectNode 取 C（activeNode=2）（C-051）                                                      | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-06        | 首个 removeNode 后 doneNodes=[2]、A 入度→0（C-051）                                                | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-07        | 输出序是合法拓扑序（每边 u→v，u 先于 v）（C-051）                                                  | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-08        | 入度徽标单调不增（减度不变量）（C-051）                                                            | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-09        | removeNode 新增 doneNodes 序列 = [2,0,4,1,3,5]（C-051）                                            | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-10        | done 步 doneNodes 全 6 点、nodeBadge 全 0（C-051）                                                 | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-11        | 四语言 sources + 行号在范围内（C-051）                                                             | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-TOPO-MOD-12        | module 元信息 title 含拓扑、initialInput()=[]（C-051）                                             | L3   | `src/algorithms/topo.module.spec.ts`                   |
-| TC-VIEW-TOPO-01       | 挂载渲染 Article + AlgorithmPlayer（C-051）                                                        | L4   | `src/views/Article/Algorithm/Topo.spec.ts`             |
-| TC-VIEW-TOPO-02       | h1 含「拓扑」+ GraphView + 6 .graph-node + 无 .bars-view（C-051）                                  | L4   | `src/views/Article/Algorithm/Topo.spec.ts`             |
-| TC-VIEW-TOPO-03       | 全模板同屏：Article 含「拓扑」+ ≥7 .graph-edge（C-051）                                            | L4   | `src/views/Article/Algorithm/Topo.spec.ts`             |
-| TC-E2E-TOPO-01        | 拓扑排序全模板：图轨 6 点 7 边 DAG / 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）            | L5   | `e2e/topological-sort.e2e.ts`                          |
-| TC-FLOYD-MOD-01       | 末步 cells = oracle floydTrace() 终态矩阵（C-052）                                                 | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-02       | 每步执行点合法且带矩阵轨（array:[]）（C-052）                                                      | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-03       | 4 个中转点 #pivotStart==4（C-052）                                                                 | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-04       | 松弛统计 #relaxUpdate==10、#relaxSkip==3（C-052）                                                  | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-05       | init cells = 邻接（对角 0、A→B=3、A→D=null）（C-052）                                              | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-06       | done 矩阵无 ∞（含环→全点对可达）（C-052）                                                          | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-07       | 关键距离 [1][0]=8、[0][3]=6、[2][1]=9（C-052）                                                     | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-08       | 第 k 个 pivotStart 步 matrix.pivot===k（C-052）                                                    | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-09       | 每个单元值单调不增（松弛不变量）（C-052）                                                          | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-10       | 每个 relax 步 active 非空、sources 长度 2（C-052）                                                 | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-11       | 四语言 sources + 行号在范围内（C-052）                                                             | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-FLOYD-MOD-12       | module 元信息 title 含 Floyd、initialInput()=[]（C-052）                                           | L3   | `src/algorithms/floyd.module.spec.ts`                  |
-| TC-VIEW-FLOYD-01      | 挂载渲染 Article + AlgorithmPlayer（C-052）                                                        | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`            |
-| TC-VIEW-FLOYD-02      | h1 含「Floyd」+ MatrixView + 16 .matrix-cell + 无 .bars-view（C-052）                              | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`            |
-| TC-VIEW-FLOYD-03      | 全模板同屏：Article 含「最短」+ MatrixView（C-052）                                                | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`            |
-| TC-E2E-FLOYD-01       | Floyd 全模板：矩阵轨 4×4 / 拖末步全源矩阵无 ∞ / Shiki（C-052 新增）                                | L5   | `e2e/floyd-warshall.e2e.ts`                            |
-| TC-EDIT-MOD-01        | 末步 cells = oracle editDistTrace()，右下角=2（C-053）                                             | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-02        | 每步执行点合法且带矩阵轨（array:[]）（C-053）                                                      | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-03        | #cellMatch==1（仅 S==S）、#cellDiff==8（C-053）                                                    | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-04        | init 边界 第 0 行/列=[0,1,2,3]、内部 null（C-053）                                                 | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-05        | (1,1) match：cells[1][1]=0、sources 单个左上（C-053）                                              | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-06        | 每个 cellDiff 步 sources 长度 3（左上/上/左）（C-053）                                             | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-07        | 每步 rowLabels ∅SAT / colLabels ∅SUN / emptyText=''（C-053）                                       | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-08        | 编辑距离答案 cells[3][3]=2（C-053）                                                                | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-09        | 单元写入一次不变（DP 不变量）（C-053）                                                             | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-10        | 每个填格步 active 为当前格 (i,j)（C-053）                                                          | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-11        | 四语言 sources + 行号在范围内（C-053）                                                             | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-EDIT-MOD-12        | module 元信息 title 含编辑距离、initialInput()=[]（C-053）                                         | L3   | `src/algorithms/editdist.module.spec.ts`               |
-| TC-VIEW-EDIT-01       | 挂载渲染 Article + AlgorithmPlayer（C-053）                                                        | L4   | `src/views/Article/Algorithm/Edit.spec.ts`             |
-| TC-VIEW-EDIT-02       | h1 含「编辑距离」+ MatrixView + 16 .matrix-cell + 无 .bars-view（C-053）                           | L4   | `src/views/Article/Algorithm/Edit.spec.ts`             |
-| TC-VIEW-EDIT-03       | 全模板同屏：Article 含「编辑距离」+ MatrixView（C-053）                                            | L4   | `src/views/Article/Algorithm/Edit.spec.ts`             |
-| TC-E2E-EDIT-01        | 编辑距离全模板：DP 表 4×4 / 拖末步右下角=2 / Shiki（C-053 新增）                                   | L5   | `e2e/edit-distance.e2e.ts`                             |
-| TC-KNAP-MOD-01        | 末步 cells = oracle knapsackTrace()，右下角=7（C-054）                                             | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-02        | 每步执行点合法且带矩阵轨（array:[]）（C-054）                                                      | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-03        | 取舍统计 #cellSkip==10、#cellChoose==10（C-054）                                                   | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-04        | init 第 0 行/列全 0、内部 null（C-054）                                                            | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-05        | 首个 cellSkip（A 容量1 重2>1）cells[1][1]=0、sources 上格（C-054）                                 | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-06        | 每个 cellChoose 步 sources 长度 2（上格+左上偏移格）（C-054）                                      | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-07        | 每步 rowLabels ∅ABCD / colLabels 0-5 / emptyText=''（C-054）                                       | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-08        | 最优值 cells[4][5]=7（选 A+B）（C-054）                                                            | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-09        | 单元写入一次不变（DP 不变量）（C-054）                                                             | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-10        | 每个填格步 active 为当前格 (i,w)（C-054）                                                          | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-11        | 四语言 sources + 行号在范围内（C-054）                                                             | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-KNAP-MOD-12        | module 元信息 title 含背包、initialInput()=[]（C-054）                                             | L3   | `src/algorithms/knapsack.module.spec.ts`               |
-| TC-VIEW-KNAP-01       | 挂载渲染 Article + AlgorithmPlayer（C-054）                                                        | L4   | `src/views/Article/Algorithm/Knapsack.spec.ts`         |
-| TC-VIEW-KNAP-02       | h1 含「背包」+ MatrixView + 30 .matrix-cell + 无 .bars-view（C-054）                               | L4   | `src/views/Article/Algorithm/Knapsack.spec.ts`         |
-| TC-VIEW-KNAP-03       | 全模板同屏：Article 含「背包」+ MatrixView（C-054）                                                | L4   | `src/views/Article/Algorithm/Knapsack.spec.ts`         |
-| TC-E2E-KNAP-01        | 0-1 背包全模板：DP 表 5×6 / 拖末步右下角=7 / Shiki（C-054 新增）                                   | L5   | `e2e/knapsack.e2e.ts`                                  |
-| TC-QUEENS-MOD-01      | 末步 solved，queens = oracle [1,3,0,2]（C-055）                                                    | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-02      | 每步执行点合法且带棋盘轨（array:[]）（C-055）                                                      | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-03      | 解合法：4 皇后两两不同行/对角（C-055）                                                             | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-04      | init 空盘（queens 全 null）（C-055）                                                               | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-05      | 首个 place tryCell=[0,0]、queens[0]=0（C-055）                                                     | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-06      | 每个 tryConflict 步 conflictCells 非空（C-055）                                                    | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-07      | 存在回溯 #backtrack>=1（C-055）                                                                    | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-08      | 恰一解 #solved==1、末步满盘 4 皇后（C-055）                                                        | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-09      | 每步已放皇后数在 [0,4]（C-055）                                                                    | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-10      | 每个 tryConflict/place 步 tryCell 在盘内（C-055）                                                  | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-11      | 四语言 sources + 行号在范围内（C-055）                                                             | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-QUEENS-MOD-12      | module 元信息 title 含皇后、initialInput()=[]（C-055）                                             | L3   | `src/algorithms/queens.module.spec.ts`                 |
-| TC-VIEW-QUEENS-01     | 挂载渲染 Article + AlgorithmPlayer（C-055）                                                        | L4   | `src/views/Article/Algorithm/Queens.spec.ts`           |
-| TC-VIEW-QUEENS-02     | h1 含「皇后」+ BoardView + 16 .board-cell + 无 .bars-view（C-055）                                 | L4   | `src/views/Article/Algorithm/Queens.spec.ts`           |
-| TC-VIEW-QUEENS-03     | 全模板同屏：Article 含「皇后」+ BoardView（C-055）                                                 | L4   | `src/views/Article/Algorithm/Queens.spec.ts`           |
-| TC-E2E-QUEENS-01      | N 皇后全模板：棋盘 4×4 / 拖末步 4 皇后 / Shiki（C-055 新增）                                       | L5   | `e2e/n-queens.e2e.ts`                                  |
-| TC-SUBSETS-MOD-01     | 末步 done，solutionIds 覆盖全部 8 叶（C-056）                                                      | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-02     | 每步执行点合法且带决策树轨（array:[]）（C-056）                                                    | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-03     | 决策树 15 节点、14 边、8 叶（C-056）                                                               | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-04     | 8 个 record 步按序 = subsetsAll() 幂集（C-056）                                                    | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-05     | 首步 start：根空集、pathIds=[根]、solutionIds 空（C-056）                                          | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-06     | 恰 8 个 record（= 2^3）（C-056）                                                                   | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-07     | 存在回溯，backtrack 步 active 为内部节点（C-056）                                                  | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-08     | 每步 pathIds 从根到 active 连贯（相邻父子边）（C-056）                                             | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-09     | solutionIds 长度单调不减，末步=8（C-056）                                                          | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-10     | 首个 include 步 active=根「选 1」子、边 label 含「选 1」（C-056）                                  | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-11     | 四语言 sources + 行号在范围内（C-056）                                                             | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-SUBSETS-MOD-12     | module 元信息 title 含子集、initialInput()=[]（C-056）                                             | L3   | `src/algorithms/subsets.module.spec.ts`                |
-| TC-VIEW-SUBSETS-01    | 挂载渲染 Article + AlgorithmPlayer（C-056）                                                        | L4   | `src/views/Article/Algorithm/Subsets.spec.ts`          |
-| TC-VIEW-SUBSETS-02    | h1 含「子集」+ DecisionTreeView + 无 .bars-view（C-056）                                           | L4   | `src/views/Article/Algorithm/Subsets.spec.ts`          |
-| TC-VIEW-SUBSETS-03    | 全模板同屏：Article 含「子集」+ DecisionTreeView（C-056）                                          | L4   | `src/views/Article/Algorithm/Subsets.spec.ts`          |
-| TC-E2E-SUBSETS-01     | 子集全模板：决策树 15 节点 / 拖末步 8 解叶 / Shiki（C-056 新增）                                   | L5   | `e2e/subsets.e2e.ts`                                   |
-| TC-PERMUTE-MOD-01     | 末步 done，solutionIds 覆盖全部 6 叶（C-057）                                                      | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-02     | 每步执行点合法且带决策树轨（array:[]）（C-057）                                                    | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-03     | 决策树 16 节点、15 边、6 叶（C-057）                                                               | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-04     | 6 个 record 步按序 = permutationsAll()（C-057）                                                    | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-05     | 首步 start：根空排列、pathIds=[根]、solutionIds 空（C-057）                                        | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-06     | 恰 6 个 record（= 3!）（C-057）                                                                    | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-07     | 存在回溯，backtrack 步 active 为内部节点（C-057）                                                  | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-08     | 每步 pathIds 从根到 active 连贯（相邻父子边）（C-057）                                             | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-09     | 每个解是 [1,2,3] 的合法排列（长 3/互异/值域）（C-057）                                             | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-10     | 首个 choose 步 active=根首子、边 label 含「选 1」（C-057）                                         | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-11     | 四语言 sources + 行号在范围内（C-057）                                                             | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-PERMUTE-MOD-12     | module 元信息 title 含排列、initialInput()=[]（C-057）                                             | L3   | `src/algorithms/permute.module.spec.ts`                |
-| TC-VIEW-PERMUTE-01    | 挂载渲染 Article + AlgorithmPlayer（C-057）                                                        | L4   | `src/views/Article/Algorithm/Permute.spec.ts`          |
-| TC-VIEW-PERMUTE-02    | h1 含「排列」+ DecisionTreeView + 无 .bars-view（C-057）                                           | L4   | `src/views/Article/Algorithm/Permute.spec.ts`          |
-| TC-VIEW-PERMUTE-03    | 全模板同屏：Article 含「排列」+ DecisionTreeView（C-057）                                          | L4   | `src/views/Article/Algorithm/Permute.spec.ts`          |
-| TC-E2E-PERMUTE-01     | 全排列全模板：决策树 16 节点 / 拖末步 6 排列叶 / Shiki（C-057 新增）                               | L5   | `e2e/permutations.e2e.ts`                              |
-| TC-COMBSUM-MOD-01     | 末步 done，solutionIds = 全部解叶（2 个）（C-058）                                                 | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-02     | 每步执行点合法且带决策树轨（array:[]）（C-058）                                                    | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-03     | 决策树 14 节点；解 2、剪枝 5（C-058）                                                              | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-04     | record 步组合按序 = combSumAll() [[1,4],[2,3]]，和=5（C-058）                                      | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-05     | 首步 start：根空组合、pathIds=[根]、solution/pruned 空（C-058）                                    | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-06     | 存在剪枝 #prune>=1，末步 prunedIds 覆盖全部剪枝（5）（C-058）                                      | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-07     | 每个剪枝节点其组合之和 > 目标 5（C-058）                                                           | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-08     | 每个解节点其组合之和 = 目标 5（C-058）                                                             | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-09     | 每步 pathIds 从根到 active 连贯（相邻父子边）（C-058）                                             | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-10     | 每个剪枝节点在决策树中无出边（不展开）（C-058）                                                    | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-11     | 四语言 sources + 行号在范围内（C-058）                                                             | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-COMBSUM-MOD-12     | module 元信息 title 含组合、initialInput()=[]（C-058）                                             | L3   | `src/algorithms/combsum.module.spec.ts`                |
-| TC-VIEW-COMBSUM-01    | 挂载渲染 Article + AlgorithmPlayer（C-058）                                                        | L4   | `src/views/Article/Algorithm/Combsum.spec.ts`          |
-| TC-VIEW-COMBSUM-02    | h1 含「组合」+ DecisionTreeView + 无 .bars-view（C-058）                                           | L4   | `src/views/Article/Algorithm/Combsum.spec.ts`          |
-| TC-VIEW-COMBSUM-03    | 全模板同屏：Article 含「组合」+ DecisionTreeView（C-058）                                          | L4   | `src/views/Article/Algorithm/Combsum.spec.ts`          |
-| TC-E2E-COMBSUM-01     | 组合总和全模板：决策树剪枝 / 拖末步 5 剪枝支 + 2 解 / Shiki（C-058 新增）                          | L5   | `e2e/combination-sum.e2e.ts`                           |
-| TC-MAZE-MOD-01        | 末步 done、solved，path = mazeSolve()（C-059）                                                     | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-02        | 每步执行点合法且带迷宫轨（array:[]）（C-059）                                                      | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-03        | 解路径有效：首=起点、尾=终点、四连通、不穿墙（C-059）                                              | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-04        | 首步 start：current=起点、path=[起点]（C-059）                                                     | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-05        | 恰一 goal 步，current=终点（C-059）                                                                | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-06        | 存在死路 + 回溯（#deadend/#backtrack >=1）（C-059）                                                | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-07        | deadend 步 current 四邻皆墙/越界/已访问（C-059）                                                   | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-08        | 每步 path 相邻格四连通（C-059）                                                                    | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-09        | visited 数量单调不减，含起点（C-059）                                                              | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-10        | 每步 current = path 末元素（C-059）                                                                | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-11        | 四语言 sources + 行号在范围内（C-059）                                                             | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-MAZE-MOD-12        | module 元信息 title 含迷宫、initialInput()=[]（C-059）                                             | L3   | `src/algorithms/maze.module.spec.ts`                   |
-| TC-VIEW-MAZE-01       | 挂载渲染 Article + AlgorithmPlayer（C-059）                                                        | L4   | `src/views/Article/Algorithm/Maze.spec.ts`             |
-| TC-VIEW-MAZE-02       | h1 含「迷宫」+ MazeView + 25 格 + 无 .bars-view（C-059）                                           | L4   | `src/views/Article/Algorithm/Maze.spec.ts`             |
-| TC-VIEW-MAZE-03       | 全模板同屏：Article 含「迷宫」+ MazeView（C-059）                                                  | L4   | `src/views/Article/Algorithm/Maze.spec.ts`             |
-| TC-E2E-MAZE-01        | 迷宫全模板：网格 DFS 回溯 / 拖末步 解路径绿 / Shiki（C-059 新增）                                  | L5   | `e2e/maze.e2e.ts`                                      |
-| TC-LCS-MOD-01         | fillDone 右下角 = lcsLength() = 3（C-060）                                                         | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-02         | 每步执行点合法且带矩阵轨（array:[]）（C-060）                                                      | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-03         | DP 表 5×5，标签含 ∅ + 字符（C-060）                                                                | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-04         | init 步第 0 行、第 0 列全 0（C-060）                                                               | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-05         | match 步取左上 +1（X[i-1]=Y[j-1]）（C-060）                                                        | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-06         | mismatch 步取上/左较大（X[i-1]≠Y[j-1]）（C-060）                                                   | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-07         | 末步 done，含 lcsString() = ACD（C-060）                                                           | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-08         | trace/done 步 pathCells = lcsPath()、首含 (m,n)（C-060）                                           | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-09         | trace 步 pathCells 数量单调不减（C-060）                                                           | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-10         | 存在填表 + 回溯（match/mismatch/trace >=1）（C-060）                                               | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-11         | 四语言 sources + 行号在范围内（C-060）                                                             | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-LCS-MOD-12         | module 元信息 title 含公共子序列/LCS、initialInput()=[]（C-060）                                   | L3   | `src/algorithms/lcs.module.spec.ts`                    |
-| TC-VIEW-LCS-01        | 挂载渲染 Article + AlgorithmPlayer（C-060）                                                        | L4   | `src/views/Article/Algorithm/Lcs.spec.ts`              |
-| TC-VIEW-LCS-02        | h1 含「子序列」+ MatrixView + 无 .bars-view（C-060）                                               | L4   | `src/views/Article/Algorithm/Lcs.spec.ts`              |
-| TC-VIEW-LCS-03        | 全模板同屏：Article 含「子序列」+ MatrixView（C-060）                                              | L4   | `src/views/Article/Algorithm/Lcs.spec.ts`              |
-| TC-E2E-LCS-01         | LCS 全模板：DP 填表 + 回溯 / 拖末步 路径绿 + ACD / Shiki（C-060 新增）                             | L5   | `e2e/lcs.e2e.ts`                                       |
-| TC-LIS-MOD-01         | fillDone dp 行最大值 = lisLength() = 4（C-061）                                                    | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-02         | 每步执行点合法且带矩阵轨（array:[]）（C-061）                                                      | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-03         | 两行表 2 行×n 列，rowLabels 含「值」「dp」（C-061）                                                | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-04         | init 步 dp 行全 1（C-061）                                                                         | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-05         | extend 步 active=[1,i]、dp[i]=dp[j]+1（C-061）                                                     | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-06         | scan 步不更新（updatedCell 空）（C-061）                                                           | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-07         | 末步 result，含 lisValues 连接 1→3→4→5（C-061）                                                    | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-08         | result 步 pathCells = LIS 位置 [0,1,3,5]（值行）（C-061）                                          | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-09         | 末步 dp 行 = lisDp().dp = [1,2,2,3,3,4]（C-061）                                                   | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-10         | 存在 scan + extend（C-061）                                                                        | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-11         | 四语言 sources + 行号在范围内（C-061）                                                             | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-LIS-MOD-12         | module 元信息 title 含递增子序列/LIS、initialInput()=[]（C-061）                                   | L3   | `src/algorithms/lis.module.spec.ts`                    |
-| TC-VIEW-LIS-01        | 挂载渲染 Article + AlgorithmPlayer（C-061）                                                        | L4   | `src/views/Article/Algorithm/Lis.spec.ts`              |
-| TC-VIEW-LIS-02        | h1 含「递增子序列」+ MatrixView + 无 .bars-view（C-061）                                           | L4   | `src/views/Article/Algorithm/Lis.spec.ts`              |
-| TC-VIEW-LIS-03        | 全模板同屏：Article 含「递增子序列」+ MatrixView（C-061）                                          | L4   | `src/views/Article/Algorithm/Lis.spec.ts`              |
-| TC-E2E-LIS-01         | LIS 全模板：一维 DP 两行表 / 拖末步 LIS 高亮 + 1→3→4→5 / Shiki（C-061 新增）                       | L5   | `e2e/lis.e2e.ts`                                       |
-| TC-KMP-MOD-01         | 末步 done，found = kmpMatches() = [2]（C-062）                                                     | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-02         | 每步执行点合法且带匹配轨（array:[]）（C-062）                                                      | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-03         | 每步 lps = kmpLps() = [0,0,1,2,0]（C-062）                                                         | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-04         | 存在关键跳转 #jump>=1、jump 步 lpsActive=comparePat-1（C-062）                                     | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-05         | 恰一 found，命中起点 = 2（C-062）                                                                  | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-06         | match 步字符相等 T[compareText]===P[comparePat]（C-062）                                           | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-07         | 文本指针不回退：compareText 单调不减（C-062）                                                      | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-08         | offset = compareText - comparePat（≥0）（C-062）                                                   | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-09         | matchedLen = comparePat（C-062）                                                                   | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-10         | 命中区间不越界：T.substr(s,m)===P（C-062）                                                         | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-11         | 四语言 sources + 行号在范围内（C-062）                                                             | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-KMP-MOD-12         | module 元信息 title 含 KMP/字符串、initialInput()=[]（C-062）                                      | L3   | `src/algorithms/kmp.module.spec.ts`                    |
-| TC-VIEW-KMP-01        | 挂载渲染 Article + AlgorithmPlayer（C-062）                                                        | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`              |
-| TC-VIEW-KMP-02        | h1 含「KMP」+ KmpView + 无 .bars-view（C-062）                                                     | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`              |
-| TC-VIEW-KMP-03        | 全模板同屏：Article 含「字符串」+ KmpView（C-062）                                                 | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`              |
-| TC-E2E-KMP-01         | KMP 全模板：文本/模式/LPS 三行 / 拖末步 命中高亮 / Shiki（C-062 新增）                             | L5   | `e2e/kmp.e2e.ts`                                       |
-| TC-RK-MOD-01          | 末步 done，found = rkMatches() = [2,5]（C-063）                                                    | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-02          | 每步执行点合法且带匹配轨（array:[]）（C-063）                                                      | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-03          | 无 π 行：每步 lps = []（C-063）                                                                    | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-04          | 窗口对齐：windowStart = offset（C-063）                                                            | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-05          | vars/caption 含模式哈希 312（C-063）                                                               | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-06          | 存在跳过 + 恰 2 命中（C-063）                                                                      | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-07          | skip 步该窗口哈希 ≠ 模式哈希（C-063）                                                              | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-08          | hashHit 步该窗口哈希 = 模式哈希（C-063）                                                           | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-09          | found 步命中起点 ∈ {2,5}，末步 found=[2,5]（C-063）                                                | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-10          | 命中区间不越界：T.substr(s,m)===P（C-063）                                                         | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-11          | 四语言 sources + 行号在范围内（C-063）                                                             | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-RK-MOD-12          | module 元信息 title 含 Rabin-Karp/哈希、initialInput()=[]（C-063）                                 | L3   | `src/algorithms/rabinkarp.module.spec.ts`              |
-| TC-VIEW-RK-01         | 挂载渲染 Article + AlgorithmPlayer（C-063）                                                        | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts`        |
-| TC-VIEW-RK-02         | h1 含「Rabin-Karp」+ KmpView + 无 .bars-view + 无 π 行（C-063）                                    | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts`        |
-| TC-VIEW-RK-03         | 全模板同屏：Article 含「哈希」+ KmpView（C-063）                                                   | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts`        |
-| TC-E2E-RK-01          | Rabin-Karp 全模板：滚动哈希窗口 / 拖末步 命中高亮 / Shiki（C-063 新增）                            | L5   | `e2e/rabin-karp.e2e.ts`                                |
-| TC-BM-MOD-01          | 末步 done，found = bmMatches() = [0,6]（C-064）                                                    | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-02          | 每步执行点合法且带匹配轨（array:[]）（C-064）                                                      | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-03          | 无 π 行：每步 lps = []（C-064）                                                                    | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-04          | 窗口对齐：windowStart = offset（C-064）                                                            | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-05          | vars 含坏字符表 a:0/b:1/c:2（C-064）                                                               | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-06          | 存在两种跳（#badChar≥2）+ 恰 2 命中（C-064）                                                       | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-07          | match 步字符相等且 matchedFrom = comparePat（C-064）                                               | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-08          | badChar 步字符不等（C-064）                                                                        | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-09          | 存在坏字符不在模式的大步跳（如 x）（C-064）                                                        | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-10          | 命中区间不越界：T.substr(s,m)===P（C-064）                                                         | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-11          | 四语言 sources + 行号在范围内（C-064）                                                             | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-BM-MOD-12          | module 元信息 title 含 Boyer-Moore/坏字符、initialInput()=[]（C-064）                              | L3   | `src/algorithms/boyermoore.module.spec.ts`             |
-| TC-VIEW-BM-01         | 挂载渲染 Article + AlgorithmPlayer（C-064）                                                        | L4   | `src/views/Article/Algorithm/BoyerMoore.spec.ts`       |
-| TC-VIEW-BM-02         | h1 含「Boyer-Moore」+ KmpView + 无 .bars-view + 无 π 行（C-064）                                   | L4   | `src/views/Article/Algorithm/BoyerMoore.spec.ts`       |
-| TC-VIEW-BM-03         | 全模板同屏：Article 含「坏字符」+ KmpView（C-064）                                                 | L4   | `src/views/Article/Algorithm/BoyerMoore.spec.ts`       |
-| TC-E2E-BM-01          | Boyer-Moore 全模板：对齐窗口带 / 拖末步 命中高亮 / Shiki（C-064 新增）                             | L5   | `e2e/boyer-moore.e2e.ts`                               |
-| TC-CK-MOD-01          | 末步 done，右下角 = 15（C-065）                                                                    | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-02          | 每步执行点合法且带矩阵轨（array 空）（C-065）                                                      | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-03          | 终态表深等 oracle（C-065）                                                                         | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-04          | init 步第 0 行/列全 0（C-065）                                                                     | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-05          | 「取」来源在本行：cellChoose sources 含同行 [i,w-wt]（C-065）                                      | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-06          | 「不取」来源在上一行：sources 含 [i-1,w]（C-065）                                                  | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-07          | cellChoose 恰 2 源（C-065）                                                                        | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-08          | active === updatedCell === [i,w]（C-065）                                                          | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-09          | 可重复取：第 1 行末格 cells[1][6] = 15（A×3）（C-065）                                             | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-10          | vars 展示物品清单（C-065）                                                                         | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-11          | 四语言 sources + 行号在范围内（C-065）                                                             | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-CK-MOD-12          | module 元信息 title 含 完全背包/背包（C-065）                                                      | L3   | `src/algorithms/completeknapsack.module.spec.ts`       |
-| TC-VIEW-CK-01         | 挂载渲染 Article + AlgorithmPlayer（C-065）                                                        | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
-| TC-VIEW-CK-02         | h1 含「完全背包」+ MatrixView（28 单元）+ 无柱数组（C-065）                                        | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
-| TC-VIEW-CK-03         | 全模板同屏：正文含「本行」+ MatrixView（C-065）                                                    | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts` |
-| TC-E2E-CK-01          | 完全背包全模板：DP 表 4×7 / 拖末步右下角=15 / Shiki（C-065 新增）                                  | L5   | `e2e/complete-knapsack.e2e.ts`                         |
-| TC-ISL-MOD-01         | 末步 done + 岛屿数 3 + filled 覆盖全部陆地（C-066）                                                | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-02         | 每步执行点合法且带网格轨（array 空）（C-066）                                                      | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-03         | found 恰 3 次（3 个岛）（C-066）                                                                   | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-04         | found 命中新陆地（此前不在 filled）（C-066）                                                       | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-05         | 水为墙：walls === (grid===0)（C-066）                                                              | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-06         | filled 单调不减（C-066）                                                                           | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-07         | 末步 filled = 全陆地（6 格无重复）（C-066）                                                        | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-08         | flood 步四连通于同岛已 filled（C-066）                                                             | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-09         | 岛屿无起终点：start/goal 均 null（C-066）                                                          | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-10         | 非 done 步当前格图标非 🐭（C-066）                                                                 | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-11         | 四语言 sources + 行号在范围内（C-066）                                                             | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-ISL-MOD-12         | module 元信息 title 含岛屿（C-066）                                                                | L3   | `src/algorithms/islands.module.spec.ts`                |
-| TC-VIEW-ISL-01        | 挂载渲染 Article + AlgorithmPlayer（C-066）                                                        | L4   | `src/views/Article/Algorithm/Islands.spec.ts`          |
-| TC-VIEW-ISL-02        | h1 含「岛屿」+ MazeView（16 格）+ 无柱数组（C-066）                                                | L4   | `src/views/Article/Algorithm/Islands.spec.ts`          |
-| TC-VIEW-ISL-03        | 全模板同屏：正文含「连通」+ MazeView（C-066）                                                      | L4   | `src/views/Article/Algorithm/Islands.spec.ts`          |
-| TC-E2E-ISL-01         | 岛屿数量全模板：4×4 网格 / 拖末步 6 绿陆地 + 3 个岛 / Shiki（C-066 新增）                          | L5   | `e2e/number-of-islands.e2e.ts`                         |
-| TC-MAN-MOD-01         | 末步 done + 最长回文 bab（C-067）                                                                  | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-02         | 每步执行点合法且带回文轨（array 空）（C-067）                                                      | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-03         | 转换串正确 #b#a#b#a#d#（C-067）                                                                    | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-04         | 末步半径 = oracle [0,1,0,3,0,3,0,1,0,1,0]（C-067）                                                 | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-05         | init 步 p 全空（null）（C-067）                                                                    | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-06         | 中心逐一递增 0..10（C-067）                                                                        | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-07         | mirror 步 mirror=2C−i 且 center<boxR（C-067）                                                      | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-08         | expand 步 mirror 为 null（C-067）                                                                  | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-09         | 每中心步 p[center] 由 null 变 oracle 值（C-067）                                                   | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-10         | 最长回文长度单调不减（C-067）                                                                      | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-11         | 四语言 sources + 行号在范围内（C-067）                                                             | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-MAN-MOD-12         | module 元信息 title 含 Manacher/回文（C-067）                                                      | L3   | `src/algorithms/manacher.module.spec.ts`               |
-| TC-VIEW-MAN-01        | 挂载渲染 Article + AlgorithmPlayer（C-067）                                                        | L4   | `src/views/Article/Algorithm/Manacher.spec.ts`         |
-| TC-VIEW-MAN-02        | h1 含「Manacher」+ ManacherView + 无柱数组（C-067）                                                | L4   | `src/views/Article/Algorithm/Manacher.spec.ts`         |
-| TC-VIEW-MAN-03        | 全模板同屏：正文含「回文」+ ManacherView（C-067）                                                  | L4   | `src/views/Article/Algorithm/Manacher.spec.ts`         |
-| TC-E2E-MAN-01         | Manacher 全模板：转换串/半径两行 / 拖末步 7 绿 bab / Shiki（C-067 新增）                           | L5   | `e2e/manacher.e2e.ts`                                  |
-| TC-WS-MOD-01          | 末步 found + solved + path = wordPath()（C-068）                                                   | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-02          | 每步执行点合法且带网格轨（array 空）（C-068）                                                      | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-03          | 每格显字母 letters === WORD_BOARD（C-068）                                                         | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-04          | 含真回溯（backtrack ≥ 1）（C-068）                                                                 | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-05          | 两次起点尝试，起点字母 = A（C-068）                                                                | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-06          | match 步字母 = 期望字母（C-068）                                                                   | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-07          | mismatch 步字母不对（或已在路径）（C-068）                                                         | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-08          | 末步路径拼成 ADEE 且四连通（C-068）                                                                | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-09          | 每步路径无重复格（同格不复用）（C-068）                                                            | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-10          | found 步 solved = true（C-068）                                                                    | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-11          | 四语言 sources + 行号在范围内（C-068）                                                             | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-WS-MOD-12          | module 元信息 title 含单词搜索（C-068）                                                            | L3   | `src/algorithms/wordsearch.module.spec.ts`             |
-| TC-VIEW-WS-01         | 挂载渲染 Article + AlgorithmPlayer（C-068）                                                        | L4   | `src/views/Article/Algorithm/WordSearch.spec.ts`       |
-| TC-VIEW-WS-02         | h1 含「单词搜索」+ MazeView + 无柱数组（C-068）                                                    | L4   | `src/views/Article/Algorithm/WordSearch.spec.ts`       |
-| TC-VIEW-WS-03         | 全模板同屏：正文含「回溯」+ MazeView（C-068）                                                      | L4   | `src/views/Article/Algorithm/WordSearch.spec.ts`       |
-| TC-E2E-WS-01          | 单词搜索全模板：3×4 字母网格 / 拖末步 4 绿 ADEE / Shiki（C-068 新增）                              | L5   | `e2e/word-search.e2e.ts`                               |
-| TC-SCC-MOD-01         | 末步 done + 3 个 SCC + nodeGroup 每点有组（C-069）                                                 | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-02         | 每步执行点合法且带图轨（array 空）（C-069）                                                        | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-03         | enter 恰 6 次（C-069）                                                                             | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-04         | 末步 dfn/low = oracle（C-069）                                                                     | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-05         | scc 恰 3 次（C-069）                                                                               | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-06         | scc 步是根（low==dfn）（C-069）                                                                    | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-07         | 同 SCC 同组、三组两两不同（C-069）                                                                 | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-08         | badge 格式 dfn/low；未访问 null（C-069）                                                           | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-09         | scc 步弹栈后栈变短（C-069）                                                                        | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-10         | 有向图 directed=true（C-069）                                                                      | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-11         | 四语言 sources + 行号在范围内（C-069）                                                             | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-SCC-MOD-12         | module 元信息 title 含 强连通/Tarjan/SCC（C-069）                                                  | L3   | `src/algorithms/scc.module.spec.ts`                    |
-| TC-VIEW-SCC-01        | 挂载渲染 Article + AlgorithmPlayer（C-069）                                                        | L4   | `src/views/Article/Algorithm/Scc.spec.ts`              |
-| TC-VIEW-SCC-02        | h1 含「强连通」+ GraphView + 无柱数组（C-069）                                                     | L4   | `src/views/Article/Algorithm/Scc.spec.ts`              |
-| TC-VIEW-SCC-03        | 全模板同屏：正文含「Tarjan」+ GraphView（C-069）                                                   | L4   | `src/views/Article/Algorithm/Scc.spec.ts`              |
-| TC-E2E-SCC-01         | 强连通分量全模板：有向图 6 点 / 拖末步 3 个 SCC + 栈空 / Shiki（C-069 新增）                       | L5   | `e2e/scc.e2e.ts`                                       |
-| TC-CC-MOD-01          | 末步 done，右下角 = 4（C-070）                                                                     | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-02          | 每步执行点合法且带矩阵轨（array 空）（C-070）                                                      | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-03          | 终态表深等 oracle（C-070）                                                                         | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-04          | init 边界 dp[0][0]=1、第 0 行其余 0（C-070）                                                       | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-05          | 「用一枚」来源在本行 [i,a-coin]（C-070）                                                           | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-06          | 「不用」来源在上一行 [i-1,a]（C-070）                                                              | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-07          | add 恰 2 源，值为两源之和（C-070）                                                                 | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-08          | 计数单调不减（C-070）                                                                              | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-09          | vars 展示硬币 1,2,5 / 金额 5（C-070）                                                              | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-10          | 四语言 sources + 行号在范围内（C-070）                                                             | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-11          | module 元信息 title 含 硬币/找零（C-070）                                                          | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-CC-MOD-12          | done 方案数 4（C-070）                                                                             | L3   | `src/algorithms/coinchange.module.spec.ts`             |
-| TC-VIEW-CC-01         | 挂载渲染 Article + AlgorithmPlayer（C-070）                                                        | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`       |
-| TC-VIEW-CC-02         | h1 含「硬币」+ MatrixView（24 单元）+ 无柱数组（C-070）                                            | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`       |
-| TC-VIEW-CC-03         | 全模板同屏：正文含「计数」+ MatrixView（C-070）                                                    | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`       |
-| TC-E2E-CC-01          | 硬币找零方案数全模板：DP 表 4×6 / 拖末步右下角=4 / Shiki（C-070 新增）                             | L5   | `e2e/coin-change.e2e.ts`                               |
-| TC-SDK-MOD-01         | 末步 done + solved + 终盘 = oracle（C-071）                                                        | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-02         | 每步执行点合法且带数独轨（array 空）（C-071）                                                      | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-03         | 给定格恒等于初始谜题（C-071）                                                                      | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-04         | 含真回溯（backtrack ≥ 2）（C-071）                                                                 | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-05         | place 填入合法（不与已填冲突）（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-06         | reject 确有冲突（C-071）                                                                           | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-07         | backtrack 清空当前格且非给定（C-071）                                                              | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-08         | 每步盘面合法（行/列/宫无重复）（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-09         | 终盘每格已填、每行 1..4 全排列（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-10         | vars 展示盘尺寸/当前格（C-071）                                                                    | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-11         | 四语言 sources + 行号在范围内（C-071）                                                             | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-SDK-MOD-12         | module 元信息 title 含数独（C-071）                                                                | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
-| TC-VIEW-SDK-01        | 挂载渲染 Article + AlgorithmPlayer（C-071）                                                        | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
-| TC-VIEW-SDK-02        | h1 含「数独」+ SudokuView + 无柱数组（C-071）                                                      | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
-| TC-VIEW-SDK-03        | 全模板同屏：正文含「回溯」+ SudokuView（C-071）                                                    | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
-| TC-E2E-SDK-01         | 数独全模板：4×4 盘 / 拖末步 16 格全填 / Shiki（C-071 新增）                                        | L5   | `e2e/sudoku.e2e.ts`                                    |
-| TC-SA-MOD-01          | 末步 done + sa=[5,3,1,0,4,2]（C-072）                                                              | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-02          | 每步执行点合法且带后缀轨（array 空）（C-072）                                                      | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-03          | 原串不变 banana（C-072）                                                                           | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-04          | 终态字典序（相邻后缀升序）（C-072）                                                                | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-05          | order 恒为 0..n-1 的排列（C-072）                                                                  | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-06          | rank 值域合法；末步 rank 全不同（C-072）                                                           | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-07          | rank 步之间 k 依次翻倍 1,2（C-072）                                                                | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-08          | sort 步 phase=sort；rank 步 phase=rank（C-072）                                                    | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-09          | 收敛即止（末步 k ≤ n）（C-072）                                                                    | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-10          | vars 展示原串/sa（C-072）                                                                          | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-11          | 四语言 sources + 行号在范围内（C-072）                                                             | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-SA-MOD-12          | module 元信息 title 含后缀数组（C-072）                                                            | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
-| TC-VIEW-SA-01         | 挂载渲染 Article + AlgorithmPlayer（C-072）                                                        | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
-| TC-VIEW-SA-02         | h1 含「后缀数组」+ SuffixArrayView + 无柱数组（C-072）                                             | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
-| TC-VIEW-SA-03         | 全模板同屏：正文含「倍增」+ SuffixArrayView（C-072）                                               | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
-| TC-E2E-SA-01          | 后缀数组全模板：后缀表 / 拖末步首行 a 开头 + caption 含 sa / Shiki（C-072 新增）                   | L5   | `e2e/suffix-array.e2e.ts`                              |
-| TC-LCP-MOD-01         | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2] （C-073）                                              | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-02         | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空） （C-073）                                  | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-03         | order = suffixArray() 恒定（LCP 阶段不重排后缀） （C-073）                                         | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-04         | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0（C-073）                              | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-05         | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1（C-073）                             | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-06         | skip 步 current=0（rank 0 后缀无排序前驱） （C-073）                                               | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-07         | fill 步恰 5 次（n-1）；skip 恰 1 （C-073）                                                         | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-08         | Kasai 按原始下标 i=0..5；LCP 列非顺序填充 （C-073）                                                | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-09         | 相邻两步已填 lcp 非空格数单调不减 （C-073）                                                        | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-10         | done caption 含最长重复子串 3（max lcp）与不同子串数 15 （C-073）                                  | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-11         | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-073）                                | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-LCP-MOD-12         | module 元信息 title 含「LCP」或「height」；initialInput()=[]（C-073）                              | L3   | `src/algorithms/lcparray.module.spec.ts`               |
-| TC-VIEW-LCP-01        | 挂载渲染 Article + AlgorithmPlayer （C-073）                                                       | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`         |
-| TC-VIEW-LCP-02        | h1 含「LCP」+ SuffixArrayView + 无柱数组 （C-073）                                                 | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`         |
-| TC-VIEW-LCP-03        | 全模板同屏：正文含「Kasai」+ SuffixArrayView （C-073）                                             | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`         |
-| TC-E2E-LCP-01         | LCP 全模板：后缀表 LCP 列 / 拖末步 caption 含 3 / Shiki（C-073 新增）                              | L5   | `e2e/lcp-array.e2e.ts`                                 |
-| TC-2SAT-MOD-01        | 末步 done；解 = twoSatSolve().assign = [true,false,true]（A真/B假/C真）（C-074）                   | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-02        | 每步 point∈{init,clause,scc,check,assign,done} 且带图轨（array 空）（C-074）                       | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-03        | init 步 0 边；末步 8 边（= twoSatImplications().length）（C-074）                                  | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-04        | clause 步恰 4 个；边数累计 2,4,6,8（每子句 +2 条蕴含） （C-074）                                   | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-05        | scc 步恰 4 个；nodeGroup 已上色节点数单调不减 （C-074）                                            | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-06        | 末步 nodeGroup = comp = [0,2,2,0,1,3] （C-074）                                                    | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-07        | check 步恰 3 个；第 i 个 checkPair=[2i,2i+1] （C-074）                                             | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-08        | 每对 comp[2i]≠comp[2i+1]（无同组）→ 可满足 （C-074）                                               | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-09        | assign 步恰 3 个；真值 = comp[2v] < comp[2v+1] （C-074）                                           | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-10        | done caption 含解值（A=真/B=假/C=真 + 可满足） （C-074）                                           | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-11        | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-074）                                | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-2SAT-MOD-12        | module 元信息 title 含「2-SAT」；initialInput()=[] （C-074）                                       | L3   | `src/algorithms/twosat.module.spec.ts`                 |
-| TC-VIEW-2SAT-01       | 挂载渲染 Article + AlgorithmPlayer （C-074）                                                       | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`           |
-| TC-VIEW-2SAT-02       | h1 含「2-SAT」+ GraphView + 无柱数组 （C-074）                                                     | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`           |
-| TC-VIEW-2SAT-03       | 全模板同屏：正文含「蕴含」+ GraphView （C-074）                                                    | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`           |
-| TC-E2E-2SAT-01        | 2-SAT 全模板：蕴含图 8 边 / 拖末步 caption 含「可满足」/ Shiki（C-074 新增）                       | L5   | `e2e/two-sat.e2e.ts`                                   |
-| TC-AC-MOD-01          | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]（C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-02          | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）（C-075）                              | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-03          | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边 （C-075）                                             | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-04          | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡） （C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-05          | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3] （C-075）                                          | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-06          | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}（C-075）                                    | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-07          | match+hit 步合计 6 个（文本长）；activeNode 随字符移动 （C-075）                                   | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-08          | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers） （C-075）                                          | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-09          | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中） （C-075）                                    | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-10          | done 步 caption 含 she、he、hers （C-075）                                                         | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-AC-MOD-12          | module 元信息 title 含「AC」或「Aho」；initialInput()=[]（C-075）                                  | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
-| TC-VIEW-AC-01         | 挂载渲染 Article + AlgorithmPlayer （C-075）                                                       | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
-| TC-VIEW-AC-02         | h1 含「AC」或「Aho」+ GraphView + 无柱数组 （C-075）                                               | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
-| TC-VIEW-AC-03         | 全模板同屏：正文含「fail」+ GraphView （C-075）                                                    | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
-| TC-E2E-AC-01          | AC 自动机全模板：Trie 图 8 状态 / 拖末步 caption 含命中 hers / Shiki（C-075 新增）                 | L5   | `e2e/aho-corasick.e2e.ts`                              |
-| TC-MF-MOD-01          | 末步 done；最大流 = maxFlow().value = 6 （C-076）                                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-02          | 每步 point∈{init,find,augment,done} 且带图轨（array 空）（C-076）                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-03          | find 步恰 4 个、augment 步恰 4 个（4 轮增广） （C-076）                                            | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-04          | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）（C-076）                            | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-05          | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6 （C-076）                                                    | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-06          | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）（C-076）                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-07          | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒） （C-076）                               | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-08          | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮） （C-076）                                   | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-09          | done 步 edgeClass 标最小割边 s→a、s→b （C-076）                                                    | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-10          | done 步 caption 含最大流 6 与「最小割」 （C-076）                                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-076）                                | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-MF-MOD-12          | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]（C-076）                             | L3   | `src/algorithms/maxflow.module.spec.ts`                |
-| TC-VIEW-MF-01         | 挂载渲染 Article + AlgorithmPlayer （C-076）                                                       | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`          |
-| TC-VIEW-MF-02         | h1 含「最大流」+ GraphView + 无柱数组 （C-076）                                                    | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`          |
-| TC-VIEW-MF-03         | 全模板同屏：正文含「残量」+ GraphView （C-076）                                                    | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`          |
-| TC-E2E-MF-01          | 最大流全模板：网络图 4 节点 / 拖末步 caption 含最大流 6 / Shiki（C-076 新增）                      | L5   | `e2e/max-flow.e2e.ts`                                  |
+> **C-077（M7 新顶层大类「数学与数论」首发 · 新页 + 新轨）**：埃拉托斯特尼筛（Sieve of Eratosthenes）——求 1..N 内所有素数。不判断只**划掉**：从 2 起，每个还没被划掉的数是素数，划掉它从 **p²** 起的所有倍数（更小倍数已被更小素数划过）；筛到 **√N** 即停（合数必有 ≤√N 的质因子），剩下没划掉的全是素数，O(N log log N)。**新建第 16 条 SieveView 数字网格轨**（数论大类可视化基础，为线性筛/因数分解铺路）：n×cols 网格每格一个数按状态着色（special=1 灰 / unknown 中性 / prime 绿 / composite 灰划掉 / current 素数琥珀环 / marking 本步倍数红），CSS-grid 复用 BoardView 模式（见 viz-engine 段 `TC-VIZ-SIEVEVIEW-*` / `TC-PLAYER-SIEVE-*`）。新 `Step.sieve?` additive、AlgorithmPlayer 加一行 v-if。`sieve.module`（固定 N=30，init+prime×3+mark×3+rest+done 9 步 + oracle `sievePrimes()`=[2,3,5,7,11,13,17,19,23,29] 与试除法对拍）。新页 + 路由 `/docs/sieve-of-eratosthenes` + **菜单/首页新增第 7 大类「数学与数论」** + 新 `sieve.svg` + 改 `TC-HOOK`（分类 6→7 + data[6] 数学与数论）。6 大类不设 sieve 零回归。`TC-SIEVE-MOD-*` + `TC-VIEW-SIEVE-*` + `TC-E2E-SIEVE-01`。
+
+| Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
+| --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
+| TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-02        | 出边邻接                                                                                           | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-03        | 确定顺序 [0,2,1,3,4,5]                                                                             | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-04        | 最终距离 [0,3,1,4,7,9]                                                                             | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-05        | 前驱表 [null,2,0,1,3,4]                                                                            | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-06        | 最短路还原 F = [0,2,1,3,4,5]                                                                       | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-07        | 最短路还原 E = [0,2,1,3,4]                                                                         | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-08        | steps 长度 7                                                                                       | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-09        | 初始步 settled 空、dist[0]=0 余 ∞                                                                  | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-10        | 确定 C 后 steps[2]                                                                                 | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-11        | 松弛更新 D：steps[3] dist[3]→4                                                                     | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-12        | 终步 6 点全确定                                                                                    | L3   | `src/components/structures/useDijkstra.spec.ts`           |
+| TC-DIJKSTRA-MOD-01    | 末步 nodeBadge = oracle dist [0,3,1,4,7,9]（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-02    | 每步执行点合法且带 graph 轨（array:[]）（C-047）                                                   | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-03    | 确定 6 点 #selectMin==#settle==6（C-047）                                                          | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-04    | 松弛守恒 #relaxEdge==#relaxUpdate+#relaxSkip（C-047）                                              | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-05    | init 步 dist[A]=0 其余 ∞（C-047）                                                                  | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-06    | 确定顺序 settle activeNode=[0,2,1,3,4,5]（C-047）                                                  | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-07    | 首个 relaxUpdate B=4（出边序）；A→C 后 C=1（C-047）                                                | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-08    | done 最短路树 tree 边恰 5（C-047）                                                                 | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-09    | done 步 doneNodes 长度 6（C-047）                                                                  | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-10    | 四语言 sources + 行号在范围内（C-047）                                                             | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-DIJKSTRA-MOD-11    | module 元信息 title 含 Dijkstra、initialInput()=[]（C-047）                                        | L3   | `src/algorithms/dijkstra.module.spec.ts`                  |
+| TC-VIZ-DIJKSTRAVIZ-01 | ~~6 dvert + 9 dedge + 距离表 6 格 + 下一步/重置~~ (superseded C-047)                               | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIZ-DIJKSTRAVIZ-02 | ~~初始距离表 0 + ∞、settled 0~~ (superseded C-047)                                                 | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIZ-DIJKSTRAVIZ-03 | ~~下一步×1：确定 A、settled 1、现 4 与 1~~ (superseded C-047)                                      | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIZ-DIJKSTRAVIZ-04 | ~~下一步×2：B 由 4 松弛到 3~~ (superseded C-047)                                                   | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIZ-DIJKSTRAVIZ-05 | ~~下一步×1：松弛边点亮 ≥1~~ (superseded C-047)                                                     | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIZ-DIJKSTRAVIZ-06 | ~~走到底：settled 6、现 9、status「最短」~~ (superseded C-047)                                     | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIZ-DIJKSTRAVIZ-07 | ~~走到底：最短路树点亮 ≥1~~ (superseded C-047)                                                     | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIZ-DIJKSTRAVIZ-08 | ~~重置：清空 settled、距离表回 ∞~~ (superseded C-047)                                              | L4   | `src/components/structures/DijkstraViz.spec.ts`           |
+| TC-VIEW-DIJKSTRA-01   | 挂载渲染 Article + AlgorithmPlayer（C-047 返工，不再含 DijkstraViz）                               | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`            |
+| TC-VIEW-DIJKSTRA-02   | h1 含「Dijkstra」+ GraphView + 6 .graph-node + 无 .bars-view（C-047）                              | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`            |
+| TC-VIEW-DIJKSTRA-03   | 全模板同屏：Article 含「最短」+ ≥9 .graph-edge（C-047）                                            | L4   | `src/views/Article/Algorithm/Dijkstra.spec.ts`            |
+| TC-E2E-DIJKSTRA-01    | Dijkstra 全模板：图轨 6 点 9 边 / 拖末步 6 绿点 + 5 绿树边 / Shiki（C-047 改写）                   | L5   | `e2e/dijkstra.e2e.ts`                                     |
+| TC-KRUSKAL-01         | 图规模与标签（6 点 9 边）                                                                          | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-02         | 边已按权升序（[1..9]、AC 首）                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-03         | MST 边集 [AC,BC,DE,BD,DF]                                                                          | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-04         | MST 总权重 18                                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-05         | steps 长度 10                                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-06         | 初始步 mst 空、weight 0                                                                            | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-07         | 加入 B-C：steps[2]                                                                                 | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-08         | 成环跳过 A-B：steps[4]                                                                             | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-09         | 加入 B-D：steps[5] 含 BD、weight 11                                                                | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-10         | 完成步 D-F：steps[7] mst 5、weight 18                                                              | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-11         | 成环边集 [AB,CE,EF,CD]                                                                             | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-12         | 末步权重稳定 mst 5、weight 18                                                                      | L3   | `src/components/structures/useKruskal.spec.ts`            |
+| TC-KRUSKAL-MOD-01     | 末步 mst 边（edgeClass=mst）= oracle [AC,BC,DE,BD,DF]（C-048）                                     | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-02     | 每步执行点合法且带 graph 无向轨（array:[]）（C-048）                                               | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-03     | 考虑 9 边 #consider==9（C-048）                                                                    | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-04     | 接受/拒绝守恒 #accept==5、#reject==4（C-048）                                                      | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-05     | init 步 edgeClass 全空、doneNodes 空（C-048）                                                      | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-06     | 首个 accept（AC 权1）后 edgeClass[AC]=mst、权重=1（C-048）                                         | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-07     | 首个 reject（AB 权4）后 edgeClass[AB]=rejected（C-048）                                            | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-08     | 每个 consider 步当前边 edgeClass=current（C-048）                                                  | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-09     | done 步 mst 恰 5、rejected 恰 4（C-048）                                                           | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-10     | done 步总权 18、doneNodes 含全 6 点（C-048）                                                       | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-11     | 四语言 sources + 行号在范围内（C-048）                                                             | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-KRUSKAL-MOD-12     | module 元信息 title 含 Kruskal、initialInput()=[]（C-048）                                         | L3   | `src/algorithms/kruskal.module.spec.ts`                   |
+| TC-VIZ-KRUSKALVIZ-01  | ~~6 kvert + 9 kedge + 边列表 9 行 + 下一步/重置~~ (superseded C-048)                               | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIZ-KRUSKALVIZ-02  | ~~初始无 MST~~ (superseded C-048)                                                                  | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIZ-KRUSKALVIZ-03  | ~~下一步×1：加入、status「加入」~~ (superseded C-048)                                              | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIZ-KRUSKALVIZ-04  | ~~下一步×4：成环跳过、cycle ≥1、mst 3~~ (superseded C-048)                                         | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIZ-KRUSKALVIZ-05  | ~~下一步×4：当前考虑边高亮 ≥1~~ (superseded C-048)                                                 | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIZ-KRUSKALVIZ-06  | ~~走到底：mst 5、status「18」~~ (superseded C-048)                                                 | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIZ-KRUSKALVIZ-07  | ~~走到底：成环 4 条~~ (superseded C-048)                                                           | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIZ-KRUSKALVIZ-08  | ~~重置：mst 清空~~ (superseded C-048)                                                              | L4   | `src/components/structures/KruskalViz.spec.ts`            |
+| TC-VIEW-KRUSKAL-01    | 挂载渲染 Article + AlgorithmPlayer（C-048 返工，不再含 KruskalViz）                                | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`             |
+| TC-VIEW-KRUSKAL-02    | h1 含「Kruskal」+ GraphView + 6 .graph-node + 无 .bars-view（C-048）                               | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`             |
+| TC-VIEW-KRUSKAL-03    | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge（C-048）                                      | L4   | `src/views/Article/Algorithm/Kruskal.spec.ts`             |
+| TC-E2E-KRUSKAL-01     | Kruskal 全模板：图轨 6 点 9 边 / 拖末步 5 mst + 4 rejected 边 / Shiki（C-048 改写）                | L5   | `e2e/kruskal.e2e.ts`                                      |
+| TC-PRIM-MOD-01        | 末步 mst 边 = oracle primTrace().mstEdges（C-049）                                                 | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-02        | 与 Kruskal 同一张图 → 同 MST 集（序可不同）（C-049）                                               | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-03        | 每步执行点合法且带无向图轨（array:[]、directed=false）（C-049）                                    | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-04        | 生长 5 边 #selectEdge==5、#addVertex==5（C-049）                                                   | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-05        | init 步 doneNodes=[0]、无 mst 边（C-049）                                                          | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-06        | 每个 selectEdge 步唯一 1 条 current 且横切（C-049）                                                | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-07        | 首个 addVertex 并入 C(2)、edgeClass[AC]=mst、权重=1（C-049）                                       | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-08        | 生长顺序：新增点序列 = [C,B,D,E,F]（C-049）                                                        | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-09        | done 步 mst 恰 5（C-049）                                                                          | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-10        | done 步总权 18、doneNodes 含全 6 点（C-049）                                                       | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-11        | 四语言 sources + 行号在范围内（C-049）                                                             | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-PRIM-MOD-12        | module 元信息 title 含 Prim、initialInput()=[]（C-049）                                            | L3   | `src/algorithms/prim.module.spec.ts`                      |
+| TC-VIEW-PRIM-01       | 挂载渲染 Article + AlgorithmPlayer（C-049）                                                        | L4   | `src/views/Article/Algorithm/Prim.spec.ts`                |
+| TC-VIEW-PRIM-02       | h1 含「Prim」+ GraphView + 6 .graph-node + 无 .bars-view（C-049）                                  | L4   | `src/views/Article/Algorithm/Prim.spec.ts`                |
+| TC-VIEW-PRIM-03       | 全模板同屏：Article 含「最小生成树」+ ≥9 .graph-edge（C-049）                                      | L4   | `src/views/Article/Algorithm/Prim.spec.ts`                |
+| TC-E2E-PRIM-01        | Prim 全模板：图轨 6 点 9 边 / 拖末步 5 mst + 6 点全绿 + 字幕 18 / Shiki（C-049 新增）              | L5   | `e2e/prim.e2e.ts`                                         |
+| TC-BELLMAN-MOD-01     | 末步 nodeBadge 数值 = oracle dist [0,4,1,3,1]（C-050）                                             | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-02     | 每步执行点合法且带有向图轨（array:[]、directed=true）（C-050）                                     | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-03     | V−1 轮 #roundStart==4（C-050）                                                                     | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-04     | 松弛统计 #relaxUpdate==8、#relaxSkip==20（C-050）                                                  | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-05     | init 步 dist[A]=0、其余 ∞（C-050）                                                                 | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-06     | 逐轮 dist：各 roundStart nodeBadge = 进入该轮 dist（C-050）                                        | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-07     | 首个 relaxUpdate（B←A）后 nodeBadge[1]=4（C-050）                                                  | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-08     | dist 单调不增（松弛不变量）（C-050）                                                               | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-09     | done 最短路树 tree 恰 4：{0-1,1-2,2-3,3-4}（C-050）                                                | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-10     | 含负权边 B→C=-3、D→E=-2；done doneNodes 全 5 点（C-050）                                           | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-11     | 四语言 sources + 行号在范围内（C-050）                                                             | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-BELLMAN-MOD-12     | module 元信息 title 含 Bellman、initialInput()=[]（C-050）                                         | L3   | `src/algorithms/bellman-ford.module.spec.ts`              |
+| TC-VIEW-BELLMAN-01    | 挂载渲染 Article + AlgorithmPlayer（C-050）                                                        | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
+| TC-VIEW-BELLMAN-02    | h1 含「Bellman」+ GraphView + 5 .graph-node + 无 .bars-view（C-050）                               | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
+| TC-VIEW-BELLMAN-03    | 全模板同屏：Article 含「最短」+ ≥7 .graph-edge（C-050）                                            | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
+| TC-E2E-BELLMAN-01     | Bellman-Ford 全模板：图轨 5 点 7 边（含负权）/ 拖末步 4 tree 绿边 + 5 点全绿 / Shiki（C-050 新增） | L5   | `e2e/bellman-ford.e2e.ts`                                 |
+| TC-TOPO-MOD-01        | 末步输出序 = oracle order [2,0,4,1,3,5]（C-051）                                                   | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-02        | 每步执行点合法且带有向图轨（array:[]、directed=true）（C-051）                                     | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-03        | 取/输出 6 点 #selectNode==6、#removeNode==6（C-051）                                               | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-04        | init 步 nodeBadge = 初始入度 [1,2,0,1,0,3]（C-051）                                                | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-05        | 首个 selectNode 取 C（activeNode=2）（C-051）                                                      | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-06        | 首个 removeNode 后 doneNodes=[2]、A 入度→0（C-051）                                                | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-07        | 输出序是合法拓扑序（每边 u→v，u 先于 v）（C-051）                                                  | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-08        | 入度徽标单调不增（减度不变量）（C-051）                                                            | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-09        | removeNode 新增 doneNodes 序列 = [2,0,4,1,3,5]（C-051）                                            | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-10        | done 步 doneNodes 全 6 点、nodeBadge 全 0（C-051）                                                 | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-11        | 四语言 sources + 行号在范围内（C-051）                                                             | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-TOPO-MOD-12        | module 元信息 title 含拓扑、initialInput()=[]（C-051）                                             | L3   | `src/algorithms/topo.module.spec.ts`                      |
+| TC-VIEW-TOPO-01       | 挂载渲染 Article + AlgorithmPlayer（C-051）                                                        | L4   | `src/views/Article/Algorithm/Topo.spec.ts`                |
+| TC-VIEW-TOPO-02       | h1 含「拓扑」+ GraphView + 6 .graph-node + 无 .bars-view（C-051）                                  | L4   | `src/views/Article/Algorithm/Topo.spec.ts`                |
+| TC-VIEW-TOPO-03       | 全模板同屏：Article 含「拓扑」+ ≥7 .graph-edge（C-051）                                            | L4   | `src/views/Article/Algorithm/Topo.spec.ts`                |
+| TC-E2E-TOPO-01        | 拓扑排序全模板：图轨 6 点 7 边 DAG / 拖末步 6 点全绿 + 字幕拓扑序 / Shiki（C-051 新增）            | L5   | `e2e/topological-sort.e2e.ts`                             |
+| TC-FLOYD-MOD-01       | 末步 cells = oracle floydTrace() 终态矩阵（C-052）                                                 | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-02       | 每步执行点合法且带矩阵轨（array:[]）（C-052）                                                      | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-03       | 4 个中转点 #pivotStart==4（C-052）                                                                 | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-04       | 松弛统计 #relaxUpdate==10、#relaxSkip==3（C-052）                                                  | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-05       | init cells = 邻接（对角 0、A→B=3、A→D=null）（C-052）                                              | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-06       | done 矩阵无 ∞（含环→全点对可达）（C-052）                                                          | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-07       | 关键距离 [1][0]=8、[0][3]=6、[2][1]=9（C-052）                                                     | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-08       | 第 k 个 pivotStart 步 matrix.pivot===k（C-052）                                                    | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-09       | 每个单元值单调不增（松弛不变量）（C-052）                                                          | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-10       | 每个 relax 步 active 非空、sources 长度 2（C-052）                                                 | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-11       | 四语言 sources + 行号在范围内（C-052）                                                             | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-FLOYD-MOD-12       | module 元信息 title 含 Floyd、initialInput()=[]（C-052）                                           | L3   | `src/algorithms/floyd.module.spec.ts`                     |
+| TC-VIEW-FLOYD-01      | 挂载渲染 Article + AlgorithmPlayer（C-052）                                                        | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`               |
+| TC-VIEW-FLOYD-02      | h1 含「Floyd」+ MatrixView + 16 .matrix-cell + 无 .bars-view（C-052）                              | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`               |
+| TC-VIEW-FLOYD-03      | 全模板同屏：Article 含「最短」+ MatrixView（C-052）                                                | L4   | `src/views/Article/Algorithm/Floyd.spec.ts`               |
+| TC-E2E-FLOYD-01       | Floyd 全模板：矩阵轨 4×4 / 拖末步全源矩阵无 ∞ / Shiki（C-052 新增）                                | L5   | `e2e/floyd-warshall.e2e.ts`                               |
+| TC-EDIT-MOD-01        | 末步 cells = oracle editDistTrace()，右下角=2（C-053）                                             | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-02        | 每步执行点合法且带矩阵轨（array:[]）（C-053）                                                      | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-03        | #cellMatch==1（仅 S==S）、#cellDiff==8（C-053）                                                    | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-04        | init 边界 第 0 行/列=[0,1,2,3]、内部 null（C-053）                                                 | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-05        | (1,1) match：cells[1][1]=0、sources 单个左上（C-053）                                              | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-06        | 每个 cellDiff 步 sources 长度 3（左上/上/左）（C-053）                                             | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-07        | 每步 rowLabels ∅SAT / colLabels ∅SUN / emptyText=''（C-053）                                       | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-08        | 编辑距离答案 cells[3][3]=2（C-053）                                                                | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-09        | 单元写入一次不变（DP 不变量）（C-053）                                                             | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-10        | 每个填格步 active 为当前格 (i,j)（C-053）                                                          | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-11        | 四语言 sources + 行号在范围内（C-053）                                                             | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-EDIT-MOD-12        | module 元信息 title 含编辑距离、initialInput()=[]（C-053）                                         | L3   | `src/algorithms/editdist.module.spec.ts`                  |
+| TC-VIEW-EDIT-01       | 挂载渲染 Article + AlgorithmPlayer（C-053）                                                        | L4   | `src/views/Article/Algorithm/Edit.spec.ts`                |
+| TC-VIEW-EDIT-02       | h1 含「编辑距离」+ MatrixView + 16 .matrix-cell + 无 .bars-view（C-053）                           | L4   | `src/views/Article/Algorithm/Edit.spec.ts`                |
+| TC-VIEW-EDIT-03       | 全模板同屏：Article 含「编辑距离」+ MatrixView（C-053）                                            | L4   | `src/views/Article/Algorithm/Edit.spec.ts`                |
+| TC-E2E-EDIT-01        | 编辑距离全模板：DP 表 4×4 / 拖末步右下角=2 / Shiki（C-053 新增）                                   | L5   | `e2e/edit-distance.e2e.ts`                                |
+| TC-KNAP-MOD-01        | 末步 cells = oracle knapsackTrace()，右下角=7（C-054）                                             | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-02        | 每步执行点合法且带矩阵轨（array:[]）（C-054）                                                      | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-03        | 取舍统计 #cellSkip==10、#cellChoose==10（C-054）                                                   | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-04        | init 第 0 行/列全 0、内部 null（C-054）                                                            | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-05        | 首个 cellSkip（A 容量1 重2>1）cells[1][1]=0、sources 上格（C-054）                                 | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-06        | 每个 cellChoose 步 sources 长度 2（上格+左上偏移格）（C-054）                                      | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-07        | 每步 rowLabels ∅ABCD / colLabels 0-5 / emptyText=''（C-054）                                       | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-08        | 最优值 cells[4][5]=7（选 A+B）（C-054）                                                            | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-09        | 单元写入一次不变（DP 不变量）（C-054）                                                             | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-10        | 每个填格步 active 为当前格 (i,w)（C-054）                                                          | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-11        | 四语言 sources + 行号在范围内（C-054）                                                             | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-KNAP-MOD-12        | module 元信息 title 含背包、initialInput()=[]（C-054）                                             | L3   | `src/algorithms/knapsack.module.spec.ts`                  |
+| TC-VIEW-KNAP-01       | 挂载渲染 Article + AlgorithmPlayer（C-054）                                                        | L4   | `src/views/Article/Algorithm/Knapsack.spec.ts`            |
+| TC-VIEW-KNAP-02       | h1 含「背包」+ MatrixView + 30 .matrix-cell + 无 .bars-view（C-054）                               | L4   | `src/views/Article/Algorithm/Knapsack.spec.ts`            |
+| TC-VIEW-KNAP-03       | 全模板同屏：Article 含「背包」+ MatrixView（C-054）                                                | L4   | `src/views/Article/Algorithm/Knapsack.spec.ts`            |
+| TC-E2E-KNAP-01        | 0-1 背包全模板：DP 表 5×6 / 拖末步右下角=7 / Shiki（C-054 新增）                                   | L5   | `e2e/knapsack.e2e.ts`                                     |
+| TC-QUEENS-MOD-01      | 末步 solved，queens = oracle [1,3,0,2]（C-055）                                                    | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-02      | 每步执行点合法且带棋盘轨（array:[]）（C-055）                                                      | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-03      | 解合法：4 皇后两两不同行/对角（C-055）                                                             | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-04      | init 空盘（queens 全 null）（C-055）                                                               | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-05      | 首个 place tryCell=[0,0]、queens[0]=0（C-055）                                                     | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-06      | 每个 tryConflict 步 conflictCells 非空（C-055）                                                    | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-07      | 存在回溯 #backtrack>=1（C-055）                                                                    | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-08      | 恰一解 #solved==1、末步满盘 4 皇后（C-055）                                                        | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-09      | 每步已放皇后数在 [0,4]（C-055）                                                                    | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-10      | 每个 tryConflict/place 步 tryCell 在盘内（C-055）                                                  | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-11      | 四语言 sources + 行号在范围内（C-055）                                                             | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-QUEENS-MOD-12      | module 元信息 title 含皇后、initialInput()=[]（C-055）                                             | L3   | `src/algorithms/queens.module.spec.ts`                    |
+| TC-VIEW-QUEENS-01     | 挂载渲染 Article + AlgorithmPlayer（C-055）                                                        | L4   | `src/views/Article/Algorithm/Queens.spec.ts`              |
+| TC-VIEW-QUEENS-02     | h1 含「皇后」+ BoardView + 16 .board-cell + 无 .bars-view（C-055）                                 | L4   | `src/views/Article/Algorithm/Queens.spec.ts`              |
+| TC-VIEW-QUEENS-03     | 全模板同屏：Article 含「皇后」+ BoardView（C-055）                                                 | L4   | `src/views/Article/Algorithm/Queens.spec.ts`              |
+| TC-E2E-QUEENS-01      | N 皇后全模板：棋盘 4×4 / 拖末步 4 皇后 / Shiki（C-055 新增）                                       | L5   | `e2e/n-queens.e2e.ts`                                     |
+| TC-SUBSETS-MOD-01     | 末步 done，solutionIds 覆盖全部 8 叶（C-056）                                                      | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-02     | 每步执行点合法且带决策树轨（array:[]）（C-056）                                                    | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-03     | 决策树 15 节点、14 边、8 叶（C-056）                                                               | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-04     | 8 个 record 步按序 = subsetsAll() 幂集（C-056）                                                    | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-05     | 首步 start：根空集、pathIds=[根]、solutionIds 空（C-056）                                          | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-06     | 恰 8 个 record（= 2^3）（C-056）                                                                   | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-07     | 存在回溯，backtrack 步 active 为内部节点（C-056）                                                  | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-08     | 每步 pathIds 从根到 active 连贯（相邻父子边）（C-056）                                             | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-09     | solutionIds 长度单调不减，末步=8（C-056）                                                          | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-10     | 首个 include 步 active=根「选 1」子、边 label 含「选 1」（C-056）                                  | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-11     | 四语言 sources + 行号在范围内（C-056）                                                             | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-SUBSETS-MOD-12     | module 元信息 title 含子集、initialInput()=[]（C-056）                                             | L3   | `src/algorithms/subsets.module.spec.ts`                   |
+| TC-VIEW-SUBSETS-01    | 挂载渲染 Article + AlgorithmPlayer（C-056）                                                        | L4   | `src/views/Article/Algorithm/Subsets.spec.ts`             |
+| TC-VIEW-SUBSETS-02    | h1 含「子集」+ DecisionTreeView + 无 .bars-view（C-056）                                           | L4   | `src/views/Article/Algorithm/Subsets.spec.ts`             |
+| TC-VIEW-SUBSETS-03    | 全模板同屏：Article 含「子集」+ DecisionTreeView（C-056）                                          | L4   | `src/views/Article/Algorithm/Subsets.spec.ts`             |
+| TC-E2E-SUBSETS-01     | 子集全模板：决策树 15 节点 / 拖末步 8 解叶 / Shiki（C-056 新增）                                   | L5   | `e2e/subsets.e2e.ts`                                      |
+| TC-PERMUTE-MOD-01     | 末步 done，solutionIds 覆盖全部 6 叶（C-057）                                                      | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-02     | 每步执行点合法且带决策树轨（array:[]）（C-057）                                                    | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-03     | 决策树 16 节点、15 边、6 叶（C-057）                                                               | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-04     | 6 个 record 步按序 = permutationsAll()（C-057）                                                    | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-05     | 首步 start：根空排列、pathIds=[根]、solutionIds 空（C-057）                                        | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-06     | 恰 6 个 record（= 3!）（C-057）                                                                    | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-07     | 存在回溯，backtrack 步 active 为内部节点（C-057）                                                  | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-08     | 每步 pathIds 从根到 active 连贯（相邻父子边）（C-057）                                             | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-09     | 每个解是 [1,2,3] 的合法排列（长 3/互异/值域）（C-057）                                             | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-10     | 首个 choose 步 active=根首子、边 label 含「选 1」（C-057）                                         | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-11     | 四语言 sources + 行号在范围内（C-057）                                                             | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-PERMUTE-MOD-12     | module 元信息 title 含排列、initialInput()=[]（C-057）                                             | L3   | `src/algorithms/permute.module.spec.ts`                   |
+| TC-VIEW-PERMUTE-01    | 挂载渲染 Article + AlgorithmPlayer（C-057）                                                        | L4   | `src/views/Article/Algorithm/Permute.spec.ts`             |
+| TC-VIEW-PERMUTE-02    | h1 含「排列」+ DecisionTreeView + 无 .bars-view（C-057）                                           | L4   | `src/views/Article/Algorithm/Permute.spec.ts`             |
+| TC-VIEW-PERMUTE-03    | 全模板同屏：Article 含「排列」+ DecisionTreeView（C-057）                                          | L4   | `src/views/Article/Algorithm/Permute.spec.ts`             |
+| TC-E2E-PERMUTE-01     | 全排列全模板：决策树 16 节点 / 拖末步 6 排列叶 / Shiki（C-057 新增）                               | L5   | `e2e/permutations.e2e.ts`                                 |
+| TC-COMBSUM-MOD-01     | 末步 done，solutionIds = 全部解叶（2 个）（C-058）                                                 | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-02     | 每步执行点合法且带决策树轨（array:[]）（C-058）                                                    | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-03     | 决策树 14 节点；解 2、剪枝 5（C-058）                                                              | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-04     | record 步组合按序 = combSumAll() [[1,4],[2,3]]，和=5（C-058）                                      | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-05     | 首步 start：根空组合、pathIds=[根]、solution/pruned 空（C-058）                                    | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-06     | 存在剪枝 #prune>=1，末步 prunedIds 覆盖全部剪枝（5）（C-058）                                      | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-07     | 每个剪枝节点其组合之和 > 目标 5（C-058）                                                           | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-08     | 每个解节点其组合之和 = 目标 5（C-058）                                                             | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-09     | 每步 pathIds 从根到 active 连贯（相邻父子边）（C-058）                                             | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-10     | 每个剪枝节点在决策树中无出边（不展开）（C-058）                                                    | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-11     | 四语言 sources + 行号在范围内（C-058）                                                             | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-COMBSUM-MOD-12     | module 元信息 title 含组合、initialInput()=[]（C-058）                                             | L3   | `src/algorithms/combsum.module.spec.ts`                   |
+| TC-VIEW-COMBSUM-01    | 挂载渲染 Article + AlgorithmPlayer（C-058）                                                        | L4   | `src/views/Article/Algorithm/Combsum.spec.ts`             |
+| TC-VIEW-COMBSUM-02    | h1 含「组合」+ DecisionTreeView + 无 .bars-view（C-058）                                           | L4   | `src/views/Article/Algorithm/Combsum.spec.ts`             |
+| TC-VIEW-COMBSUM-03    | 全模板同屏：Article 含「组合」+ DecisionTreeView（C-058）                                          | L4   | `src/views/Article/Algorithm/Combsum.spec.ts`             |
+| TC-E2E-COMBSUM-01     | 组合总和全模板：决策树剪枝 / 拖末步 5 剪枝支 + 2 解 / Shiki（C-058 新增）                          | L5   | `e2e/combination-sum.e2e.ts`                              |
+| TC-MAZE-MOD-01        | 末步 done、solved，path = mazeSolve()（C-059）                                                     | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-02        | 每步执行点合法且带迷宫轨（array:[]）（C-059）                                                      | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-03        | 解路径有效：首=起点、尾=终点、四连通、不穿墙（C-059）                                              | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-04        | 首步 start：current=起点、path=[起点]（C-059）                                                     | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-05        | 恰一 goal 步，current=终点（C-059）                                                                | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-06        | 存在死路 + 回溯（#deadend/#backtrack >=1）（C-059）                                                | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-07        | deadend 步 current 四邻皆墙/越界/已访问（C-059）                                                   | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-08        | 每步 path 相邻格四连通（C-059）                                                                    | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-09        | visited 数量单调不减，含起点（C-059）                                                              | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-10        | 每步 current = path 末元素（C-059）                                                                | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-11        | 四语言 sources + 行号在范围内（C-059）                                                             | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-MAZE-MOD-12        | module 元信息 title 含迷宫、initialInput()=[]（C-059）                                             | L3   | `src/algorithms/maze.module.spec.ts`                      |
+| TC-VIEW-MAZE-01       | 挂载渲染 Article + AlgorithmPlayer（C-059）                                                        | L4   | `src/views/Article/Algorithm/Maze.spec.ts`                |
+| TC-VIEW-MAZE-02       | h1 含「迷宫」+ MazeView + 25 格 + 无 .bars-view（C-059）                                           | L4   | `src/views/Article/Algorithm/Maze.spec.ts`                |
+| TC-VIEW-MAZE-03       | 全模板同屏：Article 含「迷宫」+ MazeView（C-059）                                                  | L4   | `src/views/Article/Algorithm/Maze.spec.ts`                |
+| TC-E2E-MAZE-01        | 迷宫全模板：网格 DFS 回溯 / 拖末步 解路径绿 / Shiki（C-059 新增）                                  | L5   | `e2e/maze.e2e.ts`                                         |
+| TC-LCS-MOD-01         | fillDone 右下角 = lcsLength() = 3（C-060）                                                         | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-02         | 每步执行点合法且带矩阵轨（array:[]）（C-060）                                                      | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-03         | DP 表 5×5，标签含 ∅ + 字符（C-060）                                                                | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-04         | init 步第 0 行、第 0 列全 0（C-060）                                                               | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-05         | match 步取左上 +1（X[i-1]=Y[j-1]）（C-060）                                                        | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-06         | mismatch 步取上/左较大（X[i-1]≠Y[j-1]）（C-060）                                                   | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-07         | 末步 done，含 lcsString() = ACD（C-060）                                                           | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-08         | trace/done 步 pathCells = lcsPath()、首含 (m,n)（C-060）                                           | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-09         | trace 步 pathCells 数量单调不减（C-060）                                                           | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-10         | 存在填表 + 回溯（match/mismatch/trace >=1）（C-060）                                               | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-11         | 四语言 sources + 行号在范围内（C-060）                                                             | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-LCS-MOD-12         | module 元信息 title 含公共子序列/LCS、initialInput()=[]（C-060）                                   | L3   | `src/algorithms/lcs.module.spec.ts`                       |
+| TC-VIEW-LCS-01        | 挂载渲染 Article + AlgorithmPlayer（C-060）                                                        | L4   | `src/views/Article/Algorithm/Lcs.spec.ts`                 |
+| TC-VIEW-LCS-02        | h1 含「子序列」+ MatrixView + 无 .bars-view（C-060）                                               | L4   | `src/views/Article/Algorithm/Lcs.spec.ts`                 |
+| TC-VIEW-LCS-03        | 全模板同屏：Article 含「子序列」+ MatrixView（C-060）                                              | L4   | `src/views/Article/Algorithm/Lcs.spec.ts`                 |
+| TC-E2E-LCS-01         | LCS 全模板：DP 填表 + 回溯 / 拖末步 路径绿 + ACD / Shiki（C-060 新增）                             | L5   | `e2e/lcs.e2e.ts`                                          |
+| TC-LIS-MOD-01         | fillDone dp 行最大值 = lisLength() = 4（C-061）                                                    | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-02         | 每步执行点合法且带矩阵轨（array:[]）（C-061）                                                      | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-03         | 两行表 2 行×n 列，rowLabels 含「值」「dp」（C-061）                                                | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-04         | init 步 dp 行全 1（C-061）                                                                         | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-05         | extend 步 active=[1,i]、dp[i]=dp[j]+1（C-061）                                                     | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-06         | scan 步不更新（updatedCell 空）（C-061）                                                           | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-07         | 末步 result，含 lisValues 连接 1→3→4→5（C-061）                                                    | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-08         | result 步 pathCells = LIS 位置 [0,1,3,5]（值行）（C-061）                                          | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-09         | 末步 dp 行 = lisDp().dp = [1,2,2,3,3,4]（C-061）                                                   | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-10         | 存在 scan + extend（C-061）                                                                        | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-11         | 四语言 sources + 行号在范围内（C-061）                                                             | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-LIS-MOD-12         | module 元信息 title 含递增子序列/LIS、initialInput()=[]（C-061）                                   | L3   | `src/algorithms/lis.module.spec.ts`                       |
+| TC-VIEW-LIS-01        | 挂载渲染 Article + AlgorithmPlayer（C-061）                                                        | L4   | `src/views/Article/Algorithm/Lis.spec.ts`                 |
+| TC-VIEW-LIS-02        | h1 含「递增子序列」+ MatrixView + 无 .bars-view（C-061）                                           | L4   | `src/views/Article/Algorithm/Lis.spec.ts`                 |
+| TC-VIEW-LIS-03        | 全模板同屏：Article 含「递增子序列」+ MatrixView（C-061）                                          | L4   | `src/views/Article/Algorithm/Lis.spec.ts`                 |
+| TC-E2E-LIS-01         | LIS 全模板：一维 DP 两行表 / 拖末步 LIS 高亮 + 1→3→4→5 / Shiki（C-061 新增）                       | L5   | `e2e/lis.e2e.ts`                                          |
+| TC-KMP-MOD-01         | 末步 done，found = kmpMatches() = [2]（C-062）                                                     | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-02         | 每步执行点合法且带匹配轨（array:[]）（C-062）                                                      | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-03         | 每步 lps = kmpLps() = [0,0,1,2,0]（C-062）                                                         | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-04         | 存在关键跳转 #jump>=1、jump 步 lpsActive=comparePat-1（C-062）                                     | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-05         | 恰一 found，命中起点 = 2（C-062）                                                                  | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-06         | match 步字符相等 T[compareText]===P[comparePat]（C-062）                                           | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-07         | 文本指针不回退：compareText 单调不减（C-062）                                                      | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-08         | offset = compareText - comparePat（≥0）（C-062）                                                   | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-09         | matchedLen = comparePat（C-062）                                                                   | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-10         | 命中区间不越界：T.substr(s,m)===P（C-062）                                                         | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-11         | 四语言 sources + 行号在范围内（C-062）                                                             | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-KMP-MOD-12         | module 元信息 title 含 KMP/字符串、initialInput()=[]（C-062）                                      | L3   | `src/algorithms/kmp.module.spec.ts`                       |
+| TC-VIEW-KMP-01        | 挂载渲染 Article + AlgorithmPlayer（C-062）                                                        | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`                 |
+| TC-VIEW-KMP-02        | h1 含「KMP」+ KmpView + 无 .bars-view（C-062）                                                     | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`                 |
+| TC-VIEW-KMP-03        | 全模板同屏：Article 含「字符串」+ KmpView（C-062）                                                 | L4   | `src/views/Article/Algorithm/Kmp.spec.ts`                 |
+| TC-E2E-KMP-01         | KMP 全模板：文本/模式/LPS 三行 / 拖末步 命中高亮 / Shiki（C-062 新增）                             | L5   | `e2e/kmp.e2e.ts`                                          |
+| TC-RK-MOD-01          | 末步 done，found = rkMatches() = [2,5]（C-063）                                                    | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-02          | 每步执行点合法且带匹配轨（array:[]）（C-063）                                                      | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-03          | 无 π 行：每步 lps = []（C-063）                                                                    | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-04          | 窗口对齐：windowStart = offset（C-063）                                                            | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-05          | vars/caption 含模式哈希 312（C-063）                                                               | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-06          | 存在跳过 + 恰 2 命中（C-063）                                                                      | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-07          | skip 步该窗口哈希 ≠ 模式哈希（C-063）                                                              | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-08          | hashHit 步该窗口哈希 = 模式哈希（C-063）                                                           | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-09          | found 步命中起点 ∈ {2,5}，末步 found=[2,5]（C-063）                                                | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-10          | 命中区间不越界：T.substr(s,m)===P（C-063）                                                         | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-11          | 四语言 sources + 行号在范围内（C-063）                                                             | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-RK-MOD-12          | module 元信息 title 含 Rabin-Karp/哈希、initialInput()=[]（C-063）                                 | L3   | `src/algorithms/rabinkarp.module.spec.ts`                 |
+| TC-VIEW-RK-01         | 挂载渲染 Article + AlgorithmPlayer（C-063）                                                        | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts`           |
+| TC-VIEW-RK-02         | h1 含「Rabin-Karp」+ KmpView + 无 .bars-view + 无 π 行（C-063）                                    | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts`           |
+| TC-VIEW-RK-03         | 全模板同屏：Article 含「哈希」+ KmpView（C-063）                                                   | L4   | `src/views/Article/Algorithm/RabinKarp.spec.ts`           |
+| TC-E2E-RK-01          | Rabin-Karp 全模板：滚动哈希窗口 / 拖末步 命中高亮 / Shiki（C-063 新增）                            | L5   | `e2e/rabin-karp.e2e.ts`                                   |
+| TC-BM-MOD-01          | 末步 done，found = bmMatches() = [0,6]（C-064）                                                    | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-02          | 每步执行点合法且带匹配轨（array:[]）（C-064）                                                      | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-03          | 无 π 行：每步 lps = []（C-064）                                                                    | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-04          | 窗口对齐：windowStart = offset（C-064）                                                            | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-05          | vars 含坏字符表 a:0/b:1/c:2（C-064）                                                               | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-06          | 存在两种跳（#badChar≥2）+ 恰 2 命中（C-064）                                                       | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-07          | match 步字符相等且 matchedFrom = comparePat（C-064）                                               | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-08          | badChar 步字符不等（C-064）                                                                        | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-09          | 存在坏字符不在模式的大步跳（如 x）（C-064）                                                        | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-10          | 命中区间不越界：T.substr(s,m)===P（C-064）                                                         | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-11          | 四语言 sources + 行号在范围内（C-064）                                                             | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-BM-MOD-12          | module 元信息 title 含 Boyer-Moore/坏字符、initialInput()=[]（C-064）                              | L3   | `src/algorithms/boyermoore.module.spec.ts`                |
+| TC-VIEW-BM-01         | 挂载渲染 Article + AlgorithmPlayer（C-064）                                                        | L4   | `src/views/Article/Algorithm/BoyerMoore.spec.ts`          |
+| TC-VIEW-BM-02         | h1 含「Boyer-Moore」+ KmpView + 无 .bars-view + 无 π 行（C-064）                                   | L4   | `src/views/Article/Algorithm/BoyerMoore.spec.ts`          |
+| TC-VIEW-BM-03         | 全模板同屏：Article 含「坏字符」+ KmpView（C-064）                                                 | L4   | `src/views/Article/Algorithm/BoyerMoore.spec.ts`          |
+| TC-E2E-BM-01          | Boyer-Moore 全模板：对齐窗口带 / 拖末步 命中高亮 / Shiki（C-064 新增）                             | L5   | `e2e/boyer-moore.e2e.ts`                                  |
+| TC-CK-MOD-01          | 末步 done，右下角 = 15（C-065）                                                                    | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-02          | 每步执行点合法且带矩阵轨（array 空）（C-065）                                                      | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-03          | 终态表深等 oracle（C-065）                                                                         | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-04          | init 步第 0 行/列全 0（C-065）                                                                     | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-05          | 「取」来源在本行：cellChoose sources 含同行 [i,w-wt]（C-065）                                      | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-06          | 「不取」来源在上一行：sources 含 [i-1,w]（C-065）                                                  | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-07          | cellChoose 恰 2 源（C-065）                                                                        | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-08          | active === updatedCell === [i,w]（C-065）                                                          | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-09          | 可重复取：第 1 行末格 cells[1][6] = 15（A×3）（C-065）                                             | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-10          | vars 展示物品清单（C-065）                                                                         | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-11          | 四语言 sources + 行号在范围内（C-065）                                                             | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-CK-MOD-12          | module 元信息 title 含 完全背包/背包（C-065）                                                      | L3   | `src/algorithms/completeknapsack.module.spec.ts`          |
+| TC-VIEW-CK-01         | 挂载渲染 Article + AlgorithmPlayer（C-065）                                                        | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts`    |
+| TC-VIEW-CK-02         | h1 含「完全背包」+ MatrixView（28 单元）+ 无柱数组（C-065）                                        | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts`    |
+| TC-VIEW-CK-03         | 全模板同屏：正文含「本行」+ MatrixView（C-065）                                                    | L4   | `src/views/Article/Algorithm/CompleteKnapsack.spec.ts`    |
+| TC-E2E-CK-01          | 完全背包全模板：DP 表 4×7 / 拖末步右下角=15 / Shiki（C-065 新增）                                  | L5   | `e2e/complete-knapsack.e2e.ts`                            |
+| TC-ISL-MOD-01         | 末步 done + 岛屿数 3 + filled 覆盖全部陆地（C-066）                                                | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-02         | 每步执行点合法且带网格轨（array 空）（C-066）                                                      | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-03         | found 恰 3 次（3 个岛）（C-066）                                                                   | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-04         | found 命中新陆地（此前不在 filled）（C-066）                                                       | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-05         | 水为墙：walls === (grid===0)（C-066）                                                              | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-06         | filled 单调不减（C-066）                                                                           | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-07         | 末步 filled = 全陆地（6 格无重复）（C-066）                                                        | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-08         | flood 步四连通于同岛已 filled（C-066）                                                             | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-09         | 岛屿无起终点：start/goal 均 null（C-066）                                                          | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-10         | 非 done 步当前格图标非 🐭（C-066）                                                                 | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-11         | 四语言 sources + 行号在范围内（C-066）                                                             | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-ISL-MOD-12         | module 元信息 title 含岛屿（C-066）                                                                | L3   | `src/algorithms/islands.module.spec.ts`                   |
+| TC-VIEW-ISL-01        | 挂载渲染 Article + AlgorithmPlayer（C-066）                                                        | L4   | `src/views/Article/Algorithm/Islands.spec.ts`             |
+| TC-VIEW-ISL-02        | h1 含「岛屿」+ MazeView（16 格）+ 无柱数组（C-066）                                                | L4   | `src/views/Article/Algorithm/Islands.spec.ts`             |
+| TC-VIEW-ISL-03        | 全模板同屏：正文含「连通」+ MazeView（C-066）                                                      | L4   | `src/views/Article/Algorithm/Islands.spec.ts`             |
+| TC-E2E-ISL-01         | 岛屿数量全模板：4×4 网格 / 拖末步 6 绿陆地 + 3 个岛 / Shiki（C-066 新增）                          | L5   | `e2e/number-of-islands.e2e.ts`                            |
+| TC-MAN-MOD-01         | 末步 done + 最长回文 bab（C-067）                                                                  | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-02         | 每步执行点合法且带回文轨（array 空）（C-067）                                                      | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-03         | 转换串正确 #b#a#b#a#d#（C-067）                                                                    | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-04         | 末步半径 = oracle [0,1,0,3,0,3,0,1,0,1,0]（C-067）                                                 | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-05         | init 步 p 全空（null）（C-067）                                                                    | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-06         | 中心逐一递增 0..10（C-067）                                                                        | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-07         | mirror 步 mirror=2C−i 且 center<boxR（C-067）                                                      | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-08         | expand 步 mirror 为 null（C-067）                                                                  | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-09         | 每中心步 p[center] 由 null 变 oracle 值（C-067）                                                   | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-10         | 最长回文长度单调不减（C-067）                                                                      | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-11         | 四语言 sources + 行号在范围内（C-067）                                                             | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-MAN-MOD-12         | module 元信息 title 含 Manacher/回文（C-067）                                                      | L3   | `src/algorithms/manacher.module.spec.ts`                  |
+| TC-VIEW-MAN-01        | 挂载渲染 Article + AlgorithmPlayer（C-067）                                                        | L4   | `src/views/Article/Algorithm/Manacher.spec.ts`            |
+| TC-VIEW-MAN-02        | h1 含「Manacher」+ ManacherView + 无柱数组（C-067）                                                | L4   | `src/views/Article/Algorithm/Manacher.spec.ts`            |
+| TC-VIEW-MAN-03        | 全模板同屏：正文含「回文」+ ManacherView（C-067）                                                  | L4   | `src/views/Article/Algorithm/Manacher.spec.ts`            |
+| TC-E2E-MAN-01         | Manacher 全模板：转换串/半径两行 / 拖末步 7 绿 bab / Shiki（C-067 新增）                           | L5   | `e2e/manacher.e2e.ts`                                     |
+| TC-WS-MOD-01          | 末步 found + solved + path = wordPath()（C-068）                                                   | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-02          | 每步执行点合法且带网格轨（array 空）（C-068）                                                      | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-03          | 每格显字母 letters === WORD_BOARD（C-068）                                                         | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-04          | 含真回溯（backtrack ≥ 1）（C-068）                                                                 | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-05          | 两次起点尝试，起点字母 = A（C-068）                                                                | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-06          | match 步字母 = 期望字母（C-068）                                                                   | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-07          | mismatch 步字母不对（或已在路径）（C-068）                                                         | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-08          | 末步路径拼成 ADEE 且四连通（C-068）                                                                | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-09          | 每步路径无重复格（同格不复用）（C-068）                                                            | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-10          | found 步 solved = true（C-068）                                                                    | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-11          | 四语言 sources + 行号在范围内（C-068）                                                             | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-WS-MOD-12          | module 元信息 title 含单词搜索（C-068）                                                            | L3   | `src/algorithms/wordsearch.module.spec.ts`                |
+| TC-VIEW-WS-01         | 挂载渲染 Article + AlgorithmPlayer（C-068）                                                        | L4   | `src/views/Article/Algorithm/WordSearch.spec.ts`          |
+| TC-VIEW-WS-02         | h1 含「单词搜索」+ MazeView + 无柱数组（C-068）                                                    | L4   | `src/views/Article/Algorithm/WordSearch.spec.ts`          |
+| TC-VIEW-WS-03         | 全模板同屏：正文含「回溯」+ MazeView（C-068）                                                      | L4   | `src/views/Article/Algorithm/WordSearch.spec.ts`          |
+| TC-E2E-WS-01          | 单词搜索全模板：3×4 字母网格 / 拖末步 4 绿 ADEE / Shiki（C-068 新增）                              | L5   | `e2e/word-search.e2e.ts`                                  |
+| TC-SCC-MOD-01         | 末步 done + 3 个 SCC + nodeGroup 每点有组（C-069）                                                 | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-02         | 每步执行点合法且带图轨（array 空）（C-069）                                                        | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-03         | enter 恰 6 次（C-069）                                                                             | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-04         | 末步 dfn/low = oracle（C-069）                                                                     | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-05         | scc 恰 3 次（C-069）                                                                               | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-06         | scc 步是根（low==dfn）（C-069）                                                                    | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-07         | 同 SCC 同组、三组两两不同（C-069）                                                                 | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-08         | badge 格式 dfn/low；未访问 null（C-069）                                                           | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-09         | scc 步弹栈后栈变短（C-069）                                                                        | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-10         | 有向图 directed=true（C-069）                                                                      | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-11         | 四语言 sources + 行号在范围内（C-069）                                                             | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-SCC-MOD-12         | module 元信息 title 含 强连通/Tarjan/SCC（C-069）                                                  | L3   | `src/algorithms/scc.module.spec.ts`                       |
+| TC-VIEW-SCC-01        | 挂载渲染 Article + AlgorithmPlayer（C-069）                                                        | L4   | `src/views/Article/Algorithm/Scc.spec.ts`                 |
+| TC-VIEW-SCC-02        | h1 含「强连通」+ GraphView + 无柱数组（C-069）                                                     | L4   | `src/views/Article/Algorithm/Scc.spec.ts`                 |
+| TC-VIEW-SCC-03        | 全模板同屏：正文含「Tarjan」+ GraphView（C-069）                                                   | L4   | `src/views/Article/Algorithm/Scc.spec.ts`                 |
+| TC-E2E-SCC-01         | 强连通分量全模板：有向图 6 点 / 拖末步 3 个 SCC + 栈空 / Shiki（C-069 新增）                       | L5   | `e2e/scc.e2e.ts`                                          |
+| TC-CC-MOD-01          | 末步 done，右下角 = 4（C-070）                                                                     | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-02          | 每步执行点合法且带矩阵轨（array 空）（C-070）                                                      | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-03          | 终态表深等 oracle（C-070）                                                                         | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-04          | init 边界 dp[0][0]=1、第 0 行其余 0（C-070）                                                       | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-05          | 「用一枚」来源在本行 [i,a-coin]（C-070）                                                           | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-06          | 「不用」来源在上一行 [i-1,a]（C-070）                                                              | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-07          | add 恰 2 源，值为两源之和（C-070）                                                                 | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-08          | 计数单调不减（C-070）                                                                              | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-09          | vars 展示硬币 1,2,5 / 金额 5（C-070）                                                              | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-10          | 四语言 sources + 行号在范围内（C-070）                                                             | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-11          | module 元信息 title 含 硬币/找零（C-070）                                                          | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-CC-MOD-12          | done 方案数 4（C-070）                                                                             | L3   | `src/algorithms/coinchange.module.spec.ts`                |
+| TC-VIEW-CC-01         | 挂载渲染 Article + AlgorithmPlayer（C-070）                                                        | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`          |
+| TC-VIEW-CC-02         | h1 含「硬币」+ MatrixView（24 单元）+ 无柱数组（C-070）                                            | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`          |
+| TC-VIEW-CC-03         | 全模板同屏：正文含「计数」+ MatrixView（C-070）                                                    | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`          |
+| TC-E2E-CC-01          | 硬币找零方案数全模板：DP 表 4×6 / 拖末步右下角=4 / Shiki（C-070 新增）                             | L5   | `e2e/coin-change.e2e.ts`                                  |
+| TC-SDK-MOD-01         | 末步 done + solved + 终盘 = oracle（C-071）                                                        | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-02         | 每步执行点合法且带数独轨（array 空）（C-071）                                                      | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-03         | 给定格恒等于初始谜题（C-071）                                                                      | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-04         | 含真回溯（backtrack ≥ 2）（C-071）                                                                 | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-05         | place 填入合法（不与已填冲突）（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-06         | reject 确有冲突（C-071）                                                                           | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-07         | backtrack 清空当前格且非给定（C-071）                                                              | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-08         | 每步盘面合法（行/列/宫无重复）（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-09         | 终盘每格已填、每行 1..4 全排列（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-10         | vars 展示盘尺寸/当前格（C-071）                                                                    | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-11         | 四语言 sources + 行号在范围内（C-071）                                                             | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-SDK-MOD-12         | module 元信息 title 含数独（C-071）                                                                | L3   | `src/algorithms/sudoku.module.spec.ts`                    |
+| TC-VIEW-SDK-01        | 挂载渲染 Article + AlgorithmPlayer（C-071）                                                        | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`              |
+| TC-VIEW-SDK-02        | h1 含「数独」+ SudokuView + 无柱数组（C-071）                                                      | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`              |
+| TC-VIEW-SDK-03        | 全模板同屏：正文含「回溯」+ SudokuView（C-071）                                                    | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`              |
+| TC-E2E-SDK-01         | 数独全模板：4×4 盘 / 拖末步 16 格全填 / Shiki（C-071 新增）                                        | L5   | `e2e/sudoku.e2e.ts`                                       |
+| TC-SA-MOD-01          | 末步 done + sa=[5,3,1,0,4,2]（C-072）                                                              | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-02          | 每步执行点合法且带后缀轨（array 空）（C-072）                                                      | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-03          | 原串不变 banana（C-072）                                                                           | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-04          | 终态字典序（相邻后缀升序）（C-072）                                                                | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-05          | order 恒为 0..n-1 的排列（C-072）                                                                  | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-06          | rank 值域合法；末步 rank 全不同（C-072）                                                           | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-07          | rank 步之间 k 依次翻倍 1,2（C-072）                                                                | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-08          | sort 步 phase=sort；rank 步 phase=rank（C-072）                                                    | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-09          | 收敛即止（末步 k ≤ n）（C-072）                                                                    | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-10          | vars 展示原串/sa（C-072）                                                                          | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-11          | 四语言 sources + 行号在范围内（C-072）                                                             | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-SA-MOD-12          | module 元信息 title 含后缀数组（C-072）                                                            | L3   | `src/algorithms/suffixarray.module.spec.ts`               |
+| TC-VIEW-SA-01         | 挂载渲染 Article + AlgorithmPlayer（C-072）                                                        | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |
+| TC-VIEW-SA-02         | h1 含「后缀数组」+ SuffixArrayView + 无柱数组（C-072）                                             | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |
+| TC-VIEW-SA-03         | 全模板同屏：正文含「倍增」+ SuffixArrayView（C-072）                                               | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |
+| TC-E2E-SA-01          | 后缀数组全模板：后缀表 / 拖末步首行 a 开头 + caption 含 sa / Shiki（C-072 新增）                   | L5   | `e2e/suffix-array.e2e.ts`                                 |
+| TC-LCP-MOD-01         | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2] （C-073）                                              | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-02         | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空） （C-073）                                  | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-03         | order = suffixArray() 恒定（LCP 阶段不重排后缀） （C-073）                                         | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-04         | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0（C-073）                              | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-05         | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1（C-073）                             | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-06         | skip 步 current=0（rank 0 后缀无排序前驱） （C-073）                                               | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-07         | fill 步恰 5 次（n-1）；skip 恰 1 （C-073）                                                         | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-08         | Kasai 按原始下标 i=0..5；LCP 列非顺序填充 （C-073）                                                | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-09         | 相邻两步已填 lcp 非空格数单调不减 （C-073）                                                        | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-10         | done caption 含最长重复子串 3（max lcp）与不同子串数 15 （C-073）                                  | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-11         | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-073）                                | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-LCP-MOD-12         | module 元信息 title 含「LCP」或「height」；initialInput()=[]（C-073）                              | L3   | `src/algorithms/lcparray.module.spec.ts`                  |
+| TC-VIEW-LCP-01        | 挂载渲染 Article + AlgorithmPlayer （C-073）                                                       | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`            |
+| TC-VIEW-LCP-02        | h1 含「LCP」+ SuffixArrayView + 无柱数组 （C-073）                                                 | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`            |
+| TC-VIEW-LCP-03        | 全模板同屏：正文含「Kasai」+ SuffixArrayView （C-073）                                             | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`            |
+| TC-E2E-LCP-01         | LCP 全模板：后缀表 LCP 列 / 拖末步 caption 含 3 / Shiki（C-073 新增）                              | L5   | `e2e/lcp-array.e2e.ts`                                    |
+| TC-2SAT-MOD-01        | 末步 done；解 = twoSatSolve().assign = [true,false,true]（A真/B假/C真）（C-074）                   | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-02        | 每步 point∈{init,clause,scc,check,assign,done} 且带图轨（array 空）（C-074）                       | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-03        | init 步 0 边；末步 8 边（= twoSatImplications().length）（C-074）                                  | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-04        | clause 步恰 4 个；边数累计 2,4,6,8（每子句 +2 条蕴含） （C-074）                                   | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-05        | scc 步恰 4 个；nodeGroup 已上色节点数单调不减 （C-074）                                            | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-06        | 末步 nodeGroup = comp = [0,2,2,0,1,3] （C-074）                                                    | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-07        | check 步恰 3 个；第 i 个 checkPair=[2i,2i+1] （C-074）                                             | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-08        | 每对 comp[2i]≠comp[2i+1]（无同组）→ 可满足 （C-074）                                               | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-09        | assign 步恰 3 个；真值 = comp[2v] < comp[2v+1] （C-074）                                           | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-10        | done caption 含解值（A=真/B=假/C=真 + 可满足） （C-074）                                           | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-11        | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-074）                                | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-2SAT-MOD-12        | module 元信息 title 含「2-SAT」；initialInput()=[] （C-074）                                       | L3   | `src/algorithms/twosat.module.spec.ts`                    |
+| TC-VIEW-2SAT-01       | 挂载渲染 Article + AlgorithmPlayer （C-074）                                                       | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`              |
+| TC-VIEW-2SAT-02       | h1 含「2-SAT」+ GraphView + 无柱数组 （C-074）                                                     | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`              |
+| TC-VIEW-2SAT-03       | 全模板同屏：正文含「蕴含」+ GraphView （C-074）                                                    | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`              |
+| TC-E2E-2SAT-01        | 2-SAT 全模板：蕴含图 8 边 / 拖末步 caption 含「可满足」/ Shiki（C-074 新增）                       | L5   | `e2e/two-sat.e2e.ts`                                      |
+| TC-AC-MOD-01          | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]（C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-02          | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）（C-075）                              | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-03          | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边 （C-075）                                             | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-04          | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡） （C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-05          | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3] （C-075）                                          | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-06          | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}（C-075）                                    | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-07          | match+hit 步合计 6 个（文本长）；activeNode 随字符移动 （C-075）                                   | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-08          | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers） （C-075）                                          | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-09          | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中） （C-075）                                    | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-10          | done 步 caption 含 she、he、hers （C-075）                                                         | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-AC-MOD-12          | module 元信息 title 含「AC」或「Aho」；initialInput()=[]（C-075）                                  | L3   | `src/algorithms/ahocorasick.module.spec.ts`               |
+| TC-VIEW-AC-01         | 挂载渲染 Article + AlgorithmPlayer （C-075）                                                       | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`         |
+| TC-VIEW-AC-02         | h1 含「AC」或「Aho」+ GraphView + 无柱数组 （C-075）                                               | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`         |
+| TC-VIEW-AC-03         | 全模板同屏：正文含「fail」+ GraphView （C-075）                                                    | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`         |
+| TC-E2E-AC-01          | AC 自动机全模板：Trie 图 8 状态 / 拖末步 caption 含命中 hers / Shiki（C-075 新增）                 | L5   | `e2e/aho-corasick.e2e.ts`                                 |
+| TC-MF-MOD-01          | 末步 done；最大流 = maxFlow().value = 6 （C-076）                                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-02          | 每步 point∈{init,find,augment,done} 且带图轨（array 空）（C-076）                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-03          | find 步恰 4 个、augment 步恰 4 个（4 轮增广） （C-076）                                            | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-04          | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）（C-076）                            | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-05          | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6 （C-076）                                                    | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-06          | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）（C-076）                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-07          | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒） （C-076）                               | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-08          | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮） （C-076）                                   | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-09          | done 步 edgeClass 标最小割边 s→a、s→b （C-076）                                                    | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-10          | done 步 caption 含最大流 6 与「最小割」 （C-076）                                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-076）                                | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-MF-MOD-12          | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]（C-076）                             | L3   | `src/algorithms/maxflow.module.spec.ts`                   |
+| TC-VIEW-MF-01         | 挂载渲染 Article + AlgorithmPlayer （C-076）                                                       | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`             |
+| TC-VIEW-MF-02         | h1 含「最大流」+ GraphView + 无柱数组 （C-076）                                                    | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`             |
+| TC-VIEW-MF-03         | 全模板同屏：正文含「残量」+ GraphView （C-076）                                                    | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`             |
+| TC-E2E-MF-01          | 最大流全模板：网络图 4 节点 / 拖末步 caption 含最大流 6 / Shiki（C-076 新增）                      | L5   | `e2e/max-flow.e2e.ts`                                     |
+| TC-SIEVE-MOD-01       | 末步 done；素数集 = sievePrimes() = [2,3,5,7,11,13,17,19,23,29]（C-077）                           | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-02       | 每步 point∈{init,prime,mark,rest,done} 且带 sieve（array 空）（C-077）                             | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-03       | init 步 states[1]='special'，2..30 全 'unknown' （C-077）                                          | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-04       | prime 步恰 3 个（p=2,3,5，p²≤30）；rest 步恰 1 个 （C-077）                                        | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-05       | 各 mark 步 marking 最小值 = p²（4/9/25） （C-077）                                                 | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-06       | 末步 states 中 prime=10、composite=19、special=1 （C-077）                                         | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-07       | 素数集 = 试除法 isPrimeTrial 对拍 （C-077）                                                        | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-08       | 只 p²≤30 的 p（2,3,5）主动 mark；7..29 经 rest 确认 （C-077）                                      | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-09       | 相邻两步 composite 格数单调不减 （C-077）                                                          | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-10       | done 步 caption 含 10 与素数 29 （C-077）                                                          | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-11       | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-077）                                | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-SIEVE-MOD-12       | module 元信息 title 含「筛」或「埃氏」；initialInput()=[] （C-077）                                | L3   | `src/algorithms/sieve.module.spec.ts`                     |
+| TC-VIEW-SIEVE-01      | 挂载渲染 Article + AlgorithmPlayer （C-077）                                                       | L4   | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
+| TC-VIEW-SIEVE-02      | h1 含「筛」+ SieveView + 无柱数组 （C-077）                                                        | L4   | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
+| TC-VIEW-SIEVE-03      | 全模板同屏：正文含「素数」+ SieveView （C-077）                                                    | L4   | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
+| TC-E2E-SIEVE-01       | 埃氏筛全模板：数字网格 30 格 / 拖末步 10 素数 + caption 含 10 / Shiki（C-077 新增）                | L5   | `e2e/sieve.e2e.ts`                                        |

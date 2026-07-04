@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **798** 个用例。运行命令：`pnpm test:unit`
+共 **810** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1215,74 +1215,86 @@
 
 固定 `"banana"`；oracle `suffixArray()`=`[5,3,1,0,4,2]`（与字典序一致）。
 
-| Case ID        | 标题                                                                    | 自动化路径                                  |
-| -------------- | ----------------------------------------------------------------------- | ------------------------------------------- |
-| TC-SA-MOD-01   | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]                            | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-02   | 每步执行点合法且带后缀轨（array 空）                                    | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-03   | 原串不变 banana                                                         | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-04   | 终态字典序（相邻后缀升序）                                              | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-05   | order 恒为 0..n-1 的排列                                                | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-06   | rank 值域合法；末步 rank 全不同                                         | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-07   | rank 步之间 k 依次翻倍 1,2,…                                            | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-08   | sort 步 phase=sort；rank 步 phase=rank                                  | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-09   | 收敛即止（末步 k ≤ n）                                                  | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-10   | vars 展示原串/sa                                                        | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-11   | 四语言 sources + 行号在范围内                                           | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-12   | module 元信息 title 含后缀数组、initialInput()=[]                       | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-LCP-MOD-01  | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2]                             | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-02  | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空）                 | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-03  | order = suffixArray() 恒定（LCP 阶段不重排后缀）                        | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-04  | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0            | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-05  | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1           | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-06  | skip 步 current=0（rank 0 后缀无排序前驱）                              | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-07  | fill 步恰 5 次（n-1）；skip 恰 1                                        | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-08  | Kasai 按原始下标 i=0..5；LCP 列非顺序填充                               | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-09  | 相邻两步已填 lcp 非空格数单调不减                                       | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-10  | done caption 含最长重复子串 3（max lcp）与不同子串数 15                 | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-11  | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-12  | module 元信息 title 含「LCP」或「height」；initialInput()=[]            | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-2SAT-MOD-01 | 末步 done；解 = twoSatSolve().assign = [true,false,true]（A真/B假/C真） | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-02 | 每步 point∈{init,clause,scc,check,assign,done} 且带图轨（array 空）     | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-03 | init 步 0 边；末步 8 边（= twoSatImplications().length）                | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-04 | clause 步恰 4 个；边数累计 2,4,6,8（每子句 +2 条蕴含）                  | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-05 | scc 步恰 4 个；nodeGroup 已上色节点数单调不减                           | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-06 | 末步 nodeGroup = comp = [0,2,2,0,1,3]                                   | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-07 | check 步恰 3 个；第 i 个 checkPair=[2i,2i+1]                            | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-08 | 每对 comp[2i]≠comp[2i+1]（无同组）→ 可满足                              | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-09 | assign 步恰 3 个；真值 = comp[2v] < comp[2v+1]                          | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-10 | done caption 含解值（A=真/B=假/C=真 + 可满足）                          | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-12 | module 元信息 title 含「2-SAT」；initialInput()=[]                      | `src/algorithms/twosat.module.spec.ts`      |
-| TC-AC-MOD-01   | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]              | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-02   | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）            | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-03   | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边                            | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-04   | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡）               | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-05   | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3]                         | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-06   | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}                  | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-07   | match+hit 步合计 6 个（文本长）；activeNode 随字符移动                  | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-08   | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers）                         | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-09   | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中）                   | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-10   | done 步 caption 含 she、he、hers                                        | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-12   | module 元信息 title 含「AC」或「Aho」；initialInput()=[]                | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-MF-MOD-01   | 末步 done；最大流 = maxFlow().value = 6                                 | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-02   | 每步 point∈{init,find,augment,done} 且带图轨（array 空）                | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-03   | find 步恰 4 个、augment 步恰 4 个（4 轮增广）                           | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-04   | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）          | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-05   | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6                                   | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-06   | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）                | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-07   | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒）              | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-08   | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮）                  | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-09   | done 步 edgeClass 标最小割边 s→a、s→b                                   | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-10   | done 步 caption 含最大流 6 与「最小割」                                 | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-12   | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]           | `src/algorithms/maxflow.module.spec.ts`     |
+| Case ID         | 标题                                                                    | 自动化路径                                  |
+| --------------- | ----------------------------------------------------------------------- | ------------------------------------------- |
+| TC-SA-MOD-01    | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]                            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-02    | 每步执行点合法且带后缀轨（array 空）                                    | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-03    | 原串不变 banana                                                         | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-04    | 终态字典序（相邻后缀升序）                                              | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-05    | order 恒为 0..n-1 的排列                                                | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-06    | rank 值域合法；末步 rank 全不同                                         | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-07    | rank 步之间 k 依次翻倍 1,2,…                                            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-08    | sort 步 phase=sort；rank 步 phase=rank                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-09    | 收敛即止（末步 k ≤ n）                                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-10    | vars 展示原串/sa                                                        | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-11    | 四语言 sources + 行号在范围内                                           | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-12    | module 元信息 title 含后缀数组、initialInput()=[]                       | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-LCP-MOD-01   | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2]                             | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-02   | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空）                 | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-03   | order = suffixArray() 恒定（LCP 阶段不重排后缀）                        | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-04   | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0            | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-05   | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1           | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-06   | skip 步 current=0（rank 0 后缀无排序前驱）                              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-07   | fill 步恰 5 次（n-1）；skip 恰 1                                        | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-08   | Kasai 按原始下标 i=0..5；LCP 列非顺序填充                               | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-09   | 相邻两步已填 lcp 非空格数单调不减                                       | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-10   | done caption 含最长重复子串 3（max lcp）与不同子串数 15                 | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-12   | module 元信息 title 含「LCP」或「height」；initialInput()=[]            | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-2SAT-MOD-01  | 末步 done；解 = twoSatSolve().assign = [true,false,true]（A真/B假/C真） | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-02  | 每步 point∈{init,clause,scc,check,assign,done} 且带图轨（array 空）     | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-03  | init 步 0 边；末步 8 边（= twoSatImplications().length）                | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-04  | clause 步恰 4 个；边数累计 2,4,6,8（每子句 +2 条蕴含）                  | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-05  | scc 步恰 4 个；nodeGroup 已上色节点数单调不减                           | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-06  | 末步 nodeGroup = comp = [0,2,2,0,1,3]                                   | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-07  | check 步恰 3 个；第 i 个 checkPair=[2i,2i+1]                            | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-08  | 每对 comp[2i]≠comp[2i+1]（无同组）→ 可满足                              | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-09  | assign 步恰 3 个；真值 = comp[2v] < comp[2v+1]                          | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-10  | done caption 含解值（A=真/B=假/C=真 + 可满足）                          | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-11  | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-12  | module 元信息 title 含「2-SAT」；initialInput()=[]                      | `src/algorithms/twosat.module.spec.ts`      |
+| TC-AC-MOD-01    | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]              | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-02    | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）            | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-03    | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边                            | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-04    | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡）               | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-05    | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3]                         | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-06    | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}                  | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-07    | match+hit 步合计 6 个（文本长）；activeNode 随字符移动                  | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-08    | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers）                         | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-09    | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中）                   | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-10    | done 步 caption 含 she、he、hers                                        | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-12    | module 元信息 title 含「AC」或「Aho」；initialInput()=[]                | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-MF-MOD-01    | 末步 done；最大流 = maxFlow().value = 6                                 | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-02    | 每步 point∈{init,find,augment,done} 且带图轨（array 空）                | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-03    | find 步恰 4 个、augment 步恰 4 个（4 轮增广）                           | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-04    | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）          | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-05    | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6                                   | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-06    | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）                | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-07    | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒）              | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-08    | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮）                  | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-09    | done 步 edgeClass 标最小割边 s→a、s→b                                   | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-10    | done 步 caption 含最大流 6 与「最小割」                                 | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-12    | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]           | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-SIEVE-MOD-01 | 末步 done；素数集 = sievePrimes() = [2,3,5,7,11,13,17,19,23,29]         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-02 | 每步 point∈{init,prime,mark,rest,done} 且带 sieve（array 空）           | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-03 | init 步 states[1]='special'，2..30 全 'unknown'                         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-04 | prime 步恰 3 个（p=2,3,5，p²≤30）；rest 步恰 1 个                       | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-05 | 各 mark 步 marking 最小值 = p²（4/9/25）                                | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-06 | 末步 states 中 prime=10、composite=19、special=1                        | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-07 | 素数集 = 试除法 isPrimeTrial 对拍                                       | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-08 | 只 p²≤30 的 p（2,3,5）主动 mark；7..29 经 rest 确认                     | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-09 | 相邻两步 composite 格数单调不减                                         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-10 | done 步 caption 含 10 与素数 29                                         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-12 | module 元信息 title 含「筛」或「埃氏」；initialInput()=[]               | `src/algorithms/sieve.module.spec.ts`       |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **465** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **473** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1870,6 +1882,9 @@
 | TC-VIZ-GRAPHVIEW-FAIL-02  | 无 fail 类的边 → 不带 .fail（8 图算法零回归）                                   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-LABEL-01 | edgeLabel={'0-1':'1/3'} → 该边文本显示 1/3（优先于 w）                          | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-LABEL-02 | 不传 edgeLabel → 边文本回退到 w（8 图算法 + AC 零回归）                         | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-01       | n=30 → 30 个 .sieve-cell；prime 格 .sieve-prime、composite 格 .sieve-composite  | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-02       | current=5 → 1 个 .sieve-current；marking=[25] → 25 号格 .sieve-marking          | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-03       | 1 号格 .sieve-special（既非素也非合）                                           | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -1929,6 +1944,8 @@
 | TC-PLAYER-SUDOKU-02       | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SA-01           | step 带 suffixArray → 渲染 SuffixArrayView（C-072）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SA-02           | 排序 step 无 suffixArray→不渲染（零回归）（C-072）                              | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SIEVE-01        | step 含 sieve → 渲染 SieveView                                                  | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SIEVE-02        | 排序 step 无 sieve → 不渲染 SieveView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -2166,6 +2183,14 @@
 | TC-VIEW-MF-02 | h1 含「最大流」+ GraphView + 无柱数组 | `src/views/Article/Algorithm/MaxFlow.spec.ts` |
 | TC-VIEW-MF-03 | 全模板同屏：正文含「残量」+ GraphView | `src/views/Article/Algorithm/MaxFlow.spec.ts` |
 
+### 埃氏筛页 C-077（数学与数论大类首发，新页，全模板 + 新建 SieveView 数字网格轨）
+
+| 用例 ID          | 场景                                  | 文件                                                      |
+| ---------------- | ------------------------------------- | --------------------------------------------------------- |
+| TC-VIEW-SIEVE-01 | 挂载渲染 Article + AlgorithmPlayer    | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
+| TC-VIEW-SIEVE-02 | h1 含「筛」+ SieveView + 无柱数组     | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
+| TC-VIEW-SIEVE-03 | 全模板同屏：正文含「素数」+ SieveView | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2176,7 +2201,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **68** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **69** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2249,6 +2274,7 @@
 | TC-E2E-2SAT-01      | 2-SAT 全模板：正文 + 蕴含图 6 点 8 边 / `.scrub` 拖末步 caption 含「可满足」+ badge 真/假 / Shiki（C-074 新增）            | `e2e/two-sat.e2e.ts`               | active     |
 | TC-E2E-AC-01        | AC 自动机全模板：正文 + Trie 图 8 状态 / `.scrub` 拖末步 caption 含命中 hers / Shiki（C-075 新增）                         | `e2e/aho-corasick.e2e.ts`          | active     |
 | TC-E2E-MF-01        | 最大流全模板：正文 + 网络图 4 节点 / `.scrub` 拖末步 caption 含最大流 6 / Shiki（C-076 新增）                              | `e2e/max-flow.e2e.ts`              | active     |
+| TC-E2E-SIEVE-01     | 埃氏筛全模板：正文 + 数字网格 30 格 / `.scrub` 拖末步 10 个 .sieve-prime + caption 含 10 / Shiki（C-077 新增）             | `e2e/sieve.e2e.ts`                 | active     |
 
 ---
 
