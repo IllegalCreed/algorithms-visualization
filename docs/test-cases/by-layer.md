@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **726** 个用例。运行命令：`pnpm test:unit`
+共 **738** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1078,6 +1078,25 @@
 | TC-WS-MOD-11 | 四语言 sources + 行号在范围内                     | `src/algorithms/wordsearch.module.spec.ts` |
 | TC-WS-MOD-12 | module 元信息 title 含单词搜索、initialInput()=[] | `src/algorithms/wordsearch.module.spec.ts` |
 
+### 数独模块 sudoku.module（C-071 · 回溯棋盘约束第 2 例，约束回溯 22 步含 2 真回溯 + 新建 SudokuView 轨）
+
+固定 4×4 迷你数独（5 空、唯一解）；oracle `sudokuSolution()`=`[[1,2,3,4],[3,4,1,2],[2,3,4,1],[4,1,2,3]]`。
+
+| Case ID       | 标题                                          | 自动化路径                             |
+| ------------- | --------------------------------------------- | -------------------------------------- |
+| TC-SDK-MOD-01 | 末步 done + solved + 终盘 = oracle            | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-02 | 每步执行点合法且带数独轨（array 空）          | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-03 | 给定格恒等于初始谜题                          | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-04 | 含真回溯（backtrack ≥ 2）                     | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-05 | place 填入合法（不与已填冲突）                | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-06 | reject 确有冲突                               | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-07 | backtrack 清空当前格且非给定                  | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-08 | 每步盘面合法（行/列/宫无重复）                | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-09 | 终盘每格已填、每行为 1..4 全排列              | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-10 | vars 展示盘尺寸/当前格                        | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-11 | 四语言 sources + 行号在范围内                 | `src/algorithms/sudoku.module.spec.ts` |
+| TC-SDK-MOD-12 | module 元信息 title 含数独、initialInput()=[] | `src/algorithms/sudoku.module.spec.ts` |
+
 ### 最长公共子序列模块 lcs.module（C-060 · DP 第 3 页，填表 + 回溯 24 步 + 扩展 MatrixView pathCells）
 
 固定 X=`ABCD`、Y=`ACDF`；oracle `lcsLength`/`lcsString`/`lcsPath`；二维 DP 填表求长度 + 回溯恢复 LCS=ACD。
@@ -1196,7 +1215,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **428** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **436** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1810,6 +1829,9 @@
 | TC-VIZ-MANACHERVIEW-02  | center=3 → 1 .mn-center；mirror=1 → 1 .mn-mirror（C-067）                       | `src/components/ManacherView.spec.ts`           |
 | TC-VIZ-MANACHERVIEW-03  | boxL=0,boxR=6 → 7 格 .mn-box（C-067）                                           | `src/components/ManacherView.spec.ts`           |
 | TC-VIZ-MANACHERVIEW-04  | best=[0,6] → 7 格 .mn-best（C-067）                                             | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-SUDOKUVIEW-01    | n=4 → 16 .sudoku-cell；给定格数 = given true 数 → .sk-given（C-071）            | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SUDOKUVIEW-02    | current=[2,1],tryNum=3 → 1 .sk-current 显示 3（C-071）                          | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SUDOKUVIEW-03    | status reject → .sk-reject；place → .sk-place（C-071）                          | `src/components/SudokuView.spec.ts`             |
 | TC-PLAYER-GRAPH-01      | 当前步带 graph → 渲染 GraphView                                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02      | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01     | step 带 matrix → 渲染 MatrixView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -1824,6 +1846,8 @@
 | TC-PLAYER-KMP-02        | 排序 step 无 kmp→不渲染 KmpView（零回归）                                       | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MANACHER-01   | step 带 manacher → 渲染 ManacherView（C-067）                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MANACHER-02   | 排序 step 无 manacher→不渲染 ManacherView（零回归）（C-067）                    | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SUDOKU-01     | step 带 sudoku → 渲染 SudokuView（C-071）                                       | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SUDOKU-02     | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -1971,6 +1995,14 @@
 | TC-VIEW-WS-02 | h1 含「单词搜索」+ MazeView + 无 .bars-view | `src/views/Article/Algorithm/WordSearch.spec.ts` |
 | TC-VIEW-WS-03 | 全模板同屏：正文含「回溯」+ MazeView        | `src/views/Article/Algorithm/WordSearch.spec.ts` |
 
+### 数独页 C-071（回溯第 8 页，新页，全模板 + 新建 SudokuView 数独轨）
+
+| Case ID        | 标题                                      | 自动化路径                                   |
+| -------------- | ----------------------------------------- | -------------------------------------------- |
+| TC-VIEW-SDK-01 | 挂载渲染 Article + AlgorithmPlayer        | `src/views/Article/Algorithm/Sudoku.spec.ts` |
+| TC-VIEW-SDK-02 | h1 含「数独」+ SudokuView + 无 .bars-view | `src/views/Article/Algorithm/Sudoku.spec.ts` |
+| TC-VIEW-SDK-03 | 全模板同屏：正文含「回溯」+ SudokuView    | `src/views/Article/Algorithm/Sudoku.spec.ts` |
+
 ### 最长公共子序列页 C-060（DP 第 3 页，新页，全模板 + 填表 + 回溯）
 
 | Case ID        | 标题                                         | 自动化路径                                |
@@ -2023,7 +2055,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **62** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **63** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2090,6 +2122,7 @@
 | TC-E2E-WS-01        | 单词搜索全模板：正文 + 3×4 字母网格 / `.scrub` 拖末步 4 .mz-solution（ADEE 路径绿）+ caption 含 ADEE / Shiki（C-068 新增） | `e2e/word-search.e2e.ts`           | active     |
 | TC-E2E-SCC-01       | 强连通分量全模板：正文 + 有向图 6 点 / `.scrub` 拖末步 caption 含 3 个 SCC + 栈空（0 .on-stack）/ Shiki（C-069 新增）      | `e2e/scc.e2e.ts`                   | active     |
 | TC-E2E-CC-01        | 硬币找零方案数全模板：正文 + DP 表 4×6 / `.scrub` 拖末步 右下角=4 + caption 含 4 / Shiki（C-070 新增）                     | `e2e/coin-change.e2e.ts`           | active     |
+| TC-E2E-SDK-01       | 数独全模板：正文 + 4×4 盘 / `.scrub` 拖末步 16 格全填 + caption 含完成 / Shiki（C-071 新增）                               | `e2e/sudoku.e2e.ts`                | active     |
 
 ---
 

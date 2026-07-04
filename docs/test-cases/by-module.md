@@ -319,12 +319,17 @@
 | TC-VIZ-MANACHERVIEW-02  | center=3 → 1 .mn-center；mirror=1 → 1 .mn-mirror（C-067）                       | L4   | `src/components/ManacherView.spec.ts`           |
 | TC-VIZ-MANACHERVIEW-03  | boxL=0,boxR=6 → 7 格 .mn-box（C-067）                                           | L4   | `src/components/ManacherView.spec.ts`           |
 | TC-VIZ-MANACHERVIEW-04  | best=[0,6] → 7 格 .mn-best（C-067）                                             | L4   | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-SUDOKUVIEW-01    | n=4 → 16 .sudoku-cell；给定格数 = given true 数 → .sk-given（C-071）            | L4   | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SUDOKUVIEW-02    | current=[2,1],tryNum=3 → 1 .sk-current 显示 3（C-071）                          | L4   | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SUDOKUVIEW-03    | status reject → .sk-reject；place → .sk-place（C-071）                          | L4   | `src/components/SudokuView.spec.ts`             |
 | TC-PLAYER-MAZE-01       | step 带 maze → 渲染 MazeView（C-059）                                           | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MAZE-02       | 排序 step 无 maze→不渲染 MazeView（零回归）（C-059）                            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-KMP-01        | step 带 kmp → 渲染 KmpView（C-062）                                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-KMP-02        | 排序 step 无 kmp→不渲染 KmpView（零回归）（C-062）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MANACHER-01   | step 带 manacher → 渲染 ManacherView（C-067）                                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MANACHER-02   | 排序 step 无 manacher→不渲染 ManacherView（零回归）（C-067）                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SUDOKU-01     | step 带 sudoku → 渲染 SudokuView（C-071）                                       | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SUDOKU-02     | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -959,7 +964,7 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法 C-037~052/069 + 动态规划 C-053/054/060/061/065/070 + 回溯 C-055~059/066/068 + 字符串 C-062/063/064/067；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
+## article-algo（图算法 C-037~052/069 + 动态规划 C-053/054/060/061/065/070 + 回溯 C-055~059/066/068/071 + 字符串 C-062/063/064/067；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
 > **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。
@@ -986,6 +991,7 @@
 > **C-068（M6 回溯与搜索 · 网格搜索第 3 页 · 新页）**：单词搜索（LeetCode 79）——最贴合「回溯」本义的网格搜索：沿上下左右相邻、同格不复用的路径拼出目标词。DFS 逐字母试探，字母对上就标记已用、往四方向找下一字母；某方向不符换方向；一个格四方向都走不通就**撤销标记、回退上一格**（回退后该格又能被别的路径用，与迷宫累积式 visited 相反）。**扩展 MazeView 带字母网格轨**（第 3 消费者，additive `letters` 每格显字母；见 viz-engine 段 `TC-VIZ-MAZEVIEW-06`）。复用 `Step.maze` 无新 Step 字段；walls 全 false、无 start/goal。`wordsearch.module`（固定 3×4 盘 + ADEE，DFS 回溯 11 步含 1 真回退〔A(0,0) 无 D 邻居撤销 → 换 A(2,0) 沿底行〕 + oracle `wordExists()`=true/`wordPath()`=[[2,0],[2,1],[2,2],[2,3]]）。新页 + 路由 `/docs/word-search` + 菜单/首页「回溯与搜索」第 7 项 + 新 `word-search.svg` + 改 `TC-HOOK-01-1/02-1`（回溯 children +word-search）。MazeView 服务迷宫 + 岛屿 + 单词搜索、网格搜索三形态齐；迷宫/岛屿不传 letters 零回归。`TC-WS-MOD-*` + `TC-VIEW-WS-*` + `TC-E2E-WS-01`。
 > **C-069（M6 图算法第 7 页 · 新页）**：强连通分量（SCC）——补图算法「有向图连通性」维度（前 6 页覆盖最短路/MST/拓扑排序）。**Tarjan 一趟 DFS**：每点记发现序 `dfn` 与「至多经一条回边可回溯的最小 dfn」`low`，访问即入栈；`low[u]==dfn[u]` 说明 u 是一个 SCC 的根，弹栈到 u 得一个强连通分量。`low` 在子树回传（`min(low,子low)`）与回边（`min(low,dfn[栈中邻])`）两处更新。**扩展 GraphView**（第 6 消费者，additive：+`nodeGroup` SCC 分组调色板着色 + `stackNodes` 在栈虚线环；`nodeBadge` 复用显 dfn/low、`edgeClass` 树边绿/回边黄；见 viz-engine 段 `TC-VIZ-GRAPHVIEW-SCC-*`）。复用 `Step.graph` 无新 Step 字段；栈内容走 vars 文本。`scc.module`（固定 6 点有向图 0→1→2→0 环 + 2→3 + 3→4→3 环 + 4→5，Tarjan 17 步 + oracle `tarjanSCCs()`=[[5],[4,3],[2,1,0]]/dfn=[0..5]/low=[0,0,0,3,3,5]，3 个 SCC）。新页 + 路由 `/docs/scc` + 菜单/首页「图算法」第 7 项 + 新 `scc.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 6→7）。既有 6 图算法不传新字段零回归。`TC-SCC-MOD-*` + `TC-VIEW-SCC-*` + `TC-E2E-SCC-01`。
 > **C-070（M6 动态规划第 6 页 · 新页）**：硬币找零方案数（LeetCode 518，计数 DP）——补 DP「计数」维度（前五页求 min/max/最优解）。每种硬币无限枚，`dp[i][a]` = 用前 i 种凑金额 a 的方案数。与完全背包同为无限次取的二维表、「用一枚」来源也在**本行** `dp[i][a-面额]`，差别只在算子：完全背包取 `max(不取, 取)`，硬币找零取 `dp[i-1][a] + dp[i][a-面额]`（**方案数相加**）；边界 `dp[0][0]=1`（凑 0 元 1 种，方案数的种子）。**纯复用 MatrixView 矩阵轨零改动**（第 7 消费者，行=硬币面额/列=金额）。types +`CoinChangeExecPoint`（init/skip/add/done）+ `coinchange.module`（硬币 [1,2,5]/金额 5，4×6 表逐格填 20 步 + oracle `coinChangeTrace()` 右下角 4）。新页 + 路由 `/docs/coin-change` + 菜单/首页「动态规划」第 6 项 + 新 `coin-change.svg` + 改 `TC-HOOK-01-1/02-1`（DP children +coin-change）。MatrixView 七验（方阵/字符轴/数值轴/回溯路径/两行表/本行来源/计数相加）。`TC-CC-MOD-*` + `TC-VIEW-CC-*` + `TC-E2E-CC-01`。
+> **C-071（M6 回溯与搜索第 8 页 · 新页）**：数独——棋盘约束回溯第 2 例（N 皇后是第 1）。N 皇后是「放置型」（每列放皇后），数独是「填数型」（每空格试填 1..n，受**行/列/宫三重约束**）：合法则填入下探，冲突换下一个，一格 1..n 都填不了就**撤销、回退**换个数。**新建第 14 条 SudokuView 数独轨**（CSS grid n×n + 宫线，`sk-given` 给定加粗 / `sk-current` 当前琥珀环 / `sk-reject` 冲突红 / `sk-place` 填入绿；见 viz-engine 段 `TC-VIZ-SUDOKUVIEW-*` / `TC-PLAYER-SUDOKU-*`）。复用 `Step.sudoku` additive 可插拔（其它算法未设即不渲染）。`sudoku.module`（固定 4×4 迷你数独 5 空唯一解，约束回溯 22 步含 **2 次真回溯**〔(2,1) 填 1 走到 (2,3) 死路→撤销→改填 3〕 + oracle `sudokuSolution()`）。新页 + 路由 `/docs/sudoku` + 菜单/首页「回溯与搜索」第 8 项 + 新 `sudoku.svg` + 改 `TC-HOOK-01-1/02-1`（回溯 children +sudoku）。播放器可插拔轨 13→14；既有算法零回归。`TC-SDK-MOD-*` + `TC-VIEW-SDK-*` + `TC-E2E-SDK-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                             |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------ |
@@ -1412,3 +1418,19 @@
 | TC-VIEW-CC-02         | h1 含「硬币」+ MatrixView（24 单元）+ 无柱数组（C-070）                                            | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`       |
 | TC-VIEW-CC-03         | 全模板同屏：正文含「计数」+ MatrixView（C-070）                                                    | L4   | `src/views/Article/Algorithm/CoinChange.spec.ts`       |
 | TC-E2E-CC-01          | 硬币找零方案数全模板：DP 表 4×6 / 拖末步右下角=4 / Shiki（C-070 新增）                             | L5   | `e2e/coin-change.e2e.ts`                               |
+| TC-SDK-MOD-01         | 末步 done + solved + 终盘 = oracle（C-071）                                                        | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-02         | 每步执行点合法且带数独轨（array 空）（C-071）                                                      | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-03         | 给定格恒等于初始谜题（C-071）                                                                      | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-04         | 含真回溯（backtrack ≥ 2）（C-071）                                                                 | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-05         | place 填入合法（不与已填冲突）（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-06         | reject 确有冲突（C-071）                                                                           | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-07         | backtrack 清空当前格且非给定（C-071）                                                              | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-08         | 每步盘面合法（行/列/宫无重复）（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-09         | 终盘每格已填、每行 1..4 全排列（C-071）                                                            | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-10         | vars 展示盘尺寸/当前格（C-071）                                                                    | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-11         | 四语言 sources + 行号在范围内（C-071）                                                             | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-SDK-MOD-12         | module 元信息 title 含数独（C-071）                                                                | L3   | `src/algorithms/sudoku.module.spec.ts`                 |
+| TC-VIEW-SDK-01        | 挂载渲染 Article + AlgorithmPlayer（C-071）                                                        | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
+| TC-VIEW-SDK-02        | h1 含「数独」+ SudokuView + 无柱数组（C-071）                                                      | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
+| TC-VIEW-SDK-03        | 全模板同屏：正文含「回溯」+ SudokuView（C-071）                                                    | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
+| TC-E2E-SDK-01         | 数独全模板：4×4 盘 / 拖末步 16 格全填 / Shiki（C-071 新增）                                        | L5   | `e2e/sudoku.e2e.ts`                                    |
