@@ -45,7 +45,7 @@ import { mazeModule } from '@/algorithms/maze.module';
       /
       <router-link to="/docs/combination-sum">组合总和</router-link>。<br />
       <b>网格搜索</b>：迷宫寻路（本页）。同类还有：岛屿数量、单词搜索、扫雷展开——都是网格上的
-      DFS/BFS。
+      DFS/BFS；想让搜索「认路」，见 <router-link to="/docs/astar">A* 寻路</router-link>。
     </Callout>
     <p>
       同一套「深入 → 受阻 →

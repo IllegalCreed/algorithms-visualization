@@ -60,6 +60,7 @@ describe('Home/Main useCategoryData', () => {
       'number-of-islands',
       'word-search',
       'sudoku',
+      'astar',
     ]);
     expect(data[5].children.map((c) => c.url)).toEqual([
       'kmp',

@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 网格 + 指南针直奔终点，f=g+h -->
+  <rect x="60" y="60" width="904" height="904" rx="32" fill="#eef3ef" stroke="#333" stroke-width="14" />
+  <g stroke="#c8d2cc" stroke-width="8">
+    <line x1="286" y1="70" x2="286" y2="954" />
+    <line x1="512" y1="70" x2="512" y2="954" />
+    <line x1="738" y1="70" x2="738" y2="954" />
+    <line x1="70" y1="286" x2="954" y2="286" />
+    <line x1="70" y1="512" x2="954" y2="512" />
+    <line x1="70" y1="738" x2="954" y2="738" />
+  </g>
+  <!-- 墙 -->
+  <rect x="512" y="286" width="226" height="226" fill="#6b7d72" />
+  <!-- 路径 -->
+  <path d="M 175 175 L 175 625 L 400 625 L 400 850 L 850 850" fill="none" stroke="#8bd3a0" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- 起点终点 -->
+  <text x="175" y="180" font-family="sans-serif" font-weight="bold" font-size="130" text-anchor="middle" dominant-baseline="central">🧭</text>
+  <text x="852" y="855" font-family="sans-serif" font-weight="bold" font-size="120" text-anchor="middle" dominant-baseline="central">🚩</text>
+  <!-- f=g+h -->
+  <text x="700" y="170" font-family="sans-serif" font-weight="bold" font-size="96" fill="#e03131" text-anchor="middle">f=g+h</text>
+</svg>

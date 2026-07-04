@@ -55,6 +55,7 @@ import MazeIcon from '@/assets/maze.svg';
 import IslandsIcon from '@/assets/islands.svg';
 import WordSearchIcon from '@/assets/word-search.svg';
 import SudokuIcon from '@/assets/sudoku.svg';
+import AstarIcon from '@/assets/astar.svg';
 import KmpIcon from '@/assets/kmp.svg';
 import RabinKarpIcon from '@/assets/rabinkarp.svg';
 import BoyerMooreIcon from '@/assets/boyermoore.svg';
@@ -431,6 +432,12 @@ export function useCategoryData(): Category[] {
           desc: '给空格填数使行/列/宫不重复：约束回溯，试填 1..n 冲突就换、死路就撤销回退，棋盘约束的名场面',
           icon: SudokuIcon,
           url: 'sudoku',
+        },
+        {
+          title: 'A* 寻路',
+          desc: '给搜索装方向感：每格 f=g+h（实际步数+曼哈顿估计），每次扩展 f 最小格；h 不高估即保证最优，扩展远少于 BFS——游戏寻路/导航标配',
+          icon: AstarIcon,
+          url: 'astar',
         },
       ],
     },

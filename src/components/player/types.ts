@@ -659,6 +659,14 @@ export type MazeExecPoint =
   | 'goal' // 到达终点
   | 'done'; // 结束（解路径标绿）
 
+/** A\* 寻路执行点（C-096，回溯与搜索第 9 页；纯复用 MazeView——letters 作 f 值标注） */
+export type AstarExecPoint =
+  | 'init' // 网格 + 起终点 + f=g+h 规则
+  | 'expand' // 弹出 open 中 f 最小格，松弛邻居
+  | 'goal' // 弹出的就是终点
+  | 'trace' // parent 回溯最优路径（solved 绿）
+  | 'done'; // 扩展数对比 BFS + 可采纳性
+
 /** 岛屿数量执行点（C-066，回溯网格搜索第 2 页；复用 MazeView 网格轨——扫描 + DFS Flood Fill 数连通块） */
 export type IslandsExecPoint =
   | 'scan' // 扫描指针移到某格（水 / 已数过的陆地 → 跳过）

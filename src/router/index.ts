@@ -210,6 +210,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Sudoku.vue'),
           },
           {
+            path: '/docs/astar',
+            name: 'astar',
+            component: () => import('../views/Article/Algorithm/Astar.vue'),
+          },
+          {
             path: '/docs/kmp',
             name: 'kmp',
             component: () => import('../views/Article/Algorithm/Kmp.vue'),

@@ -243,6 +243,10 @@ export function useCategoryData(): Category[] {
           title: '数独',
           url: 'sudoku',
         },
+        {
+          title: 'A* 寻路',
+          url: 'astar',
+        },
       ],
     },
     {
