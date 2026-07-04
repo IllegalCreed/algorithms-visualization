@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **774** 个用例。运行命令：`pnpm test:unit`
+共 **786** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1253,12 +1253,24 @@
 | TC-2SAT-MOD-10 | done caption 含解值（A=真/B=假/C=真 + 可满足）                          | `src/algorithms/twosat.module.spec.ts`      |
 | TC-2SAT-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/twosat.module.spec.ts`      |
 | TC-2SAT-MOD-12 | module 元信息 title 含「2-SAT」；initialInput()=[]                      | `src/algorithms/twosat.module.spec.ts`      |
+| TC-AC-MOD-01   | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]              | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-02   | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）            | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-03   | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边                            | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-04   | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡）               | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-05   | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3]                         | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-06   | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}                  | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-07   | match+hit 步合计 6 个（文本长）；activeNode 随字符移动                  | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-08   | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers）                         | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-09   | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中）                   | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-10   | done 步 caption 含 she、he、hers                                        | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-12   | module 元信息 title 含「AC」或「Aho」；initialInput()=[]                | `src/algorithms/ahocorasick.module.spec.ts` |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **455** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **460** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1842,6 +1854,8 @@
 | TC-VIZ-GRAPHVIEW-SCC-02   | stackNodes → 1 个 .on-stack（虚线环）（C-069）                                  | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-CHECK-01 | 传 checkPair=[0,1] → 节点 0、1 两个带 .checking 类（蓝环）                      | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-CHECK-02 | 不传 checkPair → 无 .checking（其它 7 图算法零回归）                            | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-FAIL-01  | edgeClass={'0-1':'fail'} → 该 .graph-edge 带 .fail 类（虚线紫）                 | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-FAIL-02  | 无 fail 类的边 → 不带 .fail（8 图算法零回归）                                   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -2122,6 +2136,14 @@
 | TC-VIEW-2SAT-02 | h1 含「2-SAT」+ GraphView + 无柱数组  | `src/views/Article/Algorithm/TwoSat.spec.ts` |
 | TC-VIEW-2SAT-03 | 全模板同屏：正文含「蕴含」+ GraphView | `src/views/Article/Algorithm/TwoSat.spec.ts` |
 
+### AC 自动机页 C-075（字符串第 7 页，新页，全模板 + 复用 GraphView·additive .fail 边）
+
+| 用例 ID       | 场景                                       | 文件                                              |
+| ------------- | ------------------------------------------ | ------------------------------------------------- |
+| TC-VIEW-AC-01 | 挂载渲染 Article + AlgorithmPlayer         | `src/views/Article/Algorithm/AhoCorasick.spec.ts` |
+| TC-VIEW-AC-02 | h1 含「AC」或「Aho」+ GraphView + 无柱数组 | `src/views/Article/Algorithm/AhoCorasick.spec.ts` |
+| TC-VIEW-AC-03 | 全模板同屏：正文含「fail」+ GraphView      | `src/views/Article/Algorithm/AhoCorasick.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2132,7 +2154,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **66** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **67** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2203,6 +2225,7 @@
 | TC-E2E-SA-01        | 后缀数组全模板：正文 + 后缀表 / `.scrub` 拖末步 首行后缀以 a 开头 + caption 含 sa / Shiki（C-072 新增）                    | `e2e/suffix-array.e2e.ts`          | active     |
 | TC-E2E-LCP-01       | LCP 数组全模板：正文 + 后缀表 LCP 列 / `.scrub` 拖末步 caption 含 3（最长重复子串）+ .sa-lcp 列 / Shiki（C-073 新增）      | `e2e/lcp-array.e2e.ts`             | active     |
 | TC-E2E-2SAT-01      | 2-SAT 全模板：正文 + 蕴含图 6 点 8 边 / `.scrub` 拖末步 caption 含「可满足」+ badge 真/假 / Shiki（C-074 新增）            | `e2e/two-sat.e2e.ts`               | active     |
+| TC-E2E-AC-01        | AC 自动机全模板：正文 + Trie 图 8 状态 / `.scrub` 拖末步 caption 含命中 hers / Shiki（C-075 新增）                         | `e2e/aho-corasick.e2e.ts`          | active     |
 
 ---
 

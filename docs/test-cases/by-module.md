@@ -281,6 +281,8 @@
 | TC-VIZ-GRAPHVIEW-SCC-02   | stackNodes → 1 个 .on-stack（虚线环）（C-069）                                  | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-CHECK-01 | 传 checkPair=[0,1] → 节点 0、1 两个带 .checking 类（蓝环）                      | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-CHECK-02 | 不传 checkPair → 无 .checking（其它 7 图算法零回归）                            | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-FAIL-01  | edgeClass={'0-1':'fail'} → 该 .graph-edge 带 .fail 类（虚线紫）                 | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-FAIL-02  | 无 fail 类的边 → 不带 .fail（8 图算法零回归）                                   | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -1008,6 +1010,8 @@
 
 > **C-074（M6 图算法第 8 页 · 新页）**：2-SAT（布尔可满足性）——承接 C-069 强连通分量，回答「SCC 有什么用」。把二元子句 `(a∨b)` 归约成两条蕴含 `¬a→b`、`¬b→a` 建**蕴含图**（`2n` 文字节点），跑 **Tarjan** 求 SCC：`x` 与 `¬x` 同 SCC ⟺ 无解；否则按 comp **逆拓扑序**赋值 `x 真 ⟺ comp[x]<comp[¬x]`，O(V+E)。**复用 GraphView 不新建轨**（承接 C-069 nodeGroup SCC 着色 + stackNodes + 有向边）；唯一 additive `GraphTrack.checkPair`（判定阶段蓝环高亮一对 `x/¬x`，见 viz-engine 段 `TC-VIZ-GRAPHVIEW-CHECK-*`）。复用 `Step.graph`、**AlgorithmPlayer 零改动**。`twosat.module`（固定 A,B,C / 4 子句 / init+clause×4+scc×4+check×3+assign×3+done 16 步 + oracle `twoSatSolve()`={sat:true,assign:[T,F,T]}、comp=[0,2,2,0,1,3]、4 SCC {¬B,A}/{C}/{B,¬A}/{¬C}）。新页 + 路由 `/docs/two-sat` + 菜单/首页「图算法」第 8 项 + 新 `two-sat.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 children +two-sat）。其它 7 图算法不设 checkPair 零回归。`TC-2SAT-MOD-*` + `TC-VIEW-2SAT-*` + `TC-E2E-2SAT-01`。
 
+> **C-075（M6 字符串第 7 页 · 新页）**：AC 自动机（Aho-Corasick）——多模式匹配，字符串大类收尾。把一组模式塞进 **Trie**，给每个状态建 **fail 指针**（KMP 部分匹配表 π 的多模式推广，指向「最长真后缀且是 Trie 路径」），**BFS** 构造 `fail[子]=goto(fail[父], 边字符)`；匹配时文本指针不回退、遇无转移沿 fail 跳、沿**输出链**报告所有命中（含重叠），O(n+m+z)。**复用 GraphView 不新建轨**（状态节点 + trie 实线边 + fail 虚线边）；唯一 additive 一条 `.graph-edge.fail` 虚线紫 CSS（`edgeClass` 通用字典、类绑定已生效，故 GraphTrack 零改动、单测层无 RED，见 viz-engine 段 `TC-VIZ-GRAPHVIEW-FAIL-*`）。复用 `Step.graph`、**AlgorithmPlayer 零改动**。`ahocorasick.module`（固定 {he,she,hers}+"ushers"，insert×3+fail×7+match/hit×6+done 17 步 + oracle `acMatch()`=she[1,3]/he[2,3]/hers[2,5]、fail=[0,0,0,0,1,2,0,3]、3 非平凡 fail 边 sh→h/she→he/hers→s）。新页 + 路由 `/docs/aho-corasick` + 菜单/首页「字符串」第 7 项 + 新 `aho-corasick.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +aho-corasick）+ KMP 页双向链接。8 图算法不设 fail 类零回归。`TC-AC-MOD-*` + `TC-VIEW-AC-*` + `TC-E2E-AC-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                             |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------ |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`        |
@@ -1497,3 +1501,19 @@
 | TC-VIEW-2SAT-02       | h1 含「2-SAT」+ GraphView + 无柱数组 （C-074）                                                     | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`           |
 | TC-VIEW-2SAT-03       | 全模板同屏：正文含「蕴含」+ GraphView （C-074）                                                    | L4   | `src/views/Article/Algorithm/TwoSat.spec.ts`           |
 | TC-E2E-2SAT-01        | 2-SAT 全模板：蕴含图 8 边 / 拖末步 caption 含「可满足」/ Shiki（C-074 新增）                       | L5   | `e2e/two-sat.e2e.ts`                                   |
+| TC-AC-MOD-01          | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]（C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-02          | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）（C-075）                              | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-03          | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边 （C-075）                                             | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-04          | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡） （C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-05          | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3] （C-075）                                          | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-06          | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}（C-075）                                    | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-07          | match+hit 步合计 6 个（文本长）；activeNode 随字符移动 （C-075）                                   | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-08          | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers） （C-075）                                          | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-09          | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中） （C-075）                                    | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-10          | done 步 caption 含 she、he、hers （C-075）                                                         | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-075）                                | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-AC-MOD-12          | module 元信息 title 含「AC」或「Aho」；initialInput()=[]（C-075）                                  | L3   | `src/algorithms/ahocorasick.module.spec.ts`            |
+| TC-VIEW-AC-01         | 挂载渲染 Article + AlgorithmPlayer （C-075）                                                       | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
+| TC-VIEW-AC-02         | h1 含「AC」或「Aho」+ GraphView + 无柱数组 （C-075）                                               | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
+| TC-VIEW-AC-03         | 全模板同屏：正文含「fail」+ GraphView （C-075）                                                    | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
+| TC-E2E-AC-01          | AC 自动机全模板：Trie 图 8 状态 / 拖末步 caption 含命中 hers / Shiki（C-075 新增）                 | L5   | `e2e/aho-corasick.e2e.ts`                              |
