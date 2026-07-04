@@ -195,6 +195,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/WordSearch.vue'),
           },
           {
+            path: '/docs/sudoku',
+            name: 'sudoku',
+            component: () => import('../views/Article/Algorithm/Sudoku.vue'),
+          },
+          {
             path: '/docs/kmp',
             name: 'kmp',
             component: () => import('../views/Article/Algorithm/Kmp.vue'),

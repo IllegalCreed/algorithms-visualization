@@ -34,6 +34,7 @@ import CombsumIcon from '@/assets/combsum.svg';
 import MazeIcon from '@/assets/maze.svg';
 import IslandsIcon from '@/assets/islands.svg';
 import WordSearchIcon from '@/assets/word-search.svg';
+import SudokuIcon from '@/assets/sudoku.svg';
 import KmpIcon from '@/assets/kmp.svg';
 import RabinKarpIcon from '@/assets/rabinkarp.svg';
 import BoyerMooreIcon from '@/assets/boyermoore.svg';
@@ -382,6 +383,12 @@ export function useCategoryData(): Category[] {
           desc: '在字母网格里沿相邻格拼出目标词：DFS 匹配字母就深入、失配换方向、四方向不通就撤销回退，同格不复用',
           icon: WordSearchIcon,
           url: 'word-search',
+        },
+        {
+          title: '数独',
+          desc: '给空格填数使行/列/宫不重复：约束回溯，试填 1..n 冲突就换、死路就撤销回退，棋盘约束的名场面',
+          icon: SudokuIcon,
+          url: 'sudoku',
         },
       ],
     },

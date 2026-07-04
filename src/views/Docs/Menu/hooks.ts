@@ -227,6 +227,10 @@ export function useCategoryData(): Category[] {
           title: '单词搜索',
           url: 'word-search',
         },
+        {
+          title: '数独',
+          url: 'sudoku',
+        },
       ],
     },
     {

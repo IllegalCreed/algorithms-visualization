@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 外框 -->
+  <rect x="120" y="120" width="784" height="784" rx="20" fill="none" stroke="#333333" stroke-width="26" />
+  <!-- 细格线（4×4） -->
+  <g stroke="#333333" stroke-width="8" opacity="0.55">
+    <line x1="316" y1="120" x2="316" y2="904" />
+    <line x1="708" y1="120" x2="708" y2="904" />
+    <line x1="120" y1="316" x2="904" y2="316" />
+    <line x1="120" y1="708" x2="904" y2="708" />
+  </g>
+  <!-- 粗宫线（2×2 宫分隔） -->
+  <g stroke="#333333" stroke-width="22" stroke-linecap="round">
+    <line x1="512" y1="120" x2="512" y2="904" />
+    <line x1="120" y1="512" x2="904" y2="512" />
+  </g>
+  <!-- 示例数字 -->
+  <g fill="#333333" font-family="sans-serif" font-weight="bold" font-size="150" text-anchor="middle" dominant-baseline="central">
+    <text x="218" y="222">1</text>
+    <text x="610" y="222">2</text>
+    <text x="414" y="610">3</text>
+    <text x="806" y="806">4</text>
+    <text x="806" y="414">1</text>
+    <text x="218" y="806">2</text>
+  </g>
+</svg>

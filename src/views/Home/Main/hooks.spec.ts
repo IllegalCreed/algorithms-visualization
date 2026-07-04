@@ -30,6 +30,7 @@ describe('Home/Main useCategoryData', () => {
       'maze',
       'number-of-islands',
       'word-search',
+      'sudoku',
     ]);
     expect(data[5].children.map((c) => c.url)).toEqual([
       'kmp',

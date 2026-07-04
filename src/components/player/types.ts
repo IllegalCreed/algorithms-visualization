@@ -413,6 +413,26 @@ export type WordSearchExecPoint =
   | 'backtrack' // 当前格四方向试完仍未拼完 → 撤销标记、回退（出栈）
   | 'found'; // 拼出完整单词 → 路径标绿
 
+/** 数独轨快照——回溯棋盘约束（C-071，第 14 条播放器轨；n×n 数字盘 + 宫线 + 试填/冲突/回退） */
+export interface SudokuTrack {
+  n: number; // 盘大小（4）
+  box: number; // 宫边长（2 = √n）
+  given: boolean[][]; // 是否初始给定（加粗、不可改）
+  grid: (number | null)[][]; // 当前填充（null=空）
+  current?: [number, number] | null; // 当前格（琥珀环）
+  tryNum?: number | null; // 当前试填的数字
+  status?: 'reject' | 'place' | 'backtrack' | null; // 当前动作 → 红/绿/退
+  solved?: boolean; // 全部填满
+}
+
+/** 数独执行点（C-071，回溯棋盘约束第 2 例；新建 SudokuView——试填 + 行/列/宫约束检查 + 回溯） */
+export type SudokuExecPoint =
+  | 'init' // 展示初始盘（给定加粗）
+  | 'reject' // 试某数字与行/列/宫冲突 → 换下一个
+  | 'place' // 试某数字合法 → 填入，下探
+  | 'backtrack' // 当前格 1..n 都填不了 → 撤销上一个填入、回退
+  | 'done'; // 全部填满，终盘
+
 /** Manacher 最长回文子串执行点（C-067，字符串第 4 页；新建 ManacherView 回文轨——转换串 + 半径数组 + 对称性复用） */
 export type ManacherExecPoint =
   | 'init' // 预处理：插 # 得转换串，半径数组 p 全空
@@ -473,6 +493,7 @@ export interface Step<P extends string = string> {
   maze?: MazeTrack; // 纯加法：回溯的迷宫轨；其它算法不设 → MazeView 不渲染
   kmp?: KmpTrack; // 纯加法：字符串匹配轨；其它算法不设 → KmpView 不渲染
   manacher?: ManacherTrack; // 纯加法：Manacher 回文轨；其它算法不设 → ManacherView 不渲染
+  sudoku?: SudokuTrack; // 纯加法：数独轨；其它算法不设 → SudokuView 不渲染
 }
 
 export interface LangSource<P extends string = string> {
