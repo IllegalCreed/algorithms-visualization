@@ -325,6 +325,9 @@
 | TC-VIZ-SAVIEW-01        | s=banana,order=[5,3,1,0,4,2] → 6 .sa-row，首行后缀以 a 开头（C-072）            | L4   | `src/components/SuffixArrayView.spec.ts`        |
 | TC-VIZ-SAVIEW-02        | 每行 .sa-index = order[row]（起点下标）（C-072）                                | L4   | `src/components/SuffixArrayView.spec.ts`        |
 | TC-VIZ-SAVIEW-03        | phase sort→.sa-key-active；rank→.sa-rank-active（C-072）                        | L4   | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-01    | 传 lcp=[null,1,3,0,0,2] → 渲染 .sa-lcp 列，非 null 行显示对应值（C-073）        | L4   | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-02    | current=2,compareRow=1 → 1 .sa-current + 1 .sa-compare（C-073）                 | L4   | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-03    | 不传 lcp（构造模式）→ 仍渲染关键字列 .sa-key、无 .sa-lcp（C-073）               | L4   | `src/components/SuffixArrayView.spec.ts`        |
 | TC-PLAYER-MAZE-01       | step 带 maze → 渲染 MazeView（C-059）                                           | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MAZE-02       | 排序 step 无 maze→不渲染 MazeView（零回归）（C-059）                            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-KMP-01        | step 带 kmp → 渲染 KmpView（C-062）                                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -999,6 +1002,8 @@
 > **C-071（M6 回溯与搜索第 8 页 · 新页）**：数独——棋盘约束回溯第 2 例（N 皇后是第 1）。N 皇后是「放置型」（每列放皇后），数独是「填数型」（每空格试填 1..n，受**行/列/宫三重约束**）：合法则填入下探，冲突换下一个，一格 1..n 都填不了就**撤销、回退**换个数。**新建第 14 条 SudokuView 数独轨**（CSS grid n×n + 宫线，`sk-given` 给定加粗 / `sk-current` 当前琥珀环 / `sk-reject` 冲突红 / `sk-place` 填入绿；见 viz-engine 段 `TC-VIZ-SUDOKUVIEW-*` / `TC-PLAYER-SUDOKU-*`）。复用 `Step.sudoku` additive 可插拔（其它算法未设即不渲染）。`sudoku.module`（固定 4×4 迷你数独 5 空唯一解，约束回溯 22 步含 **2 次真回溯**〔(2,1) 填 1 走到 (2,3) 死路→撤销→改填 3〕 + oracle `sudokuSolution()`）。新页 + 路由 `/docs/sudoku` + 菜单/首页「回溯与搜索」第 8 项 + 新 `sudoku.svg` + 改 `TC-HOOK-01-1/02-1`（回溯 children +sudoku）。播放器可插拔轨 13→14；既有算法零回归。`TC-SDK-MOD-*` + `TC-VIEW-SDK-*` + `TC-E2E-SDK-01`。
 > **C-072（M6 字符串第 5 页 · 新页）**：后缀数组（Suffix Array）——给字符串大类补「后缀结构」维度（前四页 3 匹配 + 1 回文）。把一个串所有后缀按字典序排好，`sa[i]` = 排名 i 的后缀起点，是最长公共子串/不同子串计数/重复子串的通用底座。朴素排序 O(n²logn)；**倍增法** O(nlog²n)：先按长度 1 排，再用上一轮 rank 拼 `(rank[i], rank[i+k])` 作关键字、每轮**比较长度翻倍**。**新建第 15 条 SuffixArrayView 后缀轨**（原串 + 后缀表〔起点/后缀文本/rank/关键字〕逐轮细化，`sort` 高亮关键字列 / `rank` 高亮 rank 列；见 viz-engine 段 `TC-VIZ-SAVIEW-*` / `TC-PLAYER-SA-*`）。复用 `Step.suffixArray` additive 可插拔（其它算法未设即不渲染）。`suffixarray.module`（固定 banana，倍增 init+sort/rank×2+done 6 步收敛 + oracle `suffixArray()`=[5,3,1,0,4,2]，与字典序对拍）。新页 + 路由 `/docs/suffix-array` + 菜单/首页「字符串」第 5 项 + 新 `suffix-array.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +suffix-array）。播放器可插拔轨 14→15；既有算法零回归。`TC-SA-MOD-*` + `TC-VIEW-SA-*` + `TC-E2E-SA-01`。
 
+> **C-073（M6 字符串第 6 页 · 新页）**：LCP / height 数组——接续 C-072 后缀数组，把后缀结构「构造→应用」讲通。`lcp[i]` = 排序后相邻后缀 `sa[i-1]`/`sa[i]` 的最长公共前缀长；朴素 O(n²)，**Kasai** O(n)：按原始下标 `i` 顺序处理、维护 `h`，去首字符 `h` 至多减 1、字符不重复比较。**扩展 SuffixArrayView 为「LCP 模式」**（additive：`lcp?`/`current?`/`compareRow?`——「关键字」列换 **LCP 列** + 当前行琥珀/排序前驱行蓝高亮；C-072 构造页不传即渲染不变，见 viz-engine 段 `TC-VIZ-SAVIEW-LCP-*`）。复用 `Step.suffixArray`、**AlgorithmPlayer 零改动**。`lcparray.module`（复用 banana sa，Kasai 逐原始下标 init+5 fill+1 skip+done 8 步 + oracle `kasaiLcp()`=[0,1,3,0,0,2]，LCP 列**非顺序填充**、应用 max=3 最长重复子串 "ana" / 不同子串数 21−6=15）。新页 + 路由 `/docs/lcp-array` + 菜单/首页「字符串」第 6 项 + 新 `lcp-array.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +lcp-array）。播放器可插拔轨仍 15（复用 SuffixArrayView）；C-072 构造模式零回归。`TC-LCP-MOD-*` + `TC-VIEW-LCP-*` + `TC-E2E-LCP-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                             |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------ |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`        |
@@ -1456,3 +1461,19 @@
 | TC-VIEW-SA-02         | h1 含「后缀数组」+ SuffixArrayView + 无柱数组（C-072）                                             | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
 | TC-VIEW-SA-03         | 全模板同屏：正文含「倍增」+ SuffixArrayView（C-072）                                               | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
 | TC-E2E-SA-01          | 后缀数组全模板：后缀表 / 拖末步首行 a 开头 + caption 含 sa / Shiki（C-072 新增）                   | L5   | `e2e/suffix-array.e2e.ts`                              |
+| TC-LCP-MOD-01         | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2] （C-073）                                              | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-02         | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空） （C-073）                                  | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-03         | order = suffixArray() 恒定（LCP 阶段不重排后缀） （C-073）                                         | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-04         | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0（C-073）                              | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-05         | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1（C-073）                             | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-06         | skip 步 current=0（rank 0 后缀无排序前驱） （C-073）                                               | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-07         | fill 步恰 5 次（n-1）；skip 恰 1 （C-073）                                                         | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-08         | Kasai 按原始下标 i=0..5；LCP 列非顺序填充 （C-073）                                                | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-09         | 相邻两步已填 lcp 非空格数单调不减 （C-073）                                                        | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-10         | done caption 含最长重复子串 3（max lcp）与不同子串数 15 （C-073）                                  | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-11         | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-073）                                | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-LCP-MOD-12         | module 元信息 title 含「LCP」或「height」；initialInput()=[]（C-073）                              | L3   | `src/algorithms/lcparray.module.spec.ts`               |
+| TC-VIEW-LCP-01        | 挂载渲染 Article + AlgorithmPlayer （C-073）                                                       | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`         |
+| TC-VIEW-LCP-02        | h1 含「LCP」+ SuffixArrayView + 无柱数组 （C-073）                                                 | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`         |
+| TC-VIEW-LCP-03        | 全模板同屏：正文含「Kasai」+ SuffixArrayView （C-073）                                             | L4   | `src/views/Article/Algorithm/LcpArray.spec.ts`         |
+| TC-E2E-LCP-01         | LCP 全模板：后缀表 LCP 列 / 拖末步 caption 含 3 / Shiki（C-073 新增）                              | L5   | `e2e/lcp-array.e2e.ts`                                 |

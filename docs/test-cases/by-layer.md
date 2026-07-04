@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **750** 个用例。运行命令：`pnpm test:unit`
+共 **762** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1215,26 +1215,38 @@
 
 固定 `"banana"`；oracle `suffixArray()`=`[5,3,1,0,4,2]`（与字典序一致）。
 
-| Case ID      | 标题                                              | 自动化路径                                  |
-| ------------ | ------------------------------------------------- | ------------------------------------------- |
-| TC-SA-MOD-01 | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]      | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-02 | 每步执行点合法且带后缀轨（array 空）              | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-03 | 原串不变 banana                                   | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-04 | 终态字典序（相邻后缀升序）                        | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-05 | order 恒为 0..n-1 的排列                          | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-06 | rank 值域合法；末步 rank 全不同                   | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-07 | rank 步之间 k 依次翻倍 1,2,…                      | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-08 | sort 步 phase=sort；rank 步 phase=rank            | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-09 | 收敛即止（末步 k ≤ n）                            | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-10 | vars 展示原串/sa                                  | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-11 | 四语言 sources + 行号在范围内                     | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-12 | module 元信息 title 含后缀数组、initialInput()=[] | `src/algorithms/suffixarray.module.spec.ts` |
+| Case ID       | 标题                                                          | 自动化路径                                  |
+| ------------- | ------------------------------------------------------------- | ------------------------------------------- |
+| TC-SA-MOD-01  | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-02  | 每步执行点合法且带后缀轨（array 空）                          | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-03  | 原串不变 banana                                               | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-04  | 终态字典序（相邻后缀升序）                                    | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-05  | order 恒为 0..n-1 的排列                                      | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-06  | rank 值域合法；末步 rank 全不同                               | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-07  | rank 步之间 k 依次翻倍 1,2,…                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-08  | sort 步 phase=sort；rank 步 phase=rank                        | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-09  | 收敛即止（末步 k ≤ n）                                        | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-10  | vars 展示原串/sa                                              | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-11  | 四语言 sources + 行号在范围内                                 | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-12  | module 元信息 title 含后缀数组、initialInput()=[]             | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-LCP-MOD-01 | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2]                   | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-02 | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空）       | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-03 | order = suffixArray() 恒定（LCP 阶段不重排后缀）              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-04 | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0  | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-05 | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1 | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-06 | skip 步 current=0（rank 0 后缀无排序前驱）                    | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-07 | fill 步恰 5 次（n-1）；skip 恰 1                              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-08 | Kasai 按原始下标 i=0..5；LCP 列非顺序填充                     | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-09 | 相邻两步已填 lcp 非空格数单调不减                             | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-10 | done caption 含最长重复子串 3（max lcp）与不同子串数 15       | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内    | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-12 | module 元信息 title 含「LCP」或「height」；initialInput()=[]  | `src/algorithms/lcparray.module.spec.ts`    |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **444** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **450** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1854,6 +1866,9 @@
 | TC-VIZ-SAVIEW-01        | s=banana,order=[5,3,1,0,4,2] → 6 .sa-row，首行后缀以 a 开头（C-072）            | `src/components/SuffixArrayView.spec.ts`        |
 | TC-VIZ-SAVIEW-02        | 每行 .sa-index = order[row]（起点下标）（C-072）                                | `src/components/SuffixArrayView.spec.ts`        |
 | TC-VIZ-SAVIEW-03        | phase sort→.sa-key-active；rank→.sa-rank-active（C-072）                        | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-01    | 传 lcp=[null,1,3,0,0,2] → 渲染 .sa-lcp 列，非 null 行显示对应值（C-073）        | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-02    | current=2,compareRow=1 → 1 .sa-current + 1 .sa-compare（C-073）                 | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-LCP-03    | 不传 lcp（构造模式）→ 仍渲染关键字列 .sa-key、无 .sa-lcp（C-073）               | `src/components/SuffixArrayView.spec.ts`        |
 | TC-PLAYER-GRAPH-01      | 当前步带 graph → 渲染 GraphView                                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02      | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01     | step 带 matrix → 渲染 MatrixView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -2077,6 +2092,14 @@
 
 ### 后缀数组页 C-072（字符串第 5 页，新页，全模板 + 新建 SuffixArrayView 后缀轨）
 
+### LCP 数组页 C-073（字符串第 6 页，新页，全模板 + 扩 SuffixArrayView 为 LCP 模式）
+
+| 用例 ID        | 场景                                         | 文件                                           |
+| -------------- | -------------------------------------------- | ---------------------------------------------- |
+| TC-VIEW-LCP-01 | 挂载渲染 Article + AlgorithmPlayer           | `src/views/Article/Algorithm/LcpArray.spec.ts` |
+| TC-VIEW-LCP-02 | h1 含「LCP」+ SuffixArrayView + 无柱数组     | `src/views/Article/Algorithm/LcpArray.spec.ts` |
+| TC-VIEW-LCP-03 | 全模板同屏：正文含「Kasai」+ SuffixArrayView | `src/views/Article/Algorithm/LcpArray.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2087,7 +2110,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **64** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **65** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2156,6 +2179,7 @@
 | TC-E2E-CC-01        | 硬币找零方案数全模板：正文 + DP 表 4×6 / `.scrub` 拖末步 右下角=4 + caption 含 4 / Shiki（C-070 新增）                     | `e2e/coin-change.e2e.ts`           | active     |
 | TC-E2E-SDK-01       | 数独全模板：正文 + 4×4 盘 / `.scrub` 拖末步 16 格全填 + caption 含完成 / Shiki（C-071 新增）                               | `e2e/sudoku.e2e.ts`                | active     |
 | TC-E2E-SA-01        | 后缀数组全模板：正文 + 后缀表 / `.scrub` 拖末步 首行后缀以 a 开头 + caption 含 sa / Shiki（C-072 新增）                    | `e2e/suffix-array.e2e.ts`          | active     |
+| TC-E2E-LCP-01       | LCP 数组全模板：正文 + 后缀表 LCP 列 / `.scrub` 拖末步 caption 含 3（最长重复子串）+ .sa-lcp 列 / Shiki（C-073 新增）      | `e2e/lcp-array.e2e.ts`             | active     |
 
 ---
 
