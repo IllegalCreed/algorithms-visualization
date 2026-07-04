@@ -161,6 +161,10 @@ export function useCategoryData(): Category[] {
           title: 'Floyd 多源最短路',
           url: 'floyd-warshall',
         },
+        {
+          title: '强连通分量',
+          url: 'scc',
+        },
       ],
     },
     {

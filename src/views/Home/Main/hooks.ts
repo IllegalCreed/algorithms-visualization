@@ -20,6 +20,7 @@ import PrimIcon from '@/assets/prim.svg';
 import BellmanIcon from '@/assets/bellman.svg';
 import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
+import SccIcon from '@/assets/scc.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -284,6 +285,12 @@ export function useCategoryData(): Category[] {
           desc: '一张距离矩阵 + 三重循环，逐个点试作中转，一次算出任意两点间的最短路（矩阵动态规划）',
           icon: FloydIcon,
           url: 'floyd-warshall',
+        },
+        {
+          title: '强连通分量',
+          desc: '有向图里两两互相可达的极大集合：Tarjan 一趟 DFS，用 dfn/low + 栈，low==dfn 即一个 SCC 的根，O(V+E)',
+          icon: SccIcon,
+          url: 'scc',
         },
       ],
     },

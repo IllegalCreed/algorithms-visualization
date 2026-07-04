@@ -1,0 +1,29 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- SCC 组 1（左，一色）：含 3 点 + 内部有向环 -->
+  <rect x="110" y="300" width="360" height="430" rx="60" fill="#a5d8ff" stroke="#333333" stroke-width="16" />
+  <g fill="#333333">
+    <circle cx="210" cy="400" r="42" />
+    <circle cx="370" cy="420" r="42" />
+    <circle cx="290" cy="620" r="42" />
+  </g>
+  <!-- 组 1 内部环形有向箭头（强连通） -->
+  <g fill="none" stroke="#333333" stroke-width="18" stroke-linecap="round">
+    <path d="M250 445 A120 120 0 1 1 330 590" />
+    <polyline points="298 566 330 596 356 560" stroke-linejoin="round" />
+  </g>
+  <!-- SCC 组 2（右，另一色）：含 2 点 + 内部环 -->
+  <rect x="560" y="340" width="340" height="360" rx="60" fill="#ffd8a8" stroke="#333333" stroke-width="16" />
+  <g fill="#333333">
+    <circle cx="670" cy="440" r="42" />
+    <circle cx="790" cy="580" r="42" />
+  </g>
+  <g fill="none" stroke="#333333" stroke-width="18" stroke-linecap="round">
+    <path d="M700 470 A95 95 0 1 1 760 550" />
+    <polyline points="730 528 762 556 786 520" stroke-linejoin="round" />
+  </g>
+  <!-- 组间有向边（缩点后 DAG） -->
+  <g stroke="#333333" stroke-width="20" stroke-linecap="round" fill="none">
+    <line x1="470" y1="470" x2="558" y2="470" />
+    <polyline points="524 442 560 470 524 498" stroke-linejoin="round" />
+  </g>
+</svg>

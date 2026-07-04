@@ -38,6 +38,16 @@ const edgeViews = computed(() =>
 
 const isDone = (id: number) => props.graph.doneNodes?.includes(id) ?? false;
 const badgeOf = (id: number) => props.graph.nodeBadge?.[id] ?? null;
+
+// SCC 分组着色（C-069）：一组一色，未归组中性灰；不设 nodeGroup 时用默认绿（CSS）
+const GROUP_PALETTE = ['#a5d8ff', '#ffd8a8', '#b2f2bb', '#ffc9c9', '#d0bfff', '#ffec99'];
+const isOnStack = (id: number) => props.graph.stackNodes?.includes(id) ?? false;
+const groupStyle = (id: number): Record<string, string> | undefined => {
+  const groups = props.graph.nodeGroup;
+  if (!groups) return undefined;
+  const g = groups[id];
+  return { fill: g == null ? '#e0e6e2' : GROUP_PALETTE[g % GROUP_PALETTE.length] };
+};
 </script>
 
 <template>
@@ -65,10 +75,14 @@ const badgeOf = (id: number) => props.graph.nodeBadge?.[id] ?? null;
           v-for="v in graph.vertices"
           :key="v.id"
           class="graph-node"
-          :class="{ done: isDone(v.id), active: graph.activeNode === v.id }"
+          :class="{
+            done: isDone(v.id),
+            active: graph.activeNode === v.id,
+            'on-stack': isOnStack(v.id),
+          }"
           :transform="`translate(${v.x},${v.y})`"
         >
-          <circle r="18" />
+          <circle r="18" :style="groupStyle(v.id)" />
           <text class="node-label">{{ v.label }}</text>
           <text v-if="badgeOf(v.id) !== null" class="node-badge" x="20" y="-16">
             {{ badgeOf(v.id) }}
@@ -149,7 +163,12 @@ svg {
 .graph-node.done .node-label {
   fill: #ffffff;
 }
+.graph-node.on-stack circle {
+  stroke: #f0a000;
+  stroke-dasharray: 4 2;
+}
 .graph-node.active circle {
   stroke: #f0a000;
+  stroke-dasharray: none;
 }
 </style>

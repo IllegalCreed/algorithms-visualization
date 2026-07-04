@@ -125,6 +125,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Floyd.vue'),
           },
           {
+            path: '/docs/scc',
+            name: 'scc',
+            component: () => import('../views/Article/Algorithm/Scc.vue'),
+          },
+          {
             path: '/docs/edit-distance',
             name: 'edit-distance',
             component: () => import('../views/Article/Algorithm/Edit.vue'),

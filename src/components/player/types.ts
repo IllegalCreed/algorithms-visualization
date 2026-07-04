@@ -227,7 +227,17 @@ export interface GraphTrack {
   activeNode?: number | null; // 当前操作节点（琥珀高亮环）
   doneNodes?: number[]; // 已确定/已并入的节点（绿填充）
   edgeClass?: Record<string, string>; // 边 key → 状态类（relaxed/tree（Dijkstra）| current/mst/rejected（Kruskal））
+  nodeGroup?: (number | null)[]; // 每节点分组号 → 调色板填充（SCC 着色，C-069）；null=未归组（中性灰）；其它算法不设 → 用默认绿
+  stackNodes?: number[]; // 当前在栈上的节点（虚线琥珀环）——Tarjan 栈（C-069）；其它算法不设
 }
+
+/** Tarjan 强连通分量执行点（C-069，图算法第 7 页；扩展 GraphView——一趟 DFS + dfn/low + 栈） */
+export type TarjanExecPoint =
+  | 'enter' // 访问新节点：dfn=low=时间戳，入栈
+  | 'tree' // 子节点递归返回：low = min(low, 子 low)
+  | 'back' // 遇到指向栈中节点的回边：low = min(low, dfn[邻])
+  | 'scc' // low==dfn 是 SCC 根 → 弹栈到本节点，形成一个 SCC（着色）
+  | 'done'; // 全部访问完，共 N 个强连通分量
 
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {

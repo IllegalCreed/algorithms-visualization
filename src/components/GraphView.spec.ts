@@ -60,4 +60,20 @@ describe('GraphView', () => {
     expect(badges[1].text()).toBe('∞');
     expect(badges[2].text()).toBe('1');
   });
+
+  it('TC-VIZ-GRAPHVIEW-SCC-01 nodeGroup 分组着色（同组同色、异组异色）（C-069）', () => {
+    const w = mountIt({ ...base, nodeGroup: [0, 0, 1, null, null, null] });
+    const circles = w.findAll('.graph-node circle');
+    const fill = (i: number) => circles[i].attributes('style') ?? '';
+    expect(fill(0)).toContain('fill'); // 组 0 有 inline 填充
+    expect(fill(0)).toBe(fill(1)); // 组 0 两点同色
+    expect(fill(0)).not.toBe(fill(2)); // 组 1 异色
+    expect(fill(3)).not.toBe(fill(0)); // 未归组（灰）异于组色
+  });
+
+  it('TC-VIZ-GRAPHVIEW-SCC-02 stackNodes 在栈虚线环（C-069）', () => {
+    const w = mountIt({ ...base, stackNodes: [1] });
+    expect(w.findAll('.on-stack')).toHaveLength(1);
+    expect(w.findAll('.graph-node')[1].classes()).toContain('on-stack');
+  });
 });
