@@ -283,6 +283,8 @@
 | TC-VIZ-GRAPHVIEW-CHECK-02 | 不传 checkPair → 无 .checking（其它 7 图算法零回归）                            | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-FAIL-01  | edgeClass={'0-1':'fail'} → 该 .graph-edge 带 .fail 类（虚线紫）                 | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-FAIL-02  | 无 fail 类的边 → 不带 .fail（8 图算法零回归）                                   | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-LABEL-01 | edgeLabel={'0-1':'1/3'} → 该边文本显示 1/3（优先于 w）                          | L4   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-LABEL-02 | 不传 edgeLabel → 边文本回退到 w（8 图算法 + AC 零回归）                         | L4   | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -1012,6 +1014,8 @@
 
 > **C-075（M6 字符串第 7 页 · 新页）**：AC 自动机（Aho-Corasick）——多模式匹配，字符串大类收尾。把一组模式塞进 **Trie**，给每个状态建 **fail 指针**（KMP 部分匹配表 π 的多模式推广，指向「最长真后缀且是 Trie 路径」），**BFS** 构造 `fail[子]=goto(fail[父], 边字符)`；匹配时文本指针不回退、遇无转移沿 fail 跳、沿**输出链**报告所有命中（含重叠），O(n+m+z)。**复用 GraphView 不新建轨**（状态节点 + trie 实线边 + fail 虚线边）；唯一 additive 一条 `.graph-edge.fail` 虚线紫 CSS（`edgeClass` 通用字典、类绑定已生效，故 GraphTrack 零改动、单测层无 RED，见 viz-engine 段 `TC-VIZ-GRAPHVIEW-FAIL-*`）。复用 `Step.graph`、**AlgorithmPlayer 零改动**。`ahocorasick.module`（固定 {he,she,hers}+"ushers"，insert×3+fail×7+match/hit×6+done 17 步 + oracle `acMatch()`=she[1,3]/he[2,3]/hers[2,5]、fail=[0,0,0,0,1,2,0,3]、3 非平凡 fail 边 sh→h/she→he/hers→s）。新页 + 路由 `/docs/aho-corasick` + 菜单/首页「字符串」第 7 项 + 新 `aho-corasick.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +aho-corasick）+ KMP 页双向链接。8 图算法不设 fail 类零回归。`TC-AC-MOD-*` + `TC-VIEW-AC-*` + `TC-E2E-AC-01`。
 
+> **C-076（M6 图算法第 9 页 · 新页）**：最大流（Ford-Fulkerson）——图论收官，网络流。有向图每边有容量，求源 s 到汇 t 的最大流量。**Ford-Fulkerson**：反复在**残量网络**找**增广路**、推满瓶颈，直到无增广路。残量网络的**反向边**（每条用了流的边 `u→v` 生成容量=已用流量的反向边 `v→u`）允许把误走的流退回改道（贪心走错也能反悔），终止即最大流且 **最大流=最小割**（图论对偶），BFS 版即 Edmonds-Karp O(VE²)。**复用 GraphView 不新建轨**（边显示流量/容量、增广路径琥珀、反向退流红虚线）；additive `GraphTrack.edgeLabel?`（边标签，缺省回退 w，见 viz-engine 段 `TC-VIZ-GRAPHVIEW-LABEL-*`）+ `.graph-edge.reverse` 红虚线 CSS。复用 `Step.graph`、**AlgorithmPlayer 零改动**。`maxflow.module`（固定 4 节点 5 边 s→a3/s→b3/a→b1/a→t3/b→t3，init+find×4+augment×4+done 10 步 + oracle `maxFlow()`={value:6}、4 轮增广瓶颈[1,2,2,1] 末轮反向边[1,2]、最小割 {s}|{a,b,t}）。新页 + 路由 `/docs/max-flow` + 菜单/首页「图算法」第 9 项 + 新 `max-flow.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 children +max-flow）。8 图算法 + AC 不设 edgeLabel 零回归。`TC-MF-MOD-*` + `TC-VIEW-MF-*` + `TC-E2E-MF-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                             |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------ |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`        |
@@ -1517,3 +1521,19 @@
 | TC-VIEW-AC-02         | h1 含「AC」或「Aho」+ GraphView + 无柱数组 （C-075）                                               | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
 | TC-VIEW-AC-03         | 全模板同屏：正文含「fail」+ GraphView （C-075）                                                    | L4   | `src/views/Article/Algorithm/AhoCorasick.spec.ts`      |
 | TC-E2E-AC-01          | AC 自动机全模板：Trie 图 8 状态 / 拖末步 caption 含命中 hers / Shiki（C-075 新增）                 | L5   | `e2e/aho-corasick.e2e.ts`                              |
+| TC-MF-MOD-01          | 末步 done；最大流 = maxFlow().value = 6 （C-076）                                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-02          | 每步 point∈{init,find,augment,done} 且带图轨（array 空）（C-076）                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-03          | find 步恰 4 个、augment 步恰 4 个（4 轮增广） （C-076）                                            | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-04          | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）（C-076）                            | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-05          | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6 （C-076）                                                    | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-06          | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）（C-076）                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-07          | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒） （C-076）                               | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-08          | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮） （C-076）                                   | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-09          | done 步 edgeClass 标最小割边 s→a、s→b （C-076）                                                    | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-10          | done 步 caption 含最大流 6 与「最小割」 （C-076）                                                  | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-076）                                | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-MF-MOD-12          | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]（C-076）                             | L3   | `src/algorithms/maxflow.module.spec.ts`                |
+| TC-VIEW-MF-01         | 挂载渲染 Article + AlgorithmPlayer （C-076）                                                       | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`          |
+| TC-VIEW-MF-02         | h1 含「最大流」+ GraphView + 无柱数组 （C-076）                                                    | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`          |
+| TC-VIEW-MF-03         | 全模板同屏：正文含「残量」+ GraphView （C-076）                                                    | L4   | `src/views/Article/Algorithm/MaxFlow.spec.ts`          |
+| TC-E2E-MF-01          | 最大流全模板：网络图 4 节点 / 拖末步 caption 含最大流 6 / Shiki（C-076 新增）                      | L5   | `e2e/max-flow.e2e.ts`                                  |

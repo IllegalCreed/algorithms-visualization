@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **786** 个用例。运行命令：`pnpm test:unit`
+共 **798** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1265,12 +1265,24 @@
 | TC-AC-MOD-10   | done 步 caption 含 she、he、hers                                        | `src/algorithms/ahocorasick.module.spec.ts` |
 | TC-AC-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/ahocorasick.module.spec.ts` |
 | TC-AC-MOD-12   | module 元信息 title 含「AC」或「Aho」；initialInput()=[]                | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-MF-MOD-01   | 末步 done；最大流 = maxFlow().value = 6                                 | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-02   | 每步 point∈{init,find,augment,done} 且带图轨（array 空）                | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-03   | find 步恰 4 个、augment 步恰 4 个（4 轮增广）                           | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-04   | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）          | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-05   | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6                                   | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-06   | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）                | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-07   | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒）              | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-08   | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮）                  | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-09   | done 步 edgeClass 标最小割边 s→a、s→b                                   | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-10   | done 步 caption 含最大流 6 与「最小割」                                 | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-12   | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]           | `src/algorithms/maxflow.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **460** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **465** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1856,6 +1868,8 @@
 | TC-VIZ-GRAPHVIEW-CHECK-02 | 不传 checkPair → 无 .checking（其它 7 图算法零回归）                            | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-FAIL-01  | edgeClass={'0-1':'fail'} → 该 .graph-edge 带 .fail 类（虚线紫）                 | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-GRAPHVIEW-FAIL-02  | 无 fail 类的边 → 不带 .fail（8 图算法零回归）                                   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-LABEL-01 | edgeLabel={'0-1':'1/3'} → 该边文本显示 1/3（优先于 w）                          | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-LABEL-02 | 不传 edgeLabel → 边文本回退到 w（8 图算法 + AC 零回归）                         | `src/components/GraphView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -2144,6 +2158,14 @@
 | TC-VIEW-AC-02 | h1 含「AC」或「Aho」+ GraphView + 无柱数组 | `src/views/Article/Algorithm/AhoCorasick.spec.ts` |
 | TC-VIEW-AC-03 | 全模板同屏：正文含「fail」+ GraphView      | `src/views/Article/Algorithm/AhoCorasick.spec.ts` |
 
+### 最大流页 C-076（图算法第 9 页，新页，全模板 + 复用 GraphView·additive edgeLabel/.reverse）
+
+| 用例 ID       | 场景                                  | 文件                                          |
+| ------------- | ------------------------------------- | --------------------------------------------- |
+| TC-VIEW-MF-01 | 挂载渲染 Article + AlgorithmPlayer    | `src/views/Article/Algorithm/MaxFlow.spec.ts` |
+| TC-VIEW-MF-02 | h1 含「最大流」+ GraphView + 无柱数组 | `src/views/Article/Algorithm/MaxFlow.spec.ts` |
+| TC-VIEW-MF-03 | 全模板同屏：正文含「残量」+ GraphView | `src/views/Article/Algorithm/MaxFlow.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2154,7 +2176,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **67** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **68** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2226,6 +2248,7 @@
 | TC-E2E-LCP-01       | LCP 数组全模板：正文 + 后缀表 LCP 列 / `.scrub` 拖末步 caption 含 3（最长重复子串）+ .sa-lcp 列 / Shiki（C-073 新增）      | `e2e/lcp-array.e2e.ts`             | active     |
 | TC-E2E-2SAT-01      | 2-SAT 全模板：正文 + 蕴含图 6 点 8 边 / `.scrub` 拖末步 caption 含「可满足」+ badge 真/假 / Shiki（C-074 新增）            | `e2e/two-sat.e2e.ts`               | active     |
 | TC-E2E-AC-01        | AC 自动机全模板：正文 + Trie 图 8 状态 / `.scrub` 拖末步 caption 含命中 hers / Shiki（C-075 新增）                         | `e2e/aho-corasick.e2e.ts`          | active     |
+| TC-E2E-MF-01        | 最大流全模板：正文 + 网络图 4 节点 / `.scrub` 拖末步 caption 含最大流 6 / Shiki（C-076 新增）                              | `e2e/max-flow.e2e.ts`              | active     |
 
 ---
 
