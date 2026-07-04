@@ -52,6 +52,7 @@ describe('Docs/Menu useCategoryData', () => {
       'rabin-karp',
       'boyer-moore',
       'manacher',
+      'suffix-array',
     ]);
   });
 

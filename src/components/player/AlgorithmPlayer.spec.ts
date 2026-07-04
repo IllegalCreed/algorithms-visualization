@@ -19,6 +19,7 @@ import MazeView from '@/components/MazeView.vue';
 import KmpView from '@/components/KmpView.vue';
 import ManacherView from '@/components/ManacherView.vue';
 import SudokuView from '@/components/SudokuView.vue';
+import SuffixArrayView from '@/components/SuffixArrayView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -500,6 +501,38 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 sudoku
     await flushPromises();
     expect(wSort.findComponent(SudokuView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 suffixArray 且 array 空（后缀数组 C-072：SuffixArrayView 后缀轨 + 无柱主轨）
+  const suffixArrayModule: AlgorithmModule = {
+    title: 'sa-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        suffixArray: { s: 'ab', k: 1, order: [0, 1], rank: [0, 1] },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-SA-01 当前步带 suffixArray 时渲染 SuffixArrayView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: suffixArrayModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(SuffixArrayView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-SA-02 既有排序 step（无 suffixArray）不渲染 SuffixArrayView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 suffixArray
+    await flushPromises();
+    expect(wSort.findComponent(SuffixArrayView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

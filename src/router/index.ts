@@ -220,6 +220,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Manacher.vue'),
           },
           {
+            path: '/docs/suffix-array',
+            name: 'suffix-array',
+            component: () => import('../views/Article/Algorithm/SuffixArray.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

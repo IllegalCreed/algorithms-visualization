@@ -252,6 +252,10 @@ export function useCategoryData(): Category[] {
           title: 'Manacher',
           url: 'manacher',
         },
+        {
+          title: '后缀数组',
+          url: 'suffix-array',
+        },
       ],
     },
   ];

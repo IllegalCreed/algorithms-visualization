@@ -433,6 +433,23 @@ export type SudokuExecPoint =
   | 'backtrack' // 当前格 1..n 都填不了 → 撤销上一个填入、回退
   | 'done'; // 全部填满，终盘
 
+/** 后缀数组轨快照——字符串后缀结构（C-072，第 15 条播放器轨；倍增法：原串 + 后缀表逐轮细化） */
+export interface SuffixArrayTrack {
+  s: string; // 原串（如 banana）
+  k: number; // 当前倍增长度（1 = 已按首字符；下一轮比较 2k）
+  order: number[]; // 当前 sa（排序后的后缀起点）
+  rank: number[]; // 每个起点 i 的当前 rank（0 基）
+  phase?: 'sort' | 'rank' | null; // 本步高亮：重排 / 重编号
+  done?: boolean; // rank 全不同 → sa 定型
+}
+
+/** 后缀数组执行点（C-072，字符串第 5 页；新建 SuffixArrayView——倍增 sort → rerank） */
+export type SuffixArrayExecPoint =
+  | 'init' // 列出后缀，按首字符定初始 rank + 排序
+  | 'sort' // 按 (rank[i], rank[i+k]) 稳定重排
+  | 'rank' // 由相邻关键字是否相等重编 0 基 rank，k 翻倍
+  | 'done'; // rank 全不同，sa 定型
+
 /** Manacher 最长回文子串执行点（C-067，字符串第 4 页；新建 ManacherView 回文轨——转换串 + 半径数组 + 对称性复用） */
 export type ManacherExecPoint =
   | 'init' // 预处理：插 # 得转换串，半径数组 p 全空
@@ -494,6 +511,7 @@ export interface Step<P extends string = string> {
   kmp?: KmpTrack; // 纯加法：字符串匹配轨；其它算法不设 → KmpView 不渲染
   manacher?: ManacherTrack; // 纯加法：Manacher 回文轨；其它算法不设 → ManacherView 不渲染
   sudoku?: SudokuTrack; // 纯加法：数独轨；其它算法不设 → SudokuView 不渲染
+  suffixArray?: SuffixArrayTrack; // 纯加法：后缀数组轨；其它算法不设 → SuffixArrayView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

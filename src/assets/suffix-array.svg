@@ -1,0 +1,28 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 排序后的后缀表：左侧起点下标徽标 + 右侧长短不一的后缀条 -->
+  <g>
+    <!-- 行 1 -->
+    <rect x="120" y="180" width="90" height="90" rx="14" fill="#333333" />
+    <rect x="240" y="192" width="240" height="66" rx="18" fill="none" stroke="#333333" stroke-width="22" />
+    <!-- 行 2 -->
+    <rect x="120" y="320" width="90" height="90" rx="14" fill="#333333" />
+    <rect x="240" y="332" width="420" height="66" rx="18" fill="none" stroke="#333333" stroke-width="22" />
+    <!-- 行 3 -->
+    <rect x="120" y="460" width="90" height="90" rx="14" fill="#333333" />
+    <rect x="240" y="472" width="600" height="66" rx="18" fill="none" stroke="#333333" stroke-width="22" />
+    <!-- 行 4 -->
+    <rect x="120" y="600" width="90" height="90" rx="14" fill="#333333" />
+    <rect x="240" y="612" width="340" height="66" rx="18" fill="none" stroke="#333333" stroke-width="22" />
+    <!-- 行 5 -->
+    <rect x="120" y="740" width="90" height="90" rx="14" fill="#333333" />
+    <rect x="240" y="752" width="500" height="66" rx="18" fill="none" stroke="#333333" stroke-width="22" />
+  </g>
+  <!-- 徽标里的数字（sa 下标示意） -->
+  <g fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="66" text-anchor="middle" dominant-baseline="central">
+    <text x="165" y="228">5</text>
+    <text x="165" y="368">3</text>
+    <text x="165" y="508">1</text>
+    <text x="165" y="648">0</text>
+    <text x="165" y="788">4</text>
+  </g>
+</svg>
