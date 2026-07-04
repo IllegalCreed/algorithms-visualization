@@ -1069,6 +1069,8 @@
 
 > **C-086（M7 数学与数论第 5 页 · 新页）**：扩展欧几里得——求 Bézout 系数 x,y 使 ax+by=gcd：下行除法链、基例 (1,0)、回代 (x,y)=(y′,x′−q·y′)；模逆元/RSA 钥匙。**纯复用 MatrixView 第 8 消费者零改动**（active/updatedCell/sources 全复用）。extgcd.module 9 步 + egRows 与递归对拍、逐层恒等验证。`TC-EG-MOD-*`+`TC-VIEW-EG-*`+`TC-E2E-EG-01`。
 
+> **C-087（M7 数学与数论第 6 页 · 新页）**：中国剩余定理——孙子算经同余组构造解：Mᵢ=M/mᵢ 只在本条同余「有声音」、扩欧求逆 tᵢ 校准成 1、专属项 rᵢ·Mᵢ·tᵢ 相加 mod M；数论线闭环 + RSA-CRT。**纯复用 MatrixView 第 9 消费者零改动**（active/updatedCell/sources 全复用）。crt.module 12 步 + crtBrute 暴力独立真值对拍、3×3 异模全验。`TC-CRT-MOD-*`+`TC-VIEW-CRT-*`+`TC-E2E-CRT-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1750,3 +1752,19 @@
 | TC-VIEW-EG-02         | h1 含扩展欧几里得 + MatrixView + 无柱数组（C-086）                                                 | L4   | `src/views/Article/Algorithm/ExtGcd.spec.ts`              |
 | TC-VIEW-EG-03         | 正文含模逆元 + MatrixView 同屏（C-086）                                                            | L4   | `src/views/Article/Algorithm/ExtGcd.spec.ts`              |
 | TC-E2E-EG-01          | 扩展欧几里得全模板：回代表 / 拖末步 −1 与 2 / Shiki（C-086 新增）                                  | L5   | `e2e/ext-gcd.e2e.ts`                                      |
+| TC-CRT-MOD-01         | crtBrute()=23=crtSolve().x；M=105；合计格 233（C-087）                                             | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-02         | point∈{init,mi,inv,term,sum,done} 带 matrix（C-087）                                               | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-03         | 5 列 [r,m,Mᵢ,tᵢ,项] × 4 行 + labels/rowLabels（C-087）                                             | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-04         | init 后 r/m 就位其余 null；合计行全 null（C-087）                                                  | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-05         | mi 依次 35/21/15（updatedCell=[i,2]）（C-087）                                                     | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-06         | tᵢ 依次 2/1/1；(Mᵢ mod mᵢ)·tᵢ ≡ 1 全验（C-087）                                                    | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-07         | 项 140/63/30；本模 ≡rᵢ、异模 ≡0（3×3 全验）（C-087）                                               | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-08         | 合计 233=140+63+30；233 mod 105 = 23 = 暴力（C-087）                                               | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-09         | sources：inv=[[i,2],[i,1]]、term=r/Mᵢ/tᵢ、sum=三项（C-087）                                        | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-10         | done caption 含 23 与 105（C-087）                                                                 | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-11         | 四语言+行号+六执行点（C-087）                                                                      | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-CRT-MOD-12         | title 含中国剩余定理；initialInput=[]（C-087）                                                     | L3   | `src/algorithms/crt.module.spec.ts`                       |
+| TC-VIEW-CRT-01        | Article + AlgorithmPlayer（C-087）                                                                 | L4   | `src/views/Article/Algorithm/Crt.spec.ts`                 |
+| TC-VIEW-CRT-02        | h1 含中国剩余定理 + MatrixView + 无柱数组（C-087）                                                 | L4   | `src/views/Article/Algorithm/Crt.spec.ts`                 |
+| TC-VIEW-CRT-03        | 正文含孙子算经 + MatrixView 同屏（C-087）                                                          | L4   | `src/views/Article/Algorithm/Crt.spec.ts`                 |
+| TC-E2E-CRT-01         | 中国剩余定理全模板：构造表 / 拖末步 23 与 105 / Shiki（C-087 新增）                                | L5   | `e2e/crt.e2e.ts`                                          |
