@@ -309,6 +309,10 @@ export function useCategoryData(): Category[] {
           title: '欧拉函数',
           url: 'euler-phi',
         },
+        {
+          title: '米勒-拉宾',
+          url: 'miller-rabin',
+        },
       ],
     },
     {

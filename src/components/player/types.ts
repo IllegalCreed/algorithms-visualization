@@ -293,6 +293,15 @@ export type LinearSieveExecPoint =
   | 'rest' // i×2>N 后不再划，剩余未划的都是素数
   | 'done'; // 筛完，每合数角标 = 其最小质因子
 
+/** 米勒-拉宾执行点（C-090，数学与数论第 8 页；纯复用 MatrixView——平方链表） */
+export type MrExecPoint =
+  | 'init' // 空表 + 动机
+  | 'decomp' // 分解 n−1 = 2^s·d
+  | 'pow' // x = a^d mod n
+  | 'square' // 平方一步，看 ±1
+  | 'verdict' // 本试验判定（撞 −1 通过 / 非平凡平方根 → 合数）
+  | 'done'; // 概率界与工程实践
+
 /** 欧拉函数执行点（C-089，数学与数论第 7 页；纯复用 SieveView——互质筛网格） */
 export type PhiExecPoint =
   | 'init' // 网格 1..n 全未定 + 分解蓝图

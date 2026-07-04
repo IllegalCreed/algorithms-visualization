@@ -1,0 +1,26 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 伪装者 561 被平方链识破：67² ≡ 1 非平凡平方根 -->
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <rect x="100" y="140" width="360" height="200" rx="28" fill="#8bd3a0" stroke="#333" stroke-width="14" />
+    <text x="280" y="240" font-size="110" fill="#1f5e3a">41 ✓</text>
+    <rect x="560" y="140" width="360" height="200" rx="28" fill="#f4b8c1" stroke="#333" stroke-width="14" />
+    <text x="740" y="240" font-size="100" fill="#8e2438">561 ✗</text>
+  </g>
+  <!-- 平方链 -->
+  <g font-family="sans-serif" font-weight="bold" font-size="86" text-anchor="middle" dominant-baseline="central">
+    <rect x="90" y="520" width="190" height="160" rx="22" fill="#eef3ef" stroke="#333" stroke-width="12" />
+    <text x="185" y="602" fill="#333">263</text>
+    <rect x="330" y="520" width="190" height="160" rx="22" fill="#eef3ef" stroke="#333" stroke-width="12" />
+    <text x="425" y="602" fill="#333">166</text>
+    <rect x="570" y="520" width="190" height="160" rx="22" fill="#ffe08a" stroke="#333" stroke-width="12" />
+    <text x="665" y="602" fill="#6b4e00">67</text>
+    <rect x="810" y="520" width="130" height="160" rx="22" fill="#ffe08a" stroke="#333" stroke-width="12" />
+    <text x="875" y="602" fill="#6b4e00">1</text>
+  </g>
+  <g stroke="#9aa8a0" stroke-width="14" fill="#9aa8a0">
+    <line x1="284" y1="600" x2="316" y2="600" />
+    <line x1="524" y1="600" x2="556" y2="600" />
+    <line x1="764" y1="600" x2="796" y2="600" />
+  </g>
+  <text x="512" y="850" font-family="sans-serif" font-weight="bold" font-size="92" fill="#e03131" text-anchor="middle">67² ≡ 1 ⇒ 合数</text>
+</svg>

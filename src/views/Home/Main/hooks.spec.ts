@@ -30,6 +30,7 @@ describe('Home/Main useCategoryData', () => {
       'ext-gcd',
       'crt',
       'euler-phi',
+      'miller-rabin',
     ]);
     expect(data[2].children).toHaveLength(9);
     expect(data[2].children[7].url).toBe('two-sat');

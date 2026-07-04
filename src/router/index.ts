@@ -280,6 +280,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/EulerPhi.vue'),
           },
           {
+            path: '/docs/miller-rabin',
+            name: 'miller-rabin',
+            component: () => import('../views/Article/Algorithm/MillerRabin.vue'),
+          },
+          {
             path: '/docs/convex-hull',
             name: 'convex-hull',
             component: () => import('../views/Article/Algorithm/ConvexHull.vue'),
