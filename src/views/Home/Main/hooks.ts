@@ -39,6 +39,7 @@ import BentleyOttmannIcon from '@/assets/bentley-ottmann.svg';
 import BinarySearchIcon from '@/assets/binary-search.svg';
 import BinaryBoundsIcon from '@/assets/binary-bounds.svg';
 import RotatedSearchIcon from '@/assets/rotated-search.svg';
+import BinaryAnswerIcon from '@/assets/binary-answer.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -591,6 +592,12 @@ export function useCategoryData(): Category[] {
           desc: '断崖上的二分：mid 切开的两半至少一半完好有序，看目标在不在有序半范围决定去留，仍 O(log n)；重复元素退化 O(n) 的坑',
           icon: RotatedSearchIcon,
           url: 'rotated-search',
+        },
+        {
+          title: '二分答案',
+          desc: '数组没了也能二分：候选答案排成一排，可行性单调 ✗✗✗✓✓✓ 找第一个 ✓；最小化最大值一族的通用降维打击，O(check·log 答案空间)',
+          icon: BinaryAnswerIcon,
+          url: 'binary-answer',
         },
       ],
     },

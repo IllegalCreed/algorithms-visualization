@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 答案空间标尺 ✗✗✗✓✓✓ + 目标箭头指向第一个 ✓ -->
+  <g stroke="#333" stroke-width="10" font-family="sans-serif" font-weight="bold" font-size="88" text-anchor="middle" dominant-baseline="central">
+    <rect x="60" y="420" width="140" height="180" rx="20" fill="#f4b8c1" />
+    <rect x="220" y="420" width="140" height="180" rx="20" fill="#f4b8c1" />
+    <rect x="380" y="420" width="140" height="180" rx="20" fill="#f4b8c1" />
+    <rect x="540" y="420" width="140" height="180" rx="20" fill="#8bd3a0" />
+    <rect x="700" y="420" width="140" height="180" rx="20" fill="#8bd3a0" />
+    <rect x="860" y="420" width="140" height="180" rx="20" fill="#8bd3a0" />
+  </g>
+  <g font-family="sans-serif" font-weight="bold" font-size="110" text-anchor="middle" dominant-baseline="central">
+    <text x="130" y="512" fill="#8e2438">✗</text>
+    <text x="290" y="512" fill="#8e2438">✗</text>
+    <text x="450" y="512" fill="#8e2438">✗</text>
+    <text x="610" y="512" fill="#1f5e3a">✓</text>
+    <text x="770" y="512" fill="#1f5e3a">✓</text>
+    <text x="930" y="512" fill="#1f5e3a">✓</text>
+  </g>
+  <!-- 目标箭头 -->
+  <g fill="#f0a000">
+    <polygon points="610,300 550,190 670,190" />
+  </g>
+  <text x="610" y="120" font-family="sans-serif" font-weight="bold" font-size="76" fill="#f0a000" text-anchor="middle">第一个 ✓</text>
+  <text x="512" y="800" font-family="sans-serif" font-weight="bold" font-size="82" fill="#333" text-anchor="middle">答案空间上二分</text>
+</svg>

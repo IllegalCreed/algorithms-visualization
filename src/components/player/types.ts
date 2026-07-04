@@ -302,6 +302,13 @@ export type BsExecPoint =
   | 'empty' // 区间清空：不存在，返回 −1
   | 'done'; // O(log n) 语义
 
+/** 二分答案执行点（C-094，查找第 4 页；纯复用主柱轨——柱子=候选答案的语义反转） */
+export type BaExecPoint =
+  | 'init' // 答案空间 [1, max] 登场
+  | 'probe' // 试探一个答案：算可行性 → 收 hi 或抬 lo
+  | 'settle' // lo == hi：最小可行答案定格
+  | 'done'; // 三要素与应用家族
+
 /** 旋转数组搜索执行点（C-093，查找第 3 页；纯复用主柱轨——判半二分） */
 export type RsExecPoint =
   | 'init' // 断崖数组 + 目标

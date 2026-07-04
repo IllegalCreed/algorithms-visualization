@@ -26,6 +26,7 @@ describe('Docs/Menu useCategoryData', () => {
       'binary-search',
       'binary-bounds',
       'rotated-search',
+      'binary-answer',
     ]);
     expect(data[7].children.map((c) => c.url)).toEqual([
       'convex-hull',

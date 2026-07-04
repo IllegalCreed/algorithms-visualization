@@ -325,6 +325,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/RotatedSearch.vue'),
           },
           {
+            path: '/docs/binary-answer',
+            name: 'binary-answer',
+            component: () => import('../views/Article/Algorithm/BinaryAnswer.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

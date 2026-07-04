@@ -355,6 +355,10 @@ export function useCategoryData(): Category[] {
           title: '旋转数组搜索',
           url: 'rotated-search',
         },
+        {
+          title: '二分答案',
+          url: 'binary-answer',
+        },
       ],
     },
   ];

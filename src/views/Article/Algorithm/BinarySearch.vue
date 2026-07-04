@@ -43,7 +43,9 @@ import { bsearchModule } from '@/algorithms/bsearch.module';
         to="/docs/binary-bounds"
         ><strong>左右边界</strong>（lower/upper bound）</router-link
       >、<router-link to="/docs/rotated-search"><strong>旋转有序数组</strong></router-link
-      >里定位、以及跳出数组、在<strong>答案空间</strong>上二分（「最小可行速度」「最大最小值」）——这些是查找大类接下来几页的故事。
+      >里定位、以及跳出数组、在<router-link to="/docs/binary-answer"
+        ><strong>答案空间</strong>上二分</router-link
+      >（「最小可行速度」「最大最小值」）——这些是查找大类接下来几页的故事。
     </p>
   </Article>
 </template>
