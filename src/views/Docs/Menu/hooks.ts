@@ -215,6 +215,10 @@ export function useCategoryData(): Category[] {
           title: '岛屿数量',
           url: 'number-of-islands',
         },
+        {
+          title: '单词搜索',
+          url: 'word-search',
+        },
       ],
     },
     {

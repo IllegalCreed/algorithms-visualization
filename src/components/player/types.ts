@@ -369,6 +369,7 @@ export interface MazeTrack {
   solved?: boolean; // path 即解路径 → 整条标绿
   filled?: [number, number][]; // 已确认属于岛屿的陆地（绿，复用 .mz-solution）——岛屿 Flood Fill（C-066）；迷宫不设
   mark?: string; // 当前格图标（缺省 '🐭'）——岛屿用扫描图标（C-066）
+  letters?: string[][]; // 每格显示的字母——单词搜索（C-068）；迷宫/岛屿不设 → 不显示字母
 }
 
 /** 迷宫寻路执行点（C-059，回溯第 5 页；新建 MazeView 迷宫轨——网格 DFS + 回溯） */
@@ -386,6 +387,14 @@ export type IslandsExecPoint =
   | 'found' // 命中未访问的新陆地 → 岛屿计数 +1，开始 Flood Fill
   | 'flood' // Flood Fill 把一个四连通陆地格并入当前岛屿（标绿）
   | 'done'; // 扫描完毕（共 N 个岛屿）
+
+/** 单词搜索执行点（C-068，回溯网格搜索第 3 页；复用 MazeView 字母网格轨——DFS 逐字母试探 + 回溯） */
+export type WordSearchExecPoint =
+  | 'start' // 某格作为单词首字母的起点
+  | 'match' // 相邻格匹配下一个字母 → 深入（入栈）
+  | 'mismatch' // 相邻格字母不符 / 已在路径 → 换方向
+  | 'backtrack' // 当前格四方向试完仍未拼完 → 撤销标记、回退（出栈）
+  | 'found'; // 拼出完整单词 → 路径标绿
 
 /** Manacher 最长回文子串执行点（C-067，字符串第 4 页；新建 ManacherView 回文轨——转换串 + 半径数组 + 对称性复用） */
 export type ManacherExecPoint =

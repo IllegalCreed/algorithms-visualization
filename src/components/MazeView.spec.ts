@@ -79,4 +79,26 @@ describe('MazeView 迷宫轨', () => {
     expect(w.findAll('.mz-goal')).toHaveLength(0); // 岛屿无终点 → 不渲染 🚩
     expect(w.find('.mz-current').text()).toContain('🔎'); // 当前格图标覆盖 🐭
   });
+
+  it('TC-VIZ-MAZEVIEW-06 letters 每格显字母（C-068 单词搜索扩展）', () => {
+    const w = mount(MazeView, {
+      props: {
+        maze: {
+          rows: 2,
+          cols: 2,
+          walls: [
+            [false, false],
+            [false, false],
+          ],
+          letters: [
+            ['A', 'B'],
+            ['C', 'D'],
+          ],
+        },
+      },
+    });
+    const letters = w.findAll('.mz-letter');
+    expect(letters).toHaveLength(4);
+    expect(letters.map((l) => l.text())).toEqual(['A', 'B', 'C', 'D']);
+  });
 });

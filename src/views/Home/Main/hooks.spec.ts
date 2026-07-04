@@ -28,6 +28,7 @@ describe('Home/Main useCategoryData', () => {
       'combination-sum',
       'maze',
       'number-of-islands',
+      'word-search',
     ]);
     expect(data[5].children.map((c) => c.url)).toEqual([
       'kmp',

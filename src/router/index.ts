@@ -180,6 +180,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Islands.vue'),
           },
           {
+            path: '/docs/word-search',
+            name: 'word-search',
+            component: () => import('../views/Article/Algorithm/WordSearch.vue'),
+          },
+          {
             path: '/docs/kmp',
             name: 'kmp',
             component: () => import('../views/Article/Algorithm/Kmp.vue'),

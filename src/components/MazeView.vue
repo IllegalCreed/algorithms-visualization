@@ -25,6 +25,7 @@ const cells = computed(() => {
     path: boolean;
     solution: boolean;
     visited: boolean;
+    letter: string;
   }[][] = [];
   for (let r = 0; r < m.rows; r++) {
     const line = [];
@@ -41,6 +42,7 @@ const cells = computed(() => {
         path: onPath && !m.solved,
         solution: (onPath && !!m.solved) || isFilled, // filled 陆地复用绿（岛屿 C-066）
         visited: visitedSet.has(key(r, c)) && !onPath && !isFilled,
+        letter: m.letters ? (m.letters[r][c] ?? '') : '', // 单词搜索每格字母（C-068）
       });
     }
     rows.push(line);
@@ -67,7 +69,8 @@ const cells = computed(() => {
             'mz-visited': cell.visited,
           }"
         >
-          <span v-if="cell.current" class="mz-mark">{{ maze.mark ?? '🐭' }}</span>
+          <span v-if="cell.letter" class="mz-letter">{{ cell.letter }}</span>
+          <span v-else-if="cell.current" class="mz-mark">{{ maze.mark ?? '🐭' }}</span>
           <span v-else-if="cell.goal" class="mz-mark">🚩</span>
           <span v-else-if="cell.start" class="mz-mark mz-s">S</span>
         </div>
@@ -108,6 +111,14 @@ const cells = computed(() => {
   font-size: 18px;
   font-weight: bold;
   color: #1f5e3a;
+}
+/* 单词搜索：每格字母（C-068） */
+.mz-letter {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color: @font-color;
+  user-select: none;
 }
 /* 墙：暗实块 */
 .maze-cell.mz-wall {

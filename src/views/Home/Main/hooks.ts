@@ -31,6 +31,7 @@ import PermuteIcon from '@/assets/permute.svg';
 import CombsumIcon from '@/assets/combsum.svg';
 import MazeIcon from '@/assets/maze.svg';
 import IslandsIcon from '@/assets/islands.svg';
+import WordSearchIcon from '@/assets/word-search.svg';
 import KmpIcon from '@/assets/kmp.svg';
 import RabinKarpIcon from '@/assets/rabinkarp.svg';
 import BoyerMooreIcon from '@/assets/boyermoore.svg';
@@ -361,6 +362,12 @@ export function useCategoryData(): Category[] {
           desc: '数网格里有几片相连的陆地：逐格扫描，遇到新陆地就 Flood Fill 把整片淹掉、计数 +1，连通分量的入门形态',
           icon: IslandsIcon,
           url: 'number-of-islands',
+        },
+        {
+          title: '单词搜索',
+          desc: '在字母网格里沿相邻格拼出目标词：DFS 匹配字母就深入、失配换方向、四方向不通就撤销回退，同格不复用',
+          icon: WordSearchIcon,
+          url: 'word-search',
         },
       ],
     },
