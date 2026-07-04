@@ -281,6 +281,10 @@ export function useCategoryData(): Category[] {
           title: '埃氏筛',
           url: 'sieve-of-eratosthenes',
         },
+        {
+          title: '线性筛',
+          url: 'linear-sieve',
+        },
       ],
     },
   ];

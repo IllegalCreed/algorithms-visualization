@@ -275,6 +275,7 @@ export interface SieveTrack {
   states: SieveCellState[]; // states[v] = 数 v 的状态（index 1..n；0 占位）
   current?: number | null; // 当前处理的素数 p（琥珀环）
   marking?: number[]; // 本步正在划掉的倍数（红）
+  spf?: (number | null)[]; // spf[v] = 划掉合数 v 的最小质因子（C-078 线性筛角标）；null=未划/无
 }
 
 /** 埃拉托斯特尼筛执行点（C-077，数学与数论大类首发；新建 SieveView 数字网格轨） */
@@ -284,6 +285,13 @@ export type SieveExecPoint =
   | 'mark' // 划掉 p 从 p² 起的所有倍数 → 合数
   | 'rest' // p²>N：剩余未划掉的都是素数
   | 'done'; // 筛完，给出素数清单
+
+/** 线性筛（欧拉筛）执行点（C-078，数学与数论第 2 页；复用 SieveView——每合数只被最小质因子划一次） */
+export type LinearSieveExecPoint =
+  | 'init' // 数字网格 1..N，1 特殊
+  | 'mark' // 外层 i：未划→素数；对素数 p 划 i×p（spf=p），i%p==0 即停
+  | 'rest' // i×2>N 后不再划，剩余未划的都是素数
+  | 'done'; // 筛完，每合数角标 = 其最小质因子
 
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {

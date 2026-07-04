@@ -49,7 +49,9 @@ import { sieveModule } from '@/algorithms/sieve.module';
       <b>复杂度</b>：<code>O(N log log N)</code>，比逐个试除的 O(N√N) 快得多。
     </Callout>
     <p>
-      埃氏筛是数论算法的基石：预处理出素数表后，<strong>质因数分解</strong>、<strong>欧拉函数</strong>、<strong>莫比乌斯函数</strong>等都能批量算。它的进阶版<strong>线性筛（欧拉筛）</strong>让每个合数只被它的<strong>最小质因子</strong>划一次，把复杂度压到严格
+      埃氏筛是数论算法的基石：预处理出素数表后，<strong>质因数分解</strong>、<strong>欧拉函数</strong>、<strong>莫比乌斯函数</strong>等都能批量算。它的进阶版<strong
+        ><router-link to="/docs/linear-sieve">线性筛（欧拉筛）</router-link></strong
+      >让每个合数只被它的<strong>最小质因子</strong>划一次，把复杂度压到严格
       <code>O(N)</code>——那是这条线的下一站。
     </p>
   </Article>

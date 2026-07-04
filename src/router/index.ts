@@ -250,6 +250,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/SieveOfEratosthenes.vue'),
           },
           {
+            path: '/docs/linear-sieve',
+            name: 'linear-sieve',
+            component: () => import('../views/Article/Algorithm/LinearSieve.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

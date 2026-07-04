@@ -24,6 +24,7 @@ import SccIcon from '@/assets/scc.svg';
 import TwoSatIcon from '@/assets/two-sat.svg';
 import MaxFlowIcon from '@/assets/max-flow.svg';
 import SieveIcon from '@/assets/sieve.svg';
+import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -467,6 +468,12 @@ export function useCategoryData(): Category[] {
           desc: '埃拉托斯特尼筛求素数：从 2 起，每个没被划掉的数是素数，划掉它从 p² 起的倍数，筛到 √N 即停，O(N log log N)',
           icon: SieveIcon,
           url: 'sieve-of-eratosthenes',
+        },
+        {
+          title: '线性筛',
+          desc: '欧拉筛：外层遍历所有数，每个合数只被它的最小质因子划一次（i%p==0 即停），严格 O(N)，顺带得最小质因子表',
+          icon: LinearSieveIcon,
+          url: 'linear-sieve',
         },
       ],
     },

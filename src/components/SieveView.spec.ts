@@ -40,4 +40,18 @@ describe('SieveView', () => {
     expect(c1.text()).toBe('1');
     expect(c1.classes()).toContain('sieve-special');
   });
+
+  it('TC-VIZ-SIEVEVIEW-SPF-01 合数 spf 角标（C-078 线性筛）', () => {
+    const spf: (number | null)[] = new Array<number | null>(31).fill(null);
+    spf[4] = 2; // 4 被最小质因子 2 划
+    const w = mountIt({ ...base, spf });
+    const c4 = w.findAll('.sieve-cell')[3]; // 4 号格
+    expect(c4.find('.sieve-spf').exists()).toBe(true);
+    expect(c4.find('.sieve-spf').text()).toBe('2');
+  });
+
+  it('TC-VIZ-SIEVEVIEW-SPF-02 不设 spf 则无角标（埃氏筛零回归）（C-078）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.sieve-spf')).toHaveLength(0);
+  });
 });

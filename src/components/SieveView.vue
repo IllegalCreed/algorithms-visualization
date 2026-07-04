@@ -5,17 +5,24 @@ import type { SieveTrack } from '@/components/player/types';
 
 const props = defineProps<{ sieve: SieveTrack }>();
 
-// 1..n 逐格：数字 + 状态
+// 1..n 逐格：数字 + 状态 + 最小质因子角标（线性筛 C-078）
 const cells = computed(() => {
   const s = props.sieve;
   const marking = new Set(s.marking ?? []);
-  const list: { v: number; state: string; current: boolean; marking: boolean }[] = [];
+  const list: {
+    v: number;
+    state: string;
+    current: boolean;
+    marking: boolean;
+    spf: number | null;
+  }[] = [];
   for (let v = 1; v <= s.n; v++) {
     list.push({
       v,
       state: s.states[v] ?? 'unknown',
       current: s.current === v,
       marking: marking.has(v),
+      spf: s.spf?.[v] ?? null,
     });
   }
   return list;
@@ -35,6 +42,7 @@ const cells = computed(() => {
         ]"
       >
         {{ cell.v }}
+        <span v-if="cell.spf != null" class="sieve-spf">{{ cell.spf }}</span>
       </div>
     </div>
   </div>
@@ -55,6 +63,7 @@ const cells = computed(() => {
   .neumorphism-pressed(4px, 12px);
 }
 .sieve-cell {
+  position: relative;
   width: 46px;
   height: 46px;
   border-radius: 8px;
@@ -67,6 +76,16 @@ const cells = computed(() => {
     box-shadow 0.25s,
     color 0.25s;
   user-select: none;
+}
+/* 最小质因子角标（线性筛 C-078）：右下角小字 */
+.sieve-spf {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #b5651d;
+  line-height: 1;
 }
 /* 1：既非素也非合，淡灰 */
 .sieve-cell.sieve-special {
