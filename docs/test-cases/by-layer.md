@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1014** 个用例。运行命令：`pnpm test:unit`
+共 **1026** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1493,12 +1493,24 @@
 | TC-BA-MOD-10    | done 含答案空间与单调                                                   | `src/algorithms/banswer.module.spec.ts`     |
 | TC-BA-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/banswer.module.spec.ts`     |
 | TC-BA-MOD-12    | title 含二分答案；initialInput=[1..11]                                  | `src/algorithms/banswer.module.spec.ts`     |
+| TC-TER-MOD-01   | result=4=argmax；峰值 12                                                | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-02   | isUnimodal 严格先升后降断言                                             | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-03   | 四探 (0,8,2,6,丢右)/(0,5,1,4,丢左)/(2,5,3,4,丢左)/(4,5,4,5,丢右)        | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-04   | point 四集；9 柱山形恒序                                                | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-05   | 7 步 point 序列全等                                                     | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-06   | 四指针 '0'-'3' 全出场且 m1/m2 位置正确                                  | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-07   | comparing=[m1,m2] + groupMembers 收缩                                   | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-08   | peak sortedIndices=[4] + 峰顶 12                                        | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-09   | 丢右/丢左 1/3 caption 各至少一次                                        | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-10   | done 含 log 与坡度变体                                                  | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-12   | title 含三分；initialInput 单峰                                         | `src/algorithms/ternary.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **554** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **557** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2561,6 +2573,14 @@
 | TC-VIEW-BA-02 | h1 含二分答案 + BarsView 主柱轨 | `src/views/Article/Algorithm/BinaryAnswer.spec.ts` |
 | TC-VIEW-BA-03 | 正文含答案空间与单调            | `src/views/Article/Algorithm/BinaryAnswer.spec.ts` |
 
+### 三分查找页 C-095（查找第 5 页收官，新页，纯复用主柱轨）
+
+| 用例 ID        | 场景                        | 文件                                                |
+| -------------- | --------------------------- | --------------------------------------------------- |
+| TC-VIEW-TER-01 | Article + AlgorithmPlayer   | `src/views/Article/Algorithm/TernarySearch.spec.ts` |
+| TC-VIEW-TER-02 | h1 含三分 + BarsView 主柱轨 | `src/views/Article/Algorithm/TernarySearch.spec.ts` |
+| TC-VIEW-TER-03 | 正文含单峰与探针            | `src/views/Article/Algorithm/TernarySearch.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2571,7 +2591,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **86** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **87** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2662,6 +2682,7 @@
 | TC-E2E-BB-01        | 二分边界全模板：主柱轨 / 拖末步 O(log n) / Shiki（C-092 新增）                                                             | `e2e/binary-bounds.e2e.ts`         | active     |
 | TC-E2E-RS-01        | 旋转数组搜索全模板：断崖柱轨 / 拖末步 O(log n) / Shiki（C-093 新增）                                                       | `e2e/rotated-search.e2e.ts`        | active     |
 | TC-E2E-BA-01        | 二分答案全模板：答案空间柱轨 / 拖末步收官语义 / Shiki（C-094 新增）                                                        | `e2e/binary-answer.e2e.ts`         | active     |
+| TC-E2E-TER-01       | 三分查找全模板：山形柱轨 / 拖末步 log 语义 / Shiki（C-095 新增）                                                           | `e2e/ternary-search.e2e.ts`        | active     |
 
 ---
 

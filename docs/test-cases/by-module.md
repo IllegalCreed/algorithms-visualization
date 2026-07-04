@@ -1085,6 +1085,8 @@
 
 > **C-094（M8 查找第 4 页收官技 · 新页）**：二分答案——数组没了也能二分：候选答案排成一排、可行性单调 ✗✗✗✓✓✓ 找第一个 ✓（lower_bound on predicate）；三要素（有界/单调/可验）+ 最小化最大值家族。**纯复用主柱轨的语义反转（柱子=候选答案）**。banswer.module 7 步 + bruteMinSpeed 对拍 + 单调翻转 spec。`TC-BA-MOD-*`+`TC-VIEW-BA-*`+`TC-E2E-BA-01`。
 
+> **C-095（M8 查找第 5 页收官 · 新页）**：三分查找——单峰找峰顶：双探针 m1/m2 对决、谁小丢谁外侧 1/3，O(log₍₃⁄₂₎ n)；坡度二分/实数三分变体。**纯复用主柱轨（四指针四色首次全用 + comparing 对决高亮）**。ternary.module 7 步 + brutePeak argmax 对拍 + isUnimodal 断言。`TC-TER-MOD-*`+`TC-VIEW-TER-*`+`TC-E2E-TER-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1896,3 +1898,19 @@
 | TC-VIEW-BA-02         | h1 含二分答案 + BarsView 主柱轨（C-094）                                                           | L4   | `src/views/Article/Algorithm/BinaryAnswer.spec.ts`        |
 | TC-VIEW-BA-03         | 正文含答案空间与单调（C-094）                                                                      | L4   | `src/views/Article/Algorithm/BinaryAnswer.spec.ts`        |
 | TC-E2E-BA-01          | 二分答案全模板：答案空间柱轨 / 拖末步收官语义 / Shiki（C-094 新增）                                | L5   | `e2e/binary-answer.e2e.ts`                                |
+| TC-TER-MOD-01         | result=4=argmax；峰值 12（C-095）                                                                  | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-02         | isUnimodal 严格先升后降断言（C-095）                                                               | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-03         | 四探 (0,8,2,6,丢右)/(0,5,1,4,丢左)/(2,5,3,4,丢左)/(4,5,4,5,丢右)（C-095）                          | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-04         | point 四集；9 柱山形恒序（C-095）                                                                  | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-05         | 7 步 point 序列全等（C-095）                                                                       | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-06         | 四指针 '0'-'3' 全出场且 m1/m2 位置正确（C-095）                                                    | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-07         | comparing=[m1,m2] + groupMembers 收缩（C-095）                                                     | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-08         | peak sortedIndices=[4] + 峰顶 12（C-095）                                                          | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-09         | 丢右/丢左 1/3 caption 各至少一次（C-095）                                                          | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-10         | done 含 log 与坡度变体（C-095）                                                                    | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-11         | 四语言+行号+四执行点（C-095）                                                                      | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-TER-MOD-12         | title 含三分；initialInput 单峰（C-095）                                                           | L3   | `src/algorithms/ternary.module.spec.ts`                   |
+| TC-VIEW-TER-01        | Article + AlgorithmPlayer（C-095）                                                                 | L4   | `src/views/Article/Algorithm/TernarySearch.spec.ts`       |
+| TC-VIEW-TER-02        | h1 含三分 + BarsView 主柱轨（C-095）                                                               | L4   | `src/views/Article/Algorithm/TernarySearch.spec.ts`       |
+| TC-VIEW-TER-03        | 正文含单峰与探针（C-095）                                                                          | L4   | `src/views/Article/Algorithm/TernarySearch.spec.ts`       |
+| TC-E2E-TER-01         | 三分查找全模板：山形柱轨 / 拖末步 log 语义 / Shiki（C-095 新增）                                   | L5   | `e2e/ternary-search.e2e.ts`                               |
