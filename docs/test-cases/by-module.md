@@ -1079,6 +1079,8 @@
 
 > **C-091（M8 新顶层大类「查找」首发 · 新页）**：二分查找——有序数组维护候选区间每步扔一半 O(log n)；边界/旋转/二分答案的地基。**主柱轨回归初心（零新 View、零轨字段）**：lo/mid/hi 三箭头 + groupMembers 淡出区间外 + pivotIndex 探针 + sortedIndices 命中。bsearch.module 双试验 16 步 + linearFind 对拍。`TC-BS-MOD-*`+`TC-VIEW-BS-*`+`TC-E2E-BS-01`；TC-HOOK 大类 8→9。
 
+> **C-092（M8 查找第 2 页 · 新页）**：二分边界 lower/upper bound——半开区间 [lo,hi) 两分支模板、相遇点即答案；等值区间 [lb,ub) 计数、不存在时优雅退化；单调谓词抽象为二分答案铺路。**纯复用主柱轨（同 C-091）**，hi=n 哨兵位省略黄箭头。bbound.module 14 步 + bruteLb/bruteUb 对拍。`TC-BB-MOD-*`+`TC-VIEW-BB-*`+`TC-E2E-BB-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1842,3 +1844,19 @@
 | TC-VIEW-BS-02         | h1 含二分查找 + BarsView 主柱轨（本页有柱）（C-091）                                               | L4   | `src/views/Article/Algorithm/BinarySearch.spec.ts`        |
 | TC-VIEW-BS-03         | 正文含有序与 O(log n)（C-091）                                                                     | L4   | `src/views/Article/Algorithm/BinarySearch.spec.ts`        |
 | TC-E2E-BS-01          | 二分查找全模板：主柱轨 + 三箭头 / 拖末步 O(log n) / Shiki（C-091 新增）                            | L5   | `e2e/binary-search.e2e.ts`                                |
+| TC-BB-MOD-01          | lb=1、ub=4、count=3 = 线性扫（C-092）                                                              | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-02          | lb 四探 (0,10,5)/(0,5,2)/(0,2,1)/(0,1,0) 仅末探右走（C-092）                                       | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-03          | ub 四探 goRight F/T/F/T（C-092）                                                                   | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-04          | point 五集；10 柱升序含重复恒序（C-092）                                                           | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-05          | 14 步 point 序列全等（C-092）                                                                      | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-06          | probe pivotIndex 5,2,1,0/5,2,4,3 + 区间收缩（C-092）                                               | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-07          | hi=10 哨兵无黄箭头、收缩后出现（C-092）                                                            | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-08          | settle [1]/[4] + 第一个 ≥/> caption（C-092）                                                       | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-09          | range [1,2,3] 全绿 + 计数 3（C-092）                                                               | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-10          | done 含 ub − lb 与 O(log n)（C-092）                                                               | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-11          | 四语言+行号+五执行点（C-092）                                                                      | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-BB-MOD-12          | title 含边界；initialInput 含重复升序（C-092）                                                     | L3   | `src/algorithms/bbound.module.spec.ts`                    |
+| TC-VIEW-BB-01         | Article + AlgorithmPlayer（C-092）                                                                 | L4   | `src/views/Article/Algorithm/BinaryBounds.spec.ts`        |
+| TC-VIEW-BB-02         | h1 含边界 + BarsView 主柱轨（C-092）                                                               | L4   | `src/views/Article/Algorithm/BinaryBounds.spec.ts`        |
+| TC-VIEW-BB-03         | 正文含 lower 与半开（C-092）                                                                       | L4   | `src/views/Article/Algorithm/BinaryBounds.spec.ts`        |
+| TC-E2E-BB-01          | 二分边界全模板：主柱轨 / 拖末步 O(log n) / Shiki（C-092 新增）                                     | L5   | `e2e/binary-bounds.e2e.ts`                                |

@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **978** 个用例。运行命令：`pnpm test:unit`
+共 **990** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1457,12 +1457,24 @@
 | TC-BS-MOD-10    | done caption 含 O(log n)                                                | `src/algorithms/bsearch.module.spec.ts`     |
 | TC-BS-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/bsearch.module.spec.ts`     |
 | TC-BS-MOD-12    | title 含二分查找；initialInput 升序 BS_ARRAY                            | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BB-MOD-01    | lb=1、ub=4、count=3 = 线性扫                                            | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-02    | lb 四探 (0,10,5)/(0,5,2)/(0,2,1)/(0,1,0) 仅末探右走                     | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-03    | ub 四探 goRight F/T/F/T                                                 | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-04    | point 五集；10 柱升序含重复恒序                                         | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-05    | 14 步 point 序列全等                                                    | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-06    | probe pivotIndex 5,2,1,0/5,2,4,3 + 区间收缩                             | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-07    | hi=10 哨兵无黄箭头、收缩后出现                                          | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-08    | settle [1]/[4] + 第一个 ≥/> caption                                     | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-09    | range [1,2,3] 全绿 + 计数 3                                             | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-10    | done 含 ub − lb 与 O(log n)                                             | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-12    | title 含边界；initialInput 含重复升序                                   | `src/algorithms/bbound.module.spec.ts`      |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **545** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **548** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2501,6 +2513,14 @@
 | TC-VIEW-BS-02 | h1 含二分查找 + BarsView 主柱轨（本页有柱） | `src/views/Article/Algorithm/BinarySearch.spec.ts` |
 | TC-VIEW-BS-03 | 正文含有序与 O(log n)                       | `src/views/Article/Algorithm/BinarySearch.spec.ts` |
 
+### 二分边界页 C-092（查找第 2 页，新页，纯复用主柱轨）
+
+| 用例 ID       | 场景                        | 文件                                               |
+| ------------- | --------------------------- | -------------------------------------------------- |
+| TC-VIEW-BB-01 | Article + AlgorithmPlayer   | `src/views/Article/Algorithm/BinaryBounds.spec.ts` |
+| TC-VIEW-BB-02 | h1 含边界 + BarsView 主柱轨 | `src/views/Article/Algorithm/BinaryBounds.spec.ts` |
+| TC-VIEW-BB-03 | 正文含 lower 与半开         | `src/views/Article/Algorithm/BinaryBounds.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2511,7 +2531,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **83** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **84** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2599,6 +2619,7 @@
 | TC-E2E-PHI-01       | 欧拉函数全模板：互质筛网格 / 拖末步 φ(12)=4 / Shiki（C-089 新增）                                                          | `e2e/euler-phi.e2e.ts`             | active     |
 | TC-E2E-MR-01        | 米勒-拉宾全模板：平方链表 / 拖末步 1/4 概率语义 / Shiki（C-090 新增）                                                      | `e2e/miller-rabin.e2e.ts`          | active     |
 | TC-E2E-BS-01        | 二分查找全模板：主柱轨 + 三箭头 / 拖末步 O(log n) / Shiki（C-091 新增）                                                    | `e2e/binary-search.e2e.ts`         | active     |
+| TC-E2E-BB-01        | 二分边界全模板：主柱轨 / 拖末步 O(log n) / Shiki（C-092 新增）                                                             | `e2e/binary-bounds.e2e.ts`         | active     |
 
 ---
 
