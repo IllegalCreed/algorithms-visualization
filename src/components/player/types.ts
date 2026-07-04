@@ -293,6 +293,15 @@ export type LinearSieveExecPoint =
   | 'rest' // i×2>N 后不再划，剩余未划的都是素数
   | 'done'; // 筛完，每合数角标 = 其最小质因子
 
+/** 二分查找执行点（C-091，查找大类首发；纯复用主柱轨 + ArrowTrack + 既有 emphasis） */
+export type BsExecPoint =
+  | 'init' // 展示有序数组 + 目标 + 候选区间 [lo,hi]
+  | 'mid' // 探针：mid = (lo+hi)>>1，与目标比较
+  | 'cut' // 扔掉一半：lo=mid+1 或 hi=mid−1，候选区间收缩
+  | 'found' // 命中
+  | 'empty' // 区间清空：不存在，返回 −1
+  | 'done'; // O(log n) 语义
+
 /** 米勒-拉宾执行点（C-090，数学与数论第 8 页；纯复用 MatrixView——平方链表） */
 export type MrExecPoint =
   | 'init' // 空表 + 动机

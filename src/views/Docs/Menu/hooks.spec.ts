@@ -10,9 +10,9 @@ vi.mock('vue-router', () => ({
 }));
 
 describe('Docs/Menu useCategoryData', () => {
-  it('TC-HOOK-02-1: 返回 8 个分类，新增计算几何（C-081）', () => {
+  it('TC-HOOK-02-1: 返回 9 个分类，新增查找（C-091）', () => {
     const data = useCategoryData();
-    expect(data).toHaveLength(8);
+    expect(data).toHaveLength(9);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
     expect(data[2].title).toBe('图算法');
@@ -21,6 +21,8 @@ describe('Docs/Menu useCategoryData', () => {
     expect(data[5].title).toBe('字符串');
     expect(data[6].title).toBe('数学与数论');
     expect(data[7].title).toBe('计算几何');
+    expect(data[8].title).toBe('查找');
+    expect(data[8].children.map((c) => c.url)).toEqual(['binary-search']);
     expect(data[7].children.map((c) => c.url)).toEqual([
       'convex-hull',
       'rotating-calipers',

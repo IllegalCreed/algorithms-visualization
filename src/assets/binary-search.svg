@@ -1,0 +1,23 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 有序柱阵 + lo/mid/hi 三箭头，中点高亮 -->
+  <g stroke="#333" stroke-width="10">
+    <rect x="80" y="620" width="90" height="120" rx="14" fill="#d7dedb" />
+    <rect x="196" y="560" width="90" height="180" rx="14" fill="#d7dedb" />
+    <rect x="312" y="500" width="90" height="240" rx="14" fill="#a5d8ff" />
+    <rect x="428" y="430" width="90" height="310" rx="14" fill="#a5d8ff" />
+    <rect x="544" y="360" width="90" height="380" rx="14" fill="#f0a000" />
+    <rect x="660" y="290" width="90" height="450" rx="14" fill="#a5d8ff" />
+    <rect x="776" y="220" width="90" height="520" rx="14" fill="#a5d8ff" />
+    <rect x="892" y="150" width="90" height="590" rx="14" fill="#d7dedb" />
+  </g>
+  <!-- 箭头 lo(红) mid(蓝) hi(黄) -->
+  <g font-family="sans-serif" font-weight="bold" font-size="64" text-anchor="middle">
+    <polygon points="357,790 297,880 417,880" fill="#e03131" />
+    <text x="357" y="950" fill="#e03131">lo</text>
+    <polygon points="589,790 529,880 649,880" fill="#4a90d9" />
+    <text x="589" y="950" fill="#4a90d9">mid</text>
+    <polygon points="821,790 761,880 881,880" fill="#f0a000" />
+    <text x="821" y="950" fill="#f0a000">hi</text>
+  </g>
+  <text x="512" y="90" font-family="sans-serif" font-weight="bold" font-size="86" fill="#2e7d32" text-anchor="middle">扔掉一半！</text>
+</svg>

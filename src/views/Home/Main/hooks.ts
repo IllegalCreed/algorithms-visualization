@@ -36,6 +36,7 @@ import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import ClosestPairIcon from '@/assets/closest-pair.svg';
 import SegmentIntersectionIcon from '@/assets/segment-intersection.svg';
 import BentleyOttmannIcon from '@/assets/bentley-ottmann.svg';
+import BinarySearchIcon from '@/assets/binary-search.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -564,6 +565,18 @@ export function useCategoryData(): Category[] {
           desc: 'Bentley-Ottmann 求 n 线段全部交点：事件队列驱动扫描线、状态结构按 y 有序，「相交前必相邻」只查新相邻对，O((n+k) log n)',
           icon: BentleyOttmannIcon,
           url: 'bentley-ottmann',
+        },
+      ],
+    },
+    {
+      title: '查找',
+      desc: '在有序或结构化数据里高效定位目标——每一步扔掉不可能的区域',
+      children: [
+        {
+          title: '二分查找',
+          desc: '有序数组维护候选区间 [lo,hi]，每步和中点比、扔掉一半，O(log n)：10 亿元素 30 次比较；边界/旋转/二分答案变体的地基',
+          icon: BinarySearchIcon,
+          url: 'binary-search',
         },
       ],
     },

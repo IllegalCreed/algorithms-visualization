@@ -310,6 +310,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/BentleyOttmann.vue'),
           },
           {
+            path: '/docs/binary-search',
+            name: 'binary-search',
+            component: () => import('../views/Article/Algorithm/BinarySearch.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

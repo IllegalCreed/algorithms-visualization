@@ -340,6 +340,15 @@ export function useCategoryData(): Category[] {
         },
       ],
     },
+    {
+      title: '查找',
+      children: [
+        {
+          title: '二分查找',
+          url: 'binary-search',
+        },
+      ],
+    },
   ];
   return categoryData;
 }
