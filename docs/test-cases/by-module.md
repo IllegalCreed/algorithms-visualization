@@ -288,6 +288,8 @@
 | TC-VIZ-SIEVEVIEW-01       | n=30 → 30 个 .sieve-cell；prime 格 .sieve-prime、composite 格 .sieve-composite  | L4   | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-SIEVEVIEW-02       | current=5 → 1 个 .sieve-current；marking=[25] → 25 号格 .sieve-marking          | L4   | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-SIEVEVIEW-03       | 1 号格 .sieve-special（既非素也非合）                                           | L4   | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-SPF-01   | composite 格传 spf[v] → 该格渲染 .sieve-spf 角标显示该值                        | L4   | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-SPF-02   | 不传 spf（埃氏筛）→ 无 .sieve-spf 角标（零回归）                                | L4   | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -1023,6 +1025,8 @@
 
 > **C-077（M7 新顶层大类「数学与数论」首发 · 新页 + 新轨）**：埃拉托斯特尼筛（Sieve of Eratosthenes）——求 1..N 内所有素数。不判断只**划掉**：从 2 起，每个还没被划掉的数是素数，划掉它从 **p²** 起的所有倍数（更小倍数已被更小素数划过）；筛到 **√N** 即停（合数必有 ≤√N 的质因子），剩下没划掉的全是素数，O(N log log N)。**新建第 16 条 SieveView 数字网格轨**（数论大类可视化基础，为线性筛/因数分解铺路）：n×cols 网格每格一个数按状态着色（special=1 灰 / unknown 中性 / prime 绿 / composite 灰划掉 / current 素数琥珀环 / marking 本步倍数红），CSS-grid 复用 BoardView 模式（见 viz-engine 段 `TC-VIZ-SIEVEVIEW-*` / `TC-PLAYER-SIEVE-*`）。新 `Step.sieve?` additive、AlgorithmPlayer 加一行 v-if。`sieve.module`（固定 N=30，init+prime×3+mark×3+rest+done 9 步 + oracle `sievePrimes()`=[2,3,5,7,11,13,17,19,23,29] 与试除法对拍）。新页 + 路由 `/docs/sieve-of-eratosthenes` + **菜单/首页新增第 7 大类「数学与数论」** + 新 `sieve.svg` + 改 `TC-HOOK`（分类 6→7 + data[6] 数学与数论）。6 大类不设 sieve 零回归。`TC-SIEVE-MOD-*` + `TC-VIEW-SIEVE-*` + `TC-E2E-SIEVE-01`。
 
+> **C-078（M7 数学与数论第 2 页 · 新页）**：线性筛（欧拉筛）——承接埃氏筛。埃氏筛里合数被多个素数重复划（12 被 2、3 都划），线性筛外层 `i` 遍历所有数、对素数 `p` 划 `i×p` 并在 **`i%p==0` 时立即停**：这个 break 保证 `i×p` 的最小质因子恰是 `p`，于是每个合数只被划一次（被其最小质因子），严格 **O(N)**。**复用 C-077 SieveView 数字网格轨**（不新建轨）；唯一 additive `SieveTrack.spf?`（每合数右下角标其最小质因子，见 viz-engine 段 `TC-VIZ-SIEVEVIEW-SPF-*`），埃氏筛不设即零回归。复用 `Step.sieve`、**AlgorithmPlayer 零改动**。`linearsieve.module`（固定 N=30 同网格，init+mark×(i=2..10 逐+i=11..15 合并)+rest+done 13 步 + oracle `linearSieve()` primes=[2,3,5,7,11,13,17,19,23,29]/spf 各合数最小质因子 与试除对拍）。新页 + 路由 `/docs/linear-sieve` + 菜单/首页「数学与数论」第 2 项 + 新 `linear-sieve.svg` + 改 `TC-HOOK`（数论 children +linear-sieve）+ 埃氏筛页双向链接。埃氏筛不设 spf 零回归。`TC-LS-MOD-*` + `TC-VIEW-LS-*` + `TC-E2E-LS-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1560,3 +1564,19 @@
 | TC-VIEW-SIEVE-02      | h1 含「筛」+ SieveView + 无柱数组 （C-077）                                                        | L4   | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
 | TC-VIEW-SIEVE-03      | 全模板同屏：正文含「素数」+ SieveView （C-077）                                                    | L4   | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
 | TC-E2E-SIEVE-01       | 埃氏筛全模板：数字网格 30 格 / 拖末步 10 素数 + caption 含 10 / Shiki（C-077 新增）                | L5   | `e2e/sieve.e2e.ts`                                        |
+| TC-LS-MOD-01          | 末步 done；素数集 = linearSieve().primes = [2,3,5,7,11,13,17,19,23,29]（C-078）                    | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-02          | 每步 point∈{init,mark,rest,done} 且带 sieve（array 空）（C-078）                                   | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-03          | init 步 states[1]='special'，2..30 全 'unknown'，spf 全 null（C-078）                              | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-04          | 存在 mark 步 current 是合数（如 i=4，外层遍历所有数） （C-078）                                    | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-05          | 末步 spf[v] = smallestPrimeFactor(v)（各合数）且与 oracle 一致（C-078）                            | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-06          | 每合数只划一次：所有 marking 并集无重复 = 全部合数 （C-078）                                       | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-07          | 末步 prime=10、composite=19、special=1；spf 非 null=19（C-078）                                    | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-08          | primes = 试除法 smallestPrimeFactor(x)===x 对拍 （C-078）                                          | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-09          | 相邻两步 composite 格数单调不减 （C-078）                                                          | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-10          | done 步 caption 含 10 与「最小质因子」「一次」 （C-078）                                           | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-078）                                | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-LS-MOD-12          | module 元信息 title 含「线性筛」或「欧拉」；initialInput()=[]（C-078）                             | L3   | `src/algorithms/linearsieve.module.spec.ts`               |
+| TC-VIEW-LS-01         | 挂载渲染 Article + AlgorithmPlayer （C-078）                                                       | L4   | `src/views/Article/Algorithm/LinearSieve.spec.ts`         |
+| TC-VIEW-LS-02         | h1 含「线性筛」+ SieveView + 无柱数组 （C-078）                                                    | L4   | `src/views/Article/Algorithm/LinearSieve.spec.ts`         |
+| TC-VIEW-LS-03         | 全模板同屏：正文含「最小质因子」+ SieveView （C-078）                                              | L4   | `src/views/Article/Algorithm/LinearSieve.spec.ts`         |
+| TC-E2E-LS-01          | 线性筛全模板：数字网格 spf 角标 / 拖末步 10 素数 + caption 含 10 / Shiki（C-078 新增）             | L5   | `e2e/linear-sieve.e2e.ts`                                 |

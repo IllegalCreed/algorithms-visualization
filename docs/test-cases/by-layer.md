@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **810** 个用例。运行命令：`pnpm test:unit`
+共 **822** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1289,12 +1289,24 @@
 | TC-SIEVE-MOD-10 | done 步 caption 含 10 与素数 29                                         | `src/algorithms/sieve.module.spec.ts`       |
 | TC-SIEVE-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/sieve.module.spec.ts`       |
 | TC-SIEVE-MOD-12 | module 元信息 title 含「筛」或「埃氏」；initialInput()=[]               | `src/algorithms/sieve.module.spec.ts`       |
+| TC-LS-MOD-01    | 末步 done；素数集 = linearSieve().primes = [2,3,5,7,11,13,17,19,23,29]  | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-02    | 每步 point∈{init,mark,rest,done} 且带 sieve（array 空）                 | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-03    | init 步 states[1]='special'，2..30 全 'unknown'，spf 全 null            | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-04    | 存在 mark 步 current 是合数（如 i=4，外层遍历所有数）                   | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-05    | 末步 spf[v] = smallestPrimeFactor(v)（各合数）且与 oracle 一致          | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-06    | 每合数只划一次：所有 marking 并集无重复 = 全部合数                      | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-07    | 末步 prime=10、composite=19、special=1；spf 非 null=19                  | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-08    | primes = 试除法 smallestPrimeFactor(x)===x 对拍                         | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-09    | 相邻两步 composite 格数单调不减                                         | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-10    | done 步 caption 含 10 与「最小质因子」「一次」                          | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-12    | module 元信息 title 含「线性筛」或「欧拉」；initialInput()=[]           | `src/algorithms/linearsieve.module.spec.ts` |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **473** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **478** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1885,6 +1897,8 @@
 | TC-VIZ-SIEVEVIEW-01       | n=30 → 30 个 .sieve-cell；prime 格 .sieve-prime、composite 格 .sieve-composite  | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-SIEVEVIEW-02       | current=5 → 1 个 .sieve-current；marking=[25] → 25 号格 .sieve-marking          | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-SIEVEVIEW-03       | 1 号格 .sieve-special（既非素也非合）                                           | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-SPF-01   | composite 格传 spf[v] → 该格渲染 .sieve-spf 角标显示该值                        | `src/components/SieveView.spec.ts`              |
+| TC-VIZ-SIEVEVIEW-SPF-02   | 不传 spf（埃氏筛）→ 无 .sieve-spf 角标（零回归）                                | `src/components/SieveView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -2191,6 +2205,14 @@
 | TC-VIEW-SIEVE-02 | h1 含「筛」+ SieveView + 无柱数组     | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
 | TC-VIEW-SIEVE-03 | 全模板同屏：正文含「素数」+ SieveView | `src/views/Article/Algorithm/SieveOfEratosthenes.spec.ts` |
 
+### 线性筛页 C-078（数学与数论第 2 页，新页，全模板 + 复用 SieveView·additive spf 角标）
+
+| 用例 ID       | 场景                                        | 文件                                              |
+| ------------- | ------------------------------------------- | ------------------------------------------------- |
+| TC-VIEW-LS-01 | 挂载渲染 Article + AlgorithmPlayer          | `src/views/Article/Algorithm/LinearSieve.spec.ts` |
+| TC-VIEW-LS-02 | h1 含「线性筛」+ SieveView + 无柱数组       | `src/views/Article/Algorithm/LinearSieve.spec.ts` |
+| TC-VIEW-LS-03 | 全模板同屏：正文含「最小质因子」+ SieveView | `src/views/Article/Algorithm/LinearSieve.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2201,7 +2223,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **69** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **70** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2275,6 +2297,7 @@
 | TC-E2E-AC-01        | AC 自动机全模板：正文 + Trie 图 8 状态 / `.scrub` 拖末步 caption 含命中 hers / Shiki（C-075 新增）                         | `e2e/aho-corasick.e2e.ts`          | active     |
 | TC-E2E-MF-01        | 最大流全模板：正文 + 网络图 4 节点 / `.scrub` 拖末步 caption 含最大流 6 / Shiki（C-076 新增）                              | `e2e/max-flow.e2e.ts`              | active     |
 | TC-E2E-SIEVE-01     | 埃氏筛全模板：正文 + 数字网格 30 格 / `.scrub` 拖末步 10 个 .sieve-prime + caption 含 10 / Shiki（C-077 新增）             | `e2e/sieve.e2e.ts`                 | active     |
+| TC-E2E-LS-01        | 线性筛全模板：正文 + 数字网格 spf 角标 / `.scrub` 拖末步 10 素数 + caption 含 10 / Shiki（C-078 新增）                     | `e2e/linear-sieve.e2e.ts`          | active     |
 
 ---
 
