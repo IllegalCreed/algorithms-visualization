@@ -265,6 +265,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/FastPower.vue'),
           },
           {
+            path: '/docs/convex-hull',
+            name: 'convex-hull',
+            component: () => import('../views/Article/Algorithm/ConvexHull.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

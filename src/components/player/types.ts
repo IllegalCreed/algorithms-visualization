@@ -343,6 +343,30 @@ export type PowerExecPoint =
   | 'skip' // 当前位为 0：底数平方出块但不乘
   | 'done'; // 扫完所有位，result = aⁿ
 
+/** 平面点（C-081，凸包）：数学坐标（y 向上） */
+export interface Pt {
+  x: number;
+  y: number;
+}
+
+/** 点平面轨快照——凸包专用（计算几何大类首发，第 19 轨 C-081） */
+export interface HullTrack {
+  points: Pt[]; // 全部点（已排序，数学坐标）
+  edges: [number, number][]; // 当前凸壳链的边（点下标对）
+  stack: number[]; // 当前链（栈）下标
+  current?: number | null; // 当前处理的点下标（琥珀）
+  popped?: number[]; // 本步被弹出的点下标（红）
+  phase: 'lower' | 'upper' | 'done';
+  finalHull?: number[]; // 完整凸包下标（done）
+}
+
+/** 凸包执行点（C-081，计算几何大类首发；新建 HullView 点平面轨——Andrew 单调链） */
+export type HullExecPoint =
+  | 'init' // 展示散点
+  | 'lower' // 构下凸壳：加一个点（含右转弹栈）
+  | 'upper' // 构上凸壳：加一个点
+  | 'done'; // 下 + 上凸壳拼成完整凸包
+
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
   labels: string[]; // 行/列标签（方阵：节点名 A,B,C,D；缺省行列标签时双用）
@@ -629,6 +653,7 @@ export interface Step<P extends string = string> {
   sieve?: SieveTrack; // 纯加法：埃氏筛数字网格轨（C-077）；其它算法不设 → SieveView 不渲染
   gcd?: GcdTrack; // 纯加法：欧几里得 GCD 矩形铺砖轨（C-079）；其它算法不设 → GcdView 不渲染
   power?: PowerTrack; // 纯加法：快速幂幂块轨（C-080）；其它算法不设 → PowerView 不渲染
+  hull?: HullTrack; // 纯加法：凸包点平面轨（C-081）；其它算法不设 → HullView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

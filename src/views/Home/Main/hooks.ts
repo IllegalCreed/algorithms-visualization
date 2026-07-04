@@ -27,6 +27,7 @@ import SieveIcon from '@/assets/sieve.svg';
 import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import GcdIcon from '@/assets/gcd.svg';
 import FastPowerIcon from '@/assets/fast-power.svg';
+import ConvexHullIcon from '@/assets/convex-hull.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -488,6 +489,18 @@ export function useCategoryData(): Category[] {
           desc: '二进制取幂求 aⁿ：指数拆二进制、底数反复平方 a¹→a²→a⁴→a⁸，位为 1 就乘入结果，O(log n)；模幂是 RSA 的核心',
           icon: FastPowerIcon,
           url: 'fast-power',
+        },
+      ],
+    },
+    {
+      title: '计算几何',
+      desc: '在平面/空间上用坐标和向量处理点、线、多边形——「几何问题代数化」的算法',
+      children: [
+        {
+          title: '凸包',
+          desc: 'Andrew 单调链求凸包：按坐标排序，叉积判左转/右转，非左转就弹栈，下凸壳 + 上凸壳套住所有点，O(n log n)',
+          icon: ConvexHullIcon,
+          url: 'convex-hull',
         },
       ],
     },

@@ -23,6 +23,7 @@ import SuffixArrayView from '@/components/SuffixArrayView.vue';
 import SieveView from '@/components/SieveView.vue';
 import GcdView from '@/components/GcdView.vue';
 import PowerView from '@/components/PowerView.vue';
+import HullView from '@/components/HullView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -642,6 +643,47 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 power
     await flushPromises();
     expect(wSort.findComponent(PowerView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 hull 且 array 空（凸包 C-081：HullView 点平面轨 + 无柱主轨）
+  const hullModule: AlgorithmModule = {
+    title: 'hull-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        hull: {
+          points: [
+            { x: 0, y: 0 },
+            { x: 2, y: 0 },
+            { x: 1, y: 2 },
+          ],
+          edges: [],
+          stack: [],
+          phase: 'lower',
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-HULL-01 当前步带 hull 时渲染 HullView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: hullModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(HullView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-HULL-02 既有排序 step（无 hull）不渲染 HullView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 hull
+    await flushPromises();
+    expect(wSort.findComponent(HullView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

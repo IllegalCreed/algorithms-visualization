@@ -21,6 +21,7 @@ import SuffixArrayView from '@/components/SuffixArrayView.vue';
 import SieveView from '@/components/SieveView.vue';
 import GcdView from '@/components/GcdView.vue';
 import PowerView from '@/components/PowerView.vue';
+import HullView from '@/components/HullView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
@@ -73,6 +74,7 @@ const prevVars = computed(() => steps[index.value - 1]?.vars);
     <SieveView v-if="current.sieve" :sieve="current.sieve" />
     <GcdView v-if="current.gcd" :gcd="current.gcd" />
     <PowerView v-if="current.power" :power="current.power" />
+    <HullView v-if="current.hull" :hull="current.hull" />
     <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
     <StackView v-if="current.stack" :stack="current.stack" />
     <CountView v-if="current.count" :count="current.count" />

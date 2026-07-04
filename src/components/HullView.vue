@@ -1,0 +1,122 @@
+<!-- src/components/HullView.vue —— 点平面轨（凸包；计算几何大类首发，第 19 轨 C-081） -->
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { HullTrack } from '@/components/player/types';
+
+const props = defineProps<{ hull: HullTrack }>();
+
+const VW = 460;
+const VH = 300;
+const M = 30;
+
+// 点坐标等比缩放居中 + y 上翻（数学 y 向上）
+const layout = computed(() => {
+  const xs = props.hull.points.map((p) => p.x);
+  const ys = props.hull.points.map((p) => p.y);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+  const w = maxX - minX || 1;
+  const h = maxY - minY || 1;
+  const scale = Math.min((VW - 2 * M) / w, (VH - 2 * M) / h);
+  const ox = (VW - w * scale) / 2;
+  const oy = (VH - h * scale) / 2;
+  const sx = (x: number) => ox + (x - minX) * scale;
+  const sy = (y: number) => oy + (maxY - y) * scale; // y 上翻
+  return { sx, sy };
+});
+
+const screen = computed(() => {
+  const { sx, sy } = layout.value;
+  return props.hull.points.map((p) => ({ x: sx(p.x), y: sy(p.y) }));
+});
+
+const isCurrent = (i: number) => props.hull.current === i;
+const isPopped = (i: number) => (props.hull.popped ?? []).includes(i);
+
+const edgeViews = computed(() =>
+  props.hull.edges.map(([a, b], i) => ({
+    key: `${a}-${b}-${i}`,
+    x1: screen.value[a].x,
+    y1: screen.value[a].y,
+    x2: screen.value[b].x,
+    y2: screen.value[b].y,
+  })),
+);
+
+const polygonPoints = computed(() => {
+  if (props.hull.phase !== 'done' || !props.hull.finalHull) return '';
+  return props.hull.finalHull.map((i) => `${screen.value[i].x},${screen.value[i].y}`).join(' ');
+});
+</script>
+
+<template>
+  <div class="hull-view center">
+    <svg :viewBox="`0 0 ${VW} ${VH}`" :width="VW" :height="VH">
+      <!-- 完整凸包多边形（done） -->
+      <polygon v-if="polygonPoints" class="hull-polygon" :points="polygonPoints" />
+      <!-- 当前凸壳链折线 -->
+      <line
+        v-for="e in edgeViews"
+        :key="e.key"
+        class="hull-edge"
+        :x1="e.x1"
+        :y1="e.y1"
+        :x2="e.x2"
+        :y2="e.y2"
+      />
+      <!-- 散点 -->
+      <circle
+        v-for="(p, i) in screen"
+        :key="i"
+        class="hull-point"
+        :class="{ 'hull-current': isCurrent(i), 'hull-popped': isPopped(i) }"
+        :cx="p.x"
+        :cy="p.y"
+        r="7"
+      />
+    </svg>
+  </div>
+</template>
+
+<style scoped lang="less">
+.hull-view {
+  width: 100%;
+  padding: 10px;
+}
+svg {
+  max-width: 100%;
+  height: auto;
+}
+.hull-polygon {
+  fill: rgba(139, 211, 160, 0.28);
+  stroke: #2e7d32;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.hull-edge {
+  stroke: #6b7d72;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke 0.25s;
+}
+.hull-point {
+  fill: #6b7d72;
+  stroke: #ffffff;
+  stroke-width: 2;
+  transition:
+    fill 0.25s,
+    r 0.25s;
+}
+/* 当前处理点：琥珀 + 大 */
+.hull-point.hull-current {
+  fill: #f0a000;
+  r: 10;
+}
+/* 本步被弹出的点：红 */
+.hull-point.hull-popped {
+  fill: #e03131;
+  r: 9;
+}
+</style>

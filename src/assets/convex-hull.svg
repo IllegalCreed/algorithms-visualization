@@ -1,0 +1,17 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 凸包多边形（绿填充） -->
+  <polygon points="180,540 400,760 700,720 820,440 560,220 300,300"
+    fill="rgba(139,211,160,0.32)" stroke="#2e7d32" stroke-width="20" stroke-linejoin="round" />
+  <!-- 外围点（凸包顶点，深灰） -->
+  <g fill="#333333">
+    <circle cx="180" cy="540" r="34" />
+    <circle cx="400" cy="760" r="34" />
+    <circle cx="700" cy="720" r="34" />
+    <circle cx="820" cy="440" r="34" />
+    <circle cx="560" cy="220" r="34" />
+    <circle cx="300" cy="300" r="34" />
+  </g>
+  <!-- 内部点（红，被排除） -->
+  <circle cx="480" cy="500" r="30" fill="#e03131" />
+  <circle cx="620" cy="540" r="30" fill="#e03131" />
+</svg>

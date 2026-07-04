@@ -295,6 +295,15 @@ export function useCategoryData(): Category[] {
         },
       ],
     },
+    {
+      title: '计算几何',
+      children: [
+        {
+          title: '凸包',
+          url: 'convex-hull',
+        },
+      ],
+    },
   ];
   return categoryData;
 }
