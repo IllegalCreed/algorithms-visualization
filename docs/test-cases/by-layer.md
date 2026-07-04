@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **738** 个用例。运行命令：`pnpm test:unit`
+共 **750** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1211,11 +1211,30 @@
 | TC-MAN-MOD-11 | 四语言 sources + 行号在范围内                           | `src/algorithms/manacher.module.spec.ts` |
 | TC-MAN-MOD-12 | module 元信息 title 含 Manacher/回文、initialInput()=[] | `src/algorithms/manacher.module.spec.ts` |
 
+### 后缀数组模块 suffixarray.module（C-072 · 字符串第 5 页，倍增 sort→rerank 6 步 + 新建 SuffixArrayView 轨）
+
+固定 `"banana"`；oracle `suffixArray()`=`[5,3,1,0,4,2]`（与字典序一致）。
+
+| Case ID      | 标题                                              | 自动化路径                                  |
+| ------------ | ------------------------------------------------- | ------------------------------------------- |
+| TC-SA-MOD-01 | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]      | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-02 | 每步执行点合法且带后缀轨（array 空）              | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-03 | 原串不变 banana                                   | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-04 | 终态字典序（相邻后缀升序）                        | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-05 | order 恒为 0..n-1 的排列                          | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-06 | rank 值域合法；末步 rank 全不同                   | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-07 | rank 步之间 k 依次翻倍 1,2,…                      | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-08 | sort 步 phase=sort；rank 步 phase=rank            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-09 | 收敛即止（末步 k ≤ n）                            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-10 | vars 展示原串/sa                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-11 | 四语言 sources + 行号在范围内                     | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-12 | module 元信息 title 含后缀数组、initialInput()=[] | `src/algorithms/suffixarray.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **436** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **444** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1832,6 +1851,9 @@
 | TC-VIZ-SUDOKUVIEW-01    | n=4 → 16 .sudoku-cell；给定格数 = given true 数 → .sk-given（C-071）            | `src/components/SudokuView.spec.ts`             |
 | TC-VIZ-SUDOKUVIEW-02    | current=[2,1],tryNum=3 → 1 .sk-current 显示 3（C-071）                          | `src/components/SudokuView.spec.ts`             |
 | TC-VIZ-SUDOKUVIEW-03    | status reject → .sk-reject；place → .sk-place（C-071）                          | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SAVIEW-01        | s=banana,order=[5,3,1,0,4,2] → 6 .sa-row，首行后缀以 a 开头（C-072）            | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-02        | 每行 .sa-index = order[row]（起点下标）（C-072）                                | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-03        | phase sort→.sa-key-active；rank→.sa-rank-active（C-072）                        | `src/components/SuffixArrayView.spec.ts`        |
 | TC-PLAYER-GRAPH-01      | 当前步带 graph → 渲染 GraphView                                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GRAPH-02      | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MATRIX-01     | step 带 matrix → 渲染 MatrixView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -1848,6 +1870,8 @@
 | TC-PLAYER-MANACHER-02   | 排序 step 无 manacher→不渲染 ManacherView（零回归）（C-067）                    | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SUDOKU-01     | step 带 sudoku → 渲染 SudokuView（C-071）                                       | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SUDOKU-02     | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SA-01         | step 带 suffixArray → 渲染 SuffixArrayView（C-072）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SA-02         | 排序 step 无 suffixArray→不渲染（零回归）（C-072）                              | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -2051,11 +2075,19 @@
 | TC-VIEW-MAN-02 | h1 含「Manacher」+ ManacherView + 无 .bars-view | `src/views/Article/Algorithm/Manacher.spec.ts` |
 | TC-VIEW-MAN-03 | 全模板同屏：正文含「回文」+ ManacherView        | `src/views/Article/Algorithm/Manacher.spec.ts` |
 
+### 后缀数组页 C-072（字符串第 5 页，新页，全模板 + 新建 SuffixArrayView 后缀轨）
+
+| Case ID       | 标题                                               | 自动化路径                                        |
+| ------------- | -------------------------------------------------- | ------------------------------------------------- |
+| TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
+| TC-VIEW-SA-02 | h1 含「后缀数组」+ SuffixArrayView + 无 .bars-view | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
+| TC-VIEW-SA-03 | 全模板同屏：正文含「倍增」+ SuffixArrayView        | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **63** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **64** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2123,6 +2155,7 @@
 | TC-E2E-SCC-01       | 强连通分量全模板：正文 + 有向图 6 点 / `.scrub` 拖末步 caption 含 3 个 SCC + 栈空（0 .on-stack）/ Shiki（C-069 新增）      | `e2e/scc.e2e.ts`                   | active     |
 | TC-E2E-CC-01        | 硬币找零方案数全模板：正文 + DP 表 4×6 / `.scrub` 拖末步 右下角=4 + caption 含 4 / Shiki（C-070 新增）                     | `e2e/coin-change.e2e.ts`           | active     |
 | TC-E2E-SDK-01       | 数独全模板：正文 + 4×4 盘 / `.scrub` 拖末步 16 格全填 + caption 含完成 / Shiki（C-071 新增）                               | `e2e/sudoku.e2e.ts`                | active     |
+| TC-E2E-SA-01        | 后缀数组全模板：正文 + 后缀表 / `.scrub` 拖末步 首行后缀以 a 开头 + caption 含 sa / Shiki（C-072 新增）                    | `e2e/suffix-array.e2e.ts`          | active     |
 
 ---
 

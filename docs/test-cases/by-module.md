@@ -322,6 +322,9 @@
 | TC-VIZ-SUDOKUVIEW-01    | n=4 → 16 .sudoku-cell；给定格数 = given true 数 → .sk-given（C-071）            | L4   | `src/components/SudokuView.spec.ts`             |
 | TC-VIZ-SUDOKUVIEW-02    | current=[2,1],tryNum=3 → 1 .sk-current 显示 3（C-071）                          | L4   | `src/components/SudokuView.spec.ts`             |
 | TC-VIZ-SUDOKUVIEW-03    | status reject → .sk-reject；place → .sk-place（C-071）                          | L4   | `src/components/SudokuView.spec.ts`             |
+| TC-VIZ-SAVIEW-01        | s=banana,order=[5,3,1,0,4,2] → 6 .sa-row，首行后缀以 a 开头（C-072）            | L4   | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-02        | 每行 .sa-index = order[row]（起点下标）（C-072）                                | L4   | `src/components/SuffixArrayView.spec.ts`        |
+| TC-VIZ-SAVIEW-03        | phase sort→.sa-key-active；rank→.sa-rank-active（C-072）                        | L4   | `src/components/SuffixArrayView.spec.ts`        |
 | TC-PLAYER-MAZE-01       | step 带 maze → 渲染 MazeView（C-059）                                           | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-MAZE-02       | 排序 step 无 maze→不渲染 MazeView（零回归）（C-059）                            | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-KMP-01        | step 带 kmp → 渲染 KmpView（C-062）                                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
@@ -330,6 +333,8 @@
 | TC-PLAYER-MANACHER-02   | 排序 step 无 manacher→不渲染 ManacherView（零回归）（C-067）                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SUDOKU-01     | step 带 sudoku → 渲染 SudokuView（C-071）                                       | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-SUDOKU-02     | 排序 step 无 sudoku→不渲染 SudokuView（零回归）（C-071）                        | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SA-01         | step 带 suffixArray → 渲染 SuffixArrayView（C-072）                             | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-SA-02         | 排序 step 无 suffixArray→不渲染（零回归）（C-072）                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -964,7 +969,7 @@
 | TC-VIEW-BLOOM-02  | 含「布隆过滤器」标题与互动容器（16 位）（C-036）                | L4   | `src/views/Article/DataStructure/BloomFilter.spec.ts` |
 | TC-E2E-BLOOM-01   | 布隆页：16 格/加 3·7·11/查「可能存在」/查「误判」/重置（C-036） | L5   | `e2e/bloom-filter.e2e.ts`                             |
 
-## article-algo（图算法 C-037~052/069 + 动态规划 C-053/054/060/061/065/070 + 回溯 C-055~059/066/068/071 + 字符串 C-062/063/064/067；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
+## article-algo（图算法 C-037~052/069 + 动态规划 C-053/054/060/061/065/070 + 回溯 C-055~059/066/068/071 + 字符串 C-062/063/064/067/072；Dijkstra 于 C-047、Kruskal 于 C-048 返工进播放器）
 
 > M6 阶段一 G1 · 新增第 3 个顶层分类「图算法」。useDijkstra/useKruskal 物理在 `components/structures/`，页在 `views/Article/Algorithm/`。
 > **C-047（M8②-1）**：Dijkstra 页返工进 AlgorithmPlayer——新增 `dijkstra.module`（细粒度重走 32 步，复用 useDijkstra 图 + oracle）走 GraphView 图轨（见 viz-engine 段 `TC-VIZ-GRAPHVIEW-*`/`TC-PLAYER-GRAPH-*`）；`DijkstraViz.vue`/spec 删除，8 个 `TC-VIZ-DIJKSTRAVIZ-*` **superseded**；`TC-VIEW-DIJKSTRA-01/02` 改写 + 新增 -03；`TC-E2E-DIJKSTRA-01` 改写。useDijkstra 保留复用。
@@ -992,6 +997,7 @@
 > **C-069（M6 图算法第 7 页 · 新页）**：强连通分量（SCC）——补图算法「有向图连通性」维度（前 6 页覆盖最短路/MST/拓扑排序）。**Tarjan 一趟 DFS**：每点记发现序 `dfn` 与「至多经一条回边可回溯的最小 dfn」`low`，访问即入栈；`low[u]==dfn[u]` 说明 u 是一个 SCC 的根，弹栈到 u 得一个强连通分量。`low` 在子树回传（`min(low,子low)`）与回边（`min(low,dfn[栈中邻])`）两处更新。**扩展 GraphView**（第 6 消费者，additive：+`nodeGroup` SCC 分组调色板着色 + `stackNodes` 在栈虚线环；`nodeBadge` 复用显 dfn/low、`edgeClass` 树边绿/回边黄；见 viz-engine 段 `TC-VIZ-GRAPHVIEW-SCC-*`）。复用 `Step.graph` 无新 Step 字段；栈内容走 vars 文本。`scc.module`（固定 6 点有向图 0→1→2→0 环 + 2→3 + 3→4→3 环 + 4→5，Tarjan 17 步 + oracle `tarjanSCCs()`=[[5],[4,3],[2,1,0]]/dfn=[0..5]/low=[0,0,0,3,3,5]，3 个 SCC）。新页 + 路由 `/docs/scc` + 菜单/首页「图算法」第 7 项 + 新 `scc.svg` + 改 `TC-HOOK-01-1/02-1`（图算法 6→7）。既有 6 图算法不传新字段零回归。`TC-SCC-MOD-*` + `TC-VIEW-SCC-*` + `TC-E2E-SCC-01`。
 > **C-070（M6 动态规划第 6 页 · 新页）**：硬币找零方案数（LeetCode 518，计数 DP）——补 DP「计数」维度（前五页求 min/max/最优解）。每种硬币无限枚，`dp[i][a]` = 用前 i 种凑金额 a 的方案数。与完全背包同为无限次取的二维表、「用一枚」来源也在**本行** `dp[i][a-面额]`，差别只在算子：完全背包取 `max(不取, 取)`，硬币找零取 `dp[i-1][a] + dp[i][a-面额]`（**方案数相加**）；边界 `dp[0][0]=1`（凑 0 元 1 种，方案数的种子）。**纯复用 MatrixView 矩阵轨零改动**（第 7 消费者，行=硬币面额/列=金额）。types +`CoinChangeExecPoint`（init/skip/add/done）+ `coinchange.module`（硬币 [1,2,5]/金额 5，4×6 表逐格填 20 步 + oracle `coinChangeTrace()` 右下角 4）。新页 + 路由 `/docs/coin-change` + 菜单/首页「动态规划」第 6 项 + 新 `coin-change.svg` + 改 `TC-HOOK-01-1/02-1`（DP children +coin-change）。MatrixView 七验（方阵/字符轴/数值轴/回溯路径/两行表/本行来源/计数相加）。`TC-CC-MOD-*` + `TC-VIEW-CC-*` + `TC-E2E-CC-01`。
 > **C-071（M6 回溯与搜索第 8 页 · 新页）**：数独——棋盘约束回溯第 2 例（N 皇后是第 1）。N 皇后是「放置型」（每列放皇后），数独是「填数型」（每空格试填 1..n，受**行/列/宫三重约束**）：合法则填入下探，冲突换下一个，一格 1..n 都填不了就**撤销、回退**换个数。**新建第 14 条 SudokuView 数独轨**（CSS grid n×n + 宫线，`sk-given` 给定加粗 / `sk-current` 当前琥珀环 / `sk-reject` 冲突红 / `sk-place` 填入绿；见 viz-engine 段 `TC-VIZ-SUDOKUVIEW-*` / `TC-PLAYER-SUDOKU-*`）。复用 `Step.sudoku` additive 可插拔（其它算法未设即不渲染）。`sudoku.module`（固定 4×4 迷你数独 5 空唯一解，约束回溯 22 步含 **2 次真回溯**〔(2,1) 填 1 走到 (2,3) 死路→撤销→改填 3〕 + oracle `sudokuSolution()`）。新页 + 路由 `/docs/sudoku` + 菜单/首页「回溯与搜索」第 8 项 + 新 `sudoku.svg` + 改 `TC-HOOK-01-1/02-1`（回溯 children +sudoku）。播放器可插拔轨 13→14；既有算法零回归。`TC-SDK-MOD-*` + `TC-VIEW-SDK-*` + `TC-E2E-SDK-01`。
+> **C-072（M6 字符串第 5 页 · 新页）**：后缀数组（Suffix Array）——给字符串大类补「后缀结构」维度（前四页 3 匹配 + 1 回文）。把一个串所有后缀按字典序排好，`sa[i]` = 排名 i 的后缀起点，是最长公共子串/不同子串计数/重复子串的通用底座。朴素排序 O(n²logn)；**倍增法** O(nlog²n)：先按长度 1 排，再用上一轮 rank 拼 `(rank[i], rank[i+k])` 作关键字、每轮**比较长度翻倍**。**新建第 15 条 SuffixArrayView 后缀轨**（原串 + 后缀表〔起点/后缀文本/rank/关键字〕逐轮细化，`sort` 高亮关键字列 / `rank` 高亮 rank 列；见 viz-engine 段 `TC-VIZ-SAVIEW-*` / `TC-PLAYER-SA-*`）。复用 `Step.suffixArray` additive 可插拔（其它算法未设即不渲染）。`suffixarray.module`（固定 banana，倍增 init+sort/rank×2+done 6 步收敛 + oracle `suffixArray()`=[5,3,1,0,4,2]，与字典序对拍）。新页 + 路由 `/docs/suffix-array` + 菜单/首页「字符串」第 5 项 + 新 `suffix-array.svg` + 改 `TC-HOOK-01-1/02-1`（字符串 children +suffix-array）。播放器可插拔轨 14→15；既有算法零回归。`TC-SA-MOD-*` + `TC-VIEW-SA-*` + `TC-E2E-SA-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                             |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------ |
@@ -1434,3 +1440,19 @@
 | TC-VIEW-SDK-02        | h1 含「数独」+ SudokuView + 无柱数组（C-071）                                                      | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
 | TC-VIEW-SDK-03        | 全模板同屏：正文含「回溯」+ SudokuView（C-071）                                                    | L4   | `src/views/Article/Algorithm/Sudoku.spec.ts`           |
 | TC-E2E-SDK-01         | 数独全模板：4×4 盘 / 拖末步 16 格全填 / Shiki（C-071 新增）                                        | L5   | `e2e/sudoku.e2e.ts`                                    |
+| TC-SA-MOD-01          | 末步 done + sa=[5,3,1,0,4,2]（C-072）                                                              | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-02          | 每步执行点合法且带后缀轨（array 空）（C-072）                                                      | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-03          | 原串不变 banana（C-072）                                                                           | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-04          | 终态字典序（相邻后缀升序）（C-072）                                                                | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-05          | order 恒为 0..n-1 的排列（C-072）                                                                  | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-06          | rank 值域合法；末步 rank 全不同（C-072）                                                           | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-07          | rank 步之间 k 依次翻倍 1,2（C-072）                                                                | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-08          | sort 步 phase=sort；rank 步 phase=rank（C-072）                                                    | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-09          | 收敛即止（末步 k ≤ n）（C-072）                                                                    | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-10          | vars 展示原串/sa（C-072）                                                                          | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-11          | 四语言 sources + 行号在范围内（C-072）                                                             | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-SA-MOD-12          | module 元信息 title 含后缀数组（C-072）                                                            | L3   | `src/algorithms/suffixarray.module.spec.ts`            |
+| TC-VIEW-SA-01         | 挂载渲染 Article + AlgorithmPlayer（C-072）                                                        | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
+| TC-VIEW-SA-02         | h1 含「后缀数组」+ SuffixArrayView + 无柱数组（C-072）                                             | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
+| TC-VIEW-SA-03         | 全模板同屏：正文含「倍增」+ SuffixArrayView（C-072）                                               | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`      |
+| TC-E2E-SA-01          | 后缀数组全模板：后缀表 / 拖末步首行 a 开头 + caption 含 sa / Shiki（C-072 新增）                   | L5   | `e2e/suffix-array.e2e.ts`                              |
