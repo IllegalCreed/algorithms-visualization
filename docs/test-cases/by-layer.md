@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **930** 个用例。运行命令：`pnpm test:unit`
+共 **942** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1409,12 +1409,24 @@
 | TC-CRT-MOD-10   | done caption 含 23 与 105                                               | `src/algorithms/crt.module.spec.ts`         |
 | TC-CRT-MOD-11   | 四语言+行号+六执行点                                                    | `src/algorithms/crt.module.spec.ts`         |
 | TC-CRT-MOD-12   | title 含中国剩余定理；initialInput=[]                                   | `src/algorithms/crt.module.spec.ts`         |
+| TC-BO-MOD-01    | 事件流 cross = 暴力 {(4,6),(5,5),(6,6)}；done marks 3                   | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-02    | point∈{init,start,cross,end,done} 带 hull                               | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-03    | 6 点 3 边；init 全默认无扫描线                                          | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-04    | 9 事件 x=1/2/2.5/4/5/6/8/8.5/9 + 类型序                                 | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-05    | start：divider=x、主角 seg-test、未入场 seg-no                          | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-06    | cross：markActive、双边 seg-yes、marks 1/2/3                            | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-07    | end：该边 seg-no、marks 保持 3                                          | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-08    | x=2 入队 (5,5)；x=2.5 入队 (6,6)+(4,6)；其后全空                        | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-09    | 扫描线 divider 严格递增                                                 | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-10    | done caption 含 3 个交点与相邻语义                                      | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-12    | title 含扫描线；initialInput=[]                                         | `src/algorithms/bentley.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **531** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **536** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2419,6 +2431,16 @@
 | TC-VIEW-CRT-02 | h1 含中国剩余定理 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/Crt.spec.ts` |
 | TC-VIEW-CRT-03 | 正文含孙子算经 + MatrixView 同屏          | `src/views/Article/Algorithm/Crt.spec.ts` |
 
+### 扫描线求交页 C-088（计算几何第 5 页，新页，HullView additive 第 5 消费者）
+
+| 用例 ID               | 场景                              | 文件                                                 |
+| --------------------- | --------------------------------- | ---------------------------------------------------- |
+| TC-VIZ-HULLVIEW-BO-01 | marks+markActive 渲染红标与放大标 | `src/components/HullView.spec.ts`                    |
+| TC-VIZ-HULLVIEW-BO-02 | 不设两字段无 .hull-mark（零回归） | `src/components/HullView.spec.ts`                    |
+| TC-VIEW-BO-01         | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/BentleyOttmann.spec.ts` |
+| TC-VIEW-BO-02         | h1 含扫描线 + HullView + 无柱数组 | `src/views/Article/Algorithm/BentleyOttmann.spec.ts` |
+| TC-VIEW-BO-03         | 正文含事件与相邻 + HullView 同屏  | `src/views/Article/Algorithm/BentleyOttmann.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2429,7 +2451,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **79** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **80** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2513,6 +2535,7 @@
 | TC-E2E-BN-01        | 双调排序全模板：网络 / 拖末步 1..8 有序 + caption 6 / Shiki（C-085 新增）                                                  | `e2e/bitonic-sort.e2e.ts`          | active     |
 | TC-E2E-EG-01        | 扩展欧几里得全模板：回代表 / 拖末步 −1 与 2 / Shiki（C-086 新增）                                                          | `e2e/ext-gcd.e2e.ts`               | active     |
 | TC-E2E-CRT-01       | 中国剩余定理全模板：构造表 / 拖末步 23 与 105 / Shiki（C-087 新增）                                                        | `e2e/crt.e2e.ts`                   | active     |
+| TC-E2E-BO-01        | 扫描线求交全模板：点平面轨 / 拖末步 3 交点红标 / Shiki（C-088 新增）                                                       | `e2e/bentley-ottmann.e2e.ts`       | active     |
 
 ---
 

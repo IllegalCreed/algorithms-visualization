@@ -1071,6 +1071,8 @@
 
 > **C-087（M7 数学与数论第 6 页 · 新页）**：中国剩余定理——孙子算经同余组构造解：Mᵢ=M/mᵢ 只在本条同余「有声音」、扩欧求逆 tᵢ 校准成 1、专属项 rᵢ·Mᵢ·tᵢ 相加 mod M；数论线闭环 + RSA-CRT。**纯复用 MatrixView 第 9 消费者零改动**（active/updatedCell/sources 全复用）。crt.module 12 步 + crtBrute 暴力独立真值对拍、3×3 异模全验。`TC-CRT-MOD-*`+`TC-VIEW-CRT-*`+`TC-E2E-CRT-01`。
 
+> **C-088（M7 计算几何第 5 页 · 新页）**：扫描线求交 Bentley-Ottmann——n 线段求全部交点 O((n+k) log n)：事件队列（起点/终点/交点）驱动扫描线、状态结构按 y 有序，「相交前必相邻」只查新相邻对。**HullView additive 第 5 消费者**（+marks/markActive 交点标记 2 可选字段，divider 当扫描线、edgeClasses 表状态，4 既有消费者零回归）。bentley.module 11 步 + boEvents 事件流与 bruteCrosses 暴力对拍。`TC-VIZ-HULLVIEW-BO-*`+`TC-BO-MOD-*`+`TC-VIEW-BO-*`+`TC-E2E-BO-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1768,3 +1770,21 @@
 | TC-VIEW-CRT-02        | h1 含中国剩余定理 + MatrixView + 无柱数组（C-087）                                                 | L4   | `src/views/Article/Algorithm/Crt.spec.ts`                 |
 | TC-VIEW-CRT-03        | 正文含孙子算经 + MatrixView 同屏（C-087）                                                          | L4   | `src/views/Article/Algorithm/Crt.spec.ts`                 |
 | TC-E2E-CRT-01         | 中国剩余定理全模板：构造表 / 拖末步 23 与 105 / Shiki（C-087 新增）                                | L5   | `e2e/crt.e2e.ts`                                          |
+| TC-VIZ-HULLVIEW-BO-01 | marks+markActive 渲染红标与放大标（C-088）                                                         | L4   | `src/components/HullView.spec.ts`                         |
+| TC-VIZ-HULLVIEW-BO-02 | 不设两字段无 .hull-mark（零回归）（C-088）                                                         | L4   | `src/components/HullView.spec.ts`                         |
+| TC-BO-MOD-01          | 事件流 cross = 暴力 {(4,6),(5,5),(6,6)}；done marks 3（C-088）                                     | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-02          | point∈{init,start,cross,end,done} 带 hull（C-088）                                                 | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-03          | 6 点 3 边；init 全默认无扫描线（C-088）                                                            | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-04          | 9 事件 x=1/2/2.5/4/5/6/8/8.5/9 + 类型序（C-088）                                                   | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-05          | start：divider=x、主角 seg-test、未入场 seg-no（C-088）                                            | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-06          | cross：markActive、双边 seg-yes、marks 1/2/3（C-088）                                              | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-07          | end：该边 seg-no、marks 保持 3（C-088）                                                            | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-08          | x=2 入队 (5,5)；x=2.5 入队 (6,6)+(4,6)；其后全空（C-088）                                          | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-09          | 扫描线 divider 严格递增（C-088）                                                                   | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-10          | done caption 含 3 个交点与相邻语义（C-088）                                                        | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-11          | 四语言+行号+五执行点（C-088）                                                                      | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-BO-MOD-12          | title 含扫描线；initialInput=[]（C-088）                                                           | L3   | `src/algorithms/bentley.module.spec.ts`                   |
+| TC-VIEW-BO-01         | Article + AlgorithmPlayer（C-088）                                                                 | L4   | `src/views/Article/Algorithm/BentleyOttmann.spec.ts`      |
+| TC-VIEW-BO-02         | h1 含扫描线 + HullView + 无柱数组（C-088）                                                         | L4   | `src/views/Article/Algorithm/BentleyOttmann.spec.ts`      |
+| TC-VIEW-BO-03         | 正文含事件与相邻 + HullView 同屏（C-088）                                                          | L4   | `src/views/Article/Algorithm/BentleyOttmann.spec.ts`      |
+| TC-E2E-BO-01          | 扫描线求交全模板：点平面轨 / 拖末步 3 交点红标 / Shiki（C-088 新增）                               | L5   | `e2e/bentley-ottmann.e2e.ts`                              |

@@ -95,6 +95,7 @@
 | C-20260705-085 | feature             | 双调排序（排序阶段三·排序网络）                    | **M7 排序阶段三**：双调排序（Bitonic Sort）——与前 15 页本质不同的物种：排序网络，比较器位置与顺序在排序前固定、与数据无关，同列比较器可并行执行，深度 O(log²n)（n=8 仅 6 拍），GPU/硬件排序思想根基。两阶段：构造双调序列（前半升后半降）→ 双调合并（距离减半）。**新建第 20 条 NetworkView 比较器网络轨**（8 wire 左端标值随交换更新 + 24 比较器按 6 列竖线 + 大值流向三角，当前列琥珀/已执行绿/未执行灰）。bitonic.module（固定 [5,2,7,1,8,3,6,4]，init+column×6+done 8 步 + oracle runNetwork 逐列快照对拍 + 200 随机对拍 + 列 2 后完美双调 [1,2,5,7,8,6,4,3] + 4 语言 sources）。新页 BitonicSort.vue + 路由 /docs/bitonic-sort + 「经典排序算法」第 16 项 + svg + 改 TC-HOOK 排序 children 15→16。既有算法不设 network 零回归；AlgorithmPlayer 加一行 v-if                                                                                                                                                         | verified                                                                                                                                                                                             | 100%     | 无     | 已完成（21 Case + 改 2 HOOK，已落 main）；真机三态网络、列 2 完美双调、末步有序；**新建第 20 轨 NetworkView·排序第 16 页·并行排序网络**                                                                                                                                                 | viz-engine / article-sort / M7                                                                                                                                                                                                                                                   | IllegalCreed                   | `20260705-c085-bitonic-sort/`          | 2026-07-05                | 双调排序·新建第 20 轨 NetworkView    |
 | C-20260705-086 | feature             | 扩展欧几里得（数学与数论第 5 页·Bézout）           | **M7 数学与数论第 5 页**：扩展欧几里得——承接 GCD/快速幂，求 Bézout 系数 x,y 使 ax+by=gcd：下行照常除法链，基例 b=0 时 (x,y)=(1,0)，回代自底向上 x=y'、y=x'−q·y'；gcd(a,m)=1 时 x mod m 即模逆元（RSA 一步）。**纯复用 MatrixView（第 8 消费者零改动）**：5 列 [a,b,q,x,y]×4 行回代表，下行填 a,b,q、回代填 x,y（sources 高亮引用下一行）。extgcd.module（固定 30,18 同 GCD 页，init+down×3+base+up×3+done 9 步 + oracle extGcd={6,−1,2} 逐层恒等验证 + 4 语言 sources）。新页 ExtGcd.vue + 路由 /docs/ext-gcd + 「数学与数论」第 5 项 + svg + 改 TC-HOOK + GCD 页双向链接。MatrixView 7 既有消费者零回归；AlgorithmPlayer 零改动                                                                                                                                                                                                                                                                                        | verified                                                                                                                                                                                             | 100%     | 无     | 已完成（16 Case + 改 2 HOOK，已落 main）；真机回代表三色高亮 + 逐层恒等验证 + x=−1,y=2；**纯复用 MatrixView 第 8 消费者·数论第 5 页·RSA 拼图补全**                                                                                                                                      | article-algo / M7                                                                                                                                                                                                                                                                | IllegalCreed                   | `20260705-c086-ext-gcd/`               | 2026-07-05                | 扩展欧几里得·纯复用 MatrixView       |
 | C-20260705-087 | feature             | 中国剩余定理 CRT（数学与数论第 6 页·孙子算经）     | **M7 数学与数论第 6 页**：中国剩余定理——承接扩欧模逆元。模两两互质时同余组 x≡rᵢ (mod mᵢ) 在 mod M 内唯一：Mᵢ=M/mᵢ 对异模 ≡0 只在本条「有声音」，扩欧求逆 tᵢ 把声音校准成 1，专属项 rᵢ·Mᵢ·tᵢ 相加 mod M 即解。**纯复用 MatrixView（第 9 消费者零改动）**：5 列 [r,m,Mᵢ,tᵢ,项]×4 行构造表（三条同余 + 合计），逐行 mi/inv/term 三步（sources 高亮引用格）+ sum + done。crt.module（固定孙子算经 [2,3,2]/[3,5,7]，M=105、Mᵢ=35/21/15、tᵢ=2/1/1、项 140/63/30、合计 233 → x=23，12 步 + oracle crtBrute 暴力独立真值对拍 + 4 语言 sources）。新页 Crt.vue + 路由 /docs/crt + 「数学与数论」第 6 项 + svg + 改 TC-HOOK + 扩欧页双向链接。MatrixView 8 既有消费者零回归；AlgorithmPlayer 零改动                                                                                                                                                                                                                               | verified                                                                                                                                                                                             | 100%     | 无     | 已完成（16 Case + 改 2 HOOK，已落 main）；真机构造表三色高亮 + 末步 233 mod 105 = 23；**纯复用 MatrixView 第 9 消费者·数论第 6 页·数论线闭环**                                                                                                                                          | article-algo / M7                                                                                                                                                                                                                                                                | IllegalCreed                   | `20260705-c087-crt/`                   | 2026-07-05                | 中国剩余定理·纯复用 MatrixView       |
+| C-20260705-088 | feature             | 扫描线求交 Bentley-Ottmann（计算几何第 5 页）      | **M7 计算几何第 5 页**：扫描线求所有交点——承接 C-084 两线段判交。n 线段暴力 O(n²)，Bentley-Ottmann O((n+k) log n)：事件队列（起点/终点/交点按 x 序）驱动竖直扫描线，状态结构按 y 维护在场线段，核心洞察「相交前必相邻」只查新相邻对。**复用 HullView（第 5 消费者，additive +marks/markActive 交点标记 2 可选字段）**：divider 当扫描线、edgeClasses 线段状态。bentley.module（固定 A(1,1)-(9,9)/B(2,8)-(8,2)/C(2.5,6)-(8.5,6)，交点 (4,6)/(5,5)/(6,6)，init+9 事件+done 11 步 + oracle 暴力全对求交对拍 + 4 语言 sources）。新页 BentleyOttmann.vue + 路由 /docs/bentley-ottmann + 「计算几何」第 5 项 + svg + 改 TC-HOOK + C-084 页双向链接。HullView 4 既有消费者零回归；AlgorithmPlayer 零改动                                                                                                                                                                                                                      | verified                                                                                                                                                                                             | 100%     | 无     | 已完成（18 Case + 改 2 HOOK，已落 main）；真机扫描线逐事件右移 + 交点红标 + 状态结构 vars；**HullView additive 第 5 消费者·计算几何第 5 页·事件驱动范式**                                                                                                                               | article-algo / M7                                                                                                                                                                                                                                                                | IllegalCreed                   | `20260705-c088-bentley-ottmann/`       | 2026-07-05                | 扫描线求交·HullView additive         |
 
 ## By Type
 
@@ -204,6 +205,7 @@
 | C-20260705-085 | 双调排序（排序阶段三·排序网络）                    | verified | 100%   | 无     | 已完成（21 Case + 改 2 HOOK，已落 main）；M7 排序阶段三——双调排序比较器网络，新建第 20 条 NetworkView，6 列 24 比较器逐列并行、列 2 双调成形、深度 O(log²n)                                                                       | `20260705-c085-bitonic-sort/`          |
 | C-20260705-086 | 扩展欧几里得（数学与数论第 5 页·Bézout）           | verified | 100%   | 无     | 已完成（16 Case + 改 2 HOOK，已落 main）；M7 数论第 5 页——扩展欧几里得回代表，纯复用 MatrixView 第 8 消费者，30,18 → gcd=6、x=−1、y=2，模逆元铺垫                                                                                 | `20260705-c086-ext-gcd/`               |
 | C-20260705-087 | 中国剩余定理 CRT（数学与数论第 6 页·孙子算经）     | verified | 100%   | 无     | 已完成（16 Case + 改 2 HOOK，已落 main）；M7 数论第 6 页——CRT 构造表，纯复用 MatrixView 第 9 消费者，孙子算经 → x=23                                                                                                              | `20260705-c087-crt/`                   |
+| C-20260705-088 | 扫描线求交 Bentley-Ottmann（计算几何第 5 页）      | verified | 100%   | 无     | 已完成（18 Case + 改 2 HOOK，已落 main）；M7 计算几何第 5 页——扫描线求所有交点，HullView additive 第 5 消费者，3 线段 3 交点 11 步                                                                                                | `20260705-c088-bentley-ottmann/`       |
 
 ## By Module
 
@@ -280,46 +282,47 @@
 
 ### viz-engine / article-algo（图算法，M6）
 
-| Change ID      | Type    | 标题                       | 状态     | 完成度 | Plan                                   |
-| -------------- | ------- | -------------------------- | -------- | ------ | -------------------------------------- |
-| C-20260629-037 | feature | Dijkstra 最短路            | verified | 100%   | `20260629-c037-dijkstra/`              |
-| C-20260630-038 | feature | Kruskal 最小生成树         | verified | 100%   | `20260630-c038-kruskal/`               |
-| C-20260703-049 | feature | Prim 最小生成树            | verified | 100%   | `20260703-c049-prim-mst/`              |
-| C-20260703-050 | feature | Bellman-Ford 最短路        | verified | 100%   | `20260703-c050-bellman-ford/`          |
-| C-20260703-051 | feature | 拓扑排序                   | verified | 100%   | `20260703-c051-topological-sort/`      |
-| C-20260703-052 | feature | Floyd-Warshall 多源最短路  | verified | 100%   | `20260703-c052-floyd-warshall/`        |
-| C-20260703-053 | feature | 编辑距离（DP 首发）        | verified | 100%   | `20260703-c053-edit-distance/`         |
-| C-20260703-054 | feature | 0-1 背包（DP2）            | verified | 100%   | `20260703-c054-knapsack/`              |
-| C-20260703-055 | feature | N 皇后（回溯首发）         | verified | 100%   | `20260703-c055-n-queens/`              |
-| C-20260703-056 | feature | 子集生成（决策树轨）       | verified | 100%   | `20260703-c056-subsets/`               |
-| C-20260703-057 | feature | 全排列（复用决策树轨）     | verified | 100%   | `20260703-c057-permutations/`          |
-| C-20260703-058 | feature | 组合总和（决策树剪枝）     | verified | 100%   | `20260703-c058-combination-sum/`       |
-| C-20260703-059 | feature | 迷宫寻路（MazeView 轨）    | verified | 100%   | `20260703-c059-maze/`                  |
-| C-20260703-060 | feature | LCS（填表+回溯）           | verified | 100%   | `20260703-c060-lcs/`                   |
-| C-20260703-061 | feature | LIS（一维 DP·两行表）      | verified | 100%   | `20260703-c061-lis/`                   |
-| C-20260703-062 | feature | KMP 字符串匹配（新大类）   | verified | 100%   | `20260703-c062-kmp/`                   |
-| C-20260703-063 | feature | Rabin-Karp（滚动哈希）     | verified | 100%   | `20260703-c063-rabin-karp/`            |
-| C-20260703-064 | feature | Boyer-Moore（坏字符跳）    | verified | 100%   | `20260703-c064-boyer-moore/`           |
-| C-20260704-065 | feature | 完全背包（可重复取）       | verified | 100%   | `20260704-c065-complete-knapsack/`     |
-| C-20260704-066 | feature | 岛屿数量（Flood Fill）     | verified | 100%   | `20260704-c066-number-of-islands/`     |
-| C-20260704-067 | feature | Manacher（最长回文）       | verified | 100%   | `20260704-c067-manacher/`              |
-| C-20260704-068 | feature | 单词搜索（DFS 回溯）       | verified | 100%   | `20260704-c068-word-search/`           |
-| C-20260704-069 | feature | 强连通分量（Tarjan）       | verified | 100%   | `20260704-c069-scc/`                   |
-| C-20260704-070 | feature | 硬币找零方案数（计数 DP）  | verified | 100%   | `20260704-c070-coin-change/`           |
-| C-20260704-071 | feature | 数独（约束回溯）           | verified | 100%   | `20260704-c071-sudoku/`                |
-| C-20260704-072 | feature | 后缀数组（倍增法）         | verified | 100%   | `20260704-c072-suffix-array/`          |
-| C-20260704-073 | feature | LCP/height 数组（Kasai）   | verified | 100%   | `20260704-c073-lcp-array/`             |
-| C-20260704-074 | feature | 2-SAT（Tarjan 应用）       | verified | 100%   | `20260704-c074-two-sat/`               |
-| C-20260704-075 | feature | AC 自动机（Aho-Corasick）  | verified | 100%   | `20260704-c075-aho-corasick/`          |
-| C-20260704-076 | feature | 最大流（Ford-Fulkerson）   | verified | 100%   | `20260704-c076-max-flow/`              |
-| C-20260704-077 | feature | 埃拉托斯特尼筛（数论首发） | verified | 100%   | `20260704-c077-sieve-of-eratosthenes/` |
-| C-20260704-078 | feature | 线性筛（欧拉筛）           | verified | 100%   | `20260704-c078-linear-sieve/`          |
-| C-20260704-079 | feature | 欧几里得算法 GCD           | verified | 100%   | `20260704-c079-gcd/`                   |
-| C-20260704-080 | feature | 快速幂（二进制取幂）       | verified | 100%   | `20260704-c080-fast-power/`            |
-| C-20260704-081 | feature | 凸包（Andrew 单调链）      | verified | 100%   | `20260704-c081-convex-hull/`           |
-| C-20260704-082 | feature | 旋转卡壳（凸包直径）       | verified | 100%   | `20260704-c082-rotating-calipers/`     |
-| C-20260704-083 | feature | 最近点对（分治）           | verified | 100%   | `20260704-c083-closest-pair/`          |
-| C-20260705-084 | feature | 线段相交（跨立试验）       | verified | 100%   | `20260705-c084-segment-intersection/`  |
-| C-20260705-085 | feature | 双调排序（排序网络）       | verified | 100%   | `20260705-c085-bitonic-sort/`          |
-| C-20260705-086 | feature | 扩展欧几里得（Bézout）     | verified | 100%   | `20260705-c086-ext-gcd/`               |
-| C-20260705-087 | feature | 中国剩余定理（CRT）        | verified | 100%   | `20260705-c087-crt/`                   |
+| Change ID      | Type    | 标题                          | 状态     | 完成度 | Plan                                   |
+| -------------- | ------- | ----------------------------- | -------- | ------ | -------------------------------------- |
+| C-20260629-037 | feature | Dijkstra 最短路               | verified | 100%   | `20260629-c037-dijkstra/`              |
+| C-20260630-038 | feature | Kruskal 最小生成树            | verified | 100%   | `20260630-c038-kruskal/`               |
+| C-20260703-049 | feature | Prim 最小生成树               | verified | 100%   | `20260703-c049-prim-mst/`              |
+| C-20260703-050 | feature | Bellman-Ford 最短路           | verified | 100%   | `20260703-c050-bellman-ford/`          |
+| C-20260703-051 | feature | 拓扑排序                      | verified | 100%   | `20260703-c051-topological-sort/`      |
+| C-20260703-052 | feature | Floyd-Warshall 多源最短路     | verified | 100%   | `20260703-c052-floyd-warshall/`        |
+| C-20260703-053 | feature | 编辑距离（DP 首发）           | verified | 100%   | `20260703-c053-edit-distance/`         |
+| C-20260703-054 | feature | 0-1 背包（DP2）               | verified | 100%   | `20260703-c054-knapsack/`              |
+| C-20260703-055 | feature | N 皇后（回溯首发）            | verified | 100%   | `20260703-c055-n-queens/`              |
+| C-20260703-056 | feature | 子集生成（决策树轨）          | verified | 100%   | `20260703-c056-subsets/`               |
+| C-20260703-057 | feature | 全排列（复用决策树轨）        | verified | 100%   | `20260703-c057-permutations/`          |
+| C-20260703-058 | feature | 组合总和（决策树剪枝）        | verified | 100%   | `20260703-c058-combination-sum/`       |
+| C-20260703-059 | feature | 迷宫寻路（MazeView 轨）       | verified | 100%   | `20260703-c059-maze/`                  |
+| C-20260703-060 | feature | LCS（填表+回溯）              | verified | 100%   | `20260703-c060-lcs/`                   |
+| C-20260703-061 | feature | LIS（一维 DP·两行表）         | verified | 100%   | `20260703-c061-lis/`                   |
+| C-20260703-062 | feature | KMP 字符串匹配（新大类）      | verified | 100%   | `20260703-c062-kmp/`                   |
+| C-20260703-063 | feature | Rabin-Karp（滚动哈希）        | verified | 100%   | `20260703-c063-rabin-karp/`            |
+| C-20260703-064 | feature | Boyer-Moore（坏字符跳）       | verified | 100%   | `20260703-c064-boyer-moore/`           |
+| C-20260704-065 | feature | 完全背包（可重复取）          | verified | 100%   | `20260704-c065-complete-knapsack/`     |
+| C-20260704-066 | feature | 岛屿数量（Flood Fill）        | verified | 100%   | `20260704-c066-number-of-islands/`     |
+| C-20260704-067 | feature | Manacher（最长回文）          | verified | 100%   | `20260704-c067-manacher/`              |
+| C-20260704-068 | feature | 单词搜索（DFS 回溯）          | verified | 100%   | `20260704-c068-word-search/`           |
+| C-20260704-069 | feature | 强连通分量（Tarjan）          | verified | 100%   | `20260704-c069-scc/`                   |
+| C-20260704-070 | feature | 硬币找零方案数（计数 DP）     | verified | 100%   | `20260704-c070-coin-change/`           |
+| C-20260704-071 | feature | 数独（约束回溯）              | verified | 100%   | `20260704-c071-sudoku/`                |
+| C-20260704-072 | feature | 后缀数组（倍增法）            | verified | 100%   | `20260704-c072-suffix-array/`          |
+| C-20260704-073 | feature | LCP/height 数组（Kasai）      | verified | 100%   | `20260704-c073-lcp-array/`             |
+| C-20260704-074 | feature | 2-SAT（Tarjan 应用）          | verified | 100%   | `20260704-c074-two-sat/`               |
+| C-20260704-075 | feature | AC 自动机（Aho-Corasick）     | verified | 100%   | `20260704-c075-aho-corasick/`          |
+| C-20260704-076 | feature | 最大流（Ford-Fulkerson）      | verified | 100%   | `20260704-c076-max-flow/`              |
+| C-20260704-077 | feature | 埃拉托斯特尼筛（数论首发）    | verified | 100%   | `20260704-c077-sieve-of-eratosthenes/` |
+| C-20260704-078 | feature | 线性筛（欧拉筛）              | verified | 100%   | `20260704-c078-linear-sieve/`          |
+| C-20260704-079 | feature | 欧几里得算法 GCD              | verified | 100%   | `20260704-c079-gcd/`                   |
+| C-20260704-080 | feature | 快速幂（二进制取幂）          | verified | 100%   | `20260704-c080-fast-power/`            |
+| C-20260704-081 | feature | 凸包（Andrew 单调链）         | verified | 100%   | `20260704-c081-convex-hull/`           |
+| C-20260704-082 | feature | 旋转卡壳（凸包直径）          | verified | 100%   | `20260704-c082-rotating-calipers/`     |
+| C-20260704-083 | feature | 最近点对（分治）              | verified | 100%   | `20260704-c083-closest-pair/`          |
+| C-20260705-084 | feature | 线段相交（跨立试验）          | verified | 100%   | `20260705-c084-segment-intersection/`  |
+| C-20260705-085 | feature | 双调排序（排序网络）          | verified | 100%   | `20260705-c085-bitonic-sort/`          |
+| C-20260705-086 | feature | 扩展欧几里得（Bézout）        | verified | 100%   | `20260705-c086-ext-gcd/`               |
+| C-20260705-087 | feature | 中国剩余定理（CRT）           | verified | 100%   | `20260705-c087-crt/`                   |
+| C-20260705-088 | feature | 扫描线求交（Bentley-Ottmann） | verified | 100%   | `20260705-c088-bentley-ottmann/`       |
