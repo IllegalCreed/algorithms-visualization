@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 三枚硬币（面额 1 / 2 / 5） -->
+  <g stroke="#333333" stroke-width="26" fill="none">
+    <circle cx="270" cy="270" r="130" />
+    <circle cx="540" cy="330" r="130" />
+    <circle cx="360" cy="560" r="130" />
+  </g>
+  <g fill="#333333" font-family="sans-serif" font-weight="bold" font-size="150" text-anchor="middle" dominant-baseline="central">
+    <text x="270" y="280">1</text>
+    <text x="540" y="340">2</text>
+    <text x="360" y="570">5</text>
+  </g>
+  <!-- 方案数计数网格（DP 表意象） -->
+  <g stroke="#333333" stroke-width="18">
+    <rect x="640" y="600" width="280" height="280" rx="24" fill="none" />
+    <line x1="640" y1="693" x2="920" y2="693" />
+    <line x1="640" y1="786" x2="920" y2="786" />
+    <line x1="733" y1="600" x2="733" y2="880" />
+    <line x1="826" y1="600" x2="826" y2="880" />
+  </g>
+</svg>

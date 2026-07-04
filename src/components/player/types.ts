@@ -277,6 +277,13 @@ export type EditDistExecPoint =
   | 'cellDiff' // 字符不同：dp[i][j]=1+min(左上,上,左)
   | 'done'; // 右下角 = 编辑距离
 
+/** 硬币找零方案数执行点（C-070，DP 第 6 页 · 计数 DP；纯复用 MatrixView——行=硬币面额、列=金额） */
+export type CoinChangeExecPoint =
+  | 'init' // 填边界：dp[0][0]=1（凑 0 元 1 种方案），第 0 行其余 0
+  | 'skip' // 面额 > 金额：dp[i][a]=dp[i-1][a]（沿用上一行）
+  | 'add' // 面额 ≤ 金额：dp[i][a]=dp[i-1][a]（不用）+ dp[i][a-面额]（用一枚，本行）——方案数相加
+  | 'done'; // 右下角 = 方案数
+
 /** 0-1 背包执行点（C-054，DP 大类 DP2；纯复用 MatrixView 矩阵轨——行=物品、列=容量） */
 export type KnapsackExecPoint =
   | 'init' // 填边界：第 0 行/列 = 0

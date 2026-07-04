@@ -26,6 +26,7 @@ import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
 import LcsIcon from '@/assets/lcs.svg';
 import LisIcon from '@/assets/lis.svg';
+import CoinChangeIcon from '@/assets/coin-change.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
@@ -327,6 +328,12 @@ export function useCategoryData(): Category[] {
           desc: '一串里最长的严格递增子序列：一维 DP，dp[i] 回看前面所有 dp[j] 取最大 +1，max(dp) 即答案，回溯恢复',
           icon: LisIcon,
           url: 'lis',
+        },
+        {
+          title: '硬币找零方案数',
+          desc: '每种面额无限枚，凑出目标金额有多少种组合：计数 DP，把完全背包的取 max 换成方案数相加、边界 dp[0][0]=1',
+          icon: CoinChangeIcon,
+          url: 'coin-change',
         },
       ],
     },

@@ -155,6 +155,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Lis.vue'),
           },
           {
+            path: '/docs/coin-change',
+            name: 'coin-change',
+            component: () => import('../views/Article/Algorithm/CoinChange.vue'),
+          },
+          {
             path: '/docs/n-queens',
             name: 'n-queens',
             component: () => import('../views/Article/Algorithm/Queens.vue'),

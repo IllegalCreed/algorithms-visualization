@@ -190,6 +190,10 @@ export function useCategoryData(): Category[] {
           title: '最长递增子序列',
           url: 'lis',
         },
+        {
+          title: '硬币找零方案数',
+          url: 'coin-change',
+        },
       ],
     },
     {

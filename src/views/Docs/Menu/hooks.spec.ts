@@ -35,6 +35,7 @@ describe('Docs/Menu useCategoryData', () => {
       'complete-knapsack',
       'lcs',
       'lis',
+      'coin-change',
     ]);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',
