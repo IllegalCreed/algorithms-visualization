@@ -302,6 +302,13 @@ export type BsExecPoint =
   | 'empty' // 区间清空：不存在，返回 −1
   | 'done'; // O(log n) 语义
 
+/** 旋转数组搜索执行点（C-093，查找第 3 页；纯复用主柱轨——判半二分） */
+export type RsExecPoint =
+  | 'init' // 断崖数组 + 目标
+  | 'probe' // 探针：判哪半有序 → 目标在不在 → 去留
+  | 'found' // 命中
+  | 'done'; // 引理总结与退化坑
+
 /** 二分边界执行点（C-092，查找第 2 页；纯复用主柱轨——半开区间 lower/upper bound） */
 export type BbExecPoint =
   | 'init' // 半开区间 [lo, hi) 就位（hi=n 哨兵）

@@ -351,6 +351,10 @@ export function useCategoryData(): Category[] {
           title: '二分边界',
           url: 'binary-bounds',
         },
+        {
+          title: '旋转数组搜索',
+          url: 'rotated-search',
+        },
       ],
     },
   ];

@@ -42,7 +42,8 @@ import { bsearchModule } from '@/algorithms/bsearch.module';
       基础版只回答「在不在」。真正让二分成为面试与竞赛常客的是它的<strong>变体</strong>：重复元素里找<router-link
         to="/docs/binary-bounds"
         ><strong>左右边界</strong>（lower/upper bound）</router-link
-      >、<strong>旋转有序数组</strong>里定位、以及跳出数组、在<strong>答案空间</strong>上二分（「最小可行速度」「最大最小值」）——这些是查找大类接下来几页的故事。
+      >、<router-link to="/docs/rotated-search"><strong>旋转有序数组</strong></router-link
+      >里定位、以及跳出数组、在<strong>答案空间</strong>上二分（「最小可行速度」「最大最小值」）——这些是查找大类接下来几页的故事。
     </p>
   </Article>
 </template>

@@ -22,7 +22,11 @@ describe('Docs/Menu useCategoryData', () => {
     expect(data[6].title).toBe('数学与数论');
     expect(data[7].title).toBe('计算几何');
     expect(data[8].title).toBe('查找');
-    expect(data[8].children.map((c) => c.url)).toEqual(['binary-search', 'binary-bounds']);
+    expect(data[8].children.map((c) => c.url)).toEqual([
+      'binary-search',
+      'binary-bounds',
+      'rotated-search',
+    ]);
     expect(data[7].children.map((c) => c.url)).toEqual([
       'convex-hull',
       'rotating-calipers',
