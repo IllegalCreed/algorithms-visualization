@@ -315,6 +315,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/BinarySearch.vue'),
           },
           {
+            path: '/docs/binary-bounds',
+            name: 'binary-bounds',
+            component: () => import('../views/Article/Algorithm/BinaryBounds.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

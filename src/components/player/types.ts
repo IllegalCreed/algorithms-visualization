@@ -302,6 +302,14 @@ export type BsExecPoint =
   | 'empty' // 区间清空：不存在，返回 −1
   | 'done'; // O(log n) 语义
 
+/** 二分边界执行点（C-092，查找第 2 页；纯复用主柱轨——半开区间 lower/upper bound） */
+export type BbExecPoint =
+  | 'init' // 半开区间 [lo, hi) 就位（hi=n 哨兵）
+  | 'probe' // 探针：比较 + 收缩一半
+  | 'settle' // lo == hi 相遇：边界定格
+  | 'range' // 等值区间 [lb, ub) 全绿 + 计数
+  | 'done'; // 模板对比与退化语义
+
 /** 米勒-拉宾执行点（C-090，数学与数论第 8 页；纯复用 MatrixView——平方链表） */
 export type MrExecPoint =
   | 'init' // 空表 + 动机

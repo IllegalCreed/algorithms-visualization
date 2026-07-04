@@ -37,6 +37,7 @@ import ClosestPairIcon from '@/assets/closest-pair.svg';
 import SegmentIntersectionIcon from '@/assets/segment-intersection.svg';
 import BentleyOttmannIcon from '@/assets/bentley-ottmann.svg';
 import BinarySearchIcon from '@/assets/binary-search.svg';
+import BinaryBoundsIcon from '@/assets/binary-bounds.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -577,6 +578,12 @@ export function useCategoryData(): Category[] {
           desc: '有序数组维护候选区间 [lo,hi]，每步和中点比、扔掉一半，O(log n)：10 亿元素 30 次比较；边界/旋转/二分答案变体的地基',
           icon: BinarySearchIcon,
           url: 'binary-search',
+        },
+        {
+          title: '二分边界',
+          desc: '半开区间 [lo,hi) 两分支模板：lower_bound 第一个 ≥t、upper_bound 第一个 >t，等值区间 [lb,ub) 计数 = ub−lb，不存在时优雅退化',
+          icon: BinaryBoundsIcon,
+          url: 'binary-bounds',
         },
       ],
     },

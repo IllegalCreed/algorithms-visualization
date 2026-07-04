@@ -347,6 +347,10 @@ export function useCategoryData(): Category[] {
           title: '二分查找',
           url: 'binary-search',
         },
+        {
+          title: '二分边界',
+          url: 'binary-bounds',
+        },
       ],
     },
   ];

@@ -39,8 +39,10 @@ import { bsearchModule } from '@/algorithms/bsearch.module';
       <b>复杂度</b>：每步区间减半 → ⌈log₂(n+1)⌉ 次比较封顶。
     </Callout>
     <p>
-      基础版只回答「在不在」。真正让二分成为面试与竞赛常客的是它的<strong>变体</strong>：重复元素里找<strong>左右边界</strong>（lower/upper
-      bound）、<strong>旋转有序数组</strong>里定位、以及跳出数组、在<strong>答案空间</strong>上二分（「最小可行速度」「最大最小值」）——这些是查找大类接下来几页的故事。
+      基础版只回答「在不在」。真正让二分成为面试与竞赛常客的是它的<strong>变体</strong>：重复元素里找<router-link
+        to="/docs/binary-bounds"
+        ><strong>左右边界</strong>（lower/upper bound）</router-link
+      >、<strong>旋转有序数组</strong>里定位、以及跳出数组、在<strong>答案空间</strong>上二分（「最小可行速度」「最大最小值」）——这些是查找大类接下来几页的故事。
     </p>
   </Article>
 </template>
