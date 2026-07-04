@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **678** 个用例。运行命令：`pnpm test:unit`
+共 **690** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1116,11 +1116,30 @@
 | TC-BM-MOD-11 | 四语言 sources + 行号在范围内                                | `src/algorithms/boyermoore.module.spec.ts` |
 | TC-BM-MOD-12 | module 元信息 title 含 Boyer-Moore/坏字符、initialInput()=[] | `src/algorithms/boyermoore.module.spec.ts` |
 
+### Manacher 模块 manacher.module（C-067 · 字符串第 4 页，预处理 + 镜像复用 + 中心扩展 13 步 + 新建 ManacherView 回文轨）
+
+固定 `"babad"`；oracle `manacherTransform()`=`#b#a#b#a#d#`、`manacherRadii()`=`[0,1,0,3,0,3,0,1,0,1,0]`、`longestPalindrome()`=`bab`。
+
+| Case ID       | 标题                                                    | 自动化路径                               |
+| ------------- | ------------------------------------------------------- | ---------------------------------------- |
+| TC-MAN-MOD-01 | 末步 done + 最长回文 bab（best 区间对应转换串 bab）     | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-02 | 每步执行点合法且带回文轨（array 空）                    | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-03 | 转换串正确 #b#a#b#a#d#                                  | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-04 | 末步半径 = oracle [0,1,0,3,0,3,0,1,0,1,0]               | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-05 | init 步 p 全空（null）                                  | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-06 | 中心逐一递增 0..10                                      | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-07 | mirror 步 mirror=2C−i 且 center<boxR                    | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-08 | expand 步 mirror 为 null                                | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-09 | 每中心步 p[center] 由 null 变 oracle 值                 | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-10 | 最长回文长度单调不减                                    | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-11 | 四语言 sources + 行号在范围内                           | `src/algorithms/manacher.module.spec.ts` |
+| TC-MAN-MOD-12 | module 元信息 title 含 Manacher/回文、initialInput()=[] | `src/algorithms/manacher.module.spec.ts` |
+
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **407** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **416** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1694,51 +1713,57 @@
 
 ### GraphView 图轨 + 播放器接图轨（C-047 · M8②-1，新第 7 轨，通用带权图，供 Kruskal C-048 复用）
 
-| Case ID              | 标题                                                                      | 自动化路径                                      |
-| -------------------- | ------------------------------------------------------------------------- | ----------------------------------------------- |
-| TC-VIZ-GRAPHVIEW-01  | 6 .graph-node + 9 .graph-edge + 权重文本可见                              | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-02  | doneNodes→.done、activeNode→.active                                       | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-03  | edgeClass→对应边 .relaxed / .tree                                         | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-GRAPHVIEW-04  | nodeBadge→.node-badge 显示 dist（含 ∞）                                   | `src/components/GraphView.spec.ts`              |
-| TC-VIZ-MATRIXVIEW-01 | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                      | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-02 | null 单元显示「∞」（初始 6 个）                                           | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-03 | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                              | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-04 | active 单元 .mx-active；sources 两单元 .mx-source                         | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-05 | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）                          | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-06 | emptyText='' → null 单元显示空白（非 ∞）                                  | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-MATRIXVIEW-07 | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）             | `src/components/MatrixView.spec.ts`             |
-| TC-VIZ-BOARDVIEW-01  | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛                         | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-02  | 交错着色：深格 8 个                                                       | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-03  | tryCell=[2,1] → 对应格带 .bc-try                                          | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-BOARDVIEW-04  | conflictCells=[[0,0]] → 对应格带 .bc-conflict                             | `src/components/BoardView.spec.ts`              |
-| TC-VIZ-DTREEVIEW-01  | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge                                | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-02  | activeId=1 → 恰 1 个 .active 节点                                         | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-03  | solutionIds=[2] → 恰 1 个 .solution 节点                                  | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-04  | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                               | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-DTREEVIEW-05  | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）             | `src/components/DecisionTreeView.spec.ts`       |
-| TC-VIZ-MAZEVIEW-01   | 5×5 → 25 格；2 墙 → 2 .mz-wall                                            | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-02   | 起点/终点各 1（.mz-start/.mz-goal）                                       | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-03   | current → 1 .mz-current；path=3 → 3 .mz-path                              | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-04   | visited → .mz-visited；solved → path 带 .mz-solution                      | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-MAZEVIEW-05   | filled 标绿 + mark 覆盖图标 + 无起终点（C-066 网格搜索扩展）              | `src/components/MazeView.spec.ts`               |
-| TC-VIZ-KMPVIEW-01    | 文本 9 格、模式 5 格、LPS 5 格                                            | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-02    | compareText/comparePat=4 → 2 个 .kmp-compare                              | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-03    | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                              | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-04    | found=[2] → 文本下标 2 起 5 格带 .kmp-found                               | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-05    | windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展） | `src/components/KmpView.spec.ts`                |
-| TC-VIZ-KMPVIEW-06    | matchedFrom=1（matchedLen=0）→ 2 格 .kmp-matched（后缀标绿，C-064 扩展）  | `src/components/KmpView.spec.ts`                |
-| TC-PLAYER-GRAPH-01   | 当前步带 graph → 渲染 GraphView                                           | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-GRAPH-02   | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                  | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-01  | step 带 matrix → 渲染 MatrixView                                          | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MATRIX-02  | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView            | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-01   | step 带 board → 渲染 BoardView                                            | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-BOARD-02   | 排序 step 无 board→不渲染 BoardView（零回归）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-01   | step 带 decisionTree → 渲染 DecisionTreeView                              | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-DTREE-02   | 排序 step 无 decisionTree→不渲染（零回归）                                | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MAZE-01    | step 带 maze → 渲染 MazeView                                              | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-MAZE-02    | 排序 step 无 maze→不渲染 MazeView（零回归）                               | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-01     | step 带 kmp → 渲染 KmpView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
-| TC-PLAYER-KMP-02     | 排序 step 无 kmp→不渲染 KmpView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
+| Case ID                | 标题                                                                      | 自动化路径                                      |
+| ---------------------- | ------------------------------------------------------------------------- | ----------------------------------------------- |
+| TC-VIZ-GRAPHVIEW-01    | 6 .graph-node + 9 .graph-edge + 权重文本可见                              | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-02    | doneNodes→.done、activeNode→.active                                       | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-03    | edgeClass→对应边 .relaxed / .tree                                         | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-GRAPHVIEW-04    | nodeBadge→.node-badge 显示 dist（含 ∞）                                   | `src/components/GraphView.spec.ts`              |
+| TC-VIZ-MATRIXVIEW-01   | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                      | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-02   | null 单元显示「∞」（初始 6 个）                                           | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-03   | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                              | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-04   | active 单元 .mx-active；sources 两单元 .mx-source                         | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-05   | 行列异标签 rowLabels/colLabels 各自渲染（DP 表）                          | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-06   | emptyText='' → null 单元显示空白（非 ∞）                                  | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-MATRIXVIEW-07   | pathCells=[[1,1],[2,2]] → 2 个 .mx-path；不设 0（C-060 扩展）             | `src/components/MatrixView.spec.ts`             |
+| TC-VIZ-BOARDVIEW-01    | n=4 → 16 .board-cell；queens=[1,3,0,2] → 4 皇后 ♛                         | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-02    | 交错着色：深格 8 个                                                       | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-03    | tryCell=[2,1] → 对应格带 .bc-try                                          | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-BOARDVIEW-04    | conflictCells=[[0,0]] → 对应格带 .bc-conflict                             | `src/components/BoardView.spec.ts`              |
+| TC-VIZ-DTREEVIEW-01    | 3 节点 2 边 → 3 .dtree-node、2 .dtree-edge                                | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-02    | activeId=1 → 恰 1 个 .active 节点                                         | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-03    | solutionIds=[2] → 恰 1 个 .solution 节点                                  | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-04    | 决策边标签「选 1」+ 叶标签「{1}」渲染为文字                               | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-DTREEVIEW-05    | prunedIds=[2] → 恰 1 个 .pruned 节点；不设 0 个（C-058 扩展）             | `src/components/DecisionTreeView.spec.ts`       |
+| TC-VIZ-MAZEVIEW-01     | 5×5 → 25 格；2 墙 → 2 .mz-wall                                            | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-02     | 起点/终点各 1（.mz-start/.mz-goal）                                       | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-03     | current → 1 .mz-current；path=3 → 3 .mz-path                              | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-04     | visited → .mz-visited；solved → path 带 .mz-solution                      | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-MAZEVIEW-05     | filled 标绿 + mark 覆盖图标 + 无起终点（C-066 网格搜索扩展）              | `src/components/MazeView.spec.ts`               |
+| TC-VIZ-KMPVIEW-01      | 文本 9 格、模式 5 格、LPS 5 格                                            | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-02      | compareText/comparePat=4 → 2 个 .kmp-compare                              | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-03      | matchedLen=2 → 2 个 .kmp-matched（模式前缀）                              | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-04      | found=[2] → 文本下标 2 起 5 格带 .kmp-found                               | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-05      | windowStart=2（P 长 3）→ 3 格 .kmp-window；lps=[] → 无 π 行（C-063 扩展） | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-KMPVIEW-06      | matchedFrom=1（matchedLen=0）→ 2 格 .kmp-matched（后缀标绿，C-064 扩展）  | `src/components/KmpView.spec.ts`                |
+| TC-VIZ-MANACHERVIEW-01 | s 长 11 → 11 .mn-s-cell + 11 .mn-p-cell；p 含 null 显示空（C-067）        | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-02 | center=3 → 1 .mn-center；mirror=1 → 1 .mn-mirror（C-067）                 | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-03 | boxL=0,boxR=6 → 7 格 .mn-box（C-067）                                     | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-04 | best=[0,6] → 7 格 .mn-best（C-067）                                       | `src/components/ManacherView.spec.ts`           |
+| TC-PLAYER-GRAPH-01     | 当前步带 graph → 渲染 GraphView                                           | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-GRAPH-02     | array:[]→无 BarsView；bubble array 非空→仍渲染（零回归）                  | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-01    | step 带 matrix → 渲染 MatrixView                                          | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MATRIX-02    | 排序 step 无 matrix→不渲染；matrix step array:[]→不渲 BarsView            | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-01     | step 带 board → 渲染 BoardView                                            | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-BOARD-02     | 排序 step 无 board→不渲染 BoardView（零回归）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-01     | step 带 decisionTree → 渲染 DecisionTreeView                              | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-DTREE-02     | 排序 step 无 decisionTree→不渲染（零回归）                                | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-01      | step 带 maze → 渲染 MazeView                                              | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MAZE-02      | 排序 step 无 maze→不渲染 MazeView（零回归）                               | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-01       | step 带 kmp → 渲染 KmpView                                                | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-KMP-02       | 排序 step 无 kmp→不渲染 KmpView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MANACHER-01  | step 带 manacher → 渲染 ManacherView（C-067）                             | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-MANACHER-02  | 排序 step 无 manacher→不渲染 ManacherView（零回归）（C-067）              | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -1902,11 +1927,19 @@
 | TC-VIEW-BM-02 | h1 含「Boyer-Moore」+ KmpView + 无 .bars-view + 无 π 行 | `src/views/Article/Algorithm/BoyerMoore.spec.ts` |
 | TC-VIEW-BM-03 | 全模板同屏：Article 含「坏字符」+ KmpView               | `src/views/Article/Algorithm/BoyerMoore.spec.ts` |
 
+### Manacher 页 C-067（字符串第 4 页，新页，全模板 + 新建 ManacherView 回文轨）
+
+| Case ID        | 标题                                            | 自动化路径                                     |
+| -------------- | ----------------------------------------------- | ---------------------------------------------- |
+| TC-VIEW-MAN-01 | 挂载渲染 Article + AlgorithmPlayer              | `src/views/Article/Algorithm/Manacher.spec.ts` |
+| TC-VIEW-MAN-02 | h1 含「Manacher」+ ManacherView + 无 .bars-view | `src/views/Article/Algorithm/Manacher.spec.ts` |
+| TC-VIEW-MAN-03 | 全模板同屏：正文含「回文」+ ManacherView        | `src/views/Article/Algorithm/Manacher.spec.ts` |
+
 ---
 
 ## L5 — 端到端（Playwright）
 
-共 **58** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **59** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -1969,6 +2002,7 @@
 | TC-E2E-BM-01        | Boyer-Moore 全模板：正文 + 对齐窗口带 3 格 / `.scrub` 拖末步 命中区间高亮 + caption 含「命中」/ Shiki（C-064 新增）        | `e2e/boyer-moore.e2e.ts`           | active     |
 | TC-E2E-CK-01        | 完全背包全模板：正文 + DP 表 4×7 / `.scrub` 拖末步 右下角=15 + caption 含 15 / Shiki（C-065 新增）                         | `e2e/complete-knapsack.e2e.ts`     | active     |
 | TC-E2E-ISL-01       | 岛屿数量全模板：正文 + 4×4 网格 / `.scrub` 拖末步 6 绿陆地 + caption 含 3 个岛 / Shiki（C-066 新增）                       | `e2e/number-of-islands.e2e.ts`     | active     |
+| TC-E2E-MAN-01       | Manacher 全模板：正文 + 转换串/半径两行 / `.scrub` 拖末步 7 .mn-best（bab）+ caption 含 bab / Shiki（C-067 新增）          | `e2e/manacher.e2e.ts`              | active     |
 
 ---
 
