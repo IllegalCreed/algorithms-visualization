@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **834** 个用例。运行命令：`pnpm test:unit`
+共 **846** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1313,12 +1313,24 @@
 | TC-GCD-MOD-10   | done 步 caption 含 6 与 gcd/铺满语义                                    | `src/algorithms/gcd.module.spec.ts`         |
 | TC-GCD-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/gcd.module.spec.ts`         |
 | TC-GCD-MOD-12   | module 元信息 title 含「欧几里得」或「公约数」；initialInput()=[]       | `src/algorithms/gcd.module.spec.ts`         |
+| TC-FP-MOD-01    | 末步 done；fastPow(3,13)=1594323=3\*\*13                                | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-02    | 每步 point∈{init,mul,skip,done} 且带 power（array 空）                  | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-03    | 末步 blocks 值 = [3,9,81,6561]（每块=前块平方）                         | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-04    | 末步 blocks bit = [1,0,1,1]（13=1101 low→high）                         | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-05    | 选中 = 位 1；k{0,2,3} 指数和 1+4+8=13=n                                 | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-06    | mul 步 3 个（位 1）、skip 步 1 个（位 0）                               | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-07    | result 累乘 [3,243,1594323]；选中连乘=1594323                           | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-08    | result 非减；末步 = a\*\*n                                              | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-09    | 末步 blocks = powBlocks()（值/位/选中一致）                             | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-10    | done 步 caption 含 1594323 与 1+4+8 拆分                                | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-12    | module 元信息 title 含「快速幂」；initialInput()=[]                     | `src/algorithms/fastpower.module.spec.ts`   |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **486** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **494** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1914,6 +1926,9 @@
 | TC-VIZ-GCDVIEW-01         | squares 4 个 → 4 个 .gcd-square；每方块标注边长（含 18/12/6）                   | `src/components/GcdView.spec.ts`                |
 | TC-VIZ-GCDVIEW-02         | current=[0] → 1 个 .gcd-current；remaining 存在 → 渲染 .gcd-remaining           | `src/components/GcdView.spec.ts`                |
 | TC-VIZ-GCDVIEW-03         | remaining=null → 无 .gcd-remaining（铺满）                                      | `src/components/GcdView.spec.ts`                |
+| TC-VIZ-POWERVIEW-01       | blocks 4 个 → 4 个 .power-block；每块显示值（含 3/9/81/6561）                   | `src/components/PowerView.spec.ts`              |
+| TC-VIZ-POWERVIEW-02       | selected 块 → .power-selected；current=0 → 1 个 .power-current                  | `src/components/PowerView.spec.ts`              |
+| TC-VIZ-POWERVIEW-03       | 渲染 .power-result（含 result）；显示 n 的二进制串（含 1101）                   | `src/components/PowerView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -1977,6 +1992,8 @@
 | TC-PLAYER-SIEVE-02        | 排序 step 无 sieve → 不渲染 SieveView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GCD-01          | step 含 gcd → 渲染 GcdView                                                      | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GCD-02          | 排序 step 无 gcd → 不渲染 GcdView（零回归）                                     | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-POWER-01        | step 含 power → 渲染 PowerView                                                  | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-POWER-02        | 排序 step 无 power → 不渲染 PowerView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -2238,6 +2255,14 @@
 | TC-VIEW-GCD-02 | h1 含「欧几里得」或「公约数」+ GcdView + 无柱数组 | `src/views/Article/Algorithm/Gcd.spec.ts` |
 | TC-VIEW-GCD-03 | 全模板同屏：正文含「辗转相除」+ GcdView           | `src/views/Article/Algorithm/Gcd.spec.ts` |
 
+### 快速幂页 C-080（数学与数论第 4 页，新页，全模板 + 新建 PowerView 幂块轨）
+
+| 用例 ID       | 场景                                    | 文件                                            |
+| ------------- | --------------------------------------- | ----------------------------------------------- |
+| TC-VIEW-FP-01 | 挂载渲染 Article + AlgorithmPlayer      | `src/views/Article/Algorithm/FastPower.spec.ts` |
+| TC-VIEW-FP-02 | h1 含「快速幂」+ PowerView + 无柱数组   | `src/views/Article/Algorithm/FastPower.spec.ts` |
+| TC-VIEW-FP-03 | 全模板同屏：正文含「二进制」+ PowerView | `src/views/Article/Algorithm/FastPower.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2248,7 +2273,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **71** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **72** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2324,6 +2349,7 @@
 | TC-E2E-SIEVE-01     | 埃氏筛全模板：正文 + 数字网格 30 格 / `.scrub` 拖末步 10 个 .sieve-prime + caption 含 10 / Shiki（C-077 新增）             | `e2e/sieve.e2e.ts`                 | active     |
 | TC-E2E-LS-01        | 线性筛全模板：正文 + 数字网格 spf 角标 / `.scrub` 拖末步 10 素数 + caption 含 10 / Shiki（C-078 新增）                     | `e2e/linear-sieve.e2e.ts`          | active     |
 | TC-E2E-GCD-01       | 欧几里得全模板：正文 + 矩形铺砖 / `.scrub` 拖末步 4 个 .gcd-square + caption 含 6 / Shiki（C-079 新增）                    | `e2e/gcd.e2e.ts`                   | active     |
+| TC-E2E-FP-01        | 快速幂全模板：正文 + 幂块行 / `.scrub` 拖末步 4 个 .power-block + caption 含 1594323 / Shiki（C-080 新增）                 | `e2e/fast-power.e2e.ts`            | active     |
 
 ---
 

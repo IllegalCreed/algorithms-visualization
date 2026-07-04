@@ -293,6 +293,9 @@
 | TC-VIZ-GCDVIEW-01         | squares 4 个 → 4 个 .gcd-square；每方块标注边长（含 18/12/6）                   | L4   | `src/components/GcdView.spec.ts`                |
 | TC-VIZ-GCDVIEW-02         | current=[0] → 1 个 .gcd-current；remaining 存在 → 渲染 .gcd-remaining           | L4   | `src/components/GcdView.spec.ts`                |
 | TC-VIZ-GCDVIEW-03         | remaining=null → 无 .gcd-remaining（铺满）                                      | L4   | `src/components/GcdView.spec.ts`                |
+| TC-VIZ-POWERVIEW-01       | blocks 4 个 → 4 个 .power-block；每块显示值（含 3/9/81/6561）                   | L4   | `src/components/PowerView.spec.ts`              |
+| TC-VIZ-POWERVIEW-02       | selected 块 → .power-selected；current=0 → 1 个 .power-current                  | L4   | `src/components/PowerView.spec.ts`              |
+| TC-VIZ-POWERVIEW-03       | 渲染 .power-result（含 result）；显示 n 的二进制串（含 1101）                   | L4   | `src/components/PowerView.spec.ts`              |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -356,6 +359,8 @@
 | TC-PLAYER-SIEVE-02        | 排序 step 无 sieve → 不渲染 SieveView（零回归）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GCD-01          | step 含 gcd → 渲染 GcdView                                                      | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-GCD-02          | 排序 step 无 gcd → 不渲染 GcdView（零回归）                                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-POWER-01        | step 含 power → 渲染 PowerView                                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-POWER-02        | 排序 step 无 power → 不渲染 PowerView（零回归）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -1034,6 +1039,8 @@
 
 > **C-079（M7 数学与数论第 3 页 · 新页 + 新轨）**：欧几里得算法（辗转相除求最大公约数）——换几何视角。`gcd(a,b)=gcd(b,a mod b)` 反复取模到余 0，O(log min(a,b))。几何解释：gcd(a,b) = 能把 a×b 矩形无缝铺满的**最大正方形边长**——反复从长边切 `⌊a/b⌋` 个 `b×b` 正方形（= 取模）、剩 `(a%b)×b` 递归，最小正方形边长即 gcd。**新建第 17 条 GcdView 矩形铺砖轨**（等比缩放渲染矩形 + 已切正方形〔按步着色标边长〕+ 当前琥珀描边 + 剩余虚线框，见 viz-engine 段 `TC-VIZ-GCDVIEW-*` / `TC-PLAYER-GCD-*`）。新 `Step.gcd?` additive、AlgorithmPlayer 加一行 v-if。`gcd.module`（固定 gcd(30,18)，init+cut×3+done 5 步 + oracle `gcd()`=6/`gcdSteps()`/`gcdTiling()`，方块 18/12/6/6 恰好铺满 540=30×18、最小 6=gcd）。新页 + 路由 `/docs/gcd` + 菜单/首页「数学与数论」第 3 项 + 新 `gcd.svg` + 改 `TC-HOOK`（数论 children +gcd）。既有算法不设 gcd 零回归。`TC-GCD-MOD-*` + `TC-VIEW-GCD-*` + `TC-E2E-GCD-01`。
 
+> **C-080（M7 数学与数论第 4 页 · 新页 + 新轨）**：快速幂（二进制取幂）——求 aⁿ，把指数 n 拆二进制 `n=Σ2ᵏ` 则 `aⁿ=∏a^(2ᵏ)`（对每个为 1 的位）；底数反复平方得 a¹→a²→a⁴→a⁸、位为 1 就把当前平方乘进结果，O(log n)。是模幂（RSA/DH）与矩阵快速幂的基础。**新建第 18 条 PowerView 幂块轨**（一行幂块卡片〔指数 a^(2ᵏ)/值/二进制位〕位=1 选中绿、位=0 灰、当前琥珀 + 结果连乘，见 viz-engine 段 `TC-VIZ-POWERVIEW-*` / `TC-PLAYER-POWER-*`）。新 `Step.power?` additive、AlgorithmPlayer 加一行 v-if。`fastpower.module`（固定 a=3,n=13=1101，init+mul×3/skip×1+done 6 步 + oracle `fastPow(3,13)`=1594323/`powBlocks()`，幂块 3/9/81/6561、选中 3¹·3⁴·3⁸ 指数和 1+4+8=13）。新页 + 路由 `/docs/fast-power` + 菜单/首页「数学与数论」第 4 项 + 新 `fast-power.svg` + 改 `TC-HOOK`（数论 children +fast-power）。既有算法不设 power 零回归。`TC-FP-MOD-*` + `TC-VIEW-FP-*` + `TC-E2E-FP-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1603,3 +1610,19 @@
 | TC-VIEW-GCD-02        | h1 含「欧几里得」或「公约数」+ GcdView + 无柱数组 （C-079）                                        | L4   | `src/views/Article/Algorithm/Gcd.spec.ts`                 |
 | TC-VIEW-GCD-03        | 全模板同屏：正文含「辗转相除」+ GcdView （C-079）                                                  | L4   | `src/views/Article/Algorithm/Gcd.spec.ts`                 |
 | TC-E2E-GCD-01         | 欧几里得全模板：矩形铺砖 / 拖末步 4 方块 + caption 含 6 / Shiki（C-079 新增）                      | L5   | `e2e/gcd.e2e.ts`                                          |
+| TC-FP-MOD-01          | 末步 done；fastPow(3,13)=1594323=3\*\*13 （C-080）                                                 | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-02          | 每步 point∈{init,mul,skip,done} 且带 power（array 空）（C-080）                                    | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-03          | 末步 blocks 值 = [3,9,81,6561]（每块=前块平方） （C-080）                                          | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-04          | 末步 blocks bit = [1,0,1,1]（13=1101 low→high） （C-080）                                          | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-05          | 选中 = 位 1；k{0,2,3} 指数和 1+4+8=13=n （C-080）                                                  | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-06          | mul 步 3 个（位 1）、skip 步 1 个（位 0） （C-080）                                                | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-07          | result 累乘 [3,243,1594323]；选中连乘=1594323 （C-080）                                            | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-08          | result 非减；末步 = a\*\*n （C-080）                                                               | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-09          | 末步 blocks = powBlocks()（值/位/选中一致） （C-080）                                              | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-10          | done 步 caption 含 1594323 与 1+4+8 拆分 （C-080）                                                 | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-080）                                | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-FP-MOD-12          | module 元信息 title 含「快速幂」；initialInput()=[] （C-080）                                      | L3   | `src/algorithms/fastpower.module.spec.ts`                 |
+| TC-VIEW-FP-01         | 挂载渲染 Article + AlgorithmPlayer （C-080）                                                       | L4   | `src/views/Article/Algorithm/FastPower.spec.ts`           |
+| TC-VIEW-FP-02         | h1 含「快速幂」+ PowerView + 无柱数组 （C-080）                                                    | L4   | `src/views/Article/Algorithm/FastPower.spec.ts`           |
+| TC-VIEW-FP-03         | 全模板同屏：正文含「二进制」+ PowerView （C-080）                                                  | L4   | `src/views/Article/Algorithm/FastPower.spec.ts`           |
+| TC-E2E-FP-01          | 快速幂全模板：幂块行 / 拖末步 4 幂块 + caption 含 1594323 / Shiki（C-080 新增）                    | L5   | `e2e/fast-power.e2e.ts`                                   |
