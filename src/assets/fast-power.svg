@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 一行幂块 a^1/a^2/a^4/a^8：位 1101 选中 a^1(绿)/a^4(绿)/a^8(绿·当前琥珀)，a^2 灰 -->
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <!-- a^1 选中 -->
+    <rect x="70" y="360" width="180" height="220" rx="30" fill="#8bd3a0" stroke="#333" stroke-width="14" />
+    <text x="160" y="430" font-size="70" fill="#1f5e3a">a¹</text>
+    <text x="160" y="510" font-size="56" fill="#2e7d32">1</text>
+    <!-- a^2 跳过（灰） -->
+    <rect x="270" y="360" width="180" height="220" rx="30" fill="#cdd8d0" stroke="#333" stroke-width="14" opacity="0.75" />
+    <text x="360" y="430" font-size="70" fill="#8a978d">a²</text>
+    <text x="360" y="510" font-size="56" fill="#9aa8a0">0</text>
+    <!-- a^4 选中 -->
+    <rect x="470" y="360" width="180" height="220" rx="30" fill="#8bd3a0" stroke="#333" stroke-width="14" />
+    <text x="560" y="430" font-size="70" fill="#1f5e3a">a⁴</text>
+    <text x="560" y="510" font-size="56" fill="#2e7d32">1</text>
+    <!-- a^8 选中·当前（琥珀环） -->
+    <rect x="670" y="360" width="180" height="220" rx="30" fill="#8bd3a0" stroke="#f0a000" stroke-width="26" />
+    <text x="760" y="430" font-size="70" fill="#1f5e3a">a⁸</text>
+    <text x="760" y="510" font-size="56" fill="#2e7d32">1</text>
+  </g>
+  <!-- 顶部二进制 1101 -->
+  <g font-family="monospace" font-weight="bold" font-size="120" fill="#1f5e3a" text-anchor="middle">
+    <text x="470" y="200">1101</text>
+  </g>
+</svg>

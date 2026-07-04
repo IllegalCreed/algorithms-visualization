@@ -260,6 +260,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Gcd.vue'),
           },
           {
+            path: '/docs/fast-power',
+            name: 'fast-power',
+            component: () => import('../views/Article/Algorithm/FastPower.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

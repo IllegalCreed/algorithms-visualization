@@ -289,6 +289,10 @@ export function useCategoryData(): Category[] {
           title: '欧几里得算法',
           url: 'gcd',
         },
+        {
+          title: '快速幂',
+          url: 'fast-power',
+        },
       ],
     },
   ];

@@ -18,6 +18,7 @@ describe('Home/Main useCategoryData', () => {
       'sieve-of-eratosthenes',
       'linear-sieve',
       'gcd',
+      'fast-power',
     ]);
     expect(data[2].children).toHaveLength(9);
     expect(data[2].children[7].url).toBe('two-sat');

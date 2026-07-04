@@ -22,6 +22,7 @@ import SudokuView from '@/components/SudokuView.vue';
 import SuffixArrayView from '@/components/SuffixArrayView.vue';
 import SieveView from '@/components/SieveView.vue';
 import GcdView from '@/components/GcdView.vue';
+import PowerView from '@/components/PowerView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
@@ -603,6 +604,44 @@ describe('AlgorithmPlayer', () => {
     const wSort = mountIt(); // bubbleSortModule，无 gcd
     await flushPromises();
     expect(wSort.findComponent(GcdView).exists()).toBe(false); // 零回归
+  });
+
+  // 内联最小 module：单步带 power 且 array 空（快速幂 C-080：PowerView 幂块轨 + 无柱主轨）
+  const powerModule: AlgorithmModule = {
+    title: 'power-test',
+    initialInput: () => [],
+    buildSteps: (): Step[] => [
+      {
+        array: [],
+        pointers: [],
+        emphasis: {},
+        vars: [],
+        point: 'init',
+        power: {
+          a: 3,
+          n: 13,
+          binary: '1101',
+          blocks: [{ k: 0, exp: 1, value: 3, bit: 1, selected: true }],
+          result: 3,
+        },
+      },
+    ],
+    sources: [{ lang: 'ts', label: 'TS', code: 'line1', lineMap: { init: 1 } }],
+  };
+
+  it('TC-PLAYER-POWER-01 当前步带 power 时渲染 PowerView', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: powerModule },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    expect(w.findComponent(PowerView).exists()).toBe(true);
+  });
+
+  it('TC-PLAYER-POWER-02 既有排序 step（无 power）不渲染 PowerView', async () => {
+    const wSort = mountIt(); // bubbleSortModule，无 power
+    await flushPromises();
+    expect(wSort.findComponent(PowerView).exists()).toBe(false); // 零回归
   });
 
   // 内联最小 module：单步带 tree，用于验证外壳条件渲染二叉树轨（不依赖堆排序模块）

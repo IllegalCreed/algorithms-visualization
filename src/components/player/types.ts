@@ -316,6 +316,33 @@ export type GcdExecPoint =
   | 'cut' // 一个除法步：从长边切 ⌊a/b⌋ 个 b×b 正方形，剩余收缩
   | 'done'; // 铺满，最小正方形边长 = gcd
 
+/** 一个幂块（C-080，快速幂）：a^(2^k)，附二进制位与是否选中 */
+export interface PowerBlock {
+  k: number; // 位下标
+  exp: number; // 2^k
+  value: number; // a^(2^k)
+  bit: number; // n 的第 k 位（0/1）
+  selected: boolean; // bit===1 → 乘入结果
+}
+
+/** 幂块轨快照——快速幂专用（数学与数论第 4 页，第 18 轨 C-080） */
+export interface PowerTrack {
+  a: number;
+  n: number;
+  binary: string; // n 的二进制串（高位在左），如 "1101"
+  blocks: PowerBlock[]; // 已出现的幂块（累加）
+  current?: number | null; // 当前处理的块下标（琥珀）
+  result: number; // 当前累乘结果
+  done?: boolean;
+}
+
+/** 快速幂执行点（C-080，数学与数论第 4 页；新建 PowerView 幂块轨） */
+export type PowerExecPoint =
+  | 'init' // 展示 n 及其二进制，result=1
+  | 'mul' // 当前位为 1：底数平方出块、选中、result 乘入
+  | 'skip' // 当前位为 0：底数平方出块但不乘
+  | 'done'; // 扫完所有位，result = aⁿ
+
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
   labels: string[]; // 行/列标签（方阵：节点名 A,B,C,D；缺省行列标签时双用）
@@ -601,6 +628,7 @@ export interface Step<P extends string = string> {
   suffixArray?: SuffixArrayTrack; // 纯加法：后缀数组轨；其它算法不设 → SuffixArrayView 不渲染
   sieve?: SieveTrack; // 纯加法：埃氏筛数字网格轨（C-077）；其它算法不设 → SieveView 不渲染
   gcd?: GcdTrack; // 纯加法：欧几里得 GCD 矩形铺砖轨（C-079）；其它算法不设 → GcdView 不渲染
+  power?: PowerTrack; // 纯加法：快速幂幂块轨（C-080）；其它算法不设 → PowerView 不渲染
 }
 
 export interface LangSource<P extends string = string> {
