@@ -1077,6 +1077,8 @@
 
 > **C-090（M7 数学与数论第 8 页 · 新页）**：米勒-拉宾素性测试——费马测试被卡迈克尔数 561 骗过（2^560≡1），MR 在开平方处设卡：n−1=2^s·d 从 a^d 连续平方，非平凡平方根现形即合数；1/4 概率界、64 位确定性底数集。**纯复用 MatrixView 第 10 消费者零改动**（verdict 步 sources 黄高亮判定依据）。mr.module 12 步 + isPrimeBrute 试除对拍 + 费马被骗 spec 断言。`TC-MR-MOD-*`+`TC-VIEW-MR-*`+`TC-E2E-MR-01`。
 
+> **C-091（M8 新顶层大类「查找」首发 · 新页）**：二分查找——有序数组维护候选区间每步扔一半 O(log n)；边界/旋转/二分答案的地基。**主柱轨回归初心（零新 View、零轨字段）**：lo/mid/hi 三箭头 + groupMembers 淡出区间外 + pivotIndex 探针 + sortedIndices 命中。bsearch.module 双试验 16 步 + linearFind 对拍。`TC-BS-MOD-*`+`TC-VIEW-BS-*`+`TC-E2E-BS-01`；TC-HOOK 大类 8→9。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1824,3 +1826,19 @@
 | TC-VIEW-MR-02         | h1 含米勒-拉宾 + MatrixView + 无柱数组（C-090）                                                    | L4   | `src/views/Article/Algorithm/MillerRabin.spec.ts`         |
 | TC-VIEW-MR-03         | 正文含卡迈克尔与平方根 + MatrixView 同屏（C-090）                                                  | L4   | `src/views/Article/Algorithm/MillerRabin.spec.ts`         |
 | TC-E2E-MR-01          | 米勒-拉宾全模板：平方链表 / 拖末步 1/4 概率语义 / Shiki（C-090 新增）                              | L5   | `e2e/miller-rabin.e2e.ts`                                 |
+| TC-BS-MOD-01          | 17 → idx8 = 线性扫；三探 (0,9,4)/(5,9,7)/(8,9,8)（C-091）                                          | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-02          | 4 → −1 = 线性扫；末态 lo=2>hi=1 清空（C-091）                                                      | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-03          | point 六集；10 柱升序恒序（C-091）                                                                 | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-04          | 16 步 point 序列全等（含两次 init）（C-091）                                                       | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-05          | init：lo='0'/hi='2' 指针 + 全区间（C-091）                                                         | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-06          | mid：pivotIndex 与蓝指针 4,7,8/4,1,2（C-091）                                                      | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-07          | cut：groupMembers [5..9],[8..9]/[0..3],[2..3],[]（C-091）                                          | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-08          | found：sortedIndices=[8] + caption 命中 8（C-091）                                                 | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-09          | empty：caption 含 −1 与不存在（C-091）                                                             | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-10          | done caption 含 O(log n)（C-091）                                                                  | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-11          | 四语言+行号+六执行点（C-091）                                                                      | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-BS-MOD-12          | title 含二分查找；initialInput 升序 BS_ARRAY（C-091）                                              | L3   | `src/algorithms/bsearch.module.spec.ts`                   |
+| TC-VIEW-BS-01         | Article + AlgorithmPlayer（C-091）                                                                 | L4   | `src/views/Article/Algorithm/BinarySearch.spec.ts`        |
+| TC-VIEW-BS-02         | h1 含二分查找 + BarsView 主柱轨（本页有柱）（C-091）                                               | L4   | `src/views/Article/Algorithm/BinarySearch.spec.ts`        |
+| TC-VIEW-BS-03         | 正文含有序与 O(log n)（C-091）                                                                     | L4   | `src/views/Article/Algorithm/BinarySearch.spec.ts`        |
+| TC-E2E-BS-01          | 二分查找全模板：主柱轨 + 三箭头 / 拖末步 O(log n) / Shiki（C-091 新增）                            | L5   | `e2e/binary-search.e2e.ts`                                |

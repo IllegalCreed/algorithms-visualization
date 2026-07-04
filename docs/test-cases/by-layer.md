@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **966** 个用例。运行命令：`pnpm test:unit`
+共 **978** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1445,12 +1445,24 @@
 | TC-MR-MOD-10    | caption ① −1 通过 / ② 非平凡合数 / done 1/4                             | `src/algorithms/mr.module.spec.ts`          |
 | TC-MR-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/mr.module.spec.ts`          |
 | TC-MR-MOD-12    | title 含米勒-拉宾；initialInput=[]                                      | `src/algorithms/mr.module.spec.ts`          |
+| TC-BS-MOD-01    | 17 → idx8 = 线性扫；三探 (0,9,4)/(5,9,7)/(8,9,8)                        | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-02    | 4 → −1 = 线性扫；末态 lo=2>hi=1 清空                                    | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-03    | point 六集；10 柱升序恒序                                               | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-04    | 16 步 point 序列全等（含两次 init）                                     | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-05    | init：lo='0'/hi='2' 指针 + 全区间                                       | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-06    | mid：pivotIndex 与蓝指针 4,7,8/4,1,2                                    | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-07    | cut：groupMembers [5..9],[8..9]/[0..3],[2..3],[]                        | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-08    | found：sortedIndices=[8] + caption 命中 8                               | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-09    | empty：caption 含 −1 与不存在                                           | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-10    | done caption 含 O(log n)                                                | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-12    | title 含二分查找；initialInput 升序 BS_ARRAY                            | `src/algorithms/bsearch.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **542** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **545** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2481,6 +2493,14 @@
 | TC-VIEW-MR-02 | h1 含米勒-拉宾 + MatrixView + 无柱数组   | `src/views/Article/Algorithm/MillerRabin.spec.ts` |
 | TC-VIEW-MR-03 | 正文含卡迈克尔与平方根 + MatrixView 同屏 | `src/views/Article/Algorithm/MillerRabin.spec.ts` |
 
+### 二分查找页 C-091（新第 9 大类「查找」首发，纯复用主柱轨）
+
+| 用例 ID       | 场景                                        | 文件                                               |
+| ------------- | ------------------------------------------- | -------------------------------------------------- |
+| TC-VIEW-BS-01 | Article + AlgorithmPlayer                   | `src/views/Article/Algorithm/BinarySearch.spec.ts` |
+| TC-VIEW-BS-02 | h1 含二分查找 + BarsView 主柱轨（本页有柱） | `src/views/Article/Algorithm/BinarySearch.spec.ts` |
+| TC-VIEW-BS-03 | 正文含有序与 O(log n)                       | `src/views/Article/Algorithm/BinarySearch.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2491,7 +2511,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **82** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **83** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2578,6 +2598,7 @@
 | TC-E2E-BO-01        | 扫描线求交全模板：点平面轨 / 拖末步 3 交点红标 / Shiki（C-088 新增）                                                       | `e2e/bentley-ottmann.e2e.ts`       | active     |
 | TC-E2E-PHI-01       | 欧拉函数全模板：互质筛网格 / 拖末步 φ(12)=4 / Shiki（C-089 新增）                                                          | `e2e/euler-phi.e2e.ts`             | active     |
 | TC-E2E-MR-01        | 米勒-拉宾全模板：平方链表 / 拖末步 1/4 概率语义 / Shiki（C-090 新增）                                                      | `e2e/miller-rabin.e2e.ts`          | active     |
+| TC-E2E-BS-01        | 二分查找全模板：主柱轨 + 三箭头 / 拖末步 O(log n) / Shiki（C-091 新增）                                                    | `e2e/binary-search.e2e.ts`         | active     |
 
 ---
 
