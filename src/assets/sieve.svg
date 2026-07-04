@@ -1,0 +1,29 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 数字网格 4×4：素数格绿、合数格灰划掉 -->
+  <g font-family="sans-serif" font-weight="bold" font-size="90" text-anchor="middle" dominant-baseline="central">
+    <!-- 第 1 行：1(灰) 2(绿) 3(绿) 4(划) -->
+    <rect x="112" y="112" width="180" height="180" rx="28" fill="#dfe5e0" stroke="#333" stroke-width="14" />
+    <text x="202" y="202" fill="#9aa8a0">1</text>
+    <rect x="312" y="112" width="180" height="180" rx="28" fill="#8bd3a0" stroke="#333" stroke-width="14" />
+    <text x="402" y="202" fill="#1f5e3a">2</text>
+    <rect x="512" y="112" width="180" height="180" rx="28" fill="#8bd3a0" stroke="#333" stroke-width="14" />
+    <text x="602" y="202" fill="#1f5e3a">3</text>
+    <rect x="712" y="112" width="180" height="180" rx="28" fill="#cdd8d0" stroke="#333" stroke-width="14" />
+    <text x="802" y="202" fill="#8a978d">4</text>
+    <!-- 第 2 行：5(绿) 6(划) 7(绿·当前琥珀环) 8(划) -->
+    <rect x="112" y="312" width="180" height="180" rx="28" fill="#8bd3a0" stroke="#333" stroke-width="14" />
+    <text x="202" y="402" fill="#1f5e3a">5</text>
+    <rect x="312" y="312" width="180" height="180" rx="28" fill="#cdd8d0" stroke="#333" stroke-width="14" />
+    <text x="402" y="402" fill="#8a978d">6</text>
+    <rect x="512" y="312" width="180" height="180" rx="28" fill="#8bd3a0" stroke="#f0a000" stroke-width="28" />
+    <text x="602" y="402" fill="#1f5e3a">7</text>
+    <rect x="712" y="312" width="180" height="180" rx="28" fill="#cdd8d0" stroke="#333" stroke-width="14" />
+    <text x="802" y="402" fill="#8a978d">8</text>
+  </g>
+  <!-- 合数划掉线（4/6/8） -->
+  <g stroke="#7a1f1f" stroke-width="14" stroke-linecap="round">
+    <line x1="732" y1="222" x2="872" y2="182" />
+    <line x1="332" y1="422" x2="472" y2="382" />
+    <line x1="732" y1="422" x2="872" y2="382" />
+  </g>
+</svg>

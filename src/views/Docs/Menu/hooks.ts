@@ -274,6 +274,15 @@ export function useCategoryData(): Category[] {
         },
       ],
     },
+    {
+      title: '数学与数论',
+      children: [
+        {
+          title: '埃氏筛',
+          url: 'sieve-of-eratosthenes',
+        },
+      ],
+    },
   ];
   return categoryData;
 }

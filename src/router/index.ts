@@ -245,6 +245,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/AhoCorasick.vue'),
           },
           {
+            path: '/docs/sieve-of-eratosthenes',
+            name: 'sieve-of-eratosthenes',
+            component: () => import('../views/Article/Algorithm/SieveOfEratosthenes.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

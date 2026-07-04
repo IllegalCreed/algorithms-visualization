@@ -23,6 +23,7 @@ import FloydIcon from '@/assets/floyd.svg';
 import SccIcon from '@/assets/scc.svg';
 import TwoSatIcon from '@/assets/two-sat.svg';
 import MaxFlowIcon from '@/assets/max-flow.svg';
+import SieveIcon from '@/assets/sieve.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -454,6 +455,18 @@ export function useCategoryData(): Category[] {
           desc: '多模式匹配 Aho-Corasick：所有模式塞进 Trie + fail 指针（KMP 的 π 的多模式推广），一趟扫文本报出所有命中含重叠，O(n+m+z)',
           icon: AhoCorasickIcon,
           url: 'aho-corasick',
+        },
+      ],
+    },
+    {
+      title: '数学与数论',
+      desc: '与整数、素数、模运算打交道的算法——从「把大问题拆成数的性质」出发',
+      children: [
+        {
+          title: '埃氏筛',
+          desc: '埃拉托斯特尼筛求素数：从 2 起，每个没被划掉的数是素数，划掉它从 p² 起的倍数，筛到 √N 即停，O(N log log N)',
+          icon: SieveIcon,
+          url: 'sieve-of-eratosthenes',
         },
       ],
     },

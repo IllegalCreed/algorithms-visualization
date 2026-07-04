@@ -265,6 +265,26 @@ export type MaxFlowExecPoint =
   | 'augment' // 沿路增流，更新流量标签（反向边流量减少）
   | 'done'; // 无增广路：最大流 = 最小割
 
+/** 数字筛格状态（C-077，埃氏筛）：special=1（非素非合）/ unknown 未定 / prime 素数 / composite 合数 */
+export type SieveCellState = 'special' | 'unknown' | 'prime' | 'composite';
+
+/** 数字网格轨快照——埃氏筛专用（数学与数论大类首发，第 16 轨 C-077） */
+export interface SieveTrack {
+  n: number; // 上界 N（网格 1..n）
+  cols: number; // 列数（布局）
+  states: SieveCellState[]; // states[v] = 数 v 的状态（index 1..n；0 占位）
+  current?: number | null; // 当前处理的素数 p（琥珀环）
+  marking?: number[]; // 本步正在划掉的倍数（红）
+}
+
+/** 埃拉托斯特尼筛执行点（C-077，数学与数论大类首发；新建 SieveView 数字网格轨） */
+export type SieveExecPoint =
+  | 'init' // 数字网格 1..N，1 特殊，其余未定
+  | 'prime' // 遇到未被划掉的数 p → 素数
+  | 'mark' // 划掉 p 从 p² 起的所有倍数 → 合数
+  | 'rest' // p²>N：剩余未划掉的都是素数
+  | 'done'; // 筛完，给出素数清单
+
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
   labels: string[]; // 行/列标签（方阵：节点名 A,B,C,D；缺省行列标签时双用）
@@ -548,6 +568,7 @@ export interface Step<P extends string = string> {
   manacher?: ManacherTrack; // 纯加法：Manacher 回文轨；其它算法不设 → ManacherView 不渲染
   sudoku?: SudokuTrack; // 纯加法：数独轨；其它算法不设 → SudokuView 不渲染
   suffixArray?: SuffixArrayTrack; // 纯加法：后缀数组轨；其它算法不设 → SuffixArrayView 不渲染
+  sieve?: SieveTrack; // 纯加法：埃氏筛数字网格轨（C-077）；其它算法不设 → SieveView 不渲染
 }
 
 export interface LangSource<P extends string = string> {

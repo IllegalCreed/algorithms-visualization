@@ -5,14 +5,16 @@ import { useCategoryData } from './hooks';
 describe('Home/Main useCategoryData', () => {
   const data = useCategoryData();
 
-  it('TC-HOOK-01-1: 返回 6 个分类，字符串含 KMP + Rabin-Karp（C-063）', () => {
-    expect(data).toHaveLength(6);
+  it('TC-HOOK-01-1: 返回 7 个分类，新增数学与数论（C-077）', () => {
+    expect(data).toHaveLength(7);
     expect(data[0].title).toBe('数据结构');
     expect(data[1].title).toBe('经典排序算法');
     expect(data[2].title).toBe('图算法');
     expect(data[3].title).toBe('动态规划');
     expect(data[4].title).toBe('回溯与搜索');
     expect(data[5].title).toBe('字符串');
+    expect(data[6].title).toBe('数学与数论');
+    expect(data[6].children.map((c) => c.url)).toEqual(['sieve-of-eratosthenes']);
     expect(data[2].children).toHaveLength(9);
     expect(data[2].children[7].url).toBe('two-sat');
     expect(data[2].children[8].url).toBe('max-flow');
