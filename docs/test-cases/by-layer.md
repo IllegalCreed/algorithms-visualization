@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1002** 个用例。运行命令：`pnpm test:unit`
+共 **1014** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1481,12 +1481,24 @@
 | TC-RS-MOD-10    | done 含 O(log n) 与一半引理                                             | `src/algorithms/rotsearch.module.spec.ts`   |
 | TC-RS-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/rotsearch.module.spec.ts`   |
 | TC-RS-MOD-12    | title 含旋转；断崖恰一处下降                                            | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-BA-MOD-01    | result=4=线性；hoursAt(4)=8、hoursAt(3)=10                              | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-02    | 可行序列恰一次 ✗→✓ 翻转                                                 | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-03    | 四探 (1,11,6,6h,✓)/(1,6,3,10h,✗)/(4,6,5,8h,✓)/(4,5,4,8h,✓)              | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-04    | point 四集；11 柱 = 1..11 爬坡                                          | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-05    | 7 步 point 序列全等                                                     | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-06    | probe pivotIndex=速度−1 依次 5,2,4,3 + 收缩                             | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-07    | ✓ 步含还能更小、✗ 步含加速                                              | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-08    | settle sortedIndices=[3] + 最小与 4                                     | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-09    | probe vars 本次耗时 6/10/8/8                                            | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-10    | done 含答案空间与单调                                                   | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-12    | title 含二分答案；initialInput=[1..11]                                  | `src/algorithms/banswer.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **551** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **554** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2541,6 +2553,14 @@
 | TC-VIEW-RS-02 | h1 含旋转 + BarsView 主柱轨 | `src/views/Article/Algorithm/RotatedSearch.spec.ts` |
 | TC-VIEW-RS-03 | 正文含断崖与有序            | `src/views/Article/Algorithm/RotatedSearch.spec.ts` |
 
+### 二分答案页 C-094（查找第 4 页收官技，新页，纯复用主柱轨）
+
+| 用例 ID       | 场景                            | 文件                                               |
+| ------------- | ------------------------------- | -------------------------------------------------- |
+| TC-VIEW-BA-01 | Article + AlgorithmPlayer       | `src/views/Article/Algorithm/BinaryAnswer.spec.ts` |
+| TC-VIEW-BA-02 | h1 含二分答案 + BarsView 主柱轨 | `src/views/Article/Algorithm/BinaryAnswer.spec.ts` |
+| TC-VIEW-BA-03 | 正文含答案空间与单调            | `src/views/Article/Algorithm/BinaryAnswer.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2551,7 +2571,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **85** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **86** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2641,6 +2661,7 @@
 | TC-E2E-BS-01        | 二分查找全模板：主柱轨 + 三箭头 / 拖末步 O(log n) / Shiki（C-091 新增）                                                    | `e2e/binary-search.e2e.ts`         | active     |
 | TC-E2E-BB-01        | 二分边界全模板：主柱轨 / 拖末步 O(log n) / Shiki（C-092 新增）                                                             | `e2e/binary-bounds.e2e.ts`         | active     |
 | TC-E2E-RS-01        | 旋转数组搜索全模板：断崖柱轨 / 拖末步 O(log n) / Shiki（C-093 新增）                                                       | `e2e/rotated-search.e2e.ts`        | active     |
+| TC-E2E-BA-01        | 二分答案全模板：答案空间柱轨 / 拖末步收官语义 / Shiki（C-094 新增）                                                        | `e2e/binary-answer.e2e.ts`         | active     |
 
 ---
 

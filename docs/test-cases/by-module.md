@@ -1083,6 +1083,8 @@
 
 > **C-093（M8 查找第 3 页 · 新页）**：旋转数组搜索——断崖上的二分：mid 切两半至少一半完好有序（a[lo]≤a[mid] 判半），看目标在不在有序半范围决定去留，仍 O(log n)；重复元素退化坑。**纯复用主柱轨（同 C-091/092）**，断崖造型数据天然呈现。rotsearch.module 8 步 + rotTrace 全记录对拍。`TC-RS-MOD-*`+`TC-VIEW-RS-*`+`TC-E2E-RS-01`。
 
+> **C-094（M8 查找第 4 页收官技 · 新页）**：二分答案——数组没了也能二分：候选答案排成一排、可行性单调 ✗✗✗✓✓✓ 找第一个 ✓（lower_bound on predicate）；三要素（有界/单调/可验）+ 最小化最大值家族。**纯复用主柱轨的语义反转（柱子=候选答案）**。banswer.module 7 步 + bruteMinSpeed 对拍 + 单调翻转 spec。`TC-BA-MOD-*`+`TC-VIEW-BA-*`+`TC-E2E-BA-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1878,3 +1880,19 @@
 | TC-VIEW-RS-02         | h1 含旋转 + BarsView 主柱轨（C-093）                                                               | L4   | `src/views/Article/Algorithm/RotatedSearch.spec.ts`       |
 | TC-VIEW-RS-03         | 正文含断崖与有序（C-093）                                                                          | L4   | `src/views/Article/Algorithm/RotatedSearch.spec.ts`       |
 | TC-E2E-RS-01          | 旋转数组搜索全模板：断崖柱轨 / 拖末步 O(log n) / Shiki（C-093 新增）                               | L5   | `e2e/rotated-search.e2e.ts`                               |
+| TC-BA-MOD-01          | result=4=线性；hoursAt(4)=8、hoursAt(3)=10（C-094）                                                | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-02          | 可行序列恰一次 ✗→✓ 翻转（C-094）                                                                   | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-03          | 四探 (1,11,6,6h,✓)/(1,6,3,10h,✗)/(4,6,5,8h,✓)/(4,5,4,8h,✓)（C-094）                                | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-04          | point 四集；11 柱 = 1..11 爬坡（C-094）                                                            | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-05          | 7 步 point 序列全等（C-094）                                                                       | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-06          | probe pivotIndex=速度−1 依次 5,2,4,3 + 收缩（C-094）                                               | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-07          | ✓ 步含还能更小、✗ 步含加速（C-094）                                                                | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-08          | settle sortedIndices=[3] + 最小与 4（C-094）                                                       | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-09          | probe vars 本次耗时 6/10/8/8（C-094）                                                              | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-10          | done 含答案空间与单调（C-094）                                                                     | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-11          | 四语言+行号+四执行点（C-094）                                                                      | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-BA-MOD-12          | title 含二分答案；initialInput=[1..11]（C-094）                                                    | L3   | `src/algorithms/banswer.module.spec.ts`                   |
+| TC-VIEW-BA-01         | Article + AlgorithmPlayer（C-094）                                                                 | L4   | `src/views/Article/Algorithm/BinaryAnswer.spec.ts`        |
+| TC-VIEW-BA-02         | h1 含二分答案 + BarsView 主柱轨（C-094）                                                           | L4   | `src/views/Article/Algorithm/BinaryAnswer.spec.ts`        |
+| TC-VIEW-BA-03         | 正文含答案空间与单调（C-094）                                                                      | L4   | `src/views/Article/Algorithm/BinaryAnswer.spec.ts`        |
+| TC-E2E-BA-01          | 二分答案全模板：答案空间柱轨 / 拖末步收官语义 / Shiki（C-094 新增）                                | L5   | `e2e/binary-answer.e2e.ts`                                |
