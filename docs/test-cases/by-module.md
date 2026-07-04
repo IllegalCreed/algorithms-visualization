@@ -301,6 +301,8 @@
 | TC-VIZ-HULLVIEW-03        | phase='done' + finalHull → 渲染 .hull-polygon                                   | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CAL-01    | 传 activeEdge/caliper/best → 各 1 条 .hull-active-edge/.hull-caliper/.hull-best | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CAL-02    | 不传三字段（凸包页）→ 无卡壳连线（零回归）                                      | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CP-01     | 传 divider/strip → 1 条 .hull-divider + 1 个 .hull-strip                        | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CP-02     | 不传 → 无中线/带（零回归）                                                      | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -1052,6 +1054,8 @@
 
 > **C-082（M7 计算几何第 2 页 · 新页）**：旋转卡壳——承接凸包在凸包上 O(n) 求直径。对踵点随边推进单调前移（面积比较），每边查两候选。**复用 HullView**（additive activeEdge/caliper/best 三连线，见 `TC-VIZ-HULLVIEW-CAL-*`）。`calipers.module`（init+spin×6+done 8 步 + oracle diameter()={d2:36,pair:[0,6]} 暴力对拍、直径 6）。新页 + 路由 `/docs/rotating-calipers` + 「计算几何」第 2 项 + 改 TC-HOOK。凸包页零回归。`TC-CAL-MOD-*` + `TC-VIEW-RC-*` + `TC-E2E-RC-01`。
 
+> **C-083（M7 计算几何第 3 页 · 新页）**：最近点对——分治 O(n log n)：中线分半各求最近取 δ，合并只查 δ 带、带内 y 序比常数邻居（鸽笼）。**复用 HullView**（additive divider/strip，见 `TC-VIZ-HULLVIEW-CP-*`）。closestpair.module 10 步 + oracle≈{d:1.118,pair:[3,5]} 暴力对拍；跨带两次刷新、答案跨中线。`TC-CP-MOD-*`+`TC-VIEW-CP-*`+`TC-E2E-CP-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1669,3 +1673,19 @@
 | TC-VIEW-RC-02         | h1 含「旋转卡壳」+ HullView + 无柱数组（C-082）                                                    | L4   | `src/views/Article/Algorithm/RotatingCalipers.spec.ts`    |
 | TC-VIEW-RC-03         | 全模板同屏：正文含「对踵」+ HullView（C-082）                                                      | L4   | `src/views/Article/Algorithm/RotatingCalipers.spec.ts`    |
 | TC-E2E-RC-01          | 旋转卡壳全模板：凸包+卡壳 / 拖末步 best + caption 6 / Shiki（C-082 新增）                          | L5   | `e2e/rotating-calipers.e2e.ts`                            |
+| TC-CP-MOD-01          | 末步 done；best=[3,5]；d≈1.118（C-083）                                                            | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-02          | point∈{init,divide,half,strip,merge,done} 带 hull（C-083）                                         | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-03          | 与 bruteClosest 全点对拍一致（C-083）                                                              | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-04          | divide1/half2/strip1/merge4（C-083）                                                               | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-05          | δ=右半最近（更小）（C-083）                                                                        | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-06          | strip=[mid−δ,mid+δ]；带内 5 点（C-083）                                                            | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-07          | merge 两次刷新 1.581→1.118（C-083）                                                                | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-08          | best 距离单调不增，末步≈1.118（C-083）                                                             | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-09          | 末步 best 跨中线（C-083）                                                                          | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-10          | done caption 含 1.118 与「最近」（C-083）                                                          | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-11          | 四语言+行号+六执行点（C-083）                                                                      | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-CP-MOD-12          | title 含「最近点对」；initialInput=[]（C-083）                                                     | L3   | `src/algorithms/closestpair.module.spec.ts`               |
+| TC-VIEW-CP-01         | Article + AlgorithmPlayer（C-083）                                                                 | L4   | `src/views/Article/Algorithm/ClosestPair.spec.ts`         |
+| TC-VIEW-CP-02         | h1 含「最近点对」+ HullView + 无柱数组（C-083）                                                    | L4   | `src/views/Article/Algorithm/ClosestPair.spec.ts`         |
+| TC-VIEW-CP-03         | 正文含「分治」+ HullView 同屏（C-083）                                                             | L4   | `src/views/Article/Algorithm/ClosestPair.spec.ts`         |
+| TC-E2E-CP-01          | 最近点对全模板：δ 带 / 拖末步 1.118 / Shiki（C-083 新增）                                          | L5   | `e2e/closest-pair.e2e.ts`                                 |

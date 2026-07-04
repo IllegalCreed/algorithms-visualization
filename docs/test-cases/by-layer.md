@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **870** 个用例。运行命令：`pnpm test:unit`
+共 **882** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1349,12 +1349,24 @@
 | TC-CAL-MOD-10   | done caption 含 6 与「最远」                                            | `src/algorithms/calipers.module.spec.ts`    |
 | TC-CAL-MOD-11   | 四语言 sources；每 point 行号在源码内                                   | `src/algorithms/calipers.module.spec.ts`    |
 | TC-CAL-MOD-12   | module title 含「卡壳」；initialInput()=[]                              | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CP-MOD-01    | 末步 done；best=[3,5]；d≈1.118                                          | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-02    | point∈{init,divide,half,strip,merge,done} 带 hull                       | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-03    | 与 bruteClosest 全点对拍一致                                            | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-04    | divide1/half2/strip1/merge4                                             | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-05    | δ=右半最近（更小）                                                      | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-06    | strip=[mid−δ,mid+δ]；带内 5 点                                          | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-07    | merge 两次刷新 1.581→1.118                                              | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-08    | best 距离单调不增，末步≈1.118                                           | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-09    | 末步 best 跨中线                                                        | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-10    | done caption 含 1.118 与「最近」                                        | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-12    | title 含「最近点对」；initialInput=[]                                   | `src/algorithms/closestpair.module.spec.ts` |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **507** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **512** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1958,6 +1970,8 @@
 | TC-VIZ-HULLVIEW-03        | phase='done' + finalHull → 渲染 .hull-polygon                                   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CAL-01    | 传 activeEdge/caliper/best → 各 1 条 .hull-active-edge/.hull-caliper/.hull-best | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-CAL-02    | 不传三字段（凸包页）→ 无卡壳连线（零回归）                                      | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CP-01     | 传 divider/strip → 1 条 .hull-divider + 1 个 .hull-strip                        | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-CP-02     | 不传 → 无中线/带（零回归）                                                      | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -2310,6 +2324,14 @@
 | TC-VIEW-RC-02 | h1 含「旋转卡壳」+ HullView + 无柱数组 | `src/views/Article/Algorithm/RotatingCalipers.spec.ts` |
 | TC-VIEW-RC-03 | 全模板同屏：正文含「对踵」+ HullView   | `src/views/Article/Algorithm/RotatingCalipers.spec.ts` |
 
+### 最近点对页 C-083（计算几何第 3 页，新页，复用 HullView divider/strip）
+
+| 用例 ID       | 场景                                   | 文件                                              |
+| ------------- | -------------------------------------- | ------------------------------------------------- |
+| TC-VIEW-CP-01 | Article + AlgorithmPlayer              | `src/views/Article/Algorithm/ClosestPair.spec.ts` |
+| TC-VIEW-CP-02 | h1 含「最近点对」+ HullView + 无柱数组 | `src/views/Article/Algorithm/ClosestPair.spec.ts` |
+| TC-VIEW-CP-03 | 正文含「分治」+ HullView 同屏          | `src/views/Article/Algorithm/ClosestPair.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2320,7 +2342,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **74** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **75** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2399,6 +2421,7 @@
 | TC-E2E-FP-01        | 快速幂全模板：正文 + 幂块行 / `.scrub` 拖末步 4 个 .power-block + caption 含 1594323 / Shiki（C-080 新增）                 | `e2e/fast-power.e2e.ts`            | active     |
 | TC-E2E-CH-01        | 凸包全模板：正文 + 点平面 7 点 / `.scrub` 拖末步 凸包多边形 + caption 含 6 / Shiki（C-081 新增）                           | `e2e/convex-hull.e2e.ts`           | active     |
 | TC-E2E-RC-01        | 旋转卡壳全模板：凸包+卡壳 / 拖末步 best 线 + caption 含 6 / Shiki（C-082 新增）                                            | `e2e/rotating-calipers.e2e.ts`     | active     |
+| TC-E2E-CP-01        | 最近点对全模板：δ 带 / 拖末步 best + caption 1.118 / Shiki（C-083 新增）                                                   | `e2e/closest-pair.e2e.ts`          | active     |
 
 ---
 
