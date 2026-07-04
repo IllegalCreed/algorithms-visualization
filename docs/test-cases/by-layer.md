@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **846** 个用例。运行命令：`pnpm test:unit`
+共 **858** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1325,12 +1325,24 @@
 | TC-FP-MOD-10    | done 步 caption 含 1594323 与 1+4+8 拆分                                | `src/algorithms/fastpower.module.spec.ts`   |
 | TC-FP-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/fastpower.module.spec.ts`   |
 | TC-FP-MOD-12    | module 元信息 title 含「快速幂」；initialInput()=[]                     | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-CH-MOD-01    | 末步 done；convexHull()=[0,1,4,6,5,2]（6 点）                           | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-02    | 每步 point∈{init,lower,upper,done} 且带 hull（array 空）                | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-03    | CH_POINTS 已按 (x,y) 排序；7 点含内部点 (3,3)                           | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-04    | lower 步 7 个、upper 步 7 个（每输入点一步）                            | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-05    | 叉积左转>0、右转<0、共线=0                                              | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-06    | lower/upper 各至少 1 步 popped 非空（右转弹栈）                         | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-07    | 末步 finalHull 不含内部点 (3,3) 的下标 3                                | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-08    | 凸包顶点逆时针，其余点在每条有向边左侧（cross≥0）                       | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-09    | 所有 7 点都在凸包内或边上                                               | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-10    | done 步 caption 含凸包点数 6 与内部点排除语义                           | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-12    | module 元信息 title 含「凸包」；initialInput()=[]                       | `src/algorithms/convexhull.module.spec.ts`  |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **494** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **502** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1929,6 +1941,9 @@
 | TC-VIZ-POWERVIEW-01       | blocks 4 个 → 4 个 .power-block；每块显示值（含 3/9/81/6561）                   | `src/components/PowerView.spec.ts`              |
 | TC-VIZ-POWERVIEW-02       | selected 块 → .power-selected；current=0 → 1 个 .power-current                  | `src/components/PowerView.spec.ts`              |
 | TC-VIZ-POWERVIEW-03       | 渲染 .power-result（含 result）；显示 n 的二进制串（含 1101）                   | `src/components/PowerView.spec.ts`              |
+| TC-VIZ-HULLVIEW-01        | points 7 个 → 7 个 .hull-point；edges 3 条 → 3 条 .hull-edge                    | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-02        | current=3 → 1 个 .hull-current；popped=[2] → 1 个 .hull-popped                  | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-03        | phase='done' + finalHull → 渲染 .hull-polygon                                   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -1994,6 +2009,8 @@
 | TC-PLAYER-GCD-02          | 排序 step 无 gcd → 不渲染 GcdView（零回归）                                     | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-POWER-01        | step 含 power → 渲染 PowerView                                                  | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-POWER-02        | 排序 step 无 power → 不渲染 PowerView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-HULL-01         | step 含 hull → 渲染 HullView                                                    | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-HULL-02         | 排序 step 无 hull → 不渲染 HullView（零回归）                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -2263,6 +2280,14 @@
 | TC-VIEW-FP-02 | h1 含「快速幂」+ PowerView + 无柱数组   | `src/views/Article/Algorithm/FastPower.spec.ts` |
 | TC-VIEW-FP-03 | 全模板同屏：正文含「二进制」+ PowerView | `src/views/Article/Algorithm/FastPower.spec.ts` |
 
+### 凸包页 C-081（计算几何大类首发，新页，全模板 + 新建 HullView 点平面轨）
+
+| 用例 ID       | 场景                                 | 文件                                             |
+| ------------- | ------------------------------------ | ------------------------------------------------ |
+| TC-VIEW-CH-01 | 挂载渲染 Article + AlgorithmPlayer   | `src/views/Article/Algorithm/ConvexHull.spec.ts` |
+| TC-VIEW-CH-02 | h1 含「凸包」+ HullView + 无柱数组   | `src/views/Article/Algorithm/ConvexHull.spec.ts` |
+| TC-VIEW-CH-03 | 全模板同屏：正文含「叉积」+ HullView | `src/views/Article/Algorithm/ConvexHull.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2273,7 +2298,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **72** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **73** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2350,6 +2375,7 @@
 | TC-E2E-LS-01        | 线性筛全模板：正文 + 数字网格 spf 角标 / `.scrub` 拖末步 10 素数 + caption 含 10 / Shiki（C-078 新增）                     | `e2e/linear-sieve.e2e.ts`          | active     |
 | TC-E2E-GCD-01       | 欧几里得全模板：正文 + 矩形铺砖 / `.scrub` 拖末步 4 个 .gcd-square + caption 含 6 / Shiki（C-079 新增）                    | `e2e/gcd.e2e.ts`                   | active     |
 | TC-E2E-FP-01        | 快速幂全模板：正文 + 幂块行 / `.scrub` 拖末步 4 个 .power-block + caption 含 1594323 / Shiki（C-080 新增）                 | `e2e/fast-power.e2e.ts`            | active     |
+| TC-E2E-CH-01        | 凸包全模板：正文 + 点平面 7 点 / `.scrub` 拖末步 凸包多边形 + caption 含 6 / Shiki（C-081 新增）                           | `e2e/convex-hull.e2e.ts`           | active     |
 
 ---
 

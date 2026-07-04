@@ -296,6 +296,9 @@
 | TC-VIZ-POWERVIEW-01       | blocks 4 个 → 4 个 .power-block；每块显示值（含 3/9/81/6561）                   | L4   | `src/components/PowerView.spec.ts`              |
 | TC-VIZ-POWERVIEW-02       | selected 块 → .power-selected；current=0 → 1 个 .power-current                  | L4   | `src/components/PowerView.spec.ts`              |
 | TC-VIZ-POWERVIEW-03       | 渲染 .power-result（含 result）；显示 n 的二进制串（含 1101）                   | L4   | `src/components/PowerView.spec.ts`              |
+| TC-VIZ-HULLVIEW-01        | points 7 个 → 7 个 .hull-point；edges 3 条 → 3 条 .hull-edge                    | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-02        | current=3 → 1 个 .hull-current；popped=[2] → 1 个 .hull-popped                  | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-HULLVIEW-03        | phase='done' + finalHull → 渲染 .hull-polygon                                   | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -361,6 +364,8 @@
 | TC-PLAYER-GCD-02          | 排序 step 无 gcd → 不渲染 GcdView（零回归）                                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-POWER-01        | step 含 power → 渲染 PowerView                                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-POWER-02        | 排序 step 无 power → 不渲染 PowerView（零回归）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-HULL-01         | step 含 hull → 渲染 HullView                                                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-HULL-02         | 排序 step 无 hull → 不渲染 HullView（零回归）                                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -1041,6 +1046,8 @@
 
 > **C-080（M7 数学与数论第 4 页 · 新页 + 新轨）**：快速幂（二进制取幂）——求 aⁿ，把指数 n 拆二进制 `n=Σ2ᵏ` 则 `aⁿ=∏a^(2ᵏ)`（对每个为 1 的位）；底数反复平方得 a¹→a²→a⁴→a⁸、位为 1 就把当前平方乘进结果，O(log n)。是模幂（RSA/DH）与矩阵快速幂的基础。**新建第 18 条 PowerView 幂块轨**（一行幂块卡片〔指数 a^(2ᵏ)/值/二进制位〕位=1 选中绿、位=0 灰、当前琥珀 + 结果连乘，见 viz-engine 段 `TC-VIZ-POWERVIEW-*` / `TC-PLAYER-POWER-*`）。新 `Step.power?` additive、AlgorithmPlayer 加一行 v-if。`fastpower.module`（固定 a=3,n=13=1101，init+mul×3/skip×1+done 6 步 + oracle `fastPow(3,13)`=1594323/`powBlocks()`，幂块 3/9/81/6561、选中 3¹·3⁴·3⁸ 指数和 1+4+8=13）。新页 + 路由 `/docs/fast-power` + 菜单/首页「数学与数论」第 4 项 + 新 `fast-power.svg` + 改 `TC-HOOK`（数论 children +fast-power）。既有算法不设 power 零回归。`TC-FP-MOD-*` + `TC-VIEW-FP-*` + `TC-E2E-FP-01`。
 
+> **C-081（M7 新顶层大类「计算几何」首发 · 新页 + 新轨）**：凸包（Convex Hull）——把平面点用最紧的凸多边形套住，内部点排除。**Andrew 单调链**：按 (x,y) 排序，从左到右构下凸壳、从右到左构上凸壳；维护栈，每加点用叉积 `cross(O,A,B)` 判转向，≤0（非左转）就弹栈、直到左转再压入，O(n log n)。叉积正负=转向左右，是计算几何核心原语。**新建第 19 条 HullView 点平面轨**（散点 y 上翻 + 凸壳折线 + 当前琥珀 + 弹出点红 + 凸包多边形，见 viz-engine 段 `TC-VIZ-HULLVIEW-*` / `TC-PLAYER-HULL-*`）。新 `Step.hull?` additive、AlgorithmPlayer 加一行 v-if。`convexhull.module`（固定 7 点，init+lower×7+upper×7+done 16 步 + oracle `cross()`/`convexHull()`=[0,1,4,6,5,2]，凸包 6 点、内部点 (3,3) 排除、下上凸壳各 3 次弹栈）。新页 + 路由 `/docs/convex-hull` + **菜单/首页新增第 8 大类「计算几何」** + 新 `convex-hull.svg` + 改 `TC-HOOK`（分类 7→8 + data[7] 计算几何）。7 大类不设 hull 零回归。`TC-CH-MOD-*` + `TC-VIEW-CH-*` + `TC-E2E-CH-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1626,3 +1633,19 @@
 | TC-VIEW-FP-02         | h1 含「快速幂」+ PowerView + 无柱数组 （C-080）                                                    | L4   | `src/views/Article/Algorithm/FastPower.spec.ts`           |
 | TC-VIEW-FP-03         | 全模板同屏：正文含「二进制」+ PowerView （C-080）                                                  | L4   | `src/views/Article/Algorithm/FastPower.spec.ts`           |
 | TC-E2E-FP-01          | 快速幂全模板：幂块行 / 拖末步 4 幂块 + caption 含 1594323 / Shiki（C-080 新增）                    | L5   | `e2e/fast-power.e2e.ts`                                   |
+| TC-CH-MOD-01          | 末步 done；convexHull()=[0,1,4,6,5,2]（6 点） （C-081）                                            | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-02          | 每步 point∈{init,lower,upper,done} 且带 hull（array 空）（C-081）                                  | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-03          | CH_POINTS 已按 (x,y) 排序；7 点含内部点 (3,3) （C-081）                                            | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-04          | lower 步 7 个、upper 步 7 个（每输入点一步） （C-081）                                             | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-05          | 叉积左转>0、右转<0、共线=0 （C-081）                                                               | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-06          | lower/upper 各至少 1 步 popped 非空（右转弹栈） （C-081）                                          | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-07          | 末步 finalHull 不含内部点 (3,3) 的下标 3 （C-081）                                                 | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-08          | 凸包顶点逆时针，其余点在每条有向边左侧（cross≥0） （C-081）                                        | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-09          | 所有 7 点都在凸包内或边上 （C-081）                                                                | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-10          | done 步 caption 含凸包点数 6 与内部点排除语义 （C-081）                                            | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-11          | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内（C-081）                                | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-CH-MOD-12          | module 元信息 title 含「凸包」；initialInput()=[] （C-081）                                        | L3   | `src/algorithms/convexhull.module.spec.ts`                |
+| TC-VIEW-CH-01         | 挂载渲染 Article + AlgorithmPlayer （C-081）                                                       | L4   | `src/views/Article/Algorithm/ConvexHull.spec.ts`          |
+| TC-VIEW-CH-02         | h1 含「凸包」+ HullView + 无柱数组 （C-081）                                                       | L4   | `src/views/Article/Algorithm/ConvexHull.spec.ts`          |
+| TC-VIEW-CH-03         | 全模板同屏：正文含「叉积」+ HullView （C-081）                                                     | L4   | `src/views/Article/Algorithm/ConvexHull.spec.ts`          |
+| TC-E2E-CH-01          | 凸包全模板：点平面 7 点 / 拖末步 凸包多边形 + caption 含 6 / Shiki（C-081 新增）                   | L5   | `e2e/convex-hull.e2e.ts`                                  |
