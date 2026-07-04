@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **894** 个用例。运行命令：`pnpm test:unit`
+共 **906** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1373,12 +1373,24 @@
 | TC-SI-MOD-10    | done caption 含 2 相交 1 不相交                                         | `src/algorithms/segint.module.spec.ts`      |
 | TC-SI-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/segint.module.spec.ts`      |
 | TC-SI-MOD-12    | title 含「线段相交」；initialInput=[]                                   | `src/algorithms/segint.module.spec.ts`      |
+| TC-BN-MOD-01    | 末步 wires = sorted(输入)                                               | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-02    | point∈{init,column,done} 带 network                                     | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-03    | 6 列 24 比较器每列 4                                                    | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-04    | 列 0 = ↑↓↑↓                                                             | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-05    | 列 3-5 全 asc 距离 4/2/1                                                | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-06    | column 6 步 currentCol 0..5                                             | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-07    | 列 2 后完美双调 + caption 提双调                                        | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-08    | 逐列快照对拍 runNetwork                                                 | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-09    | networkSortsAll(200)=true                                               | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-10    | done caption 含 6 拍与并行                                              | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-11    | 四语言+行号+三执行点                                                    | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-12    | title 含双调；initialInput=BS_INPUT                                     | `src/algorithms/bitonic.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **517** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **525** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -1986,6 +1998,9 @@
 | TC-VIZ-HULLVIEW-CP-02     | 不传 → 无中线/带（零回归）                                                      | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-SEG-01    | edgeClasses=['seg-yes','seg-no',null] → 对应边带类                              | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-SEG-02    | 不传 edgeClasses → 无 seg-\* 类（零回归）                                       | `src/components/HullView.spec.ts`               |
+| TC-VIZ-NETVIEW-01         | 8 wire + 8 值标注 + 24 比较器                                                   | `src/components/NetworkView.spec.ts`            |
+| TC-VIZ-NETVIEW-02         | currentCol=2 → 4 active + 8 done                                                | `src/components/NetworkView.spec.ts`            |
+| TC-VIZ-NETVIEW-03         | 无状态 → 无 active/done                                                         | `src/components/NetworkView.spec.ts`            |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D                                            | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）                                                 | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列单元带 .mx-pivot（7 个）                                    | `src/components/MatrixView.spec.ts`             |
@@ -2053,6 +2068,8 @@
 | TC-PLAYER-POWER-02        | 排序 step 无 power → 不渲染 PowerView（零回归）                                 | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-HULL-01         | step 含 hull → 渲染 HullView                                                    | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-HULL-02         | 排序 step 无 hull → 不渲染 HullView（零回归）                                   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-NET-01          | step 含 network → 渲染 NetworkView                                              | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-NET-02          | 排序 step 无 network → 不渲染（零回归）                                         | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ### Kruskal 页 C-038 → C-048 返工进播放器（M8②-2 · 收官 M8）
 
@@ -2354,6 +2371,14 @@
 | TC-VIEW-SI-02 | h1 含「线段相交」+ HullView + 无柱数组 | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
 | TC-VIEW-SI-03 | 正文含「跨立」+ HullView 同屏          | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
 
+### 双调排序页 C-085（排序阶段三，新页，新建 NetworkView 比较器网络轨）
+
+| 用例 ID       | 场景                               | 文件                                                  |
+| ------------- | ---------------------------------- | ----------------------------------------------------- |
+| TC-VIEW-BN-01 | Article + AlgorithmPlayer          | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts` |
+| TC-VIEW-BN-02 | h1 含双调 + NetworkView + 无柱数组 | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts` |
+| TC-VIEW-BN-03 | 正文含排序网络 + NetworkView 同屏  | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2364,7 +2389,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **76** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **77** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2445,6 +2470,7 @@
 | TC-E2E-RC-01        | 旋转卡壳全模板：凸包+卡壳 / 拖末步 best 线 + caption 含 6 / Shiki（C-082 新增）                                            | `e2e/rotating-calipers.e2e.ts`     | active     |
 | TC-E2E-CP-01        | 最近点对全模板：δ 带 / 拖末步 best + caption 1.118 / Shiki（C-083 新增）                                                   | `e2e/closest-pair.e2e.ts`          | active     |
 | TC-E2E-SI-01        | 线段相交全模板：三对判定 / 拖末步 4 yes+2 no + caption 2 / Shiki（C-084 新增）                                             | `e2e/segment-intersection.e2e.ts`  | active     |
+| TC-E2E-BN-01        | 双调排序全模板：网络 / 拖末步 1..8 有序 + caption 6 / Shiki（C-085 新增）                                                  | `e2e/bitonic-sort.e2e.ts`          | active     |
 
 ---
 

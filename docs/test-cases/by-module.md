@@ -305,6 +305,9 @@
 | TC-VIZ-HULLVIEW-CP-02     | 不传 → 无中线/带（零回归）                                                      | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-SEG-01    | edgeClasses=['seg-yes','seg-no',null] → 对应边带类                              | L4   | `src/components/HullView.spec.ts`               |
 | TC-VIZ-HULLVIEW-SEG-02    | 不传 edgeClasses → 无 seg-\* 类（零回归）                                       | L4   | `src/components/HullView.spec.ts`               |
+| TC-VIZ-NETVIEW-01         | 8 wire + 8 值标注 + 24 比较器                                                   | L4   | `src/components/NetworkView.spec.ts`            |
+| TC-VIZ-NETVIEW-02         | currentCol=2 → 4 active + 8 done                                                | L4   | `src/components/NetworkView.spec.ts`            |
+| TC-VIZ-NETVIEW-03         | 无状态 → 无 active/done                                                         | L4   | `src/components/NetworkView.spec.ts`            |
 | TC-VIZ-MATRIXVIEW-01      | 渲染 4×4 数据单元 + 行列标签 A/B/C/D（C-052）                                   | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-02      | null 单元显示「∞」（初始 6 个）（C-052）                                        | L4   | `src/components/MatrixView.spec.ts`             |
 | TC-VIZ-MATRIXVIEW-03      | pivot=1 → 第 1 行/列 .mx-pivot（7 个）（C-052）                                 | L4   | `src/components/MatrixView.spec.ts`             |
@@ -372,6 +375,8 @@
 | TC-PLAYER-POWER-02        | 排序 step 无 power → 不渲染 PowerView（零回归）                                 | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-HULL-01         | step 含 hull → 渲染 HullView                                                    | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 | TC-PLAYER-HULL-02         | 排序 step 无 hull → 不渲染 HullView（零回归）                                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-NET-01          | step 含 network → 渲染 NetworkView                                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| TC-PLAYER-NET-02          | 排序 step 无 network → 不渲染（零回归）                                         | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
 
 ---
 
@@ -1060,6 +1065,8 @@
 
 > **C-084（M7 计算几何第 4 页 · 新页）**：线段相交——跨立试验：四叉积两两异号 → 规范相交、D=0 补框查相触、同号速判否，全程无除法。**复用 HullView**（additive edgeClasses，见 `TC-VIZ-HULLVIEW-SEG-*`）。segint.module 8 步（三对三结局）+ oracle 手算对拍。HullView 一轨服务四页几何。`TC-SI-MOD-*`+`TC-VIEW-SI-*`+`TC-E2E-SI-01`。
 
+> **C-085（M7 排序阶段三 · 新页 + 新轨）**：双调排序——排序网络：比较器固定与数据无关、同列并行，深度 O(log²n)。**新建第 20 条 NetworkView 比较器网络轨**（wire+值+竖线比较器+流向三角，三态分色，见 `TC-VIZ-NETVIEW-*`/`TC-PLAYER-NET-*`）。bitonic.module 8 步（逐列并行、列 2 双调成形）+ runNetwork 快照对拍 + 200 随机自检。排序 children 15→16。`TC-BN-MOD-*`+`TC-VIEW-BN-*`+`TC-E2E-BN-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1709,3 +1716,19 @@
 | TC-VIEW-SI-02         | h1 含「线段相交」+ HullView + 无柱数组（C-084）                                                    | L4   | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
 | TC-VIEW-SI-03         | 正文含「跨立」+ HullView 同屏（C-084）                                                             | L4   | `src/views/Article/Algorithm/SegmentIntersection.spec.ts` |
 | TC-E2E-SI-01          | 线段相交全模板：三对判定 / 拖末步 4 yes+2 no / Shiki（C-084 新增）                                 | L5   | `e2e/segment-intersection.e2e.ts`                         |
+| TC-BN-MOD-01          | 末步 wires = sorted(输入)（C-085）                                                                 | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-02          | point∈{init,column,done} 带 network（C-085）                                                       | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-03          | 6 列 24 比较器每列 4（C-085）                                                                      | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-04          | 列 0 = ↑↓↑↓（C-085）                                                                               | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-05          | 列 3-5 全 asc 距离 4/2/1（C-085）                                                                  | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-06          | column 6 步 currentCol 0..5（C-085）                                                               | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-07          | 列 2 后完美双调 + caption 提双调（C-085）                                                          | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-08          | 逐列快照对拍 runNetwork（C-085）                                                                   | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-09          | networkSortsAll(200)=true（C-085）                                                                 | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-10          | done caption 含 6 拍与并行（C-085）                                                                | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-11          | 四语言+行号+三执行点（C-085）                                                                      | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-BN-MOD-12          | title 含双调；initialInput=BS_INPUT（C-085）                                                       | L3   | `src/algorithms/bitonic.module.spec.ts`                   |
+| TC-VIEW-BN-01         | Article + AlgorithmPlayer（C-085）                                                                 | L4   | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts`     |
+| TC-VIEW-BN-02         | h1 含双调 + NetworkView + 无柱数组（C-085）                                                        | L4   | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts`     |
+| TC-VIEW-BN-03         | 正文含排序网络 + NetworkView 同屏（C-085）                                                         | L4   | `src/views/Article/SortAlgorithm/BitonicSort.spec.ts`     |
+| TC-E2E-BN-01          | 双调排序全模板：网络 / 拖末步 1..8 + caption 6 / Shiki（C-085 新增）                               | L5   | `e2e/bitonic-sort.e2e.ts`                                 |
