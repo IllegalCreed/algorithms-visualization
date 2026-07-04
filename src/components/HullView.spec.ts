@@ -95,4 +95,23 @@ describe('HullView', () => {
     expect(w.findAll('.seg-no')).toHaveLength(0);
     expect(w.findAll('.seg-test')).toHaveLength(0);
   });
+
+  it('TC-VIZ-HULLVIEW-BO-01 交点标记 marks + markActive（C-088 扫描线求交）', () => {
+    const w = mountIt({
+      ...base,
+      marks: [
+        { x: 2, y: 3 },
+        { x: 4, y: 3 },
+      ],
+      markActive: { x: 4, y: 3 },
+    });
+    expect(w.findAll('.hull-mark')).toHaveLength(2);
+    expect(w.findAll('.hull-mark-active')).toHaveLength(1);
+  });
+
+  it('TC-VIZ-HULLVIEW-BO-02 不设 marks/markActive 则无交点标记（零回归）（C-088）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.hull-mark')).toHaveLength(0);
+    expect(w.findAll('.hull-mark-active')).toHaveLength(0);
+  });
 });

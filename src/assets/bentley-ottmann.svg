@@ -1,0 +1,18 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 扫描线扫过三条线段，交点落红标 -->
+  <rect x="60" y="80" width="904" height="864" rx="36" fill="#eef3ef" stroke="#333" stroke-width="14" />
+  <!-- 三条线段 -->
+  <g stroke-linecap="round">
+    <line x1="140" y1="840" x2="880" y2="180" stroke="#4a90d9" stroke-width="22" />
+    <line x1="180" y1="200" x2="860" y2="760" stroke="#2e7d32" stroke-width="22" />
+    <line x1="200" y1="470" x2="900" y2="470" stroke="#6b7d72" stroke-width="22" />
+  </g>
+  <!-- 扫描线（紫虚线） -->
+  <line x1="560" y1="100" x2="560" y2="924" stroke="#9c6ade" stroke-width="18" stroke-dasharray="40 26" />
+  <!-- 交点红标 -->
+  <g fill="#e03131" stroke="#ffffff" stroke-width="10">
+    <circle cx="516" cy="505" r="34" />
+    <circle cx="418" cy="470" r="34" />
+    <circle cx="700" cy="628" r="34" />
+  </g>
+</svg>

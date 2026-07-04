@@ -364,6 +364,8 @@ export interface HullTrack {
   divider?: number | null; // 分治中线 x（数学坐标，紫竖线，C-083 最近点对）；其它页不设
   strip?: [number, number] | null; // δ 带 x 范围 [lo,hi]（浅紫矩形，C-083）；其它页不设
   edgeClasses?: (string | null)[]; // 与 edges 平行的样式类（seg-test/seg-yes/seg-no，C-084 线段相交）；不设用默认
+  marks?: Pt[]; // 已发现交点标记（红实心点，C-088 扫描线求交）；其它页不设
+  markActive?: Pt | null; // 本步报告的交点（放大 + 琥珀描边，C-088）；其它页不设
 }
 
 /** 凸包执行点（C-081，计算几何大类首发；新建 HullView 点平面轨——Andrew 单调链） */
@@ -378,6 +380,14 @@ export type CalipersExecPoint =
   | 'init' // 展示凸包 + 散点
   | 'spin' // 卡壳推进一条边：对踵点单调前移 + 检查两候选距离
   | 'done'; // 转完一圈，best = 直径
+
+/** 扫描线求交执行点（C-088，计算几何第 5 页；复用 HullView——additive marks/markActive） */
+export type BentleyExecPoint =
+  | 'init' // 展示线段全貌 + 事件队列
+  | 'start' // 起点事件：线段入状态结构，查新相邻对
+  | 'cross' // 交点事件：报告交点，状态结构换序，查新相邻对
+  | 'end' // 终点事件：线段离场
+  | 'done'; // 扫完，输出全部交点
 
 /** 扩展欧几里得执行点（C-086，数学与数论第 5 页；纯复用 MatrixView——回代表） */
 export type ExtGcdExecPoint =

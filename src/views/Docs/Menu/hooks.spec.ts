@@ -26,6 +26,7 @@ describe('Docs/Menu useCategoryData', () => {
       'rotating-calipers',
       'closest-pair',
       'segment-intersection',
+      'bentley-ottmann',
     ]);
     expect(data[6].children.map((c) => c.url)).toEqual([
       'sieve-of-eratosthenes',

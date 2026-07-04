@@ -326,6 +326,10 @@ export function useCategoryData(): Category[] {
           title: '线段相交',
           url: 'segment-intersection',
         },
+        {
+          title: '扫描线求交',
+          url: 'bentley-ottmann',
+        },
       ],
     },
   ];

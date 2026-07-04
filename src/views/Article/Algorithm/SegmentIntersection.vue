@@ -48,8 +48,9 @@ import { segIntModule } from '@/algorithms/segint.module';
     <p>
       有了 O(1) 的相交判定，把 n 条线段的端点按 x
       排序、用一条竖直<strong>扫描线</strong>从左扫到右、动态维护「当前与扫描线相交的线段」的上下邻居关系，就得到求全部交点的
-      <strong>Bentley-Ottmann 扫描线算法</strong>（O((n+k) log
-      n)）——那是这条线的下一站。至此，叉积在本大类里判过<strong>转向</strong>（<router-link
+      <router-link to="/docs/bentley-ottmann"
+        ><strong>Bentley-Ottmann 扫描线算法</strong></router-link
+      >（O((n+k) log n)）。至此，叉积在本大类里判过<strong>转向</strong>（<router-link
         to="/docs/convex-hull"
         >凸包</router-link
       >）、量过<strong>远近</strong>（<router-link to="/docs/rotating-calipers">卡壳</router-link

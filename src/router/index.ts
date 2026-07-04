@@ -295,6 +295,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/SegmentIntersection.vue'),
           },
           {
+            path: '/docs/bentley-ottmann',
+            name: 'bentley-ottmann',
+            component: () => import('../views/Article/Algorithm/BentleyOttmann.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

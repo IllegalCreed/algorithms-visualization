@@ -33,6 +33,7 @@ import ConvexHullIcon from '@/assets/convex-hull.svg';
 import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import ClosestPairIcon from '@/assets/closest-pair.svg';
 import SegmentIntersectionIcon from '@/assets/segment-intersection.svg';
+import BentleyOttmannIcon from '@/assets/bentley-ottmann.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -543,6 +544,12 @@ export function useCategoryData(): Category[] {
           desc: '跨立试验判两线段相交：四个叉积两两异号即规范相交，D=0 补包围框查端点相触；零除法零精度陷阱，O(1)',
           icon: SegmentIntersectionIcon,
           url: 'segment-intersection',
+        },
+        {
+          title: '扫描线求交',
+          desc: 'Bentley-Ottmann 求 n 线段全部交点：事件队列驱动扫描线、状态结构按 y 有序，「相交前必相邻」只查新相邻对，O((n+k) log n)',
+          icon: BentleyOttmannIcon,
+          url: 'bentley-ottmann',
         },
       ],
     },

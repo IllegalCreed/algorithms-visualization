@@ -70,6 +70,16 @@ const bestLine = computed(() => lineOf(props.hull.best));
 const dividerX = computed(() =>
   props.hull.divider != null ? layout.value.sx(props.hull.divider) : null,
 );
+// 扫描线求交（C-088）：已发现交点标记 + 本步报告交点
+const markViews = computed(() => {
+  const { sx, sy } = layout.value;
+  return (props.hull.marks ?? []).map((p) => ({ x: sx(p.x), y: sy(p.y) }));
+});
+const markActiveView = computed(() => {
+  const p = props.hull.markActive;
+  if (!p) return null;
+  return { x: layout.value.sx(p.x), y: layout.value.sy(p.y) };
+});
 const stripRect = computed(() => {
   const st = props.hull.strip;
   if (!st) return null;
@@ -146,6 +156,22 @@ const stripRect = computed(() => {
         :cx="p.x"
         :cy="p.y"
         r="7"
+      />
+      <!-- 扫描线求交（C-088）：交点标记（顶层） -->
+      <circle
+        v-for="(m, i) in markViews"
+        :key="`mk-${i}`"
+        class="hull-mark"
+        :cx="m.x"
+        :cy="m.y"
+        r="5.5"
+      />
+      <circle
+        v-if="markActiveView"
+        class="hull-mark-active"
+        :cx="markActiveView.x"
+        :cy="markActiveView.y"
+        r="9"
       />
     </svg>
   </div>
@@ -228,5 +254,16 @@ svg {
   stroke: #9c6ade;
   stroke-width: 2.5;
   stroke-dasharray: 8 5;
+}
+/* 扫描线求交（C-088）：已发现交点红标 / 本步报告交点放大 + 琥珀描边 */
+.hull-mark {
+  fill: #e03131;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+.hull-mark-active {
+  fill: #e03131;
+  stroke: #f0a000;
+  stroke-width: 3.5;
 }
 </style>
