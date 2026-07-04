@@ -19,7 +19,7 @@ describe('Docs/Menu useCategoryData', () => {
     expect(data[3].title).toBe('动态规划');
     expect(data[4].title).toBe('回溯与搜索');
     expect(data[5].title).toBe('字符串');
-    expect(data[2].children).toHaveLength(7);
+    expect(data[2].children).toHaveLength(8);
     expect(data[2].children.map((c) => c.url)).toEqual([
       'dijkstra',
       'kruskal',
@@ -28,6 +28,7 @@ describe('Docs/Menu useCategoryData', () => {
       'topological-sort',
       'floyd-warshall',
       'scc',
+      'two-sat',
     ]);
     expect(data[3].children.map((c) => c.url)).toEqual([
       'edit-distance',

@@ -76,4 +76,18 @@ describe('GraphView', () => {
     expect(w.findAll('.on-stack')).toHaveLength(1);
     expect(w.findAll('.graph-node')[1].classes()).toContain('on-stack');
   });
+
+  it('TC-VIZ-GRAPHVIEW-CHECK-01 checkPair 高亮一对文字节点（C-074）', () => {
+    const w = mountIt({ ...base, checkPair: [0, 1] });
+    const nodes = w.findAll('.graph-node');
+    expect(w.findAll('.checking')).toHaveLength(2);
+    expect(nodes[0].classes()).toContain('checking');
+    expect(nodes[1].classes()).toContain('checking');
+    expect(nodes[2].classes()).not.toContain('checking');
+  });
+
+  it('TC-VIZ-GRAPHVIEW-CHECK-02 不设 checkPair 则无 .checking（零回归）（C-074）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.checking')).toHaveLength(0);
+  });
 });

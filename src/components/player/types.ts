@@ -229,6 +229,7 @@ export interface GraphTrack {
   edgeClass?: Record<string, string>; // 边 key → 状态类（relaxed/tree（Dijkstra）| current/mst/rejected（Kruskal））
   nodeGroup?: (number | null)[]; // 每节点分组号 → 调色板填充（SCC 着色，C-069）；null=未归组（中性灰）；其它算法不设 → 用默认绿
   stackNodes?: number[]; // 当前在栈上的节点（虚线琥珀环）——Tarjan 栈（C-069）；其它算法不设
+  checkPair?: [number, number] | null; // 判定阶段高亮的一对文字节点 x/¬x（蓝实线环，C-074 2-SAT）；其它算法不设
 }
 
 /** Tarjan 强连通分量执行点（C-069，图算法第 7 页；扩展 GraphView——一趟 DFS + dfn/low + 栈） */
@@ -238,6 +239,15 @@ export type TarjanExecPoint =
   | 'back' // 遇到指向栈中节点的回边：low = min(low, dfn[邻])
   | 'scc' // low==dfn 是 SCC 根 → 弹栈到本节点，形成一个 SCC（着色）
   | 'done'; // 全部访问完，共 N 个强连通分量
+
+/** 2-SAT 执行点（C-074，图算法第 8 页；复用 GraphView——蕴含图 + Tarjan SCC 判定 + 逆拓扑序赋值） */
+export type TwoSatExecPoint =
+  | 'init' // 列出子句 + 2n 文字节点，蕴含图空
+  | 'clause' // 处理一条子句 (a∨b)：加两条蕴含边 ¬a→b、¬b→a（高亮）
+  | 'scc' // Tarjan 弹出一个强连通分量（复用第 7 页），着色 nodeGroup
+  | 'check' // 检查变量 x：x 与 ¬x 是否同 SCC（同→无解；本例都不同 → 可满足）
+  | 'assign' // 赋值 x = comp[x] < comp[¬x]，node badge 显示真/假
+  | 'done'; // 全部变量赋值完成，输出可满足解
 
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {

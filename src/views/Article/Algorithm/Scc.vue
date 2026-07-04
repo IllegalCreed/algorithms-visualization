@@ -49,7 +49,8 @@ import { sccModule } from '@/algorithms/scc.module';
     <Callout>
       <b>缩点</b>：把每个 SCC 缩成一点得到 DAG，再在 DAG 上跑
       <router-link to="/docs/topological-sort">拓扑排序</router-link> / DP。<br />
-      <b>2-SAT</b>：布尔约束可满足性判定，靠 SCC 判断 x 与 ¬x 是否同组。<br />
+      <b><router-link to="/docs/two-sat">2-SAT</router-link></b
+      >：布尔约束可满足性判定，靠 SCC 判断 x 与 ¬x 是否同组。<br />
       <b>依赖 / 死锁检测</b>：有向环 = 循环依赖，SCC 一次找出所有环。
     </Callout>
     <p>

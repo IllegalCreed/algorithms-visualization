@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 文字节点：上排正文字（蓝）/ 下排负文字（橙），蕴含边相连 -->
+  <!-- 蕴含边（有向） -->
+  <g fill="none" stroke="#333333" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="300" y1="300" x2="560" y2="560" />
+    <polyline points="520 546 566 566 546 520" />
+    <line x1="560" y1="300" x2="300" y2="560" />
+    <polyline points="340 520 294 566 314 606" transform="translate(0,-46)" />
+  </g>
+  <!-- 上排正文字节点（真，蓝） -->
+  <g stroke="#333333" stroke-width="16">
+    <circle cx="290" cy="290" r="86" fill="#a5d8ff" />
+    <circle cx="570" cy="290" r="86" fill="#a5d8ff" />
+  </g>
+  <!-- 下排负文字节点（假，橙） -->
+  <g stroke="#333333" stroke-width="16">
+    <circle cx="290" cy="570" r="86" fill="#ffd8a8" />
+    <circle cx="570" cy="570" r="86" fill="#ffd8a8" />
+  </g>
+  <!-- 可满足对勾（绿） -->
+  <g fill="none" stroke="#2e7d32" stroke-width="70" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="660 660 760 770 940 520" />
+  </g>
+</svg>

@@ -165,6 +165,10 @@ export function useCategoryData(): Category[] {
           title: '强连通分量',
           url: 'scc',
         },
+        {
+          title: '2-SAT',
+          url: 'two-sat',
+        },
       ],
     },
     {

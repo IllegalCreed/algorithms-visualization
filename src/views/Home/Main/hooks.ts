@@ -21,6 +21,7 @@ import BellmanIcon from '@/assets/bellman.svg';
 import TopoIcon from '@/assets/topo.svg';
 import FloydIcon from '@/assets/floyd.svg';
 import SccIcon from '@/assets/scc.svg';
+import TwoSatIcon from '@/assets/two-sat.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -295,6 +296,12 @@ export function useCategoryData(): Category[] {
           desc: '有向图里两两互相可达的极大集合：Tarjan 一趟 DFS，用 dfn/low + 栈，low==dfn 即一个 SCC 的根，O(V+E)',
           icon: SccIcon,
           url: 'scc',
+        },
+        {
+          title: '2-SAT',
+          desc: '布尔可满足性：子句 (a∨b) 翻成蕴含边 ¬a→b/¬b→a，跑 Tarjan 求 SCC，x 与 ¬x 同组即无解，否则按逆拓扑序赋值，O(V+E)',
+          icon: TwoSatIcon,
+          url: 'two-sat',
         },
       ],
     },

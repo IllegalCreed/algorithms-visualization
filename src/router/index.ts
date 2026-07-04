@@ -130,6 +130,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Scc.vue'),
           },
           {
+            path: '/docs/two-sat',
+            name: 'two-sat',
+            component: () => import('../views/Article/Algorithm/TwoSat.vue'),
+          },
+          {
             path: '/docs/edit-distance',
             name: 'edit-distance',
             component: () => import('../views/Article/Algorithm/Edit.vue'),

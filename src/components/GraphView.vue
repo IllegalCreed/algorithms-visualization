@@ -42,6 +42,10 @@ const badgeOf = (id: number) => props.graph.nodeBadge?.[id] ?? null;
 // SCC 分组着色（C-069）：一组一色，未归组中性灰；不设 nodeGroup 时用默认绿（CSS）
 const GROUP_PALETTE = ['#a5d8ff', '#ffd8a8', '#b2f2bb', '#ffc9c9', '#d0bfff', '#ffec99'];
 const isOnStack = (id: number) => props.graph.stackNodes?.includes(id) ?? false;
+// 2-SAT 判定阶段（C-074）：当前检查的一对文字节点 x/¬x → 蓝实线环
+const isChecking = (id: number) =>
+  props.graph.checkPair != null &&
+  (props.graph.checkPair[0] === id || props.graph.checkPair[1] === id);
 const groupStyle = (id: number): Record<string, string> | undefined => {
   const groups = props.graph.nodeGroup;
   if (!groups) return undefined;
@@ -79,6 +83,7 @@ const groupStyle = (id: number): Record<string, string> | undefined => {
             done: isDone(v.id),
             active: graph.activeNode === v.id,
             'on-stack': isOnStack(v.id),
+            checking: isChecking(v.id),
           }"
           :transform="`translate(${v.x},${v.y})`"
         >
@@ -170,5 +175,10 @@ svg {
 .graph-node.active circle {
   stroke: #f0a000;
   stroke-dasharray: none;
+}
+.graph-node.checking circle {
+  stroke: #4a90d9;
+  stroke-dasharray: none;
+  stroke-width: 4;
 }
 </style>
