@@ -1081,6 +1081,8 @@
 
 > **C-092（M8 查找第 2 页 · 新页）**：二分边界 lower/upper bound——半开区间 [lo,hi) 两分支模板、相遇点即答案；等值区间 [lb,ub) 计数、不存在时优雅退化；单调谓词抽象为二分答案铺路。**纯复用主柱轨（同 C-091）**，hi=n 哨兵位省略黄箭头。bbound.module 14 步 + bruteLb/bruteUb 对拍。`TC-BB-MOD-*`+`TC-VIEW-BB-*`+`TC-E2E-BB-01`。
 
+> **C-093（M8 查找第 3 页 · 新页）**：旋转数组搜索——断崖上的二分：mid 切两半至少一半完好有序（a[lo]≤a[mid] 判半），看目标在不在有序半范围决定去留，仍 O(log n)；重复元素退化坑。**纯复用主柱轨（同 C-091/092）**，断崖造型数据天然呈现。rotsearch.module 8 步 + rotTrace 全记录对拍。`TC-RS-MOD-*`+`TC-VIEW-RS-*`+`TC-E2E-RS-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1860,3 +1862,19 @@
 | TC-VIEW-BB-02         | h1 含边界 + BarsView 主柱轨（C-092）                                                               | L4   | `src/views/Article/Algorithm/BinaryBounds.spec.ts`        |
 | TC-VIEW-BB-03         | 正文含 lower 与半开（C-092）                                                                       | L4   | `src/views/Article/Algorithm/BinaryBounds.spec.ts`        |
 | TC-E2E-BB-01          | 二分边界全模板：主柱轨 / 拖末步 O(log n) / Shiki（C-092 新增）                                     | L5   | `e2e/binary-bounds.e2e.ts`                                |
+| TC-RS-MOD-01          | 5→idx5、15→idx1 = 线性扫（C-093）                                                                  | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-02          | t=5 轨迹 right/in→left/in + HIT(5,5,5)（C-093）                                                    | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-03          | t=15 轨迹 right/not-in + HIT(0,3,1)（C-093）                                                       | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-04          | point 四集；9 柱断崖恒序（C-093）                                                                  | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-05          | 8 步 point 序列全等（C-093）                                                                       | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-06          | probe pivotIndex 4,6,4 + 闭区间收缩（C-093）                                                       | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-07          | 判半 caption 左半/右半有序都现身（C-093）                                                          | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-08          | found sortedIndices [5]/[1] + 命中（C-093）                                                        | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-09          | probe vars 含有序半标注（C-093）                                                                   | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-10          | done 含 O(log n) 与一半引理（C-093）                                                               | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-11          | 四语言+行号+四执行点（C-093）                                                                      | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-RS-MOD-12          | title 含旋转；断崖恰一处下降（C-093）                                                              | L3   | `src/algorithms/rotsearch.module.spec.ts`                 |
+| TC-VIEW-RS-01         | Article + AlgorithmPlayer（C-093）                                                                 | L4   | `src/views/Article/Algorithm/RotatedSearch.spec.ts`       |
+| TC-VIEW-RS-02         | h1 含旋转 + BarsView 主柱轨（C-093）                                                               | L4   | `src/views/Article/Algorithm/RotatedSearch.spec.ts`       |
+| TC-VIEW-RS-03         | 正文含断崖与有序（C-093）                                                                          | L4   | `src/views/Article/Algorithm/RotatedSearch.spec.ts`       |
+| TC-E2E-RS-01          | 旋转数组搜索全模板：断崖柱轨 / 拖末步 O(log n) / Shiki（C-093 新增）                               | L5   | `e2e/rotated-search.e2e.ts`                               |

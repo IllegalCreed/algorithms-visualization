@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **990** 个用例。运行命令：`pnpm test:unit`
+共 **1002** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1469,12 +1469,24 @@
 | TC-BB-MOD-10    | done 含 ub − lb 与 O(log n)                                             | `src/algorithms/bbound.module.spec.ts`      |
 | TC-BB-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/bbound.module.spec.ts`      |
 | TC-BB-MOD-12    | title 含边界；initialInput 含重复升序                                   | `src/algorithms/bbound.module.spec.ts`      |
+| TC-RS-MOD-01    | 5→idx5、15→idx1 = 线性扫                                                | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-02    | t=5 轨迹 right/in→left/in + HIT(5,5,5)                                  | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-03    | t=15 轨迹 right/not-in + HIT(0,3,1)                                     | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-04    | point 四集；9 柱断崖恒序                                                | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-05    | 8 步 point 序列全等                                                     | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-06    | probe pivotIndex 4,6,4 + 闭区间收缩                                     | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-07    | 判半 caption 左半/右半有序都现身                                        | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-08    | found sortedIndices [5]/[1] + 命中                                      | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-09    | probe vars 含有序半标注                                                 | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-10    | done 含 O(log n) 与一半引理                                             | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-12    | title 含旋转；断崖恰一处下降                                            | `src/algorithms/rotsearch.module.spec.ts`   |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **548** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **551** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2521,6 +2533,14 @@
 | TC-VIEW-BB-02 | h1 含边界 + BarsView 主柱轨 | `src/views/Article/Algorithm/BinaryBounds.spec.ts` |
 | TC-VIEW-BB-03 | 正文含 lower 与半开         | `src/views/Article/Algorithm/BinaryBounds.spec.ts` |
 
+### 旋转数组搜索页 C-093（查找第 3 页，新页，纯复用主柱轨）
+
+| 用例 ID       | 场景                        | 文件                                                |
+| ------------- | --------------------------- | --------------------------------------------------- |
+| TC-VIEW-RS-01 | Article + AlgorithmPlayer   | `src/views/Article/Algorithm/RotatedSearch.spec.ts` |
+| TC-VIEW-RS-02 | h1 含旋转 + BarsView 主柱轨 | `src/views/Article/Algorithm/RotatedSearch.spec.ts` |
+| TC-VIEW-RS-03 | 正文含断崖与有序            | `src/views/Article/Algorithm/RotatedSearch.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2531,7 +2551,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **84** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **85** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2620,6 +2640,7 @@
 | TC-E2E-MR-01        | 米勒-拉宾全模板：平方链表 / 拖末步 1/4 概率语义 / Shiki（C-090 新增）                                                      | `e2e/miller-rabin.e2e.ts`          | active     |
 | TC-E2E-BS-01        | 二分查找全模板：主柱轨 + 三箭头 / 拖末步 O(log n) / Shiki（C-091 新增）                                                    | `e2e/binary-search.e2e.ts`         | active     |
 | TC-E2E-BB-01        | 二分边界全模板：主柱轨 / 拖末步 O(log n) / Shiki（C-092 新增）                                                             | `e2e/binary-bounds.e2e.ts`         | active     |
+| TC-E2E-RS-01        | 旋转数组搜索全模板：断崖柱轨 / 拖末步 O(log n) / Shiki（C-093 新增）                                                       | `e2e/rotated-search.e2e.ts`        | active     |
 
 ---
 
