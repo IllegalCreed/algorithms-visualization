@@ -235,6 +235,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/LcpArray.vue'),
           },
           {
+            path: '/docs/aho-corasick',
+            name: 'aho-corasick',
+            component: () => import('../views/Article/Algorithm/AhoCorasick.vue'),
+          },
+          {
             path: '/docs/bubble-sort',
             name: 'bubble-sort',
             component: () => import('../views/Article/SortAlgorithm/BubbleSort.vue'),

@@ -42,6 +42,7 @@ import BoyerMooreIcon from '@/assets/boyermoore.svg';
 import ManacherIcon from '@/assets/manacher.svg';
 import SuffixArrayIcon from '@/assets/suffix-array.svg';
 import LcpArrayIcon from '@/assets/lcp-array.svg';
+import AhoCorasickIcon from '@/assets/aho-corasick.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import SelectionIcon from '@/assets/selection.svg';
@@ -440,6 +441,12 @@ export function useCategoryData(): Category[] {
           desc: '相邻后缀最长公共前缀：Kasai O(n)，按原始下标处理、h 去首字符至多减 1，一趟求最长重复子串/不同子串数',
           icon: LcpArrayIcon,
           url: 'lcp-array',
+        },
+        {
+          title: 'AC 自动机',
+          desc: '多模式匹配 Aho-Corasick：所有模式塞进 Trie + fail 指针（KMP 的 π 的多模式推广），一趟扫文本报出所有命中含重叠，O(n+m+z)',
+          icon: AhoCorasickIcon,
+          url: 'aho-corasick',
         },
       ],
     },

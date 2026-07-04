@@ -249,6 +249,14 @@ export type TwoSatExecPoint =
   | 'assign' // 赋值 x = comp[x] < comp[¬x]，node badge 显示真/假
   | 'done'; // 全部变量赋值完成，输出可满足解
 
+/** AC 自动机 Aho-Corasick 执行点（C-075，字符串第 7 页；复用 GraphView——Trie 状态 + fail 边 + 多模式匹配） */
+export type AcExecPoint =
+  | 'insert' // 建 Trie：插入一个模式（节点 + trie 边浮现）
+  | 'fail' // BFS 建 fail：算一个状态的 fail 指针（非平凡的画虚线 fail 边）
+  | 'match' // 匹配：文本走一个字符（含沿 fail 跳）
+  | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
+  | 'done'; // 匹配结束，汇总所有命中
+
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
   labels: string[]; // 行/列标签（方阵：节点名 A,B,C,D；缺省行列标签时双用）

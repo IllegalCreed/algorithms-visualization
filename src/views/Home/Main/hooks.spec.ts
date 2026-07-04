@@ -40,6 +40,7 @@ describe('Home/Main useCategoryData', () => {
       'manacher',
       'suffix-array',
       'lcp-array',
+      'aho-corasick',
     ]);
   });
 

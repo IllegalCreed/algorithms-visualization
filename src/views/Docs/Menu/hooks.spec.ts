@@ -55,6 +55,7 @@ describe('Docs/Menu useCategoryData', () => {
       'manacher',
       'suffix-array',
       'lcp-array',
+      'aho-corasick',
     ]);
   });
 

@@ -90,4 +90,16 @@ describe('GraphView', () => {
     const w = mountIt(base);
     expect(w.findAll('.checking')).toHaveLength(0);
   });
+
+  it('TC-VIZ-GRAPHVIEW-FAIL-01 edgeClass fail → 边带 .fail 类（C-075 AC 自动机）', () => {
+    const w = mountIt({ ...base, edgeClass: { '0-1': 'fail' } });
+    const edges = w.findAll('.graph-edge');
+    expect(edges[0].classes()).toContain('fail'); // '0-1'
+    expect(edges[1].classes()).not.toContain('fail');
+  });
+
+  it('TC-VIZ-GRAPHVIEW-FAIL-02 无 fail 类的边不带 .fail（零回归）（C-075）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.graph-edge.fail')).toHaveLength(0);
+  });
 });

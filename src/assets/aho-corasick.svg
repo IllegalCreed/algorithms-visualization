@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- Trie 结构（实线）：root 分两支 -->
+  <g fill="none" stroke="#333333" stroke-width="16" stroke-linecap="round">
+    <line x1="512" y1="150" x2="320" y2="330" />
+    <line x1="512" y1="150" x2="704" y2="330" />
+    <line x1="320" y1="330" x2="320" y2="530" />
+    <line x1="704" y1="330" x2="704" y2="530" />
+    <line x1="320" y1="530" x2="320" y2="730" />
+  </g>
+  <!-- fail 指针（虚线紫，跨分支）：右支 → 左支 -->
+  <g fill="none" stroke="#9c6ade" stroke-width="14" stroke-dasharray="26 18" stroke-linecap="round">
+    <path d="M660 500 Q470 470 366 360" />
+  </g>
+  <polygon points="360 342 372 380 400 352" fill="#9c6ade" />
+  <!-- 状态节点 -->
+  <g stroke="#333333" stroke-width="16">
+    <circle cx="512" cy="150" r="66" fill="#d0bfff" />
+    <circle cx="320" cy="330" r="66" fill="#a5d8ff" />
+    <circle cx="704" cy="330" r="66" fill="#a5d8ff" />
+    <circle cx="320" cy="530" r="66" fill="#a5d8ff" />
+    <circle cx="704" cy="530" r="66" fill="#a5d8ff" />
+    <circle cx="320" cy="730" r="66" fill="#b2f2bb" />
+  </g>
+</svg>

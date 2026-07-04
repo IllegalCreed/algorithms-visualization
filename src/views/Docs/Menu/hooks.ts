@@ -264,6 +264,10 @@ export function useCategoryData(): Category[] {
           title: 'LCP / height 数组',
           url: 'lcp-array',
         },
+        {
+          title: 'AC 自动机',
+          url: 'aho-corasick',
+        },
       ],
     },
   ];

@@ -62,7 +62,8 @@ import { kmpModule } from '@/algorithms/kmp.module';
       KMP
       是字符串匹配的基石。同一族里还有：<strong>Rabin-Karp</strong>（滚动哈希）、<strong>Boyer-Moore</strong>（从右往左比
       + 坏字符/好后缀跳更远）、以及多模式的
-      <strong>AC 自动机</strong>——都是「用预处理换匹配时的跳跃」这一思想的不同展开。
+      <strong><router-link to="/docs/aho-corasick">AC 自动机</router-link></strong
+      >——都是「用预处理换匹配时的跳跃」这一思想的不同展开。
     </p>
   </Article>
 </template>

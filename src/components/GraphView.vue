@@ -136,6 +136,12 @@ svg {
   stroke: #d9a0a0;
   stroke-dasharray: 4 3;
 }
+/* AC 自动机 fail 边（C-075）：虚线紫，区别于 trie 边（默认灰实线）/ 当前边（current 琥珀） */
+.graph-edge.fail line {
+  stroke: #9c6ade;
+  stroke-width: 2.5;
+  stroke-dasharray: 6 4;
+}
 .graph-node {
   circle {
     fill: #8bd3a0;
