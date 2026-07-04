@@ -46,4 +46,25 @@ describe('HullView', () => {
     });
     expect(w.find('.hull-polygon').exists()).toBe(true);
   });
+
+  it('TC-VIZ-HULLVIEW-CAL-01 卡壳三连线：activeEdge/caliper/best（C-082）', () => {
+    const w = mountIt({
+      ...base,
+      phase: 'done',
+      finalHull: [0, 1, 4, 6, 5, 2],
+      activeEdge: [0, 1],
+      caliper: [0, 6],
+      best: [0, 6],
+    });
+    expect(w.findAll('.hull-active-edge')).toHaveLength(1);
+    expect(w.findAll('.hull-caliper')).toHaveLength(1);
+    expect(w.findAll('.hull-best')).toHaveLength(1);
+  });
+
+  it('TC-VIZ-HULLVIEW-CAL-02 不设三字段则无卡壳连线（凸包页零回归）（C-082）', () => {
+    const w = mountIt(base);
+    expect(w.findAll('.hull-active-edge')).toHaveLength(0);
+    expect(w.findAll('.hull-caliper')).toHaveLength(0);
+    expect(w.findAll('.hull-best')).toHaveLength(0);
+  });
 });

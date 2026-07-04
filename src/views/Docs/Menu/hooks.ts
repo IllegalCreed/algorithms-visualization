@@ -302,6 +302,10 @@ export function useCategoryData(): Category[] {
           title: '凸包',
           url: 'convex-hull',
         },
+        {
+          title: '旋转卡壳',
+          url: 'rotating-calipers',
+        },
       ],
     },
   ];

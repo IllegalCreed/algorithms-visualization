@@ -49,6 +49,21 @@ const polygonPoints = computed(() => {
   if (props.hull.phase !== 'done' || !props.hull.finalHull) return '';
   return props.hull.finalHull.map((i) => `${screen.value[i].x},${screen.value[i].y}`).join(' ');
 });
+
+// 旋转卡壳三连线（C-082）：当前边 / 候选点对 / 最优点对
+const lineOf = (pair: [number, number] | null | undefined) => {
+  if (!pair) return null;
+  const [a, b] = pair;
+  return {
+    x1: screen.value[a].x,
+    y1: screen.value[a].y,
+    x2: screen.value[b].x,
+    y2: screen.value[b].y,
+  };
+};
+const activeEdgeLine = computed(() => lineOf(props.hull.activeEdge));
+const caliperLine = computed(() => lineOf(props.hull.caliper));
+const bestLine = computed(() => lineOf(props.hull.best));
 </script>
 
 <template>
@@ -65,6 +80,31 @@ const polygonPoints = computed(() => {
         :y1="e.y1"
         :x2="e.x2"
         :y2="e.y2"
+      />
+      <!-- 旋转卡壳三连线（C-082）：最优绿 / 候选蓝虚线 / 当前边琥珀 -->
+      <line
+        v-if="bestLine"
+        class="hull-best"
+        :x1="bestLine.x1"
+        :y1="bestLine.y1"
+        :x2="bestLine.x2"
+        :y2="bestLine.y2"
+      />
+      <line
+        v-if="caliperLine"
+        class="hull-caliper"
+        :x1="caliperLine.x1"
+        :y1="caliperLine.y1"
+        :x2="caliperLine.x2"
+        :y2="caliperLine.y2"
+      />
+      <line
+        v-if="activeEdgeLine"
+        class="hull-active-edge"
+        :x1="activeEdgeLine.x1"
+        :y1="activeEdgeLine.y1"
+        :x2="activeEdgeLine.x2"
+        :y2="activeEdgeLine.y2"
       />
       <!-- 散点 -->
       <circle
@@ -118,5 +158,22 @@ svg {
 .hull-point.hull-popped {
   fill: #e03131;
   r: 9;
+}
+/* 旋转卡壳（C-082）：当前边琥珀粗线 / 候选蓝虚线 / 最优绿粗线 */
+.hull-active-edge {
+  stroke: #f0a000;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.hull-caliper {
+  stroke: #4a90d9;
+  stroke-width: 2.5;
+  stroke-dasharray: 6 4;
+  stroke-linecap: round;
+}
+.hull-best {
+  stroke: #2e7d32;
+  stroke-width: 4;
+  stroke-linecap: round;
 }
 </style>

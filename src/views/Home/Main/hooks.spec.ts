@@ -15,7 +15,7 @@ describe('Home/Main useCategoryData', () => {
     expect(data[5].title).toBe('字符串');
     expect(data[6].title).toBe('数学与数论');
     expect(data[7].title).toBe('计算几何');
-    expect(data[7].children.map((c) => c.url)).toEqual(['convex-hull']);
+    expect(data[7].children.map((c) => c.url)).toEqual(['convex-hull', 'rotating-calipers']);
     expect(data[6].children.map((c) => c.url)).toEqual([
       'sieve-of-eratosthenes',
       'linear-sieve',

@@ -28,6 +28,7 @@ import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import GcdIcon from '@/assets/gcd.svg';
 import FastPowerIcon from '@/assets/fast-power.svg';
 import ConvexHullIcon from '@/assets/convex-hull.svg';
+import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import EditIcon from '@/assets/editdist.svg';
 import KnapsackIcon from '@/assets/knapsack.svg';
 import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
@@ -501,6 +502,12 @@ export function useCategoryData(): Category[] {
           desc: 'Andrew 单调链求凸包：按坐标排序，叉积判左转/右转，非左转就弹栈，下凸壳 + 上凸壳套住所有点，O(n log n)',
           icon: ConvexHullIcon,
           url: 'convex-hull',
+        },
+        {
+          title: '旋转卡壳',
+          desc: '两块平行卡板夹凸包转一圈求直径：每条边的对踵点只单调前移（面积比较），每边查两候选距离，O(n) 得最远点对',
+          icon: RotatingCalipersIcon,
+          url: 'rotating-calipers',
         },
       ],
     },

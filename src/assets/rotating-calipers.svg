@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 凸包多边形 + 两块平行卡板 + 最远点对绿线 -->
+  <polygon points="220,560 380,780 660,740 820,460 600,220 320,300"
+    fill="rgba(139,211,160,0.30)" stroke="#2e7d32" stroke-width="18" stroke-linejoin="round" />
+  <!-- 平行卡板（琥珀两条平行线） -->
+  <g stroke="#f0a000" stroke-width="22" stroke-linecap="round">
+    <line x1="120" y1="700" x2="560" y2="920" />
+    <line x1="460" y1="100" x2="900" y2="320" />
+  </g>
+  <!-- 最远点对（绿粗线 + 点） -->
+  <line x1="380" y1="780" x2="600" y2="220" stroke="#1f5e3a" stroke-width="20" stroke-dasharray="34 22" stroke-linecap="round" />
+  <g fill="#333333">
+    <circle cx="220" cy="560" r="30" />
+    <circle cx="660" cy="740" r="30" />
+    <circle cx="820" cy="460" r="30" />
+    <circle cx="320" cy="300" r="30" />
+  </g>
+  <g fill="#1f5e3a">
+    <circle cx="380" cy="780" r="38" />
+    <circle cx="600" cy="220" r="38" />
+  </g>
+</svg>

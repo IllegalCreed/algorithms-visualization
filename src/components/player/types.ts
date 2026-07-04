@@ -358,6 +358,9 @@ export interface HullTrack {
   popped?: number[]; // 本步被弹出的点下标（红）
   phase: 'lower' | 'upper' | 'done';
   finalHull?: number[]; // 完整凸包下标（done）
+  activeEdge?: [number, number] | null; // 当前卡壳边（琥珀粗线，C-082 旋转卡壳）；凸包页不设
+  caliper?: [number, number] | null; // 当前候选点对（蓝虚线，C-082）；凸包页不设
+  best?: [number, number] | null; // 当前最优点对（绿粗线，C-082/C-083）；凸包页不设
 }
 
 /** 凸包执行点（C-081，计算几何大类首发；新建 HullView 点平面轨——Andrew 单调链） */
@@ -366,6 +369,12 @@ export type HullExecPoint =
   | 'lower' // 构下凸壳：加一个点（含右转弹栈）
   | 'upper' // 构上凸壳：加一个点
   | 'done'; // 下 + 上凸壳拼成完整凸包
+
+/** 旋转卡壳执行点（C-082，计算几何第 2 页；复用 HullView——凸包直径/最远点对） */
+export type CalipersExecPoint =
+  | 'init' // 展示凸包 + 散点
+  | 'spin' // 卡壳推进一条边：对踵点单调前移 + 检查两候选距离
+  | 'done'; // 转完一圈，best = 直径
 
 /** 矩阵轨快照——通用矩阵原语：Floyd 全源最短路（方阵 + labels 双用）/ DP 填表（行列异标签 + 空白未填） */
 export interface MatrixTrack {
