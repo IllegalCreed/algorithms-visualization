@@ -1089,6 +1089,8 @@
 
 > **C-096（M8 回溯与搜索第 9 页 · 新页）**：A* 寻路——f=g+h 启发式搜索：每次扩展 f 最小格，h 可采纳（曼哈顿）保证最优；4×6 L 墙实例扩展 10 vs BFS 22、路径 8 = BFS 最短双对拍。**纯复用 MazeView 第 4 消费者零改动**（letters 复用为 f 值标注）。astar.module 13 步 + tie-break 全确定扩展序。`TC-AS-MOD-*`+`TC-VIEW-AS-\*`+`TC-E2E-AS-01`。
 
+> **C-097（M8 图算法第 10 页 · 新页）**：二分图匹配·匈牙利算法——逐左点找增广路：空闲定下、被占问让路，成功整条翻转；O(V·E)、König、单位容量最大流特例。**纯复用 GraphView 零改动**（两列布局 + current/mst/rejected + badge）。hungarian.module 12 步 + bruteMaxMatching 枚举对拍。`TC-HG-MOD-*`+`TC-VIEW-HG-*`+`TC-E2E-HG-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1932,3 +1934,19 @@
 | TC-VIEW-AS-02         | h1 含 A\* + MazeView + 无柱数组（C-096）                                                           | L4   | `src/views/Article/Algorithm/Astar.spec.ts`               |
 | TC-VIEW-AS-03         | 正文含启发与 f = g + h（C-096）                                                                    | L4   | `src/views/Article/Algorithm/Astar.spec.ts`               |
 | TC-E2E-AS-01          | A\* 寻路全模板：迷宫轨 f 值 / 拖末步 10 vs 22 / Shiki（C-096 新增）                                | L5   | `e2e/astar.e2e.ts`                                        |
+| TC-HG-MOD-01          | 匹配 3 = 暴力枚举；matchR=[1,0,2]（C-097）                                                         | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-02          | 事件流 15 项全等（增广双 match/死路双 fail）（C-097）                                              | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-03          | point 五集 + graph + array 空（C-097）                                                             | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-04          | 12 步序列全等（连续 match 合并）（C-097）                                                          | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-05          | try current + activeNode + 让路语义（C-097）                                                       | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-06          | match 全 mst；增广双边同时绿（C-097）                                                              | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-07          | fail rejected + 死路回退语义（C-097）                                                              | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-08          | badge ←L? 翻转后更新（C-097）                                                                      | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-09          | doneNodes 2→4→6 递增（C-097）                                                                      | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-10          | done 含 3 与最大流语义（C-097）                                                                    | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-11          | 四语言+行号+五执行点（C-097）                                                                      | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-HG-MOD-12          | title 含匈牙利；两列布局（C-097）                                                                  | L3   | `src/algorithms/hungarian.module.spec.ts`                 |
+| TC-VIEW-HG-01         | Article + AlgorithmPlayer（C-097）                                                                 | L4   | `src/views/Article/Algorithm/Hungarian.spec.ts`           |
+| TC-VIEW-HG-02         | h1 含匈牙利 + GraphView + 无柱数组（C-097）                                                        | L4   | `src/views/Article/Algorithm/Hungarian.spec.ts`           |
+| TC-VIEW-HG-03         | 正文含增广与二分图（C-097）                                                                        | L4   | `src/views/Article/Algorithm/Hungarian.spec.ts`           |
+| TC-E2E-HG-01          | 匈牙利全模板：二分图轨 / 拖末步匹配 3 / Shiki（C-097 新增）                                        | L5   | `e2e/hungarian.e2e.ts`                                    |

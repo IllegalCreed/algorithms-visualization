@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1038** 个用例。运行命令：`pnpm test:unit`
+共 **1050** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1517,12 +1517,24 @@
 | TC-AS-MOD-10    | done 含 10 与 22 与高估语义                                             | `src/algorithms/astar.module.spec.ts`       |
 | TC-AS-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/astar.module.spec.ts`       |
 | TC-AS-MOD-12    | title 含 A\*；mark=🧭                                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-HG-MOD-01    | 匹配 3 = 暴力枚举；matchR=[1,0,2]                                       | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-02    | 事件流 15 项全等（增广双 match/死路双 fail）                            | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-03    | point 五集 + graph + array 空                                           | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-04    | 12 步序列全等（连续 match 合并）                                        | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-05    | try current + activeNode + 让路语义                                     | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-06    | match 全 mst；增广双边同时绿                                            | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-07    | fail rejected + 死路回退语义                                            | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-08    | badge ←L? 翻转后更新                                                    | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-09    | doneNodes 2→4→6 递增                                                    | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-10    | done 含 3 与最大流语义                                                  | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-12    | title 含匈牙利；两列布局                                                | `src/algorithms/hungarian.module.spec.ts`   |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **560** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **563** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2601,6 +2613,14 @@
 | TC-VIEW-AS-02 | h1 含 A\* + MazeView + 无柱数组 | `src/views/Article/Algorithm/Astar.spec.ts` |
 | TC-VIEW-AS-03 | 正文含启发与 f = g + h          | `src/views/Article/Algorithm/Astar.spec.ts` |
 
+### 匈牙利算法页 C-097（图算法第 10 页，新页，纯复用 GraphView）
+
+| 用例 ID       | 场景                               | 文件                                            |
+| ------------- | ---------------------------------- | ----------------------------------------------- |
+| TC-VIEW-HG-01 | Article + AlgorithmPlayer          | `src/views/Article/Algorithm/Hungarian.spec.ts` |
+| TC-VIEW-HG-02 | h1 含匈牙利 + GraphView + 无柱数组 | `src/views/Article/Algorithm/Hungarian.spec.ts` |
+| TC-VIEW-HG-03 | 正文含增广与二分图                 | `src/views/Article/Algorithm/Hungarian.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2611,7 +2631,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **88** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **89** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2704,6 +2724,7 @@
 | TC-E2E-BA-01        | 二分答案全模板：答案空间柱轨 / 拖末步收官语义 / Shiki（C-094 新增）                                                        | `e2e/binary-answer.e2e.ts`         | active     |
 | TC-E2E-TER-01       | 三分查找全模板：山形柱轨 / 拖末步 log 语义 / Shiki（C-095 新增）                                                           | `e2e/ternary-search.e2e.ts`        | active     |
 | TC-E2E-AS-01        | A\* 寻路全模板：迷宫轨 f 值 / 拖末步 10 vs 22 / Shiki（C-096 新增）                                                        | `e2e/astar.e2e.ts`                 | active     |
+| TC-E2E-HG-01        | 匈牙利全模板：二分图轨 / 拖末步匹配 3 / Shiki（C-097 新增）                                                                | `e2e/hungarian.e2e.ts`             | active     |
 
 ---
 
