@@ -222,6 +222,10 @@ export function useCategoryData(): Category[] {
           title: '树形 DP',
           url: 'tree-dp',
         },
+        {
+          title: '数位 DP',
+          url: 'digit-dp',
+        },
       ],
     },
     {

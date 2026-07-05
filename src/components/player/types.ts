@@ -258,6 +258,15 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 数位 DP 执行点（C-101，动态规划第 10 页；纯复用 MatrixView——按位走上界的走位表） */
+export type DigitDpExecPoint =
+  | 'init' // 数位拆解 + 两分支思路
+  | 'free' // 自由分支：本位填小于上界位的合法数 × 后缀 9^k
+  | 'tight' // 贴着走判定：上界位是禁数字则断裂
+  | 'broken' // tight 已断：整位跳过
+  | 'sum' // 小计相加 + 去 0
+  | 'done'; // 答案 + 记忆化模板与应用
+
 /** 树形 DP 执行点（C-100，动态规划第 9 页；纯复用 MatrixView——节点两态表·后序填表） */
 export type TreeDpExecPoint =
   | 'init' // 树登场 + 空表 + 后序预告

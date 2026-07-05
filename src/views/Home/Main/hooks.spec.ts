@@ -54,6 +54,7 @@ describe('Home/Main useCategoryData', () => {
       'stone-merge',
       'tsp',
       'tree-dp',
+      'digit-dp',
     ]);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',

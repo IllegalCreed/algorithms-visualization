@@ -190,6 +190,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/TreeDp.vue'),
           },
           {
+            path: '/docs/digit-dp',
+            name: 'digit-dp',
+            component: () => import('../views/Article/Algorithm/DigitDp.vue'),
+          },
+          {
             path: '/docs/n-queens',
             name: 'n-queens',
             component: () => import('../views/Article/Algorithm/Queens.vue'),

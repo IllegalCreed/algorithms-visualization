@@ -69,8 +69,9 @@ describe('Docs/Menu useCategoryData', () => {
       'stone-merge',
       'tsp',
       'tree-dp',
+      'digit-dp',
     ]);
-    expect(data[3].children).toHaveLength(9);
+    expect(data[3].children).toHaveLength(10);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',
       'subsets',

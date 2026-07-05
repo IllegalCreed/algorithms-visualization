@@ -1,0 +1,17 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 数位 2·4·5 走位：4 处 tight 断裂 -->
+  <g stroke="#333" stroke-width="12" font-family="monospace" font-weight="bold" font-size="150" text-anchor="middle" dominant-baseline="central">
+    <rect x="90" y="330" width="240" height="300" rx="26" fill="#8bd3a0" />
+    <rect x="392" y="330" width="240" height="300" rx="26" fill="#f4b8c1" />
+    <rect x="694" y="330" width="240" height="300" rx="26" fill="#d7dedb" />
+  </g>
+  <g font-family="monospace" font-weight="bold" font-size="160" text-anchor="middle" dominant-baseline="central">
+    <text x="210" y="480" fill="#1f5e3a">2</text>
+    <text x="512" y="480" fill="#8e2438">4</text>
+    <text x="814" y="480" fill="#9aa8a0">5</text>
+  </g>
+  <!-- 断裂闪电 -->
+  <path d="M 540 180 L 470 320 L 530 320 L 450 470" fill="none" stroke="#f0a000" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="512" y="800" font-family="sans-serif" font-weight="bold" font-size="80" fill="#e03131" text-anchor="middle">tight 断裂！</text>
+  <text x="512" y="930" font-family="sans-serif" font-weight="bold" font-size="66" fill="#333" text-anchor="middle">O(位数) 数天文数字</text>
+</svg>
