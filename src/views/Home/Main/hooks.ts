@@ -50,6 +50,7 @@ import LisIcon from '@/assets/lis.svg';
 import CoinChangeIcon from '@/assets/coin-change.svg';
 import StoneMergeIcon from '@/assets/stone-merge.svg';
 import TspIcon from '@/assets/tsp.svg';
+import TreeDpIcon from '@/assets/tree-dp.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
@@ -399,6 +400,12 @@ export function useCategoryData(): Category[] {
           desc: 'Held-Karp 状压 DP：把「去过哪些城」压成二进制 mask，dp[mask][i] 枚举上一站转移，O(n!) 降到 O(2ⁿ·n²)；集合当下标的灵魂',
           icon: TspIcon,
           url: 'tsp',
+        },
+        {
+          title: '树形 DP',
+          desc: '打家劫舍 III：状态挂节点（选/不选两态）、子树即子问题、后序即拓扑，一趟 DFS O(n)；舞会/树上背包/换根 DP 的地基',
+          icon: TreeDpIcon,
+          url: 'tree-dp',
         },
       ],
     },

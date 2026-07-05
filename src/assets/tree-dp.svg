@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 树上打家劫舍：选中节点绿、被禁父子灰 -->
+  <g stroke="#9aa8a0" stroke-width="16">
+    <line x1="512" y1="220" x2="300" y2="480" />
+    <line x1="512" y1="220" x2="724" y2="480" />
+    <line x1="300" y1="480" x2="170" y2="760" />
+    <line x1="300" y1="480" x2="430" y2="760" />
+  </g>
+  <g stroke="#333" stroke-width="12">
+    <circle cx="512" cy="220" r="96" fill="#d7dedb" />
+    <circle cx="300" cy="480" r="86" fill="#d7dedb" />
+    <circle cx="724" cy="480" r="86" fill="#8bd3a0" />
+    <circle cx="170" cy="760" r="86" fill="#8bd3a0" />
+    <circle cx="430" cy="760" r="86" fill="#8bd3a0" />
+  </g>
+  <g font-family="sans-serif" font-weight="bold" font-size="76" text-anchor="middle" dominant-baseline="central">
+    <text x="512" y="220" fill="#6b7d72">4</text>
+    <text x="300" y="480" fill="#6b7d72">1</text>
+    <text x="724" y="480" fill="#1f5e3a">5</text>
+    <text x="170" y="760" fill="#1f5e3a">3</text>
+    <text x="430" y="760" fill="#1f5e3a">6</text>
+  </g>
+  <text x="512" y="950" font-family="sans-serif" font-weight="bold" font-size="84" fill="#2e7d32" text-anchor="middle">3+6+5 = 14</text>
+</svg>

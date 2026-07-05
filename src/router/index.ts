@@ -185,6 +185,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Tsp.vue'),
           },
           {
+            path: '/docs/tree-dp',
+            name: 'tree-dp',
+            component: () => import('../views/Article/Algorithm/TreeDp.vue'),
+          },
+          {
             path: '/docs/n-queens',
             name: 'n-queens',
             component: () => import('../views/Article/Algorithm/Queens.vue'),

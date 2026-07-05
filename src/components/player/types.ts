@@ -258,6 +258,15 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 树形 DP 执行点（C-100，动态规划第 9 页；纯复用 MatrixView——节点两态表·后序填表） */
+export type TreeDpExecPoint =
+  | 'init' // 树登场 + 空表 + 后序预告
+  | 'leaf' // 叶子：一步双格 (v, 0)
+  | 'sel' // 内部节点「选」：值 + Σ孩子不选
+  | 'not' // 内部节点「不选」：Σ max(孩子两态)
+  | 'best' // 根行取 max
+  | 'done'; // 三要素与树形 DP 家族
+
 /** 旅行商 TSP 执行点（C-099，动态规划第 8 页；纯复用 MatrixView——状压状态表） */
 export type TspExecPoint =
   | 'init' // 问题 + 起点 dp[0001][0]=0

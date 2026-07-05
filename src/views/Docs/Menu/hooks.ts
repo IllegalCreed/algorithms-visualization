@@ -218,6 +218,10 @@ export function useCategoryData(): Category[] {
           title: '旅行商 TSP',
           url: 'tsp',
         },
+        {
+          title: '树形 DP',
+          url: 'tree-dp',
+        },
       ],
     },
     {
