@@ -230,6 +230,10 @@ export function useCategoryData(): Category[] {
           title: '数位 DP',
           url: 'digit-dp',
         },
+        {
+          title: '换根 DP',
+          url: 'reroot-dp',
+        },
       ],
     },
     {

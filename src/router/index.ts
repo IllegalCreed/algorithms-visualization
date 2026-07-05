@@ -200,6 +200,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/DigitDp.vue'),
           },
           {
+            path: '/docs/reroot-dp',
+            name: 'reroot-dp',
+            component: () => import('../views/Article/Algorithm/RerootDp.vue'),
+          },
+          {
             path: '/docs/n-queens',
             name: 'n-queens',
             component: () => import('../views/Article/Algorithm/Queens.vue'),

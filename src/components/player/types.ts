@@ -258,6 +258,14 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 换根 DP 执行点（C-103，动态规划第 11 页；纯复用 MatrixView——二次扫描三列表） */
+export type RerootExecPoint =
+  | 'init' // 树登场 + 二次扫描蓝图
+  | 'down' // 第一趟后序：填 size + down（子树内距离和）
+  | 'root' // 第一趟收官：ans[根] = down[根]
+  | 'reroot' // 第二趟前序：ans[v] = ans[u] − size[v] + (n − size[v])
+  | 'done'; // 全表 + O(n) 与换根三件套
+
 /** 树状数组执行点（C-102，数据结构第 16 页；纯复用主柱轨——lowbit 链跳跃） */
 export type FenwickExecPoint =
   | 'init' // tree 登场 + 管辖区间读法

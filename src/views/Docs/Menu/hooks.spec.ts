@@ -70,8 +70,9 @@ describe('Docs/Menu useCategoryData', () => {
       'tsp',
       'tree-dp',
       'digit-dp',
+      'reroot-dp',
     ]);
-    expect(data[3].children).toHaveLength(10);
+    expect(data[3].children).toHaveLength(11);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',
       'subsets',

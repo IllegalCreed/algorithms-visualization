@@ -46,7 +46,9 @@ import { treeDpModule } from '@/algorithms/treedp.module';
       <b>同款</b>：没有上司的舞会（带权独立集）、二叉树直径、树的重心。
     </Callout>
     <p>
-      再往上走是<strong>树上背包</strong>（每棵子树当一组物品做分组背包）与<strong>换根 DP</strong
+      再往上走是<strong>树上背包</strong>（每棵子树当一组物品做分组背包）与<router-link
+        to="/docs/reroot-dp"
+        ><strong>换根 DP</strong></router-link
       >（第二趟 DFS 把「以每个点为根」的答案摊到 O(n)）。至此 DP
       大类九页、四种状态设计集齐：序列前缀（<router-link to="/docs/lis">LIS</router-link
       >）、区间（<router-link to="/docs/stone-merge">石子合并</router-link>）、集合（<router-link

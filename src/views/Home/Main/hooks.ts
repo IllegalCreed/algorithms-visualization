@@ -53,6 +53,7 @@ import StoneMergeIcon from '@/assets/stone-merge.svg';
 import TspIcon from '@/assets/tsp.svg';
 import TreeDpIcon from '@/assets/tree-dp.svg';
 import DigitDpIcon from '@/assets/digit-dp.svg';
+import RerootDpIcon from '@/assets/reroot-dp.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
@@ -420,6 +421,12 @@ export function useCategoryData(): Category[] {
           desc: '按位走上界数天文数字：自由分支（填小于上界位 × 9^k）+ 贴着走，禁数字撞上界位 tight 断裂；O(位数)，dp(pos,tight,state) 模板',
           icon: DigitDpIcon,
           url: 'digit-dp',
+        },
+        {
+          title: '换根 DP',
+          desc: '二次扫描把「以每个点为根」摊成 O(n)：后序算子树内、前序换根 ans[v]=ans[u]−size+(n−size)——近远两笔账；树中距离之和',
+          icon: RerootDpIcon,
+          url: 'reroot-dp',
         },
       ],
     },
