@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type {
   AlgorithmModule,
   AuxTrack,
@@ -228,4 +229,5 @@ export const topDownMergeSortModule: AlgorithmModule<TopDownMergeExecPoint> = {
   initialInput: () => [6, 3, 8, 1, 9, 2, 7, 4],
   buildSteps: buildTopDownMergeSortSteps,
   sources: topDownMergeSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type {
   AlgorithmModule,
   QuickExecPoint,
@@ -188,4 +189,5 @@ export const quickSortModule: AlgorithmModule<QuickExecPoint> = {
   initialInput: () => [7, 6, 5, 10, 9, 8, 4, 3, 2, 1], // 与插入/希尔/归并同款，便于横向对比
   buildSteps: buildQuickSortSteps,
   sources: quickSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

@@ -1,4 +1,5 @@
 // src/algorithms/bubble-sort.module.ts
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type { AlgorithmModule, ExecPoint, Step, VarRow } from '@/components/player/types';
 import { bubbleSortSources } from './bubble-sort.sources';
 
@@ -84,4 +85,5 @@ export const bubbleSortModule: AlgorithmModule<ExecPoint> = {
   initialInput: () => [7, 6, 5, 10, 9, 8, 4, 3, 2, 1],
   buildSteps: buildBubbleSortSteps,
   sources: bubbleSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

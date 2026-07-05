@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type {
   AlgorithmModule,
   DualPivotExecPoint,
@@ -198,4 +199,5 @@ export const dualPivotQuickSortModule: AlgorithmModule<DualPivotExecPoint> = {
   initialInput: () => [3, 5, 9, 1, 6, 2, 4, 7],
   buildSteps: buildDualPivotQuickSortSteps,
   sources: dualPivotQuickSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type {
   AlgorithmModule,
   StackTrack,
@@ -178,4 +179,5 @@ export const threeWayQuickSortModule: AlgorithmModule<ThreeWayExecPoint> = {
   initialInput: () => [5, 3, 8, 3, 5, 8, 3, 5],
   buildSteps: buildThreeWayQuickSortSteps,
   sources: threeWayQuickSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

@@ -1,5 +1,6 @@
 // src/components/player/usePlayer.ts
-import { ref, computed, onUnmounted, getCurrentInstance } from 'vue';
+import { ref, computed, onUnmounted, getCurrentInstance, isRef, shallowRef } from 'vue';
+import type { Ref } from 'vue';
 import type { Step } from './types';
 
 export interface UsePlayerOptions {
@@ -7,18 +8,22 @@ export interface UsePlayerOptions {
   initialSpeed?: number; // 默认 1
 }
 
-export function usePlayer(steps: Step[], opts: UsePlayerOptions = {}) {
+/** steps 兼容静态数组与 Ref（C-110 自定义输入需要运行时重建）；数组签名行为与旧版全等 */
+export function usePlayer(stepsIn: Step[] | Ref<Step[]>, opts: UsePlayerOptions = {}) {
+  const stepsRef = isRef(stepsIn) ? stepsIn : shallowRef(stepsIn);
   const baseDelayMs = opts.baseDelayMs ?? 800;
   const index = ref(0);
   const isPlaying = ref(false);
   const speed = ref(opts.initialSpeed ?? 1);
   let timer: ReturnType<typeof setTimeout> | null = null;
 
-  const total = computed(() => steps.length);
-  const current = computed(() => steps[index.value]);
+  const total = computed(() => stepsRef.value.length);
+  const current = computed(() => stepsRef.value[index.value]);
   const atStart = computed(() => index.value <= 0);
-  const atEnd = computed(() => index.value >= steps.length - 1);
-  const progress = computed(() => (steps.length <= 1 ? 1 : index.value / (steps.length - 1)));
+  const atEnd = computed(() => index.value >= stepsRef.value.length - 1);
+  const progress = computed(() =>
+    stepsRef.value.length <= 1 ? 1 : index.value / (stepsRef.value.length - 1),
+  );
 
   function clearTimer() {
     if (timer !== null) {
@@ -30,12 +35,12 @@ export function usePlayer(steps: Step[], opts: UsePlayerOptions = {}) {
   function scheduleNext() {
     clearTimer();
     timer = setTimeout(() => {
-      if (index.value >= steps.length - 1) {
+      if (index.value >= stepsRef.value.length - 1) {
         isPlaying.value = false;
         return;
       }
       index.value++;
-      if (index.value >= steps.length - 1) {
+      if (index.value >= stepsRef.value.length - 1) {
         isPlaying.value = false; // 展示完末步即停
         return;
       }
@@ -61,7 +66,7 @@ export function usePlayer(steps: Step[], opts: UsePlayerOptions = {}) {
   }
   function stepForward() {
     pause();
-    if (index.value < steps.length - 1) index.value++;
+    if (index.value < stepsRef.value.length - 1) index.value++;
   }
   function stepBackward() {
     pause();
@@ -69,7 +74,7 @@ export function usePlayer(steps: Step[], opts: UsePlayerOptions = {}) {
   }
   function seek(i: number) {
     pause();
-    index.value = Math.max(0, Math.min(i, steps.length - 1));
+    index.value = Math.max(0, Math.min(i, stepsRef.value.length - 1));
   }
   function reset() {
     pause();

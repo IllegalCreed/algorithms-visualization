@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type {
   AlgorithmModule,
   AuxTrack,
@@ -215,4 +216,5 @@ export const mergeSortModule: AlgorithmModule<MergeExecPoint> = {
   initialInput: () => [7, 6, 5, 10, 9, 8, 4, 3, 2, 1], // 与插入/希尔同款，便于横向对比
   buildSteps: buildMergeSortSteps,
   sources: mergeSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

@@ -1,5 +1,5 @@
 // src/components/player/AlgorithmPlayer.spec.ts
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { createPinia } from 'pinia';
 import AlgorithmPlayer from './AlgorithmPlayer.vue';
@@ -857,5 +857,64 @@ describe('AlgorithmPlayer', () => {
     const w = mountIt(); // bubbleSortModule，无 bucket
     await flushPromises();
     expect(w.findComponent(BucketView).exists()).toBe(false);
+  });
+
+  // ===== C-110 M10-P1 自定义输入 =====
+  describe('自定义输入（C-110）', () => {
+    afterEach(() => {
+      history.replaceState(null, '', window.location.pathname); // 清 ?input=
+    });
+
+    it('TC-PLAYER-INPUT-01 module 无 inputSpec → 不渲染输入条（全站回归）', async () => {
+      const w = mount(AlgorithmPlayer, {
+        props: { module: auxModule }, // 无 inputSpec
+        global: { plugins: [createPinia()] },
+      });
+      await flushPromises();
+      expect(w.find('.input-bar').exists()).toBe(false);
+    });
+
+    it('TC-PLAYER-INPUT-02 有 inputSpec → 渲染输入条', async () => {
+      const w = mountIt(); // bubbleSortModule 第一批开放
+      await flushPromises();
+      expect(w.find('.input-bar').exists()).toBe(true);
+    });
+
+    it('TC-PLAYER-INPUT-03 应用新输入 → steps 重建 + 回到第 0 步', async () => {
+      const w = mountIt();
+      await flushPromises();
+      expect(w.findAllComponents(Bar)).toHaveLength(10);
+      await w.find('.ctl[title="下一步"]').trigger('click');
+      expect(w.find('.counter').text()).toContain('2 / ');
+      await w.find('input.ib-text').setValue('5, 3, 8, 1');
+      await w.find('button.ib-apply').trigger('click');
+      await flushPromises();
+      expect(w.findAllComponents(Bar)).toHaveLength(4);
+      expect(w.find('.counter').text()).toContain('1 / ');
+    });
+
+    it('TC-PLAYER-INPUT-04 ?input= 合法初始即自定义；非法落回默认', async () => {
+      history.replaceState(null, '', '?input=9,2,7');
+      const w1 = mountIt();
+      await flushPromises();
+      expect(w1.findAllComponents(Bar)).toHaveLength(3);
+      w1.unmount();
+      history.replaceState(null, '', '?input=abc');
+      const w2 = mountIt();
+      await flushPromises();
+      expect(w2.findAllComponents(Bar)).toHaveLength(10);
+    });
+
+    it('TC-PLAYER-INPUT-05 应用写 URL；恢复默认清除', async () => {
+      const w = mountIt();
+      await flushPromises();
+      await w.find('input.ib-text').setValue('4, 2, 6');
+      await w.find('button.ib-apply').trigger('click');
+      expect(window.location.search).toContain('input=4%2C2%2C6');
+      await w.find('button.ib-restore').trigger('click');
+      await flushPromises();
+      expect(window.location.search).not.toContain('input=');
+      expect(w.findAllComponents(Bar)).toHaveLength(10);
+    });
   });
 });

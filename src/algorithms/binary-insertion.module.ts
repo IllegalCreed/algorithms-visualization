@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type {
   AlgorithmModule,
   BinaryInsertionExecPoint,
@@ -148,4 +149,5 @@ export const binaryInsertionSortModule: AlgorithmModule<BinaryInsertionExecPoint
   initialInput: () => [5, 2, 9, 4, 7, 1, 8, 3],
   buildSteps: buildBinaryInsertionSortSteps,
   sources: binaryInsertionSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

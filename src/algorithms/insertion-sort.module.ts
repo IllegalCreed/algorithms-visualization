@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type { AlgorithmModule, InsertionExecPoint, Step, VarRow } from '@/components/player/types';
 import { insertionSortSources } from './insertion-sort.sources';
 
@@ -89,4 +90,5 @@ export const insertionSortModule: AlgorithmModule<InsertionExecPoint> = {
   initialInput: () => [7, 6, 5, 10, 9, 8, 4, 3, 2, 1],
   buildSteps: buildInsertionSortSteps,
   sources: insertionSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

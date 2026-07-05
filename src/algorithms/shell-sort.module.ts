@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type { AlgorithmModule, ShellExecPoint, Step, VarRow } from '@/components/player/types';
 import { shellSortSources } from './shell-sort.sources';
 
@@ -131,4 +132,5 @@ export const shellSortModule: AlgorithmModule<ShellExecPoint> = {
   initialInput: () => [7, 6, 5, 10, 9, 8, 4, 3, 2, 1], // 与插入排序同款，便于横向对比
   buildSteps: buildShellSortSteps,
   sources: shellSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

@@ -1,8 +1,10 @@
 <!-- src/components/player/AlgorithmPlayer.vue -->
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, shallowRef } from 'vue';
 import type { AlgorithmModule } from './types';
 import { usePlayer } from './usePlayer';
+import { clearInputFromUrl, readInputFromUrl, writeInputToUrl } from './inputSpec';
+import InputBar from './InputBar.vue';
 import BarsView from '@/components/BarsView.vue';
 import AuxView from '@/components/AuxView.vue';
 import StackView from '@/components/StackView.vue';
@@ -29,7 +31,9 @@ import TransportControls from './TransportControls.vue';
 
 const props = defineProps<{ module: AlgorithmModule }>();
 
-const steps = props.module.buildSteps(props.module.initialInput());
+// C-110 自定义输入：模块声明 inputSpec 时支持 ?input= 初始化与运行时重建；不声明 = 固定剧本（旧路径全等）
+const input = shallowRef(readInputFromUrl(props.module.inputSpec) ?? props.module.initialInput());
+const steps = shallowRef(props.module.buildSteps(input.value));
 const {
   index,
   isPlaying,
@@ -47,10 +51,32 @@ const {
   setSpeed,
 } = usePlayer(steps);
 
-const prevVars = computed(() => steps[index.value - 1]?.vars);
+const prevVars = computed(() => steps.value[index.value - 1]?.vars);
+const inputText = computed(() => input.value.join(', '));
+
+function applyInput(arr: number[]): void {
+  input.value = arr;
+  steps.value = props.module.buildSteps(arr);
+  reset();
+  writeInputToUrl(arr);
+}
+
+function restoreInput(): void {
+  input.value = props.module.initialInput();
+  steps.value = props.module.buildSteps(input.value);
+  reset();
+  clearInputFromUrl();
+}
 </script>
 <template>
   <div class="algo-player column center">
+    <InputBar
+      v-if="props.module.inputSpec"
+      :spec="props.module.inputSpec"
+      :model-text="inputText"
+      @apply="applyInput"
+      @restore="restoreInput"
+    />
     <TreeView
       v-if="current.tree"
       :array="current.array"

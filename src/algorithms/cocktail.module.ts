@@ -1,3 +1,4 @@
+import { SORT_INPUT_SPEC } from '@/components/player/inputSpec';
 import type { AlgorithmModule, CocktailExecPoint, Step, VarRow } from '@/components/player/types';
 import { cocktailSortSources } from './cocktail.sources';
 
@@ -164,4 +165,5 @@ export const cocktailSortModule: AlgorithmModule<CocktailExecPoint> = {
   initialInput: () => [4, 2, 6, 3, 8, 5, 7, 1],
   buildSteps: buildCocktailSortSteps,
   sources: cocktailSortSources,
+  inputSpec: SORT_INPUT_SPEC, // C-110 第一批开放自定义输入
 };

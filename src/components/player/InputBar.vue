@@ -1,0 +1,112 @@
+<!-- src/components/player/InputBar.vue —— 自定义输入条（C-110，M10-P1）：模块声明 inputSpec 才渲染 -->
+<script setup lang="ts">
+import { ref, watch } from 'vue';
+import type { InputSpec } from './types';
+import { parseInputArray } from './inputSpec';
+
+const props = defineProps<{ spec: InputSpec; modelText: string }>();
+const emit = defineEmits<{ apply: [value: number[]]; restore: [] }>();
+
+const text = ref(props.modelText);
+const error = ref('');
+
+watch(
+  () => props.modelText,
+  (v) => {
+    text.value = v;
+    error.value = '';
+  },
+);
+
+function apply(): void {
+  const r = parseInputArray(text.value, props.spec);
+  if (!r.ok) {
+    error.value = r.error;
+    return;
+  }
+  error.value = '';
+  emit('apply', r.value);
+}
+
+function restore(): void {
+  error.value = '';
+  emit('restore');
+}
+</script>
+
+<template>
+  <div class="input-bar column">
+    <div class="ib-row row">
+      <span class="ib-label">输入</span>
+      <input
+        v-model="text"
+        class="ib-text"
+        type="text"
+        :placeholder="spec.hint"
+        spellcheck="false"
+        @keydown.enter="apply"
+      />
+      <button type="button" class="ib-apply" @click="apply">应用</button>
+      <button type="button" class="ib-restore" title="恢复默认数据" @click="restore">
+        恢复默认
+      </button>
+    </div>
+    <p v-if="error" class="ib-error">{{ error }}</p>
+  </div>
+</template>
+
+<style scoped lang="less">
+.input-bar {
+  width: 100%;
+  gap: 6px;
+}
+.ib-row {
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+.ib-label {
+  font-weight: bold;
+  font-size: 14px;
+  color: @font-highlight-color;
+  flex-shrink: 0;
+}
+.ib-text {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  padding: 0 12px;
+  border: none;
+  font-size: 14px;
+  color: @font-color;
+  .neumorphism-concave(2px, 8px);
+  &:focus {
+    outline: 2px solid #8bd3a0;
+  }
+}
+.ib-apply,
+.ib-restore {
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  color: @font-color;
+  .neumorphism-btn(2px, 8px);
+  flex-shrink: 0;
+}
+.ib-apply {
+  color: #1f5e3a;
+}
+.ib-error {
+  font-size: 13px;
+  color: #c0392b;
+  font-weight: bold;
+}
+@media (max-width: @screen-max-width) {
+  .ib-row {
+    flex-wrap: wrap;
+  }
+}
+</style>

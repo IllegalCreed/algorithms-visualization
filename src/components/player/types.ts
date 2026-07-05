@@ -906,9 +906,19 @@ export interface LangSource<P extends string = string> {
   lineMap: Record<P, number>; // 执行点 → 1-based 行号
 }
 
+/** 自定义输入规格（C-110，M10-P1）：模块声明后播放器渲染输入条；不声明 = 只读固定剧本 */
+export interface InputSpec {
+  hint: string; // 输入条占位说明
+  lenMin: number;
+  lenMax: number;
+  valMin: number;
+  valMax: number;
+}
+
 export interface AlgorithmModule<P extends string = string> {
   title: string;
   initialInput(): number[];
   buildSteps(input: number[]): Step<P>[];
   sources: LangSource<P>[];
+  inputSpec?: InputSpec; // 纯加法：不设 = 播放器不渲染输入条（固定剧本页零回归）
 }
