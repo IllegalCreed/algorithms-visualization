@@ -25,6 +25,11 @@ const routes = [
             component: () => import('../views/Article/Complexity.vue'),
           },
           {
+            path: '/docs/paths',
+            name: 'paths',
+            component: () => import('../views/Article/Paths.vue'),
+          },
+          {
             path: '/docs/array',
             name: 'array',
             component: () => import('../views/Article/DataStructure/Array.vue'),

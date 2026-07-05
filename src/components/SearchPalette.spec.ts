@@ -101,4 +101,17 @@ describe('SearchPalette 全站搜索', () => {
     expect(push).toHaveBeenCalledWith('/docs/complexity');
     expect(store.isSearchOpen).toBe(false);
   });
+
+  it('TC-VIZ-SEARCH-08 空态含学习路径快捷行，点击跳转并关闭（C-115）', async () => {
+    const w = mountIt();
+    const store = useSystemStore();
+    store.openSearch();
+    await flushPromises();
+    const shortcuts = w.findAll('.sp-shortcut');
+    expect(shortcuts).toHaveLength(2);
+    expect(shortcuts[1].text()).toContain('学习路径');
+    await shortcuts[1].trigger('click');
+    expect(push).toHaveBeenCalledWith('/docs/paths');
+    expect(store.isSearchOpen).toBe(false);
+  });
 });

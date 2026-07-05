@@ -59,9 +59,9 @@ function go(e: SearchEntry): void {
   router.push(`/docs/${e.url}`);
 }
 
-function goComplexity(): void {
+function goTo(path: string): void {
   store.closeSearch();
-  router.push('/docs/complexity');
+  router.push(path);
 }
 
 function onInputKeydown(e: KeyboardEvent): void {
@@ -107,8 +107,11 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
         />
         <template v-if="!query.trim()">
           <p class="sp-hint">输入算法名或关键词，↑↓ 选择，回车直达</p>
-          <button type="button" class="sp-shortcut" @click="goComplexity">
+          <button type="button" class="sp-shortcut" @click="goTo('/docs/complexity')">
             ⏱ 复杂度速查表——92 个算法一页看完
+          </button>
+          <button type="button" class="sp-shortcut" @click="goTo('/docs/paths')">
+            🗺 学习路径——四条路线按顺序点下去
           </button>
         </template>
         <p v-else-if="results.length === 0" class="sp-empty">没有匹配「{{ query }}」的算法</p>
