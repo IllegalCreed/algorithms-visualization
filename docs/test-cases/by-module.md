@@ -1103,6 +1103,7 @@
 
 > **C-103（M9-1 · DP 第 11 页真收官 · 新页）**：换根 DP——二次扫描把「以每个点为根」摊成 O(n)：后序算 size/down、前序 ans[v]=ans[u]−size[v]+(n−size[v])（近远两笔账）。**纯复用 MatrixView 第 15 消费者零改动**。reroot.module 12 步 + bruteDist 逐点 BFS 对拍。`TC-RR-MOD-*`+`TC-VIEW-RR-*`+`TC-E2E-RR-01`。
 > **C-104（M9-2 · 图算法第 11 页 · 新页）**：LCA 倍增——建跳表 up[k][u]（爸爸的爸爸递推），查询对齐→高位试跳（祖先不同才跳）→父即答案，O(log n)。**纯复用 MatrixView 第 16 消费者零改动**。lca.module 11 步 + bruteLca 爬父链对拍（64 全对）。`TC-LCA-MOD-*`+`TC-VIEW-LCA-*`+`TC-E2E-LCA-01`。
+> **C-105（M9-3 · 图算法第 12 页 · 新页）**：欧拉路径 Hierholzer——一笔画：奇度 0/2 判定 + 消边栈法（卡住弹栈进路径、栈顶余边续走子环自动插入），O(E)。**纯复用 GraphView 第 10 消费者零改动**。euler.module 12 步 + bruteEulerPath 回溯搜路对拍。`TC-EU-MOD-*`+`TC-VIEW-EU-*`+`TC-E2E-EU-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
@@ -2075,3 +2076,19 @@
 | TC-VIEW-LCA-02        | h1 含 LCA + MatrixView + 无柱数组（C-104）                                                         | L4   | `src/views/Article/Algorithm/Lca.spec.ts`                 |
 | TC-VIEW-LCA-03        | 正文含倍增与祖先（C-104）                                                                          | L4   | `src/views/Article/Algorithm/Lca.spec.ts`                 |
 | TC-E2E-LCA-01         | LCA 倍增全模板：跳表 / 拖末步 O(log n) / Shiki（C-104 新增）                                       | L5   | `e2e/lca.e2e.ts`                                          |
+| TC-EU-MOD-01          | 对拍：栈法路径 + 暴力搜路都合法且起终=奇度点（C-105）                                              | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-02          | 判定：度数/奇度点/起点（C-105）                                                                    | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-03          | 事件流 walk×4→back→walk×3→back×7；首 back 栈顶余边（C-105）                                        | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-04          | 步合法：point+graph+array 空（C-105）                                                              | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-05          | 步数结构：12 步序列全等（C-105）                                                                   | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-06          | check 步徽标=度数 + 奇度定理 + checkPair（C-105）                                                  | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-07          | walk 步消边渐增 + 徽标递减 + 3 号清零（C-105）                                                     | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-08          | back①卡住 + 栈顶余边 + 路径收 3（C-105）                                                           | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-09          | back②清栈 + 全消边 + 反转（C-105）                                                                 | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-10          | done：O(E) + 一笔画 + 全路径（C-105）                                                              | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-11          | 四语言+行号+五执行点（C-105）                                                                      | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-EU-MOD-12          | title 含欧拉；initialInput=[]（C-105）                                                             | L3   | `src/algorithms/euler.module.spec.ts`                     |
+| TC-VIEW-EU-01         | Article + AlgorithmPlayer（C-105）                                                                 | L4   | `src/views/Article/Algorithm/EulerPath.spec.ts`           |
+| TC-VIEW-EU-02         | h1 含欧拉 + GraphView + 无柱数组（C-105）                                                          | L4   | `src/views/Article/Algorithm/EulerPath.spec.ts`           |
+| TC-VIEW-EU-03         | 正文含一笔画与奇度（C-105）                                                                        | L4   | `src/views/Article/Algorithm/EulerPath.spec.ts`           |
+| TC-E2E-EU-01          | 欧拉路径全模板：消边图轨 / 拖末步 O(E) / Shiki（C-105 新增）                                       | L5   | `e2e/euler-path.e2e.ts`                                   |

@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1134** 个用例。运行命令：`pnpm test:unit`
+共 **1146** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1613,12 +1613,24 @@
 | TC-LCA-MOD-10   | answer 父格 sources / done O(log n)+树上距离                            | `src/algorithms/lca.module.spec.ts`         |
 | TC-LCA-MOD-11   | 四语言+行号+六执行点                                                    | `src/algorithms/lca.module.spec.ts`         |
 | TC-LCA-MOD-12   | title 含 LCA；initialInput=[]                                           | `src/algorithms/lca.module.spec.ts`         |
+| TC-EU-MOD-01    | 对拍：栈法路径 + 暴力搜路都合法且起终=奇度点                            | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-02    | 判定：度数/奇度点/起点                                                  | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-03    | 事件流 walk×4→back→walk×3→back×7；首 back 栈顶余边                      | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-04    | 步合法：point+graph+array 空                                            | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-05    | 步数结构：12 步序列全等                                                 | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-06    | check 步徽标=度数 + 奇度定理 + checkPair                                | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-07    | walk 步消边渐增 + 徽标递减 + 3 号清零                                   | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-08    | back①卡住 + 栈顶余边 + 路径收 3                                         | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-09    | back②清栈 + 全消边 + 反转                                               | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-10    | done：O(E) + 一笔画 + 全路径                                            | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-12    | title 含欧拉；initialInput=[]                                           | `src/algorithms/euler.module.spec.ts`       |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **584** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **587** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2747,14 +2759,17 @@
 
 ### 换根 DP 页 C-103（DP 第 11 页真收官·M9-1，新页，纯复用 MatrixView 第 15 消费者）
 
-| 用例 ID        | 场景                              | 文件                                           |
-| -------------- | --------------------------------- | ---------------------------------------------- |
-| TC-VIEW-RR-01  | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/RerootDp.spec.ts` |
-| TC-VIEW-RR-02  | h1 含换根 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/RerootDp.spec.ts` |
-| TC-VIEW-RR-03  | 正文含二次扫描与 size             | `src/views/Article/Algorithm/RerootDp.spec.ts` |
-| TC-VIEW-LCA-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/Lca.spec.ts`      |
-| TC-VIEW-LCA-02 | h1 含 LCA + MatrixView + 无柱数组 | `src/views/Article/Algorithm/Lca.spec.ts`      |
-| TC-VIEW-LCA-03 | 正文含倍增与祖先                  | `src/views/Article/Algorithm/Lca.spec.ts`      |
+| 用例 ID        | 场景                              | 文件                                            |
+| -------------- | --------------------------------- | ----------------------------------------------- |
+| TC-VIEW-RR-01  | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-RR-02  | h1 含换根 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-RR-03  | 正文含二次扫描与 size             | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-LCA-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-LCA-02 | h1 含 LCA + MatrixView + 无柱数组 | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-LCA-03 | 正文含倍增与祖先                  | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-EU-01  | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIEW-EU-02  | h1 含欧拉 + GraphView + 无柱数组  | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIEW-EU-03  | 正文含一笔画与奇度                | `src/views/Article/Algorithm/EulerPath.spec.ts` |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2766,7 +2781,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **96** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **97** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2867,6 +2882,7 @@
 | TC-E2E-BIT-01       | 树状数组全模板：lowbit 链柱轨 / 拖末步 O(log n) / Shiki（C-102 新增）                                                      | `e2e/fenwick.e2e.ts`               | active     |
 | TC-E2E-RR-01        | 换根 DP 全模板：三列表 / 拖末步 O(n) / Shiki（C-103 新增）                                                                 | `e2e/reroot-dp.e2e.ts`             | active     |
 | TC-E2E-LCA-01       | LCA 倍增全模板：跳表 / 拖末步 O(log n) / Shiki（C-104 新增）                                                               | `e2e/lca.e2e.ts`                   | active     |
+| TC-E2E-EU-01        | 欧拉路径全模板：消边图轨 / 拖末步 O(E) / Shiki（C-105 新增）                                                               | `e2e/euler-path.e2e.ts`            | active     |
 
 ---
 
