@@ -1107,6 +1107,7 @@
 > **C-106（M9-4 · 字符串第 8 页 · 新页）**：Z 函数——z[i]=s 与后缀的 LCP；Z-box 内抄镜像、达界才右扩、r 只增不减 O(n)。**ManacherView 第 2 消费者 + additive labels?/statusLabels?（不设零回归）**。zfunc.module 9 步 + zBrute 朴素对拍。`TC-Z-MOD-*`+`TC-VIZ-MANACHERVIEW-05/06`+`TC-VIEW-Z-*`+`TC-E2E-Z-01`。
 > **C-107（M9-5 · 数论第 9 页 · 新页）**：FFT——点值乘法 + 单位根折叠：位反转重排 + 3 层蝶形 (u,v)→(u+ωv,u−ωv)，O(n log n)。**NetworkView 第 2 消费者 + additive wireLabels?/tag?（不设零回归）**。fft.module 9 步 + dftBrute 直算对拍。`TC-FFT-MOD-*`+`TC-VIZ-NETVIEW-04/05`+`TC-VIEW-FFT-*`+`TC-E2E-FFT-01`。
 > **C-108（M9-6 · 数论第 10 页 · 新页 · M9 A 档收官）**：Pollard's Rho——伪随机序列 + 生日悖论 + gcd 显影，Floyd 龟兔 O(n^¼)。**纯复用 GraphView 第 11 消费者零改动**（同余同站台 ρ 布局 + reveal 四色）。rho.module 7 步 + 双素性试除对拍。`TC-RHO-MOD-*`+`TC-VIEW-RHO-*`+`TC-E2E-RHO-01`。
+> **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
@@ -2147,3 +2148,5 @@
 | TC-VIEW-RHO-02         | h1 含 Pollard + GraphView + 无柱数组（C-108）                                                      | L4   | `src/views/Article/Algorithm/PollardRho.spec.ts`          |
 | TC-VIEW-RHO-03         | 正文含生日悖论与 gcd（C-108）                                                                      | L4   | `src/views/Article/Algorithm/PollardRho.spec.ts`          |
 | TC-E2E-RHO-01          | Pollard's Rho 全模板：ρ 链图轨 / 拖末步 n^¼ / Shiki（C-108 新增）                                  | L5   | `e2e/pollard-rho.e2e.ts`                                  |
+| TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
+| TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |

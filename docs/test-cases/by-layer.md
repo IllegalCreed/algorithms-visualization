@@ -1666,7 +1666,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **600** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **602** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2795,30 +2795,32 @@
 
 ### 换根 DP 页 C-103（DP 第 11 页真收官·M9-1，新页，纯复用 MatrixView 第 15 消费者）
 
-| 用例 ID                | 场景                                               | 文件                                             |
-| ---------------------- | -------------------------------------------------- | ------------------------------------------------ |
-| TC-VIEW-RR-01          | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/RerootDp.spec.ts`   |
-| TC-VIEW-RR-02          | h1 含换根 + MatrixView + 无柱数组                  | `src/views/Article/Algorithm/RerootDp.spec.ts`   |
-| TC-VIEW-RR-03          | 正文含二次扫描与 size                              | `src/views/Article/Algorithm/RerootDp.spec.ts`   |
-| TC-VIEW-LCA-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Lca.spec.ts`        |
-| TC-VIEW-LCA-02         | h1 含 LCA + MatrixView + 无柱数组                  | `src/views/Article/Algorithm/Lca.spec.ts`        |
-| TC-VIEW-LCA-03         | 正文含倍增与祖先                                   | `src/views/Article/Algorithm/Lca.spec.ts`        |
-| TC-VIEW-EU-01          | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/EulerPath.spec.ts`  |
-| TC-VIEW-EU-02          | h1 含欧拉 + GraphView + 无柱数组                   | `src/views/Article/Algorithm/EulerPath.spec.ts`  |
-| TC-VIEW-EU-03          | 正文含一笔画与奇度                                 | `src/views/Article/Algorithm/EulerPath.spec.ts`  |
-| TC-VIZ-MANACHERVIEW-05 | additive labels/statusLabels 设时生效（C-106）     | `src/components/ManacherView.spec.ts`            |
-| TC-VIZ-MANACHERVIEW-06 | additive 不设回退 S/p 与原文案（零回归）           | `src/components/ManacherView.spec.ts`            |
-| TC-VIEW-Z-01           | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/ZFunction.spec.ts`  |
-| TC-VIEW-Z-02           | h1 含 Z 函数 + ManacherView + 无柱数组             | `src/views/Article/Algorithm/ZFunction.spec.ts`  |
-| TC-VIEW-Z-03           | 正文含公共前缀与 Z-box                             | `src/views/Article/Algorithm/ZFunction.spec.ts`  |
-| TC-VIZ-NETVIEW-04      | additive wireLabels 复数线值 + tag 无三角（C-107） | `src/components/NetworkView.spec.ts`             |
-| TC-VIZ-NETVIEW-05      | additive 不设回退数值 + 三角（零回归）             | `src/components/NetworkView.spec.ts`             |
-| TC-VIEW-FFT-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Fft.spec.ts`        |
-| TC-VIEW-FFT-02         | h1 含 FFT + NetworkView + 无柱数组                 | `src/views/Article/Algorithm/Fft.spec.ts`        |
-| TC-VIEW-FFT-03         | 正文含单位根与点值                                 | `src/views/Article/Algorithm/Fft.spec.ts`        |
-| TC-VIEW-RHO-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/PollardRho.spec.ts` |
-| TC-VIEW-RHO-02         | h1 含 Pollard + GraphView + 无柱数组               | `src/views/Article/Algorithm/PollardRho.spec.ts` |
-| TC-VIEW-RHO-03         | 正文含生日悖论与 gcd                               | `src/views/Article/Algorithm/PollardRho.spec.ts` |
+| 用例 ID                | 场景                                               | 文件                                              |
+| ---------------------- | -------------------------------------------------- | ------------------------------------------------- |
+| TC-VIEW-RR-01          | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/RerootDp.spec.ts`    |
+| TC-VIEW-RR-02          | h1 含换根 + MatrixView + 无柱数组                  | `src/views/Article/Algorithm/RerootDp.spec.ts`    |
+| TC-VIEW-RR-03          | 正文含二次扫描与 size                              | `src/views/Article/Algorithm/RerootDp.spec.ts`    |
+| TC-VIEW-LCA-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Lca.spec.ts`         |
+| TC-VIEW-LCA-02         | h1 含 LCA + MatrixView + 无柱数组                  | `src/views/Article/Algorithm/Lca.spec.ts`         |
+| TC-VIEW-LCA-03         | 正文含倍增与祖先                                   | `src/views/Article/Algorithm/Lca.spec.ts`         |
+| TC-VIEW-EU-01          | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/EulerPath.spec.ts`   |
+| TC-VIEW-EU-02          | h1 含欧拉 + GraphView + 无柱数组                   | `src/views/Article/Algorithm/EulerPath.spec.ts`   |
+| TC-VIEW-EU-03          | 正文含一笔画与奇度                                 | `src/views/Article/Algorithm/EulerPath.spec.ts`   |
+| TC-VIZ-MANACHERVIEW-05 | additive labels/statusLabels 设时生效（C-106）     | `src/components/ManacherView.spec.ts`             |
+| TC-VIZ-MANACHERVIEW-06 | additive 不设回退 S/p 与原文案（零回归）           | `src/components/ManacherView.spec.ts`             |
+| TC-VIEW-Z-01           | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/ZFunction.spec.ts`   |
+| TC-VIEW-Z-02           | h1 含 Z 函数 + ManacherView + 无柱数组             | `src/views/Article/Algorithm/ZFunction.spec.ts`   |
+| TC-VIEW-Z-03           | 正文含公共前缀与 Z-box                             | `src/views/Article/Algorithm/ZFunction.spec.ts`   |
+| TC-VIZ-NETVIEW-04      | additive wireLabels 复数线值 + tag 无三角（C-107） | `src/components/NetworkView.spec.ts`              |
+| TC-VIZ-NETVIEW-05      | additive 不设回退数值 + 三角（零回归）             | `src/components/NetworkView.spec.ts`              |
+| TC-VIEW-FFT-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Fft.spec.ts`         |
+| TC-VIEW-FFT-02         | h1 含 FFT + NetworkView + 无柱数组                 | `src/views/Article/Algorithm/Fft.spec.ts`         |
+| TC-VIEW-FFT-03         | 正文含单位根与点值                                 | `src/views/Article/Algorithm/Fft.spec.ts`         |
+| TC-VIEW-RHO-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/PollardRho.spec.ts`  |
+| TC-VIEW-RHO-02         | h1 含 Pollard + GraphView + 无柱数组               | `src/views/Article/Algorithm/PollardRho.spec.ts`  |
+| TC-VIEW-RHO-03         | 正文含生日悖论与 gcd                               | `src/views/Article/Algorithm/PollardRho.spec.ts`  |
+| TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                | `src/views/Article/Algorithm/Bellman.spec.ts`     |
+| TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）              | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
