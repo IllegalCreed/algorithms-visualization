@@ -258,6 +258,15 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** LCA 倍增执行点（C-104，图算法第 11 页；纯复用 MatrixView——倍增跳表） */
+export type LcaExecPoint =
+  | 'init' // 树登场 + 家谱交汇直觉
+  | 'build' // 建表：depth+up⁰ / up¹ / up²（爸爸的爸爸递推）
+  | 'align' // 查询：深的按深度差二进制对齐
+  | 'jump' // 查询：从高位试跳判定（祖先不同才跳，相同可能越过）
+  | 'answer' // 停在 LCA 两孩子，父即答案
+  | 'done'; // O(log n) + 树上距离公式
+
 /** 换根 DP 执行点（C-103，动态规划第 11 页；纯复用 MatrixView——二次扫描三列表） */
 export type RerootExecPoint =
   | 'init' // 树登场 + 二次扫描蓝图

@@ -150,6 +150,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Hungarian.vue'),
           },
           {
+            path: '/docs/lca',
+            name: 'lca',
+            component: () => import('../views/Article/Algorithm/Lca.vue'),
+          },
+          {
             path: '/docs/edit-distance',
             name: 'edit-distance',
             component: () => import('../views/Article/Algorithm/Edit.vue'),

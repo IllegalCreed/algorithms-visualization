@@ -46,7 +46,7 @@ describe('Docs/Menu useCategoryData', () => {
       'euler-phi',
       'miller-rabin',
     ]);
-    expect(data[2].children).toHaveLength(10);
+    expect(data[2].children).toHaveLength(11);
     expect(data[2].children.map((c) => c.url)).toEqual([
       'dijkstra',
       'kruskal',
@@ -58,6 +58,7 @@ describe('Docs/Menu useCategoryData', () => {
       'two-sat',
       'max-flow',
       'hungarian',
+      'lca',
     ]);
     expect(data[3].children.map((c) => c.url)).toEqual([
       'edit-distance',

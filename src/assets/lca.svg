@@ -1,0 +1,32 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- LCA：树 + 两点沿倍增弧线向上跳，汇合于最近公共祖先（黄） -->
+  <g stroke="#c8d2cc" stroke-width="16">
+    <line x1="512" y1="180" x2="292" y2="440" />
+    <line x1="512" y1="180" x2="732" y2="440" />
+    <line x1="292" y1="440" x2="182" y2="700" />
+    <line x1="292" y1="440" x2="402" y2="700" />
+    <line x1="732" y1="440" x2="842" y2="700" />
+    <line x1="182" y1="700" x2="182" y2="900" />
+  </g>
+  <!-- 倍增跳跃弧线：左点跳 2 步、右点跳 1 步，指向 LCA -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 182 880 Q 60 640 262 470" stroke="#2e7d32" stroke-width="30" />
+    <path d="M 402 690 Q 330 560 322 480" stroke="#1971c2" stroke-width="30" />
+    <path d="M 130 850 L 96 796 M 130 850 L 188 838" stroke="#2e7d32" stroke-width="24" opacity="0" />
+  </g>
+  <!-- 节点 -->
+  <g stroke="#333" stroke-width="12">
+    <circle cx="512" cy="180" r="80" fill="#e6e9e7" />
+    <circle cx="292" cy="440" r="86" fill="#ffd43b" />
+    <circle cx="732" cy="440" r="72" fill="#e6e9e7" />
+    <circle cx="182" cy="700" r="72" fill="#e6e9e7" />
+    <circle cx="402" cy="700" r="80" fill="#a5d8ff" />
+    <circle cx="842" cy="700" r="72" fill="#e6e9e7" />
+    <circle cx="182" cy="900" r="80" fill="#8bd3a0" />
+  </g>
+  <g font-family="sans-serif" font-weight="bold" font-size="66" fill="#333" text-anchor="middle" dominant-baseline="central">
+    <text x="292" y="440" font-size="58" fill="#7a5900">LCA</text>
+    <text x="182" y="900" fill="#1f5e3a">u</text>
+    <text x="402" y="700" fill="#1f3a5e">v</text>
+  </g>
+</svg>

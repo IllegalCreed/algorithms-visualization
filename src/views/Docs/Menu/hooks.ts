@@ -185,6 +185,10 @@ export function useCategoryData(): Category[] {
           title: '二分图匹配',
           url: 'hungarian',
         },
+        {
+          title: 'LCA 倍增',
+          url: 'lca',
+        },
       ],
     },
     {

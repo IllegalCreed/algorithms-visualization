@@ -25,6 +25,7 @@ import SccIcon from '@/assets/scc.svg';
 import TwoSatIcon from '@/assets/two-sat.svg';
 import MaxFlowIcon from '@/assets/max-flow.svg';
 import HungarianIcon from '@/assets/hungarian.svg';
+import LcaIcon from '@/assets/lca.svg';
 import SieveIcon from '@/assets/sieve.svg';
 import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import GcdIcon from '@/assets/gcd.svg';
@@ -355,6 +356,12 @@ export function useCategoryData(): Category[] {
           desc: '匈牙利算法求最大匹配：逐个左点找增广路，空闲定下、被占问让路，成功整条翻转；O(V·E)，König 定理与指派问题的地基',
           icon: HungarianIcon,
           url: 'hungarian',
+        },
+        {
+          title: 'LCA 倍增',
+          desc: '最近公共祖先：预处理「跳 2^k 步」跳表（爸爸的爸爸递推），查询先对齐再高位试跳——祖先不同才跳；O(log n) 一次，树上距离的地基',
+          icon: LcaIcon,
+          url: 'lca',
         },
       ],
     },
