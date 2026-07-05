@@ -46,4 +46,27 @@ describe('NetworkView', () => {
     expect(w.findAll('.net-active')).toHaveLength(0);
     expect(w.findAll('.net-done')).toHaveLength(0);
   });
+
+  it('TC-VIZ-NETVIEW-04 additive：wireLabels 复数线值 + tag ω 标注且无三角（C-107 FFT）', () => {
+    const fftComps: Comparator[] = [
+      { col: 0, a: 0, b: 1, dir: 'asc', tag: '×1' },
+      { col: 0, a: 2, b: 3, dir: 'asc', tag: '×ω²' },
+    ];
+    const w = mountIt({
+      wires: [0, 0, 0, 0],
+      wireLabels: ['1', '1-3i', '-2', '1+3i'],
+      comparators: fftComps,
+      cols: 1,
+    });
+    expect(w.text()).toContain('1-3i');
+    expect(w.text()).toContain('×ω²');
+    // 设 tag 的比较器不画大值三角（每个 .net-comp 内无 path）
+    expect(w.findAll('.net-comp path')).toHaveLength(0);
+  });
+
+  it('TC-VIZ-NETVIEW-05 additive：不设回退数值 + 三角（双调排序零回归）', () => {
+    const w = mountIt({ ...base, currentCol: 0 });
+    expect(w.text()).toContain('5');
+    expect(w.findAll('.net-comp path').length).toBeGreaterThan(0);
+  });
 });

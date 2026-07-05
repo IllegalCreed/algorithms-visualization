@@ -1,0 +1,29 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- FFT：四线蝶形交叉 + 正弦波 -->
+  <g stroke="#c8d2cc" stroke-width="14">
+    <line x1="100" y1="240" x2="924" y2="240" />
+    <line x1="100" y1="440" x2="924" y2="440" />
+    <line x1="100" y1="640" x2="924" y2="640" />
+    <line x1="100" y1="840" x2="924" y2="840" />
+  </g>
+  <!-- 蝶形交叉（第一层相邻、第二层跨二） -->
+  <g stroke="#2e7d32" stroke-width="24" stroke-linecap="round">
+    <line x1="300" y1="240" x2="300" y2="440" />
+    <line x1="300" y1="640" x2="300" y2="840" />
+    <line x1="620" y1="240" x2="620" y2="640" />
+    <line x1="740" y1="440" x2="740" y2="840" />
+  </g>
+  <g fill="#2e7d32">
+    <circle cx="300" cy="240" r="26" /><circle cx="300" cy="440" r="26" />
+    <circle cx="300" cy="640" r="26" /><circle cx="300" cy="840" r="26" />
+  </g>
+  <g fill="#f0a000">
+    <circle cx="620" cy="240" r="26" /><circle cx="620" cy="640" r="26" />
+    <circle cx="740" cy="440" r="26" /><circle cx="740" cy="840" r="26" />
+  </g>
+  <!-- 顶部正弦波 -->
+  <path d="M 120 120 Q 220 20 320 120 T 520 120 T 720 120 T 920 120" fill="none" stroke="#1565c0" stroke-width="26" stroke-linecap="round" />
+  <g font-family="sans-serif" font-weight="bold" font-size="90" text-anchor="middle" dominant-baseline="central" fill="#7a5900">
+    <text x="670" y="360">×ω</text>
+  </g>
+</svg>

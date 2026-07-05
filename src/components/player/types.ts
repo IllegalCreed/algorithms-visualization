@@ -258,6 +258,14 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** FFT 执行点（C-107，数论第 9 页；复用 NetworkView additive 蝶形——位反转 + log n 层蝶形） */
+export type FftExecPoint =
+  | 'init' // 顺序输入 + 点值乘法动机
+  | 'bitrev' // 位反转重排（偶奇递归展平）
+  | 'twiddle' // 本层预告：配对跨度 + 旋转因子 ω 表
+  | 'butterfly' // 执行本层蝶形 (u,v) → (u+ωv, u−ωv)
+  | 'done'; // = 直算 DFT + O(n log n) + 乘法三部曲
+
 /** Z 函数执行点（C-106，字符串第 8 页；复用 ManacherView additive 标签——Z-box 镜像复用） */
 export type ZExecPoint =
   | 'init' // 问题登场 + z[0]=n
@@ -547,6 +555,7 @@ export interface Comparator {
   a: number;
   b: number;
   dir: 'asc' | 'desc'; // asc：保证 wire[a]<=wire[b]；desc 反之
+  tag?: string; // 纯加法：连线旁标注（C-107 FFT 蝶形 ω 因子）；设 tag 不画大值三角——蝶形无方向语义
 }
 
 /** 比较器网络轨快照——双调排序专用（排序阶段三，第 20 轨 C-085） */
@@ -556,6 +565,7 @@ export interface NetworkTrack {
   cols: number; // 列数
   currentCol?: number | null; // 当前执行列（琥珀）；小于它的列已执行（绿）
   done?: boolean;
+  wireLabels?: string[]; // 纯加法：线值显示字符串（C-107 FFT 复数）；设时替代 wires 数值并加宽左标注区——双调排序不设零回归
 }
 
 /** 双调排序执行点（C-085，排序阶段三；新建 NetworkView 比较器网络轨） */

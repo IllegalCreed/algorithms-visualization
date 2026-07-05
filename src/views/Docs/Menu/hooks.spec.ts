@@ -45,6 +45,7 @@ describe('Docs/Menu useCategoryData', () => {
       'crt',
       'euler-phi',
       'miller-rabin',
+      'fft',
     ]);
     expect(data[2].children).toHaveLength(12);
     expect(data[2].children.map((c) => c.url)).toEqual([

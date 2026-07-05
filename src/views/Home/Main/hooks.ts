@@ -35,6 +35,7 @@ import ExtGcdIcon from '@/assets/ext-gcd.svg';
 import CrtIcon from '@/assets/crt.svg';
 import EulerPhiIcon from '@/assets/euler-phi.svg';
 import MillerRabinIcon from '@/assets/miller-rabin.svg';
+import FftIcon from '@/assets/fft.svg';
 import ConvexHullIcon from '@/assets/convex-hull.svg';
 import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import ClosestPairIcon from '@/assets/closest-pair.svg';
@@ -610,6 +611,12 @@ export function useCategoryData(): Category[] {
           desc: '概率判素：n−1=2^s·d 从 a^d 连续平方，撞 −1 通过、非平凡平方根现形即合数；单轮误报 ≤1/4，卡迈克尔数 561 当场识破',
           icon: MillerRabinIcon,
           url: 'miller-rabin',
+        },
+        {
+          title: 'FFT',
+          desc: '多项式乘法 O(n log n)：换点值表示逐点乘，取点值用单位根折叠对称——位反转重排 + log n 层蝶形 (u,v)→(u±ωv)；NTT 同款骨架',
+          icon: FftIcon,
+          url: 'fft',
         },
       ],
     },

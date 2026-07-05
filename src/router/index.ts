@@ -340,6 +340,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/MillerRabin.vue'),
           },
           {
+            path: '/docs/fft',
+            name: 'fft',
+            component: () => import('../views/Article/Algorithm/Fft.vue'),
+          },
+          {
             path: '/docs/convex-hull',
             name: 'convex-hull',
             component: () => import('../views/Article/Algorithm/ConvexHull.vue'),

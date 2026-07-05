@@ -39,6 +39,7 @@ describe('Home/Main useCategoryData', () => {
       'crt',
       'euler-phi',
       'miller-rabin',
+      'fft',
     ]);
     expect(data[2].children).toHaveLength(12);
     expect(data[2].children[7].url).toBe('two-sat');

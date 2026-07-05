@@ -357,6 +357,10 @@ export function useCategoryData(): Category[] {
           title: '米勒-拉宾',
           url: 'miller-rabin',
         },
+        {
+          title: 'FFT',
+          url: 'fft',
+        },
       ],
     },
     {
