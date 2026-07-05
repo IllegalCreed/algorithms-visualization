@@ -61,4 +61,17 @@ describe('Master/Header 组件', () => {
     const w = mount(Header, { global: { plugins: [createPinia()] } });
     expect(w.find('#header').classes()).not.toContain('neumorphism-bottom-shadow');
   });
+
+  it('TC-VIEW-HEADER-08: 搜索按钮存在，点击打开搜索面板（C-113）', async () => {
+    const pinia = createPinia();
+    const w = mount(Header, { global: { plugins: [pinia] } });
+    const btn = w.find('.search-btn');
+    expect(btn.exists()).toBe(true);
+    expect(btn.text()).toContain('⌘K');
+    const { useSystemStore } = await import('@/store/modules/system');
+    const store = useSystemStore(pinia);
+    expect(store.isSearchOpen).toBe(false);
+    await btn.trigger('click');
+    expect(store.isSearchOpen).toBe(true);
+  });
 });

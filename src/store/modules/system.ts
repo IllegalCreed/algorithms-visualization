@@ -42,5 +42,23 @@ export const useSystemStore = defineStore('System', () => {
     isShowHeaderShadow.value = isShow;
   }
 
-  return { colors, isDarkMode, changeDarkMode, isShowHeaderShadow, changeHeaderShadowe };
+  /** 全站搜索面板开关（C-113，M11-S1） */
+  const isSearchOpen = ref<boolean>(false);
+  function openSearch(): void {
+    isSearchOpen.value = true;
+  }
+  function closeSearch(): void {
+    isSearchOpen.value = false;
+  }
+
+  return {
+    colors,
+    isDarkMode,
+    changeDarkMode,
+    isShowHeaderShadow,
+    changeHeaderShadowe,
+    isSearchOpen,
+    openSearch,
+    closeSearch,
+  };
 });

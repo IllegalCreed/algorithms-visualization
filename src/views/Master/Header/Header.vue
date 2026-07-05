@@ -25,6 +25,21 @@ function goHomePage(): void {
       <h1>算法可视化</h1>
       <div class="blank"></div>
 
+      <button class="search-btn" title="搜索算法（⌘K / Ctrl+K）" @click="systemStore.openSearch()">
+        <svg
+          class="sb-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+        <span class="sb-kbd">⌘K</span>
+      </button>
+
       <IconLinkComp v-for="item in iconLinkData" :key="item.title" :data="item" />
     </div>
   </div>
@@ -66,6 +81,29 @@ function goHomePage(): void {
 
     .icon-link:not(:last-child) {
       margin-right: 30px;
+    }
+
+    .search-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 14px;
+      margin-right: 30px;
+      border: none;
+      cursor: pointer;
+      color: @font-color;
+      .neumorphism-btn(3px, 10px);
+
+      .sb-icon {
+        width: 18px;
+        height: 18px;
+      }
+      .sb-kbd {
+        font-size: 12px;
+        font-weight: bold;
+        color: #8a978f;
+      }
     }
   }
 }
