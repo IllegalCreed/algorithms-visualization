@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1050** 个用例。运行命令：`pnpm test:unit`
+共 **1062** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1529,12 +1529,24 @@
 | TC-HG-MOD-10    | done 含 3 与最大流语义                                                  | `src/algorithms/hungarian.module.spec.ts`   |
 | TC-HG-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/hungarian.module.spec.ts`   |
 | TC-HG-MOD-12    | title 含匈牙利；两列布局                                                | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-ST-MOD-01    | dp[0][3]=20=暴力全序枚举                                                | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-02    | 填表六项 (i,j,len,val) 全等                                             | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-03    | 候选与胜者：12(k=0)/10(k=2)/20(k=0 平手取先)                            | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-04    | point 四集 + matrix + array 空                                          | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-05    | 8 步 = init+pair×3+split×3+done                                         | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-06    | init 对角 0 其余 null + labels 堆值                                     | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-07    | pair updatedCell (0,1)/(1,2)/(2,3) 值 5/4/5                             | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-08    | split sources 最优拆分对三组                                            | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-09    | split caption 候选枚举 + 取小                                           | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-10    | done 含 20 与 O(n³)                                                     | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-12    | title 含石子；initialInput=ST_PILES                                     | `src/algorithms/stones.module.spec.ts`      |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **563** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **566** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2621,6 +2633,14 @@
 | TC-VIEW-HG-02 | h1 含匈牙利 + GraphView + 无柱数组 | `src/views/Article/Algorithm/Hungarian.spec.ts` |
 | TC-VIEW-HG-03 | 正文含增广与二分图                 | `src/views/Article/Algorithm/Hungarian.spec.ts` |
 
+### 石子合并页 C-098（DP 第 7 页，新页，纯复用 MatrixView 第 11 消费者）
+
+| 用例 ID       | 场景                              | 文件                                             |
+| ------------- | --------------------------------- | ------------------------------------------------ |
+| TC-VIEW-ST-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/StoneMerge.spec.ts` |
+| TC-VIEW-ST-02 | h1 含石子 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/StoneMerge.spec.ts` |
+| TC-VIEW-ST-03 | 正文含区间与分割点                | `src/views/Article/Algorithm/StoneMerge.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2631,7 +2651,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **89** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **90** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2725,6 +2745,7 @@
 | TC-E2E-TER-01       | 三分查找全模板：山形柱轨 / 拖末步 log 语义 / Shiki（C-095 新增）                                                           | `e2e/ternary-search.e2e.ts`        | active     |
 | TC-E2E-AS-01        | A\* 寻路全模板：迷宫轨 f 值 / 拖末步 10 vs 22 / Shiki（C-096 新增）                                                        | `e2e/astar.e2e.ts`                 | active     |
 | TC-E2E-HG-01        | 匈牙利全模板：二分图轨 / 拖末步匹配 3 / Shiki（C-097 新增）                                                                | `e2e/hungarian.e2e.ts`             | active     |
+| TC-E2E-ST-01        | 石子合并全模板：区间 DP 表 / 拖末步 20 / Shiki（C-098 新增）                                                               | `e2e/stone-merge.e2e.ts`           | active     |
 
 ---
 

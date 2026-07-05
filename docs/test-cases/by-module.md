@@ -1091,6 +1091,8 @@
 
 > **C-097（M8 图算法第 10 页 · 新页）**：二分图匹配·匈牙利算法——逐左点找增广路：空闲定下、被占问让路，成功整条翻转；O(V·E)、König、单位容量最大流特例。**纯复用 GraphView 零改动**（两列布局 + current/mst/rejected + badge）。hungarian.module 12 步 + bruteMaxMatching 枚举对拍。`TC-HG-MOD-*`+`TC-VIEW-HG-*`+`TC-E2E-HG-01`。
 
+> **C-098（M8 DP 第 7 页 · 新页）**：石子合并——区间 DP 首发：dp[i][j]=min_k(dp[i][k]+dp[k+1][j])+sum，区间由短及长、枚举分割点 O(n³)；贪心反例、环形/四边形点到。**纯复用 MatrixView 第 11 消费者零改动**（上三角 + sources 拆分对）。stones.module 8 步 + bruteMerge 全序枚举对拍。`TC-ST-MOD-*`+`TC-VIEW-ST-*`+`TC-E2E-ST-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1950,3 +1952,19 @@
 | TC-VIEW-HG-02         | h1 含匈牙利 + GraphView + 无柱数组（C-097）                                                        | L4   | `src/views/Article/Algorithm/Hungarian.spec.ts`           |
 | TC-VIEW-HG-03         | 正文含增广与二分图（C-097）                                                                        | L4   | `src/views/Article/Algorithm/Hungarian.spec.ts`           |
 | TC-E2E-HG-01          | 匈牙利全模板：二分图轨 / 拖末步匹配 3 / Shiki（C-097 新增）                                        | L5   | `e2e/hungarian.e2e.ts`                                    |
+| TC-ST-MOD-01          | dp[0][3]=20=暴力全序枚举（C-098）                                                                  | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-02          | 填表六项 (i,j,len,val) 全等（C-098）                                                               | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-03          | 候选与胜者：12(k=0)/10(k=2)/20(k=0 平手取先)（C-098）                                              | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-04          | point 四集 + matrix + array 空（C-098）                                                            | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-05          | 8 步 = init+pair×3+split×3+done（C-098）                                                           | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-06          | init 对角 0 其余 null + labels 堆值（C-098）                                                       | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-07          | pair updatedCell (0,1)/(1,2)/(2,3) 值 5/4/5（C-098）                                               | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-08          | split sources 最优拆分对三组（C-098）                                                              | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-09          | split caption 候选枚举 + 取小（C-098）                                                             | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-10          | done 含 20 与 O(n³)（C-098）                                                                       | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-11          | 四语言+行号+四执行点（C-098）                                                                      | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-ST-MOD-12          | title 含石子；initialInput=ST_PILES（C-098）                                                       | L3   | `src/algorithms/stones.module.spec.ts`                    |
+| TC-VIEW-ST-01         | Article + AlgorithmPlayer（C-098）                                                                 | L4   | `src/views/Article/Algorithm/StoneMerge.spec.ts`          |
+| TC-VIEW-ST-02         | h1 含石子 + MatrixView + 无柱数组（C-098）                                                         | L4   | `src/views/Article/Algorithm/StoneMerge.spec.ts`          |
+| TC-VIEW-ST-03         | 正文含区间与分割点（C-098）                                                                        | L4   | `src/views/Article/Algorithm/StoneMerge.spec.ts`          |
+| TC-E2E-ST-01          | 石子合并全模板：区间 DP 表 / 拖末步 20 / Shiki（C-098 新增）                                       | L5   | `e2e/stone-merge.e2e.ts`                                  |
