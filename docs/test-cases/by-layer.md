@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1188** 个用例。运行命令：`pnpm test:unit`
+共 **1190** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1667,12 +1667,14 @@
 | TC-INPUT-PARSE-04 | 长度越界（下界与上界）                                                  | `src/components/player/inputSpec.spec.ts`   |
 | TC-INPUT-PARSE-05 | 值域越界                                                                | `src/components/player/inputSpec.spec.ts`   |
 | TC-INPUT-PARSE-06 | 空串/纯分隔符不崩溃                                                     | `src/components/player/inputSpec.spec.ts`   |
+| TC-CTRL-LOOP-01   | 开循环播到末步自动回卷续播                                              | `src/components/player/usePlayer.spec.ts`   |
+| TC-CTRL-LOOP-02   | 关循环末步停（旧行为）+ atEnd 循环重播                                  | `src/components/player/usePlayer.spec.ts`   |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **612** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **617** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2837,6 +2839,11 @@
 | TC-PLAYER-INPUT-04     | ?input= 合法初始化；非法落回默认                   | `src/components/player/AlgorithmPlayer.spec.ts`   |
 | TC-PLAYER-INPUT-05     | 应用写 URL；恢复默认清除                           | `src/components/player/AlgorithmPlayer.spec.ts`   |
 | TC-MOD-INPUTSPEC-01    | 12 排序模块 inputSpec 全等 + 默认输入自过校验      | `src/algorithms/input-enabled.spec.ts`            |
+| TC-CTRL-UI-01          | 倍速下拉含 3× 且可选中                             | `src/components/player/TransportControls.spec.ts` |
+| TC-CTRL-UI-02          | 循环按钮 emit toggleLoop + 激活类                  | `src/components/player/TransportControls.spec.ts` |
+| TC-CTRL-KEY-01         | → 下一步、← 上一步                                 | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-CTRL-KEY-02         | 空格切换播放/暂停 + preventDefault                 | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-CTRL-KEY-03         | 输入框聚焦时按键不响应播放器                       | `src/components/player/AlgorithmPlayer.spec.ts`   |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2848,7 +2855,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **101** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **102** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2954,6 +2961,7 @@
 | TC-E2E-FFT-01       | FFT 全模板：蝶形网络 / 拖末步 O(n log n) / Shiki（C-107 新增）                                                             | `e2e/fft.e2e.ts`                   | active     |
 | TC-E2E-RHO-01       | Pollard's Rho 全模板：ρ 链图轨 / 拖末步 n^¼ / Shiki（C-108 新增）                                                          | `e2e/pollard-rho.e2e.ts`           | active     |
 | TC-E2E-INPUT-01     | 自定义输入全链路：改输入/URL 分享/非法报错/恢复默认/固定页无输入条（C-110 新增）                                           | `e2e/custom-input.e2e.ts`          | active     |
+| TC-E2E-CTRL-01      | 播放控制增强：键盘三键 + 3× + 播完循环回卷（C-111 新增）                                                                   | `e2e/playback-controls.e2e.ts`     | active     |
 
 ---
 

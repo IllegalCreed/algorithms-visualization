@@ -1108,6 +1108,7 @@
 > **C-107（M9-5 · 数论第 9 页 · 新页）**：FFT——点值乘法 + 单位根折叠：位反转重排 + 3 层蝶形 (u,v)→(u+ωv,u−ωv)，O(n log n)。**NetworkView 第 2 消费者 + additive wireLabels?/tag?（不设零回归）**。fft.module 9 步 + dftBrute 直算对拍。`TC-FFT-MOD-*`+`TC-VIZ-NETVIEW-04/05`+`TC-VIEW-FFT-*`+`TC-E2E-FFT-01`。
 > **C-108（M9-6 · 数论第 10 页 · 新页 · M9 A 档收官）**：Pollard's Rho——伪随机序列 + 生日悖论 + gcd 显影，Floyd 龟兔 O(n^¼)。**纯复用 GraphView 第 11 消费者零改动**（同余同站台 ρ 布局 + reveal 四色）。rho.module 7 步 + 双素性试除对拍。`TC-RHO-MOD-*`+`TC-VIEW-RHO-*`+`TC-E2E-RHO-01`。
 > **C-110（M10-P1 · 播放器 2.0 首项）**：自定义输入 + ?input= 分享——inputSpec? 全 additive（不设=不渲染零回归）+ InputBar + parseInputArray + usePlayer 兼容 Ref + URL 读写；第一批 12 排序模块。`TC-INPUT-PARSE-*`+`TC-VIZ-INPUTBAR-*`+`TC-PLAYER-INPUT-*`+`TC-MOD-INPUTSPEC-01`+`TC-E2E-INPUT-01`。
+> **C-111（M10-P2 · 播放控制增强）**：倍速 +3×、循环开关（usePlayer +loop additive 默认关）、键盘 →/←/空格（输入框守卫 + 防滚动）。`TC-CTRL-LOOP-*`+`TC-CTRL-UI-*`+`TC-CTRL-KEY-*`+`TC-E2E-CTRL-01`。
 > **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
@@ -2166,5 +2167,13 @@
 | TC-PLAYER-INPUT-05     | 应用写 URL；恢复默认清除（C-110）                                                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
 | TC-MOD-INPUTSPEC-01    | 12 排序模块 inputSpec 全等 + 默认输入自过校验（C-110）                                             | L4   | `src/algorithms/input-enabled.spec.ts`                    |
 | TC-E2E-INPUT-01        | 自定义输入全链路：改输入/URL 分享/非法报错/恢复默认/固定页无输入条（C-110 新增）                   | L5   | `e2e/custom-input.e2e.ts`                                 |
+| TC-CTRL-LOOP-01        | 开循环播到末步自动回卷续播（C-111）                                                                | L3   | `src/components/player/usePlayer.spec.ts`                 |
+| TC-CTRL-LOOP-02        | 关循环末步停（旧行为）+ atEnd 循环重播（C-111）                                                    | L3   | `src/components/player/usePlayer.spec.ts`                 |
+| TC-CTRL-UI-01          | 倍速下拉含 3× 且可选中（C-111）                                                                    | L4   | `src/components/player/TransportControls.spec.ts`         |
+| TC-CTRL-UI-02          | 循环按钮 emit toggleLoop + 激活类（C-111）                                                         | L4   | `src/components/player/TransportControls.spec.ts`         |
+| TC-CTRL-KEY-01         | → 下一步、← 上一步（C-111）                                                                        | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-CTRL-KEY-02         | 空格切换播放/暂停 + preventDefault（C-111）                                                        | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-CTRL-KEY-03         | 输入框聚焦时按键不响应播放器（C-111）                                                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-E2E-CTRL-01         | 播放控制增强：键盘三键 + 3× + 播完循环回卷（C-111 新增）                                           | L5   | `e2e/playback-controls.e2e.ts`                            |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |
