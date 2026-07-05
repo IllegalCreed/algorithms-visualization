@@ -57,5 +57,16 @@ import { bellmanFordModule } from '@/algorithms/bellman-ford.module';
       想复习正权图上的贪心最短路，去看
       <strong>Dijkstra 最短路</strong>——两页正是同一类问题的两种解法。
     </p>
+
+    <h2>彩蛋：差分约束——最短路解不等式组</h2>
+    <p>
+      Bellman-Ford 有个漂亮的隐藏技能：解<strong>差分约束系统</strong>。一组形如
+      <code>x_v − x_u ≤ w</code> 的不等式（工期先后、事件间隔这类约束都长这样），每条恰好对应一条边
+      <code>u → v</code>（权 w）——因为最短路的三角不等式
+      <code>dist[v] ≤ dist[u] + w</code> 与它一模一样。于是：建图跑 Bellman-Ford，<code>dist</code>
+      数组就是一组可行解；出现<strong>负环</strong>
+      = 约束互相矛盾、无解。负权边随手就来，这活非 Bellman-Ford
+      莫属——「解不等式」与「跑最短路」在此合流。
+    </p>
   </Article>
 </template>

@@ -32,4 +32,10 @@ describe('后缀数组页', () => {
     expect(w.html()).toContain('倍增');
     expect(w.findComponent(SuffixArrayView).exists()).toBe(true);
   });
+
+  it('TC-VIEW-SA-04 B 档补强：正文含后缀自动机段（C-109）', () => {
+    const w = mountIt();
+    expect(w.html()).toContain('后缀自动机');
+    expect(w.html()).toContain('SAM');
+  });
 });

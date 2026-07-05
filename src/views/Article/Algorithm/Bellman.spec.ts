@@ -30,4 +30,10 @@ describe('Bellman-Ford 最短路页', () => {
     expect(w.html()).toContain('最短');
     expect(w.findAll('.graph-edge').length).toBeGreaterThanOrEqual(7);
   });
+
+  it('TC-VIEW-BELLMAN-04 B 档补强：正文含差分约束段（C-109）', () => {
+    const w = mountIt();
+    expect(w.html()).toContain('差分约束');
+    expect(w.html()).toContain('x_v − x_u ≤ w');
+  });
 });

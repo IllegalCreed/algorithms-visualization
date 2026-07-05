@@ -66,7 +66,10 @@ import { suffixArrayModule } from '@/algorithms/suffixarray.module';
       <b>模式匹配</b>：后缀数组上二分，O(m log n) 判断模式是否出现。
     </Callout>
     <p>
-      本页只构造了后缀数组本身；再算一遍<strong>相邻后缀的最长公共前缀（height/LCP）</strong>，上面这些应用就都水到渠成——那是后缀结构的下一步。
+      本页只构造了后缀数组本身；再算一遍<strong>相邻后缀的最长公共前缀（height/LCP）</strong>，上面这些应用就都水到渠成——那是后缀结构的下一步。再往深处走一层是<strong>后缀自动机</strong>（SAM）：把所有子串压进一个
+      O(n) 大小的自动机、在线逐字符构造，本质是「后缀们的合并版
+      Trie」——数不同子串、最长公共子串等问题在它上面是线性一遍。后缀数组好写好想适合多数场景，SAM
+      是学有余力时的下一座山。
     </p>
   </Article>
 </template>
