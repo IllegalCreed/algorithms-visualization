@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1122** 个用例。运行命令：`pnpm test:unit`
+共 **1134** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1601,12 +1601,24 @@
 | TC-RR-MOD-10    | done 含 O(n) 与二次扫描                                                 | `src/algorithms/reroot.module.spec.ts`      |
 | TC-RR-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/reroot.module.spec.ts`      |
 | TC-RR-MOD-12    | title 含换根；initialInput=[]                                           | `src/algorithms/reroot.module.spec.ts`      |
+| TC-LCA-MOD-01   | 对拍：两查询 + 64 全对 = 暴力爬父链                                     | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-02   | 倍增表 depth/up⁰/up¹/up² 全等                                           | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-03   | 查询轨迹：(7,4) 全 same；(6,5) k=0 双跳                                 | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-04   | 步合法：point+matrix+array 空                                           | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-05   | 步数结构：11 步序列全等                                                 | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-06   | init 表 8×4 全 null + 标签                                              | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-07   | build 三列逐填 + 递推示例 sources                                       | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-08   | align 步 sources 跳表格 + 二进制拆解                                    | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-09   | jump 步：不跳越过语义 / 双跳 sources                                    | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-10   | answer 父格 sources / done O(log n)+树上距离                            | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-11   | 四语言+行号+六执行点                                                    | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-12   | title 含 LCA；initialInput=[]                                           | `src/algorithms/lca.module.spec.ts`         |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **581** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **584** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2735,11 +2747,14 @@
 
 ### 换根 DP 页 C-103（DP 第 11 页真收官·M9-1，新页，纯复用 MatrixView 第 15 消费者）
 
-| 用例 ID       | 场景                              | 文件                                           |
-| ------------- | --------------------------------- | ---------------------------------------------- |
-| TC-VIEW-RR-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/RerootDp.spec.ts` |
-| TC-VIEW-RR-02 | h1 含换根 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/RerootDp.spec.ts` |
-| TC-VIEW-RR-03 | 正文含二次扫描与 size             | `src/views/Article/Algorithm/RerootDp.spec.ts` |
+| 用例 ID        | 场景                              | 文件                                           |
+| -------------- | --------------------------------- | ---------------------------------------------- |
+| TC-VIEW-RR-01  | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/RerootDp.spec.ts` |
+| TC-VIEW-RR-02  | h1 含换根 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/RerootDp.spec.ts` |
+| TC-VIEW-RR-03  | 正文含二次扫描与 size             | `src/views/Article/Algorithm/RerootDp.spec.ts` |
+| TC-VIEW-LCA-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/Lca.spec.ts`      |
+| TC-VIEW-LCA-02 | h1 含 LCA + MatrixView + 无柱数组 | `src/views/Article/Algorithm/Lca.spec.ts`      |
+| TC-VIEW-LCA-03 | 正文含倍增与祖先                  | `src/views/Article/Algorithm/Lca.spec.ts`      |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2751,7 +2766,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **95** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **96** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2851,6 +2866,7 @@
 | TC-E2E-DD-01        | 数位 DP 全模板：走位表 / 拖末步 197 / Shiki（C-101 新增）                                                                  | `e2e/digit-dp.e2e.ts`              | active     |
 | TC-E2E-BIT-01       | 树状数组全模板：lowbit 链柱轨 / 拖末步 O(log n) / Shiki（C-102 新增）                                                      | `e2e/fenwick.e2e.ts`               | active     |
 | TC-E2E-RR-01        | 换根 DP 全模板：三列表 / 拖末步 O(n) / Shiki（C-103 新增）                                                                 | `e2e/reroot-dp.e2e.ts`             | active     |
+| TC-E2E-LCA-01       | LCA 倍增全模板：跳表 / 拖末步 O(log n) / Shiki（C-104 新增）                                                               | `e2e/lca.e2e.ts`                   | active     |
 
 ---
 

@@ -1102,6 +1102,7 @@
 > **C-102（M8 数据结构第 16 页 · 新页）**：树状数组 Fenwick/BIT——tree[i] 管辖长 lowbit(i) 区段，query 沿 i-=lowbit 往前跳拼前缀、update 沿 i+=lowbit 往后跳通知管辖者，改查双 O(log n)。**纯复用主柱轨零改动**（柱子 update 真实长高 + 链累积高亮）。fenwick.module 9 步 + 暴力前缀双对拍。`TC-BIT-MOD-*`+`TC-VIEW-BIT-*`+`TC-E2E-BIT-01`。
 
 > **C-103（M9-1 · DP 第 11 页真收官 · 新页）**：换根 DP——二次扫描把「以每个点为根」摊成 O(n)：后序算 size/down、前序 ans[v]=ans[u]−size[v]+(n−size[v])（近远两笔账）。**纯复用 MatrixView 第 15 消费者零改动**。reroot.module 12 步 + bruteDist 逐点 BFS 对拍。`TC-RR-MOD-*`+`TC-VIEW-RR-*`+`TC-E2E-RR-01`。
+> **C-104（M9-2 · 图算法第 11 页 · 新页）**：LCA 倍增——建跳表 up[k][u]（爸爸的爸爸递推），查询对齐→高位试跳（祖先不同才跳）→父即答案，O(log n)。**纯复用 MatrixView 第 16 消费者零改动**。lca.module 11 步 + bruteLca 爬父链对拍（64 全对）。`TC-LCA-MOD-*`+`TC-VIEW-LCA-*`+`TC-E2E-LCA-01`。
 
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
@@ -2058,3 +2059,19 @@
 | TC-VIEW-RR-02         | h1 含换根 + MatrixView + 无柱数组（C-103）                                                         | L4   | `src/views/Article/Algorithm/RerootDp.spec.ts`            |
 | TC-VIEW-RR-03         | 正文含二次扫描与 size（C-103）                                                                     | L4   | `src/views/Article/Algorithm/RerootDp.spec.ts`            |
 | TC-E2E-RR-01          | 换根 DP 全模板：三列表 / 拖末步 O(n) / Shiki（C-103 新增）                                         | L5   | `e2e/reroot-dp.e2e.ts`                                    |
+| TC-LCA-MOD-01         | 对拍：两查询 + 64 全对 = 暴力爬父链（C-104）                                                       | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-02         | 倍增表 depth/up⁰/up¹/up² 全等（C-104）                                                             | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-03         | 查询轨迹：(7,4) 全 same；(6,5) k=0 双跳（C-104）                                                   | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-04         | 步合法：point+matrix+array 空（C-104）                                                             | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-05         | 步数结构：11 步序列全等（C-104）                                                                   | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-06         | init 表 8×4 全 null + 标签（C-104）                                                                | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-07         | build 三列逐填 + 递推示例 sources（C-104）                                                         | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-08         | align 步 sources 跳表格 + 二进制拆解（C-104）                                                      | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-09         | jump 步：不跳越过语义 / 双跳 sources（C-104）                                                      | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-10         | answer 父格 sources / done O(log n)+树上距离（C-104）                                              | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-11         | 四语言+行号+六执行点（C-104）                                                                      | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-LCA-MOD-12         | title 含 LCA；initialInput=[]（C-104）                                                             | L3   | `src/algorithms/lca.module.spec.ts`                       |
+| TC-VIEW-LCA-01        | Article + AlgorithmPlayer（C-104）                                                                 | L4   | `src/views/Article/Algorithm/Lca.spec.ts`                 |
+| TC-VIEW-LCA-02        | h1 含 LCA + MatrixView + 无柱数组（C-104）                                                         | L4   | `src/views/Article/Algorithm/Lca.spec.ts`                 |
+| TC-VIEW-LCA-03        | 正文含倍增与祖先（C-104）                                                                          | L4   | `src/views/Article/Algorithm/Lca.spec.ts`                 |
+| TC-E2E-LCA-01         | LCA 倍增全模板：跳表 / 拖末步 O(log n) / Shiki（C-104 新增）                                       | L5   | `e2e/lca.e2e.ts`                                          |
