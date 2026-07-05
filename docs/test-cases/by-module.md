@@ -1095,6 +1095,8 @@
 
 > **C-099（M8 DP 第 8 页收官 · 新页）**：旅行商 TSP——Held-Karp 状压 DP：「去过哪些城」压成二进制 mask 当下标，dp[mask][i] pull 式转移 + 回边收尾，O(n!) 降到 O(2ⁿ·n²)；n≈20 上限、状压家族。**纯复用 MatrixView 第 12 消费者零改动**（8 行二进制 mask 表 + sources 前置格）。tsp.module 15 步 + bruteTsp 全排列对拍。`TC-TSP-MOD-*`+`TC-VIEW-TSP-*`+`TC-E2E-TSP-01`。
 
+> **C-100（M8 DP 第 9 页 · 新页）**：树形 DP 打家劫舍 III——状态挂节点（选/不选）、子树即子问题、后序即拓扑，一趟 DFS O(n)。**纯复用 MatrixView 第 13 消费者零改动**（后序跳行填表 + sel/not 定向 sources）。treedp.module 10 步 + bruteRob 不相邻子集枚举对拍。`TC-TD-MOD-*`+`TC-VIEW-TD-*`+`TC-E2E-TD-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1986,3 +1988,19 @@
 | TC-VIEW-TSP-02        | h1 含旅行商 + MatrixView + 无柱数组（C-099）                                                       | L4   | `src/views/Article/Algorithm/Tsp.spec.ts`                 |
 | TC-VIEW-TSP-03        | 正文含状压与 mask（C-099）                                                                         | L4   | `src/views/Article/Algorithm/Tsp.spec.ts`                 |
 | TC-E2E-TSP-01         | 旅行商全模板：状压状态表 / 拖末步 7 / Shiki（C-099 新增）                                          | L5   | `e2e/tsp.e2e.ts`                                          |
+| TC-TD-MOD-01          | max(13,14)=14=bruteRob；根 (13,14)（C-100）                                                        | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-02          | 后序 [3,4,1,2,0] 五节点两态全等（C-100）                                                           | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-03          | point 六集 + matrix + array 空（C-100）                                                            | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-04          | 10 步 = init+leaf×3+(sel+not)×2+best+done（C-100）                                                 | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-05          | init 5×2 全 null + 树位置 rowLabels（C-100）                                                       | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-06          | leaf 一步双格 (v,0) 跳行 3/4/2（C-100）                                                            | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-07          | sel sources 孩子不选格两组（C-100）                                                                | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-08          | not sources 孩子四格两组（C-100）                                                                  | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-09          | best 根两格 + max 14（C-100）                                                                      | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-10          | done 含 14 与后序语义（C-100）                                                                     | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-11          | 四语言+行号+六执行点（C-100）                                                                      | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-TD-MOD-12          | title 含树形；initialInput=TD_VALS（C-100）                                                        | L3   | `src/algorithms/treedp.module.spec.ts`                    |
+| TC-VIEW-TD-01         | Article + AlgorithmPlayer（C-100）                                                                 | L4   | `src/views/Article/Algorithm/TreeDp.spec.ts`              |
+| TC-VIEW-TD-02         | h1 含树形 + MatrixView + 无柱数组（C-100）                                                         | L4   | `src/views/Article/Algorithm/TreeDp.spec.ts`              |
+| TC-VIEW-TD-03         | 正文含后序与子树（C-100）                                                                          | L4   | `src/views/Article/Algorithm/TreeDp.spec.ts`              |
+| TC-E2E-TD-01          | 树形 DP 全模板：两态表 / 拖末步 14 / Shiki（C-100 新增）                                           | L5   | `e2e/tree-dp.e2e.ts`                                      |
