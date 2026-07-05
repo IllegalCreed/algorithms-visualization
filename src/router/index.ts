@@ -345,6 +345,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Fft.vue'),
           },
           {
+            path: '/docs/pollard-rho',
+            name: 'pollard-rho',
+            component: () => import('../views/Article/Algorithm/PollardRho.vue'),
+          },
+          {
             path: '/docs/convex-hull',
             name: 'convex-hull',
             component: () => import('../views/Article/Algorithm/ConvexHull.vue'),

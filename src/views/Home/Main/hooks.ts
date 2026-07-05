@@ -36,6 +36,7 @@ import CrtIcon from '@/assets/crt.svg';
 import EulerPhiIcon from '@/assets/euler-phi.svg';
 import MillerRabinIcon from '@/assets/miller-rabin.svg';
 import FftIcon from '@/assets/fft.svg';
+import PollardRhoIcon from '@/assets/pollard-rho.svg';
 import ConvexHullIcon from '@/assets/convex-hull.svg';
 import RotatingCalipersIcon from '@/assets/rotating-calipers.svg';
 import ClosestPairIcon from '@/assets/closest-pair.svg';
@@ -617,6 +618,12 @@ export function useCategoryData(): Category[] {
           desc: '多项式乘法 O(n log n)：换点值表示逐点乘，取点值用单位根折叠对称——位反转重排 + log n 层蝶形 (u,v)→(u±ωv)；NTT 同款骨架',
           icon: FftIcon,
           url: 'fft',
+        },
+        {
+          title: "Pollard's Rho",
+          desc: '大数分解：伪随机序列在未知因子的世界里 O(n^¼) 步入环（ρ 形），gcd(|龟−兔|, n) 把因子显影；配米勒-拉宾成完整流水线',
+          icon: PollardRhoIcon,
+          url: 'pollard-rho',
         },
       ],
     },

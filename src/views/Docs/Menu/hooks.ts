@@ -361,6 +361,10 @@ export function useCategoryData(): Category[] {
           title: 'FFT',
           url: 'fft',
         },
+        {
+          title: "Pollard's Rho",
+          url: 'pollard-rho',
+        },
       ],
     },
     {

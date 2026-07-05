@@ -1,0 +1,23 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- Pollard's Rho：ρ 字形轨迹（尾巴 + 环）+ 龟兔相遇点 -->
+  <g fill="none" stroke-linecap="round">
+    <!-- 尾巴 -->
+    <path d="M 150 900 Q 260 700 380 560" stroke="#c8d2cc" stroke-width="30" />
+    <!-- 环 -->
+    <circle cx="600" cy="400" r="270" stroke="#2e7d32" stroke-width="30" />
+  </g>
+  <!-- 环上节点 -->
+  <g stroke="#333" stroke-width="10">
+    <circle cx="150" cy="900" r="52" fill="#e6e9e7" />
+    <circle cx="380" cy="560" r="52" fill="#a5d8ff" />
+    <circle cx="600" cy="130" r="52" fill="#8bd3a0" />
+    <circle cx="860" cy="470" r="52" fill="#ffd43b" />
+  </g>
+  <!-- 龟兔相遇：黄色站台的双环 -->
+  <circle cx="860" cy="470" r="84" fill="none" stroke="#1565c0" stroke-width="16" stroke-dasharray="18 14" />
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <text x="400" y="330" font-size="200" fill="#2e7d32">ρ</text>
+    <text x="860" y="470" font-size="52" fill="#7a5900">撞</text>
+    <text x="150" y="900" font-size="48" fill="#333">x₀</text>
+  </g>
+</svg>

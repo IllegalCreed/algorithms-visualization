@@ -258,6 +258,15 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** Pollard's Rho 执行点（C-108，数论第 10 页；纯复用 GraphView——ρ 链龟兔 + gcd 显影） */
+export type RhoExecPoint =
+  | 'init' // 分解问题登场 + 试除的墙
+  | 'seed' // f(x)=x²+1 与 x₀，伪随机序列
+  | 'race' // 龟兔各进 1/2 步 + gcd 显影（未中）
+  | 'hit' // gcd > 1 命中因子
+  | 'reveal' // 上帝视角：mod d 世界 ρ 现形（四色站台）
+  | 'done'; // O(n^¼) + 分解流水线
+
 /** FFT 执行点（C-107，数论第 9 页；复用 NetworkView additive 蝶形——位反转 + log n 层蝶形） */
 export type FftExecPoint =
   | 'init' // 顺序输入 + 点值乘法动机
