@@ -1106,6 +1106,7 @@
 > **C-105（M9-3 · 图算法第 12 页 · 新页）**：欧拉路径 Hierholzer——一笔画：奇度 0/2 判定 + 消边栈法（卡住弹栈进路径、栈顶余边续走子环自动插入），O(E)。**纯复用 GraphView 第 10 消费者零改动**。euler.module 12 步 + bruteEulerPath 回溯搜路对拍。`TC-EU-MOD-*`+`TC-VIEW-EU-*`+`TC-E2E-EU-01`。
 > **C-106（M9-4 · 字符串第 8 页 · 新页）**：Z 函数——z[i]=s 与后缀的 LCP；Z-box 内抄镜像、达界才右扩、r 只增不减 O(n)。**ManacherView 第 2 消费者 + additive labels?/statusLabels?（不设零回归）**。zfunc.module 9 步 + zBrute 朴素对拍。`TC-Z-MOD-*`+`TC-VIZ-MANACHERVIEW-05/06`+`TC-VIEW-Z-*`+`TC-E2E-Z-01`。
 > **C-107（M9-5 · 数论第 9 页 · 新页）**：FFT——点值乘法 + 单位根折叠：位反转重排 + 3 层蝶形 (u,v)→(u+ωv,u−ωv)，O(n log n)。**NetworkView 第 2 消费者 + additive wireLabels?/tag?（不设零回归）**。fft.module 9 步 + dftBrute 直算对拍。`TC-FFT-MOD-*`+`TC-VIZ-NETVIEW-04/05`+`TC-VIEW-FFT-*`+`TC-E2E-FFT-01`。
+> **C-108（M9-6 · 数论第 10 页 · 新页 · M9 A 档收官）**：Pollard's Rho——伪随机序列 + 生日悖论 + gcd 显影，Floyd 龟兔 O(n^¼)。**纯复用 GraphView 第 11 消费者零改动**（同余同站台 ρ 布局 + reveal 四色）。rho.module 7 步 + 双素性试除对拍。`TC-RHO-MOD-*`+`TC-VIEW-RHO-*`+`TC-E2E-RHO-01`。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
@@ -2130,3 +2131,19 @@
 | TC-VIEW-FFT-02         | h1 含 FFT + NetworkView + 无柱数组（C-107）                                                        | L4   | `src/views/Article/Algorithm/Fft.spec.ts`                 |
 | TC-VIEW-FFT-03         | 正文含单位根与点值（C-107）                                                                        | L4   | `src/views/Article/Algorithm/Fft.spec.ts`                 |
 | TC-E2E-FFT-01          | FFT 全模板：蝶形网络 / 拖末步 O(n log n) / Shiki（C-107 新增）                                     | L5   | `e2e/fft.e2e.ts`                                          |
+| TC-RHO-MOD-01          | 对拍：97×83=8051 且双素性（C-108）                                                                 | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-02          | 序列与 ρ：xs 全等 + mod 97 尾 1 环 3（C-108）                                                      | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-03          | 龟兔轨迹：两次未中 + gcd(194)=97（C-108）                                                          | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-04          | 步合法：point+graph+array 空（C-108）                                                              | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-05          | 步数结构：7 步序列全等（C-108）                                                                    | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-06          | seed 步 x₀ 高亮 + 伪随机语义（C-108）                                                              | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-07          | race 步龟兔蓝环 + 链边渐绿 + gcd=1（C-108）                                                        | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-08          | hit 步 checkPair=[3,6] + 194/97 + 分解式（C-108）                                                  | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-09          | reveal 步 nodeGroup 四组 + mod 97 语义（C-108）                                                    | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-10          | done：O(n^¼) + 流水线（C-108）                                                                     | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-11          | 四语言+行号+六执行点（C-108）                                                                      | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-RHO-MOD-12          | title 含 Pollard；initialInput=[]（C-108）                                                         | L3   | `src/algorithms/rho.module.spec.ts`                       |
+| TC-VIEW-RHO-01         | Article + AlgorithmPlayer（C-108）                                                                 | L4   | `src/views/Article/Algorithm/PollardRho.spec.ts`          |
+| TC-VIEW-RHO-02         | h1 含 Pollard + GraphView + 无柱数组（C-108）                                                      | L4   | `src/views/Article/Algorithm/PollardRho.spec.ts`          |
+| TC-VIEW-RHO-03         | 正文含生日悖论与 gcd（C-108）                                                                      | L4   | `src/views/Article/Algorithm/PollardRho.spec.ts`          |
+| TC-E2E-RHO-01          | Pollard's Rho 全模板：ρ 链图轨 / 拖末步 n^¼ / Shiki（C-108 新增）                                  | L5   | `e2e/pollard-rho.e2e.ts`                                  |
