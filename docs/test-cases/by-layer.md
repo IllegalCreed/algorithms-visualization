@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1146** 个用例。运行命令：`pnpm test:unit`
+共 **1158** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1625,12 +1625,24 @@
 | TC-EU-MOD-10    | done：O(E) + 一笔画 + 全路径                                            | `src/algorithms/euler.module.spec.ts`       |
 | TC-EU-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/euler.module.spec.ts`       |
 | TC-EU-MOD-12    | title 含欧拉；initialInput=[]                                           | `src/algorithms/euler.module.spec.ts`       |
+| TC-Z-MOD-01     | 对拍：z=[7,1,0,2,3,1,0]=朴素逐位                                        | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-02     | 事件流：brute×3 → 达界+2 → 直接抄×2                                     | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-03     | 步合法：point+manacher+array 空                                         | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-04     | 步数结构：9 步序列全等                                                  | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-05     | init 步 z[0]=7 + 标签 S/z                                               | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-06     | brute 步 i=3 填至 [7,1,0,2] + box                                       | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-07     | mirror 步蓝环 + 先抄 1 + 达界语义                                       | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-08     | extend 步扩到 3 + box 刷新 + expand                                     | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-09     | mirror-copy 零比较 + best 段                                            | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-10     | done：O(n) + P#T 应用                                                   | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-11     | 四语言+行号+五执行点                                                    | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-12     | title 含 Z 函数；initialInput=[]                                        | `src/algorithms/zfunc.module.spec.ts`       |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **587** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **592** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2759,17 +2771,22 @@
 
 ### 换根 DP 页 C-103（DP 第 11 页真收官·M9-1，新页，纯复用 MatrixView 第 15 消费者）
 
-| 用例 ID        | 场景                              | 文件                                            |
-| -------------- | --------------------------------- | ----------------------------------------------- |
-| TC-VIEW-RR-01  | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
-| TC-VIEW-RR-02  | h1 含换根 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
-| TC-VIEW-RR-03  | 正文含二次扫描与 size             | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
-| TC-VIEW-LCA-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/Lca.spec.ts`       |
-| TC-VIEW-LCA-02 | h1 含 LCA + MatrixView + 无柱数组 | `src/views/Article/Algorithm/Lca.spec.ts`       |
-| TC-VIEW-LCA-03 | 正文含倍增与祖先                  | `src/views/Article/Algorithm/Lca.spec.ts`       |
-| TC-VIEW-EU-01  | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/EulerPath.spec.ts` |
-| TC-VIEW-EU-02  | h1 含欧拉 + GraphView + 无柱数组  | `src/views/Article/Algorithm/EulerPath.spec.ts` |
-| TC-VIEW-EU-03  | 正文含一笔画与奇度                | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| 用例 ID                | 场景                                           | 文件                                            |
+| ---------------------- | ---------------------------------------------- | ----------------------------------------------- |
+| TC-VIEW-RR-01          | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-RR-02          | h1 含换根 + MatrixView + 无柱数组              | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-RR-03          | 正文含二次扫描与 size                          | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-LCA-01         | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-LCA-02         | h1 含 LCA + MatrixView + 无柱数组              | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-LCA-03         | 正文含倍增与祖先                               | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-EU-01          | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIEW-EU-02          | h1 含欧拉 + GraphView + 无柱数组               | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIEW-EU-03          | 正文含一笔画与奇度                             | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIZ-MANACHERVIEW-05 | additive labels/statusLabels 设时生效（C-106） | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-06 | additive 不设回退 S/p 与原文案（零回归）       | `src/components/ManacherView.spec.ts`           |
+| TC-VIEW-Z-01           | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/ZFunction.spec.ts` |
+| TC-VIEW-Z-02           | h1 含 Z 函数 + ManacherView + 无柱数组         | `src/views/Article/Algorithm/ZFunction.spec.ts` |
+| TC-VIEW-Z-03           | 正文含公共前缀与 Z-box                         | `src/views/Article/Algorithm/ZFunction.spec.ts` |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2781,7 +2798,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **97** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **98** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2883,6 +2900,7 @@
 | TC-E2E-RR-01        | 换根 DP 全模板：三列表 / 拖末步 O(n) / Shiki（C-103 新增）                                                                 | `e2e/reroot-dp.e2e.ts`             | active     |
 | TC-E2E-LCA-01       | LCA 倍增全模板：跳表 / 拖末步 O(log n) / Shiki（C-104 新增）                                                               | `e2e/lca.e2e.ts`                   | active     |
 | TC-E2E-EU-01        | 欧拉路径全模板：消边图轨 / 拖末步 O(E) / Shiki（C-105 新增）                                                               | `e2e/euler-path.e2e.ts`            | active     |
+| TC-E2E-Z-01         | Z 函数全模板：Z-box 回文轨 / 拖末步 O(n) / Shiki（C-106 新增）                                                             | `e2e/z-function.e2e.ts`            | active     |
 
 ---
 
