@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1158** 个用例。运行命令：`pnpm test:unit`
+共 **1170** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1637,12 +1637,24 @@
 | TC-Z-MOD-10     | done：O(n) + P#T 应用                                                   | `src/algorithms/zfunc.module.spec.ts`       |
 | TC-Z-MOD-11     | 四语言+行号+五执行点                                                    | `src/algorithms/zfunc.module.spec.ts`       |
 | TC-Z-MOD-12     | title 含 Z 函数；initialInput=[]                                        | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-FFT-MOD-01   | 对拍：末层 = 直算 DFT                                                   | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-02   | 逐层值：位反转 + layer1 + 复数登场                                      | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-03   | 步合法：point+network+array 空                                          | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-04   | 步数结构：9 步序列全等                                                  | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-05   | init 顺序输入 + 12 蝶形 3 列                                            | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-06   | bitrev 重排 + 位反转语义                                                | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-07   | twiddle currentCol 逐层 + 值不变                                        | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-08   | butterfly 三步后值 = layer1/2/3                                         | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-09   | tag：col0 ×1 / col1 ×ω² / col2 ×ω·×ω³                                   | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-10   | done + O(n log n) + 三部曲                                              | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-11   | 四语言+行号+五执行点                                                    | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-12   | title 含 FFT；initialInput=[]                                           | `src/algorithms/fft.module.spec.ts`         |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **592** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **597** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2771,22 +2783,27 @@
 
 ### 换根 DP 页 C-103（DP 第 11 页真收官·M9-1，新页，纯复用 MatrixView 第 15 消费者）
 
-| 用例 ID                | 场景                                           | 文件                                            |
-| ---------------------- | ---------------------------------------------- | ----------------------------------------------- |
-| TC-VIEW-RR-01          | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
-| TC-VIEW-RR-02          | h1 含换根 + MatrixView + 无柱数组              | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
-| TC-VIEW-RR-03          | 正文含二次扫描与 size                          | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
-| TC-VIEW-LCA-01         | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/Lca.spec.ts`       |
-| TC-VIEW-LCA-02         | h1 含 LCA + MatrixView + 无柱数组              | `src/views/Article/Algorithm/Lca.spec.ts`       |
-| TC-VIEW-LCA-03         | 正文含倍增与祖先                               | `src/views/Article/Algorithm/Lca.spec.ts`       |
-| TC-VIEW-EU-01          | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/EulerPath.spec.ts` |
-| TC-VIEW-EU-02          | h1 含欧拉 + GraphView + 无柱数组               | `src/views/Article/Algorithm/EulerPath.spec.ts` |
-| TC-VIEW-EU-03          | 正文含一笔画与奇度                             | `src/views/Article/Algorithm/EulerPath.spec.ts` |
-| TC-VIZ-MANACHERVIEW-05 | additive labels/statusLabels 设时生效（C-106） | `src/components/ManacherView.spec.ts`           |
-| TC-VIZ-MANACHERVIEW-06 | additive 不设回退 S/p 与原文案（零回归）       | `src/components/ManacherView.spec.ts`           |
-| TC-VIEW-Z-01           | Article + AlgorithmPlayer                      | `src/views/Article/Algorithm/ZFunction.spec.ts` |
-| TC-VIEW-Z-02           | h1 含 Z 函数 + ManacherView + 无柱数组         | `src/views/Article/Algorithm/ZFunction.spec.ts` |
-| TC-VIEW-Z-03           | 正文含公共前缀与 Z-box                         | `src/views/Article/Algorithm/ZFunction.spec.ts` |
+| 用例 ID                | 场景                                               | 文件                                            |
+| ---------------------- | -------------------------------------------------- | ----------------------------------------------- |
+| TC-VIEW-RR-01          | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-RR-02          | h1 含换根 + MatrixView + 无柱数组                  | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-RR-03          | 正文含二次扫描与 size                              | `src/views/Article/Algorithm/RerootDp.spec.ts`  |
+| TC-VIEW-LCA-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-LCA-02         | h1 含 LCA + MatrixView + 无柱数组                  | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-LCA-03         | 正文含倍增与祖先                                   | `src/views/Article/Algorithm/Lca.spec.ts`       |
+| TC-VIEW-EU-01          | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIEW-EU-02          | h1 含欧拉 + GraphView + 无柱数组                   | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIEW-EU-03          | 正文含一笔画与奇度                                 | `src/views/Article/Algorithm/EulerPath.spec.ts` |
+| TC-VIZ-MANACHERVIEW-05 | additive labels/statusLabels 设时生效（C-106）     | `src/components/ManacherView.spec.ts`           |
+| TC-VIZ-MANACHERVIEW-06 | additive 不设回退 S/p 与原文案（零回归）           | `src/components/ManacherView.spec.ts`           |
+| TC-VIEW-Z-01           | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/ZFunction.spec.ts` |
+| TC-VIEW-Z-02           | h1 含 Z 函数 + ManacherView + 无柱数组             | `src/views/Article/Algorithm/ZFunction.spec.ts` |
+| TC-VIEW-Z-03           | 正文含公共前缀与 Z-box                             | `src/views/Article/Algorithm/ZFunction.spec.ts` |
+| TC-VIZ-NETVIEW-04      | additive wireLabels 复数线值 + tag 无三角（C-107） | `src/components/NetworkView.spec.ts`            |
+| TC-VIZ-NETVIEW-05      | additive 不设回退数值 + 三角（零回归）             | `src/components/NetworkView.spec.ts`            |
+| TC-VIEW-FFT-01         | Article + AlgorithmPlayer                          | `src/views/Article/Algorithm/Fft.spec.ts`       |
+| TC-VIEW-FFT-02         | h1 含 FFT + NetworkView + 无柱数组                 | `src/views/Article/Algorithm/Fft.spec.ts`       |
+| TC-VIEW-FFT-03         | 正文含单位根与点值                                 | `src/views/Article/Algorithm/Fft.spec.ts`       |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2798,7 +2815,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **98** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **99** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2901,6 +2918,7 @@
 | TC-E2E-LCA-01       | LCA 倍增全模板：跳表 / 拖末步 O(log n) / Shiki（C-104 新增）                                                               | `e2e/lca.e2e.ts`                   | active     |
 | TC-E2E-EU-01        | 欧拉路径全模板：消边图轨 / 拖末步 O(E) / Shiki（C-105 新增）                                                               | `e2e/euler-path.e2e.ts`            | active     |
 | TC-E2E-Z-01         | Z 函数全模板：Z-box 回文轨 / 拖末步 O(n) / Shiki（C-106 新增）                                                             | `e2e/z-function.e2e.ts`            | active     |
+| TC-E2E-FFT-01       | FFT 全模板：蝶形网络 / 拖末步 O(n log n) / Shiki（C-107 新增）                                                             | `e2e/fft.e2e.ts`                   | active     |
 
 ---
 

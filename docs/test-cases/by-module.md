@@ -1105,6 +1105,7 @@
 > **C-104（M9-2 · 图算法第 11 页 · 新页）**：LCA 倍增——建跳表 up[k][u]（爸爸的爸爸递推），查询对齐→高位试跳（祖先不同才跳）→父即答案，O(log n)。**纯复用 MatrixView 第 16 消费者零改动**。lca.module 11 步 + bruteLca 爬父链对拍（64 全对）。`TC-LCA-MOD-*`+`TC-VIEW-LCA-*`+`TC-E2E-LCA-01`。
 > **C-105（M9-3 · 图算法第 12 页 · 新页）**：欧拉路径 Hierholzer——一笔画：奇度 0/2 判定 + 消边栈法（卡住弹栈进路径、栈顶余边续走子环自动插入），O(E)。**纯复用 GraphView 第 10 消费者零改动**。euler.module 12 步 + bruteEulerPath 回溯搜路对拍。`TC-EU-MOD-*`+`TC-VIEW-EU-*`+`TC-E2E-EU-01`。
 > **C-106（M9-4 · 字符串第 8 页 · 新页）**：Z 函数——z[i]=s 与后缀的 LCP；Z-box 内抄镜像、达界才右扩、r 只增不减 O(n)。**ManacherView 第 2 消费者 + additive labels?/statusLabels?（不设零回归）**。zfunc.module 9 步 + zBrute 朴素对拍。`TC-Z-MOD-*`+`TC-VIZ-MANACHERVIEW-05/06`+`TC-VIEW-Z-*`+`TC-E2E-Z-01`。
+> **C-107（M9-5 · 数论第 9 页 · 新页）**：FFT——点值乘法 + 单位根折叠：位反转重排 + 3 层蝶形 (u,v)→(u+ωv,u−ωv)，O(n log n)。**NetworkView 第 2 消费者 + additive wireLabels?/tag?（不设零回归）**。fft.module 9 步 + dftBrute 直算对拍。`TC-FFT-MOD-*`+`TC-VIZ-NETVIEW-04/05`+`TC-VIEW-FFT-*`+`TC-E2E-FFT-01`。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
@@ -2111,3 +2112,21 @@
 | TC-VIEW-Z-02           | h1 含 Z 函数 + ManacherView + 无柱数组（C-106）                                                    | L4   | `src/views/Article/Algorithm/ZFunction.spec.ts`           |
 | TC-VIEW-Z-03           | 正文含公共前缀与 Z-box（C-106）                                                                    | L4   | `src/views/Article/Algorithm/ZFunction.spec.ts`           |
 | TC-E2E-Z-01            | Z 函数全模板：Z-box 回文轨 / 拖末步 O(n) / Shiki（C-106 新增）                                     | L5   | `e2e/z-function.e2e.ts`                                   |
+| TC-FFT-MOD-01          | 对拍：末层 = 直算 DFT（C-107）                                                                     | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-02          | 逐层值：位反转 + layer1 + 复数登场（C-107）                                                        | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-03          | 步合法：point+network+array 空（C-107）                                                            | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-04          | 步数结构：9 步序列全等（C-107）                                                                    | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-05          | init 顺序输入 + 12 蝶形 3 列（C-107）                                                              | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-06          | bitrev 重排 + 位反转语义（C-107）                                                                  | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-07          | twiddle currentCol 逐层 + 值不变（C-107）                                                          | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-08          | butterfly 三步后值 = layer1/2/3（C-107）                                                           | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-09          | tag：col0 ×1 / col1 ×ω² / col2 ×ω·×ω³（C-107）                                                     | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-10          | done + O(n log n) + 三部曲（C-107）                                                                | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-11          | 四语言+行号+五执行点（C-107）                                                                      | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-FFT-MOD-12          | title 含 FFT；initialInput=[]（C-107）                                                             | L3   | `src/algorithms/fft.module.spec.ts`                       |
+| TC-VIZ-NETVIEW-04      | additive wireLabels 复数线值 + tag 无三角（C-107）                                                 | L4   | `src/components/NetworkView.spec.ts`                      |
+| TC-VIZ-NETVIEW-05      | additive 不设回退数值 + 三角（零回归）                                                             | L4   | `src/components/NetworkView.spec.ts`                      |
+| TC-VIEW-FFT-01         | Article + AlgorithmPlayer（C-107）                                                                 | L4   | `src/views/Article/Algorithm/Fft.spec.ts`                 |
+| TC-VIEW-FFT-02         | h1 含 FFT + NetworkView + 无柱数组（C-107）                                                        | L4   | `src/views/Article/Algorithm/Fft.spec.ts`                 |
+| TC-VIEW-FFT-03         | 正文含单位根与点值（C-107）                                                                        | L4   | `src/views/Article/Algorithm/Fft.spec.ts`                 |
+| TC-E2E-FFT-01          | FFT 全模板：蝶形网络 / 拖末步 O(n log n) / Shiki（C-107 新增）                                     | L5   | `e2e/fft.e2e.ts`                                          |
