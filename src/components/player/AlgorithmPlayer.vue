@@ -1,10 +1,11 @@
 <!-- src/components/player/AlgorithmPlayer.vue -->
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, shallowRef } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, ref, shallowRef, watch } from 'vue';
 import type { AlgorithmModule } from './types';
 import { usePlayer } from './usePlayer';
 import { clearInputFromUrl, readInputFromUrl, writeInputToUrl } from './inputSpec';
 import InputBar from './InputBar.vue';
+import QuizCard from './QuizCard.vue';
 import BarsView from '@/components/BarsView.vue';
 import AuxView from '@/components/AuxView.vue';
 import StackView from '@/components/StackView.vue';
@@ -53,8 +54,9 @@ const {
   toggleLoop,
 } = usePlayer(steps);
 
-// C-111 键盘快捷键：→/←/空格；输入控件聚焦时不抢（InputBar 打字优先）
+// C-111 键盘快捷键：→/←/空格；输入控件聚焦时不抢（InputBar 打字优先）；题卡可见时不响应（C-112 防绕题）
 function onKeydown(e: KeyboardEvent): void {
+  if (activeQuizVisible.value) return;
   const t = e.target as HTMLElement | null;
   const tag = t?.tagName;
   if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
@@ -76,9 +78,41 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown));
 const prevVars = computed(() => steps.value[index.value - 1]?.vars);
 const inputText = computed(() => input.value.join(', '));
 
+// C-112 测验：步下标 → 是否答对；同一步答过不再出题
+const quizRecord = reactive(new Map<number, boolean>());
+const showQuizResult = ref(false);
+const wasAutoPlaying = ref(false);
+const quizTotal = computed(() => steps.value.filter((s) => s.quiz).length);
+const quizCorrect = computed(() => [...quizRecord.values()].filter(Boolean).length);
+const activeQuizVisible = computed(() => {
+  const q = current.value.quiz;
+  return !!q && (!quizRecord.has(index.value) || showQuizResult.value);
+});
+
+watch(index, (i) => {
+  showQuizResult.value = false; // 离步收结果态
+  const q = steps.value[i]?.quiz;
+  if (q && !quizRecord.has(i)) {
+    wasAutoPlaying.value = isPlaying.value;
+    if (isPlaying.value) pause(); // 自动播放拦停出题
+  }
+});
+
+function onQuizAnswered(correct: boolean): void {
+  quizRecord.set(index.value, correct);
+  showQuizResult.value = true;
+}
+
+function onQuizResume(): void {
+  showQuizResult.value = false;
+  if (wasAutoPlaying.value) play();
+}
+
 function applyInput(arr: number[]): void {
   input.value = arr;
   steps.value = props.module.buildSteps(arr);
+  quizRecord.clear();
+  showQuizResult.value = false;
   reset();
   writeInputToUrl(arr);
 }
@@ -86,6 +120,8 @@ function applyInput(arr: number[]): void {
 function restoreInput(): void {
   input.value = props.module.initialInput();
   steps.value = props.module.buildSteps(input.value);
+  quizRecord.clear();
+  showQuizResult.value = false;
   reset();
   clearInputFromUrl();
 }
@@ -130,6 +166,15 @@ function restoreInput(): void {
     <CountView v-if="current.count" :count="current.count" />
     <BucketView v-if="current.bucket" :bucket="current.bucket" />
     <p class="caption">{{ current.caption }}</p>
+    <QuizCard
+      v-if="activeQuizVisible && current.quiz"
+      :quiz="current.quiz"
+      @answered="onQuizAnswered"
+      @resume="onQuizResume"
+    />
+    <p v-if="atEnd && quizTotal > 0" class="quiz-score">
+      📊 本页测验：{{ quizCorrect }} / {{ quizTotal }}
+    </p>
     <div class="middle row">
       <CodePanel class="code-pane" :sources="props.module.sources" :point="current.point" />
       <VariablePanel class="var-pane" :vars="current.vars" :prev="prevVars" />
@@ -162,6 +207,11 @@ function restoreInput(): void {
   font-weight: bold;
   font-size: 16px;
   min-height: 24px;
+}
+.quiz-score {
+  font-weight: bold;
+  font-size: 15px;
+  color: #1f5e3a;
 }
 .middle {
   gap: 16px;

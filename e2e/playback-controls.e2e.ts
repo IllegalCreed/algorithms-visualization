@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('TC-E2E-CTRL-01 播放控制增强：键盘三键 + 3× + 播完循环回卷', async ({ page }) => {
-  await page.goto('/docs/quick-sort');
+  await page.goto('/docs/heap-sort'); // 无 quiz 的页（quick-sort 已有题卡会拦键盘，见 C-112）
   await expect(page.locator('.counter')).toContainText('1 / ');
 
   // 键盘 → 两次、← 一次

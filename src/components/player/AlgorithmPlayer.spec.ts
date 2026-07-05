@@ -918,6 +918,95 @@ describe('AlgorithmPlayer', () => {
     });
   });
 
+  // ===== C-112 M10-P3 测验模式 =====
+  describe('测验模式（C-112）', () => {
+    const quizModule: AlgorithmModule = {
+      title: 'quiz-test',
+      initialInput: () => [],
+      buildSteps: (): Step[] => [
+        { array: [], pointers: [], emphasis: {}, vars: [], point: 'a', caption: 's0' },
+        {
+          array: [],
+          pointers: [],
+          emphasis: {},
+          vars: [],
+          point: 'b',
+          caption: 's1',
+          quiz: { question: '1+1=?', options: ['2', '3'], answer: 0 },
+        },
+        { array: [], pointers: [], emphasis: {}, vars: [], point: 'c', caption: 's2' },
+      ],
+      sources: [{ lang: 'ts', label: 'TS', code: 'l1\nl2\nl3', lineMap: { a: 1, b: 2, c: 3 } }],
+    };
+    const mountQuiz = () =>
+      mount(AlgorithmPlayer, {
+        props: { module: quizModule },
+        global: { plugins: [createPinia()] },
+      });
+
+    it('TC-PLAYER-QUIZ-01 module 无 quiz → 全程无题卡（全站回归）', async () => {
+      const w = mountIt(); // bubbleSortModule
+      await flushPromises();
+      await w.find('.ctl[title="下一步"]').trigger('click');
+      await w.find('.ctl[title="下一步"]').trigger('click');
+      expect(w.find('.quiz-card').exists()).toBe(false);
+    });
+
+    it('TC-PLAYER-QUIZ-02 自动播放到 quiz 步拦停出卡；题卡期间 → 不换步', async () => {
+      vi.useFakeTimers();
+      const w = mountQuiz();
+      await flushPromises();
+      await w.find('.play').trigger('click');
+      vi.advanceTimersByTime(800); // → 步 1（quiz 步）
+      await w.vm.$nextTick();
+      expect(w.find('.counter').text()).toContain('2 / 3');
+      expect(w.find('.quiz-card').exists()).toBe(true);
+      vi.advanceTimersByTime(2000); // 已拦停，不再推进
+      await w.vm.$nextTick();
+      expect(w.find('.counter').text()).toContain('2 / 3');
+      // 键盘守卫
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+      await w.vm.$nextTick();
+      expect(w.find('.counter').text()).toContain('2 / 3');
+      vi.useRealTimers();
+      w.unmount();
+    });
+
+    it('TC-PLAYER-QUIZ-03 答对 + 继续 → 续播；回拖同步不再出题', async () => {
+      vi.useFakeTimers();
+      const w = mountQuiz();
+      await flushPromises();
+      await w.find('.play').trigger('click');
+      vi.advanceTimersByTime(800);
+      await w.vm.$nextTick();
+      await w.findAll('.qc-option')[0].trigger('click'); // 答对
+      await w.find('.qc-resume').trigger('click'); // 续播
+      vi.advanceTimersByTime(800); // → 步 2
+      await w.vm.$nextTick();
+      expect(w.find('.counter').text()).toContain('3 / 3');
+      // 回拖到 quiz 步：已答，不再出卡
+      await w.find('.ctl[title="上一步"]').trigger('click');
+      expect(w.find('.counter').text()).toContain('2 / 3');
+      expect(w.find('.quiz-card').exists()).toBe(false);
+      vi.useRealTimers();
+      w.unmount();
+    });
+
+    it('TC-PLAYER-QUIZ-04 末步显示成绩（有题页）；无题页无成绩行', async () => {
+      const w = mountQuiz();
+      await flushPromises();
+      await w.find('.ctl[title="下一步"]').trigger('click'); // → quiz 步出卡
+      await w.findAll('.qc-option')[1].trigger('click'); // 答错
+      await w.find('.qc-resume').trigger('click');
+      await w.find('.ctl[title="下一步"]').trigger('click'); // → 末步
+      expect(w.find('.quiz-score').text()).toContain('0 / 1');
+      w.unmount();
+      const w2 = mountIt(); // bubble 无题
+      await flushPromises();
+      expect(w2.find('.quiz-score').exists()).toBe(false);
+    });
+  });
+
   // ===== C-111 M10-P2 键盘快捷键 =====
   describe('键盘快捷键（C-111）', () => {
     const key = (k: string, target?: HTMLElement) => {

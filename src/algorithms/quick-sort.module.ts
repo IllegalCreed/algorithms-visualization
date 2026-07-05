@@ -181,6 +181,24 @@ export function buildQuickSortSteps(input: number[]): Step<QuickExecPoint>[] {
     stackSnap(),
     '完成，全部有序',
   );
+
+  // C-112 测验插桩（概念题，与自定义输入无关）
+  const firstPivotSelect = steps.find((s) => s.point === 'pivotSelect');
+  if (firstPivotSelect) {
+    firstPivotSelect.quiz = {
+      question: 'Lomuto 分区选哪个位置的元素当 pivot？',
+      options: ['区间末位', '区间首位', '随机位置'],
+      answer: 0,
+    };
+  }
+  const firstPivotPlace = steps.find((s) => s.point === 'pivotPlace');
+  if (firstPivotPlace) {
+    firstPivotPlace.quiz = {
+      question: 'pivot 钉到最终位置后，接下来做什么？',
+      options: ['递归处理左右两个子区间', '重扫整个数组找下一个 pivot', '排序到此结束'],
+      answer: 0,
+    };
+  }
   return steps;
 }
 

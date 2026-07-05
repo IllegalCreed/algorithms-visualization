@@ -120,6 +120,24 @@ export function buildBsearchSteps(input: number[]): Step<BsExecPoint>[] {
     `二分查找 O(log n)：10 亿元素最多 30 次比较。写法上取中点用 lo + ((hi − lo) >> 1) 防溢出；变体才是重头戏——找左右边界（lower/upper bound）、旋转数组、在答案空间上二分，都是本大类后面的故事`,
     [{ name: '复杂度', value: 'O(log n)' }],
   );
+
+  // C-112 测验插桩（本页输入固定，题面与数据一致）
+  const firstMid = steps.find((s) => s.point === 'mid');
+  if (firstMid) {
+    firstMid.quiz = {
+      question: 'arr[4] = 9 比 target = 17 小，下一步候选区间是？',
+      options: ['[5, 9]（右半）', '[0, 3]（左半）', '[0, 9] 保持不变'],
+      answer: 0,
+    };
+  }
+  const emptyStep = steps.find((s) => s.point === 'empty');
+  if (emptyStep) {
+    emptyStep.quiz = {
+      question: 'lo > hi（候选区间清空）意味着什么？',
+      options: ['目标不存在，返回 -1', '需要从头再扫一遍确认', '说明数组没排好序'],
+      answer: 0,
+    };
+  }
   return steps;
 }
 

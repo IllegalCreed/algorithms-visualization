@@ -879,6 +879,7 @@ export interface Step<P extends string = string> {
   point: P; // 当前执行点 → 经 lineMap 查每语言行号
   caption?: string; // 解说
   aux?: AuxTrack; // 纯加法：归并的辅助轨；其它算法不设 → AuxView 不渲染
+  quiz?: QuizItem; // 纯加法：测验题（C-112）——自动播放到该步拦停出题；不设 = 无题卡
   stack?: StackTrack; // 纯加法：快排的区间栈轨；其它算法不设 → StackView 不渲染
   tree?: TreeTrack; // 纯加法：堆排序的二叉树轨；其它算法不设 → TreeView 不渲染
   count?: CountTrack; // 纯加法：计数排序的计数桶轨；其它算法不设 → CountView 不渲染
@@ -904,6 +905,13 @@ export interface LangSource<P extends string = string> {
   label: string; // Tab 文案
   code: string; // 该语言完整源码（静态字符串）
   lineMap: Record<P, number>; // 执行点 → 1-based 行号
+}
+
+/** 测验题（C-112，M10-P3）：挂在关键步上，自动播放到该步拦停出题；不设 = 无题卡（轨道范式同款） */
+export interface QuizItem {
+  question: string;
+  options: string[];
+  answer: number; // 正确选项下标
 }
 
 /** 自定义输入规格（C-110，M10-P1）：模块声明后播放器渲染输入条；不声明 = 只读固定剧本 */
