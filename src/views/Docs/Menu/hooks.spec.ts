@@ -111,9 +111,10 @@ describe('Docs/Menu useCategoryData', () => {
     expect(new Set(urls).size).toBe(urls.length);
   });
 
-  it('TC-HOOK-02-4: 数据结构含 15 项，排序算法含 15 项（新增鸡尾酒排序 C-045）', () => {
+  it('TC-HOOK-02-4: 数据结构含 16 项（新增树状数组 C-102），排序算法含 16 项', () => {
     const data = useCategoryData();
-    expect(data[0].children).toHaveLength(15);
+    expect(data[0].children).toHaveLength(16);
+    expect(data[0].children[15].url).toBe('fenwick');
     expect(data[1].children).toHaveLength(16);
     expect(data[1].children[2].url).toBe('bitonic-sort');
     expect(data[1].children.map((c) => c.url)).toContain('binary-insertion-sort');

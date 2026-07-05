@@ -14,6 +14,7 @@ import SkipListIcon from '@/assets/skip-list.svg';
 import SegmentTreeIcon from '@/assets/segment-tree.svg';
 import BTreeIcon from '@/assets/b-tree.svg';
 import BloomIcon from '@/assets/bloom-filter.svg';
+import FenwickIcon from '@/assets/fenwick.svg';
 import DijkstraIcon from '@/assets/dijkstra.svg';
 import KruskalIcon from '@/assets/kruskal.svg';
 import PrimIcon from '@/assets/prim.svg';
@@ -179,6 +180,12 @@ export function useCategoryData(): Category[] {
           desc: '位数组 + 多哈希的概率型存在性判断，会误判不漏判、极省空间，缓存穿透/去重必备',
           icon: BloomIcon,
           url: 'bloom-filter',
+        },
+        {
+          title: '树状数组',
+          desc: 'Fenwick/BIT：tree[i] 管辖长 lowbit(i) 区段，query 往前跳、update 往后跳，改查双 O(log n)；逆序对/动态统计标配，十行代码',
+          icon: FenwickIcon,
+          url: 'fenwick',
         },
       ],
     },

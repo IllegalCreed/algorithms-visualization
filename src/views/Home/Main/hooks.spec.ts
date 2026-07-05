@@ -78,8 +78,9 @@ describe('Home/Main useCategoryData', () => {
     ]);
   });
 
-  it('TC-HOOK-01-2: 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）', () => {
-    expect(data[0].children).toHaveLength(15);
+  it('TC-HOOK-01-2: 数据结构分类含 16 项（…/布隆过滤器/树状数组 C-102）', () => {
+    expect(data[0].children).toHaveLength(16);
+    expect(data[0].children[15].url).toBe('fenwick');
   });
 
   it('TC-HOOK-01-3: 每个条目含 title/desc/icon/url', () => {

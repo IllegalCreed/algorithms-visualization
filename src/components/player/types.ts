@@ -258,6 +258,13 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 树状数组执行点（C-102，数据结构第 16 页；纯复用主柱轨——lowbit 链跳跃） */
+export type FenwickExecPoint =
+  | 'init' // tree 登场 + 管辖区间读法
+  | 'query' // 前缀和：沿 i -= lowbit(i) 往前跳
+  | 'update' // 单点加：沿 i += lowbit(i) 往后跳（柱子长高）
+  | 'done'; // O(log n) 对比与应用
+
 /** 数位 DP 执行点（C-101，动态规划第 10 页；纯复用 MatrixView——按位走上界的走位表） */
 export type DigitDpExecPoint =
   | 'init' // 数位拆解 + 两分支思路

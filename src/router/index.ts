@@ -95,6 +95,11 @@ const routes = [
             component: () => import('../views/Article/DataStructure/BloomFilter.vue'),
           },
           {
+            path: '/docs/fenwick',
+            name: 'fenwick',
+            component: () => import('../views/Article/Algorithm/Fenwick.vue'),
+          },
+          {
             path: '/docs/dijkstra',
             name: 'dijkstra',
             component: () => import('../views/Article/Algorithm/Dijkstra.vue'),

@@ -67,6 +67,10 @@ export function useCategoryData(): Category[] {
           title: '布隆过滤器',
           url: 'bloom-filter',
         },
+        {
+          title: '树状数组',
+          url: 'fenwick',
+        },
       ],
     },
     {

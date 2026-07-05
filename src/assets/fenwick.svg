@@ -1,0 +1,19 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- BIT 柱阵 + lowbit 跳跃弧线 -->
+  <g stroke="#333" stroke-width="10">
+    <rect x="70" y="700" width="90" height="140" rx="14" fill="#d7dedb" />
+    <rect x="186" y="640" width="90" height="200" rx="14" fill="#a5d8ff" />
+    <rect x="302" y="700" width="90" height="140" rx="14" fill="#d7dedb" />
+    <rect x="418" y="480" width="90" height="360" rx="14" fill="#a5d8ff" />
+    <rect x="534" y="720" width="90" height="120" rx="14" fill="#d7dedb" />
+    <rect x="650" y="660" width="90" height="180" rx="14" fill="#8bd3a0" />
+    <rect x="766" y="700" width="90" height="140" rx="14" fill="#d7dedb" />
+    <rect x="882" y="300" width="90" height="540" rx="14" fill="#a5d8ff" />
+  </g>
+  <!-- 跳跃弧线 6 → 4 -->
+  <path d="M 695 620 C 640 480, 540 460, 470 460" fill="none" stroke="#f0a000" stroke-width="24" stroke-linecap="round" />
+  <polygon points="470,460 520,430 520,494" fill="#f0a000" />
+  <text x="590" y="380" font-family="monospace" font-weight="bold" font-size="86" fill="#f0a000" text-anchor="middle">i -= i&amp;-i</text>
+  <text x="512" y="150" font-family="sans-serif" font-weight="bold" font-size="88" fill="#2e7d32" text-anchor="middle">lowbit 链</text>
+  <text x="512" y="950" font-family="sans-serif" font-weight="bold" font-size="64" fill="#333" text-anchor="middle">改查双 O(log n)</text>
+</svg>
