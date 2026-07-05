@@ -1,6 +1,6 @@
 <!-- src/components/player/AlgorithmPlayer.vue -->
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue';
+import { computed, onMounted, onUnmounted, shallowRef } from 'vue';
 import type { AlgorithmModule } from './types';
 import { usePlayer } from './usePlayer';
 import { clearInputFromUrl, readInputFromUrl, writeInputToUrl } from './inputSpec';
@@ -41,6 +41,7 @@ const {
   atEnd,
   total,
   speed,
+  loop,
   current,
   play,
   pause,
@@ -49,7 +50,28 @@ const {
   seek,
   reset,
   setSpeed,
+  toggleLoop,
 } = usePlayer(steps);
+
+// C-111 键盘快捷键：→/←/空格；输入控件聚焦时不抢（InputBar 打字优先）
+function onKeydown(e: KeyboardEvent): void {
+  const t = e.target as HTMLElement | null;
+  const tag = t?.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    stepForward();
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    stepBackward();
+  } else if (e.key === ' ') {
+    e.preventDefault(); // 防页面滚动
+    if (isPlaying.value) pause();
+    else play();
+  }
+}
+onMounted(() => window.addEventListener('keydown', onKeydown));
+onUnmounted(() => window.removeEventListener('keydown', onKeydown));
 
 const prevVars = computed(() => steps.value[index.value - 1]?.vars);
 const inputText = computed(() => input.value.join(', '));
@@ -119,6 +141,7 @@ function restoreInput(): void {
       :index="index"
       :total="total"
       :speed="speed"
+      :loop="loop"
       @play="play"
       @pause="pause"
       @step-back="stepBackward"
@@ -126,6 +149,7 @@ function restoreInput(): void {
       @reset="reset"
       @seek="seek"
       @set-speed="setSpeed"
+      @toggle-loop="toggleLoop"
     />
   </div>
 </template>

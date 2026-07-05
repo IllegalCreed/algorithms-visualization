@@ -105,4 +105,38 @@ describe('usePlayer', () => {
     p.seek(4);
     expect(p.progress.value).toBe(1);
   });
+
+  // ===== C-111 M10-P2 播完循环 =====
+  it('TC-CTRL-LOOP-01 开循环播到末步自动回卷续播', () => {
+    const p = usePlayer(steps(3), { baseDelayMs: 100 });
+    p.toggleLoop();
+    expect(p.loop.value).toBe(true);
+    p.play();
+    vi.advanceTimersByTime(100); // → 1
+    vi.advanceTimersByTime(100); // → 2（末步，循环开 → 不停）
+    expect(p.index.value).toBe(2);
+    expect(p.isPlaying.value).toBe(true);
+    vi.advanceTimersByTime(100); // 回卷 → 0
+    expect(p.index.value).toBe(0);
+    vi.advanceTimersByTime(100); // → 1 继续
+    expect(p.index.value).toBe(1);
+    expect(p.isPlaying.value).toBe(true);
+  });
+
+  it('TC-CTRL-LOOP-02 关循环末步停（旧行为）；开循环 atEnd 点 play 从头播', () => {
+    const p = usePlayer(steps(3), { baseDelayMs: 100 });
+    expect(p.loop.value).toBe(false);
+    p.play();
+    vi.advanceTimersByTime(200);
+    expect(p.index.value).toBe(2);
+    expect(p.isPlaying.value).toBe(false); // 默认到末步自停（旧行为全等）
+    p.play(); // 关循环 atEnd：play 不动
+    expect(p.isPlaying.value).toBe(false);
+    p.toggleLoop();
+    p.play(); // 开循环 atEnd：从头播
+    expect(p.index.value).toBe(0);
+    expect(p.isPlaying.value).toBe(true);
+    vi.advanceTimersByTime(100);
+    expect(p.index.value).toBe(1);
+  });
 });

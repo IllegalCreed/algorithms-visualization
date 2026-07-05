@@ -15,6 +15,7 @@ export function usePlayer(stepsIn: Step[] | Ref<Step[]>, opts: UsePlayerOptions 
   const index = ref(0);
   const isPlaying = ref(false);
   const speed = ref(opts.initialSpeed ?? 1);
+  const loop = ref(false); // C-111：播完循环（默认关——旧行为全等）
   let timer: ReturnType<typeof setTimeout> | null = null;
 
   const total = computed(() => stepsRef.value.length);
@@ -36,12 +37,17 @@ export function usePlayer(stepsIn: Step[] | Ref<Step[]>, opts: UsePlayerOptions 
     clearTimer();
     timer = setTimeout(() => {
       if (index.value >= stepsRef.value.length - 1) {
+        if (loop.value) {
+          index.value = 0; // 循环：末步展示完回卷续播
+          scheduleNext();
+          return;
+        }
         isPlaying.value = false;
         return;
       }
       index.value++;
-      if (index.value >= stepsRef.value.length - 1) {
-        isPlaying.value = false; // 展示完末步即停
+      if (index.value >= stepsRef.value.length - 1 && !loop.value) {
+        isPlaying.value = false; // 展示完末步即停（循环开则继续调度回卷）
         return;
       }
       scheduleNext();
@@ -49,7 +55,10 @@ export function usePlayer(stepsIn: Step[] | Ref<Step[]>, opts: UsePlayerOptions 
   }
 
   function play() {
-    if (atEnd.value) return;
+    if (atEnd.value) {
+      if (!loop.value) return;
+      index.value = 0; // 循环开：末步点播放从头来
+    }
     isPlaying.value = true;
     scheduleNext();
   }
@@ -84,6 +93,9 @@ export function usePlayer(stepsIn: Step[] | Ref<Step[]>, opts: UsePlayerOptions 
     speed.value = s;
     if (isPlaying.value) scheduleNext();
   }
+  function toggleLoop() {
+    loop.value = !loop.value;
+  }
 
   if (getCurrentInstance()) onUnmounted(pause); // 组件内自动清理；纯 L3 调用时跳过
 
@@ -91,6 +103,7 @@ export function usePlayer(stepsIn: Step[] | Ref<Step[]>, opts: UsePlayerOptions 
     index,
     isPlaying,
     speed,
+    loop,
     total,
     current,
     atStart,
@@ -104,5 +117,6 @@ export function usePlayer(stepsIn: Step[] | Ref<Step[]>, opts: UsePlayerOptions 
     seek,
     reset,
     setSpeed,
+    toggleLoop,
   };
 }

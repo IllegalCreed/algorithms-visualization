@@ -9,6 +9,7 @@ const props = defineProps<{
   index: number;
   total: number;
   speed: number;
+  loop?: boolean; // C-111：循环开关（可选——旧用法零破坏）
 }>();
 
 const emit = defineEmits<{
@@ -19,9 +20,10 @@ const emit = defineEmits<{
   reset: [];
   seek: [value: number];
   setSpeed: [value: number];
+  toggleLoop: [];
 }>();
 
-const SPEEDS = [0.5, 1, 2];
+const SPEEDS = [0.5, 1, 2, 3];
 
 // 进度填充百分比（驱动滑块轨道的已播放着色）
 const fillPercent = computed(() => (props.total > 1 ? (props.index / (props.total - 1)) * 100 : 0));
@@ -73,6 +75,27 @@ function onSpeed(e: Event) {
     <select class="speed" :value="speed" @change="onSpeed">
       <option v-for="s in SPEEDS" :key="s" :value="s">{{ s }}×</option>
     </select>
+    <button
+      class="ctl ctl-loop"
+      :class="{ 'ctl-active': props.loop }"
+      :title="props.loop ? '关闭循环' : '播完循环'"
+      @click="emit('toggleLoop')"
+    >
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M17 2l4 4-4 4" />
+        <path d="M3 11v-1a4 4 0 0 1 4-4h14" />
+        <path d="M7 22l-4-4 4-4" />
+        <path d="M21 13v1a4 4 0 0 1-4 4H3" />
+      </svg>
+    </button>
     <input
       class="scrub"
       type="range"
@@ -112,6 +135,11 @@ function onSpeed(e: Event) {
 .ctl:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+/* 循环开关激活态：绿色高亮（C-111） */
+.ctl-loop.ctl-active {
+  color: #1f5e3a;
+  .neumorphism-pressed(3px, 50%);
 }
 
 /* ---------- 速度选择：凸起圆角小控件 + 自定义柔和下拉箭头 ---------- */

@@ -61,4 +61,26 @@ describe('TransportControls', () => {
     await sel.trigger('change');
     expect(w.emitted('setSpeed')![0]).toEqual([2]);
   });
+
+  // ===== C-111 M10-P2 =====
+  it('TC-CTRL-UI-01 倍速下拉含 3× 且可选中', async () => {
+    const w = mountIt();
+    const opts = w.findAll('.speed option').map((o) => o.text());
+    expect(opts).toContain('3×');
+    const sel = w.find('.speed');
+    (sel.element as HTMLSelectElement).value = '3';
+    await sel.trigger('change');
+    expect(w.emitted('setSpeed')![0]).toEqual([3]);
+  });
+
+  it('TC-CTRL-UI-02 循环按钮：点击 emit toggleLoop；loop=true 带激活类', async () => {
+    const w = mountIt({ loop: false });
+    const btn = w.find('.ctl-loop');
+    expect(btn.exists()).toBe(true);
+    expect(btn.classes()).not.toContain('ctl-active');
+    await btn.trigger('click');
+    expect(w.emitted('toggleLoop')).toHaveLength(1);
+    const w2 = mountIt({ loop: true });
+    expect(w2.find('.ctl-loop').classes()).toContain('ctl-active');
+  });
 });

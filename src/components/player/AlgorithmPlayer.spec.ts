@@ -917,4 +917,49 @@ describe('AlgorithmPlayer', () => {
       expect(w.findAllComponents(Bar)).toHaveLength(10);
     });
   });
+
+  // ===== C-111 M10-P2 键盘快捷键 =====
+  describe('键盘快捷键（C-111）', () => {
+    const key = (k: string, target?: HTMLElement) => {
+      const ev = new KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true });
+      (target ?? window).dispatchEvent(ev);
+      return ev;
+    };
+
+    it('TC-CTRL-KEY-01 → 下一步、← 上一步', async () => {
+      const w = mountIt();
+      await flushPromises();
+      key('ArrowRight');
+      await flushPromises();
+      expect(w.find('.counter').text()).toContain('2 / ');
+      key('ArrowLeft');
+      await flushPromises();
+      expect(w.find('.counter').text()).toContain('1 / ');
+      w.unmount();
+    });
+
+    it('TC-CTRL-KEY-02 空格切换播放/暂停', async () => {
+      const w = mountIt();
+      await flushPromises();
+      const ev = key(' ');
+      await flushPromises();
+      expect(ev.defaultPrevented).toBe(true); // 防页面滚动
+      // 播放中 → 主按钮显暂停图标（含 rect）
+      expect(w.find('.play svg rect').exists()).toBe(true);
+      key(' ');
+      await flushPromises();
+      expect(w.find('.play svg polygon').exists()).toBe(true); // 回到播放三角
+      w.unmount();
+    });
+
+    it('TC-CTRL-KEY-03 焦点在输入框时按键不响应播放器', async () => {
+      const w = mountIt();
+      await flushPromises();
+      const input = w.find('input.ib-text').element as HTMLInputElement;
+      key('ArrowRight', input); // target 是 input → 守卫拦截
+      await flushPromises();
+      expect(w.find('.counter').text()).toContain('1 / ');
+      w.unmount();
+    });
+  });
 });
