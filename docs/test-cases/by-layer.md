@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1182** 个用例。运行命令：`pnpm test:unit`
+共 **1188** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1215,458 +1215,464 @@
 
 固定 `"banana"`；oracle `suffixArray()`=`[5,3,1,0,4,2]`（与字典序一致）。
 
-| Case ID         | 标题                                                                    | 自动化路径                                  |
-| --------------- | ----------------------------------------------------------------------- | ------------------------------------------- |
-| TC-SA-MOD-01    | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]                            | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-02    | 每步执行点合法且带后缀轨（array 空）                                    | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-03    | 原串不变 banana                                                         | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-04    | 终态字典序（相邻后缀升序）                                              | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-05    | order 恒为 0..n-1 的排列                                                | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-06    | rank 值域合法；末步 rank 全不同                                         | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-07    | rank 步之间 k 依次翻倍 1,2,…                                            | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-08    | sort 步 phase=sort；rank 步 phase=rank                                  | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-09    | 收敛即止（末步 k ≤ n）                                                  | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-10    | vars 展示原串/sa                                                        | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-11    | 四语言 sources + 行号在范围内                                           | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-SA-MOD-12    | module 元信息 title 含后缀数组、initialInput()=[]                       | `src/algorithms/suffixarray.module.spec.ts` |
-| TC-LCP-MOD-01   | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2]                             | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-02   | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空）                 | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-03   | order = suffixArray() 恒定（LCP 阶段不重排后缀）                        | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-04   | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0            | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-05   | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1           | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-06   | skip 步 current=0（rank 0 后缀无排序前驱）                              | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-07   | fill 步恰 5 次（n-1）；skip 恰 1                                        | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-08   | Kasai 按原始下标 i=0..5；LCP 列非顺序填充                               | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-09   | 相邻两步已填 lcp 非空格数单调不减                                       | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-10   | done caption 含最长重复子串 3（max lcp）与不同子串数 15                 | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-LCP-MOD-12   | module 元信息 title 含「LCP」或「height」；initialInput()=[]            | `src/algorithms/lcparray.module.spec.ts`    |
-| TC-2SAT-MOD-01  | 末步 done；解 = twoSatSolve().assign = [true,false,true]（A真/B假/C真） | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-02  | 每步 point∈{init,clause,scc,check,assign,done} 且带图轨（array 空）     | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-03  | init 步 0 边；末步 8 边（= twoSatImplications().length）                | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-04  | clause 步恰 4 个；边数累计 2,4,6,8（每子句 +2 条蕴含）                  | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-05  | scc 步恰 4 个；nodeGroup 已上色节点数单调不减                           | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-06  | 末步 nodeGroup = comp = [0,2,2,0,1,3]                                   | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-07  | check 步恰 3 个；第 i 个 checkPair=[2i,2i+1]                            | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-08  | 每对 comp[2i]≠comp[2i+1]（无同组）→ 可满足                              | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-09  | assign 步恰 3 个；真值 = comp[2v] < comp[2v+1]                          | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-10  | done caption 含解值（A=真/B=假/C=真 + 可满足）                          | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-11  | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/twosat.module.spec.ts`      |
-| TC-2SAT-MOD-12  | module 元信息 title 含「2-SAT」；initialInput()=[]                      | `src/algorithms/twosat.module.spec.ts`      |
-| TC-AC-MOD-01    | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]              | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-02    | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）            | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-03    | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边                            | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-04    | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡）               | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-05    | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3]                         | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-06    | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}                  | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-07    | match+hit 步合计 6 个（文本长）；activeNode 随字符移动                  | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-08    | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers）                         | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-09    | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中）                   | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-10    | done 步 caption 含 she、he、hers                                        | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-AC-MOD-12    | module 元信息 title 含「AC」或「Aho」；initialInput()=[]                | `src/algorithms/ahocorasick.module.spec.ts` |
-| TC-MF-MOD-01    | 末步 done；最大流 = maxFlow().value = 6                                 | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-02    | 每步 point∈{init,find,augment,done} 且带图轨（array 空）                | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-03    | find 步恰 4 个、augment 步恰 4 个（4 轮增广）                           | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-04    | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）          | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-05    | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6                                   | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-06    | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）                | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-07    | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒）              | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-08    | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮）                  | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-09    | done 步 edgeClass 标最小割边 s→a、s→b                                   | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-10    | done 步 caption 含最大流 6 与「最小割」                                 | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-MF-MOD-12    | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]           | `src/algorithms/maxflow.module.spec.ts`     |
-| TC-SIEVE-MOD-01 | 末步 done；素数集 = sievePrimes() = [2,3,5,7,11,13,17,19,23,29]         | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-02 | 每步 point∈{init,prime,mark,rest,done} 且带 sieve（array 空）           | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-03 | init 步 states[1]='special'，2..30 全 'unknown'                         | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-04 | prime 步恰 3 个（p=2,3,5，p²≤30）；rest 步恰 1 个                       | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-05 | 各 mark 步 marking 最小值 = p²（4/9/25）                                | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-06 | 末步 states 中 prime=10、composite=19、special=1                        | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-07 | 素数集 = 试除法 isPrimeTrial 对拍                                       | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-08 | 只 p²≤30 的 p（2,3,5）主动 mark；7..29 经 rest 确认                     | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-09 | 相邻两步 composite 格数单调不减                                         | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-10 | done 步 caption 含 10 与素数 29                                         | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-11 | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/sieve.module.spec.ts`       |
-| TC-SIEVE-MOD-12 | module 元信息 title 含「筛」或「埃氏」；initialInput()=[]               | `src/algorithms/sieve.module.spec.ts`       |
-| TC-LS-MOD-01    | 末步 done；素数集 = linearSieve().primes = [2,3,5,7,11,13,17,19,23,29]  | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-02    | 每步 point∈{init,mark,rest,done} 且带 sieve（array 空）                 | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-03    | init 步 states[1]='special'，2..30 全 'unknown'，spf 全 null            | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-04    | 存在 mark 步 current 是合数（如 i=4，外层遍历所有数）                   | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-05    | 末步 spf[v] = smallestPrimeFactor(v)（各合数）且与 oracle 一致          | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-06    | 每合数只划一次：所有 marking 并集无重复 = 全部合数                      | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-07    | 末步 prime=10、composite=19、special=1；spf 非 null=19                  | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-08    | primes = 试除法 smallestPrimeFactor(x)===x 对拍                         | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-09    | 相邻两步 composite 格数单调不减                                         | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-10    | done 步 caption 含 10 与「最小质因子」「一次」                          | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-LS-MOD-12    | module 元信息 title 含「线性筛」或「欧拉」；initialInput()=[]           | `src/algorithms/linearsieve.module.spec.ts` |
-| TC-GCD-MOD-01   | 末步 done；gcd(30,18)=6                                                 | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-02   | 每步 point∈{init,cut,done} 且带 gcd（array 空）                         | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-03   | gcdSteps() = 30=1·18+12 / 18=1·12+6 / 12=2·6+0                          | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-04   | cut 步恰 3 个（3 个除法步）                                             | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-05   | 末步 squares 总面积 Σsize² = 30×18 = 540（恰好铺满）                    | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-06   | 末步 squares 最小 size = 6 = gcd                                        | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-07   | 末步 4 方块，尺寸 {18,12,6}；step2 两个 6×6                             | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-08   | 每方块 0≤x,0≤y,x+size≤30,y+size≤18（在矩形内）                          | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-09   | cut 步 remaining 面积递减（216>72）；末步 done remaining=null           | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-10   | done 步 caption 含 6 与 gcd/铺满语义                                    | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/gcd.module.spec.ts`         |
-| TC-GCD-MOD-12   | module 元信息 title 含「欧几里得」或「公约数」；initialInput()=[]       | `src/algorithms/gcd.module.spec.ts`         |
-| TC-FP-MOD-01    | 末步 done；fastPow(3,13)=1594323=3\*\*13                                | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-02    | 每步 point∈{init,mul,skip,done} 且带 power（array 空）                  | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-03    | 末步 blocks 值 = [3,9,81,6561]（每块=前块平方）                         | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-04    | 末步 blocks bit = [1,0,1,1]（13=1101 low→high）                         | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-05    | 选中 = 位 1；k{0,2,3} 指数和 1+4+8=13=n                                 | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-06    | mul 步 3 个（位 1）、skip 步 1 个（位 0）                               | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-07    | result 累乘 [3,243,1594323]；选中连乘=1594323                           | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-08    | result 非减；末步 = a\*\*n                                              | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-09    | 末步 blocks = powBlocks()（值/位/选中一致）                             | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-10    | done 步 caption 含 1594323 与 1+4+8 拆分                                | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-FP-MOD-12    | module 元信息 title 含「快速幂」；initialInput()=[]                     | `src/algorithms/fastpower.module.spec.ts`   |
-| TC-CH-MOD-01    | 末步 done；convexHull()=[0,1,4,6,5,2]（6 点）                           | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-02    | 每步 point∈{init,lower,upper,done} 且带 hull（array 空）                | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-03    | CH_POINTS 已按 (x,y) 排序；7 点含内部点 (3,3)                           | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-04    | lower 步 7 个、upper 步 7 个（每输入点一步）                            | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-05    | 叉积左转>0、右转<0、共线=0                                              | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-06    | lower/upper 各至少 1 步 popped 非空（右转弹栈）                         | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-07    | 末步 finalHull 不含内部点 (3,3) 的下标 3                                | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-08    | 凸包顶点逆时针，其余点在每条有向边左侧（cross≥0）                       | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-09    | 所有 7 点都在凸包内或边上                                               | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-10    | done 步 caption 含凸包点数 6 与内部点排除语义                           | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CH-MOD-12    | module 元信息 title 含「凸包」；initialInput()=[]                       | `src/algorithms/convexhull.module.spec.ts`  |
-| TC-CAL-MOD-01   | 末步 done；diameter()={d2:36,pair:[0,6]}；末步 best=[0,6]               | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-02   | 每步 point∈{init,spin,done} 且带 hull（array 空）                       | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-03   | 与 bruteDiameter() 全点对对拍：d2/无序对一致                            | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-04   | spin 步恰 6 个（凸包 6 边）                                             | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-05   | 每步 finalHull=[0,1,4,6,5,2] 且 phase=done（凸包常显）                  | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-06   | activeEdge 为凸包相邻顶点对且按序推进                                   | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-07   | spin 步 caliper 非空；best 从首个 spin 起非空                           | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-08   | best 距离²单调不减，末步=36                                             | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-09   | best 两端都是凸包顶点                                                   | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-10   | done caption 含 6 与「最远」                                            | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-11   | 四语言 sources；每 point 行号在源码内                                   | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CAL-MOD-12   | module title 含「卡壳」；initialInput()=[]                              | `src/algorithms/calipers.module.spec.ts`    |
-| TC-CP-MOD-01    | 末步 done；best=[3,5]；d≈1.118                                          | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-02    | point∈{init,divide,half,strip,merge,done} 带 hull                       | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-03    | 与 bruteClosest 全点对拍一致                                            | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-04    | divide1/half2/strip1/merge4                                             | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-05    | δ=右半最近（更小）                                                      | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-06    | strip=[mid−δ,mid+δ]；带内 5 点                                          | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-07    | merge 两次刷新 1.581→1.118                                              | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-08    | best 距离单调不增，末步≈1.118                                           | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-09    | 末步 best 跨中线                                                        | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-10    | done caption 含 1.118 与「最近」                                        | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/closestpair.module.spec.ts` |
-| TC-CP-MOD-12    | title 含「最近点对」；initialInput=[]                                   | `src/algorithms/closestpair.module.spec.ts` |
-| TC-SI-MOD-01    | 末步 done；三对结论 [proper,none,touch]                                 | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-02    | point∈{init,test,verdict,done} 带 hull                                  | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-03    | 对 1 ds=(-4,4,4,-4) 两两异号 → proper                                   | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-04    | 对 2 D1、D2 同负 → none                                                 | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-05    | 对 3 D3=0 且 (7,1) 在框上 → touch                                       | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-06    | test 3 + verdict 3；init 全默认                                         | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-07    | test 步该对两边 seg-test                                                | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-08    | verdict 累积 [yes,yes,no,no,yes,yes]                                    | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-09    | 每步 12 点 6 边                                                         | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-10    | done caption 含 2 相交 1 不相交                                         | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/segint.module.spec.ts`      |
-| TC-SI-MOD-12    | title 含「线段相交」；initialInput=[]                                   | `src/algorithms/segint.module.spec.ts`      |
-| TC-BN-MOD-01    | 末步 wires = sorted(输入)                                               | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-02    | point∈{init,column,done} 带 network                                     | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-03    | 6 列 24 比较器每列 4                                                    | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-04    | 列 0 = ↑↓↑↓                                                             | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-05    | 列 3-5 全 asc 距离 4/2/1                                                | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-06    | column 6 步 currentCol 0..5                                             | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-07    | 列 2 后完美双调 + caption 提双调                                        | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-08    | 逐列快照对拍 runNetwork                                                 | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-09    | networkSortsAll(200)=true                                               | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-10    | done caption 含 6 拍与并行                                              | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-11    | 四语言+行号+三执行点                                                    | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-BN-MOD-12    | title 含双调；initialInput=BS_INPUT                                     | `src/algorithms/bitonic.module.spec.ts`     |
-| TC-EG-MOD-01    | extGcd={6,−1,2}；末表行 0 x=−1,y=2                                      | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-02    | point∈{init,down,base,up,done} 带 matrix                                | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-03    | 5 列×4 行 + labels/rowLabels 正确                                       | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-04    | 下行 3 步后 a,b,q 就位、x,y 仍 null                                     | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-05    | 基例行 [6,0,null,1,0] + 恒等 caption                                    | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-06    | 回代依次 (0,1)/(1,−1)/(−1,2)                                            | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-07    | up 步 sources=[[i+1,3],[i+1,4]]                                         | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-08    | 每层恒等 a·x+b·y=6（4 行全验）                                          | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-09    | down3/base1/up3 + 高亮落当前行                                          | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-10    | done caption 含 −1、2 与模逆元                                          | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-EG-MOD-12    | title 含扩展欧几里得；initialInput=[]                                   | `src/algorithms/extgcd.module.spec.ts`      |
-| TC-CRT-MOD-01   | crtBrute()=23=crtSolve().x；M=105；合计格 233                           | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-02   | point∈{init,mi,inv,term,sum,done} 带 matrix                             | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-03   | 5 列 [r,m,Mᵢ,tᵢ,项] × 4 行 + labels/rowLabels                           | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-04   | init 后 r/m 就位其余 null；合计行全 null                                | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-05   | mi 依次 35/21/15（updatedCell=[i,2]）                                   | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-06   | tᵢ 依次 2/1/1；(Mᵢ mod mᵢ)·tᵢ ≡ 1 全验                                  | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-07   | 项 140/63/30；本模 ≡rᵢ、异模 ≡0（3×3 全验）                             | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-08   | 合计 233=140+63+30；233 mod 105 = 23 = 暴力                             | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-09   | sources：inv=[[i,2],[i,1]]、term=r/Mᵢ/tᵢ、sum=三项                      | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-10   | done caption 含 23 与 105                                               | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-11   | 四语言+行号+六执行点                                                    | `src/algorithms/crt.module.spec.ts`         |
-| TC-CRT-MOD-12   | title 含中国剩余定理；initialInput=[]                                   | `src/algorithms/crt.module.spec.ts`         |
-| TC-BO-MOD-01    | 事件流 cross = 暴力 {(4,6),(5,5),(6,6)}；done marks 3                   | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-02    | point∈{init,start,cross,end,done} 带 hull                               | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-03    | 6 点 3 边；init 全默认无扫描线                                          | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-04    | 9 事件 x=1/2/2.5/4/5/6/8/8.5/9 + 类型序                                 | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-05    | start：divider=x、主角 seg-test、未入场 seg-no                          | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-06    | cross：markActive、双边 seg-yes、marks 1/2/3                            | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-07    | end：该边 seg-no、marks 保持 3                                          | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-08    | x=2 入队 (5,5)；x=2.5 入队 (6,6)+(4,6)；其后全空                        | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-09    | 扫描线 divider 严格递增                                                 | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-10    | done caption 含 3 个交点与相邻语义                                      | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/bentley.module.spec.ts`     |
-| TC-BO-MOD-12    | title 含扫描线；initialInput=[]                                         | `src/algorithms/bentley.module.spec.ts`     |
-| TC-PHI-MOD-01   | phiBrute=4=phiFormula；factors=[2,3]                                    | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-02   | point∈{init,find,cross,survive,done} 带 sieve                           | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-03   | n=12 cols=6；init 全 unknown 含 1                                       | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-04   | find 依次 current=2、3 + 试除语义                                       | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-05   | cross：p=2 [2,4,6,8,10,12]、p=3 [3,9] 增量                              | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-06   | res 记账链 12→6→4（vars）                                               | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-07   | survive 幸存者全 prime、composite 恰 8                                  | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-08   | 幸存者 = gcd 暴力互质集合                                               | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-09   | 7 步 init/find/cross×2/survive/done                                     | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-10   | done caption 含 φ(12) = 4 与欧拉定理                                    | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-11   | 四语言+行号+五执行点                                                    | `src/algorithms/phi.module.spec.ts`         |
-| TC-PHI-MOD-12   | title 含欧拉函数；initialInput=[]                                       | `src/algorithms/phi.module.spec.ts`         |
-| TC-MR-MOD-01    | 41 通过=试除质数；561 合数=试除                                         | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-02    | 2^560≡1 费马被骗而 MR 判合数                                            | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-03    | 分解 40=2³·5、560=2⁴·35                                                 | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-04    | 链 [32,40] hit-minus-1；[263,166,67,1] nontrivial                       | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-05    | point∈{init,decomp,pow,square,verdict,done} 带 matrix                   | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-06    | 2×4 表 + 标签；init 全 null                                             | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-07    | 填格序 [0,0]..[1,3] 值=链                                               | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-08    | verdict sources ① [[0,1]]、② [[1,2],[1,3]]                              | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-09    | 12 步步序全等                                                           | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-10    | caption ① −1 通过 / ② 非平凡合数 / done 1/4                             | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/mr.module.spec.ts`          |
-| TC-MR-MOD-12    | title 含米勒-拉宾；initialInput=[]                                      | `src/algorithms/mr.module.spec.ts`          |
-| TC-BS-MOD-01    | 17 → idx8 = 线性扫；三探 (0,9,4)/(5,9,7)/(8,9,8)                        | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-02    | 4 → −1 = 线性扫；末态 lo=2>hi=1 清空                                    | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-03    | point 六集；10 柱升序恒序                                               | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-04    | 16 步 point 序列全等（含两次 init）                                     | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-05    | init：lo='0'/hi='2' 指针 + 全区间                                       | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-06    | mid：pivotIndex 与蓝指针 4,7,8/4,1,2                                    | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-07    | cut：groupMembers [5..9],[8..9]/[0..3],[2..3],[]                        | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-08    | found：sortedIndices=[8] + caption 命中 8                               | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-09    | empty：caption 含 −1 与不存在                                           | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-10    | done caption 含 O(log n)                                                | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BS-MOD-12    | title 含二分查找；initialInput 升序 BS_ARRAY                            | `src/algorithms/bsearch.module.spec.ts`     |
-| TC-BB-MOD-01    | lb=1、ub=4、count=3 = 线性扫                                            | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-02    | lb 四探 (0,10,5)/(0,5,2)/(0,2,1)/(0,1,0) 仅末探右走                     | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-03    | ub 四探 goRight F/T/F/T                                                 | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-04    | point 五集；10 柱升序含重复恒序                                         | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-05    | 14 步 point 序列全等                                                    | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-06    | probe pivotIndex 5,2,1,0/5,2,4,3 + 区间收缩                             | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-07    | hi=10 哨兵无黄箭头、收缩后出现                                          | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-08    | settle [1]/[4] + 第一个 ≥/> caption                                     | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-09    | range [1,2,3] 全绿 + 计数 3                                             | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-10    | done 含 ub − lb 与 O(log n)                                             | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/bbound.module.spec.ts`      |
-| TC-BB-MOD-12    | title 含边界；initialInput 含重复升序                                   | `src/algorithms/bbound.module.spec.ts`      |
-| TC-RS-MOD-01    | 5→idx5、15→idx1 = 线性扫                                                | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-02    | t=5 轨迹 right/in→left/in + HIT(5,5,5)                                  | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-03    | t=15 轨迹 right/not-in + HIT(0,3,1)                                     | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-04    | point 四集；9 柱断崖恒序                                                | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-05    | 8 步 point 序列全等                                                     | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-06    | probe pivotIndex 4,6,4 + 闭区间收缩                                     | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-07    | 判半 caption 左半/右半有序都现身                                        | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-08    | found sortedIndices [5]/[1] + 命中                                      | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-09    | probe vars 含有序半标注                                                 | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-10    | done 含 O(log n) 与一半引理                                             | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-RS-MOD-12    | title 含旋转；断崖恰一处下降                                            | `src/algorithms/rotsearch.module.spec.ts`   |
-| TC-BA-MOD-01    | result=4=线性；hoursAt(4)=8、hoursAt(3)=10                              | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-02    | 可行序列恰一次 ✗→✓ 翻转                                                 | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-03    | 四探 (1,11,6,6h,✓)/(1,6,3,10h,✗)/(4,6,5,8h,✓)/(4,5,4,8h,✓)              | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-04    | point 四集；11 柱 = 1..11 爬坡                                          | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-05    | 7 步 point 序列全等                                                     | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-06    | probe pivotIndex=速度−1 依次 5,2,4,3 + 收缩                             | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-07    | ✓ 步含还能更小、✗ 步含加速                                              | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-08    | settle sortedIndices=[3] + 最小与 4                                     | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-09    | probe vars 本次耗时 6/10/8/8                                            | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-10    | done 含答案空间与单调                                                   | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/banswer.module.spec.ts`     |
-| TC-BA-MOD-12    | title 含二分答案；initialInput=[1..11]                                  | `src/algorithms/banswer.module.spec.ts`     |
-| TC-TER-MOD-01   | result=4=argmax；峰值 12                                                | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-02   | isUnimodal 严格先升后降断言                                             | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-03   | 四探 (0,8,2,6,丢右)/(0,5,1,4,丢左)/(2,5,3,4,丢左)/(4,5,4,5,丢右)        | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-04   | point 四集；9 柱山形恒序                                                | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-05   | 7 步 point 序列全等                                                     | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-06   | 四指针 '0'-'3' 全出场且 m1/m2 位置正确                                  | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-07   | comparing=[m1,m2] + groupMembers 收缩                                   | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-08   | peak sortedIndices=[4] + 峰顶 12                                        | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-09   | 丢右/丢左 1/3 caption 各至少一次                                        | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-10   | done 含 log 与坡度变体                                                  | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/ternary.module.spec.ts`     |
-| TC-TER-MOD-12   | title 含三分；initialInput 单峰                                         | `src/algorithms/ternary.module.spec.ts`     |
-| TC-AS-MOD-01    | 路径 8 步 = BFS 最短且逐步相邻                                          | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-02    | 扩展 10 < BFS 可达 22                                                   | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-03    | 扩展序 10 项全等（tie-break f,h,r,c）                                   | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-04    | point 五集 + maze + array 空                                            | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-05    | 13 步 = init+expand×9+goal+trace+done                                   | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-06    | expand current=弹出格、visited 累积                                     | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-07    | letters f 值累积、墙/未触达为空                                         | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-08    | goal current=G + 终点语义                                               | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-09    | trace 8 步路径 + solved                                                 | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-10    | done 含 10 与 22 与高估语义                                             | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/astar.module.spec.ts`       |
-| TC-AS-MOD-12    | title 含 A\*；mark=🧭                                                   | `src/algorithms/astar.module.spec.ts`       |
-| TC-HG-MOD-01    | 匹配 3 = 暴力枚举；matchR=[1,0,2]                                       | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-02    | 事件流 15 项全等（增广双 match/死路双 fail）                            | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-03    | point 五集 + graph + array 空                                           | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-04    | 12 步序列全等（连续 match 合并）                                        | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-05    | try current + activeNode + 让路语义                                     | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-06    | match 全 mst；增广双边同时绿                                            | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-07    | fail rejected + 死路回退语义                                            | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-08    | badge ←L? 翻转后更新                                                    | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-09    | doneNodes 2→4→6 递增                                                    | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-10    | done 含 3 与最大流语义                                                  | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-HG-MOD-12    | title 含匈牙利；两列布局                                                | `src/algorithms/hungarian.module.spec.ts`   |
-| TC-ST-MOD-01    | dp[0][3]=20=暴力全序枚举                                                | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-02    | 填表六项 (i,j,len,val) 全等                                             | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-03    | 候选与胜者：12(k=0)/10(k=2)/20(k=0 平手取先)                            | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-04    | point 四集 + matrix + array 空                                          | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-05    | 8 步 = init+pair×3+split×3+done                                         | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-06    | init 对角 0 其余 null + labels 堆值                                     | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-07    | pair updatedCell (0,1)/(1,2)/(2,3) 值 5/4/5                             | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-08    | split sources 最优拆分对三组                                            | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-09    | split caption 候选枚举 + 取小                                           | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-10    | done 含 20 与 O(n³)                                                     | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/stones.module.spec.ts`      |
-| TC-ST-MOD-12    | title 含石子；initialInput=ST_PILES                                     | `src/algorithms/stones.module.spec.ts`      |
-| TC-TSP-MOD-01   | best=7=暴力全排列                                                       | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-02   | fill 12 项 (mask,i,val) 全等                                            | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-03   | (1111,1) 候选 10/7 j=3；(1111,3) 候选 4/11 j=1                          | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-04   | point 四集 + matrix + array 空                                          | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-05   | 15 步 = init+fill×12+close+done                                         | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-06   | 8×4 二进制 rowLabels；init 仅起点格                                     | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-07   | fill updatedCell 正确、无效格 null                                      | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-08   | fill sources 胜出前置格（抽两处验）                                     | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-09   | close sources 全集行三格 + 11/7 caption                                 | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-10   | done 含 7 与 O(2ⁿ·n²)                                                   | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TSP-MOD-12   | title 含旅行商；initialInput=[]                                         | `src/algorithms/tsp.module.spec.ts`         |
-| TC-TD-MOD-01    | max(13,14)=14=bruteRob；根 (13,14)                                      | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-02    | 后序 [3,4,1,2,0] 五节点两态全等                                         | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-03    | point 六集 + matrix + array 空                                          | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-04    | 10 步 = init+leaf×3+(sel+not)×2+best+done                               | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-05    | init 5×2 全 null + 树位置 rowLabels                                     | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-06    | leaf 一步双格 (v,0) 跳行 3/4/2                                          | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-07    | sel sources 孩子不选格两组                                              | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-08    | not sources 孩子四格两组                                                | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-09    | best 根两格 + max 14                                                    | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-10    | done 含 14 与后序语义                                                   | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/treedp.module.spec.ts`      |
-| TC-TD-MOD-12    | title 含树形；initialInput=TD_VALS                                      | `src/algorithms/treedp.module.spec.ts`      |
-| TC-DD-MOD-01    | ans=197=bruteCount；total=198                                           | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-02    | 三行走位 (d,cnt,pow,sub,tightOk) 全等                                   | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-03    | point 六集 + matrix + array 空                                          | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-04    | 8 步 = init+(free+tight)×2+broken+sum+done                              | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-05    | init 4×4 全 null + 标签                                                 | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-06    | free 行填齐 + 小计格 + 162/36 caption                                   | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-07    | tight 位上格 + 贴着/断裂 caption                                        | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-08    | broken 行 [5,null×3] + 跳过语义                                         | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-09    | sum 合计 198 + sources 两小计 + 197                                     | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-10    | done 含 197 与位数语义                                                  | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-DD-MOD-12    | title 含数位；initialInput=[]                                           | `src/algorithms/digitdp.module.spec.ts`     |
-| TC-BIT-MOD-01   | 建树 tree 与逐段管辖暴力和对拍                                          | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-02   | query(6)=17=暴力；链 [6,4]                                              | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-03   | update 链 [3,4,8] after 7/13/23                                         | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-04   | 复查 query(6)=19=暴力                                                   | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-05   | point 四集 + 8 柱 tree 快照                                             | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-06   | 9 步 = init+q×2+u×3+q×2+done                                            | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-07   | query pivotIndex 5,3 + 链累积 + lowbit caption                          | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-08   | update 柱值 11→13 + 管辖语义                                            | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-09   | 复查累计 19 + 验证语义                                                  | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-10   | done 含 O(log n) 与前缀和对比                                           | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-BIT-MOD-12   | title 含树状数组；initialInput=tree 初值                                | `src/algorithms/fenwick.module.spec.ts`     |
-| TC-RR-MOD-01    | ans=[6,5,9,8,8]=逐点 BFS                                                | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-02    | 后序 [3,4,1,2,0] + size/down 全等                                       | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-03    | 换根 DFS 序 (1,0,5)/(3,1,8)/(4,1,8)/(2,0,9)                             | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-04    | point 五集 + matrix + array 空                                          | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-05    | 12 步 = init+down×5+root+reroot×4+done                                  | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-06    | init 5×3 全 null + 标签                                                 | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-07    | down 双格 + 内部孩子四格 sources                                        | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-08    | root ans[0]=6 + down 格 sources                                         | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-09    | reroot sources=[父 ans,自 size] + 公式代入                              | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-10    | done 含 O(n) 与二次扫描                                                 | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/reroot.module.spec.ts`      |
-| TC-RR-MOD-12    | title 含换根；initialInput=[]                                           | `src/algorithms/reroot.module.spec.ts`      |
-| TC-LCA-MOD-01   | 对拍：两查询 + 64 全对 = 暴力爬父链                                     | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-02   | 倍增表 depth/up⁰/up¹/up² 全等                                           | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-03   | 查询轨迹：(7,4) 全 same；(6,5) k=0 双跳                                 | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-04   | 步合法：point+matrix+array 空                                           | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-05   | 步数结构：11 步序列全等                                                 | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-06   | init 表 8×4 全 null + 标签                                              | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-07   | build 三列逐填 + 递推示例 sources                                       | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-08   | align 步 sources 跳表格 + 二进制拆解                                    | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-09   | jump 步：不跳越过语义 / 双跳 sources                                    | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-10   | answer 父格 sources / done O(log n)+树上距离                            | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-11   | 四语言+行号+六执行点                                                    | `src/algorithms/lca.module.spec.ts`         |
-| TC-LCA-MOD-12   | title 含 LCA；initialInput=[]                                           | `src/algorithms/lca.module.spec.ts`         |
-| TC-EU-MOD-01    | 对拍：栈法路径 + 暴力搜路都合法且起终=奇度点                            | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-02    | 判定：度数/奇度点/起点                                                  | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-03    | 事件流 walk×4→back→walk×3→back×7；首 back 栈顶余边                      | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-04    | 步合法：point+graph+array 空                                            | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-05    | 步数结构：12 步序列全等                                                 | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-06    | check 步徽标=度数 + 奇度定理 + checkPair                                | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-07    | walk 步消边渐增 + 徽标递减 + 3 号清零                                   | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-08    | back①卡住 + 栈顶余边 + 路径收 3                                         | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-09    | back②清栈 + 全消边 + 反转                                               | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-10    | done：O(E) + 一笔画 + 全路径                                            | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/euler.module.spec.ts`       |
-| TC-EU-MOD-12    | title 含欧拉；initialInput=[]                                           | `src/algorithms/euler.module.spec.ts`       |
-| TC-Z-MOD-01     | 对拍：z=[7,1,0,2,3,1,0]=朴素逐位                                        | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-02     | 事件流：brute×3 → 达界+2 → 直接抄×2                                     | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-03     | 步合法：point+manacher+array 空                                         | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-04     | 步数结构：9 步序列全等                                                  | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-05     | init 步 z[0]=7 + 标签 S/z                                               | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-06     | brute 步 i=3 填至 [7,1,0,2] + box                                       | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-07     | mirror 步蓝环 + 先抄 1 + 达界语义                                       | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-08     | extend 步扩到 3 + box 刷新 + expand                                     | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-09     | mirror-copy 零比较 + best 段                                            | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-10     | done：O(n) + P#T 应用                                                   | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-11     | 四语言+行号+五执行点                                                    | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-Z-MOD-12     | title 含 Z 函数；initialInput=[]                                        | `src/algorithms/zfunc.module.spec.ts`       |
-| TC-FFT-MOD-01   | 对拍：末层 = 直算 DFT                                                   | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-02   | 逐层值：位反转 + layer1 + 复数登场                                      | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-03   | 步合法：point+network+array 空                                          | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-04   | 步数结构：9 步序列全等                                                  | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-05   | init 顺序输入 + 12 蝶形 3 列                                            | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-06   | bitrev 重排 + 位反转语义                                                | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-07   | twiddle currentCol 逐层 + 值不变                                        | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-08   | butterfly 三步后值 = layer1/2/3                                         | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-09   | tag：col0 ×1 / col1 ×ω² / col2 ×ω·×ω³                                   | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-10   | done + O(n log n) + 三部曲                                              | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-11   | 四语言+行号+五执行点                                                    | `src/algorithms/fft.module.spec.ts`         |
-| TC-FFT-MOD-12   | title 含 FFT；initialInput=[]                                           | `src/algorithms/fft.module.spec.ts`         |
-| TC-RHO-MOD-01   | 对拍：97×83=8051 且双素性                                               | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-02   | 序列与 ρ：xs 全等 + mod 97 尾 1 环 3                                    | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-03   | 龟兔轨迹：两次未中 + gcd(194)=97                                        | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-04   | 步合法：point+graph+array 空                                            | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-05   | 步数结构：7 步序列全等                                                  | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-06   | seed 步 x₀ 高亮 + 伪随机语义                                            | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-07   | race 步龟兔蓝环 + 链边渐绿 + gcd=1                                      | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-08   | hit 步 checkPair=[3,6] + 194/97 + 分解式                                | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-09   | reveal 步 nodeGroup 四组 + mod 97 语义                                  | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-10   | done：O(n^¼) + 流水线                                                   | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-11   | 四语言+行号+六执行点                                                    | `src/algorithms/rho.module.spec.ts`         |
-| TC-RHO-MOD-12   | title 含 Pollard；initialInput=[]                                       | `src/algorithms/rho.module.spec.ts`         |
+| Case ID           | 标题                                                                    | 自动化路径                                  |
+| ----------------- | ----------------------------------------------------------------------- | ------------------------------------------- |
+| TC-SA-MOD-01      | 末步 done + sa = suffixArray()=[5,3,1,0,4,2]                            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-02      | 每步执行点合法且带后缀轨（array 空）                                    | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-03      | 原串不变 banana                                                         | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-04      | 终态字典序（相邻后缀升序）                                              | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-05      | order 恒为 0..n-1 的排列                                                | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-06      | rank 值域合法；末步 rank 全不同                                         | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-07      | rank 步之间 k 依次翻倍 1,2,…                                            | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-08      | sort 步 phase=sort；rank 步 phase=rank                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-09      | 收敛即止（末步 k ≤ n）                                                  | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-10      | vars 展示原串/sa                                                        | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-11      | 四语言 sources + 行号在范围内                                           | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-SA-MOD-12      | module 元信息 title 含后缀数组、initialInput()=[]                       | `src/algorithms/suffixarray.module.spec.ts` |
+| TC-LCP-MOD-01     | 末步 done；lcp = kasaiLcp() = [0,1,3,0,0,2]                             | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-02     | 每步 point∈{init,fill,skip,done} 且带后缀轨（array 空）                 | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-03     | order = suffixArray() 恒定（LCP 阶段不重排后缀）                        | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-04     | 末步 lcp[i] = 直接比较 sa[i-1]/sa[i] 前缀长（i≥1）；lcp[0]=0            | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-05     | fill 步 current 与 compareRow(=current-1) 成对非空、current≥1           | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-06     | skip 步 current=0（rank 0 后缀无排序前驱）                              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-07     | fill 步恰 5 次（n-1）；skip 恰 1                                        | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-08     | Kasai 按原始下标 i=0..5；LCP 列非顺序填充                               | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-09     | 相邻两步已填 lcp 非空格数单调不减                                       | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-10     | done caption 含最长重复子串 3（max lcp）与不同子串数 15                 | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-11     | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-LCP-MOD-12     | module 元信息 title 含「LCP」或「height」；initialInput()=[]            | `src/algorithms/lcparray.module.spec.ts`    |
+| TC-2SAT-MOD-01    | 末步 done；解 = twoSatSolve().assign = [true,false,true]（A真/B假/C真） | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-02    | 每步 point∈{init,clause,scc,check,assign,done} 且带图轨（array 空）     | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-03    | init 步 0 边；末步 8 边（= twoSatImplications().length）                | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-04    | clause 步恰 4 个；边数累计 2,4,6,8（每子句 +2 条蕴含）                  | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-05    | scc 步恰 4 个；nodeGroup 已上色节点数单调不减                           | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-06    | 末步 nodeGroup = comp = [0,2,2,0,1,3]                                   | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-07    | check 步恰 3 个；第 i 个 checkPair=[2i,2i+1]                            | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-08    | 每对 comp[2i]≠comp[2i+1]（无同组）→ 可满足                              | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-09    | assign 步恰 3 个；真值 = comp[2v] < comp[2v+1]                          | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-10    | done caption 含解值（A=真/B=假/C=真 + 可满足）                          | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-11    | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/twosat.module.spec.ts`      |
+| TC-2SAT-MOD-12    | module 元信息 title 含「2-SAT」；initialInput()=[]                      | `src/algorithms/twosat.module.spec.ts`      |
+| TC-AC-MOD-01      | 末步 done；命中集 = acMatch() = she[1,3]/he[2,3]/hers[2,5]              | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-02      | 每步 point∈{insert,fail,match,hit,done} 且带图轨（array 空）            | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-03      | insert 步恰 3 个；建完 8 状态 + 7 条 trie 边                            | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-04      | fail 步恰 7 个（BFS 序）；末步 fail 类边恰 3 条（非平凡）               | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-05      | 末步各状态 fail = buildAc() = [0,0,0,0,1,2,0,3]                         | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-06      | 非平凡 fail 边 = {4-1(sh→h), 5-2(she→he), 7-3(hers→s)}                  | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-07      | match+hit 步合计 6 个（文本长）；activeNode 随字符移动                  | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-08      | hit 步恰 2 个（i=3 命中 she+he、i=5 命中 hers）                         | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-09      | 状态 she(5) 的 out 含 he（沿 fail 链合并 → 重叠命中）                   | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-10      | done 步 caption 含 she、he、hers                                        | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-11      | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-AC-MOD-12      | module 元信息 title 含「AC」或「Aho」；initialInput()=[]                | `src/algorithms/ahocorasick.module.spec.ts` |
+| TC-MF-MOD-01      | 末步 done；最大流 = maxFlow().value = 6                                 | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-02      | 每步 point∈{init,find,augment,done} 且带图轨（array 空）                | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-03      | find 步恰 4 个、augment 步恰 4 个（4 轮增广）                           | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-04      | 各 find 步路径 = rounds[i].path（s→a→b→t/s→a→t/s→b→t/s→b→a→t）          | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-05      | 各轮瓶颈 = [1,2,2,1]；累加 = 最大流 6                                   | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-06      | 第 4 轮 rounds[3].reverse = [[1,2]]（原边 a→b 反向退流）                | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-07      | 末步 s 出边流量和 = 6 = t 入边流量和；a→b 退到 0/1（守恒）              | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-08      | 第 4 轮 find 步 edgeClass 含一条 reverse（a→b 红高亮）                  | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-09      | done 步 edgeClass 标最小割边 s→a、s→b                                   | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-10      | done 步 caption 含最大流 6 与「最小割」                                 | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-11      | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-MF-MOD-12      | module 元信息 title 含「最大流」或「Ford」；initialInput()=[]           | `src/algorithms/maxflow.module.spec.ts`     |
+| TC-SIEVE-MOD-01   | 末步 done；素数集 = sievePrimes() = [2,3,5,7,11,13,17,19,23,29]         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-02   | 每步 point∈{init,prime,mark,rest,done} 且带 sieve（array 空）           | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-03   | init 步 states[1]='special'，2..30 全 'unknown'                         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-04   | prime 步恰 3 个（p=2,3,5，p²≤30）；rest 步恰 1 个                       | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-05   | 各 mark 步 marking 最小值 = p²（4/9/25）                                | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-06   | 末步 states 中 prime=10、composite=19、special=1                        | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-07   | 素数集 = 试除法 isPrimeTrial 对拍                                       | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-08   | 只 p²≤30 的 p（2,3,5）主动 mark；7..29 经 rest 确认                     | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-09   | 相邻两步 composite 格数单调不减                                         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-10   | done 步 caption 含 10 与素数 29                                         | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-11   | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/sieve.module.spec.ts`       |
+| TC-SIEVE-MOD-12   | module 元信息 title 含「筛」或「埃氏」；initialInput()=[]               | `src/algorithms/sieve.module.spec.ts`       |
+| TC-LS-MOD-01      | 末步 done；素数集 = linearSieve().primes = [2,3,5,7,11,13,17,19,23,29]  | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-02      | 每步 point∈{init,mark,rest,done} 且带 sieve（array 空）                 | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-03      | init 步 states[1]='special'，2..30 全 'unknown'，spf 全 null            | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-04      | 存在 mark 步 current 是合数（如 i=4，外层遍历所有数）                   | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-05      | 末步 spf[v] = smallestPrimeFactor(v)（各合数）且与 oracle 一致          | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-06      | 每合数只划一次：所有 marking 并集无重复 = 全部合数                      | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-07      | 末步 prime=10、composite=19、special=1；spf 非 null=19                  | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-08      | primes = 试除法 smallestPrimeFactor(x)===x 对拍                         | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-09      | 相邻两步 composite 格数单调不减                                         | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-10      | done 步 caption 含 10 与「最小质因子」「一次」                          | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-11      | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-LS-MOD-12      | module 元信息 title 含「线性筛」或「欧拉」；initialInput()=[]           | `src/algorithms/linearsieve.module.spec.ts` |
+| TC-GCD-MOD-01     | 末步 done；gcd(30,18)=6                                                 | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-02     | 每步 point∈{init,cut,done} 且带 gcd（array 空）                         | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-03     | gcdSteps() = 30=1·18+12 / 18=1·12+6 / 12=2·6+0                          | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-04     | cut 步恰 3 个（3 个除法步）                                             | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-05     | 末步 squares 总面积 Σsize² = 30×18 = 540（恰好铺满）                    | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-06     | 末步 squares 最小 size = 6 = gcd                                        | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-07     | 末步 4 方块，尺寸 {18,12,6}；step2 两个 6×6                             | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-08     | 每方块 0≤x,0≤y,x+size≤30,y+size≤18（在矩形内）                          | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-09     | cut 步 remaining 面积递减（216>72）；末步 done remaining=null           | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-10     | done 步 caption 含 6 与 gcd/铺满语义                                    | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-11     | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/gcd.module.spec.ts`         |
+| TC-GCD-MOD-12     | module 元信息 title 含「欧几里得」或「公约数」；initialInput()=[]       | `src/algorithms/gcd.module.spec.ts`         |
+| TC-FP-MOD-01      | 末步 done；fastPow(3,13)=1594323=3\*\*13                                | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-02      | 每步 point∈{init,mul,skip,done} 且带 power（array 空）                  | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-03      | 末步 blocks 值 = [3,9,81,6561]（每块=前块平方）                         | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-04      | 末步 blocks bit = [1,0,1,1]（13=1101 low→high）                         | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-05      | 选中 = 位 1；k{0,2,3} 指数和 1+4+8=13=n                                 | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-06      | mul 步 3 个（位 1）、skip 步 1 个（位 0）                               | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-07      | result 累乘 [3,243,1594323]；选中连乘=1594323                           | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-08      | result 非减；末步 = a\*\*n                                              | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-09      | 末步 blocks = powBlocks()（值/位/选中一致）                             | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-10      | done 步 caption 含 1594323 与 1+4+8 拆分                                | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-11      | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-FP-MOD-12      | module 元信息 title 含「快速幂」；initialInput()=[]                     | `src/algorithms/fastpower.module.spec.ts`   |
+| TC-CH-MOD-01      | 末步 done；convexHull()=[0,1,4,6,5,2]（6 点）                           | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-02      | 每步 point∈{init,lower,upper,done} 且带 hull（array 空）                | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-03      | CH_POINTS 已按 (x,y) 排序；7 点含内部点 (3,3)                           | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-04      | lower 步 7 个、upper 步 7 个（每输入点一步）                            | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-05      | 叉积左转>0、右转<0、共线=0                                              | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-06      | lower/upper 各至少 1 步 popped 非空（右转弹栈）                         | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-07      | 末步 finalHull 不含内部点 (3,3) 的下标 3                                | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-08      | 凸包顶点逆时针，其余点在每条有向边左侧（cross≥0）                       | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-09      | 所有 7 点都在凸包内或边上                                               | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-10      | done 步 caption 含凸包点数 6 与内部点排除语义                           | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-11      | 四语言 sources 含 ts/python/go/rust；每 point 行号在源码内              | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CH-MOD-12      | module 元信息 title 含「凸包」；initialInput()=[]                       | `src/algorithms/convexhull.module.spec.ts`  |
+| TC-CAL-MOD-01     | 末步 done；diameter()={d2:36,pair:[0,6]}；末步 best=[0,6]               | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-02     | 每步 point∈{init,spin,done} 且带 hull（array 空）                       | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-03     | 与 bruteDiameter() 全点对对拍：d2/无序对一致                            | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-04     | spin 步恰 6 个（凸包 6 边）                                             | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-05     | 每步 finalHull=[0,1,4,6,5,2] 且 phase=done（凸包常显）                  | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-06     | activeEdge 为凸包相邻顶点对且按序推进                                   | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-07     | spin 步 caliper 非空；best 从首个 spin 起非空                           | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-08     | best 距离²单调不减，末步=36                                             | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-09     | best 两端都是凸包顶点                                                   | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-10     | done caption 含 6 与「最远」                                            | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-11     | 四语言 sources；每 point 行号在源码内                                   | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CAL-MOD-12     | module title 含「卡壳」；initialInput()=[]                              | `src/algorithms/calipers.module.spec.ts`    |
+| TC-CP-MOD-01      | 末步 done；best=[3,5]；d≈1.118                                          | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-02      | point∈{init,divide,half,strip,merge,done} 带 hull                       | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-03      | 与 bruteClosest 全点对拍一致                                            | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-04      | divide1/half2/strip1/merge4                                             | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-05      | δ=右半最近（更小）                                                      | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-06      | strip=[mid−δ,mid+δ]；带内 5 点                                          | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-07      | merge 两次刷新 1.581→1.118                                              | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-08      | best 距离单调不增，末步≈1.118                                           | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-09      | 末步 best 跨中线                                                        | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-10      | done caption 含 1.118 与「最近」                                        | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-11      | 四语言+行号+六执行点                                                    | `src/algorithms/closestpair.module.spec.ts` |
+| TC-CP-MOD-12      | title 含「最近点对」；initialInput=[]                                   | `src/algorithms/closestpair.module.spec.ts` |
+| TC-SI-MOD-01      | 末步 done；三对结论 [proper,none,touch]                                 | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-02      | point∈{init,test,verdict,done} 带 hull                                  | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-03      | 对 1 ds=(-4,4,4,-4) 两两异号 → proper                                   | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-04      | 对 2 D1、D2 同负 → none                                                 | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-05      | 对 3 D3=0 且 (7,1) 在框上 → touch                                       | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-06      | test 3 + verdict 3；init 全默认                                         | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-07      | test 步该对两边 seg-test                                                | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-08      | verdict 累积 [yes,yes,no,no,yes,yes]                                    | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-09      | 每步 12 点 6 边                                                         | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-10      | done caption 含 2 相交 1 不相交                                         | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-11      | 四语言+行号+四执行点                                                    | `src/algorithms/segint.module.spec.ts`      |
+| TC-SI-MOD-12      | title 含「线段相交」；initialInput=[]                                   | `src/algorithms/segint.module.spec.ts`      |
+| TC-BN-MOD-01      | 末步 wires = sorted(输入)                                               | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-02      | point∈{init,column,done} 带 network                                     | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-03      | 6 列 24 比较器每列 4                                                    | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-04      | 列 0 = ↑↓↑↓                                                             | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-05      | 列 3-5 全 asc 距离 4/2/1                                                | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-06      | column 6 步 currentCol 0..5                                             | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-07      | 列 2 后完美双调 + caption 提双调                                        | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-08      | 逐列快照对拍 runNetwork                                                 | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-09      | networkSortsAll(200)=true                                               | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-10      | done caption 含 6 拍与并行                                              | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-11      | 四语言+行号+三执行点                                                    | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-BN-MOD-12      | title 含双调；initialInput=BS_INPUT                                     | `src/algorithms/bitonic.module.spec.ts`     |
+| TC-EG-MOD-01      | extGcd={6,−1,2}；末表行 0 x=−1,y=2                                      | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-02      | point∈{init,down,base,up,done} 带 matrix                                | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-03      | 5 列×4 行 + labels/rowLabels 正确                                       | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-04      | 下行 3 步后 a,b,q 就位、x,y 仍 null                                     | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-05      | 基例行 [6,0,null,1,0] + 恒等 caption                                    | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-06      | 回代依次 (0,1)/(1,−1)/(−1,2)                                            | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-07      | up 步 sources=[[i+1,3],[i+1,4]]                                         | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-08      | 每层恒等 a·x+b·y=6（4 行全验）                                          | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-09      | down3/base1/up3 + 高亮落当前行                                          | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-10      | done caption 含 −1、2 与模逆元                                          | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-11      | 四语言+行号+五执行点                                                    | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-EG-MOD-12      | title 含扩展欧几里得；initialInput=[]                                   | `src/algorithms/extgcd.module.spec.ts`      |
+| TC-CRT-MOD-01     | crtBrute()=23=crtSolve().x；M=105；合计格 233                           | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-02     | point∈{init,mi,inv,term,sum,done} 带 matrix                             | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-03     | 5 列 [r,m,Mᵢ,tᵢ,项] × 4 行 + labels/rowLabels                           | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-04     | init 后 r/m 就位其余 null；合计行全 null                                | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-05     | mi 依次 35/21/15（updatedCell=[i,2]）                                   | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-06     | tᵢ 依次 2/1/1；(Mᵢ mod mᵢ)·tᵢ ≡ 1 全验                                  | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-07     | 项 140/63/30；本模 ≡rᵢ、异模 ≡0（3×3 全验）                             | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-08     | 合计 233=140+63+30；233 mod 105 = 23 = 暴力                             | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-09     | sources：inv=[[i,2],[i,1]]、term=r/Mᵢ/tᵢ、sum=三项                      | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-10     | done caption 含 23 与 105                                               | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-11     | 四语言+行号+六执行点                                                    | `src/algorithms/crt.module.spec.ts`         |
+| TC-CRT-MOD-12     | title 含中国剩余定理；initialInput=[]                                   | `src/algorithms/crt.module.spec.ts`         |
+| TC-BO-MOD-01      | 事件流 cross = 暴力 {(4,6),(5,5),(6,6)}；done marks 3                   | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-02      | point∈{init,start,cross,end,done} 带 hull                               | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-03      | 6 点 3 边；init 全默认无扫描线                                          | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-04      | 9 事件 x=1/2/2.5/4/5/6/8/8.5/9 + 类型序                                 | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-05      | start：divider=x、主角 seg-test、未入场 seg-no                          | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-06      | cross：markActive、双边 seg-yes、marks 1/2/3                            | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-07      | end：该边 seg-no、marks 保持 3                                          | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-08      | x=2 入队 (5,5)；x=2.5 入队 (6,6)+(4,6)；其后全空                        | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-09      | 扫描线 divider 严格递增                                                 | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-10      | done caption 含 3 个交点与相邻语义                                      | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-11      | 四语言+行号+五执行点                                                    | `src/algorithms/bentley.module.spec.ts`     |
+| TC-BO-MOD-12      | title 含扫描线；initialInput=[]                                         | `src/algorithms/bentley.module.spec.ts`     |
+| TC-PHI-MOD-01     | phiBrute=4=phiFormula；factors=[2,3]                                    | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-02     | point∈{init,find,cross,survive,done} 带 sieve                           | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-03     | n=12 cols=6；init 全 unknown 含 1                                       | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-04     | find 依次 current=2、3 + 试除语义                                       | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-05     | cross：p=2 [2,4,6,8,10,12]、p=3 [3,9] 增量                              | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-06     | res 记账链 12→6→4（vars）                                               | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-07     | survive 幸存者全 prime、composite 恰 8                                  | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-08     | 幸存者 = gcd 暴力互质集合                                               | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-09     | 7 步 init/find/cross×2/survive/done                                     | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-10     | done caption 含 φ(12) = 4 与欧拉定理                                    | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-11     | 四语言+行号+五执行点                                                    | `src/algorithms/phi.module.spec.ts`         |
+| TC-PHI-MOD-12     | title 含欧拉函数；initialInput=[]                                       | `src/algorithms/phi.module.spec.ts`         |
+| TC-MR-MOD-01      | 41 通过=试除质数；561 合数=试除                                         | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-02      | 2^560≡1 费马被骗而 MR 判合数                                            | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-03      | 分解 40=2³·5、560=2⁴·35                                                 | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-04      | 链 [32,40] hit-minus-1；[263,166,67,1] nontrivial                       | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-05      | point∈{init,decomp,pow,square,verdict,done} 带 matrix                   | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-06      | 2×4 表 + 标签；init 全 null                                             | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-07      | 填格序 [0,0]..[1,3] 值=链                                               | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-08      | verdict sources ① [[0,1]]、② [[1,2],[1,3]]                              | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-09      | 12 步步序全等                                                           | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-10      | caption ① −1 通过 / ② 非平凡合数 / done 1/4                             | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-11      | 四语言+行号+六执行点                                                    | `src/algorithms/mr.module.spec.ts`          |
+| TC-MR-MOD-12      | title 含米勒-拉宾；initialInput=[]                                      | `src/algorithms/mr.module.spec.ts`          |
+| TC-BS-MOD-01      | 17 → idx8 = 线性扫；三探 (0,9,4)/(5,9,7)/(8,9,8)                        | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-02      | 4 → −1 = 线性扫；末态 lo=2>hi=1 清空                                    | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-03      | point 六集；10 柱升序恒序                                               | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-04      | 16 步 point 序列全等（含两次 init）                                     | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-05      | init：lo='0'/hi='2' 指针 + 全区间                                       | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-06      | mid：pivotIndex 与蓝指针 4,7,8/4,1,2                                    | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-07      | cut：groupMembers [5..9],[8..9]/[0..3],[2..3],[]                        | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-08      | found：sortedIndices=[8] + caption 命中 8                               | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-09      | empty：caption 含 −1 与不存在                                           | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-10      | done caption 含 O(log n)                                                | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-11      | 四语言+行号+六执行点                                                    | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BS-MOD-12      | title 含二分查找；initialInput 升序 BS_ARRAY                            | `src/algorithms/bsearch.module.spec.ts`     |
+| TC-BB-MOD-01      | lb=1、ub=4、count=3 = 线性扫                                            | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-02      | lb 四探 (0,10,5)/(0,5,2)/(0,2,1)/(0,1,0) 仅末探右走                     | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-03      | ub 四探 goRight F/T/F/T                                                 | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-04      | point 五集；10 柱升序含重复恒序                                         | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-05      | 14 步 point 序列全等                                                    | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-06      | probe pivotIndex 5,2,1,0/5,2,4,3 + 区间收缩                             | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-07      | hi=10 哨兵无黄箭头、收缩后出现                                          | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-08      | settle [1]/[4] + 第一个 ≥/> caption                                     | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-09      | range [1,2,3] 全绿 + 计数 3                                             | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-10      | done 含 ub − lb 与 O(log n)                                             | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-11      | 四语言+行号+五执行点                                                    | `src/algorithms/bbound.module.spec.ts`      |
+| TC-BB-MOD-12      | title 含边界；initialInput 含重复升序                                   | `src/algorithms/bbound.module.spec.ts`      |
+| TC-RS-MOD-01      | 5→idx5、15→idx1 = 线性扫                                                | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-02      | t=5 轨迹 right/in→left/in + HIT(5,5,5)                                  | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-03      | t=15 轨迹 right/not-in + HIT(0,3,1)                                     | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-04      | point 四集；9 柱断崖恒序                                                | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-05      | 8 步 point 序列全等                                                     | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-06      | probe pivotIndex 4,6,4 + 闭区间收缩                                     | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-07      | 判半 caption 左半/右半有序都现身                                        | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-08      | found sortedIndices [5]/[1] + 命中                                      | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-09      | probe vars 含有序半标注                                                 | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-10      | done 含 O(log n) 与一半引理                                             | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-11      | 四语言+行号+四执行点                                                    | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-RS-MOD-12      | title 含旋转；断崖恰一处下降                                            | `src/algorithms/rotsearch.module.spec.ts`   |
+| TC-BA-MOD-01      | result=4=线性；hoursAt(4)=8、hoursAt(3)=10                              | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-02      | 可行序列恰一次 ✗→✓ 翻转                                                 | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-03      | 四探 (1,11,6,6h,✓)/(1,6,3,10h,✗)/(4,6,5,8h,✓)/(4,5,4,8h,✓)              | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-04      | point 四集；11 柱 = 1..11 爬坡                                          | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-05      | 7 步 point 序列全等                                                     | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-06      | probe pivotIndex=速度−1 依次 5,2,4,3 + 收缩                             | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-07      | ✓ 步含还能更小、✗ 步含加速                                              | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-08      | settle sortedIndices=[3] + 最小与 4                                     | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-09      | probe vars 本次耗时 6/10/8/8                                            | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-10      | done 含答案空间与单调                                                   | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-11      | 四语言+行号+四执行点                                                    | `src/algorithms/banswer.module.spec.ts`     |
+| TC-BA-MOD-12      | title 含二分答案；initialInput=[1..11]                                  | `src/algorithms/banswer.module.spec.ts`     |
+| TC-TER-MOD-01     | result=4=argmax；峰值 12                                                | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-02     | isUnimodal 严格先升后降断言                                             | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-03     | 四探 (0,8,2,6,丢右)/(0,5,1,4,丢左)/(2,5,3,4,丢左)/(4,5,4,5,丢右)        | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-04     | point 四集；9 柱山形恒序                                                | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-05     | 7 步 point 序列全等                                                     | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-06     | 四指针 '0'-'3' 全出场且 m1/m2 位置正确                                  | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-07     | comparing=[m1,m2] + groupMembers 收缩                                   | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-08     | peak sortedIndices=[4] + 峰顶 12                                        | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-09     | 丢右/丢左 1/3 caption 各至少一次                                        | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-10     | done 含 log 与坡度变体                                                  | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-11     | 四语言+行号+四执行点                                                    | `src/algorithms/ternary.module.spec.ts`     |
+| TC-TER-MOD-12     | title 含三分；initialInput 单峰                                         | `src/algorithms/ternary.module.spec.ts`     |
+| TC-AS-MOD-01      | 路径 8 步 = BFS 最短且逐步相邻                                          | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-02      | 扩展 10 < BFS 可达 22                                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-03      | 扩展序 10 项全等（tie-break f,h,r,c）                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-04      | point 五集 + maze + array 空                                            | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-05      | 13 步 = init+expand×9+goal+trace+done                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-06      | expand current=弹出格、visited 累积                                     | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-07      | letters f 值累积、墙/未触达为空                                         | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-08      | goal current=G + 终点语义                                               | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-09      | trace 8 步路径 + solved                                                 | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-10      | done 含 10 与 22 与高估语义                                             | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-11      | 四语言+行号+五执行点                                                    | `src/algorithms/astar.module.spec.ts`       |
+| TC-AS-MOD-12      | title 含 A\*；mark=🧭                                                   | `src/algorithms/astar.module.spec.ts`       |
+| TC-HG-MOD-01      | 匹配 3 = 暴力枚举；matchR=[1,0,2]                                       | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-02      | 事件流 15 项全等（增广双 match/死路双 fail）                            | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-03      | point 五集 + graph + array 空                                           | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-04      | 12 步序列全等（连续 match 合并）                                        | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-05      | try current + activeNode + 让路语义                                     | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-06      | match 全 mst；增广双边同时绿                                            | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-07      | fail rejected + 死路回退语义                                            | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-08      | badge ←L? 翻转后更新                                                    | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-09      | doneNodes 2→4→6 递增                                                    | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-10      | done 含 3 与最大流语义                                                  | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-11      | 四语言+行号+五执行点                                                    | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-HG-MOD-12      | title 含匈牙利；两列布局                                                | `src/algorithms/hungarian.module.spec.ts`   |
+| TC-ST-MOD-01      | dp[0][3]=20=暴力全序枚举                                                | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-02      | 填表六项 (i,j,len,val) 全等                                             | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-03      | 候选与胜者：12(k=0)/10(k=2)/20(k=0 平手取先)                            | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-04      | point 四集 + matrix + array 空                                          | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-05      | 8 步 = init+pair×3+split×3+done                                         | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-06      | init 对角 0 其余 null + labels 堆值                                     | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-07      | pair updatedCell (0,1)/(1,2)/(2,3) 值 5/4/5                             | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-08      | split sources 最优拆分对三组                                            | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-09      | split caption 候选枚举 + 取小                                           | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-10      | done 含 20 与 O(n³)                                                     | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-11      | 四语言+行号+四执行点                                                    | `src/algorithms/stones.module.spec.ts`      |
+| TC-ST-MOD-12      | title 含石子；initialInput=ST_PILES                                     | `src/algorithms/stones.module.spec.ts`      |
+| TC-TSP-MOD-01     | best=7=暴力全排列                                                       | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-02     | fill 12 项 (mask,i,val) 全等                                            | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-03     | (1111,1) 候选 10/7 j=3；(1111,3) 候选 4/11 j=1                          | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-04     | point 四集 + matrix + array 空                                          | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-05     | 15 步 = init+fill×12+close+done                                         | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-06     | 8×4 二进制 rowLabels；init 仅起点格                                     | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-07     | fill updatedCell 正确、无效格 null                                      | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-08     | fill sources 胜出前置格（抽两处验）                                     | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-09     | close sources 全集行三格 + 11/7 caption                                 | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-10     | done 含 7 与 O(2ⁿ·n²)                                                   | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-11     | 四语言+行号+四执行点                                                    | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-12     | title 含旅行商；initialInput=[]                                         | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TD-MOD-01      | max(13,14)=14=bruteRob；根 (13,14)                                      | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-02      | 后序 [3,4,1,2,0] 五节点两态全等                                         | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-03      | point 六集 + matrix + array 空                                          | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-04      | 10 步 = init+leaf×3+(sel+not)×2+best+done                               | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-05      | init 5×2 全 null + 树位置 rowLabels                                     | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-06      | leaf 一步双格 (v,0) 跳行 3/4/2                                          | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-07      | sel sources 孩子不选格两组                                              | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-08      | not sources 孩子四格两组                                                | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-09      | best 根两格 + max 14                                                    | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-10      | done 含 14 与后序语义                                                   | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-11      | 四语言+行号+六执行点                                                    | `src/algorithms/treedp.module.spec.ts`      |
+| TC-TD-MOD-12      | title 含树形；initialInput=TD_VALS                                      | `src/algorithms/treedp.module.spec.ts`      |
+| TC-DD-MOD-01      | ans=197=bruteCount；total=198                                           | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-02      | 三行走位 (d,cnt,pow,sub,tightOk) 全等                                   | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-03      | point 六集 + matrix + array 空                                          | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-04      | 8 步 = init+(free+tight)×2+broken+sum+done                              | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-05      | init 4×4 全 null + 标签                                                 | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-06      | free 行填齐 + 小计格 + 162/36 caption                                   | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-07      | tight 位上格 + 贴着/断裂 caption                                        | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-08      | broken 行 [5,null×3] + 跳过语义                                         | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-09      | sum 合计 198 + sources 两小计 + 197                                     | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-10      | done 含 197 与位数语义                                                  | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-11      | 四语言+行号+六执行点                                                    | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-12      | title 含数位；initialInput=[]                                           | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-BIT-MOD-01     | 建树 tree 与逐段管辖暴力和对拍                                          | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-02     | query(6)=17=暴力；链 [6,4]                                              | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-03     | update 链 [3,4,8] after 7/13/23                                         | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-04     | 复查 query(6)=19=暴力                                                   | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-05     | point 四集 + 8 柱 tree 快照                                             | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-06     | 9 步 = init+q×2+u×3+q×2+done                                            | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-07     | query pivotIndex 5,3 + 链累积 + lowbit caption                          | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-08     | update 柱值 11→13 + 管辖语义                                            | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-09     | 复查累计 19 + 验证语义                                                  | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-10     | done 含 O(log n) 与前缀和对比                                           | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-11     | 四语言+行号+四执行点                                                    | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-12     | title 含树状数组；initialInput=tree 初值                                | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-RR-MOD-01      | ans=[6,5,9,8,8]=逐点 BFS                                                | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-02      | 后序 [3,4,1,2,0] + size/down 全等                                       | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-03      | 换根 DFS 序 (1,0,5)/(3,1,8)/(4,1,8)/(2,0,9)                             | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-04      | point 五集 + matrix + array 空                                          | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-05      | 12 步 = init+down×5+root+reroot×4+done                                  | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-06      | init 5×3 全 null + 标签                                                 | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-07      | down 双格 + 内部孩子四格 sources                                        | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-08      | root ans[0]=6 + down 格 sources                                         | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-09      | reroot sources=[父 ans,自 size] + 公式代入                              | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-10      | done 含 O(n) 与二次扫描                                                 | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-11      | 四语言+行号+五执行点                                                    | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-12      | title 含换根；initialInput=[]                                           | `src/algorithms/reroot.module.spec.ts`      |
+| TC-LCA-MOD-01     | 对拍：两查询 + 64 全对 = 暴力爬父链                                     | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-02     | 倍增表 depth/up⁰/up¹/up² 全等                                           | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-03     | 查询轨迹：(7,4) 全 same；(6,5) k=0 双跳                                 | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-04     | 步合法：point+matrix+array 空                                           | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-05     | 步数结构：11 步序列全等                                                 | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-06     | init 表 8×4 全 null + 标签                                              | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-07     | build 三列逐填 + 递推示例 sources                                       | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-08     | align 步 sources 跳表格 + 二进制拆解                                    | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-09     | jump 步：不跳越过语义 / 双跳 sources                                    | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-10     | answer 父格 sources / done O(log n)+树上距离                            | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-11     | 四语言+行号+六执行点                                                    | `src/algorithms/lca.module.spec.ts`         |
+| TC-LCA-MOD-12     | title 含 LCA；initialInput=[]                                           | `src/algorithms/lca.module.spec.ts`         |
+| TC-EU-MOD-01      | 对拍：栈法路径 + 暴力搜路都合法且起终=奇度点                            | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-02      | 判定：度数/奇度点/起点                                                  | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-03      | 事件流 walk×4→back→walk×3→back×7；首 back 栈顶余边                      | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-04      | 步合法：point+graph+array 空                                            | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-05      | 步数结构：12 步序列全等                                                 | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-06      | check 步徽标=度数 + 奇度定理 + checkPair                                | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-07      | walk 步消边渐增 + 徽标递减 + 3 号清零                                   | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-08      | back①卡住 + 栈顶余边 + 路径收 3                                         | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-09      | back②清栈 + 全消边 + 反转                                               | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-10      | done：O(E) + 一笔画 + 全路径                                            | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-11      | 四语言+行号+五执行点                                                    | `src/algorithms/euler.module.spec.ts`       |
+| TC-EU-MOD-12      | title 含欧拉；initialInput=[]                                           | `src/algorithms/euler.module.spec.ts`       |
+| TC-Z-MOD-01       | 对拍：z=[7,1,0,2,3,1,0]=朴素逐位                                        | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-02       | 事件流：brute×3 → 达界+2 → 直接抄×2                                     | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-03       | 步合法：point+manacher+array 空                                         | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-04       | 步数结构：9 步序列全等                                                  | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-05       | init 步 z[0]=7 + 标签 S/z                                               | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-06       | brute 步 i=3 填至 [7,1,0,2] + box                                       | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-07       | mirror 步蓝环 + 先抄 1 + 达界语义                                       | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-08       | extend 步扩到 3 + box 刷新 + expand                                     | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-09       | mirror-copy 零比较 + best 段                                            | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-10       | done：O(n) + P#T 应用                                                   | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-11       | 四语言+行号+五执行点                                                    | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-Z-MOD-12       | title 含 Z 函数；initialInput=[]                                        | `src/algorithms/zfunc.module.spec.ts`       |
+| TC-FFT-MOD-01     | 对拍：末层 = 直算 DFT                                                   | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-02     | 逐层值：位反转 + layer1 + 复数登场                                      | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-03     | 步合法：point+network+array 空                                          | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-04     | 步数结构：9 步序列全等                                                  | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-05     | init 顺序输入 + 12 蝶形 3 列                                            | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-06     | bitrev 重排 + 位反转语义                                                | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-07     | twiddle currentCol 逐层 + 值不变                                        | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-08     | butterfly 三步后值 = layer1/2/3                                         | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-09     | tag：col0 ×1 / col1 ×ω² / col2 ×ω·×ω³                                   | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-10     | done + O(n log n) + 三部曲                                              | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-11     | 四语言+行号+五执行点                                                    | `src/algorithms/fft.module.spec.ts`         |
+| TC-FFT-MOD-12     | title 含 FFT；initialInput=[]                                           | `src/algorithms/fft.module.spec.ts`         |
+| TC-RHO-MOD-01     | 对拍：97×83=8051 且双素性                                               | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-02     | 序列与 ρ：xs 全等 + mod 97 尾 1 环 3                                    | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-03     | 龟兔轨迹：两次未中 + gcd(194)=97                                        | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-04     | 步合法：point+graph+array 空                                            | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-05     | 步数结构：7 步序列全等                                                  | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-06     | seed 步 x₀ 高亮 + 伪随机语义                                            | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-07     | race 步龟兔蓝环 + 链边渐绿 + gcd=1                                      | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-08     | hit 步 checkPair=[3,6] + 194/97 + 分解式                                | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-09     | reveal 步 nodeGroup 四组 + mod 97 语义                                  | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-10     | done：O(n^¼) + 流水线                                                   | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-11     | 四语言+行号+六执行点                                                    | `src/algorithms/rho.module.spec.ts`         |
+| TC-RHO-MOD-12     | title 含 Pollard；initialInput=[]                                       | `src/algorithms/rho.module.spec.ts`         |
+| TC-INPUT-PARSE-01 | 合法：逗号/空格/中文逗号混合                                            | `src/components/player/inputSpec.spec.ts`   |
+| TC-INPUT-PARSE-02 | 非数字报错                                                              | `src/components/player/inputSpec.spec.ts`   |
+| TC-INPUT-PARSE-03 | 小数拒绝                                                                | `src/components/player/inputSpec.spec.ts`   |
+| TC-INPUT-PARSE-04 | 长度越界（下界与上界）                                                  | `src/components/player/inputSpec.spec.ts`   |
+| TC-INPUT-PARSE-05 | 值域越界                                                                | `src/components/player/inputSpec.spec.ts`   |
+| TC-INPUT-PARSE-06 | 空串/纯分隔符不崩溃                                                     | `src/components/player/inputSpec.spec.ts`   |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **602** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **612** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2821,6 +2827,16 @@
 | TC-VIEW-RHO-03         | 正文含生日悖论与 gcd                               | `src/views/Article/Algorithm/PollardRho.spec.ts`  |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                | `src/views/Article/Algorithm/Bellman.spec.ts`     |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）              | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
+| TC-VIZ-INPUTBAR-01     | 渲染文本框 + hint + 应用/恢复默认                  | `src/components/player/InputBar.spec.ts`          |
+| TC-VIZ-INPUTBAR-02     | 合法输入应用 → emit apply 带数组                   | `src/components/player/InputBar.spec.ts`          |
+| TC-VIZ-INPUTBAR-03     | 非法输入行内错误、不 emit                          | `src/components/player/InputBar.spec.ts`          |
+| TC-VIZ-INPUTBAR-04     | 恢复默认 → emit restore + 清错误                   | `src/components/player/InputBar.spec.ts`          |
+| TC-PLAYER-INPUT-01     | 无 inputSpec 不渲染输入条（全站回归）              | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-INPUT-02     | 有 inputSpec 渲染输入条                            | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-INPUT-03     | 应用新输入 steps 重建 + 回第 0 步                  | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-INPUT-04     | ?input= 合法初始化；非法落回默认                   | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-INPUT-05     | 应用写 URL；恢复默认清除                           | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-MOD-INPUTSPEC-01    | 12 排序模块 inputSpec 全等 + 默认输入自过校验      | `src/algorithms/input-enabled.spec.ts`            |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2832,7 +2848,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **100** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **101** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2937,6 +2953,7 @@
 | TC-E2E-Z-01         | Z 函数全模板：Z-box 回文轨 / 拖末步 O(n) / Shiki（C-106 新增）                                                             | `e2e/z-function.e2e.ts`            | active     |
 | TC-E2E-FFT-01       | FFT 全模板：蝶形网络 / 拖末步 O(n log n) / Shiki（C-107 新增）                                                             | `e2e/fft.e2e.ts`                   | active     |
 | TC-E2E-RHO-01       | Pollard's Rho 全模板：ρ 链图轨 / 拖末步 n^¼ / Shiki（C-108 新增）                                                          | `e2e/pollard-rho.e2e.ts`           | active     |
+| TC-E2E-INPUT-01     | 自定义输入全链路：改输入/URL 分享/非法报错/恢复默认/固定页无输入条（C-110 新增）                                           | `e2e/custom-input.e2e.ts`          | active     |
 
 ---
 

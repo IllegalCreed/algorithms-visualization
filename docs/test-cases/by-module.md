@@ -1107,6 +1107,7 @@
 > **C-106（M9-4 · 字符串第 8 页 · 新页）**：Z 函数——z[i]=s 与后缀的 LCP；Z-box 内抄镜像、达界才右扩、r 只增不减 O(n)。**ManacherView 第 2 消费者 + additive labels?/statusLabels?（不设零回归）**。zfunc.module 9 步 + zBrute 朴素对拍。`TC-Z-MOD-*`+`TC-VIZ-MANACHERVIEW-05/06`+`TC-VIEW-Z-*`+`TC-E2E-Z-01`。
 > **C-107（M9-5 · 数论第 9 页 · 新页）**：FFT——点值乘法 + 单位根折叠：位反转重排 + 3 层蝶形 (u,v)→(u+ωv,u−ωv)，O(n log n)。**NetworkView 第 2 消费者 + additive wireLabels?/tag?（不设零回归）**。fft.module 9 步 + dftBrute 直算对拍。`TC-FFT-MOD-*`+`TC-VIZ-NETVIEW-04/05`+`TC-VIEW-FFT-*`+`TC-E2E-FFT-01`。
 > **C-108（M9-6 · 数论第 10 页 · 新页 · M9 A 档收官）**：Pollard's Rho——伪随机序列 + 生日悖论 + gcd 显影，Floyd 龟兔 O(n^¼)。**纯复用 GraphView 第 11 消费者零改动**（同余同站台 ρ 布局 + reveal 四色）。rho.module 7 步 + 双素性试除对拍。`TC-RHO-MOD-*`+`TC-VIEW-RHO-*`+`TC-E2E-RHO-01`。
+> **C-110（M10-P1 · 播放器 2.0 首项）**：自定义输入 + ?input= 分享——inputSpec? 全 additive（不设=不渲染零回归）+ InputBar + parseInputArray + usePlayer 兼容 Ref + URL 读写；第一批 12 排序模块。`TC-INPUT-PARSE-*`+`TC-VIZ-INPUTBAR-*`+`TC-PLAYER-INPUT-*`+`TC-MOD-INPUTSPEC-01`+`TC-E2E-INPUT-01`。
 > **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
@@ -2148,5 +2149,22 @@
 | TC-VIEW-RHO-02         | h1 含 Pollard + GraphView + 无柱数组（C-108）                                                      | L4   | `src/views/Article/Algorithm/PollardRho.spec.ts`          |
 | TC-VIEW-RHO-03         | 正文含生日悖论与 gcd（C-108）                                                                      | L4   | `src/views/Article/Algorithm/PollardRho.spec.ts`          |
 | TC-E2E-RHO-01          | Pollard's Rho 全模板：ρ 链图轨 / 拖末步 n^¼ / Shiki（C-108 新增）                                  | L5   | `e2e/pollard-rho.e2e.ts`                                  |
+| TC-INPUT-PARSE-01      | 合法：逗号/空格/中文逗号混合（C-110）                                                              | L3   | `src/components/player/inputSpec.spec.ts`                 |
+| TC-INPUT-PARSE-02      | 非数字报错（C-110）                                                                                | L3   | `src/components/player/inputSpec.spec.ts`                 |
+| TC-INPUT-PARSE-03      | 小数拒绝（C-110）                                                                                  | L3   | `src/components/player/inputSpec.spec.ts`                 |
+| TC-INPUT-PARSE-04      | 长度越界（下界与上界）（C-110）                                                                    | L3   | `src/components/player/inputSpec.spec.ts`                 |
+| TC-INPUT-PARSE-05      | 值域越界（C-110）                                                                                  | L3   | `src/components/player/inputSpec.spec.ts`                 |
+| TC-INPUT-PARSE-06      | 空串/纯分隔符不崩溃（C-110）                                                                       | L3   | `src/components/player/inputSpec.spec.ts`                 |
+| TC-VIZ-INPUTBAR-01     | 渲染文本框 + hint + 应用/恢复默认（C-110）                                                         | L4   | `src/components/player/InputBar.spec.ts`                  |
+| TC-VIZ-INPUTBAR-02     | 合法输入应用 → emit apply 带数组（C-110）                                                          | L4   | `src/components/player/InputBar.spec.ts`                  |
+| TC-VIZ-INPUTBAR-03     | 非法输入行内错误、不 emit（C-110）                                                                 | L4   | `src/components/player/InputBar.spec.ts`                  |
+| TC-VIZ-INPUTBAR-04     | 恢复默认 → emit restore + 清错误（C-110）                                                          | L4   | `src/components/player/InputBar.spec.ts`                  |
+| TC-PLAYER-INPUT-01     | 无 inputSpec 不渲染输入条（全站回归）（C-110）                                                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-PLAYER-INPUT-02     | 有 inputSpec 渲染输入条（C-110）                                                                   | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-PLAYER-INPUT-03     | 应用新输入 steps 重建 + 回第 0 步（C-110）                                                         | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-PLAYER-INPUT-04     | ?input= 合法初始化；非法落回默认（C-110）                                                          | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-PLAYER-INPUT-05     | 应用写 URL；恢复默认清除（C-110）                                                                  | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-MOD-INPUTSPEC-01    | 12 排序模块 inputSpec 全等 + 默认输入自过校验（C-110）                                             | L4   | `src/algorithms/input-enabled.spec.ts`                    |
+| TC-E2E-INPUT-01        | 自定义输入全链路：改输入/URL 分享/非法报错/恢复默认/固定页无输入条（C-110 新增）                   | L5   | `e2e/custom-input.e2e.ts`                                 |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |
