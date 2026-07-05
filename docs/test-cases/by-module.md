@@ -1093,6 +1093,8 @@
 
 > **C-098（M8 DP 第 7 页 · 新页）**：石子合并——区间 DP 首发：dp[i][j]=min_k(dp[i][k]+dp[k+1][j])+sum，区间由短及长、枚举分割点 O(n³)；贪心反例、环形/四边形点到。**纯复用 MatrixView 第 11 消费者零改动**（上三角 + sources 拆分对）。stones.module 8 步 + bruteMerge 全序枚举对拍。`TC-ST-MOD-*`+`TC-VIEW-ST-*`+`TC-E2E-ST-01`。
 
+> **C-099（M8 DP 第 8 页收官 · 新页）**：旅行商 TSP——Held-Karp 状压 DP：「去过哪些城」压成二进制 mask 当下标，dp[mask][i] pull 式转移 + 回边收尾，O(n!) 降到 O(2ⁿ·n²)；n≈20 上限、状压家族。**纯复用 MatrixView 第 12 消费者零改动**（8 行二进制 mask 表 + sources 前置格）。tsp.module 15 步 + bruteTsp 全排列对拍。`TC-TSP-MOD-*`+`TC-VIEW-TSP-*`+`TC-E2E-TSP-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -1968,3 +1970,19 @@
 | TC-VIEW-ST-02         | h1 含石子 + MatrixView + 无柱数组（C-098）                                                         | L4   | `src/views/Article/Algorithm/StoneMerge.spec.ts`          |
 | TC-VIEW-ST-03         | 正文含区间与分割点（C-098）                                                                        | L4   | `src/views/Article/Algorithm/StoneMerge.spec.ts`          |
 | TC-E2E-ST-01          | 石子合并全模板：区间 DP 表 / 拖末步 20 / Shiki（C-098 新增）                                       | L5   | `e2e/stone-merge.e2e.ts`                                  |
+| TC-TSP-MOD-01         | best=7=暴力全排列（C-099）                                                                         | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-02         | fill 12 项 (mask,i,val) 全等（C-099）                                                              | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-03         | (1111,1) 候选 10/7 j=3；(1111,3) 候选 4/11 j=1（C-099）                                            | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-04         | point 四集 + matrix + array 空（C-099）                                                            | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-05         | 15 步 = init+fill×12+close+done（C-099）                                                           | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-06         | 8×4 二进制 rowLabels；init 仅起点格（C-099）                                                       | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-07         | fill updatedCell 正确、无效格 null（C-099）                                                        | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-08         | fill sources 胜出前置格（抽两处验）（C-099）                                                       | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-09         | close sources 全集行三格 + 11/7 caption（C-099）                                                   | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-10         | done 含 7 与 O(2ⁿ·n²)（C-099）                                                                     | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-11         | 四语言+行号+四执行点（C-099）                                                                      | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-TSP-MOD-12         | title 含旅行商；initialInput=[]（C-099）                                                           | L3   | `src/algorithms/tsp.module.spec.ts`                       |
+| TC-VIEW-TSP-01        | Article + AlgorithmPlayer（C-099）                                                                 | L4   | `src/views/Article/Algorithm/Tsp.spec.ts`                 |
+| TC-VIEW-TSP-02        | h1 含旅行商 + MatrixView + 无柱数组（C-099）                                                       | L4   | `src/views/Article/Algorithm/Tsp.spec.ts`                 |
+| TC-VIEW-TSP-03        | 正文含状压与 mask（C-099）                                                                         | L4   | `src/views/Article/Algorithm/Tsp.spec.ts`                 |
+| TC-E2E-TSP-01         | 旅行商全模板：状压状态表 / 拖末步 7 / Shiki（C-099 新增）                                          | L5   | `e2e/tsp.e2e.ts`                                          |

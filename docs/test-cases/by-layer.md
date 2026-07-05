@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1062** 个用例。运行命令：`pnpm test:unit`
+共 **1074** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1541,12 +1541,24 @@
 | TC-ST-MOD-10    | done 含 20 与 O(n³)                                                     | `src/algorithms/stones.module.spec.ts`      |
 | TC-ST-MOD-11    | 四语言+行号+四执行点                                                    | `src/algorithms/stones.module.spec.ts`      |
 | TC-ST-MOD-12    | title 含石子；initialInput=ST_PILES                                     | `src/algorithms/stones.module.spec.ts`      |
+| TC-TSP-MOD-01   | best=7=暴力全排列                                                       | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-02   | fill 12 项 (mask,i,val) 全等                                            | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-03   | (1111,1) 候选 10/7 j=3；(1111,3) 候选 4/11 j=1                          | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-04   | point 四集 + matrix + array 空                                          | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-05   | 15 步 = init+fill×12+close+done                                         | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-06   | 8×4 二进制 rowLabels；init 仅起点格                                     | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-07   | fill updatedCell 正确、无效格 null                                      | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-08   | fill sources 胜出前置格（抽两处验）                                     | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-09   | close sources 全集行三格 + 11/7 caption                                 | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-10   | done 含 7 与 O(2ⁿ·n²)                                                   | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/tsp.module.spec.ts`         |
+| TC-TSP-MOD-12   | title 含旅行商；initialInput=[]                                         | `src/algorithms/tsp.module.spec.ts`         |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **566** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **569** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2641,6 +2653,14 @@
 | TC-VIEW-ST-02 | h1 含石子 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/StoneMerge.spec.ts` |
 | TC-VIEW-ST-03 | 正文含区间与分割点                | `src/views/Article/Algorithm/StoneMerge.spec.ts` |
 
+### 旅行商 TSP 页 C-099（DP 第 8 页收官，新页，纯复用 MatrixView 第 12 消费者）
+
+| 用例 ID        | 场景                                | 文件                                      |
+| -------------- | ----------------------------------- | ----------------------------------------- |
+| TC-VIEW-TSP-01 | Article + AlgorithmPlayer           | `src/views/Article/Algorithm/Tsp.spec.ts` |
+| TC-VIEW-TSP-02 | h1 含旅行商 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/Tsp.spec.ts` |
+| TC-VIEW-TSP-03 | 正文含状压与 mask                   | `src/views/Article/Algorithm/Tsp.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2651,7 +2671,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **90** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **91** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2746,6 +2766,7 @@
 | TC-E2E-AS-01        | A\* 寻路全模板：迷宫轨 f 值 / 拖末步 10 vs 22 / Shiki（C-096 新增）                                                        | `e2e/astar.e2e.ts`                 | active     |
 | TC-E2E-HG-01        | 匈牙利全模板：二分图轨 / 拖末步匹配 3 / Shiki（C-097 新增）                                                                | `e2e/hungarian.e2e.ts`             | active     |
 | TC-E2E-ST-01        | 石子合并全模板：区间 DP 表 / 拖末步 20 / Shiki（C-098 新增）                                                               | `e2e/stone-merge.e2e.ts`           | active     |
+| TC-E2E-TSP-01       | 旅行商全模板：状压状态表 / 拖末步 7 / Shiki（C-099 新增）                                                                  | `e2e/tsp.e2e.ts`                   | active     |
 
 ---
 
