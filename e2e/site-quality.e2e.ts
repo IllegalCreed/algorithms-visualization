@@ -28,4 +28,12 @@ test('TC-E2E-QUALITY-01 站点质量：meta/main 地标/img alt/robots+sitemap+l
     expect(res.status(), path).toBe(200);
     expect((await res.text()).startsWith(head), path).toBe(true);
   }
+
+  // OG 分享卡（C-118）
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    /og-cover\.png/,
+  );
+  const og = await request.get('/og-cover.png');
+  expect(og.status()).toBe(200);
 });
