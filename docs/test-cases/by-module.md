@@ -1097,6 +1097,8 @@
 
 > **C-100（M8 DP 第 9 页 · 新页）**：树形 DP 打家劫舍 III——状态挂节点（选/不选）、子树即子问题、后序即拓扑，一趟 DFS O(n)。**纯复用 MatrixView 第 13 消费者零改动**（后序跳行填表 + sel/not 定向 sources）。treedp.module 10 步 + bruteRob 不相邻子集枚举对拍。`TC-TD-MOD-*`+`TC-VIEW-TD-*`+`TC-E2E-TD-01`。
 
+> **C-101（M8 DP 第 10 页 · 新页）**：数位 DP——按位走上界数天文数字：自由分支（填小于上界位 × 9^k）+ 贴着走判定，禁数字撞上界位 tight 断裂；O(位数)、dp(pos,tight,state) 模板。**纯复用 MatrixView 第 14 消费者零改动**（4 行走位表 + free/tight 双步）。digitdp.module 8 步 + bruteCount 逐检对拍。`TC-DD-MOD-*`+`TC-VIEW-DD-*`+`TC-E2E-DD-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -2004,3 +2006,19 @@
 | TC-VIEW-TD-02         | h1 含树形 + MatrixView + 无柱数组（C-100）                                                         | L4   | `src/views/Article/Algorithm/TreeDp.spec.ts`              |
 | TC-VIEW-TD-03         | 正文含后序与子树（C-100）                                                                          | L4   | `src/views/Article/Algorithm/TreeDp.spec.ts`              |
 | TC-E2E-TD-01          | 树形 DP 全模板：两态表 / 拖末步 14 / Shiki（C-100 新增）                                           | L5   | `e2e/tree-dp.e2e.ts`                                      |
+| TC-DD-MOD-01          | ans=197=bruteCount；total=198（C-101）                                                             | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-02          | 三行走位 (d,cnt,pow,sub,tightOk) 全等（C-101）                                                     | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-03          | point 六集 + matrix + array 空（C-101）                                                            | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-04          | 8 步 = init+(free+tight)×2+broken+sum+done（C-101）                                                | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-05          | init 4×4 全 null + 标签（C-101）                                                                   | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-06          | free 行填齐 + 小计格 + 162/36 caption（C-101）                                                     | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-07          | tight 位上格 + 贴着/断裂 caption（C-101）                                                          | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-08          | broken 行 [5,null×3] + 跳过语义（C-101）                                                           | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-09          | sum 合计 198 + sources 两小计 + 197（C-101）                                                       | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-10          | done 含 197 与位数语义（C-101）                                                                    | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-11          | 四语言+行号+六执行点（C-101）                                                                      | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-DD-MOD-12          | title 含数位；initialInput=[]（C-101）                                                             | L3   | `src/algorithms/digitdp.module.spec.ts`                   |
+| TC-VIEW-DD-01         | Article + AlgorithmPlayer（C-101）                                                                 | L4   | `src/views/Article/Algorithm/DigitDp.spec.ts`             |
+| TC-VIEW-DD-02         | h1 含数位 + MatrixView + 无柱数组（C-101）                                                         | L4   | `src/views/Article/Algorithm/DigitDp.spec.ts`             |
+| TC-VIEW-DD-03         | 正文含贴着与自由（C-101）                                                                          | L4   | `src/views/Article/Algorithm/DigitDp.spec.ts`             |
+| TC-E2E-DD-01          | 数位 DP 全模板：走位表 / 拖末步 197 / Shiki（C-101 新增）                                          | L5   | `e2e/digit-dp.e2e.ts`                                     |

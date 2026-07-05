@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1086** 个用例。运行命令：`pnpm test:unit`
+共 **1098** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1565,12 +1565,24 @@
 | TC-TD-MOD-10    | done 含 14 与后序语义                                                   | `src/algorithms/treedp.module.spec.ts`      |
 | TC-TD-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/treedp.module.spec.ts`      |
 | TC-TD-MOD-12    | title 含树形；initialInput=TD_VALS                                      | `src/algorithms/treedp.module.spec.ts`      |
+| TC-DD-MOD-01    | ans=197=bruteCount；total=198                                           | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-02    | 三行走位 (d,cnt,pow,sub,tightOk) 全等                                   | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-03    | point 六集 + matrix + array 空                                          | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-04    | 8 步 = init+(free+tight)×2+broken+sum+done                              | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-05    | init 4×4 全 null + 标签                                                 | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-06    | free 行填齐 + 小计格 + 162/36 caption                                   | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-07    | tight 位上格 + 贴着/断裂 caption                                        | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-08    | broken 行 [5,null×3] + 跳过语义                                         | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-09    | sum 合计 198 + sources 两小计 + 197                                     | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-10    | done 含 197 与位数语义                                                  | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-DD-MOD-12    | title 含数位；initialInput=[]                                           | `src/algorithms/digitdp.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **572** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **575** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2681,6 +2693,14 @@
 | TC-VIEW-TD-02 | h1 含树形 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/TreeDp.spec.ts` |
 | TC-VIEW-TD-03 | 正文含后序与子树                  | `src/views/Article/Algorithm/TreeDp.spec.ts` |
 
+### 数位 DP 页 C-101（DP 第 10 页，新页，纯复用 MatrixView 第 14 消费者）
+
+| 用例 ID       | 场景                              | 文件                                          |
+| ------------- | --------------------------------- | --------------------------------------------- |
+| TC-VIEW-DD-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/DigitDp.spec.ts` |
+| TC-VIEW-DD-02 | h1 含数位 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/DigitDp.spec.ts` |
+| TC-VIEW-DD-03 | 正文含贴着与自由                  | `src/views/Article/Algorithm/DigitDp.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2691,7 +2711,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **92** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **93** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2788,6 +2808,7 @@
 | TC-E2E-ST-01        | 石子合并全模板：区间 DP 表 / 拖末步 20 / Shiki（C-098 新增）                                                               | `e2e/stone-merge.e2e.ts`           | active     |
 | TC-E2E-TSP-01       | 旅行商全模板：状压状态表 / 拖末步 7 / Shiki（C-099 新增）                                                                  | `e2e/tsp.e2e.ts`                   | active     |
 | TC-E2E-TD-01        | 树形 DP 全模板：两态表 / 拖末步 14 / Shiki（C-100 新增）                                                                   | `e2e/tree-dp.e2e.ts`               | active     |
+| TC-E2E-DD-01        | 数位 DP 全模板：走位表 / 拖末步 197 / Shiki（C-101 新增）                                                                  | `e2e/digit-dp.e2e.ts`              | active     |
 
 ---
 
