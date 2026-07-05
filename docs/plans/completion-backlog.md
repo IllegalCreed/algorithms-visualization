@@ -61,11 +61,13 @@
 
 ## M12 营销与增长（承接 M5）
 
-地基已有：C-034（prerender / routing-meta / JSON-LD / robots / sitemap）+ `docs/marketing/roadmap.md`。M9–M11 完成后启动，届时按营销路线图展开：112+ 页 meta 描述质量巡检、OG 分享卡、统计接入、国内发布节奏（掘金/知乎/V2EX）、先中文后双语。
+**✅ 已启动（2026-07-05，C-118）**：OG 分享卡 + og:/twitter: meta、robots/sitemap（95 URL）/llms.txt（C-117）、三渠道发布物料与节奏（`docs/marketing/launch-posts.md`）全部就绪；**纠偏**：C-034 声称的 prerender/routing-meta/JSON-LD 未在代码中落地，prerender 列为执行期技术项（冷启动直链分享不受阻）。站外行动项（统计接入/赞赏码/发帖/搜索提交）移交 Owner，清单见 launch-posts.md 尾节。
 
 ## 顺序与完成定义
 
 **M9（7 项内容）→ M10（P1–P3 必做）→ M11（S1–S4 必做）→ M12 启动**。每个里程碑完成时在本文件打勾并回写 `docs/roadmap.md`；全清单完成 = 本站 1.0 封版，转入营销与维护期。
+
+> **✅ 2026-07-05 全清单完成**：M9（C-103~109）、M10（C-110~112，P4 机动延后已档）、M11（C-113~117）、M12 启动（C-118）——**本站 1.0 封版**，转入营销执行与维护期。后续新想法先进本清单评审。
 
 ## 变更历史
 
