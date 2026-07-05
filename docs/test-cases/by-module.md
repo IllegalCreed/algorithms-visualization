@@ -1109,6 +1109,7 @@
 > **C-108（M9-6 · 数论第 10 页 · 新页 · M9 A 档收官）**：Pollard's Rho——伪随机序列 + 生日悖论 + gcd 显影，Floyd 龟兔 O(n^¼)。**纯复用 GraphView 第 11 消费者零改动**（同余同站台 ρ 布局 + reveal 四色）。rho.module 7 步 + 双素性试除对拍。`TC-RHO-MOD-*`+`TC-VIEW-RHO-*`+`TC-E2E-RHO-01`。
 > **C-110（M10-P1 · 播放器 2.0 首项）**：自定义输入 + ?input= 分享——inputSpec? 全 additive（不设=不渲染零回归）+ InputBar + parseInputArray + usePlayer 兼容 Ref + URL 读写；第一批 12 排序模块。`TC-INPUT-PARSE-*`+`TC-VIZ-INPUTBAR-*`+`TC-PLAYER-INPUT-*`+`TC-MOD-INPUTSPEC-01`+`TC-E2E-INPUT-01`。
 > **C-111（M10-P2 · 播放控制增强）**：倍速 +3×、循环开关（usePlayer +loop additive 默认关）、键盘 →/←/空格（输入框守卫 + 防滚动）。`TC-CTRL-LOOP-*`+`TC-CTRL-UI-*`+`TC-CTRL-KEY-*`+`TC-E2E-CTRL-01`。
+> **C-112（M10-P3 · 测验模式）**：Step.quiz? additive + QuizCard + 播放器拦停（自动播到题步暂停/答对续播/同步不重问/守卫/末步成绩）；试点二分+快排各 2 题。`TC-VIZ-QUIZCARD-*`+`TC-PLAYER-QUIZ-*`+`TC-MOD-QUIZ-01`+`TC-E2E-QUIZ-01`。
 > **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
@@ -2175,5 +2176,15 @@
 | TC-CTRL-KEY-02         | 空格切换播放/暂停 + preventDefault（C-111）                                                        | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
 | TC-CTRL-KEY-03         | 输入框聚焦时按键不响应播放器（C-111）                                                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
 | TC-E2E-CTRL-01         | 播放控制增强：键盘三键 + 3× + 播完循环回卷（C-111 新增）                                           | L5   | `e2e/playback-controls.e2e.ts`                            |
+| TC-VIZ-QUIZCARD-01     | 渲染题目+选项；未答无结果态（C-112）                                                               | L4   | `src/components/player/QuizCard.spec.ts`                  |
+| TC-VIZ-QUIZCARD-02     | 点正确项 ✓ + emit answered(true)（C-112）                                                          | L4   | `src/components/player/QuizCard.spec.ts`                  |
+| TC-VIZ-QUIZCARD-03     | 点错误项 ✗ + 正确项高亮（C-112）                                                                   | L4   | `src/components/player/QuizCard.spec.ts`                  |
+| TC-VIZ-QUIZCARD-04     | 答后继续 emit resume + 选项锁定（C-112）                                                           | L4   | `src/components/player/QuizCard.spec.ts`                  |
+| TC-PLAYER-QUIZ-01      | 无 quiz 全程无题卡（全站回归）（C-112）                                                            | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-PLAYER-QUIZ-02      | 自动播到题步拦停 + 题卡期间键盘守卫（C-112）                                                       | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-PLAYER-QUIZ-03      | 答对续播 + 回拖不重问（C-112）                                                                     | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-PLAYER-QUIZ-04      | 末步成绩 n/m；无题页无成绩行（C-112）                                                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
+| TC-MOD-QUIZ-01         | 二分/快排各 ≥2 quiz 且题面合法（C-112）                                                            | L4   | `src/algorithms/quiz-pilot.spec.ts`                       |
+| TC-E2E-QUIZ-01         | 测验模式：拦停→答对→续播→末步成绩 + 固定页零题卡（C-112 新增）                                     | L5   | `e2e/quiz-mode.e2e.ts`                                    |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |

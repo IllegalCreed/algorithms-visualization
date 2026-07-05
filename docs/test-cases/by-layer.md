@@ -1674,7 +1674,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **617** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **626** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2844,6 +2844,15 @@
 | TC-CTRL-KEY-01         | → 下一步、← 上一步                                 | `src/components/player/AlgorithmPlayer.spec.ts`   |
 | TC-CTRL-KEY-02         | 空格切换播放/暂停 + preventDefault                 | `src/components/player/AlgorithmPlayer.spec.ts`   |
 | TC-CTRL-KEY-03         | 输入框聚焦时按键不响应播放器                       | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-VIZ-QUIZCARD-01     | 渲染题目+选项；未答无结果态                        | `src/components/player/QuizCard.spec.ts`          |
+| TC-VIZ-QUIZCARD-02     | 点正确项 ✓ + emit answered(true)                   | `src/components/player/QuizCard.spec.ts`          |
+| TC-VIZ-QUIZCARD-03     | 点错误项 ✗ + 正确项高亮                            | `src/components/player/QuizCard.spec.ts`          |
+| TC-VIZ-QUIZCARD-04     | 答后继续 emit resume + 选项锁定                    | `src/components/player/QuizCard.spec.ts`          |
+| TC-PLAYER-QUIZ-01      | 无 quiz 全程无题卡（全站回归）                     | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-QUIZ-02      | 自动播到题步拦停 + 题卡期间键盘守卫                | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-QUIZ-03      | 答对续播 + 回拖不重问                              | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-PLAYER-QUIZ-04      | 末步成绩 n/m；无题页无成绩行                       | `src/components/player/AlgorithmPlayer.spec.ts`   |
+| TC-MOD-QUIZ-01         | 二分/快排各 ≥2 quiz 且题面合法                     | `src/algorithms/quiz-pilot.spec.ts`               |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2855,7 +2864,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **102** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **103** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2962,6 +2971,7 @@
 | TC-E2E-RHO-01       | Pollard's Rho 全模板：ρ 链图轨 / 拖末步 n^¼ / Shiki（C-108 新增）                                                          | `e2e/pollard-rho.e2e.ts`           | active     |
 | TC-E2E-INPUT-01     | 自定义输入全链路：改输入/URL 分享/非法报错/恢复默认/固定页无输入条（C-110 新增）                                           | `e2e/custom-input.e2e.ts`          | active     |
 | TC-E2E-CTRL-01      | 播放控制增强：键盘三键 + 3× + 播完循环回卷（C-111 新增）                                                                   | `e2e/playback-controls.e2e.ts`     | active     |
+| TC-E2E-QUIZ-01      | 测验模式：拦停→答对→续播→末步成绩 + 固定页零题卡（C-112 新增）                                                             | `e2e/quiz-mode.e2e.ts`             | active     |
 
 ---
 
