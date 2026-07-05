@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 欧拉路径：一笔画信封——绿色笔迹一笔到底 + 起终两奇度点 -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 180 840 L 180 460 L 512 200 L 844 460 L 844 840 L 180 840 L 844 460 M 180 460 L 844 840" stroke="#2e7d32" stroke-width="34" />
+  </g>
+  <g stroke="#333" stroke-width="12">
+    <circle cx="512" cy="200" r="62" fill="#e6e9e7" />
+    <circle cx="180" cy="460" r="62" fill="#e6e9e7" />
+    <circle cx="844" cy="460" r="62" fill="#e6e9e7" />
+    <circle cx="180" cy="840" r="72" fill="#ffd43b" />
+    <circle cx="844" cy="840" r="72" fill="#a5d8ff" />
+  </g>
+  <!-- 笔尖：正在收笔 -->
+  <g>
+    <path d="M 870 800 L 940 690 L 968 730 Z" fill="#f0a000" stroke="#333" stroke-width="10" />
+  </g>
+  <g font-family="sans-serif" font-weight="bold" font-size="60" text-anchor="middle" dominant-baseline="central">
+    <text x="180" y="840" fill="#7a5900">起</text>
+    <text x="844" y="840" fill="#1f3a5e">终</text>
+  </g>
+</svg>

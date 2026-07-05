@@ -258,6 +258,14 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 欧拉路径执行点（C-105，图算法第 12 页；纯复用 GraphView——Hierholzer 消边栈法） */
+export type EulerExecPoint =
+  | 'init' // 图登场 + 一笔画问题
+  | 'check' // 度数判定：奇度 0/2 定理 + 定起点
+  | 'walk' // 沿未用边走一步：消边 + 压栈 + 徽标递减
+  | 'back' // 卡住：弹栈进路径（栈顶余边则续走子环）
+  | 'done'; // 反转得欧拉路径 + O(E) 与应用
+
 /** LCA 倍增执行点（C-104，图算法第 11 页；纯复用 MatrixView——倍增跳表） */
 export type LcaExecPoint =
   | 'init' // 树登场 + 家谱交汇直觉

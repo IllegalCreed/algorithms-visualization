@@ -155,6 +155,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/Lca.vue'),
           },
           {
+            path: '/docs/euler-path',
+            name: 'euler-path',
+            component: () => import('../views/Article/Algorithm/EulerPath.vue'),
+          },
+          {
             path: '/docs/edit-distance',
             name: 'edit-distance',
             component: () => import('../views/Article/Algorithm/Edit.vue'),

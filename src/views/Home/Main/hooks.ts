@@ -26,6 +26,7 @@ import TwoSatIcon from '@/assets/two-sat.svg';
 import MaxFlowIcon from '@/assets/max-flow.svg';
 import HungarianIcon from '@/assets/hungarian.svg';
 import LcaIcon from '@/assets/lca.svg';
+import EulerPathIcon from '@/assets/euler-path.svg';
 import SieveIcon from '@/assets/sieve.svg';
 import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import GcdIcon from '@/assets/gcd.svg';
@@ -362,6 +363,12 @@ export function useCategoryData(): Category[] {
           desc: '最近公共祖先：预处理「跳 2^k 步」跳表（爸爸的爸爸递推），查询先对齐再高位试跳——祖先不同才跳；O(log n) 一次，树上距离的地基',
           icon: LcaIcon,
           url: 'lca',
+        },
+        {
+          title: '欧拉路径',
+          desc: '一笔画：奇度点 0/2 判定 + Hierholzer 边走边消——卡住弹栈进路径、栈顶余边续走子环自动插入；O(E)，七桥问题与 DNA 拼接同款',
+          icon: EulerPathIcon,
+          url: 'euler-path',
         },
       ],
     },

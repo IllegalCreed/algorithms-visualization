@@ -189,6 +189,10 @@ export function useCategoryData(): Category[] {
           title: 'LCA 倍增',
           url: 'lca',
         },
+        {
+          title: '欧拉路径',
+          url: 'euler-path',
+        },
       ],
     },
     {
