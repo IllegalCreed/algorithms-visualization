@@ -1112,6 +1112,7 @@
 > **C-112（M10-P3 · 测验模式）**：Step.quiz? additive + QuizCard + 播放器拦停（自动播到题步暂停/答对续播/同步不重问/守卫/末步成绩）；试点二分+快排各 2 题。`TC-VIZ-QUIZCARD-*`+`TC-PLAYER-QUIZ-*`+`TC-MOD-QUIZ-01`+`TC-E2E-QUIZ-01`。
 > **C-113（M11-S1 · 全站搜索）**：SearchPalette 命令面板（Cmd/Ctrl+K + Header 按钮 + store 开关；useCategoryData 拍平过滤、全键盘导航）。`TC-VIZ-SEARCH-*`+`TC-VIEW-HEADER-08`+`TC-E2E-SEARCH-01`。
 > **C-114（M11-S2 · 复杂度速查）**：数据资产 92 条（与九大类集合全等 L3 锁死）+ /docs/complexity 标签/关键词过滤速查页 + 搜索面板快捷入口。`TC-DATA-CPLX-*`+`TC-VIEW-CPLX-*`+`TC-VIZ-SEARCH-07`+`TC-E2E-CPLX-01`。
+> **C-115（M11-S3 · 学习路径）**：四条路线数据资产（46 站 L3 锁死）+ /docs/paths 卡片页 + 面板快捷行。`TC-DATA-PATHS-01`+`TC-VIEW-PATHS-*`+`TC-VIZ-SEARCH-08`+`TC-E2E-PATHS-01`。
 > **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
@@ -2204,5 +2205,11 @@
 | TC-VIEW-CPLX-04        | 92 行链指向 /docs/{url}（C-114）                                                                   | L4   | `src/views/Article/Complexity.spec.ts`                    |
 | TC-VIZ-SEARCH-07       | 面板空态复杂度速查快捷行（C-114）（C-114）                                                         | L4   | `src/components/SearchPalette.spec.ts`                    |
 | TC-E2E-CPLX-01         | 复杂度速查：分组/标签过滤/行链直达（C-114 新增）                                                   | L5   | `e2e/complexity.e2e.ts`                                   |
+| TC-DATA-PATHS-01       | 四条路径 url 全有效无重复（C-115）                                                                 | L3   | `src/data/paths.spec.ts`                                  |
+| TC-VIEW-PATHS-01       | 四张路径卡 + h1（C-115）                                                                           | L4   | `src/views/Article/Paths.spec.ts`                         |
+| TC-VIEW-PATHS-02       | 步骤链接 + 编号有序（C-115）                                                                       | L4   | `src/views/Article/Paths.spec.ts`                         |
+| TC-VIEW-PATHS-03       | title 含大类名（C-115）                                                                            | L4   | `src/views/Article/Paths.spec.ts`                         |
+| TC-VIZ-SEARCH-08       | 面板空态学习路径快捷行（C-115）（C-115）                                                           | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-E2E-PATHS-01        | 学习路径：四卡 + 步骤直达（C-115 新增）                                                            | L5   | `e2e/paths.e2e.ts`                                        |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |
