@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1190** 个用例。运行命令：`pnpm test:unit`
+共 **1192** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1669,12 +1669,14 @@
 | TC-INPUT-PARSE-06 | 空串/纯分隔符不崩溃                                                     | `src/components/player/inputSpec.spec.ts`   |
 | TC-CTRL-LOOP-01   | 开循环播到末步自动回卷续播                                              | `src/components/player/usePlayer.spec.ts`   |
 | TC-CTRL-LOOP-02   | 关循环末步停（旧行为）+ atEnd 循环重播                                  | `src/components/player/usePlayer.spec.ts`   |
+| TC-DATA-CPLX-01   | 键集合与九大类 url 全等（92 条）                                        | `src/data/complexity.spec.ts`               |
+| TC-DATA-CPLX-02   | time/space 非空 + 书写惯例                                              | `src/data/complexity.spec.ts`               |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **633** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **638** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2860,6 +2862,11 @@
 | TC-VIZ-SEARCH-05       | 空查询提示行                                       | `src/components/SearchPalette.spec.ts`            |
 | TC-VIZ-SEARCH-06       | 无匹配空态                                         | `src/components/SearchPalette.spec.ts`            |
 | TC-VIEW-HEADER-08      | 搜索按钮开面板（C-113）                            | `src/views/Master/Header/Header.spec.ts`          |
+| TC-VIEW-CPLX-01        | 九大类分组 + 计数 92                               | `src/views/Article/Complexity.spec.ts`            |
+| TC-VIEW-CPLX-02        | 标签过滤 + 全部还原                                | `src/views/Article/Complexity.spec.ts`            |
+| TC-VIEW-CPLX-03        | 关键词过滤 + 空态                                  | `src/views/Article/Complexity.spec.ts`            |
+| TC-VIEW-CPLX-04        | 92 行链指向 /docs/{url}                            | `src/views/Article/Complexity.spec.ts`            |
+| TC-VIZ-SEARCH-07       | 面板空态复杂度速查快捷行（C-114）                  | `src/components/SearchPalette.spec.ts`            |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2871,7 +2878,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **104** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **105** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2980,6 +2987,7 @@
 | TC-E2E-CTRL-01      | 播放控制增强：键盘三键 + 3× + 播完循环回卷（C-111 新增）                                                                   | `e2e/playback-controls.e2e.ts`     | active     |
 | TC-E2E-QUIZ-01      | 测验模式：拦停→答对→续播→末步成绩 + 固定页零题卡（C-112 新增）                                                             | `e2e/quiz-mode.e2e.ts`             | active     |
 | TC-E2E-SEARCH-01    | 全站搜索：Ctrl+K→键入→Enter 直达 + 按钮 + Esc（C-113 新增）                                                                | `e2e/search-palette.e2e.ts`        | active     |
+| TC-E2E-CPLX-01      | 复杂度速查：分组/标签过滤/行链直达（C-114 新增）                                                                           | `e2e/complexity.e2e.ts`            | active     |
 
 ---
 

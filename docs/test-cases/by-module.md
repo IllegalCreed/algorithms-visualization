@@ -1111,6 +1111,7 @@
 > **C-111（M10-P2 · 播放控制增强）**：倍速 +3×、循环开关（usePlayer +loop additive 默认关）、键盘 →/←/空格（输入框守卫 + 防滚动）。`TC-CTRL-LOOP-*`+`TC-CTRL-UI-*`+`TC-CTRL-KEY-*`+`TC-E2E-CTRL-01`。
 > **C-112（M10-P3 · 测验模式）**：Step.quiz? additive + QuizCard + 播放器拦停（自动播到题步暂停/答对续播/同步不重问/守卫/末步成绩）；试点二分+快排各 2 题。`TC-VIZ-QUIZCARD-*`+`TC-PLAYER-QUIZ-*`+`TC-MOD-QUIZ-01`+`TC-E2E-QUIZ-01`。
 > **C-113（M11-S1 · 全站搜索）**：SearchPalette 命令面板（Cmd/Ctrl+K + Header 按钮 + store 开关；useCategoryData 拍平过滤、全键盘导航）。`TC-VIZ-SEARCH-*`+`TC-VIEW-HEADER-08`+`TC-E2E-SEARCH-01`。
+> **C-114（M11-S2 · 复杂度速查）**：数据资产 92 条（与九大类集合全等 L3 锁死）+ /docs/complexity 标签/关键词过滤速查页 + 搜索面板快捷入口。`TC-DATA-CPLX-*`+`TC-VIEW-CPLX-*`+`TC-VIZ-SEARCH-07`+`TC-E2E-CPLX-01`。
 > **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
@@ -2195,5 +2196,13 @@
 | TC-VIZ-SEARCH-06       | 无匹配空态（C-113）                                                                                | L4   | `src/components/SearchPalette.spec.ts`                    |
 | TC-VIEW-HEADER-08      | 搜索按钮开面板（C-113）（C-113）                                                                   | L4   | `src/views/Master/Header/Header.spec.ts`                  |
 | TC-E2E-SEARCH-01       | 全站搜索：Ctrl+K→键入→Enter 直达 + 按钮 + Esc（C-113 新增）                                        | L5   | `e2e/search-palette.e2e.ts`                               |
+| TC-DATA-CPLX-01        | 键集合与九大类 url 全等（92 条）（C-114）                                                          | L3   | `src/data/complexity.spec.ts`                             |
+| TC-DATA-CPLX-02        | time/space 非空 + 书写惯例（C-114）                                                                | L3   | `src/data/complexity.spec.ts`                             |
+| TC-VIEW-CPLX-01        | 九大类分组 + 计数 92（C-114）                                                                      | L4   | `src/views/Article/Complexity.spec.ts`                    |
+| TC-VIEW-CPLX-02        | 标签过滤 + 全部还原（C-114）                                                                       | L4   | `src/views/Article/Complexity.spec.ts`                    |
+| TC-VIEW-CPLX-03        | 关键词过滤 + 空态（C-114）                                                                         | L4   | `src/views/Article/Complexity.spec.ts`                    |
+| TC-VIEW-CPLX-04        | 92 行链指向 /docs/{url}（C-114）                                                                   | L4   | `src/views/Article/Complexity.spec.ts`                    |
+| TC-VIZ-SEARCH-07       | 面板空态复杂度速查快捷行（C-114）（C-114）                                                         | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-E2E-CPLX-01         | 复杂度速查：分组/标签过滤/行链直达（C-114 新增）                                                   | L5   | `e2e/complexity.e2e.ts`                                   |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |
