@@ -1110,6 +1110,7 @@
 > **C-110（M10-P1 · 播放器 2.0 首项）**：自定义输入 + ?input= 分享——inputSpec? 全 additive（不设=不渲染零回归）+ InputBar + parseInputArray + usePlayer 兼容 Ref + URL 读写；第一批 12 排序模块。`TC-INPUT-PARSE-*`+`TC-VIZ-INPUTBAR-*`+`TC-PLAYER-INPUT-*`+`TC-MOD-INPUTSPEC-01`+`TC-E2E-INPUT-01`。
 > **C-111（M10-P2 · 播放控制增强）**：倍速 +3×、循环开关（usePlayer +loop additive 默认关）、键盘 →/←/空格（输入框守卫 + 防滚动）。`TC-CTRL-LOOP-*`+`TC-CTRL-UI-*`+`TC-CTRL-KEY-*`+`TC-E2E-CTRL-01`。
 > **C-112（M10-P3 · 测验模式）**：Step.quiz? additive + QuizCard + 播放器拦停（自动播到题步暂停/答对续播/同步不重问/守卫/末步成绩）；试点二分+快排各 2 题。`TC-VIZ-QUIZCARD-*`+`TC-PLAYER-QUIZ-*`+`TC-MOD-QUIZ-01`+`TC-E2E-QUIZ-01`。
+> **C-113（M11-S1 · 全站搜索）**：SearchPalette 命令面板（Cmd/Ctrl+K + Header 按钮 + store 开关；useCategoryData 拍平过滤、全键盘导航）。`TC-VIZ-SEARCH-*`+`TC-VIEW-HEADER-08`+`TC-E2E-SEARCH-01`。
 > **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
@@ -2186,5 +2187,13 @@
 | TC-PLAYER-QUIZ-04      | 末步成绩 n/m；无题页无成绩行（C-112）                                                              | L4   | `src/components/player/AlgorithmPlayer.spec.ts`           |
 | TC-MOD-QUIZ-01         | 二分/快排各 ≥2 quiz 且题面合法（C-112）                                                            | L4   | `src/algorithms/quiz-pilot.spec.ts`                       |
 | TC-E2E-QUIZ-01         | 测验模式：拦停→答对→续播→末步成绩 + 固定页零题卡（C-112 新增）                                     | L5   | `e2e/quiz-mode.e2e.ts`                                    |
+| TC-VIZ-SEARCH-01       | store 开关控制显隐 + 输入框（C-113）                                                               | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-VIZ-SEARCH-02       | 过滤命中 + 大类徽标 + 上限 10（C-113）                                                             | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-VIZ-SEARCH-03       | ↑↓ 移动 + Enter 跳转关闭（C-113）                                                                  | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-VIZ-SEARCH-04       | Esc/遮罩关闭（C-113）                                                                              | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-VIZ-SEARCH-05       | 空查询提示行（C-113）                                                                              | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-VIZ-SEARCH-06       | 无匹配空态（C-113）                                                                                | L4   | `src/components/SearchPalette.spec.ts`                    |
+| TC-VIEW-HEADER-08      | 搜索按钮开面板（C-113）（C-113）                                                                   | L4   | `src/views/Master/Header/Header.spec.ts`                  |
+| TC-E2E-SEARCH-01       | 全站搜索：Ctrl+K→键入→Enter 直达 + 按钮 + Esc（C-113 新增）                                        | L5   | `e2e/search-palette.e2e.ts`                               |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |

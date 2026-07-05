@@ -1674,7 +1674,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **626** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **633** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2853,6 +2853,13 @@
 | TC-PLAYER-QUIZ-03      | 答对续播 + 回拖不重问                              | `src/components/player/AlgorithmPlayer.spec.ts`   |
 | TC-PLAYER-QUIZ-04      | 末步成绩 n/m；无题页无成绩行                       | `src/components/player/AlgorithmPlayer.spec.ts`   |
 | TC-MOD-QUIZ-01         | 二分/快排各 ≥2 quiz 且题面合法                     | `src/algorithms/quiz-pilot.spec.ts`               |
+| TC-VIZ-SEARCH-01       | store 开关控制显隐 + 输入框                        | `src/components/SearchPalette.spec.ts`            |
+| TC-VIZ-SEARCH-02       | 过滤命中 + 大类徽标 + 上限 10                      | `src/components/SearchPalette.spec.ts`            |
+| TC-VIZ-SEARCH-03       | ↑↓ 移动 + Enter 跳转关闭                           | `src/components/SearchPalette.spec.ts`            |
+| TC-VIZ-SEARCH-04       | Esc/遮罩关闭                                       | `src/components/SearchPalette.spec.ts`            |
+| TC-VIZ-SEARCH-05       | 空查询提示行                                       | `src/components/SearchPalette.spec.ts`            |
+| TC-VIZ-SEARCH-06       | 无匹配空态                                         | `src/components/SearchPalette.spec.ts`            |
+| TC-VIEW-HEADER-08      | 搜索按钮开面板（C-113）                            | `src/views/Master/Header/Header.spec.ts`          |
 
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
@@ -2864,7 +2871,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **103** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **104** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2972,6 +2979,7 @@
 | TC-E2E-INPUT-01     | 自定义输入全链路：改输入/URL 分享/非法报错/恢复默认/固定页无输入条（C-110 新增）                                           | `e2e/custom-input.e2e.ts`          | active     |
 | TC-E2E-CTRL-01      | 播放控制增强：键盘三键 + 3× + 播完循环回卷（C-111 新增）                                                                   | `e2e/playback-controls.e2e.ts`     | active     |
 | TC-E2E-QUIZ-01      | 测验模式：拦停→答对→续播→末步成绩 + 固定页零题卡（C-112 新增）                                                             | `e2e/quiz-mode.e2e.ts`             | active     |
+| TC-E2E-SEARCH-01    | 全站搜索：Ctrl+K→键入→Enter 直达 + 按钮 + Esc（C-113 新增）                                                                | `e2e/search-palette.e2e.ts`        | active     |
 
 ---
 

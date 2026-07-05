@@ -1,0 +1,44 @@
+# 测试用例：全站搜索 Cmd+K（C-20260705-113，M11-S1）
+
+> Status: verified
+> Stable ID: C-20260705-113
+> Owner: IllegalCreed
+> Created: 2026-07-05
+> Requirements: ./requirements.md
+> Design: ./design.md
+> 适用层级：L4 / L5
+> 命名空间：`TC-VIZ-SEARCH-*`、`TC-VIEW-HEADER-08`、`TC-E2E-SEARCH-01`
+
+## L4
+
+| 用例 ID           | 期望                                                               |
+| ----------------- | ------------------------------------------------------------------ |
+| TC-VIZ-SEARCH-01  | store.isSearchOpen=true → 渲染面板 + 输入框；关 → 无面板           |
+| TC-VIZ-SEARCH-02  | 输入「快速排序」→ 结果含 quick-sort 条目（title+大类）；上限 10 条 |
+| TC-VIZ-SEARCH-03  | ↓↓↑ 移动 active 项 + Enter → router.push(/docs/…) + 关闭           |
+| TC-VIZ-SEARCH-04  | Esc → 关闭；点遮罩 → 关闭                                          |
+| TC-VIZ-SEARCH-05  | 空查询 → 提示行（无结果列表）                                      |
+| TC-VIZ-SEARCH-06  | 无匹配 → 空态文案                                                  |
+| TC-VIEW-HEADER-08 | Header 搜索按钮存在，点击 → store.isSearchOpen=true                |
+
+## L5
+
+| 用例 ID          | 期望                                                                         |
+| ---------------- | ---------------------------------------------------------------------------- |
+| TC-E2E-SEARCH-01 | 任意页 Ctrl+K 呼出 → 输入「快速」→ Enter → URL 变 /docs/quick-sort；Esc 可关 |
+
+## 回归
+
+播放器快捷键零冲突（面板 input 聚焦被 C-111 守卫覆盖）；Header 既有元素不动。
+
+## 自测报告
+
+- 执行：2000/2000 全绿（整数关口）、96.26%/95.70%；全量 e2e 104/104。
+- 新增 8 Case：VIZ-SEARCH 6（显隐/过滤上限/键盘导航跳转/Esc+遮罩关/空态/无结果）+ VIEW-HEADER-08（按钮开面板）+ E2E-SEARCH-01（Ctrl+K→键入→Enter 直达 + Header 按钮 + Esc）。
+- e2e 教训三连：goto 后立即按键时序不稳 → 先等 .article h1 就绪再 Ctrl+K。
+- 真机：Header 🔍⌘K 按钮、遮罩面板、「排序」过滤 9 条结果（title+大类徽标+desc 截断）、首项高亮——全部正常。
+
+## 变更历史
+
+- 2026-07-05：创建（draft → approved）。
+- 2026-07-05：交付验收（approved → verified）。8 Case 全绿。
