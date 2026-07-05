@@ -175,6 +175,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/CoinChange.vue'),
           },
           {
+            path: '/docs/stone-merge',
+            name: 'stone-merge',
+            component: () => import('../views/Article/Algorithm/StoneMerge.vue'),
+          },
+          {
             path: '/docs/n-queens',
             name: 'n-queens',
             component: () => import('../views/Article/Algorithm/Queens.vue'),

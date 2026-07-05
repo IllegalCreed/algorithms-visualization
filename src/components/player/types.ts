@@ -258,6 +258,13 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 石子合并执行点（C-098，动态规划第 7 页；纯复用 MatrixView——区间 DP 上三角表） */
+export type StoneExecPoint =
+  | 'init' // 4 堆登场 + 对角线 0
+  | 'pair' // len=2：相邻直合
+  | 'split' // len≥3：枚举分割点取最小（sources 高亮胜者对）
+  | 'done'; // 答案 + 区间 DP 范式
+
 /** 匈牙利算法执行点（C-097，图算法第 10 页；纯复用 GraphView——二分图增广路） */
 export type HungarianExecPoint =
   | 'init' // 二分图登场（左工人右岗位）

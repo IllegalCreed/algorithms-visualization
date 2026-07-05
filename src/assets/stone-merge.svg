@@ -1,0 +1,20 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 相邻石堆合并：两小堆 → 一大堆，代价 = 和 -->
+  <g stroke="#333" stroke-width="12">
+    <circle cx="200" cy="700" r="120" fill="#a5d8ff" />
+    <circle cx="470" cy="700" r="90" fill="#a5d8ff" />
+    <circle cx="800" cy="660" r="160" fill="#8bd3a0" />
+  </g>
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <text x="200" y="700" font-size="100" fill="#1f3a5e">4</text>
+    <text x="470" y="700" font-size="84" fill="#1f3a5e">1</text>
+    <text x="800" y="660" font-size="110" fill="#1f5e3a">5</text>
+  </g>
+  <!-- 合并箭头 -->
+  <g stroke="#f0a000" stroke-width="24" fill="none" stroke-linecap="round">
+    <path d="M 340 560 C 420 460, 560 460, 640 540" />
+  </g>
+  <polygon points="640,540 588,516 616,584" fill="#f0a000" />
+  <text x="490" y="420" font-family="sans-serif" font-weight="bold" font-size="76" fill="#f0a000" text-anchor="middle">代价 = 5</text>
+  <text x="512" y="150" font-family="sans-serif" font-weight="bold" font-size="88" fill="#333" text-anchor="middle">区间 DP</text>
+</svg>

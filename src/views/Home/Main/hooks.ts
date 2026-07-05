@@ -48,6 +48,7 @@ import CompleteKnapsackIcon from '@/assets/complete-knapsack.svg';
 import LcsIcon from '@/assets/lcs.svg';
 import LisIcon from '@/assets/lis.svg';
 import CoinChangeIcon from '@/assets/coin-change.svg';
+import StoneMergeIcon from '@/assets/stone-merge.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
@@ -385,6 +386,12 @@ export function useCategoryData(): Category[] {
           desc: '每种面额无限枚，凑出目标金额有多少种组合：计数 DP，把完全背包的取 max 换成方案数相加、边界 dp[0][0]=1',
           icon: CoinChangeIcon,
           url: 'coin-change',
+        },
+        {
+          title: '石子合并',
+          desc: '区间 DP 模板题：相邻合并代价为和，dp[i][j]=min_k(dp[i][k]+dp[k+1][j])+sum，区间由短及长枚举分割点 O(n³)；贪心会错的经典',
+          icon: StoneMergeIcon,
+          url: 'stone-merge',
         },
       ],
     },

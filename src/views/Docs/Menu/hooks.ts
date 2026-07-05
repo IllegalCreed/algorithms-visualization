@@ -210,6 +210,10 @@ export function useCategoryData(): Category[] {
           title: '硬币找零方案数',
           url: 'coin-change',
         },
+        {
+          title: '石子合并',
+          url: 'stone-merge',
+        },
       ],
     },
     {
