@@ -36,4 +36,22 @@ describe('ManacherView 回文轨', () => {
     const w = mountIt({ best: [0, 6] });
     expect(w.findAll('.mn-best')).toHaveLength(7);
   });
+
+  it('TC-VIZ-MANACHERVIEW-05 additive：labels/statusLabels 设时生效（C-106 Z 函数）', () => {
+    const w = mountIt({
+      labels: ['S', 'z'],
+      status: 'expand',
+      statusLabels: { expand: '→ 右扩比较' },
+    });
+    const labels = w.findAll('.mn-label').map((l) => l.text());
+    expect(labels).toEqual(['S', 'z']);
+    expect(w.find('.mn-status').text()).toBe('→ 右扩比较');
+  });
+
+  it('TC-VIZ-MANACHERVIEW-06 additive：不设回退 S/p 与原文案（Manacher 零回归）', () => {
+    const w = mountIt({ status: 'expand' });
+    const labels = w.findAll('.mn-label').map((l) => l.text());
+    expect(labels).toEqual(['S', 'p']);
+    expect(w.find('.mn-status').text()).toBe('↔ 中心扩展');
+  });
 });

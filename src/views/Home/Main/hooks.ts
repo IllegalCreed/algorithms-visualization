@@ -72,6 +72,7 @@ import ManacherIcon from '@/assets/manacher.svg';
 import SuffixArrayIcon from '@/assets/suffix-array.svg';
 import LcpArrayIcon from '@/assets/lcp-array.svg';
 import AhoCorasickIcon from '@/assets/aho-corasick.svg';
+import ZFunctionIcon from '@/assets/z-function.svg';
 import BubbleIcon from '@/assets/bubble.svg';
 import CocktailIcon from '@/assets/cocktail.svg';
 import BitonicIcon from '@/assets/bitonic.svg';
@@ -549,6 +550,12 @@ export function useCategoryData(): Category[] {
           desc: '多模式匹配 Aho-Corasick：所有模式塞进 Trie + fail 指针（KMP 的 π 的多模式推广），一趟扫文本报出所有命中含重叠，O(n+m+z)',
           icon: AhoCorasickIcon,
           url: 'aho-corasick',
+        },
+        {
+          title: 'Z 函数',
+          desc: '每个后缀跟开头像多久：Z-box 区间内抄镜像、达界才右扩，r 只增不减 O(n)；P#T 拼接即模式匹配，KMP π 的孪生兄弟',
+          icon: ZFunctionIcon,
+          url: 'z-function',
         },
       ],
     },

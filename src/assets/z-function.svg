@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- Z 函数：字符格行 + Z-box 浅蓝带 + 镜像弧线抄写 -->
+  <g stroke="#333" stroke-width="10">
+    <rect x="72" y="380" width="120" height="120" rx="14" fill="#cfe9d6" />
+    <rect x="212" y="380" width="120" height="120" rx="14" fill="#cfe9d6" />
+    <rect x="352" y="380" width="120" height="120" rx="14" fill="#e6e9e7" />
+    <rect x="492" y="380" width="120" height="120" rx="14" fill="#d7e6f2" />
+    <rect x="632" y="380" width="120" height="120" rx="14" fill="#d7e6f2" />
+    <rect x="772" y="380" width="120" height="120" rx="14" fill="#ffd43b" />
+  </g>
+  <!-- 镜像抄写弧线：从前缀区拷到 box 内当前位 -->
+  <path d="M 272 360 Q 512 130 812 360" fill="none" stroke="#1565c0" stroke-width="26" stroke-linecap="round" stroke-dasharray="4 40" />
+  <path d="M 812 360 L 780 300 M 812 360 L 862 316" fill="none" stroke="#1565c0" stroke-width="22" stroke-linecap="round" />
+  <!-- 大 Z -->
+  <g font-family="sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    <text x="512" y="700" font-size="300" fill="#2e7d32">Z</text>
+    <text x="132" y="440" font-size="64" fill="#1f5e3a">a</text>
+    <text x="272" y="440" font-size="64" fill="#1f5e3a">a</text>
+    <text x="412" y="440" font-size="64" fill="#333">b</text>
+    <text x="552" y="440" font-size="64" fill="#1f3a5e">a</text>
+    <text x="692" y="440" font-size="64" fill="#1f3a5e">a</text>
+    <text x="832" y="440" font-size="64" fill="#7a5900">a</text>
+  </g>
+</svg>

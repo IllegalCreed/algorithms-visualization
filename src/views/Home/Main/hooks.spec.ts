@@ -78,6 +78,7 @@ describe('Home/Main useCategoryData', () => {
       'suffix-array',
       'lcp-array',
       'aho-corasick',
+      'z-function',
     ]);
   });
 

@@ -295,6 +295,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/AhoCorasick.vue'),
           },
           {
+            path: '/docs/z-function',
+            name: 'z-function',
+            component: () => import('../views/Article/Algorithm/ZFunction.vue'),
+          },
+          {
             path: '/docs/sieve-of-eratosthenes',
             name: 'sieve-of-eratosthenes',
             component: () => import('../views/Article/Algorithm/SieveOfEratosthenes.vue'),

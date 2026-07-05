@@ -258,6 +258,14 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** Z 函数执行点（C-106，字符串第 8 页；复用 ManacherView additive 标签——Z-box 镜像复用） */
+export type ZExecPoint =
+  | 'init' // 问题登场 + z[0]=n
+  | 'brute' // box 外：老实逐位右扩
+  | 'mirror' // box 内：抄镜像 z[i-l]（截断 r−i）
+  | 'extend' // 达界：从 box 右缘继续右扩（每次成功比较推进 r）
+  | 'done'; // O(n) 论证 + P#T 应用
+
 /** 欧拉路径执行点（C-105，图算法第 12 页；纯复用 GraphView——Hierholzer 消边栈法） */
 export type EulerExecPoint =
   | 'init' // 图登场 + 一笔画问题
@@ -678,6 +686,8 @@ export interface ManacherTrack {
   boxR?: number | null; // 当前最右回文右边界 R
   best?: [number, number] | null; // 目前最长回文在转换串上的区间 [l,r]（绿）
   status?: 'mirror' | 'expand' | 'done' | null;
+  labels?: [string, string]; // 纯加法：两行标签（C-106 Z 函数设 ['S','z']）；缺省 ['S','p']——Manacher 不设零回归
+  statusLabels?: Partial<Record<'mirror' | 'expand' | 'done', string>>; // 纯加法：状态文案覆盖（Z 函数 expand→'→ 右扩比较'）；缺省原三条
 }
 
 /** Boyer-Moore 执行点（C-064，字符串第 3 页；复用 KmpView——从右往左比、坏字符表大步跳） */

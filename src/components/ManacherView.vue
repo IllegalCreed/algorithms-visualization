@@ -26,16 +26,20 @@ const pCells = computed(() =>
   })),
 );
 
+const rowLabels = computed(() => props.manacher.labels ?? (['S', 'p'] as [string, string]));
+
 const statusText = computed(() => {
-  switch (props.manacher.status) {
+  const st = props.manacher.status;
+  if (!st) return '';
+  const override = props.manacher.statusLabels?.[st];
+  if (override) return override;
+  switch (st) {
     case 'mirror':
       return '🪞 镜像复用';
     case 'expand':
       return '↔ 中心扩展';
-    case 'done':
-      return '🎯 完成';
     default:
-      return '';
+      return '🎯 完成';
   }
 });
 </script>
@@ -44,7 +48,7 @@ const statusText = computed(() => {
   <div class="mn-view column center">
     <div class="mn-status" :class="'st-' + (manacher.status ?? 'none')">{{ statusText }}</div>
     <div class="mn-row">
-      <span class="mn-label">S</span>
+      <span class="mn-label">{{ rowLabels[0] }}</span>
       <div class="mn-cells">
         <div
           v-for="c in sCells"
@@ -62,7 +66,7 @@ const statusText = computed(() => {
       </div>
     </div>
     <div class="mn-row">
-      <span class="mn-label">p</span>
+      <span class="mn-label">{{ rowLabels[1] }}</span>
       <div class="mn-cells">
         <div
           v-for="c in pCells"

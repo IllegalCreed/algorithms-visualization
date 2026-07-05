@@ -94,6 +94,7 @@ describe('Docs/Menu useCategoryData', () => {
       'suffix-array',
       'lcp-array',
       'aho-corasick',
+      'z-function',
     ]);
   });
 

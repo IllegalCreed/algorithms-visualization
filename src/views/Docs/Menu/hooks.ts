@@ -316,6 +316,10 @@ export function useCategoryData(): Category[] {
           title: 'AC 自动机',
           url: 'aho-corasick',
         },
+        {
+          title: 'Z 函数',
+          url: 'z-function',
+        },
       ],
     },
     {
