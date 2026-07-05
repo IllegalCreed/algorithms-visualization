@@ -258,6 +258,14 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 匈牙利算法执行点（C-097，图算法第 10 页；纯复用 GraphView——二分图增广路） */
+export type HungarianExecPoint =
+  | 'init' // 二分图登场（左工人右岗位）
+  | 'try' // 试探一条边：空闲/冲突问让路
+  | 'match' // 定亲或增广翻转（连续翻转合并一步）
+  | 'fail' // 递归死路：整链回退
+  | 'done'; // 最大匹配数 + König/最大流语义
+
 /** 最大流 Ford-Fulkerson 执行点（C-076，图算法第 9 页；复用 GraphView——残量网络 + 增广路 + 反向边） */
 export type MaxFlowExecPoint =
   | 'init' // 展示网络，全部 0/cap，标源汇

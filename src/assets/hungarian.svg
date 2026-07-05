@@ -1,0 +1,35 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 二分图两列配对：绿实线匹配 + 灰候选 -->
+  <g stroke="#c8d2cc" stroke-width="14">
+    <line x1="260" y1="200" x2="764" y2="512" />
+    <line x1="260" y1="824" x2="764" y2="512" />
+  </g>
+  <g stroke="#2e7d32" stroke-width="26" stroke-linecap="round">
+    <line x1="260" y1="200" x2="764" y2="200" />
+    <line x1="260" y1="512" x2="764" y2="824" />
+    <line x1="260" y1="824" x2="764" y2="200" opacity="0" />
+    <line x1="260" y1="512" x2="764" y2="824" opacity="0" />
+    <line x1="260" y1="824" x2="764" y2="512" opacity="0" />
+  </g>
+  <g stroke="#f0a000" stroke-width="24" stroke-linecap="round">
+    <line x1="260" y1="512" x2="764" y2="512" opacity="0" />
+    <line x1="260" y1="824" x2="764" y2="824" />
+  </g>
+  <!-- 左列 -->
+  <g stroke="#333" stroke-width="12">
+    <circle cx="220" cy="200" r="86" fill="#a5d8ff" />
+    <circle cx="220" cy="512" r="86" fill="#a5d8ff" />
+    <circle cx="220" cy="824" r="86" fill="#a5d8ff" />
+    <circle cx="804" cy="200" r="86" fill="#8bd3a0" />
+    <circle cx="804" cy="512" r="86" fill="#8bd3a0" />
+    <circle cx="804" cy="824" r="86" fill="#8bd3a0" />
+  </g>
+  <g font-family="sans-serif" font-weight="bold" font-size="72" fill="#1f3a5e" text-anchor="middle" dominant-baseline="central">
+    <text x="220" y="200">L1</text>
+    <text x="220" y="512">L2</text>
+    <text x="220" y="824">L3</text>
+    <text x="804" y="200" fill="#1f5e3a">R1</text>
+    <text x="804" y="512" fill="#1f5e3a">R2</text>
+    <text x="804" y="824" fill="#1f5e3a">R3</text>
+  </g>
+</svg>

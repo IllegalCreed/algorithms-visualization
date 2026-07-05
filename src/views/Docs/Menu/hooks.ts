@@ -177,6 +177,10 @@ export function useCategoryData(): Category[] {
           title: '最大流',
           url: 'max-flow',
         },
+        {
+          title: '二分图匹配',
+          url: 'hungarian',
+        },
       ],
     },
     {

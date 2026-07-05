@@ -23,6 +23,7 @@ import FloydIcon from '@/assets/floyd.svg';
 import SccIcon from '@/assets/scc.svg';
 import TwoSatIcon from '@/assets/two-sat.svg';
 import MaxFlowIcon from '@/assets/max-flow.svg';
+import HungarianIcon from '@/assets/hungarian.svg';
 import SieveIcon from '@/assets/sieve.svg';
 import LinearSieveIcon from '@/assets/linear-sieve.svg';
 import GcdIcon from '@/assets/gcd.svg';
@@ -336,6 +337,12 @@ export function useCategoryData(): Category[] {
           desc: '网络流 Ford-Fulkerson：残量网络反复找增广路推满瓶颈，反向边允许退流改道，直到无增广路；最大流 = 最小割',
           icon: MaxFlowIcon,
           url: 'max-flow',
+        },
+        {
+          title: '二分图匹配',
+          desc: '匈牙利算法求最大匹配：逐个左点找增广路，空闲定下、被占问让路，成功整条翻转；O(V·E)，König 定理与指派问题的地基',
+          icon: HungarianIcon,
+          url: 'hungarian',
         },
       ],
     },

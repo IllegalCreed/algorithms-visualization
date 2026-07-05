@@ -40,9 +40,10 @@ describe('Home/Main useCategoryData', () => {
       'euler-phi',
       'miller-rabin',
     ]);
-    expect(data[2].children).toHaveLength(9);
+    expect(data[2].children).toHaveLength(10);
     expect(data[2].children[7].url).toBe('two-sat');
     expect(data[2].children[8].url).toBe('max-flow');
+    expect(data[2].children[9].url).toBe('hungarian');
     expect(data[3].children.map((c) => c.url)).toEqual([
       'edit-distance',
       'knapsack',

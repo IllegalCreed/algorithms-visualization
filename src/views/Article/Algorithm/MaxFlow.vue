@@ -50,7 +50,8 @@ import { maxFlowModule } from '@/algorithms/maxflow.module';
       >和<strong>其余点</strong>切开，被切断的边的容量之和恰好等于最大流——这就是著名的
       <strong>最大流最小割定理</strong>：送得越多，是因为「咽喉」（最小割）就那么宽。本例最小割是
       <code>s→a</code> 与 <code>s→b</code>（都被打满 3/3），容量和 <strong>6</strong> =
-      最大流。许多看似无关的问题（二分图最大匹配、项目选择、图像前景背景分割）都能<strong>归约</strong>成最大流/最小割来解。
+      最大流。许多看似无关的问题（<router-link to="/docs/hungarian">二分图最大匹配</router-link
+      >、项目选择、图像前景背景分割）都能<strong>归约</strong>成最大流/最小割来解。
     </p>
   </Article>
 </template>
