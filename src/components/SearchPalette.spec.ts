@@ -89,4 +89,16 @@ describe('SearchPalette 全站搜索', () => {
     await w.find('.sp-input').setValue('不存在的算法xyz');
     expect(w.find('.sp-empty').text()).toContain('没有匹配');
   });
+
+  it('TC-VIZ-SEARCH-07 空态含复杂度速查快捷行，点击跳转并关闭（C-114）', async () => {
+    const w = mountIt();
+    const store = useSystemStore();
+    store.openSearch();
+    await flushPromises();
+    const sc = w.find('.sp-shortcut');
+    expect(sc.text()).toContain('复杂度速查');
+    await sc.trigger('click');
+    expect(push).toHaveBeenCalledWith('/docs/complexity');
+    expect(store.isSearchOpen).toBe(false);
+  });
 });

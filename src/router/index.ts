@@ -20,6 +20,11 @@ const routes = [
         component: Docs,
         children: [
           {
+            path: '/docs/complexity',
+            name: 'complexity',
+            component: () => import('../views/Article/Complexity.vue'),
+          },
+          {
             path: '/docs/array',
             name: 'array',
             component: () => import('../views/Article/DataStructure/Array.vue'),

@@ -59,6 +59,11 @@ function go(e: SearchEntry): void {
   router.push(`/docs/${e.url}`);
 }
 
+function goComplexity(): void {
+  store.closeSearch();
+  router.push('/docs/complexity');
+}
+
 function onInputKeydown(e: KeyboardEvent): void {
   if (e.key === 'ArrowDown') {
     e.preventDefault();
@@ -100,7 +105,12 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
           spellcheck="false"
           @keydown="onInputKeydown"
         />
-        <p v-if="!query.trim()" class="sp-hint">输入算法名或关键词，↑↓ 选择，回车直达</p>
+        <template v-if="!query.trim()">
+          <p class="sp-hint">输入算法名或关键词，↑↓ 选择，回车直达</p>
+          <button type="button" class="sp-shortcut" @click="goComplexity">
+            ⏱ 复杂度速查表——92 个算法一页看完
+          </button>
+        </template>
         <p v-else-if="results.length === 0" class="sp-empty">没有匹配「{{ query }}」的算法</p>
         <ul v-else class="sp-results">
           <li
@@ -161,6 +171,16 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
   font-size: 13px;
   color: #8a978f;
   padding: 4px 6px;
+}
+.sp-shortcut {
+  align-self: flex-start;
+  padding: 7px 14px;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #1f5e3a;
+  .neumorphism-btn(2px, 8px);
 }
 .sp-results {
   list-style: none;
