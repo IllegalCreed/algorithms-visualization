@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- 四城最短回路 + 二进制 mask -->
+  <g stroke="#2e7d32" stroke-width="24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 220 260 L 520 700 L 800 260 L 780 720 Z" opacity="0" />
+    <path d="M 220 260 L 250 740 L 620 660 L 800 240 L 220 260" />
+  </g>
+  <g stroke="#333" stroke-width="12">
+    <circle cx="220" cy="260" r="88" fill="#f0a000" />
+    <circle cx="800" cy="240" r="80" fill="#a5d8ff" />
+    <circle cx="250" cy="740" r="80" fill="#a5d8ff" />
+    <circle cx="620" cy="660" r="80" fill="#a5d8ff" />
+  </g>
+  <g font-family="sans-serif" font-weight="bold" font-size="72" text-anchor="middle" dominant-baseline="central">
+    <text x="220" y="260" fill="#5e3a00">0</text>
+    <text x="800" y="240" fill="#1f3a5e">3</text>
+    <text x="250" y="740" fill="#1f3a5e">2</text>
+    <text x="620" y="660" fill="#1f3a5e">1</text>
+  </g>
+  <text x="512" y="100" font-family="monospace" font-weight="bold" font-size="96" fill="#e03131" text-anchor="middle">1111</text>
+  <text x="512" y="940" font-family="sans-serif" font-weight="bold" font-size="78" fill="#333" text-anchor="middle">集合当下标</text>
+</svg>

@@ -52,6 +52,7 @@ describe('Home/Main useCategoryData', () => {
       'lis',
       'coin-change',
       'stone-merge',
+      'tsp',
     ]);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',

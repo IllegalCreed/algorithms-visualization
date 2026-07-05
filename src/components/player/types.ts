@@ -258,6 +258,13 @@ export type AcExecPoint =
   | 'hit' // 匹配：到达模式终点，报告命中（含沿输出链的重叠命中）
   | 'done'; // 匹配结束，汇总所有命中
 
+/** 旅行商 TSP 执行点（C-099，动态规划第 8 页；纯复用 MatrixView——状压状态表） */
+export type TspExecPoint =
+  | 'init' // 问题 + 起点 dp[0001][0]=0
+  | 'fill' // 转移一格：min over 前置 (dp[mask∖i][j] + d[j][i])
+  | 'close' // 回边收尾：min(dp[FULL][i] + d[i][0])
+  | 'done'; // 答案 + 复杂度与状压家族
+
 /** 石子合并执行点（C-098，动态规划第 7 页；纯复用 MatrixView——区间 DP 上三角表） */
 export type StoneExecPoint =
   | 'init' // 4 堆登场 + 对角线 0

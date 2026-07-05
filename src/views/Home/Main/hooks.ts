@@ -49,6 +49,7 @@ import LcsIcon from '@/assets/lcs.svg';
 import LisIcon from '@/assets/lis.svg';
 import CoinChangeIcon from '@/assets/coin-change.svg';
 import StoneMergeIcon from '@/assets/stone-merge.svg';
+import TspIcon from '@/assets/tsp.svg';
 import QueensIcon from '@/assets/queens.svg';
 import SubsetsIcon from '@/assets/subsets.svg';
 import PermuteIcon from '@/assets/permute.svg';
@@ -392,6 +393,12 @@ export function useCategoryData(): Category[] {
           desc: '区间 DP 模板题：相邻合并代价为和，dp[i][j]=min_k(dp[i][k]+dp[k+1][j])+sum，区间由短及长枚举分割点 O(n³)；贪心会错的经典',
           icon: StoneMergeIcon,
           url: 'stone-merge',
+        },
+        {
+          title: '旅行商 TSP',
+          desc: 'Held-Karp 状压 DP：把「去过哪些城」压成二进制 mask，dp[mask][i] 枚举上一站转移，O(n!) 降到 O(2ⁿ·n²)；集合当下标的灵魂',
+          icon: TspIcon,
+          url: 'tsp',
         },
       ],
     },

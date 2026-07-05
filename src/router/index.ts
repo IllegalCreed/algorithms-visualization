@@ -180,6 +180,11 @@ const routes = [
             component: () => import('../views/Article/Algorithm/StoneMerge.vue'),
           },
           {
+            path: '/docs/tsp',
+            name: 'tsp',
+            component: () => import('../views/Article/Algorithm/Tsp.vue'),
+          },
+          {
             path: '/docs/n-queens',
             name: 'n-queens',
             component: () => import('../views/Article/Algorithm/Queens.vue'),

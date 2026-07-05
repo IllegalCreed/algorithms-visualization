@@ -214,6 +214,10 @@ export function useCategoryData(): Category[] {
           title: '石子合并',
           url: 'stone-merge',
         },
+        {
+          title: '旅行商 TSP',
+          url: 'tsp',
+        },
       ],
     },
     {

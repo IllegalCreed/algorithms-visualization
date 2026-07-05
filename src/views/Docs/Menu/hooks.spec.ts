@@ -67,8 +67,9 @@ describe('Docs/Menu useCategoryData', () => {
       'lis',
       'coin-change',
       'stone-merge',
+      'tsp',
     ]);
-    expect(data[3].children).toHaveLength(7);
+    expect(data[3].children).toHaveLength(8);
     expect(data[4].children.map((c) => c.url)).toEqual([
       'n-queens',
       'subsets',
