@@ -1113,6 +1113,7 @@
 > **C-113（M11-S1 · 全站搜索）**：SearchPalette 命令面板（Cmd/Ctrl+K + Header 按钮 + store 开关；useCategoryData 拍平过滤、全键盘导航）。`TC-VIZ-SEARCH-*`+`TC-VIEW-HEADER-08`+`TC-E2E-SEARCH-01`。
 > **C-114（M11-S2 · 复杂度速查）**：数据资产 92 条（与九大类集合全等 L3 锁死）+ /docs/complexity 标签/关键词过滤速查页 + 搜索面板快捷入口。`TC-DATA-CPLX-*`+`TC-VIEW-CPLX-*`+`TC-VIZ-SEARCH-07`+`TC-E2E-CPLX-01`。
 > **C-115（M11-S3 · 学习路径）**：四条路线数据资产（46 站 L3 锁死）+ /docs/paths 卡片页 + 面板快捷行。`TC-DATA-PATHS-01`+`TC-VIEW-PATHS-*`+`TC-VIZ-SEARCH-08`+`TC-E2E-PATHS-01`。
+> **C-116（M11-S4 · 盘点）**：77 播放器 + 15 互动 + 2 功能对账，互动页保留形态结论落档（零代码）。**C-117（M11-S5 · 质量审计）**：Lighthouse 基线 + 7 处低垂修复（meta/favicon/robots/sitemap/llms/alt/main）。`TC-E2E-QUALITY-01`。
 > **C-109（M9 B 档收尾 · 正文补强）**：Bellman 页 + 差分约束一节、后缀数组页 + SAM 点到；`TC-VIEW-BELLMAN-04`+`TC-VIEW-SA-04`。B 档巡检 10/10 闭环，M9 全部完成。
 
 | Case ID                | 标题                                                                                               | 层级 | 自动化路径                                                |
@@ -2211,5 +2212,6 @@
 | TC-VIEW-PATHS-03       | title 含大类名（C-115）                                                                            | L4   | `src/views/Article/Paths.spec.ts`                         |
 | TC-VIZ-SEARCH-08       | 面板空态学习路径快捷行（C-115）（C-115）                                                           | L4   | `src/components/SearchPalette.spec.ts`                    |
 | TC-E2E-PATHS-01        | 学习路径：四卡 + 步骤直达（C-115 新增）                                                            | L5   | `e2e/paths.e2e.ts`                                        |
+| TC-E2E-QUALITY-01      | 站点质量：meta/main/alt/robots+sitemap+llms（C-117 新增）                                          | L5   | `e2e/site-quality.e2e.ts`                                 |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |

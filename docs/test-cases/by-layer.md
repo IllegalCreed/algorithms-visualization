@@ -2883,7 +2883,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **106** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **107** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2994,6 +2994,7 @@
 | TC-E2E-SEARCH-01    | 全站搜索：Ctrl+K→键入→Enter 直达 + 按钮 + Esc（C-113 新增）                                                                | `e2e/search-palette.e2e.ts`        | active     |
 | TC-E2E-CPLX-01      | 复杂度速查：分组/标签过滤/行链直达（C-114 新增）                                                                           | `e2e/complexity.e2e.ts`            | active     |
 | TC-E2E-PATHS-01     | 学习路径：四卡 + 步骤直达（C-115 新增）                                                                                    | `e2e/paths.e2e.ts`                 | active     |
+| TC-E2E-QUALITY-01   | 站点质量四件套（C-117 新增）                                                                                               | `e2e/site-quality.e2e.ts`          | active     |
 
 ---
 
