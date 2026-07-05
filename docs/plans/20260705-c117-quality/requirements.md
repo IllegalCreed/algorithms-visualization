@@ -1,6 +1,6 @@
 # 需求：性能与质量审计 + 低垂修复批（C-20260705-117，M11-S5）
 
-> Status: approved
+> Status: verified
 > Stable ID: C-20260705-117
 > Owner: IllegalCreed
 > Created: 2026-07-05
