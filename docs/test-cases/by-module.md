@@ -1101,6 +1101,8 @@
 
 > **C-102（M8 数据结构第 16 页 · 新页）**：树状数组 Fenwick/BIT——tree[i] 管辖长 lowbit(i) 区段，query 沿 i-=lowbit 往前跳拼前缀、update 沿 i+=lowbit 往后跳通知管辖者，改查双 O(log n)。**纯复用主柱轨零改动**（柱子 update 真实长高 + 链累积高亮）。fenwick.module 9 步 + 暴力前缀双对拍。`TC-BIT-MOD-*`+`TC-VIEW-BIT-*`+`TC-E2E-BIT-01`。
 
+> **C-103（M9-1 · DP 第 11 页真收官 · 新页）**：换根 DP——二次扫描把「以每个点为根」摊成 O(n)：后序算 size/down、前序 ans[v]=ans[u]−size[v]+(n−size[v])（近远两笔账）。**纯复用 MatrixView 第 15 消费者零改动**。reroot.module 12 步 + bruteDist 逐点 BFS 对拍。`TC-RR-MOD-*`+`TC-VIEW-RR-*`+`TC-E2E-RR-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -2040,3 +2042,19 @@
 | TC-VIEW-BIT-02        | h1 含树状数组 + BarsView 主柱轨（C-102）                                                           | L4   | `src/views/Article/Algorithm/Fenwick.spec.ts`             |
 | TC-VIEW-BIT-03        | 正文含 lowbit 与管辖（C-102）                                                                      | L4   | `src/views/Article/Algorithm/Fenwick.spec.ts`             |
 | TC-E2E-BIT-01         | 树状数组全模板：lowbit 链柱轨 / 拖末步 O(log n) / Shiki（C-102 新增）                              | L5   | `e2e/fenwick.e2e.ts`                                      |
+| TC-RR-MOD-01          | ans=[6,5,9,8,8]=逐点 BFS（C-103）                                                                  | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-02          | 后序 [3,4,1,2,0] + size/down 全等（C-103）                                                         | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-03          | 换根 DFS 序 (1,0,5)/(3,1,8)/(4,1,8)/(2,0,9)（C-103）                                               | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-04          | point 五集 + matrix + array 空（C-103）                                                            | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-05          | 12 步 = init+down×5+root+reroot×4+done（C-103）                                                    | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-06          | init 5×3 全 null + 标签（C-103）                                                                   | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-07          | down 双格 + 内部孩子四格 sources（C-103）                                                          | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-08          | root ans[0]=6 + down 格 sources（C-103）                                                           | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-09          | reroot sources=[父 ans,自 size] + 公式代入（C-103）                                                | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-10          | done 含 O(n) 与二次扫描（C-103）                                                                   | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-11          | 四语言+行号+五执行点（C-103）                                                                      | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-RR-MOD-12          | title 含换根；initialInput=[]（C-103）                                                             | L3   | `src/algorithms/reroot.module.spec.ts`                    |
+| TC-VIEW-RR-01         | Article + AlgorithmPlayer（C-103）                                                                 | L4   | `src/views/Article/Algorithm/RerootDp.spec.ts`            |
+| TC-VIEW-RR-02         | h1 含换根 + MatrixView + 无柱数组（C-103）                                                         | L4   | `src/views/Article/Algorithm/RerootDp.spec.ts`            |
+| TC-VIEW-RR-03         | 正文含二次扫描与 size（C-103）                                                                     | L4   | `src/views/Article/Algorithm/RerootDp.spec.ts`            |
+| TC-E2E-RR-01          | 换根 DP 全模板：三列表 / 拖末步 O(n) / Shiki（C-103 新增）                                         | L5   | `e2e/reroot-dp.e2e.ts`                                    |

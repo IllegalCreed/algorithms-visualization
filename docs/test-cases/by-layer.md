@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1110** 个用例。运行命令：`pnpm test:unit`
+共 **1122** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1589,12 +1589,24 @@
 | TC-BIT-MOD-10   | done 含 O(log n) 与前缀和对比                                           | `src/algorithms/fenwick.module.spec.ts`     |
 | TC-BIT-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/fenwick.module.spec.ts`     |
 | TC-BIT-MOD-12   | title 含树状数组；initialInput=tree 初值                                | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-RR-MOD-01    | ans=[6,5,9,8,8]=逐点 BFS                                                | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-02    | 后序 [3,4,1,2,0] + size/down 全等                                       | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-03    | 换根 DFS 序 (1,0,5)/(3,1,8)/(4,1,8)/(2,0,9)                             | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-04    | point 五集 + matrix + array 空                                          | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-05    | 12 步 = init+down×5+root+reroot×4+done                                  | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-06    | init 5×3 全 null + 标签                                                 | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-07    | down 双格 + 内部孩子四格 sources                                        | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-08    | root ans[0]=6 + down 格 sources                                         | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-09    | reroot sources=[父 ans,自 size] + 公式代入                              | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-10    | done 含 O(n) 与二次扫描                                                 | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-11    | 四语言+行号+五执行点                                                    | `src/algorithms/reroot.module.spec.ts`      |
+| TC-RR-MOD-12    | title 含换根；initialInput=[]                                           | `src/algorithms/reroot.module.spec.ts`      |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **578** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **581** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2721,6 +2733,14 @@
 | TC-VIEW-BIT-02 | h1 含树状数组 + BarsView 主柱轨 | `src/views/Article/Algorithm/Fenwick.spec.ts` |
 | TC-VIEW-BIT-03 | 正文含 lowbit 与管辖            | `src/views/Article/Algorithm/Fenwick.spec.ts` |
 
+### 换根 DP 页 C-103（DP 第 11 页真收官·M9-1，新页，纯复用 MatrixView 第 15 消费者）
+
+| 用例 ID       | 场景                              | 文件                                           |
+| ------------- | --------------------------------- | ---------------------------------------------- |
+| TC-VIEW-RR-01 | Article + AlgorithmPlayer         | `src/views/Article/Algorithm/RerootDp.spec.ts` |
+| TC-VIEW-RR-02 | h1 含换根 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/RerootDp.spec.ts` |
+| TC-VIEW-RR-03 | 正文含二次扫描与 size             | `src/views/Article/Algorithm/RerootDp.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2731,7 +2751,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **94** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **95** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2830,6 +2850,7 @@
 | TC-E2E-TD-01        | 树形 DP 全模板：两态表 / 拖末步 14 / Shiki（C-100 新增）                                                                   | `e2e/tree-dp.e2e.ts`               | active     |
 | TC-E2E-DD-01        | 数位 DP 全模板：走位表 / 拖末步 197 / Shiki（C-101 新增）                                                                  | `e2e/digit-dp.e2e.ts`              | active     |
 | TC-E2E-BIT-01       | 树状数组全模板：lowbit 链柱轨 / 拖末步 O(log n) / Shiki（C-102 新增）                                                      | `e2e/fenwick.e2e.ts`               | active     |
+| TC-E2E-RR-01        | 换根 DP 全模板：三列表 / 拖末步 O(n) / Shiki（C-103 新增）                                                                 | `e2e/reroot-dp.e2e.ts`             | active     |
 
 ---
 
