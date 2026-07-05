@@ -1099,6 +1099,8 @@
 
 > **C-101（M8 DP 第 10 页 · 新页）**：数位 DP——按位走上界数天文数字：自由分支（填小于上界位 × 9^k）+ 贴着走判定，禁数字撞上界位 tight 断裂；O(位数)、dp(pos,tight,state) 模板。**纯复用 MatrixView 第 14 消费者零改动**（4 行走位表 + free/tight 双步）。digitdp.module 8 步 + bruteCount 逐检对拍。`TC-DD-MOD-*`+`TC-VIEW-DD-*`+`TC-E2E-DD-01`。
 
+> **C-102（M8 数据结构第 16 页 · 新页）**：树状数组 Fenwick/BIT——tree[i] 管辖长 lowbit(i) 区段，query 沿 i-=lowbit 往前跳拼前缀、update 沿 i+=lowbit 往后跳通知管辖者，改查双 O(log n)。**纯复用主柱轨零改动**（柱子 update 真实长高 + 链累积高亮）。fenwick.module 9 步 + 暴力前缀双对拍。`TC-BIT-MOD-*`+`TC-VIEW-BIT-*`+`TC-E2E-BIT-01`。
+
 | Case ID               | 标题                                                                                               | 层级 | 自动化路径                                                |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------- |
 | TC-DIJKSTRA-01        | 图规模与标签（6 点 A–F、9 边、源 0）                                                               | L3   | `src/components/structures/useDijkstra.spec.ts`           |
@@ -2022,3 +2024,19 @@
 | TC-VIEW-DD-02         | h1 含数位 + MatrixView + 无柱数组（C-101）                                                         | L4   | `src/views/Article/Algorithm/DigitDp.spec.ts`             |
 | TC-VIEW-DD-03         | 正文含贴着与自由（C-101）                                                                          | L4   | `src/views/Article/Algorithm/DigitDp.spec.ts`             |
 | TC-E2E-DD-01          | 数位 DP 全模板：走位表 / 拖末步 197 / Shiki（C-101 新增）                                          | L5   | `e2e/digit-dp.e2e.ts`                                     |
+| TC-BIT-MOD-01         | 建树 tree 与逐段管辖暴力和对拍（C-102）                                                            | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-02         | query(6)=17=暴力；链 [6,4]（C-102）                                                                | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-03         | update 链 [3,4,8] after 7/13/23（C-102）                                                           | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-04         | 复查 query(6)=19=暴力（C-102）                                                                     | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-05         | point 四集 + 8 柱 tree 快照（C-102）                                                               | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-06         | 9 步 = init+q×2+u×3+q×2+done（C-102）                                                              | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-07         | query pivotIndex 5,3 + 链累积 + lowbit caption（C-102）                                            | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-08         | update 柱值 11→13 + 管辖语义（C-102）                                                              | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-09         | 复查累计 19 + 验证语义（C-102）                                                                    | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-10         | done 含 O(log n) 与前缀和对比（C-102）                                                             | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-11         | 四语言+行号+四执行点（C-102）                                                                      | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-BIT-MOD-12         | title 含树状数组；initialInput=tree 初值（C-102）                                                  | L3   | `src/algorithms/fenwick.module.spec.ts`                   |
+| TC-VIEW-BIT-01        | Article + AlgorithmPlayer（C-102）                                                                 | L4   | `src/views/Article/Algorithm/Fenwick.spec.ts`             |
+| TC-VIEW-BIT-02        | h1 含树状数组 + BarsView 主柱轨（C-102）                                                           | L4   | `src/views/Article/Algorithm/Fenwick.spec.ts`             |
+| TC-VIEW-BIT-03        | 正文含 lowbit 与管辖（C-102）                                                                      | L4   | `src/views/Article/Algorithm/Fenwick.spec.ts`             |
+| TC-E2E-BIT-01         | 树状数组全模板：lowbit 链柱轨 / 拖末步 O(log n) / Shiki（C-102 新增）                              | L5   | `e2e/fenwick.e2e.ts`                                      |

@@ -9,7 +9,7 @@
 
 ## L3 — 前端单元（Vitest，不 mount）
 
-共 **1098** 个用例。运行命令：`pnpm test:unit`
+共 **1110** 个用例。运行命令：`pnpm test:unit`
 
 ### algorithms
 
@@ -1577,12 +1577,24 @@
 | TC-DD-MOD-10    | done 含 197 与位数语义                                                  | `src/algorithms/digitdp.module.spec.ts`     |
 | TC-DD-MOD-11    | 四语言+行号+六执行点                                                    | `src/algorithms/digitdp.module.spec.ts`     |
 | TC-DD-MOD-12    | title 含数位；initialInput=[]                                           | `src/algorithms/digitdp.module.spec.ts`     |
+| TC-BIT-MOD-01   | 建树 tree 与逐段管辖暴力和对拍                                          | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-02   | query(6)=17=暴力；链 [6,4]                                              | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-03   | update 链 [3,4,8] after 7/13/23                                         | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-04   | 复查 query(6)=19=暴力                                                   | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-05   | point 四集 + 8 柱 tree 快照                                             | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-06   | 9 步 = init+q×2+u×3+q×2+done                                            | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-07   | query pivotIndex 5,3 + 链累积 + lowbit caption                          | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-08   | update 柱值 11→13 + 管辖语义                                            | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-09   | 复查累计 19 + 验证语义                                                  | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-10   | done 含 O(log n) 与前缀和对比                                           | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-11   | 四语言+行号+四执行点                                                    | `src/algorithms/fenwick.module.spec.ts`     |
+| TC-BIT-MOD-12   | title 含树状数组；initialInput=tree 初值                                | `src/algorithms/fenwick.module.spec.ts`     |
 
 ---
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **575** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **578** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2701,6 +2713,14 @@
 | TC-VIEW-DD-02 | h1 含数位 + MatrixView + 无柱数组 | `src/views/Article/Algorithm/DigitDp.spec.ts` |
 | TC-VIEW-DD-03 | 正文含贴着与自由                  | `src/views/Article/Algorithm/DigitDp.spec.ts` |
 
+### 树状数组页 C-102（数据结构第 16 页，新页，纯复用主柱轨）
+
+| 用例 ID        | 场景                            | 文件                                          |
+| -------------- | ------------------------------- | --------------------------------------------- |
+| TC-VIEW-BIT-01 | Article + AlgorithmPlayer       | `src/views/Article/Algorithm/Fenwick.spec.ts` |
+| TC-VIEW-BIT-02 | h1 含树状数组 + BarsView 主柱轨 | `src/views/Article/Algorithm/Fenwick.spec.ts` |
+| TC-VIEW-BIT-03 | 正文含 lowbit 与管辖            | `src/views/Article/Algorithm/Fenwick.spec.ts` |
+
 | Case ID       | 标题                                               | 自动化路径                                        |
 | ------------- | -------------------------------------------------- | ------------------------------------------------- |
 | TC-VIEW-SA-01 | 挂载渲染 Article + AlgorithmPlayer                 | `src/views/Article/Algorithm/SuffixArray.spec.ts` |
@@ -2711,7 +2731,7 @@
 
 ## L5 — 端到端（Playwright）
 
-共 **93** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
+共 **94** 个用例（TC-E2E-BUBBLE-01 已 superseded）。运行命令：`pnpm test:e2e`
 
 | Case ID             | 标题                                                                                                                       | 自动化路径                         | 状态       |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------- |
@@ -2809,6 +2829,7 @@
 | TC-E2E-TSP-01       | 旅行商全模板：状压状态表 / 拖末步 7 / Shiki（C-099 新增）                                                                  | `e2e/tsp.e2e.ts`                   | active     |
 | TC-E2E-TD-01        | 树形 DP 全模板：两态表 / 拖末步 14 / Shiki（C-100 新增）                                                                   | `e2e/tree-dp.e2e.ts`               | active     |
 | TC-E2E-DD-01        | 数位 DP 全模板：走位表 / 拖末步 197 / Shiki（C-101 新增）                                                                  | `e2e/digit-dp.e2e.ts`              | active     |
+| TC-E2E-BIT-01       | 树状数组全模板：lowbit 链柱轨 / 拖末步 O(log n) / Shiki（C-102 新增）                                                      | `e2e/fenwick.e2e.ts`               | active     |
 
 ---
 
