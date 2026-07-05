@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://algo.illegalscreed.cn/sitemap.xml

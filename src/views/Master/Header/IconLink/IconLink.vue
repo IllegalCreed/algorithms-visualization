@@ -11,7 +11,7 @@ function linkTo(): void {
 </script>
 <template>
   <div class="icon-link" :title="props.data.title" @click="linkTo">
-    <img :src="props.data.src" />
+    <img :src="props.data.src" :alt="props.data.title" />
   </div>
 </template>
 <style scoped lang="less">

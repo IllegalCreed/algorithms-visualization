@@ -7,7 +7,9 @@ import SearchPalette from '@/components/SearchPalette.vue';
   <div id="master">
     <Header></Header>
     <SearchPalette />
-    <RouterView></RouterView>
+    <main>
+      <RouterView></RouterView>
+    </main>
   </div>
 </template>
 

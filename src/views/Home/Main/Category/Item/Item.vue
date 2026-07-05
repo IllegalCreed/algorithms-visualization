@@ -16,7 +16,7 @@ function goDocs(): void {
 </script>
 <template>
   <div class="item" @click="goDocs">
-    <img :src="props.data.icon" />
+    <img :src="props.data.icon" :alt="props.data.title" />
 
     <h3>{{ props.data.title }}</h3>
     <span>{{ props.data.desc }}</span>
