@@ -1,10 +1,16 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## 项目简介
 
 数据结构和算法可视化 —— 一个交互式的数据结构与算法可视化单页应用（SPA）。技术栈：Vue 3（`<script setup>`）+ TypeScript + Vite + Vue Router（HTML5 history 模式）+ Pinia + Less。界面文案、菜单标题及大部分代码注释均为中文。线上采用 GitHub Pages + 自有域名双轨部署。
+
+## Codex 项目记忆
+
+Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 **`AGENTS.md`** 为主，配合 `docs/overview.md`、`docs/roadmap.md`、`docs/plans/index.md`、`docs/plans/completion-backlog.md` 和 `docs/test-cases/` 使用。Claude 侧继续使用 `CLAUDE.md`。
+
+如果不同文档之间事实冲突，优先级为：当前源码与本地测试结果 > 最新 plan / completion backlog > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md`。发现旧事实时小步更新文档，不把过期描述继续当真。
 
 ## 开发规范（必须遵循）
 
@@ -107,4 +113,4 @@ sleep 8; gh run rerun <失败runId> --failed   # build 已绿，只重跑 Deploy
 
 - **单人仓库：直接在 `main` 提交开发，不开 feature 分支 / PR。** 提交时机仍遵循「用户明确要求时才提交」。只 `git add` 本次变更自己的文件（不用 `-A`）；提交前三查（`git fetch` + `rev-list --count` 确认与 origin/main 同步）。
 - **每个变更（复杂/新页）走固定 7 步**：① 简述设计要点（让用户能随时拦）→ ② 建 `docs/plans/YYYYMMDD-cNNN-<name>/` 四文档 + 注册 `docs/plans/index.md`(3 表) → ③ TDD 先红后绿，按层推进（T0 可视化轨 + 播放器接线 / T1 module+oracle+sources / T2 页+接线+改 TC-HOOK）→ ④ 全门禁（`format` 后 `format:check`/`lint:check`/`type-check`/`test:unit run --coverage`/`playwright test`）+ 真机自检 → ⑤ 回写（四档翻 `verified` + 自测报告、`roadmap.md`、三索引 `docs/test-cases/{index,by-layer,by-module}.md`、双向链接）→ ⑥ 两提交（feat + docs，中文 msg，直接 main）→ ⑦ 双轨部署 + 验证。
-- 提交信息 footer 用户会指定协作者署名行（历史为 `Co-Authored-By: Claude ... <noreply@anthropic.com>`）。
+- 提交信息 footer 用户会指定协作者署名行（历史为 `Co-Authored-By: Codex ... <noreply@anthropic.com>`）。
