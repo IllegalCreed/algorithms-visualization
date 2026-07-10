@@ -7,7 +7,6 @@
     "nightwatch.conf.*",
     "playwright.config.*",
     "scripts/*.ts",
-    "src/analytics/types.ts",
     "src/analytics/utm.ts"
   ],
   "compilerOptions": {

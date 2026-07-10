@@ -1,4 +1,9 @@
-import type { CampaignParams } from './types';
+export interface CampaignParams {
+  source: string;
+  medium: string;
+  campaign: string;
+  content: string;
+}
 
 const MAX_CAMPAIGN_TOKEN_LENGTH = 64;
 const CAMPAIGN_TOKEN_PATTERN = /^[a-z0-9][a-z0-9._-]*$/;

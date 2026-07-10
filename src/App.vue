@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useRouteSeo } from '@/seo/useRouteSeo';
-import { useRouteAnalytics } from '@/analytics/useRouteAnalytics';
 
 useRouteSeo();
-useRouteAnalytics();
 </script>
 
 <template>

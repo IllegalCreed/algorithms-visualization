@@ -5,7 +5,6 @@ import { useRouter } from 'vue-router';
 import { buildSearchTokens, normalizeToken } from './searchIndex';
 import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
-import { trackEvent } from '@/analytics/client';
 
 interface SearchEntry {
   title: string;
@@ -73,12 +72,6 @@ watch(query, () => {
 });
 
 function go(e: SearchEntry): void {
-  trackEvent('search', {
-    action: 'select',
-    query_length: Array.from(query.value.trim()).length,
-    result_count: results.value.length,
-    selected_slug: e.url,
-  });
   store.closeSearch();
   router.push(`/docs/${e.url}`);
 }
@@ -99,13 +92,6 @@ function onInputKeydown(e: KeyboardEvent): void {
   } else if (e.key === 'Enter') {
     const hit = results.value[activeIdx.value];
     if (hit) go(hit);
-    else if (query.value.trim()) {
-      trackEvent('search', {
-        action: 'no_result',
-        query_length: Array.from(query.value.trim()).length,
-        result_count: 0,
-      });
-    }
   } else if (e.key === 'Escape') {
     store.closeSearch();
   }

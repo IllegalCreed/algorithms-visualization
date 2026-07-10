@@ -7,14 +7,10 @@ import { pinyinInitials } from './searchIndex';
 import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
 
-const { push, trackEvent } = vi.hoisted(() => ({
-  push: vi.fn(),
-  trackEvent: vi.fn(),
-}));
+const push = vi.fn();
 vi.mock('vue-router', () => ({
   useRouter: () => ({ push }),
 }));
-vi.mock('@/analytics/client', () => ({ trackEvent }));
 
 const mountIt = () =>
   mount(SearchPalette, {
@@ -25,7 +21,6 @@ describe('SearchPalette 全站搜索', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
     push.mockClear();
-    trackEvent.mockClear();
   });
 
   it('TC-VIZ-SEARCH-01 store 开关控制面板显隐 + 打开渲染输入框', async () => {
@@ -186,39 +181,5 @@ describe('SearchPalette 全站搜索', () => {
     await shortcuts[1].trigger('click');
     expect(push).toHaveBeenCalledWith('/docs/paths');
     expect(store.isSearchOpen).toBe(false);
-  });
-
-  it('TC-ANL-EVENTS-125-01 选择结果只发长度、结果数与 slug', async () => {
-    const w = mountIt();
-    useSystemStore().openSearch();
-    await flushPromises();
-    await w.find('.sp-input').setValue('快速排序');
-    const resultCount = w.findAll('.sp-item').length;
-    await w.find('.sp-item').trigger('click');
-
-    expect(trackEvent).toHaveBeenCalledOnce();
-    expect(trackEvent).toHaveBeenCalledWith('search', {
-      action: 'select',
-      query_length: 4,
-      result_count: resultCount,
-      selected_slug: 'quick-sort',
-    });
-    expect(JSON.stringify(trackEvent.mock.calls)).not.toContain('快速排序');
-  });
-
-  it('TC-ANL-EVENTS-125-02 无结果 Enter 发 no_result 且不含 query 原文', async () => {
-    const w = mountIt();
-    useSystemStore().openSearch();
-    await flushPromises();
-    const query = 'private@example.com';
-    await w.find('.sp-input').setValue(query);
-    await w.find('.sp-input').trigger('keydown', { key: 'Enter' });
-
-    expect(trackEvent).toHaveBeenCalledWith('search', {
-      action: 'no_result',
-      query_length: query.length,
-      result_count: 0,
-    });
-    expect(JSON.stringify(trackEvent.mock.calls)).not.toContain(query);
   });
 });

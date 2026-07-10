@@ -1,9 +1,6 @@
-import { beforeEach, describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import IconLink from './IconLink.vue';
-
-const { trackEvent } = vi.hoisted(() => ({ trackEvent: vi.fn() }));
-vi.mock('@/analytics/client', () => ({ trackEvent }));
 
 // TC-VIEW-ICONLINK
 
@@ -13,10 +10,6 @@ describe('Master/Header/IconLink 组件', () => {
     src: 'github.svg',
     title: 'github',
   };
-
-  beforeEach(() => {
-    trackEvent.mockClear();
-  });
 
   it('TC-VIEW-ICONLINK-01: 渲染 .icon-link 根元素', () => {
     const w = mount(IconLink, { props: { data: mockData } });
@@ -55,37 +48,5 @@ describe('Master/Header/IconLink 组件', () => {
     };
     const w = mount(IconLink, { props: { data: twitterData } });
     expect(w.find('a.icon-link').attributes('href')).toBe('https://www.twitter.com');
-  });
-
-  it('TC-ANL-EVENTS-125-06 微博/X 发 share，普通外链不发送', async () => {
-    const weibo = mount(IconLink, {
-      props: {
-        data: {
-          url: 'https://service.weibo.com/share/share.php',
-          src: 'weibo.svg',
-          title: '分享到微博',
-          share: { channel: 'weibo', path: '/docs/quick-sort' },
-        },
-      },
-    });
-    const x = mount(IconLink, {
-      props: {
-        data: {
-          url: 'https://twitter.com/intent/tweet',
-          src: 'x.svg',
-          title: '分享到 X',
-          share: { channel: 'x', path: '/docs/quick-sort' },
-        },
-      },
-    });
-    const ordinary = mount(IconLink, { props: { data: mockData } });
-
-    await weibo.find('a').trigger('click');
-    await x.find('a').trigger('click');
-    await ordinary.find('a').trigger('click');
-    expect(trackEvent.mock.calls).toEqual([
-      ['share', { channel: 'weibo', path: '/docs/quick-sort' }],
-      ['share', { channel: 'x', path: '/docs/quick-sort' }],
-    ]);
   });
 });

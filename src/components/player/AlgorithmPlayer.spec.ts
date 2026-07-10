@@ -1,6 +1,6 @@
 // src/components/player/AlgorithmPlayer.spec.ts
-import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
-import { mount, flushPromises, enableAutoUnmount } from '@vue/test-utils';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { mount, flushPromises } from '@vue/test-utils';
 import { createPinia } from 'pinia';
 import AlgorithmPlayer from './AlgorithmPlayer.vue';
 import TransportControls from './TransportControls.vue';
@@ -28,14 +28,9 @@ import NetworkView from '@/components/NetworkView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
 
-const { trackEvent } = vi.hoisted(() => ({ trackEvent: vi.fn() }));
-
 vi.mock('./useHighlighter', () => ({
   highlightToLines: vi.fn(async (code: string) => code.split('\n').map((l) => [{ content: l }])),
 }));
-vi.mock('@/analytics/client', () => ({ trackEvent }));
-
-enableAutoUnmount(afterEach);
 
 const mountIt = () =>
   mount(AlgorithmPlayer, {
@@ -44,10 +39,6 @@ const mountIt = () =>
   });
 
 describe('AlgorithmPlayer', () => {
-  beforeEach(() => {
-    trackEvent.mockClear();
-  });
-
   it('渲染柱状图 + 代码面板 + 变量面板 + 控制条', async () => {
     const w = mountIt();
     await flushPromises();
@@ -925,25 +916,6 @@ describe('AlgorithmPlayer', () => {
       expect(window.location.search).not.toContain('input=');
       expect(w.findAllComponents(Bar)).toHaveLength(10);
     });
-
-    it('TC-ANL-EVENTS-125-04 仅合法 apply 发 item_count，不含输入数组', async () => {
-      const w = mountIt();
-      await flushPromises();
-      await w.find('input.ib-text').setValue('5, 3, 8, 1');
-      await w.find('button.ib-apply').trigger('click');
-      await w.find('input.ib-text').setValue('private@example.com');
-      await w.find('button.ib-apply').trigger('click');
-      await w.find('button.ib-restore').trigger('click');
-
-      expect(trackEvent).toHaveBeenCalledTimes(1);
-      expect(trackEvent).toHaveBeenCalledWith('input_apply', {
-        algorithm: '冒泡排序',
-        item_count: 4,
-      });
-      expect(JSON.stringify(trackEvent.mock.calls)).not.toContain('5, 3, 8, 1');
-      expect(JSON.stringify(trackEvent.mock.calls)).not.toContain('private@example.com');
-      w.unmount();
-    });
   });
 
   // ===== C-112 M10-P3 测验模式 =====
@@ -1033,25 +1005,6 @@ describe('AlgorithmPlayer', () => {
       await flushPromises();
       expect(w2.find('.quiz-score').exists()).toBe(false);
     });
-
-    it('TC-ANL-EVENTS-125-05 全部测验首次完成只发一次汇总', async () => {
-      const w = mountQuiz();
-      await flushPromises();
-      await w.find('.ctl[title="下一步"]').trigger('click');
-      await w.findAll('.qc-option')[0].trigger('click');
-      await w.find('.qc-resume').trigger('click');
-      await w.find('.ctl[title="下一步"]').trigger('click');
-      await w.find('.ctl[title="上一步"]').trigger('click');
-
-      expect(trackEvent).toHaveBeenCalledTimes(1);
-      expect(trackEvent).toHaveBeenCalledWith('quiz_complete', {
-        algorithm: 'quiz-test',
-        correct: 1,
-        total: 1,
-      });
-      expect(JSON.stringify(trackEvent.mock.calls)).not.toContain('1+1');
-      w.unmount();
-    });
   });
 
   // ===== C-111 M10-P2 键盘快捷键 =====
@@ -1095,23 +1048,6 @@ describe('AlgorithmPlayer', () => {
       key('ArrowRight', input); // target 是 input → 守卫拦截
       await flushPromises();
       expect(w.find('.counter').text()).toContain('1 / ');
-      w.unmount();
-    });
-
-    it('TC-ANL-EVENTS-125-03 控件与空格发 play，pause/step 不发', async () => {
-      const w = mountIt();
-      await flushPromises();
-      await w.find('.play').trigger('click');
-      await w.find('.play').trigger('click');
-      await w.find('.ctl[title="下一步"]').trigger('click');
-      key(' ');
-      await flushPromises();
-      key(' ');
-
-      expect(trackEvent.mock.calls).toEqual([
-        ['play', { algorithm: '冒泡排序', trigger: 'control', step_index: 0 }],
-        ['play', { algorithm: '冒泡排序', trigger: 'keyboard', step_index: 1 }],
-      ]);
       w.unmount();
     });
   });

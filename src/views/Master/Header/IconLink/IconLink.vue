@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import type { IconLink } from './types';
-import { trackEvent } from '@/analytics/client';
 
 const props = defineProps<{
   data: IconLink;
 }>();
-
-function trackShare(): void {
-  const share = props.data.share;
-  if (share) trackEvent('share', share);
-}
 </script>
 <template>
   <a
@@ -19,7 +13,6 @@ function trackShare(): void {
     :aria-label="props.data.title"
     target="_blank"
     rel="noopener noreferrer"
-    @click="trackShare"
   >
     <img :src="props.data.src" :alt="props.data.title" />
   </a>

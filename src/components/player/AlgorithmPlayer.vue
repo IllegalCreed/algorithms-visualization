@@ -29,7 +29,6 @@ import NetworkView from '@/components/NetworkView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
-import { trackEvent } from '@/analytics/client';
 
 const props = defineProps<{ module: AlgorithmModule }>();
 
@@ -70,7 +69,7 @@ function onKeydown(e: KeyboardEvent): void {
   } else if (e.key === ' ') {
     e.preventDefault(); // 防页面滚动
     if (isPlaying.value) pause();
-    else startTrackedPlayback('keyboard');
+    else play();
   }
 }
 onMounted(() => window.addEventListener('keydown', onKeydown));
@@ -83,7 +82,6 @@ const inputText = computed(() => input.value.join(', '));
 const quizRecord = reactive(new Map<number, boolean>());
 const showQuizResult = ref(false);
 const wasAutoPlaying = ref(false);
-const quizCompletionTracked = ref(false);
 const quizTotal = computed(() => steps.value.filter((s) => s.quiz).length);
 const quizCorrect = computed(() => [...quizRecord.values()].filter(Boolean).length);
 const activeQuizVisible = computed(() => {
@@ -103,14 +101,6 @@ watch(index, (i) => {
 function onQuizAnswered(correct: boolean): void {
   quizRecord.set(index.value, correct);
   showQuizResult.value = true;
-  if (!quizCompletionTracked.value && quizTotal.value > 0 && quizRecord.size === quizTotal.value) {
-    quizCompletionTracked.value = true;
-    trackEvent('quiz_complete', {
-      algorithm: props.module.title,
-      correct: quizCorrect.value,
-      total: quizTotal.value,
-    });
-  }
 }
 
 function onQuizResume(): void {
@@ -122,38 +112,18 @@ function applyInput(arr: number[]): void {
   input.value = arr;
   steps.value = props.module.buildSteps(arr);
   quizRecord.clear();
-  quizCompletionTracked.value = false;
   showQuizResult.value = false;
   reset();
   writeInputToUrl(arr);
-  trackEvent('input_apply', {
-    algorithm: props.module.title,
-    item_count: arr.length,
-  });
 }
 
 function restoreInput(): void {
   input.value = props.module.initialInput();
   steps.value = props.module.buildSteps(input.value);
   quizRecord.clear();
-  quizCompletionTracked.value = false;
   showQuizResult.value = false;
   reset();
   clearInputFromUrl();
-}
-
-function startTrackedPlayback(trigger: 'control' | 'keyboard'): void {
-  if (isPlaying.value || (atEnd.value && !loop.value)) return;
-  trackEvent('play', {
-    algorithm: props.module.title,
-    trigger,
-    step_index: index.value,
-  });
-  play();
-}
-
-function playFromControl(): void {
-  startTrackedPlayback('control');
 }
 </script>
 <template>
@@ -217,7 +187,7 @@ function playFromControl(): void {
       :total="total"
       :speed="speed"
       :loop="loop"
-      @play="playFromControl"
+      @play="play"
       @pause="pause"
       @step-back="stepBackward"
       @step-forward="stepForward"

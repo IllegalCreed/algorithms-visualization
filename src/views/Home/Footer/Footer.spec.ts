@@ -24,11 +24,4 @@ describe('Footer 组件', () => {
     const w = mount(Footer);
     expect(w.find('#footer').exists()).toBe(true);
   });
-
-  it('TC-ANL-PRIVACY-125-01: 提供同站隐私与统计说明入口', () => {
-    const w = mount(Footer);
-    const link = w.get('a');
-    expect(link.text()).toBe('隐私与统计');
-    expect(link.attributes('href')).toBe('/privacy.html');
-  });
 });
