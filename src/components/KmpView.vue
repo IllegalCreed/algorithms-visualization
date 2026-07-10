@@ -2,8 +2,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { KmpTrack } from '@/components/player/types';
+import type { SiteLocale } from '@/i18n/pilot';
 
-const props = defineProps<{ kmp: KmpTrack }>();
+const props = withDefaults(defineProps<{ kmp: KmpTrack; locale?: SiteLocale }>(), {
+  locale: 'zh-CN',
+});
 
 const PITCH = 48; // 42 格宽 + 6 间隙
 
@@ -41,11 +44,11 @@ const shift = computed(() => props.kmp.offset * PITCH);
 const statusText = computed(() => {
   switch (props.kmp.status) {
     case 'match':
-      return '✓ 匹配';
+      return props.locale === 'en' ? '✓ Match' : '✓ 匹配';
     case 'mismatch':
-      return '✗ 失配';
+      return props.locale === 'en' ? '✗ Mismatch' : '✗ 失配';
     case 'found':
-      return '🎯 命中';
+      return props.locale === 'en' ? 'Found' : '🎯 命中';
     default:
       return '';
   }

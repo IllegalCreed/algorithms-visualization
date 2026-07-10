@@ -6,6 +6,8 @@ export const GITHUB_REPO_URL = 'https://github.com/IllegalCreed/algorithms-visua
 export const HOME_PAGE_URL = 'https://illegalscreed.cn/zh/';
 /** 分享文案：标题 + 一句简介 */
 export const SHARE_TEXT = '算法可视化 —— 交互式数据结构与算法可视化';
+export const ENGLISH_SHARE_TEXT =
+  'Algorithm Visualizer - interactive data structures and algorithms, step by step';
 
 /** 当前路由 fullPath（不含 base，形如 /sort/bubble-sort）→ 线上规范完整 URL */
 export function buildShareTargetUrl(fullPath: string): string {

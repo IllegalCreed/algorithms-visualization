@@ -29,8 +29,11 @@ import NetworkView from '@/components/NetworkView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
+import type { SiteLocale } from '@/i18n/pilot';
 
-const props = defineProps<{ module: AlgorithmModule }>();
+const props = withDefaults(defineProps<{ module: AlgorithmModule; locale?: SiteLocale }>(), {
+  locale: 'zh-CN',
+});
 
 // C-110 自定义输入：模块声明 inputSpec 时支持 ?input= 初始化与运行时重建；不声明 = 固定剧本（旧路径全等）
 const input = shallowRef(readInputFromUrl(props.module.inputSpec) ?? props.module.initialInput());
@@ -132,6 +135,7 @@ function restoreInput(): void {
       v-if="props.module.inputSpec"
       :spec="props.module.inputSpec"
       :model-text="inputText"
+      :locale="props.locale"
       @apply="applyInput"
       @restore="restoreInput"
     />
@@ -152,7 +156,7 @@ function restoreInput(): void {
     <BoardView v-if="current.board" :board="current.board" />
     <DecisionTreeView v-if="current.decisionTree" :decision-tree="current.decisionTree" />
     <MazeView v-if="current.maze" :maze="current.maze" />
-    <KmpView v-if="current.kmp" :kmp="current.kmp" />
+    <KmpView v-if="current.kmp" :kmp="current.kmp" :locale="props.locale" />
     <ManacherView v-if="current.manacher" :manacher="current.manacher" />
     <SudokuView v-if="current.sudoku" :sudoku="current.sudoku" />
     <SuffixArrayView v-if="current.suffixArray" :suffix-array="current.suffixArray" />
@@ -162,18 +166,20 @@ function restoreInput(): void {
     <HullView v-if="current.hull" :hull="current.hull" />
     <NetworkView v-if="current.network" :network="current.network" />
     <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
-    <StackView v-if="current.stack" :stack="current.stack" />
+    <StackView v-if="current.stack" :stack="current.stack" :locale="props.locale" />
     <CountView v-if="current.count" :count="current.count" />
     <BucketView v-if="current.bucket" :bucket="current.bucket" />
     <p class="caption">{{ current.caption }}</p>
     <QuizCard
       v-if="activeQuizVisible && current.quiz"
       :quiz="current.quiz"
+      :locale="props.locale"
       @answered="onQuizAnswered"
       @resume="onQuizResume"
     />
     <p v-if="atEnd && quizTotal > 0" class="quiz-score">
-      📊 本页测验：{{ quizCorrect }} / {{ quizTotal }}
+      {{ props.locale === 'en' ? 'Quiz score:' : '📊 本页测验：' }} {{ quizCorrect }} /
+      {{ quizTotal }}
     </p>
     <div class="middle row">
       <CodePanel class="code-pane" :sources="props.module.sources" :point="current.point" />
@@ -187,6 +193,7 @@ function restoreInput(): void {
       :total="total"
       :speed="speed"
       :loop="loop"
+      :locale="props.locale"
       @play="play"
       @pause="pause"
       @step-back="stepBackward"

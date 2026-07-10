@@ -21,8 +21,8 @@ function expectedCanonical(path: string): string {
 }
 
 describe('SEO page registry', () => {
-  it('TC-SEO-PAGES-124-01: 95 个页面的 name/path/title/canonical 唯一且描述非空', () => {
-    const pages = getIndexablePages();
+  it('TC-SEO-PAGES-124-01: 95 个中文页面的 name/path/title/canonical 唯一且描述非空', () => {
+    const pages = getIndexablePages().filter((page) => page.locale === 'zh-CN');
 
     expect(pages).toHaveLength(95);
     expect(new Set(pages.map((page) => page.name)).size).toBe(95);
@@ -38,12 +38,19 @@ describe('SEO page registry', () => {
   });
 
   it('TC-SEO-PAGES-124-02: registry 与 router 可索引路由和 Home 92 条 catalog 对齐', () => {
-    const pages = getIndexablePages();
+    const pages = getIndexablePages().filter((page) => page.locale === 'zh-CN');
     const pageNames = pages.map((page) => page.name).sort();
     const routeNames = router
       .getRoutes()
       .map((route) => String(route.name ?? ''))
-      .filter((name) => name && name !== 'docs' && name !== 'about')
+      .filter(
+        (name) =>
+          name &&
+          name !== 'docs' &&
+          name !== 'about' &&
+          name !== 'en-docs' &&
+          !name.startsWith('en-'),
+      )
       .sort();
     const catalogSlugs = useCategoryData().flatMap((category) =>
       category.children.map((item) => item.url),
@@ -77,6 +84,48 @@ describe('SEO page registry', () => {
       canonical: `${SITE_ORIGIN}/`,
       indexable: false,
     });
+  });
+
+  it('TC-SEO-I18N-126-01: registry 为 95 个中文页加 10 个英文页且全局唯一', () => {
+    const pages = getIndexablePages();
+
+    expect(pages).toHaveLength(105);
+    expect(pages.filter((page) => page.locale === 'zh-CN')).toHaveLength(95);
+    expect(pages.filter((page) => page.locale === 'en')).toHaveLength(10);
+    expect(new Set(pages.map((page) => page.name)).size).toBe(105);
+    expect(new Set(pages.map((page) => page.path)).size).toBe(105);
+    expect(new Set(pages.map((page) => page.title)).size).toBe(105);
+    expect(new Set(pages.map((page) => page.canonical)).size).toBe(105);
+
+    const indexedRouteNames = router
+      .getRoutes()
+      .map((route) => String(route.name ?? ''))
+      .filter((name) => name && !['docs', 'en-docs', 'about'].includes(name))
+      .sort();
+    expect(pages.map((page) => page.name).sort()).toEqual(indexedRouteNames);
+  });
+
+  it('TC-SEO-I18N-126-02: 十组页面 alternate 双向完整且未翻译页不伪造英文版', () => {
+    const pages = getIndexablePages();
+    const pairedPages = pages.filter((page) => page.alternates.length > 0);
+
+    expect(pairedPages).toHaveLength(20);
+    expect(pages.filter((page) => page.alternates.length === 0)).toHaveLength(85);
+
+    for (const page of pairedPages) {
+      expect(page.alternates.map((item) => item.hreflang)).toEqual(['zh-CN', 'en', 'x-default']);
+      expect(page.alternates.some((item) => item.href === page.canonical)).toBe(true);
+      for (const alternate of page.alternates) {
+        expect(alternate.href.startsWith(`${SITE_ORIGIN}/`)).toBe(true);
+      }
+
+      const counterpart = pages.find(
+        (candidate) =>
+          candidate.canonical !== page.canonical &&
+          page.alternates.some((item) => item.href === candidate.canonical),
+      );
+      expect(counterpart?.alternates).toEqual(page.alternates);
+    }
   });
 });
 
@@ -118,6 +167,18 @@ describe('SEO JSON-LD', () => {
     expect(uncategorizedJsonLd['@graph']).toHaveLength(2);
     expect(JSON.stringify(uncategorizedJsonLd)).not.toContain('"about"');
     expect(noIndexJsonLd['@graph']).toEqual([]);
+  });
+
+  it('TC-SEO-I18N-126-03: 英文 JSON-LD 使用英文语言、站名与面包屑', () => {
+    const page = resolveSeoPage('en-quick-sort', '/en/docs/quick-sort');
+    const jsonLd = buildJsonLd(page);
+    const serialized = JSON.stringify(jsonLd);
+
+    expect(page.locale).toBe('en');
+    expect(serialized).toContain('"inLanguage":"en"');
+    expect(serialized).toContain('Algorithm Visualizer');
+    expect(serialized).toContain('"name":"Home"');
+    expect(serialized).not.toContain('"name":"首页"');
   });
 });
 

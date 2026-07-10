@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import HeaderComp from './Header/Header.vue';
-import { useCategoryData, useMenuSelect } from './hooks';
+import { useCategoryData, useEnglishCategoryData, useMenuSelect } from './hooks';
+import { useSiteLocale } from '@/i18n/useSiteLocale';
 
-const categoryData = useCategoryData();
+const { isEnglish } = useSiteLocale();
+const categoryData = computed(() =>
+  isEnglish.value ? useEnglishCategoryData() : useCategoryData(),
+);
 useMenuSelect();
 </script>
 <template>

@@ -1,6 +1,7 @@
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { buildJsonLd, OG_IMAGE_URL, resolveSeoPage, SITE_NAME, type SeoPage } from './site';
+import { ENGLISH_SITE_NAME } from '@/i18n/pilot';
 
 function upsertMeta(attribute: 'name' | 'property', key: string, content: string): void {
   const selector = `meta[${attribute}="${key}"]`;
@@ -23,6 +24,20 @@ function upsertCanonical(canonical: string): void {
   for (const duplicate of matches) duplicate.remove();
 }
 
+function syncAlternates(page: SeoPage): void {
+  for (const element of document.head.querySelectorAll('link[rel="alternate"][hreflang]')) {
+    element.remove();
+  }
+
+  for (const alternate of page.alternates) {
+    const element = document.createElement('link');
+    element.rel = 'alternate';
+    element.hreflang = alternate.hreflang;
+    element.href = alternate.href;
+    document.head.append(element);
+  }
+}
+
 function upsertJsonLd(page: SeoPage): void {
   const matches = [
     ...document.head.querySelectorAll<HTMLScriptElement>(
@@ -39,14 +54,18 @@ function upsertJsonLd(page: SeoPage): void {
 }
 
 export function applyPageSeo(page: SeoPage): void {
-  document.documentElement.lang = 'zh-CN';
+  const english = page.locale === 'en';
+  const siteName = english ? ENGLISH_SITE_NAME : SITE_NAME;
+  const isHome = page.name === 'home' || page.name === 'en-home';
+
+  document.documentElement.lang = page.locale;
   document.title = page.title;
 
   upsertMeta('name', 'description', page.description);
   upsertMeta('name', 'robots', page.robots);
-  upsertMeta('property', 'og:type', page.name === 'home' ? 'website' : 'article');
-  upsertMeta('property', 'og:site_name', SITE_NAME);
-  upsertMeta('property', 'og:locale', 'zh_CN');
+  upsertMeta('property', 'og:type', isHome ? 'website' : 'article');
+  upsertMeta('property', 'og:site_name', siteName);
+  upsertMeta('property', 'og:locale', english ? 'en_US' : 'zh_CN');
   upsertMeta('property', 'og:title', page.title);
   upsertMeta('property', 'og:description', page.description);
   upsertMeta('property', 'og:url', page.canonical);
@@ -56,6 +75,7 @@ export function applyPageSeo(page: SeoPage): void {
   upsertMeta('name', 'twitter:description', page.description);
   upsertMeta('name', 'twitter:image', OG_IMAGE_URL);
   upsertCanonical(page.canonical);
+  syncAlternates(page);
   upsertJsonLd(page);
 
   document.documentElement.dataset.seoReady = page.name;

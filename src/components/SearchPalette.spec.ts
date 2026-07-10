@@ -8,8 +8,10 @@ import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
 
 const push = vi.fn();
+const mockRoute = vi.hoisted(() => ({ path: '/', name: 'home', query: {} }));
 vi.mock('vue-router', () => ({
   useRouter: () => ({ push }),
+  useRoute: () => mockRoute,
 }));
 
 const mountIt = () =>
@@ -21,6 +23,8 @@ describe('SearchPalette 全站搜索', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
     push.mockClear();
+    mockRoute.path = '/';
+    mockRoute.name = 'home';
   });
 
   it('TC-VIZ-SEARCH-01 store 开关控制面板显隐 + 打开渲染输入框', async () => {
@@ -180,6 +184,26 @@ describe('SearchPalette 全站搜索', () => {
     expect(shortcuts[1].text()).toContain('学习路径');
     await shortcuts[1].trigger('click');
     expect(push).toHaveBeenCalledWith('/docs/paths');
+    expect(store.isSearchOpen).toBe(false);
+  });
+
+  it('TC-I18N-UI-126-03: `/en` 只搜索英文试点并使用英文空态与入口', async () => {
+    mockRoute.path = '/en';
+    mockRoute.name = 'en-home';
+    const w = mountIt();
+    const store = useSystemStore();
+    store.openSearch();
+    await flushPromises();
+
+    expect(w.find('.sp-input').attributes('placeholder')).toContain('Search algorithms');
+    expect(w.find('.sp-hint').text()).toContain('Type an algorithm name');
+    expect(w.findAll('.sp-shortcut')[0].text()).toContain('Complexity reference');
+
+    await w.find('.sp-input').setValue('quick sort');
+    expect(w.text()).toContain('Quick Sort');
+    expect(w.text()).not.toContain('快速排序');
+    await w.find('.sp-item').trigger('click');
+    expect(push).toHaveBeenCalledWith('/en/docs/quick-sort');
     expect(store.isSearchOpen).toBe(false);
   });
 });

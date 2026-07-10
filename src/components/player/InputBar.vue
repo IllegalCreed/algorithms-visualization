@@ -3,8 +3,12 @@
 import { ref, useId, watch } from 'vue';
 import type { InputSpec } from './types';
 import { parseInputArray } from './inputSpec';
+import type { SiteLocale } from '@/i18n/pilot';
 
-const props = defineProps<{ spec: InputSpec; modelText: string }>();
+const props = withDefaults(
+  defineProps<{ spec: InputSpec; modelText: string; locale?: SiteLocale }>(),
+  { locale: 'zh-CN' },
+);
 const emit = defineEmits<{ apply: [value: number[]]; restore: [] }>();
 
 const inputId = `algorithm-player-input-${useId()}`;
@@ -21,7 +25,7 @@ watch(
 );
 
 function apply(): void {
-  const r = parseInputArray(text.value, props.spec);
+  const r = parseInputArray(text.value, props.spec, props.locale);
   if (!r.ok) {
     error.value = r.error;
     return;
@@ -39,7 +43,7 @@ function restore(): void {
 <template>
   <div class="input-bar column">
     <div class="ib-row row">
-      <label class="ib-label" :for="inputId">输入</label>
+      <label class="ib-label" :for="inputId">{{ locale === 'en' ? 'Input' : '输入' }}</label>
       <input
         :id="inputId"
         v-model="text"
@@ -53,9 +57,16 @@ function restore(): void {
         spellcheck="false"
         @keydown.enter="apply"
       />
-      <button type="button" class="ib-apply" @click="apply">应用</button>
-      <button type="button" class="ib-restore" title="恢复默认数据" @click="restore">
-        恢复默认
+      <button type="button" class="ib-apply" @click="apply">
+        {{ locale === 'en' ? 'Apply' : '应用' }}
+      </button>
+      <button
+        type="button"
+        class="ib-restore"
+        :title="locale === 'en' ? 'Restore default data' : '恢复默认数据'"
+        @click="restore"
+      >
+        {{ locale === 'en' ? 'Restore' : '恢复默认' }}
       </button>
     </div>
     <p v-if="error" :id="errorId" class="ib-error" role="alert" aria-live="polite">

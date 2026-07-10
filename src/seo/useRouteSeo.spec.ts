@@ -17,6 +17,12 @@ const routes: RouteRecordRaw[] = [
     name: 'dijkstra',
     component: { template: '<h1>Dijkstra 最短路</h1>' },
   },
+  { path: '/docs/array', name: 'array', component: { template: '<h1>数组</h1>' } },
+  {
+    path: '/en/docs/quick-sort',
+    name: 'en-quick-sort',
+    component: { template: '<h1>Quick Sort</h1>' },
+  },
   { path: '/docs', name: 'docs', component: { template: '<main />' } },
   { path: '/about', name: 'about', component: { template: '<main />' } },
 ];
@@ -117,6 +123,34 @@ describe('useRouteSeo', () => {
     await nextTick();
     expect(queryMeta('meta[name="robots"]').content).toBe('noindex,nofollow');
     expect(document.documentElement.dataset.seoReady).toBe('about');
+
+    wrapper.unmount();
+  });
+
+  it('TC-I18N-UI-126-01: 英文 head 完整且切到未翻译中文页会清理 alternate', async () => {
+    const { router, wrapper } = await mountSeoAt('/en/docs/quick-sort');
+    const englishPage = resolveSeoPage('en-quick-sort', '/en/docs/quick-sort');
+
+    expect(document.documentElement.lang).toBe('en');
+    expect(document.documentElement.dataset.seoReady).toBe('en-quick-sort');
+    expect(queryMeta('meta[property="og:site_name"]').content).toBe('Algorithm Visualizer');
+    expect(queryMeta('meta[property="og:locale"]').content).toBe('en_US');
+    expect(document.head.querySelectorAll('link[rel="alternate"][hreflang]')).toHaveLength(3);
+    expect(
+      [...document.head.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]')].map(
+        (link) => ({ hreflang: link.hreflang, href: link.href }),
+      ),
+    ).toEqual(englishPage.alternates);
+
+    await router.push('/docs/array');
+    await flushPromises();
+    await nextTick();
+
+    expect(document.documentElement.lang).toBe('zh-CN');
+    expect(document.documentElement.dataset.seoReady).toBe('array');
+    expect(queryMeta('meta[property="og:site_name"]').content).toBe('数据结构和算法可视化');
+    expect(queryMeta('meta[property="og:locale"]').content).toBe('zh_CN');
+    expect(document.head.querySelectorAll('link[rel="alternate"][hreflang]')).toHaveLength(0);
 
     wrapper.unmount();
   });

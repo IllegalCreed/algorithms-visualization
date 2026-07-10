@@ -1,13 +1,18 @@
-import { describe, it, expect, vi } from 'vitest';
+import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { createPinia } from 'pinia';
 import Header from './Header.vue';
 
 // TC-VIEW-HEADER
 
-vi.mock('vue-router', () => ({
-  useRoute: () => ({ fullPath: '/' }),
+const mockRoute = vi.hoisted(() => ({
+  fullPath: '/',
+  path: '/',
+  name: 'home',
+  query: {} as Record<string, string>,
 }));
+
+vi.mock('vue-router', () => ({ useRoute: () => mockRoute }));
 
 // mock svg asset imports
 vi.mock('@/assets/weibo.svg', () => ({ default: 'weibo.svg' }));
@@ -30,6 +35,13 @@ const mountIt = (pinia = createPinia()) =>
   });
 
 describe('Master/Header 组件', () => {
+  beforeEach(() => {
+    mockRoute.fullPath = '/';
+    mockRoute.path = '/';
+    mockRoute.name = 'home';
+    mockRoute.query = {};
+  });
+
   it('TC-VIEW-HEADER-01: 渲染 #header 根元素', () => {
     const w = mountIt();
     expect(w.find('#header').exists()).toBe(true);
@@ -81,5 +93,27 @@ describe('Master/Header 组件', () => {
     expect(store.isSearchOpen).toBe(false);
     await btn.trigger('click');
     expect(store.isSearchOpen).toBe(true);
+  });
+
+  it('TC-I18N-UI-126-02: 英文 Header 与中英切换目标由当前页面对派生', () => {
+    mockRoute.fullPath = '/en/docs/quick-sort?input=9,5,1';
+    mockRoute.path = '/en/docs/quick-sort';
+    mockRoute.name = 'en-quick-sort';
+    mockRoute.query = { input: '9,5,1' };
+
+    const w = mountIt();
+    expect(w.find('h1').text()).toBe('Algorithm Visualizer');
+    expect(w.find('#logo').attributes('aria-label')).toBe('Home');
+    expect(w.find('.search-btn').attributes('aria-label')).toContain('Search algorithms');
+    expect(w.findAll('.locale-option')).toHaveLength(2);
+
+    const localeLinks = w
+      .findAllComponents({ name: 'RouterLink' })
+      .filter((link) => link.classes().includes('locale-option'));
+    expect(localeLinks.map((link) => link.props('to'))).toEqual([
+      { name: 'quick-sort', query: { input: '9,5,1' } },
+      { name: 'en-quick-sort', query: { input: '9,5,1' } },
+    ]);
+    expect(w.find('.locale-option.active').text()).toBe('EN');
   });
 });

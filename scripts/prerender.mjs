@@ -59,24 +59,32 @@ function buildSitemap(pages) {
 }
 
 function buildLlms(pages) {
-  const coreNames = new Set(['home', 'complexity', 'paths']);
+  const chineseCoreNames = new Set(['home', 'complexity', 'paths']);
   const lineFor = (page) =>
     `- [${escapeMarkdown(page.heading)}](${page.canonical}): ${escapeMarkdown(page.description)}`;
+  const chinesePages = pages.filter((page) => page.locale === 'zh-CN');
+  const englishPages = pages.filter((page) => page.locale === 'en');
 
   return [
-    '# 数据结构和算法可视化',
+    '# 数据结构和算法可视化 / Algorithm Visualizer',
     '',
     '> 面向中文学习者的交互式算法与数据结构学习站，包含 92 个可视化条目、四语言代码、可改输入、测验、复杂度速查与学习路径。',
     '',
+    '> The English pilot contains ten translated entry points with the same interactive visual engines and synchronized code.',
+    '',
     '本文件是面向机器读者的辅助导航，不代表搜索收录、排名或 AI 引用保证。',
     '',
-    '## 核心入口',
+    '## 中文核心入口',
     '',
-    ...pages.filter((page) => coreNames.has(page.name)).map(lineFor),
+    ...chinesePages.filter((page) => chineseCoreNames.has(page.name)).map(lineFor),
     '',
-    '## 数据结构与算法页面',
+    '## 中文数据结构与算法页面',
     '',
-    ...pages.filter((page) => !coreNames.has(page.name)).map(lineFor),
+    ...chinesePages.filter((page) => !chineseCoreNames.has(page.name)).map(lineFor),
+    '',
+    '## English Pilot',
+    '',
+    ...englishPages.map(lineFor),
     '',
   ].join('\n');
 }
@@ -92,7 +100,7 @@ async function waitForPageReady(page, task) {
     (name) => document.documentElement.dataset.seoReady === name,
     task.name,
   );
-  if (task.name === 'home') {
+  if (task.name === 'home' || task.name === 'en-home') {
     await page.locator('h1').first().waitFor({ state: 'visible' });
   } else {
     const article = page.locator('article').first();
@@ -119,7 +127,11 @@ async function normalizeStaticRouteLinks(page, base) {
       if (url.origin !== window.location.origin) continue;
 
       const routePath = basePrefix ? url.pathname.slice(basePrefix.length) : url.pathname;
-      if (!/^\/docs\/[^/]+$/.test(routePath)) continue;
+      const isStaticRoute =
+        routePath === '/en' ||
+        /^\/docs\/[^/]+$/.test(routePath) ||
+        /^\/en\/docs\/[^/]+$/.test(routePath);
+      if (!isStaticRoute) continue;
 
       url.pathname = `${url.pathname}/`;
       anchor.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
@@ -130,11 +142,18 @@ async function normalizeStaticRouteLinks(page, base) {
 async function readRenderedMetadata(page) {
   return page.evaluate(() => ({
     name: document.documentElement.dataset.seoReady ?? '',
+    locale: document.documentElement.lang,
     title: document.title,
     description:
       document.head.querySelector('meta[name="description"]')?.getAttribute('content') ?? '',
     canonical: document.head.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? '',
     robots: document.head.querySelector('meta[name="robots"]')?.getAttribute('content') ?? '',
+    alternates: [...document.head.querySelectorAll('link[rel="alternate"][hreflang]')].map(
+      (link) => ({
+        hreflang: link.getAttribute('hreflang') ?? '',
+        href: link.getAttribute('href') ?? '',
+      }),
+    ),
   }));
 }
 
@@ -163,6 +182,7 @@ async function renderTask(context, origin, base, mode, task) {
 
     const metadata = await readRenderedMetadata(page);
     assert.equal(metadata.name, task.name, `${task.path} seo-ready 名称错误`);
+    assert.equal(metadata.locale, task.locale, `${task.path} lang 错误`);
     assert.equal(metadata.canonical, canonicalFor(task.path), `${task.path} canonical 错误`);
     assert.ok(metadata.title, `${task.path} title 为空`);
     assert.ok(metadata.description, `${task.path} description 为空`);
@@ -235,6 +255,40 @@ async function discoverCatalog(context, origin, base) {
   }
 }
 
+async function discoverEnglishPilot(context, origin, base) {
+  const page = await context.newPage();
+  page.setDefaultTimeout(PAGE_TIMEOUT_MS);
+  try {
+    const response = await page.goto(new URL(routeWithBase('/en', base), origin).toString(), {
+      waitUntil: 'networkidle',
+      timeout: PAGE_TIMEOUT_MS,
+    });
+    assert.equal(response?.status(), 200, `English Home preview HTTP ${response?.status()}`);
+    await waitForPageReady(page, { name: 'en-home' });
+
+    const links = await page.locator('a.item').evaluateAll((anchors) =>
+      anchors.map((anchor) => ({
+        pathname: new URL(anchor.href).pathname,
+        heading: anchor.querySelector('h3')?.textContent?.trim() ?? '',
+        cardDescription: anchor.querySelector('span')?.textContent?.trim() ?? '',
+      })),
+    );
+
+    assert.equal(links.length, 9, `English Home 应发现 9 个内容链接，实际 ${links.length}`);
+    const tasks = links.map((link) => {
+      const path = pathWithoutBase(link.pathname, base);
+      const slug = path.split('/').filter(Boolean).at(-1) ?? '';
+      assert.ok(path.startsWith('/en/docs/'), `English pilot 路径非法: ${path}`);
+      assert.ok(slug && link.heading && link.cardDescription, `English pilot 数据不完整: ${path}`);
+      return { name: `en-${slug}`, path, heading: link.heading, locale: 'en' };
+    });
+    assert.equal(new Set(tasks.map((task) => task.path)).size, 9, 'English pilot 路径存在重复');
+    return tasks;
+  } finally {
+    await page.close();
+  }
+}
+
 async function mapWithConcurrency(items, concurrency, worker) {
   const results = new Array(items.length);
   let cursor = 0;
@@ -271,15 +325,27 @@ async function main() {
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
 
-    const catalogTasks = await discoverCatalog(context, origin, base);
+    const catalogTasks = (await discoverCatalog(context, origin, base)).map((task) => ({
+      ...task,
+      locale: 'zh-CN',
+    }));
+    const englishTasks = await discoverEnglishPilot(context, origin, base);
     const tasks = [
-      { name: 'home', path: '/', heading: '数据结构和算法可视化' },
-      { name: 'complexity', path: '/docs/complexity', heading: '算法复杂度速查' },
-      { name: 'paths', path: '/docs/paths', heading: '算法学习路径' },
+      { name: 'home', path: '/', heading: '数据结构和算法可视化', locale: 'zh-CN' },
+      {
+        name: 'complexity',
+        path: '/docs/complexity',
+        heading: '算法复杂度速查',
+        locale: 'zh-CN',
+      },
+      { name: 'paths', path: '/docs/paths', heading: '算法学习路径', locale: 'zh-CN' },
       ...catalogTasks,
+      { name: 'en-home', path: '/en', heading: 'Algorithm Visualizer', locale: 'en' },
+      ...englishTasks,
     ];
-    assert.equal(tasks.length, 95);
-    assert.equal(new Set(tasks.map((task) => task.name)).size, 95, '预渲染 name 存在重复');
+    assert.equal(tasks.length, 105);
+    assert.equal(new Set(tasks.map((task) => task.name)).size, 105, '预渲染 name 存在重复');
+    assert.equal(new Set(tasks.map((task) => task.path)).size, 105, '预渲染 path 存在重复');
 
     const pages = await mapWithConcurrency(tasks, concurrency, (task) =>
       renderTask(context, origin, base, mode, task),

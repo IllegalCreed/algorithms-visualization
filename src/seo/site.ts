@@ -1,4 +1,11 @@
 import { useCategoryData } from '@/views/Home/Main/hooks';
+import {
+  ENGLISH_PILOT_PAGES,
+  ENGLISH_SITE_NAME,
+  PILOT_PAGE_PAIRS,
+  siteLocaleFromPath,
+  type SiteLocale,
+} from '@/i18n/pilot';
 
 export const SITE_ORIGIN = 'https://algo.illegalscreed.cn';
 export const SITE_NAME = '数据结构和算法可视化';
@@ -9,6 +16,14 @@ export const NO_INDEX_ROBOTS = 'noindex,nofollow';
 const DEFAULT_DESCRIPTION =
   '交互式数据结构与算法可视化：92 个算法逐步动画、四语言代码同步高亮、自定义输入、测验模式、复杂度速查与学习路径。';
 
+const ENGLISH_DEFAULT_DESCRIPTION =
+  'Interactive algorithm visualizations with step-by-step playback, synchronized code, complexity references, and guided learning paths.';
+
+export interface SeoAlternate {
+  hreflang: 'zh-CN' | 'en' | 'x-default';
+  href: string;
+}
+
 export interface SeoPage {
   name: string;
   path: string;
@@ -17,6 +32,8 @@ export interface SeoPage {
   description: string;
   canonical: string;
   category?: string;
+  locale: SiteLocale;
+  alternates: SeoAlternate[];
   indexable: boolean;
   robots: typeof INDEX_ROBOTS | typeof NO_INDEX_ROBOTS;
 }
@@ -31,10 +48,13 @@ function canonicalFor(path: string): string {
   return new URL(canonicalPath, `${SITE_ORIGIN}/`).toString();
 }
 
-function createIndexablePage(page: Omit<SeoPage, 'canonical' | 'indexable' | 'robots'>): SeoPage {
+function createIndexablePage(
+  page: Omit<SeoPage, 'canonical' | 'alternates' | 'indexable' | 'robots'>,
+): SeoPage {
   return {
     ...page,
     canonical: canonicalFor(page.path),
+    alternates: [],
     indexable: true,
     robots: INDEX_ROBOTS,
   };
@@ -47,6 +67,7 @@ const featurePages: SeoPage[] = [
     heading: SITE_NAME,
     title: `${SITE_NAME} | 92 个交互式学习条目`,
     description: DEFAULT_DESCRIPTION,
+    locale: 'zh-CN',
   }),
   createIndexablePage({
     name: 'complexity',
@@ -56,6 +77,7 @@ const featurePages: SeoPage[] = [
     description:
       '按九大类查找常见数据结构与算法的时间复杂度、空间复杂度和适用说明，并支持关键词与分类筛选。',
     category: '学习工具',
+    locale: 'zh-CN',
   }),
   createIndexablePage({
     name: 'paths',
@@ -64,6 +86,7 @@ const featurePages: SeoPage[] = [
     title: `算法学习路径 | ${SITE_NAME}`,
     description: '提供新手入门、面试高频、图论专线与进阶专题四条算法学习路径，按前置关系逐站学习。',
     category: '学习工具',
+    locale: 'zh-CN',
   }),
 ];
 
@@ -76,11 +99,47 @@ const catalogPages: SeoPage[] = useCategoryData().flatMap((category) =>
       title: `${item.title}可视化 | ${SITE_NAME}`,
       description: item.desc,
       category: category.title,
+      locale: 'zh-CN',
     }),
   ),
 );
 
-const indexablePages = Object.freeze([...featurePages, ...catalogPages]);
+const englishPages = ENGLISH_PILOT_PAGES.map((page) =>
+  createIndexablePage({
+    name: page.name,
+    path: page.path,
+    heading: page.heading,
+    title: page.title,
+    description: page.description,
+    category: page.category,
+    locale: 'en',
+  }),
+);
+
+const pagePairByName = new Map(
+  PILOT_PAGE_PAIRS.flatMap((pair) => [
+    [pair.zh.name, pair] as const,
+    [pair.en.name, pair] as const,
+  ]),
+);
+
+const indexablePages = Object.freeze(
+  [...featurePages, ...catalogPages, ...englishPages].map((page) => {
+    const pair = pagePairByName.get(page.name);
+    if (!pair) return page;
+
+    const zhCanonical = canonicalFor(pair.zh.path);
+    const enCanonical = canonicalFor(pair.en.path);
+    return {
+      ...page,
+      alternates: [
+        { hreflang: 'zh-CN', href: zhCanonical },
+        { hreflang: 'en', href: enCanonical },
+        { hreflang: 'x-default', href: zhCanonical },
+      ],
+    } satisfies SeoPage;
+  }),
+);
 const pagesByName = new Map(indexablePages.map((page) => [page.name, page] as const));
 
 export function getIndexablePages(): readonly SeoPage[] {
@@ -94,25 +153,30 @@ export function resolveSeoPage(routeName: unknown, routePath: string): SeoPage {
   if (page) return page;
 
   const path = routePath.split(/[?#]/, 1)[0] || '/';
+  const locale = siteLocaleFromPath(path);
+  const siteName = locale === 'en' ? ENGLISH_SITE_NAME : SITE_NAME;
   return {
     name,
     path,
-    heading: SITE_NAME,
-    title: `未收录页面 | ${SITE_NAME}`,
-    description: DEFAULT_DESCRIPTION,
+    heading: siteName,
+    title: locale === 'en' ? `Unlisted Page | ${siteName}` : `未收录页面 | ${siteName}`,
+    description: locale === 'en' ? ENGLISH_DEFAULT_DESCRIPTION : DEFAULT_DESCRIPTION,
     canonical: canonicalFor(path),
+    locale,
+    alternates: [],
     indexable: false,
     robots: NO_INDEX_ROBOTS,
   };
 }
 
 function breadcrumbItems(page: SeoPage): Array<Record<string, unknown>> {
+  const english = page.locale === 'en';
   const items: Array<Record<string, unknown>> = [
     {
       '@type': 'ListItem',
       position: 1,
-      name: '首页',
-      item: `${SITE_ORIGIN}/`,
+      name: english ? 'Home' : '首页',
+      item: english ? `${SITE_ORIGIN}/en/` : `${SITE_ORIGIN}/`,
     },
   ];
 
@@ -139,25 +203,30 @@ export function buildJsonLd(page: SeoPage): JsonLdDocument {
     return { '@context': 'https://schema.org', '@graph': [] };
   }
 
-  if (page.name === 'home') {
+  const english = page.locale === 'en';
+  const siteName = english ? ENGLISH_SITE_NAME : SITE_NAME;
+  const websiteUrl = english ? `${SITE_ORIGIN}/en/` : `${SITE_ORIGIN}/`;
+  const websiteId = `${websiteUrl}#website`;
+
+  if (page.name === 'home' || page.name === 'en-home') {
     return {
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'WebSite',
-          '@id': `${SITE_ORIGIN}/#website`,
-          name: SITE_NAME,
-          url: `${SITE_ORIGIN}/`,
+          '@id': websiteId,
+          name: siteName,
+          url: websiteUrl,
           description: page.description,
-          inLanguage: 'zh-CN',
+          inLanguage: page.locale,
         },
         {
           '@type': 'SoftwareApplication',
-          '@id': `${SITE_ORIGIN}/#application`,
-          name: SITE_NAME,
-          url: `${SITE_ORIGIN}/`,
+          '@id': `${websiteUrl}#application`,
+          name: siteName,
+          url: websiteUrl,
           description: page.description,
-          inLanguage: 'zh-CN',
+          inLanguage: page.locale,
           applicationCategory: 'EducationalApplication',
           operatingSystem: 'Web',
           isAccessibleForFree: true,
@@ -175,11 +244,11 @@ export function buildJsonLd(page: SeoPage): JsonLdDocument {
         name: page.heading,
         description: page.description,
         url: page.canonical,
-        inLanguage: 'zh-CN',
+        inLanguage: page.locale,
         learningResourceType: 'Interactive visualization',
         educationalUse: 'Self study',
         isAccessibleForFree: true,
-        isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+        isPartOf: { '@id': websiteId, name: siteName, url: websiteUrl },
         ...(page.category ? { about: page.category } : {}),
       },
       {

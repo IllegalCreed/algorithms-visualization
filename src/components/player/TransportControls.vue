@@ -1,16 +1,21 @@
 <!-- src/components/player/TransportControls.vue -->
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { SiteLocale } from '@/i18n/pilot';
 
-const props = defineProps<{
-  isPlaying: boolean;
-  atStart: boolean;
-  atEnd: boolean;
-  index: number;
-  total: number;
-  speed: number;
-  loop?: boolean; // C-111：循环开关（可选——旧用法零破坏）
-}>();
+const props = withDefaults(
+  defineProps<{
+    isPlaying: boolean;
+    atStart: boolean;
+    atEnd: boolean;
+    index: number;
+    total: number;
+    speed: number;
+    loop?: boolean; // C-111：循环开关（可选——旧用法零破坏）
+    locale?: SiteLocale;
+  }>(),
+  { locale: 'zh-CN' },
+);
 
 const emit = defineEmits<{
   play: [];
@@ -28,6 +33,35 @@ const SPEEDS = [0.5, 1, 2, 3];
 // 进度填充百分比（驱动滑块轨道的已播放着色）
 const fillPercent = computed(() => (props.total > 1 ? (props.index / (props.total - 1)) * 100 : 0));
 const progressLabel = computed(() => `${props.index + 1} / ${props.total}`);
+const labels = computed(() =>
+  props.locale === 'en'
+    ? {
+        reset: 'Reset',
+        previous: 'Previous step',
+        play: 'Play',
+        pause: 'Pause',
+        next: 'Next step',
+        speed: 'Playback speed',
+        loopOn: 'Disable loop',
+        loopOff: 'Loop after completion',
+        loopOnAria: 'Disable loop playback',
+        loopOffAria: 'Enable loop playback',
+        progress: 'Playback progress',
+      }
+    : {
+        reset: '重置',
+        previous: '上一步',
+        play: '播放',
+        pause: '暂停',
+        next: '下一步',
+        speed: '播放速度',
+        loopOn: '关闭循环',
+        loopOff: '播完循环',
+        loopOnAria: '关闭循环播放',
+        loopOffAria: '开启循环播放',
+        progress: '播放进度',
+      },
+);
 
 function onSeek(e: Event) {
   emit('seek', Number((e.target as HTMLInputElement).value));
@@ -38,7 +72,13 @@ function onSpeed(e: Event) {
 </script>
 <template>
   <div class="transport row center">
-    <button type="button" class="ctl" title="重置" aria-label="重置" @click="emit('reset')">
+    <button
+      type="button"
+      class="ctl"
+      :title="labels.reset"
+      :aria-label="labels.reset"
+      @click="emit('reset')"
+    >
       <svg
         class="icon"
         aria-hidden="true"
@@ -57,8 +97,8 @@ function onSpeed(e: Event) {
     <button
       type="button"
       class="ctl"
-      title="上一步"
-      aria-label="上一步"
+      :title="labels.previous"
+      :aria-label="labels.previous"
       :disabled="atStart"
       @click="emit('stepBack')"
     >
@@ -76,7 +116,7 @@ function onSpeed(e: Event) {
     <button
       type="button"
       class="ctl play"
-      :aria-label="isPlaying ? '暂停' : '播放'"
+      :aria-label="isPlaying ? labels.pause : labels.play"
       @click="isPlaying ? emit('pause') : emit('play')"
     >
       <svg
@@ -104,8 +144,8 @@ function onSpeed(e: Event) {
     <button
       type="button"
       class="ctl"
-      title="下一步"
-      aria-label="下一步"
+      :title="labels.next"
+      :aria-label="labels.next"
       :disabled="atEnd"
       @click="emit('stepForward')"
     >
@@ -120,15 +160,15 @@ function onSpeed(e: Event) {
         <rect x="16.4" y="5" width="2.6" height="14" rx="1.3" />
       </svg>
     </button>
-    <select class="speed" aria-label="播放速度" :value="speed" @change="onSpeed">
+    <select class="speed" :aria-label="labels.speed" :value="speed" @change="onSpeed">
       <option v-for="s in SPEEDS" :key="s" :value="s">{{ s }}×</option>
     </select>
     <button
       type="button"
       class="ctl ctl-loop"
       :class="{ 'ctl-active': props.loop }"
-      :title="props.loop ? '关闭循环' : '播完循环'"
-      :aria-label="props.loop ? '关闭循环播放' : '开启循环播放'"
+      :title="props.loop ? labels.loopOn : labels.loopOff"
+      :aria-label="props.loop ? labels.loopOnAria : labels.loopOffAria"
       :aria-pressed="props.loop ? 'true' : 'false'"
       @click="emit('toggleLoop')"
     >
@@ -155,7 +195,7 @@ function onSpeed(e: Event) {
       min="0"
       :max="Math.max(0, total - 1)"
       :value="index"
-      aria-label="播放进度"
+      :aria-label="labels.progress"
       :aria-valuetext="progressLabel"
       :style="{ '--fill': fillPercent + '%' }"
       @input="onSeek"

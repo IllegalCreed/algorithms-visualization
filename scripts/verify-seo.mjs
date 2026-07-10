@@ -5,6 +5,17 @@ import { JSDOM } from 'jsdom';
 
 const SITE_ORIGIN = 'https://algo.illegalscreed.cn';
 const DIST_DIR = resolve(process.cwd(), 'dist');
+const PILOT_SLUGS = new Set([
+  'complexity',
+  'paths',
+  'quick-sort',
+  'binary-search',
+  'dijkstra',
+  'knapsack',
+  'kmp',
+  'fenwick',
+  'convex-hull',
+]);
 
 function readArgument(name, fallback) {
   const index = process.argv.indexOf(`--${name}`);
@@ -20,6 +31,30 @@ function expectedBaseFor(mode) {
 function canonicalFor(path) {
   const canonicalPath = path === '/' ? '/' : `${path.replace(/\/+$/, '')}/`;
   return new URL(canonicalPath, `${SITE_ORIGIN}/`).toString();
+}
+
+function expectedAlternatesFor(path) {
+  let chinesePath;
+  let englishPath;
+
+  if (path === '/' || path === '/en') {
+    chinesePath = '/';
+    englishPath = '/en';
+  } else {
+    const chineseMatch = path.match(/^\/docs\/([^/]+)$/);
+    const englishMatch = path.match(/^\/en\/docs\/([^/]+)$/);
+    const slug = chineseMatch?.[1] ?? englishMatch?.[1];
+    if (!slug || !PILOT_SLUGS.has(slug)) return [];
+    chinesePath = `/docs/${slug}`;
+    englishPath = `/en/docs/${slug}`;
+  }
+
+  const chineseCanonical = canonicalFor(chinesePath);
+  return [
+    { hreflang: 'zh-CN', href: chineseCanonical },
+    { hreflang: 'en', href: canonicalFor(englishPath) },
+    { hreflang: 'x-default', href: chineseCanonical },
+  ];
 }
 
 async function readText(relativePath) {
@@ -60,7 +95,9 @@ function assertStaticRouteLinks(document, base, pagePath) {
 
     const url = new URL(href, 'https://preview.local');
     const routePath = basePrefix ? url.pathname.slice(basePrefix.length) : url.pathname;
-    if (!routePath.startsWith('/docs/')) continue;
+    const isIndexableRoute =
+      routePath === '/en' || routePath.startsWith('/docs/') || routePath.startsWith('/en/docs/');
+    if (!isIndexableRoute) continue;
 
     assert.ok(routePath.endsWith('/'), `${pagePath} 静态内链缺少尾斜杠: ${href}`);
   }
@@ -78,7 +115,7 @@ async function verifyPage(page, base) {
   const { document } = dom.window;
   const prefix = `${page.path} (${page.outputPath})`;
 
-  assert.equal(document.documentElement.lang, 'zh-CN', `${prefix} lang 错误`);
+  assert.equal(document.documentElement.lang, page.locale, `${prefix} lang 错误`);
   assert.equal(document.title, page.title, `${prefix} title 错误`);
   assert.equal(
     document.querySelector('meta[name="description"]')?.getAttribute('content'),
@@ -101,15 +138,33 @@ async function verifyPage(page, base) {
     `${prefix} og:url 错误`,
   );
   assert.equal(
+    document.querySelector('meta[property="og:locale"]')?.getAttribute('content'),
+    page.locale === 'en' ? 'en_US' : 'zh_CN',
+    `${prefix} og:locale 错误`,
+  );
+  assert.equal(
     document.querySelectorAll('link[rel="canonical"]').length,
     1,
     `${prefix} canonical 重复`,
   );
   assert.equal(document.querySelectorAll('#seo-json-ld').length, 1, `${prefix} JSON-LD 重复`);
+  const alternates = [...document.querySelectorAll('link[rel="alternate"][hreflang]')].map(
+    (link) => ({
+      hreflang: link.getAttribute('hreflang') ?? '',
+      href: link.getAttribute('href') ?? '',
+    }),
+  );
+  const expectedAlternates = expectedAlternatesFor(page.path);
+  assert.deepEqual(page.alternates, expectedAlternates, `${prefix} manifest alternate 错误`);
+  assert.deepEqual(alternates, expectedAlternates, `${prefix} HTML alternate 错误`);
+
   const appText = document.querySelector('#app')?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   assert.ok(appText.length >= 80, `${prefix} #app 正文过短，疑似空壳 (${appText.length})`);
+  if (page.locale === 'en') {
+    assert.doesNotMatch(appText, /[\u3400-\u9fff]/, `${prefix} 英文可见文本残留中文`);
+  }
 
-  if (page.name === 'home') {
+  if (page.name === 'home' || page.name === 'en-home') {
     assert.ok(document.querySelector('h1')?.textContent?.trim(), `${prefix} 缺少 h1`);
   } else {
     const article = document.querySelector('article');
@@ -123,7 +178,7 @@ async function verifyPage(page, base) {
 
   const jsonLdText = document.querySelector('#seo-json-ld')?.textContent ?? '';
   const types = graphTypes(JSON.parse(jsonLdText));
-  if (page.name === 'home') {
+  if (page.name === 'home' || page.name === 'en-home') {
     assert.deepEqual(types, ['WebSite', 'SoftwareApplication'], `${prefix} 首页 JSON-LD 类型错误`);
   } else {
     assert.deepEqual(
@@ -146,7 +201,22 @@ async function main() {
   assert.equal(manifest.base, expectedBase, 'manifest base 错误');
   assert.equal(manifest.origin, SITE_ORIGIN, 'manifest origin 错误');
   assert.ok(Array.isArray(manifest.pages), 'manifest pages 缺失');
-  assert.equal(manifest.pages.length, 95, 'manifest 必须包含 95 页');
+  assert.equal(manifest.pages.length, 105, 'manifest 必须包含 105 页');
+  assert.equal(
+    manifest.pages.filter((page) => page.locale === 'zh-CN').length,
+    95,
+    'manifest 必须包含 95 个中文页',
+  );
+  assert.equal(
+    manifest.pages.filter((page) => page.locale === 'en').length,
+    10,
+    'manifest 必须包含 10 个英文页',
+  );
+  assert.equal(
+    manifest.pages.filter((page) => page.alternates?.length === 3).length,
+    20,
+    'manifest 必须包含 20 个成对语言页',
+  );
 
   assertUnique(
     manifest.pages.map((page) => page.name),

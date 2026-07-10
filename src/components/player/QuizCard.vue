@@ -2,8 +2,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import type { QuizItem } from './types';
+import type { SiteLocale } from '@/i18n/pilot';
 
-const props = defineProps<{ quiz: QuizItem }>();
+const props = withDefaults(defineProps<{ quiz: QuizItem; locale?: SiteLocale }>(), {
+  locale: 'zh-CN',
+});
 const emit = defineEmits<{ answered: [correct: boolean]; resume: [] }>();
 
 const selected = ref<number | null>(null);
@@ -48,7 +51,7 @@ function optionClass(i: number): Record<string, boolean> {
       </button>
     </div>
     <button v-if="selected !== null" type="button" class="qc-resume" @click="emit('resume')">
-      继续播放 ▶
+      {{ props.locale === 'en' ? 'Continue' : '继续播放' }} ▶
     </button>
   </div>
 </template>

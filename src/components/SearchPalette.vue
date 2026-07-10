@@ -5,32 +5,77 @@ import { useRouter } from 'vue-router';
 import { buildSearchTokens, normalizeToken } from './searchIndex';
 import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
+import { ENGLISH_PILOT_PAGES } from '@/i18n/pilot';
+import { useSiteLocale } from '@/i18n/useSiteLocale';
 
 interface SearchEntry {
   title: string;
   desc: string;
   url: string;
   category: string;
+  path: string;
   tokens: string[];
 }
 
 const store = useSystemStore();
 const router = useRouter();
+const { isEnglish } = useSiteLocale();
 
 // 数据源复用首页九大类（title/desc/url 齐全），拍平一次
-const entries: SearchEntry[] = useCategoryData().flatMap((cat) =>
+const chineseEntries: SearchEntry[] = useCategoryData().flatMap((cat) =>
   cat.children.map((c) => {
     const entry = {
       title: c.title,
       desc: c.desc ?? '',
       url: c.url,
       category: cat.title,
+      path: `/docs/${c.url}`,
     };
     return {
       ...entry,
       tokens: buildSearchTokens(entry),
     };
   }),
+);
+
+const englishEntries: SearchEntry[] = ENGLISH_PILOT_PAGES.filter(
+  (page) => page.name !== 'en-home',
+).map((page) => {
+  const entry = {
+    title: page.heading,
+    desc: page.description,
+    url: page.name,
+    category: page.category ?? 'English Pilot',
+    path: page.path,
+  };
+  return { ...entry, tokens: buildSearchTokens(entry) };
+});
+
+const entries = computed(() => (isEnglish.value ? englishEntries : chineseEntries));
+const copy = computed(() =>
+  isEnglish.value
+    ? {
+        title: 'Search algorithms',
+        placeholder: 'Search algorithms by name, topic, or slug...',
+        hint: 'Type an algorithm name or topic, use Up/Down to choose, then press Enter',
+        complexity: 'Complexity reference - compare 7 pilot algorithms',
+        paths: 'Learning paths - follow three focused routes',
+        empty: (value: string) => `No algorithm matches "${value}"`,
+        results: 'Search results',
+        complexityPath: '/en/docs/complexity',
+        pathsPath: '/en/docs/paths',
+      }
+    : {
+        title: '搜索算法',
+        placeholder: '搜索算法：名称 / 关键词 / slug…',
+        hint: '输入算法名或关键词，↑↓ 选择，回车直达',
+        complexity: '⏱ 复杂度速查表——92 个算法一页看完',
+        paths: '🗺 学习路径——四条路线按顺序点下去',
+        empty: (value: string) => `没有匹配「${value}」的算法`,
+        results: '搜索结果',
+        complexityPath: '/docs/complexity',
+        pathsPath: '/docs/paths',
+      },
 );
 
 const query = ref('');
@@ -45,7 +90,7 @@ const results = computed<SearchEntry[]>(() => {
   const q = query.value.trim();
   if (!q) return [];
   const lower = normalizeToken(q);
-  return entries
+  return entries.value
     .filter((entry) => entry.tokens.some((token) => token.includes(lower)))
     .slice(0, 10);
 });
@@ -73,7 +118,7 @@ watch(query, () => {
 
 function go(e: SearchEntry): void {
   store.closeSearch();
-  router.push(`/docs/${e.url}`);
+  router.push(e.path);
 }
 
 function goTo(path: string): void {
@@ -118,7 +163,7 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
         aria-modal="true"
         aria-labelledby="search-palette-title"
       >
-        <h2 id="search-palette-title" class="sr-only">搜索算法</h2>
+        <h2 id="search-palette-title" class="sr-only">{{ copy.title }}</h2>
         <input
           ref="inputRef"
           v-model="query"
@@ -126,8 +171,8 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
           type="text"
           name="algorithm-search"
           role="combobox"
-          placeholder="搜索算法：名称 / 关键词 / slug…"
-          aria-label="搜索算法"
+          :placeholder="copy.placeholder"
+          :aria-label="copy.title"
           aria-autocomplete="list"
           :aria-expanded="results.length ? 'true' : 'false'"
           :aria-describedby="!query.trim() ? 'search-palette-hint' : undefined"
@@ -138,18 +183,18 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
           @keydown="onInputKeydown"
         />
         <template v-if="!query.trim()">
-          <p id="search-palette-hint" class="sp-hint">输入算法名或关键词，↑↓ 选择，回车直达</p>
-          <button type="button" class="sp-shortcut" @click="goTo('/docs/complexity')">
-            ⏱ 复杂度速查表——92 个算法一页看完
+          <p id="search-palette-hint" class="sp-hint">{{ copy.hint }}</p>
+          <button type="button" class="sp-shortcut" @click="goTo(copy.complexityPath)">
+            {{ copy.complexity }}
           </button>
-          <button type="button" class="sp-shortcut" @click="goTo('/docs/paths')">
-            🗺 学习路径——四条路线按顺序点下去
+          <button type="button" class="sp-shortcut" @click="goTo(copy.pathsPath)">
+            {{ copy.paths }}
           </button>
         </template>
         <p v-else-if="results.length === 0" class="sp-empty" role="status" aria-live="polite">
-          没有匹配「{{ query }}」的算法
+          {{ copy.empty(query) }}
         </p>
-        <ul v-else id="search-results" class="sp-results" role="listbox" aria-label="搜索结果">
+        <ul v-else id="search-results" class="sp-results" role="listbox" :aria-label="copy.results">
           <li v-for="(r, i) in results" :key="r.url" class="sp-result" role="presentation">
             <button
               :id="searchOptionId(r.url)"

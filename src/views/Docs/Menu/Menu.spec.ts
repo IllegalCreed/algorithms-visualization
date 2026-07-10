@@ -7,12 +7,13 @@ import Menu from './Menu.vue';
 // 同时覆盖 useMenuSelect（provide + onBeforeRouteUpdate）
 
 const mockRouteName = ref<string>('array');
+const mockRoutePath = ref<string>('/docs/array');
 
 // 捕获 onBeforeRouteUpdate 注册的回调，用于 I-3 测试
 let capturedBeforeRouteUpdateCallback: ((to: { name: string }) => void) | null = null;
 
 vi.mock('vue-router', () => ({
-  useRoute: () => ({ name: mockRouteName.value }),
+  useRoute: () => ({ name: mockRouteName.value, path: mockRoutePath.value, query: {} }),
   onBeforeRouteUpdate: vi.fn((cb) => {
     capturedBeforeRouteUpdateCallback = cb;
   }),
@@ -29,6 +30,8 @@ const mountIt = () => mount(Menu, { global: { stubs: { RouterLink: RouterLinkStu
 describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
   beforeEach(() => {
     capturedBeforeRouteUpdateCallback = null;
+    mockRouteName.value = 'array';
+    mockRoutePath.value = '/docs/array';
   });
 
   it('TC-VIEW-MENU-01: 挂载成功，渲染 #menu 根元素', () => {
@@ -94,5 +97,18 @@ describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
     const pressedItems = w.findAll('.item-pressed');
     expect(pressedItems.length).toBe(1);
     expect(pressedItems[0].text()).toBe('链表');
+  });
+
+  it('TC-I18N-UI-126-03A: 英文 Docs 菜单只渲染 9 个试点内容页并高亮当前项', () => {
+    mockRouteName.value = 'en-quick-sort';
+    mockRoutePath.value = '/en/docs/quick-sort';
+    const w = mountIt();
+
+    expect(w.findAll('.item')).toHaveLength(9);
+    expect(w.text()).toContain('Learning Tools');
+    expect(w.text()).toContain('Quick Sort');
+    expect(w.text()).toContain('Convex Hull');
+    expect(w.text()).not.toContain('冒泡排序');
+    expect(w.find('.item-pressed').text()).toBe('Quick Sort');
   });
 });

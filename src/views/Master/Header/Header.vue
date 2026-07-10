@@ -1,27 +1,62 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useIconLink } from './hooks';
 import { useSystemStore } from '@/store/modules/system';
 import IconLinkComp from './IconLink/IconLink.vue';
+import { useSiteLocale } from '@/i18n/useSiteLocale';
 
 const systemStore = useSystemStore();
 
 const iconLinkData = useIconLink();
+const { isEnglish, homeRoute, chineseRoute, englishRoute } = useSiteLocale();
+const copy = computed(() =>
+  isEnglish.value
+    ? {
+        siteName: 'Algorithm Visualizer',
+        home: 'Home',
+        search: 'Search algorithms (Cmd+K / Ctrl+K)',
+        language: 'Choose language',
+      }
+    : {
+        siteName: '算法可视化',
+        home: '首页',
+        search: '搜索算法（⌘K / Ctrl+K）',
+        language: '选择语言',
+      },
+);
 </script>
 
 <template>
   <div id="header" :class="[systemStore.isShowHeaderShadow ? 'neumorphism-bottom-shadow' : null]">
     <div id="main">
-      <RouterLink id="logo" title="首页" aria-label="首页" :to="{ name: 'home' }">
+      <RouterLink id="logo" :title="copy.home" :aria-label="copy.home" :to="homeRoute">
         <span>V</span>
       </RouterLink>
-      <h1>算法可视化</h1>
+      <h1>{{ copy.siteName }}</h1>
       <div class="blank"></div>
+
+      <nav class="language-switch" :aria-label="copy.language">
+        <RouterLink
+          class="locale-option"
+          :class="{ active: !isEnglish }"
+          :aria-current="!isEnglish ? 'page' : undefined"
+          :to="chineseRoute"
+          >ZH</RouterLink
+        >
+        <RouterLink
+          class="locale-option"
+          :class="{ active: isEnglish }"
+          :aria-current="isEnglish ? 'page' : undefined"
+          :to="englishRoute"
+          >EN</RouterLink
+        >
+      </nav>
 
       <button
         type="button"
         class="search-btn"
-        title="搜索算法（⌘K / Ctrl+K）"
-        aria-label="搜索算法（⌘K / Ctrl+K）"
+        :title="copy.search"
+        :aria-label="copy.search"
         @click="systemStore.openSearch()"
       >
         <svg
@@ -78,7 +113,8 @@ const iconLinkData = useIconLink();
 
     h1 {
       font-size: 30px;
-      margin-left: 50px;
+      margin-left: 40px;
+      white-space: nowrap;
     }
 
     .icon-link:not(:last-child) {
@@ -91,7 +127,7 @@ const iconLinkData = useIconLink();
       gap: 8px;
       height: 40px;
       padding: 0 14px;
-      margin-right: 30px;
+      margin-right: 24px;
       border: none;
       cursor: pointer;
       color: @font-color;
@@ -105,6 +141,30 @@ const iconLinkData = useIconLink();
         font-size: 12px;
         font-weight: bold;
         color: #8a978f;
+      }
+    }
+
+    .language-switch {
+      display: flex;
+      align-items: center;
+      height: 36px;
+      margin-right: 24px;
+      padding: 3px;
+      .neumorphism-concave(2px, 8px);
+
+      .locale-option {
+        width: 38px;
+        height: 30px;
+        color: #6b7d72;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+        .center();
+      }
+
+      .locale-option.active {
+        color: #1f5e3a;
+        .neumorphism-pressed(2px, 6px);
       }
     }
   }

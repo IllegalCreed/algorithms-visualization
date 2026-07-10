@@ -2,15 +2,24 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { StackTrack } from '@/components/player/types';
+import type { SiteLocale } from '@/i18n/pilot';
 
-const props = defineProps<{ stack: StackTrack }>();
+const props = withDefaults(defineProps<{ stack: StackTrack; locale?: SiteLocale }>(), {
+  locale: 'zh-CN',
+});
 
 // 逆序：栈顶（frames 末元素）排在最上面、最显眼
 const orderedFrames = computed(() => props.stack.frames.slice().reverse());
 </script>
 <template>
   <div class="stack-view column center">
-    <div class="stack-label">区间栈 · 每格 = 一段待排序子数组 a[lo..hi]（栈顶先弹出分区）</div>
+    <div class="stack-label">
+      {{
+        props.locale === 'en'
+          ? 'Interval stack: each frame is a pending subarray a[lo..hi]'
+          : '区间栈 · 每格 = 一段待排序子数组 a[lo..hi]（栈顶先弹出分区）'
+      }}
+    </div>
     <TransitionGroup name="stack" tag="div" class="stack-frames column center">
       <div
         v-for="(f, idx) in orderedFrames"
@@ -21,7 +30,7 @@ const orderedFrames = computed(() => props.stack.frames.slice().reverse());
         a[{{ f.lo }}..{{ f.hi }}]
       </div>
       <div v-if="orderedFrames.length === 0" key="__empty__" class="stack-empty center">
-        栈空 → 全部就位
+        {{ props.locale === 'en' ? 'Stack empty: every position is final' : '栈空 → 全部就位' }}
       </div>
     </TransitionGroup>
   </div>

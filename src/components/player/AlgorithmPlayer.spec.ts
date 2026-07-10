@@ -27,6 +27,7 @@ import HullView from '@/components/HullView.vue';
 import NetworkView from '@/components/NetworkView.vue';
 import BarsView from '@/components/BarsView.vue';
 import type { AlgorithmModule, Step } from './types';
+import { englishKmpModule, englishQuickSortModule } from '@/i18n/englishAlgorithmModules';
 
 vi.mock('./useHighlighter', () => ({
   highlightToLines: vi.fn(async (code: string) => code.split('\n').map((l) => [{ content: l }])),
@@ -1005,6 +1006,42 @@ describe('AlgorithmPlayer', () => {
       await flushPromises();
       expect(w2.find('.quiz-score').exists()).toBe(false);
     });
+  });
+
+  it('TC-I18N-UI-126-04: 英文播放器覆盖输入、错误、控制、题卡与 KMP 状态', async () => {
+    const w = mount(AlgorithmPlayer, {
+      props: { module: englishQuickSortModule, locale: 'en' },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+
+    expect(w.find('.ib-label').text()).toBe('Input');
+    expect(w.find('.ib-apply').text()).toBe('Apply');
+    expect(w.find('.ib-restore').text()).toBe('Restore');
+    expect(w.find('.stack-label').text()).toContain('Interval stack');
+    expect(w.find('.ctl').attributes('title')).toBe('Reset');
+    expect(w.find('.ctl[title="Next step"]').exists()).toBe(true);
+
+    await w.find('.ib-text').setValue('oops');
+    await w.find('.ib-apply').trigger('click');
+    expect(w.find('.ib-error').text()).toContain('not a number');
+
+    await w.find('.ib-text').setValue('9, 5, 1');
+    await w.find('.ib-apply').trigger('click');
+    await w.find('.ctl[title="Next step"]').trigger('click');
+    expect(w.find('.quiz-card').exists()).toBe(true);
+    await w.findAll('.qc-option')[0].trigger('click');
+    expect(w.find('.qc-resume').text()).toContain('Continue');
+    w.unmount();
+
+    const kmpWrapper = mount(AlgorithmPlayer, {
+      props: { module: englishKmpModule, locale: 'en' },
+      global: { plugins: [createPinia()] },
+    });
+    await flushPromises();
+    await kmpWrapper.find('.ctl[title="Next step"]').trigger('click');
+    expect(kmpWrapper.find('.kmp-status').text()).toContain('Match');
+    kmpWrapper.unmount();
   });
 
   // ===== C-111 M10-P2 键盘快捷键 =====
