@@ -1,11 +1,51 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-06-26
+> Last reviewed: 2026-07-10
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供模块视角，便于按功能域评审覆盖度。
+
+---
+
+## 2026-07-09 配置/CI 增量（C-20260709-121）
+
+| 模块            | Case ID            | 标题                                          | 层级  | 自动化路径                     |
+| --------------- | ------------------ | --------------------------------------------- | ----- | ------------------------------ |
+| infra / ci      | TC-CI-UNIT-121     | Pages build job 在 build 前运行单元/组件测试  | CI    | `.github/workflows/deploy.yml` |
+| infra / format  | TC-FORMAT-SCOPE-1  | `format:check` 覆盖项目源码、文档、e2e 与配置 | cfg   | `package.json`                 |
+| infra / routing | TC-404-FALLBACK-1  | 保留 `pathSegmentsToKeep = 1` 与 SPA fallback | cfg   | `404.html`                     |
+| infra / gates   | TC-GATE-FORMAT-121 | 项目格式门禁通过                              | cfg   | `pnpm format:check`            |
+| infra / gates   | TC-GATE-UNIT-121   | 全量 Vitest 单元/组件测试通过                 | L3/L4 | `pnpm test:unit:run`           |
+
+---
+
+## 2026-07-09 本地门禁增量（C-20260709-122）
+
+| 模块          | Case ID          | 标题                             | 层级  | 自动化路径           |
+| ------------- | ---------------- | -------------------------------- | ----- | -------------------- |
+| infra / gates | TC-VERIFY-122-01 | 存在 `test:unit:run` 与 `verify` | cfg   | `package.json`       |
+| infra / gates | TC-VERIFY-122-02 | 本地一键门禁按 CI 同款顺序通过   | cfg   | `pnpm verify`        |
+| infra / gates | TC-VERIFY-122-03 | 全量 Vitest 单元/组件测试通过    | L3/L4 | `pnpm test:unit:run` |
+
+---
+
+## 2026-07-09 维护增量（C-20260709-119）
+
+| 模块              | Case ID              | 标题                                            | 层级 | 自动化路径                                        |
+| ----------------- | -------------------- | ----------------------------------------------- | ---- | ------------------------------------------------- |
+| router / catalog  | TC-ROUTER-CATALOG-01 | 首页与侧边菜单 slug 集合完全一致                | L3   | `src/router/index.spec.ts`                        |
+| router / catalog  | TC-ROUTER-CATALOG-02 | 每个首页/菜单 slug 都有同名 `/docs/{slug}` 路由 | L3   | `src/router/index.spec.ts`                        |
+| search / palette  | TC-VIZ-SEARCH-09     | 英文名、别名、拼音首字母均能命中对应算法        | L4   | `src/components/SearchPalette.spec.ts`            |
+| search / palette  | TC-VIZ-SEARCH-10     | 搜索面板具备 dialog、输入框、结果列表语义       | L4   | `src/components/SearchPalette.spec.ts`            |
+| search / index    | TC-VIZ-SEARCH-11     | 92 个条目与 9 个分类均有完整拼音首字母映射      | L3   | `src/components/SearchPalette.spec.ts`            |
+| search / index    | TC-VIZ-SEARCH-12     | 多音字按算法标题语境生成正确首字母              | L3   | `src/components/SearchPalette.spec.ts`            |
+| player / controls | TC-CTRL-A11Y-01      | 控制条关键控件均有可访问名称                    | L4   | `src/components/player/TransportControls.spec.ts` |
+| player / controls | TC-CTRL-A11Y-02      | 播放中主按钮可访问名称切换为“暂停”              | L4   | `src/components/player/TransportControls.spec.ts` |
+| player / input    | TC-VIZ-INPUTBAR-05   | 输入框 label 与错误提示通过 aria 正确关联       | L4   | `src/components/player/InputBar.spec.ts`          |
+| player / input    | TC-VIZ-INPUTBAR-06   | 多个输入条同屏时 id 不重复                      | L4   | `src/components/player/InputBar.spec.ts`          |
+| viz-engine / List | TC-VIZ-LIST-03       | 全等数值 percent 为 0.5，不产生 NaN             | L4   | `src/components/List.spec.ts`                     |
 
 ---
 

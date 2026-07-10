@@ -1,11 +1,47 @@
 # 测试用例分层视图
 
 > Status: active
-> Last reviewed: 2026-06-26
+> Last reviewed: 2026-07-10
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
+
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例；历史分层总数未做全量重算。
+
+## 2026-07-09 配置/CI 增量（C-20260709-121）
+
+| 层级  | Case ID            | 标题                                          | 自动化路径                     |
+| ----- | ------------------ | --------------------------------------------- | ------------------------------ |
+| CI    | TC-CI-UNIT-121     | Pages build job 在 build 前运行单元/组件测试  | `.github/workflows/deploy.yml` |
+| cfg   | TC-FORMAT-SCOPE-1  | `format:check` 覆盖项目源码、文档、e2e 与配置 | `package.json`                 |
+| cfg   | TC-404-FALLBACK-1  | 保留 `pathSegmentsToKeep = 1` 与 SPA fallback | `404.html`                     |
+| cfg   | TC-GATE-FORMAT-121 | 项目格式门禁通过                              | `pnpm format:check`            |
+| L3/L4 | TC-GATE-UNIT-121   | 全量 Vitest 单元/组件测试通过                 | `pnpm test:unit:run`           |
+
+## 2026-07-09 本地门禁增量（C-20260709-122）
+
+| 层级  | Case ID          | 标题                             | 自动化路径           |
+| ----- | ---------------- | -------------------------------- | -------------------- |
+| cfg   | TC-VERIFY-122-01 | 存在 `test:unit:run` 与 `verify` | `package.json`       |
+| cfg   | TC-VERIFY-122-02 | 本地一键门禁按 CI 同款顺序通过   | `pnpm verify`        |
+| L3/L4 | TC-VERIFY-122-03 | 全量 Vitest 单元/组件测试通过    | `pnpm test:unit:run` |
+
+## 2026-07-09 维护增量（C-20260709-119）
+
+| 层级 | Case ID              | 标题                                            | 自动化路径                                        |
+| ---- | -------------------- | ----------------------------------------------- | ------------------------------------------------- |
+| L3   | TC-ROUTER-CATALOG-01 | 首页与侧边菜单 slug 集合完全一致                | `src/router/index.spec.ts`                        |
+| L3   | TC-ROUTER-CATALOG-02 | 每个首页/菜单 slug 都有同名 `/docs/{slug}` 路由 | `src/router/index.spec.ts`                        |
+| L4   | TC-VIZ-SEARCH-09     | 英文名、别名、拼音首字母均能命中对应算法        | `src/components/SearchPalette.spec.ts`            |
+| L4   | TC-VIZ-SEARCH-10     | 搜索面板具备 dialog、输入框、结果列表语义       | `src/components/SearchPalette.spec.ts`            |
+| L3   | TC-VIZ-SEARCH-11     | 92 个条目与 9 个分类均有完整拼音首字母映射      | `src/components/SearchPalette.spec.ts`            |
+| L3   | TC-VIZ-SEARCH-12     | 多音字按算法标题语境生成正确首字母              | `src/components/SearchPalette.spec.ts`            |
+| L4   | TC-CTRL-A11Y-01      | 控制条关键控件均有可访问名称                    | `src/components/player/TransportControls.spec.ts` |
+| L4   | TC-CTRL-A11Y-02      | 播放中主按钮可访问名称切换为“暂停”              | `src/components/player/TransportControls.spec.ts` |
+| L4   | TC-VIZ-INPUTBAR-05   | 输入框 label 与错误提示通过 aria 正确关联       | `src/components/player/InputBar.spec.ts`          |
+| L4   | TC-VIZ-INPUTBAR-06   | 多个输入条同屏时 id 不重复                      | `src/components/player/InputBar.spec.ts`          |
+| L4   | TC-VIZ-LIST-03       | 全等数值 percent 为 0.5，不产生 NaN             | `src/components/List.spec.ts`                     |
 
 ## L3 — 前端单元（Vitest，不 mount）
 
@@ -1677,7 +1713,7 @@
 
 ## L4 — 前端组件（Vitest + @vue/test-utils，mount）
 
-共 **642** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
+共 **643** 个用例（不含 8+8 个已 superseded 的 `TC-VIZ-DIJKSTRAVIZ-*` / `TC-VIZ-KRUSKALVIZ-*`）。运行命令：`pnpm test:unit`
 
 ### viz-engine（可视化引擎基础组件）
 
@@ -2998,13 +3034,13 @@
 
 ---
 
-## 覆盖率（L3+L4，2026-06-25）
+## 覆盖率（L3+L4，2026-07-09）
 
 | 指标   | 实际值 | 阈值 | 状态 |
 | ------ | ------ | ---- | ---- |
-| Stmts  | 92.47% | 70%  | 达标 |
-| Branch | 89.86% | 60%  | 达标 |
-| Funcs  | 92.80% | 70%  | 达标 |
-| Lines  | 93.53% | 70%  | 达标 |
+| Stmts  | 96.36% | 70%  | 达标 |
+| Branch | 95.68% | 60%  | 达标 |
+| Funcs  | 94.85% | 70%  | 达标 |
+| Lines  | 96.84% | 70%  | 达标 |
 
 > 注：`HeapViz.vue` 单文件偏低（行 ~68% / 分支 ~56%）——未覆盖为 setTimeout 驱动的上浮/下沉**分步动画循环体**（`useHeap` 堆逻辑本身 L3 100% 覆盖、分步动画由 `TC-E2E-HEAPDS-01` 真机覆盖）；聚合门槛达标。

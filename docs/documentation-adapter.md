@@ -29,19 +29,19 @@
 | L4 前端组件 | Vitest + @vue/test-utils，mount | **适用**：`src/components` 可视化组件、各 `*.vue` 视图的渲染与交互       |
 | L5 端到端   | Playwright / Cypress            | **适用**：Playwright，覆盖跨页面导航、播放器流程、站点质量与重点页面冒烟 |
 
-| 占位项            | 本项目取值                                                                                                                                      |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| 测试环境          | 纯前端，无测试 DB / 缓存 / profile；无需环境隔离                                                                                                |
-| 目录约定          | L3/L4 用 Vitest，测试文件置于 `src/**/*.spec.ts`；L5 用 Playwright，测试文件置于 `e2e/*.e2e.ts`                                                 |
-| 跑测命令          | `pnpm test:unit run`（Vitest 单次）；`pnpm coverage`（覆盖率）；`pnpm exec playwright test`（L5 端到端）                                        |
-| 安全类清单        | 本项目无认证 / 鉴权 / 金额 / 权限等安全敏感代码 → 安全类清单为空；如未来引入需在此登记                                                          |
-| 覆盖率门槛        | Vitest 已配置全局阈值（lines/statements/functions 70%，branches 60%）；复杂变更按通用规范在 plan 中声明更高门槛                                 |
-| 测试库重置与 seed | 不适用（无后端 / DB）                                                                                                                           |
-| 外部依赖          | 无运行时外部依赖，无需 mock                                                                                                                     |
-| CI 集成           | GitHub Pages workflow 当前卡 `lint:check` + `format:check` + `type-check` + `build-only`；本地交付门禁按变更风险补跑 Vitest/coverage/Playwright |
+| 占位项            | 本项目取值                                                                                                                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 测试环境          | 纯前端，无测试 DB / 缓存 / profile；无需环境隔离                                                                                                                                |
+| 目录约定          | L3/L4 用 Vitest，测试文件置于 `src/**/*.spec.ts`；L5 用 Playwright，测试文件置于 `e2e/*.e2e.ts`                                                                                 |
+| 跑测命令          | `pnpm verify`（本地复现 Pages build job 门禁）；`pnpm test:unit:run` / `pnpm test:unit run`（Vitest 单次）；`pnpm coverage`（覆盖率）；`pnpm exec playwright test`（L5 端到端） |
+| 安全类清单        | 本项目无认证 / 鉴权 / 金额 / 权限等安全敏感代码 → 安全类清单为空；如未来引入需在此登记                                                                                          |
+| 覆盖率门槛        | Vitest 已配置全局阈值（lines/statements/functions 70%，branches 60%）；复杂变更按通用规范在 plan 中声明更高门槛                                                                 |
+| 测试库重置与 seed | 不适用（无后端 / DB）                                                                                                                                                           |
+| 外部依赖          | 无运行时外部依赖，无需 mock                                                                                                                                                     |
+| CI 集成           | GitHub Pages workflow 当前卡 `lint:check` + `format:check` + `type-check` + `test:unit:run` + `build-only`；本地交付门禁按变更风险补跑 coverage/Playwright                      |
 
 ## 3. 当前缺口（如实披露）
 
 - L1/L2 永久不适用，除非未来引入后端服务。
-- Playwright L5 已落地，但未纳入当前 GitHub Pages workflow；需要发版或高风险改动时按 plan 记录本地/手动运行结果。
+- Playwright L5 与覆盖率门槛已落地，但未纳入当前 GitHub Pages workflow；需要发版或高风险改动时按 plan 记录本地/手动运行结果。
 - 早期概览、路线图或 plan 索引中可能残留阶段性旧事实；若与源码、测试、`docs/plans/completion-backlog.md` 冲突，以后者为准并及时小步校正。

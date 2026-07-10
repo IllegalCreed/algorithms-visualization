@@ -34,12 +34,13 @@ Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 *
 - `pnpm build-only` —— 先 `vite build`，再把 `404.html` 复制进 `dist/`（GitHub Pages SPA 路由所必需，见下文）
 - `pnpm type-check` —— `vue-tsc --build --force`
 - `pnpm lint` —— `eslint . --fix`；CI 用只读的 `pnpm lint:check`
-- `pnpm format` —— `prettier --write src/`；CI 用只读的 `pnpm format:check`
+- `pnpm format` —— Prettier 写入项目源码、文档、e2e、public、workflow 与根部配置/HTML/MD/JSON/TS；CI 用只读的 `pnpm format:check`
 - `pnpm preview` —— 预览已构建的 `dist/`
-- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-09 本地现状：277 个测试文件 / 2012 个 L3/L4 用例全绿。
+- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-10 本地现状：278 个测试文件 / 2023 个 L3/L4 用例全绿。
 - `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-09 本地文件数 102 个）。
+- `pnpm verify` —— 本地复现 Pages build job 门禁：`format:check` → `lint:check` → `type-check` → `test:unit:run` → `build-only`；不含 coverage/e2e。
 
-**门禁：** ESLint 10（flat config，`eslint.config.ts`，用 `eslint-plugin-vue` + `@vue/eslint-config-typescript`）+ Prettier（`.prettierrc.json`，`skip-formatting` 让两者不冲突）。`vue/multi-word-component-names` 已关闭（项目单字组件名惯例）。pre-commit 由 husky（`.husky/pre-commit`）+ lint-staged 触发，对暂存的 `*.{ts,vue}` 跑 `eslint --fix`、对更多类型跑 `prettier --write`。CI（`deploy.yml`）在构建前卡 `lint:check` + `format:check` + `type-check`。
+**门禁：** ESLint 10（flat config，`eslint.config.ts`，用 `eslint-plugin-vue` + `@vue/eslint-config-typescript`）+ Prettier（`.prettierrc.json`，`skip-formatting` 让两者不冲突）。`vue/multi-word-component-names` 已关闭（项目单字组件名惯例）。pre-commit 由 husky（`.husky/pre-commit`）+ lint-staged 触发，对暂存的 `*.{ts,vue}` 跑 `eslint --fix`、对更多类型跑 `prettier --write`。CI（`deploy.yml`）在构建前卡 `lint:check` + `format:check` + `type-check` + `test:unit:run`。
 
 ## 单看一个文件不易察觉的约定
 
@@ -86,13 +87,13 @@ Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 *
 
 **新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 277 个 L3/L4 测试文件、2012 个用例本地全绿，L5 Playwright 目录有 102 个 e2e 文件。`docs/plans/completion-backlog.md` 标记 M9-M12 全清单完成，项目进入 1.0 封版后的营销执行与维护期。
+当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 278 个 L3/L4 测试文件、2023 个用例本地全绿，L5 Playwright 目录有 102 个 e2e 文件。`docs/plans/completion-backlog.md` 标记 M9-M12 全清单完成，项目进入 1.0 封版后的营销执行与维护期。
 
 ## 部署（双轨，两步都要做）
 
 线上有**两个独立部署**，发版必须两步做全，否则自有域名滞后旧版：
 
-1. **GitHub Pages**（`/algorithms-visualization/` 子路径）：`git push` 到 `main` 后 `.github/workflows/deploy.yml` **自动**部署——`pnpm install --frozen-lockfile` → 门禁（`lint:check` + `format:check` + `type-check`）→ `pnpm build-only`（base=`/algorithms-visualization/`）→ 上传 `dist/` → Pages（Node 22 + `pnpm/action-setup`）。
+1. **GitHub Pages**（`/algorithms-visualization/` 子路径）：`git push` 到 `main` 后 `.github/workflows/deploy.yml` **自动**部署——`pnpm install --frozen-lockfile` → 门禁（`lint:check` + `format:check` + `type-check` + `test:unit:run`）→ `pnpm build-only`（base=`/algorithms-visualization/`）→ 上传 `dist/` → Pages（Node 22 + `pnpm/action-setup`）。
 2. **自有域名 algo.illegalscreed.cn**（自有域，用户主用）：本地**手动**跑 `./scripts/deploy.sh`（selfhost 构建 base=`/` → tar → scp → 远程原子切换，旧版备份 `/var/www/algorithms/dist.old`）。**deploy.yml 不碰这台服务器。**
 
 发版验证：两个域名各 `curl` 一下目标页 200，且 Pages 部署 SHA = HEAD；不要只看一个域名就下结论（C-007 只 push、自有域滞留旧版，因新路由未上线表现为「跳转静默失败」，排查绕弯）。
@@ -112,5 +113,5 @@ sleep 8; gh run rerun <失败runId> --failed   # build 已绿，只重跑 Deploy
 ## 仓库工作流与变更交付流程
 
 - **单人仓库：直接在 `main` 提交开发，不开 feature 分支 / PR。** 提交时机仍遵循「用户明确要求时才提交」。只 `git add` 本次变更自己的文件（不用 `-A`）；提交前三查（`git fetch` + `rev-list --count` 确认与 origin/main 同步）。
-- **每个变更（复杂/新页）走固定 7 步**：① 简述设计要点（让用户能随时拦）→ ② 建 `docs/plans/YYYYMMDD-cNNN-<name>/` 四文档 + 注册 `docs/plans/index.md`(3 表) → ③ TDD 先红后绿，按层推进（T0 可视化轨 + 播放器接线 / T1 module+oracle+sources / T2 页+接线+改 TC-HOOK）→ ④ 全门禁（`format` 后 `format:check`/`lint:check`/`type-check`/`test:unit run --coverage`/`playwright test`）+ 真机自检 → ⑤ 回写（四档翻 `verified` + 自测报告、`roadmap.md`、三索引 `docs/test-cases/{index,by-layer,by-module}.md`、双向链接）→ ⑥ 两提交（feat + docs，中文 msg，直接 main）→ ⑦ 双轨部署 + 验证。
+- **每个变更（复杂/新页）走固定 7 步**：① 简述设计要点（让用户能随时拦）→ ② 建 `docs/plans/YYYYMMDD-cNNN-<name>/` 四文档 + 注册 `docs/plans/index.md`(3 表) → ③ TDD 先红后绿，按层推进（T0 可视化轨 + 播放器接线 / T1 module+oracle+sources / T2 页+接线+改 TC-HOOK）→ ④ 全门禁（`format` 后 `pnpm verify` + `pnpm coverage` + `pnpm exec playwright test`）+ 真机自检 → ⑤ 回写（四档翻 `verified` + 自测报告、`roadmap.md`、三索引 `docs/test-cases/{index,by-layer,by-module}.md`、双向链接）→ ⑥ 两提交（feat + docs，中文 msg，直接 main）→ ⑦ 双轨部署 + 验证。
 - 提交信息 footer 用户会指定协作者署名行（历史为 `Co-Authored-By: Codex ... <noreply@anthropic.com>`）。
