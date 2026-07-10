@@ -9,6 +9,20 @@
 
 ---
 
+## 2026-07-10 SEO/GEO 增量（C-20260710-124）
+
+| 模块                     | Case ID                     | 标题                                                   | 层级  | 自动化路径                                                  |
+| ------------------------ | --------------------------- | ------------------------------------------------------ | ----- | ----------------------------------------------------------- |
+| seo / registry           | TC-SEO-PAGES-124-01..03     | 95 页 registry、router/catalog 对齐、canonical/noindex | L3    | `src/seo/site.spec.ts`                                      |
+| geo / json-ld            | TC-GEO-JSONLD-124-01..03    | 首页/内容页 JSON-LD 与声明边界                         | L3    | `src/seo/site.spec.ts`                                      |
+| seo / route-head         | TC-SEO-HEAD-124-01..03      | 首次 head、SPA 更新与 noindex fallback                 | L4    | `src/seo/useRouteSeo.spec.ts`                               |
+| seo / robots             | TC-SEO-ROBOTS-124-01        | 搜索发现、训练抓取与通用 crawler 策略                  | cfg   | `src/seo/site.spec.ts`                                      |
+| seo / prerender-artifact | TC-SEO-PRERENDER-124-01..05 | 95 静态入口、语义、sitemap/llms 与双 base              | build | `scripts/prerender.mjs` + `scripts/verify-seo.mjs`          |
+| seo / browser            | TC-E2E-SEO-124-01..03       | 直接深链、SPA 导航与 query canonical                   | L5    | `e2e/seo.e2e.ts`                                            |
+| marketing / plan history | TC-DOC-SEO-124-01           | C034/C123/C124 历史替代关系                            | docs  | `docs/plans/20260710-c124-seo-geo-foundation/test-cases.md` |
+
+---
+
 ## 2026-07-10 增长执行文档增量（C-20260710-123）
 
 | 模块                        | Case ID              | 标题                                            | 层级 | 自动化路径                                                |
@@ -16,7 +30,7 @@
 | marketing / growth docs     | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力                    | docs | `docs/marketing/execution-backlog.md`                     |
 | marketing / growth docs     | TC-DOC-GROWTH-123-02 | 固定 C124-C128 顺序、依赖与退出条件             | docs | `docs/marketing/execution-backlog.md`                     |
 | marketing / automation docs | TC-DOC-GROWTH-123-03 | 自动分发具备 dry-run、审批、官方 API 与凭据红线 | docs | `docs/marketing/execution-backlog.md`                     |
-| marketing / plan history    | TC-DOC-GROWTH-123-04 | C034 deprecated 并回链 C123                     | docs | `docs/plans/20260629-c034-seo-geo-foundation/`            |
+| marketing / plan history    | TC-DOC-GROWTH-123-04 | 历史时点 C034 deprecated；现已 obsolete         | docs | `docs/plans/20260629-c034-seo-geo-foundation/`            |
 | docs / memory               | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单       | docs | `docs/plans/20260710-c123-growth-execution/test-cases.md` |
 | marketing / evidence        | TC-DOC-GROWTH-123-06 | 官方资料与适用边界齐全                          | docs | `docs/marketing/execution-backlog.md`                     |
 
@@ -2265,6 +2279,6 @@
 | TC-VIEW-PATHS-03       | title 含大类名（C-115）                                                                            | L4   | `src/views/Article/Paths.spec.ts`                         |
 | TC-VIZ-SEARCH-08       | 面板空态学习路径快捷行（C-115）（C-115）                                                           | L4   | `src/components/SearchPalette.spec.ts`                    |
 | TC-E2E-PATHS-01        | 学习路径：四卡 + 步骤直达（C-115 新增）                                                            | L5   | `e2e/paths.e2e.ts`                                        |
-| TC-E2E-QUALITY-01      | 站点质量：meta/main/alt/robots+sitemap+llms（C-117 新增）                                          | L5   | `e2e/site-quality.e2e.ts`                                 |
+| TC-E2E-QUALITY-01      | 站点质量：meta/main/alt/robots/OG；sitemap/llms 由 C124 build gate 接管                            | L5   | `e2e/site-quality.e2e.ts`                                 |
 | TC-VIEW-BELLMAN-04     | B 档补强：正文含差分约束段（C-109）                                                                | L4   | `src/views/Article/Algorithm/Bellman.spec.ts`             |
 | TC-VIEW-SA-04          | B 档补强：正文含后缀自动机段（C-109）                                                              | L4   | `src/views/Article/Algorithm/SuffixArray.spec.ts`         |

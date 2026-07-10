@@ -7,7 +7,19 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，并登记 C-123 六个增长执行文档 Case；历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case 与 C-124 十九个 SEO/GEO Case；历史分层总数未做全量重算。
+
+## 2026-07-10 SEO/GEO 增量（C-20260710-124）
+
+| 层级  | Case ID                     | 标题                                                   | 自动化路径                                                  |
+| ----- | --------------------------- | ------------------------------------------------------ | ----------------------------------------------------------- |
+| L3    | TC-SEO-PAGES-124-01..03     | 95 页 registry、router/catalog 对齐、canonical/noindex | `src/seo/site.spec.ts`                                      |
+| L3    | TC-GEO-JSONLD-124-01..03    | 首页/内容页 JSON-LD 与声明边界                         | `src/seo/site.spec.ts`                                      |
+| L4    | TC-SEO-HEAD-124-01..03      | 首次 head、SPA 更新与 noindex fallback                 | `src/seo/useRouteSeo.spec.ts`                               |
+| cfg   | TC-SEO-ROBOTS-124-01        | 搜索发现、训练抓取与通用 crawler 策略                  | `src/seo/site.spec.ts`                                      |
+| build | TC-SEO-PRERENDER-124-01..05 | 95 静态入口、产物语义、sitemap/llms 与双 base          | `scripts/prerender.mjs` + `scripts/verify-seo.mjs`          |
+| L5    | TC-E2E-SEO-124-01..03       | 直接深链、SPA 导航与 query canonical                   | `e2e/seo.e2e.ts`                                            |
+| docs  | TC-DOC-SEO-124-01           | C034/C123/C124 历史替代关系                            | `docs/plans/20260710-c124-seo-geo-foundation/test-cases.md` |
 
 ## 2026-07-10 增长执行文档增量（C-20260710-123）
 
@@ -16,7 +28,7 @@
 | docs | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力                    | `docs/marketing/execution-backlog.md`                     |
 | docs | TC-DOC-GROWTH-123-02 | 固定 C124-C128 顺序、依赖与退出条件             | `docs/marketing/execution-backlog.md`                     |
 | docs | TC-DOC-GROWTH-123-03 | 自动分发具备 dry-run、审批、官方 API 与凭据红线 | `docs/marketing/execution-backlog.md`                     |
-| docs | TC-DOC-GROWTH-123-04 | C034 deprecated 并回链 C123                     | `docs/plans/20260629-c034-seo-geo-foundation/`            |
+| docs | TC-DOC-GROWTH-123-04 | 历史时点 C034 deprecated；现已 obsolete         | `docs/plans/20260629-c034-seo-geo-foundation/`            |
 | docs | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单       | `docs/plans/20260710-c123-growth-execution/test-cases.md` |
 | docs | TC-DOC-GROWTH-123-06 | 官方资料与适用边界齐全                          | `docs/marketing/execution-backlog.md`                     |
 
@@ -3041,7 +3053,7 @@
 | TC-E2E-SEARCH-01    | 全站搜索：Ctrl+K→键入→Enter 直达 + 按钮 + Esc（C-113 新增）                                                                | `e2e/search-palette.e2e.ts`        | active     |
 | TC-E2E-CPLX-01      | 复杂度速查：分组/标签过滤/行链直达（C-114 新增）                                                                           | `e2e/complexity.e2e.ts`            | active     |
 | TC-E2E-PATHS-01     | 学习路径：四卡 + 步骤直达（C-115 新增）                                                                                    | `e2e/paths.e2e.ts`                 | active     |
-| TC-E2E-QUALITY-01   | 站点质量四件套（C-117 新增）                                                                                               | `e2e/site-quality.e2e.ts`          | active     |
+| TC-E2E-QUALITY-01   | 站点质量 meta/main/alt/robots/OG；sitemap/llms 由 C124 build gate 接管                                                     | `e2e/site-quality.e2e.ts`          | active     |
 
 ---
 

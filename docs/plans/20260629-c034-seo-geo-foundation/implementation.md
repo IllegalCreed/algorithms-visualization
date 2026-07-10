@@ -1,6 +1,6 @@
 # 实现：SEO + GEO 可检索地基（TDD 任务分解 T1–T5）
 
-> Status: deprecated
+> Status: superseded
 > Stable ID: C-20260629-034
 > Owner: IllegalCreed
 > Created: 2026-06-29
@@ -8,9 +8,9 @@
 > Requirements: ./requirements.md
 > Design: ./design.md
 > Test cases: ./test-cases.md
-> Related plan: C-20260710-123
+> Related plan: C-20260710-124（由 C-20260710-123 编排）
 
-> 历史状态说明：以下 T1-T5 从未执行。2026-07-10 起不得按本任务表开工；后续 C124 需要基于当前源码、官方资料和新测试重新拆解。
+> 历史状态说明：以下 T1-T5 从未执行。2026-07-10 已由 C-124 替代，不得按本任务表开工。
 
 ## 执行顺序
 
@@ -110,4 +110,5 @@
 
 ## 变更历史
 
+- 2026-07-10：C-124 建立后转 superseded；未勾选任务不迁移，当前任务表见 C-124。
 - 2026-07-10：标记为 deprecated；所有未勾选任务保持历史原貌，不代表当前 backlog。

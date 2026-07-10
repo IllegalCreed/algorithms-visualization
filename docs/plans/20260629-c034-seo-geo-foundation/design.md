@@ -1,6 +1,6 @@
 # 设计：SEO + GEO 可检索地基（预渲染管线 + 路由级 meta 注入）
 
-> Status: deprecated
+> Status: superseded
 > Stable ID: C-20260629-034
 > Owner: IllegalCreed
 > Created: 2026-06-29
@@ -8,9 +8,9 @@
 > Requirements: ./requirements.md
 > Implementation: ./implementation.md
 > Test cases: ./test-cases.md
-> Related plan: C-20260710-123
+> Related plan: C-20260710-124（由 C-20260710-123 编排）
 
-> 历史状态说明：本设计从未获批或实施，2026-07-10 起仅供追溯。C124 将重新评审渲染方案、crawler 策略与双 base 产物，不得直接照此文件开发。
+> 历史状态说明：本设计从未获批或实施，2026-07-10 已由 C-124 替代，仅供追溯。不得直接照此文件开发。
 
 ## 1. 架构概览
 
@@ -305,4 +305,5 @@ async function run() {
 
 ## 变更历史
 
+- 2026-07-10：C-124 建立后转 superseded；当前设计见 `../20260710-c124-seo-geo-foundation/design.md`。
 - 2026-07-10：标记为 deprecated，仅保留原始方案供 C124 重新评审时参考。

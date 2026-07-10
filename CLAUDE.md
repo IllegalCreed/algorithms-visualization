@@ -29,16 +29,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `pnpm dev` —— 启动 Vite 开发服务器
 - `pnpm build` —— 通过 `npm-run-all` 并行执行 `type-check` 和 `build-only`；任何类型错误都会导致构建失败
-- `pnpm build-only` —— 先 `vite build`，再把 `404.html` 复制进 `dist/`（GitHub Pages SPA 路由所必需，见下文）
+- `pnpm build-only` —— production base 构建后用 Playwright 预渲染并验证 95 页，再复制 `404.html`（GitHub Pages）
+- `pnpm build:selfhost` —— selfhost base=`/` 构建，同样预渲染并验证 95 页，再复制 `404.html`
 - `pnpm type-check` —— `vue-tsc --build --force`
 - `pnpm lint` —— `eslint . --fix`；CI 用只读的 `pnpm lint:check`
 - `pnpm format` —— Prettier 写入项目源码、文档、e2e、public、workflow 与根部配置/HTML/MD/JSON/TS；CI 用只读的 `pnpm format:check`
 - `pnpm preview` —— 预览已构建的 `dist/`
-- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-10 本地现状：278 个测试文件 / 2023 个 L3/L4 用例全绿。
-- `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-09 本地文件数 102 个）。
+- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-10 本地现状：280 个测试文件 / 2033 个 L3/L4 用例全绿。
+- `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-10 本地 103 个文件 / 110 个用例全绿）。
 - `pnpm verify` —— 本地复现 Pages build job 门禁：`format:check` → `lint:check` → `type-check` → `test:unit:run` → `build-only`；不含 coverage/e2e。
 
-**门禁：** ESLint 10（flat config，`eslint.config.ts`，用 `eslint-plugin-vue` + `@vue/eslint-config-typescript`）+ Prettier（`.prettierrc.json`，`skip-formatting` 让两者不冲突）。`vue/multi-word-component-names` 已关闭（项目单字组件名惯例）。pre-commit 由 husky（`.husky/pre-commit`）+ lint-staged 触发，对暂存的 `*.{ts,vue}` 跑 `eslint --fix`、对更多类型跑 `prettier --write`。CI（`deploy.yml`）在构建前卡 `lint:check` + `format:check` + `type-check` + `test:unit:run`。
+**门禁：** ESLint 10（flat config，`eslint.config.ts`，用 `eslint-plugin-vue` + `@vue/eslint-config-typescript`）+ Prettier（`.prettierrc.json`，`skip-formatting` 让两者不冲突）。`vue/multi-word-component-names` 已关闭（项目单字组件名惯例）。pre-commit 由 husky（`.husky/pre-commit`）+ lint-staged 触发，对暂存的 JS/TS/Vue 跑 `eslint --fix`、对更多类型跑 `prettier --write`。CI（`deploy.yml`）在构建前卡 `lint:check` + `format:check` + `type-check` + `test:unit:run`，Build 前安装 Chromium，`build-only` 再执行 SEO 产物门禁。
 
 ## 单看一个文件不易察觉的约定
 
@@ -56,6 +57,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - ``→`Home.vue`（Splash + 分类网格 + Footer）
   - `/docs` → `Docs.vue`（侧边 `Menu` + `Main` 内容区）包裹懒加载的文章页
 - 文章页位于 `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}/*.vue`，以**懒加载** `() => import()` 的方式注册路由。路由的 `name` 必须等于菜单的 `url` slug（例如 `bubble-sort`）；`Docs/Menu/hooks.ts` 中的 `useMenuSelect` 读取当前路由名来高亮菜单项。
+
+**SEO/静态入口：** `src/seo/site.ts` 从 Home catalog 派生 92 个内容页，加 Home/Complexity/Paths 共 95 页；`useRouteSeo.ts` 管理路由级 head 与 JSON-LD。构建后 `scripts/prerender.mjs` 用 Playwright 输出 `dist/<route>/index.html`、sitemap、llms 与 manifest，`scripts/verify-seo.mjs` 用 JSDOM 逐页验证。内容页 canonical、sitemap 和预渲染内链统一使用尾斜杠，以命中目录静态入口；Vue Router 内部 path 仍保持原有无尾斜杠形式。
 
 ### 状态（`src/store/modules/system.ts`）
 
@@ -85,14 +88,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 278 个 L3/L4 测试文件、2023 个用例本地全绿，L5 Playwright 目录有 102 个 e2e 文件。M9-M12 已完成，C-20260710-123 将增长执行固定为 C124 SEO/GEO → C125 分析归因 → C126 `/en` 十页试点 → C127 内容与半自动分发 → C128 发布复盘；当前事实源是 `docs/marketing/execution-backlog.md`，C-034 已 deprecated，不得直接实施。
+当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 280 个 L3/L4 测试文件、2033 个用例本地全绿，L5 Playwright 为 103 个文件 / 110 个用例全绿。M9-M12 已完成，增长主线为 C124 SEO/GEO → C125 分析归因 → C126 `/en` 十页试点 → C127 内容与半自动分发 → C128 发布复盘；C-20260710-124 已完成双轨上线验证，当前进入 C125，事实源是 `docs/marketing/execution-backlog.md`，C-034 已 superseded。
 
 ## 部署（双轨，两步都要做）
 
 线上有**两个独立部署**，发版必须两步做全，否则自有域名滞后旧版：
 
 1. **GitHub Pages**（`/algorithms-visualization/` 子路径）：`git push` 到 `main` 后 `.github/workflows/deploy.yml` **自动**部署——`pnpm install --frozen-lockfile` → 门禁（`lint:check` + `format:check` + `type-check` + `test:unit:run`）→ `pnpm build-only`（base=`/algorithms-visualization/`）→ 上传 `dist/` → Pages（Node 22 + `pnpm/action-setup`）。
-2. **自有域名 algo.illegalscreed.cn**（自有域，用户主用）：本地**手动**跑 `./scripts/deploy.sh`（selfhost 构建 base=`/` → tar → scp → 远程原子切换，旧版备份 `/var/www/algorithms/dist.old`）。**deploy.yml 不碰这台服务器。**
+2. **自有域名 algo.illegalscreed.cn**（自有域，用户主用）：本地**手动**跑 `./scripts/deploy.sh`（`build:selfhost` + 95 页 SEO 门禁 → tar → scp → 远程原子切换，旧版备份 `/var/www/algorithms/dist.old`）。**deploy.yml 不碰这台服务器。**
 
 发版验证：两个域名各 `curl` 一下目标页 200，且 Pages 部署 SHA = HEAD；不要只看一个域名就下结论（C-007 只 push、自有域滞留旧版，因新路由未上线表现为「跳转静默失败」，排查绕弯）。
 
@@ -106,7 +109,7 @@ sleep 8; gh run rerun <失败runId> --failed   # build 已绿，只重跑 Deploy
 
 重置**不动 cname**（始终 `null`），故自有域走独立自托管、完全不受影响。属外部基础设施操作，套用前一句话告知用户即可。
 
-**SPA 路由：** 应用用 `createWebHistory`，深层链接靠 [spa-github-pages](https://github.com/rafgraph/spa-github-pages)：`404.html`（`build-only` 复制进 `dist/`）把路径编码进 query string，`index.html` 内联脚本还原。改动路由时两者保持一致。`VITE_BASE_URL` 同驱 Vite `base` 与路由 base：开发 `/`（`.env.development`）、生产 `/algorithms-visualization/`（`.env.production`）。换仓库/Pages 路径需同步改 `.env.production`。
+**SPA 路由：** 应用用 `createWebHistory`；95 个可索引 URL 已有目录式预渲染入口，未知路径与无尾斜杠客户端深链仍由 [spa-github-pages](https://github.com/rafgraph/spa-github-pages) 的 `404.html` + `index.html` 还原逻辑兜底。改动路由时预渲染发现、SEO registry 与 fallback 都要保持一致。`VITE_BASE_URL` 同驱 Vite `base` 与路由 base：开发 `/`（`.env.development`）、生产 `/algorithms-visualization/`（`.env.production`）。换仓库/Pages 路径需同步改 `.env.production`。
 
 ## 仓库工作流与变更交付流程
 

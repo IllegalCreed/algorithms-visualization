@@ -4,8 +4,8 @@
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-10
-> Current plan: C-20260710-123
-> Next plan: C-124 SEO/GEO 技术地基重建
+> Current plan: C-20260710-125 分析、事件与渠道归因（待建四文档）
+> Next plan: C-126 `/en` 多语言十页试点
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 
@@ -20,19 +20,19 @@
 
 ## 当前基线审计
 
-| 能力             | 状态   | 仓库事实                                                           | 结论                                                                                                     |
-| ---------------- | ------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| 全局元数据       | 已有   | `index.html` 有默认 title、description、Open Graph 与 Twitter Card | 只能作为全站 fallback，不能替代路由级元数据                                                              |
-| 分享卡           | 已有   | `public/og-cover.png`，C-118 已产出国内首发文案                    | 发布素材可用，仍需用渠道数据验证效果                                                                     |
-| robots           | 部分   | `public/robots.txt` 当前为通用 `Allow: /` + sitemap                | 默认未阻止爬虫，但没有把搜索抓取与模型训练策略分开记录                                                   |
-| sitemap          | 部分   | `public/sitemap.xml` 静态列出 95 个 URL                            | 当前 URL 集可用，但与 router/catalog 分离，新增路由可能漏同步                                            |
-| llms.txt         | 部分   | `public/llms.txt` 有站点简介与主要入口                             | `llms.txt` 只是实验性补充，不是搜索排名或 AI 引用保证；当前也未覆盖全部页面                              |
-| 路由级 SEO       | 缺失   | 无 route meta、canonical、hreflang、JSON-LD                        | C124 重建，不沿用 C-034 草案直接开工                                                                     |
-| 首屏机器可读内容 | 未验证 | 当前为客户端 Vue SPA，无预渲染/SSR/SSG 产物                        | Google 可渲染 JavaScript，但渲染可能延迟，且不能假定所有爬虫都会执行 JavaScript；C124 先做产物与爬虫验证 |
-| 分析与归因       | 缺失   | 无统计 SDK、事件模型、UTM 规范或增长看板                           | C125 在正式投放前完成                                                                                    |
-| 站点多语言       | 缺失   | UI 与文章主体为中文；播放器仅代码语言切换                          | C126 先做 `/en` 十页试点，不把代码语言标签误写成站点国际化                                               |
-| 内容生产自动化   | 缺失   | 只有人工发布草稿，无生成器、审批流、渠道 API 或定时 workflow       | C127 先做草稿生成和人工审批，再评估官方 API                                                              |
-| 发布复盘         | 缺失   | 尚无可归因的 48 小时/7 天发布数据                                  | C128 执行并形成下一轮投入决策                                                                            |
+| 能力             | 状态 | 仓库事实                                                                                  | 结论                                                                                 |
+| ---------------- | ---- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| 全局元数据       | 已有 | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD          | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
+| 分享卡           | 已有 | `public/og-cover.png`，C-118 已产出国内首发文案                                           | 发布素材可用，仍需用渠道数据验证效果                                                 |
+| robots           | 已有 | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap      | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
+| sitemap          | 已有 | C124 构建从真实首页 catalog 发现并生成 95 个尾斜杠 canonical URL                          | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
+| llms.txt         | 已有 | C124 构建生成三个功能入口与 92 个内容页的标题、描述和 canonical                           | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
+| 路由级 SEO       | 已有 | 95 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；docs/about 使用 noindex  | C124 已完成双轨上线核验                                                              |
+| 首屏机器可读内容 | 已有 | Playwright 构建后预渲染 95 页；JSDOM 与本地 HTTP 逐页验证 article 正文、head、base 与内链 | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
+| 分析与归因       | 缺失 | 无统计 SDK、事件模型、UTM 规范或增长看板                                                  | C125 在正式投放前完成                                                                |
+| 站点多语言       | 缺失 | UI 与文章主体为中文；播放器仅代码语言切换                                                 | C126 先做 `/en` 十页试点，不把代码语言标签误写成站点国际化                           |
+| 内容生产自动化   | 缺失 | 只有人工发布草稿，无生成器、审批流、渠道 API 或定时 workflow                              | C127 先做草稿生成和人工审批，再评估官方 API                                          |
+| 发布复盘         | 缺失 | 尚无可归因的 48 小时/7 天发布数据                                                         | C128 执行并形成下一轮投入决策                                                        |
 
 ## 固定执行顺序
 
@@ -51,8 +51,8 @@
 | 阶段                      | 状态     | 目标                                               | 退出条件                                                           | 主要依赖                       |
 | ------------------------- | -------- | -------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------ |
 | C123 增长执行审计与编排   | verified | 统一事实、顺序、边界与历史状态                     | 当前基线、C124-C128、Owner 输入和测试索引全部落档                  | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | next     | 让每个可索引页面具备唯一语义和可验证的机器可读产物 | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪 | C123                           |
-| C125 分析、事件与渠道归因 | planned  | 每次访问与关键学习行为可按来源比较                 | 生产环境 page view、UTM、核心事件和 48h/7d 看板可验证              | C124；Owner 提供统计方案/属性  |
+| C124 SEO/GEO 技术地基重建 | verified | 让每个可索引页面具备唯一语义和可验证的机器可读产物 | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪 | C123                           |
+| C125 分析、事件与渠道归因 | next     | 每次访问与关键学习行为可按来源比较                 | 生产环境 page view、UTM、核心事件和 48h/7d 看板可验证              | C124；Owner 提供统计方案/属性  |
 | C126 `/en` 多语言十页试点 | planned  | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/移动测试通过  | C124、C125                     |
 | C127 内容生成与半自动分发 | planned  | 从单一内容清单生成渠道草稿、素材和 UTM 链接        | dry-run 产物可审阅；人工批准后才允许官方 API 发布                  | C125、C126；渠道账号/API 能力  |
 | C128 发布、监测与迭代     | planned  | 完成国内/海外冷启动并用数据决定下一轮              | 每批次有 48h/7d 报告、渠道 ROI 判断与明确后续动作                  | C125；海外批次还依赖 C126/C127 |
@@ -63,7 +63,7 @@
 
 - 修正 `<html lang>`，建立可测试的路由级 title、description、canonical、Open Graph 数据源。
 - 结构化数据只描述页面真实可见内容，优先 JSON-LD；不把结构化数据写成排名承诺。
-- 对当前 SPA 做真实产物与爬虫可读性实验，再决定预渲染、SSG 或其他构建方案。Playwright 构建后预渲染是候选，不是未经验证的既定答案。
+- 已用真实 production/selfhost 产物验证 Playwright 构建后预渲染，当前规模采用该方案；若未来页数或构建时间显著增长，再重新评审 SSG/SSR。
 - 让 sitemap 从路由/catalog 事实生成或受一致性测试保护；`llms.txt` 同源生成并明确实验属性。
 - 记录 `OAI-SearchBot` 的搜索可见性策略；将 `GPTBot` 的训练策略作为独立 Owner 决策，避免混为一谈。
 - 添加构建产物测试：代表性路由返回正确 title、canonical、正文与结构化数据，GitHub Pages 子路径和自有域根路径都能工作。
@@ -80,6 +80,14 @@
 - C124 四文档 verified，自动化用例覆盖元数据完整性、URL 同步、产物可读性与双 base。
 - 代表性深链在两个部署目标均返回 200，产物中的 canonical 统一指向主站。
 - Owner 可按清单完成 Search Console/Bing 验证与 sitemap 提交。
+
+### 发布后搜索平台提交清单
+
+- [ ] 在 Google Search Console 验证 `algo.illegalscreed.cn` 对应站点资产，并提交 `https://algo.illegalscreed.cn/sitemap.xml`。
+- [ ] 用 URL 检查抽查首页、`/docs/quick-sort/`、`/docs/dijkstra/`，记录抓取到的 canonical、渲染与索引状态；不把“已请求”写成“已收录”。
+- [ ] 在 Bing Webmaster Tools 验证或导入站点，提交同一 sitemap，并记录首次发现/抓取基线。
+- [ ] 检查线上 `robots.txt` 对 OAI-SearchBot/GPTBot/通用 crawler 的最终策略与仓库一致。
+- [ ] 首次提交后在 48 小时和 7 天记录覆盖变化；IndexNow 暂不启用，出现高频 URL 更新需求时再立项。
 
 ## C125 分析、事件与渠道归因
 
@@ -154,7 +162,7 @@
 | ------------------------------------------- | ------------ | ----------------------------------------- |
 | 分析工具选择与属性 ID                       | C125 开始前  | 需同时确认隐私、Cookie/同意与数据保留策略 |
 | Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看  |
-| GPTBot 训练策略                             | C124         | 与 OAI-SearchBot 搜索可见性分开决定       |
+| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow |
 | 英文术语与品牌口吻确认                      | C126         | 十页样本上线前人工审校                    |
 | 渠道账号、API access 与 secrets             | C127         | 各平台逐项核实，不假定都有自动发布 API    |
 | 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、分析或发布      |
@@ -175,3 +183,6 @@
 ## 变更历史
 
 - 2026-07-10：C-123 创建。完成增长资产审计，锁定 C124-C128 顺序、退出条件、Owner 输入、自动发布红线与官方依据。
+- 2026-07-10：C-124 四文档建立并进入 TDD；C-034 转 superseded，当前实现入口切到 C-124。
+- 2026-07-10：C-124 本地实现与全门禁完成，95 页 route head/JSON-LD/预渲染/sitemap/llms/双 base 已验证；待双轨上线与搜索平台人工提交。
+- 2026-07-10：C-124 以功能提交 `c98dcaa` 完成 Pages/selfhost 双轨上线与静态深链核验，状态转 verified；工程主线切到 C125。
