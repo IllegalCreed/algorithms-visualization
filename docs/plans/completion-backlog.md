@@ -64,7 +64,7 @@
 
 **✅ 已启动（2026-07-05，C-118）**：OG 分享卡 + og:/twitter: meta、robots/sitemap（95 URL）/llms.txt（C-117）、三渠道发布物料与节奏（`docs/marketing/launch-posts.md`）全部就绪；**纠偏**：C-034 声称的 prerender/routing-meta/JSON-LD 未在代码中落地，prerender 列为执行期技术项（冷启动直链分享不受阻）。站外行动项（统计接入/赞赏码/发帖/搜索提交）移交 Owner，清单见 launch-posts.md 尾节。
 
-> **后续入口（2026-07-10，C-123）**：本文件继续作为 1.0 封版历史，不再承载增长执行状态。SEO/GEO、分析、多语言、半自动分发和发布复盘的当前顺序见 `docs/marketing/execution-backlog.md`；C-034 已 deprecated。
+> **后续入口（2026-07-11，C-127）**：本文件继续作为 1.0 封版历史，不再承载增长执行状态。SEO/GEO、分析、多语言、提示词驱动的渠道自动化和发布复盘的当前顺序见 `docs/marketing/execution-backlog.md`；渠道能力见 `docs/marketing/channel-automation-audit.md`；C-034 已 superseded。
 
 ## 顺序与完成定义
 

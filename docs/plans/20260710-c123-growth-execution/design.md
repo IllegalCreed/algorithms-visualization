@@ -4,7 +4,7 @@
 > Stable ID: C-20260710-123
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-11
 > Requirements: ./requirements.md
 > Implementation: ./implementation.md
 > Test cases: ./test-cases.md
@@ -80,6 +80,8 @@ robots 当前通用放行不等于已形成策略。C124 要分别记录 OAI-Sea
 
 C127 的第一可交付物是可重复、可审阅的渠道草稿，不是无人值守发帖。发布动作需要人工批准、官方 API、密钥隔离、失败恢复和审计记录。
 
+> Superseded on 2026-07-11 by C-20260711-127：当前设计改为提示词授权后由 capability gate 自动执行受支持渠道；官方 adapter、密钥隔离、失败恢复和审计要求不变。
+
 ## 6. 更新范围
 
 | 文件                                            | 动作                                 |
@@ -106,3 +108,4 @@ C127 的第一可交付物是可重复、可审阅的渠道草稿，不是无人
 
 - 2026-07-10：创建。确立策略、执行、素材、plan 四层职责及 C124-C128 阶段闸门。
 - 2026-07-10：文档职责、历史降级和阶段依赖经索引检查验证，状态转 verified。
+- 2026-07-11：D5 的逐帖人工审批被 C127 新需求取代；保留本段作为历史决策并链接替代计划。

@@ -20,8 +20,8 @@
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
 | 测试     | Vitest L3/L4：284 个测试文件、2055 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、114 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | M9-M12 全清单完成；C124 SEO/GEO 与 C126 `/en` 十页试点已双轨上线；C129 已撤销 C125 第三方分析接入，下一阶段是 C127 半自动分发与 C128 复盘   |
-| 增长现状 | 95 个中文页 + 10 个英文试点页的 SEO/GEO 已落地；当前无 tracker、会话归因或交互上报，仅保留 UTM 链接生成能力；分发自动化尚未实现             |
+| 当前阶段 | M9-M12 全清单完成；C124 SEO/GEO 与 C126 `/en` 十页试点已双轨上线；C129 已撤销 C125 第三方分析接入；C127 提示词驱动全自动分发正在实施        |
+| 增长现状 | 95 个中文页 + 10 个英文试点页的 SEO/GEO 已落地；当前无 tracker，仅保留 UTM；C127 已审计 15 个渠道，adapter/workflow 尚未实现                |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
 
 ## 模块地图

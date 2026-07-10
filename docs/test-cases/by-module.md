@@ -9,6 +9,18 @@
 
 ---
 
+## 2026-07-11 渠道自动化审计增量（C-20260711-127）
+
+| 模块                          | Case ID            | 标题                                   | 层级 | 自动化路径                                                 |
+| ----------------------------- | ------------------ | -------------------------------------- | ---- | ---------------------------------------------------------- |
+| marketing / channel inventory | TC-DOC-AUTO-127-01 | 十五渠道集合完整且唯一                 | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / official evidence | TC-DOC-AUTO-127-02 | 发布、监测、回复、准入与成本有官方依据 | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / capability tiers  | TC-DOC-AUTO-127-03 | A/B/C/D 与付费可选边界明确             | docs | `docs/marketing/channel-automation-audit.md`               |
+| docs / automation memory      | TC-DOC-AUTO-127-04 | C127 当前状态与项目记忆一致            | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| marketing / credential safety | TC-DOC-AUTO-127-05 | 官方授权、凭据隔离与失败关闭红线完整   | docs | `docs/marketing/channel-automation-audit.md`               |
+
+---
+
 ## 2026-07-11 多语言十页试点增量（C-20260711-126）
 
 | 模块                        | Case ID                     | 标题                                              | 层级  | 自动化路径                                         |
@@ -66,14 +78,14 @@
 
 ## 2026-07-10 增长执行文档增量（C-20260710-123）
 
-| 模块                        | Case ID              | 标题                                            | 层级 | 自动化路径                                                |
-| --------------------------- | -------------------- | ----------------------------------------------- | ---- | --------------------------------------------------------- |
-| marketing / growth docs     | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力                    | docs | `docs/marketing/execution-backlog.md`                     |
-| marketing / growth docs     | TC-DOC-GROWTH-123-02 | 历史 C124-C128 顺序；C129 已插入撤销决策        | docs | `docs/marketing/execution-backlog.md`                     |
-| marketing / automation docs | TC-DOC-GROWTH-123-03 | 自动分发具备 dry-run、审批、官方 API 与凭据红线 | docs | `docs/marketing/execution-backlog.md`                     |
-| marketing / plan history    | TC-DOC-GROWTH-123-04 | 历史时点 C034 deprecated；现已 obsolete         | docs | `docs/plans/20260629-c034-seo-geo-foundation/`            |
-| docs / memory               | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单       | docs | `docs/plans/20260710-c123-growth-execution/test-cases.md` |
-| marketing / evidence        | TC-DOC-GROWTH-123-06 | 官方资料与适用边界齐全                          | docs | `docs/marketing/execution-backlog.md`                     |
+| 模块                        | Case ID              | 标题                                      | 层级 | 自动化路径                                                |
+| --------------------------- | -------------------- | ----------------------------------------- | ---- | --------------------------------------------------------- |
+| marketing / growth docs     | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力              | docs | `docs/marketing/execution-backlog.md`                     |
+| marketing / growth docs     | TC-DOC-GROWTH-123-02 | 历史 C124-C128 顺序；C129 已插入撤销决策  | docs | `docs/marketing/execution-backlog.md`                     |
+| marketing / automation docs | TC-DOC-GROWTH-123-03 | 历史逐帖审批约束；已由 C127 supersede     | docs | `docs/plans/20260710-c123-growth-execution/test-cases.md` |
+| marketing / plan history    | TC-DOC-GROWTH-123-04 | 历史时点 C034 deprecated；现已 obsolete   | docs | `docs/plans/20260629-c034-seo-geo-foundation/`            |
+| docs / memory               | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单 | docs | `docs/plans/20260710-c123-growth-execution/test-cases.md` |
+| marketing / evidence        | TC-DOC-GROWTH-123-06 | 官方资料与适用边界齐全                    | docs | `docs/marketing/execution-backlog.md`                     |
 
 ---
 

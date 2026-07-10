@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-11
 > Progress: 100%
 > Blocked by: none
-> Next action: 进入 C127 内容生成与半自动分发
+> Next action: 进入 C127 提示词驱动的全自动内容分发
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-124、C-20260710-129

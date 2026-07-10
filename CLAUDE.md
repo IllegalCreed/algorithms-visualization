@@ -88,7 +88,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个中文首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；C126 已上线 `/en` 十页试点（Home、2 个工具页、7 个算法页），可索引页面共 105 个。测试现状为 284 个 L3/L4 测试文件、2055 个用例本地全绿，L5 Playwright 为 104 个文件 / 114 个用例全绿。M9-M12 已完成；C124 SEO/GEO 与 C126 英文试点已双轨上线，C125 第三方分析尝试已由 C129 撤销，当前不加载 tracker、不发送事件，只保留 `pnpm marketing:link` 与 UTM 纯函数。增长下一阶段为 C127 内容与半自动分发，随后 C128 发布复盘。事实源是 `docs/marketing/execution-backlog.md`，C-034 与 C125 均已 superseded。
+当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个中文首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；C126 已上线 `/en` 十页试点（Home、2 个工具页、7 个算法页），可索引页面共 105 个。测试现状为 284 个 L3/L4 测试文件、2055 个用例本地全绿，L5 Playwright 为 104 个文件 / 114 个用例全绿。M9-M12 已完成；C124 SEO/GEO 与 C126 英文试点已双轨上线，C125 第三方分析尝试已由 C129 撤销，当前不加载 tracker、不发送事件，只保留 `pnpm marketing:link` 与 UTM 纯函数。当前增长阶段为 C127 提示词驱动的全自动内容分发：15 个渠道的官方能力审计已完成，adapter/workflow 尚未实现；随后 C128 用真实发布做 48h/7d 复盘。执行事实源是 `docs/marketing/execution-backlog.md`，渠道能力源是 `docs/marketing/channel-automation-audit.md`；C-034 与 C125 均已 superseded。
 
 ## 部署（双轨，两步都要做）
 
