@@ -1,13 +1,16 @@
 # 测试用例：SEO + GEO 可检索地基（预渲染 + meta + 结构化数据）
 
-> Status: draft
+> Status: deprecated
 > Stable ID: C-20260629-034
 > Owner: IllegalCreed
 > Created: 2026-06-29
-> Last reviewed: 2026-06-29
+> Last reviewed: 2026-07-10
 > Requirements: ./requirements.md
 > Design: ./design.md
 > Implementation: ./implementation.md
+> Related plan: C-20260710-123
+
+> 历史状态说明：本文件中的 24 个 Case 只是不曾执行的草案，不得登记为 active 自动化。C124 将重新选择有效 Case ID 与覆盖范围。
 
 ## 概览
 
@@ -87,4 +90,5 @@
 
 ## 变更历史
 
+- 2026-07-10：标记为 deprecated；计划用例未实现、未运行，保留供后续重新设计时追溯。
 - 2026-06-29：创建（draft）。规划 24 个新 Case（L3 20 + L4 3 + L5 1），命名空间 `SEO`/`GEO`。纯逻辑全落 `src/seo/` 便于单测，构建脚本由 L5 产物校验兜底。待四文档评审通过后进 TDD。

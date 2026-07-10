@@ -1,20 +1,22 @@
 # 需求：SEO + GEO 可检索地基（预渲染 + per-page meta + 结构化数据，M5 增长首项）
 
-> Status: draft
+> Status: deprecated
 > Stable ID: C-20260629-034
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-06-29
-> Last reviewed: 2026-06-29
+> Last reviewed: 2026-07-10
 > Progress: 0%
 > Blocked by: none
-> Next action: 四文档评审通过后进 writing-plans / TDD（T1 routes+pageMeta → T2 注入 → T3 预渲染脚本 → T4 robots/sitemap/llms → T5 e2e/产物校验）
+> Next action: 不得直接实施；先按 C-20260710-123 创建并评审 C124 新 plan
 > Replaces: none
 > Replaced by: none
-> Related plans: 营销路线图 `docs/marketing/roadmap.md`（M5 地基）；与 C-033 线段树（M4 广度，进行中）无关、编号顺延避让；复用 C-002 自有域名部署的 nginx（预渲染目录需配合）
+> Related plans: C-20260710-123（当前增长执行编排）；C-20260705-117/C-20260705-118（已落地的静态资产与纠偏）；营销路线图 `docs/marketing/roadmap.md`
 > Related tests: 计划新增 `TC-SEO-ROUTES-*`（routes 单一事实源 + 与 router 同步守护）/ `TC-SEO-META-*`（PAGE_META 完整性 + 注入）/ `TC-GEO-*`（JSON-LD / robots / llms 生成）/ `TC-SEO-SITEMAP-*`（sitemap 生成）/ `TC-VIEW-SEO-01`（根组件路由切换 title/meta 更新）/ `TC-E2E-SEO-01`（预渲染产物校验）
 
 > ⚠️ 编号说明：全局计数 033 已被 `C-20260629-033`（线段树 Segment Tree，M4 广度 B5，进行中）占用，本变更顺延为 **C-20260629-034**；且本项属**增长/可发现性**方向，不在 `backlog.md` 数据结构候选池，归**新里程碑 M5**。
+
+> 历史状态说明：本草案从未进入 approved/in-progress，且部分静态资产后来由 C-117/C-118 以不同边界落地。2026-07-10 起仅用于追溯，不得作为当前实现依据；C124 建立后再补正式替代关系。
 
 ## 背景
 
@@ -82,4 +84,5 @@
 
 ## 变更历史
 
+- 2026-07-10：标记为 deprecated。保留 2026-06-29 原始设计，当前执行入口改为 C-123 与 `docs/marketing/execution-backlog.md`；不得直接进入 TDD。
 - 2026-06-29：创建。M5「增长与可发现性」首项，承接营销路线图地基。范围 E1（机制先行，中文，不 i18n、不逐页内容）。技术选预渲染（复用 Playwright chromium）+ 路由级集中 meta 注入（@unhead/vue），不上 SSG。GEO 与 SEO 同源，增量＝放行 AI 爬虫 + JSON-LD + llms.txt。编号顺延 034（033 被线段树占用）。

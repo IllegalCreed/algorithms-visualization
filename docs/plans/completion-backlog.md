@@ -3,6 +3,7 @@
 > Status: approved
 > Owner: IllegalCreed
 > Created: 2026-07-05
+> Last reviewed: 2026-07-10
 > 定位：算法内容侧的**封顶清单** + 产品侧增强的**执行顺序**。2026-07-05 Owner 拍板：按 M9 → M10 → M11 → M12 顺序推进；M9 之外不再无限扩算法页，新想法先进本清单评审。
 
 ## 判断依据（为什么要封顶）
@@ -63,6 +64,8 @@
 
 **✅ 已启动（2026-07-05，C-118）**：OG 分享卡 + og:/twitter: meta、robots/sitemap（95 URL）/llms.txt（C-117）、三渠道发布物料与节奏（`docs/marketing/launch-posts.md`）全部就绪；**纠偏**：C-034 声称的 prerender/routing-meta/JSON-LD 未在代码中落地，prerender 列为执行期技术项（冷启动直链分享不受阻）。站外行动项（统计接入/赞赏码/发帖/搜索提交）移交 Owner，清单见 launch-posts.md 尾节。
 
+> **后续入口（2026-07-10，C-123）**：本文件继续作为 1.0 封版历史，不再承载增长执行状态。SEO/GEO、分析、多语言、半自动分发和发布复盘的当前顺序见 `docs/marketing/execution-backlog.md`；C-034 已 deprecated。
+
 ## 顺序与完成定义
 
 **M9（7 项内容）→ M10（P1–P3 必做）→ M11（S1–S4 必做）→ M12 启动**。每个里程碑完成时在本文件打勾并回写 `docs/roadmap.md`；全清单完成 = 本站 1.0 封版，转入营销与维护期。
@@ -73,3 +76,4 @@
 
 - 2026-07-05：创建（Owner 拍板顺序与封顶原则；A/B/C 三档判据）。
 - 2026-07-09：C-119 维护批补齐 SearchPalette 英文名/别名/拼音首字母索引与可访问性语义，S1 文档事实与实现对齐。
+- 2026-07-10：C-123 建立独立增长执行清单；本文件冻结为 M9-M12 完结历史。

@@ -9,6 +9,19 @@
 
 ---
 
+## 2026-07-10 增长执行文档增量（C-20260710-123）
+
+| 模块                        | Case ID              | 标题                                            | 层级 | 自动化路径                                                |
+| --------------------------- | -------------------- | ----------------------------------------------- | ---- | --------------------------------------------------------- |
+| marketing / growth docs     | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力                    | docs | `docs/marketing/execution-backlog.md`                     |
+| marketing / growth docs     | TC-DOC-GROWTH-123-02 | 固定 C124-C128 顺序、依赖与退出条件             | docs | `docs/marketing/execution-backlog.md`                     |
+| marketing / automation docs | TC-DOC-GROWTH-123-03 | 自动分发具备 dry-run、审批、官方 API 与凭据红线 | docs | `docs/marketing/execution-backlog.md`                     |
+| marketing / plan history    | TC-DOC-GROWTH-123-04 | C034 deprecated 并回链 C123                     | docs | `docs/plans/20260629-c034-seo-geo-foundation/`            |
+| docs / memory               | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单       | docs | `docs/plans/20260710-c123-growth-execution/test-cases.md` |
+| marketing / evidence        | TC-DOC-GROWTH-123-06 | 官方资料与适用边界齐全                          | docs | `docs/marketing/execution-backlog.md`                     |
+
+---
+
 ## 2026-07-09 配置/CI 增量（C-20260709-121）
 
 | 模块            | Case ID            | 标题                                          | 层级  | 自动化路径                     |

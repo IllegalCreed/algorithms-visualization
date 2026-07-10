@@ -1,50 +1,53 @@
 # 项目路线图
 
 > Status: active
-> Last reviewed: 2026-07-09
+> Last reviewed: 2026-07-10
 > Owner: IllegalCreed
 
 ## 当前阶段
 
-项目已完成 M0-M12 主线，处于 **1.0 封版后的营销执行与维护期**。
+项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C-20260710-123 已完成增长资产审计和阶段编排，当前下一阶段是 C124 SEO/GEO 技术地基重建。
 
-当前目标不是继续铺新算法页，而是保持现有 1.0 体验稳定、支持发布传播、处理低风险维护项，并在确有必要时通过新 plan 小步进入功能迭代。
+当前目标不是继续铺新算法页，而是保持现有 1.0 体验稳定，并按 `docs/marketing/execution-backlog.md` 依次完成 C124 SEO/GEO、C125 分析归因、C126 `/en` 十页试点、C127 内容与半自动分发、C128 发布与复盘。
 
 事实优先级保持不变：当前源码与本地测试结果 > 最新 plan / `docs/plans/completion-backlog.md` > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md` > 本路线图。
 
 ## 当前事实
 
-| 项目     | 当前事实                                                                                                                                       |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 产品范围 | 纯前端算法可视化 SPA，Vue 3 + TypeScript + Vite + Pinia + Less，部署到 GitHub Pages 与自有域名                                                 |
-| 内容规模 | 首页/菜单九大类、92 个条目；`src/algorithms` 下 77 个 `*.module.ts`；数据结构互动页、算法播放器页和功能页并存                                  |
-| 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化        |
-| 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
-| 测试基线 | 2026-07-10 本地现状：278 个 Vitest 文件 / 2023 条 L3/L4 用例通过；`pnpm coverage` 与 107 条 Playwright e2e 通过                                |
-| 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
+| 项目     | 当前事实                                                                                                                                          |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 产品范围 | 纯前端算法可视化 SPA，Vue 3 + TypeScript + Vite + Pinia + Less，部署到 GitHub Pages 与自有域名                                                    |
+| 内容规模 | 首页/菜单九大类、92 个条目；`src/algorithms` 下 77 个 `*.module.ts`；数据结构互动页、算法播放器页和功能页并存                                     |
+| 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化           |
+| 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                   |
+| 测试基线 | 2026-07-10 本地现状：278 个 Vitest 文件 / 2023 条 L3/L4 用例通过；`pnpm coverage` 与 107 条 Playwright e2e 通过                                   |
+| 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布    |
+| 增长基线 | 已有全局 meta/OG、robots、95 URL 静态 sitemap、简版 llms.txt 与三渠道文案；route meta/canonical/JSON-LD、分析归因、站点多语言和分发自动化尚未实现 |
 
 ## 维护队列
 
-| 优先级 | 方向                 | 状态    | 下一步                                                                                                                    |
-| ------ | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
-| P0     | 保持门禁与线上可用   | ongoing | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                         |
-| P1     | 营销执行             | ready   | Owner 按 `docs/marketing/launch-posts.md` 发布掘金、V2EX、B 站脚本；技术侧只在发布反馈形成明确缺陷或小改需求时介入        |
-| P1     | 低风险维护修复       | ongoing | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                        |
-| P2     | CI / 测试自动化增强  | partial | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁 |
-| P2     | 目录数据源收束       | idea    | Home/Menu/Router 已有一致性测试；若后续继续扩容，可考虑抽单一 catalog，避免三处重复维护                                   |
-| P2     | 性能与无障碍继续打磨 | idea    | 可继续跟踪 Lighthouse、键盘导航、色彩对比、Shiki chunk 体感；不把新拟物色彩取舍误判为必须立即改动                         |
-| P3     | 新算法或新交互       | parked  | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进         |
+| 优先级 | 方向                 | 状态    | 下一步                                                                                                                              |
+| ------ | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| P0     | 保持门禁与线上可用   | ongoing | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                                   |
+| P0     | SEO/GEO 技术地基     | next    | 按 C123 的新事实创建 C124 四文档；先验证 SPA 产物与双 base，再决定预渲染/SSG 等方案，不直接实施已 deprecated 的 C034                |
+| P1     | 增长执行             | planned | 依次完成 C125 分析归因、C126 `/en` 十页试点、C127 半自动分发、C128 分批发布复盘；当前事实源为 `docs/marketing/execution-backlog.md` |
+| P1     | 低风险维护修复       | ongoing | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                                  |
+| P2     | CI / 测试自动化增强  | partial | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁           |
+| P2     | 目录数据源收束       | idea    | Home/Menu/Router 已有一致性测试；若后续继续扩容，可考虑抽单一 catalog，避免三处重复维护                                             |
+| P2     | 性能与无障碍继续打磨 | idea    | 可继续跟踪 Lighthouse、键盘导航、色彩对比、Shiki chunk 体感；不把新拟物色彩取舍误判为必须立即改动                                   |
+| P3     | 新算法或新交互       | parked  | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进                   |
 
 ## 近期决策记录
 
-| 日期       | 记录                                                                                                                                 |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| 2026-07-09 | C-20260709-120：路线图从 2026-06-29 的历史长表刷新为维护期工作台，避免把 C-034 等旧状态继续当作当前待办                              |
-| 2026-07-09 | C-20260709-121：Pages build job 增加 `pnpm test:unit:run`，`format:check` 从 src-only 扩展到项目文档、e2e、public、workflow 与根配置 |
-| 2026-07-09 | C-20260709-122：新增 `pnpm verify` 本地一键门禁，串起格式、lint、类型、全量 Vitest 与 build-only                                     |
-| 2026-07-09 | C-20260709-119：完成维护期搜索召回、基础可访问性、导航语义与 slug/router 对齐测试；全量门禁、coverage、e2e 已通过                    |
-| 2026-07-05 | C-20260705-118：M12 营销启动包完成，OG 分享卡与发布物料落档；M9-M12 全部收束，项目进入 1.0 封版后的营销执行与维护期                  |
-| 2026-07-05 | C-20260705-117 / C-118 已纠偏 C-034：robots/sitemap/llms 已补齐，prerender、routing meta、JSON-LD 不作为已实现事实写入当前路线图     |
+| 日期       | 记录                                                                                                                                           |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-10 | C-20260710-123：完成增长资产全面审计，C-034 标记 deprecated；建立 C124-C128 顺序、退出条件、Owner 输入和自动发布红线                           |
+| 2026-07-09 | C-20260709-120：路线图从 2026-06-29 的历史长表刷新为维护期工作台，避免把 C-034 等旧状态继续当作当前待办                                        |
+| 2026-07-09 | C-20260709-121：Pages build job 增加 `pnpm test:unit:run`，`format:check` 从 src-only 扩展到项目文档、e2e、public、workflow 与根配置           |
+| 2026-07-09 | C-20260709-122：新增 `pnpm verify` 本地一键门禁，串起格式、lint、类型、全量 Vitest 与 build-only                                               |
+| 2026-07-09 | C-20260709-119：完成维护期搜索召回、基础可访问性、导航语义与 slug/router 对齐测试；全量门禁、coverage、e2e 已通过                              |
+| 2026-07-05 | C-20260705-118：M12 营销启动包完成，OG 分享卡与发布物料落档；M9-M12 全部收束，项目进入 1.0 封版后的营销执行与维护期                            |
+| 2026-07-05 | C-20260705-117 / C-118 已纠偏 C-034：robots/sitemap/llms 已补齐，prerender、routing meta、JSON-LD 不作为已实现事实；C123 后 C034 已 deprecated |
 
 ## 线上地址
 
@@ -53,16 +56,18 @@
 
 ## 入口
 
-| 文档                               | 用途                                           |
-| ---------------------------------- | ---------------------------------------------- |
-| `AGENTS.md`                        | Codex 项目记忆入口，含命令、架构、部署与工作流 |
-| `CLAUDE.md`                        | Claude 侧项目记忆入口                          |
-| `docs/overview.md`                 | 项目当前事实概览                               |
-| `docs/documentation-adapter.md`    | 通用文档/测试规范在本纯前端项目中的适配说明    |
-| `docs/plans/index.md`              | 所有变更计划历史索引                           |
-| `docs/plans/completion-backlog.md` | M9-M12 完结清单与封版结论                      |
-| `docs/test-cases/index.md`         | 全局测试用例索引                               |
-| `docs/marketing/launch-posts.md`   | 1.0 发布传播文案与 Owner 行动清单              |
+| 文档                                  | 用途                                           |
+| ------------------------------------- | ---------------------------------------------- |
+| `AGENTS.md`                           | Codex 项目记忆入口，含命令、架构、部署与工作流 |
+| `CLAUDE.md`                           | Claude 侧项目记忆入口                          |
+| `docs/overview.md`                    | 项目当前事实概览                               |
+| `docs/documentation-adapter.md`       | 通用文档/测试规范在本纯前端项目中的适配说明    |
+| `docs/plans/index.md`                 | 所有变更计划历史索引                           |
+| `docs/plans/completion-backlog.md`    | M9-M12 完结清单与封版结论                      |
+| `docs/test-cases/index.md`            | 全局测试用例索引                               |
+| `docs/marketing/roadmap.md`           | 增长策略、渠道与指标原则                       |
+| `docs/marketing/execution-backlog.md` | 当前增长状态、C124-C128 顺序与退出条件         |
+| `docs/marketing/launch-posts.md`      | 1.0 发布传播文案与素材草稿                     |
 
 ## 维护规则
 

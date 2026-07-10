@@ -1,13 +1,16 @@
 # 实现：SEO + GEO 可检索地基（TDD 任务分解 T1–T5）
 
-> Status: draft
+> Status: deprecated
 > Stable ID: C-20260629-034
 > Owner: IllegalCreed
 > Created: 2026-06-29
-> Last reviewed: 2026-06-29
+> Last reviewed: 2026-07-10
 > Requirements: ./requirements.md
 > Design: ./design.md
 > Test cases: ./test-cases.md
+> Related plan: C-20260710-123
+
+> 历史状态说明：以下 T1-T5 从未执行。2026-07-10 起不得按本任务表开工；后续 C124 需要基于当前源码、官方资料和新测试重新拆解。
 
 ## 执行顺序
 
@@ -104,3 +107,7 @@
 - [ ] T5 L5 产物校验全绿（标题正文 / title / JSON-LD / lang）+ 构建集成（build-only 链路）
 - [ ] 全门禁达标：type-check / lint:check / format:check / coverage（聚合过门槛）/ build（含预渲染）
 - [ ] 零回归：既有全部结构页与排序页 + 播放器全绿；三索引 + roadmap(M5) 回写；双轨部署 + nginx 配合确认
+
+## 变更历史
+
+- 2026-07-10：标记为 deprecated；所有未勾选任务保持历史原貌，不代表当前 backlog。

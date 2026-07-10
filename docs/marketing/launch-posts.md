@@ -3,6 +3,8 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-05
+> Last reviewed: 2026-07-10
+> Execution status: `docs/marketing/execution-backlog.md`
 > 说明：按 `roadmap.md` 六节软文模板写的三个第一梯队渠道初稿。发布前 Owner 过一遍口吻、补真实截图/动图（建议：快排自定义输入动画、Cmd+K 搜索、测验答题各一段录屏）。
 
 ---
@@ -65,7 +67,7 @@
 
 ---
 
-## 发布节奏建议（承接 roadmap 阶段 1）
+## 发布节奏建议（C128 执行，至少先完成 C125）
 
 1. 第 1 周：掘金文 + V2EX 帖同日发（工作日上午 10 点），当天盯评论快速回复。
 2. 第 2 周：B站 S1 视频（简介与置顶评论放链接）；观察三渠道 48h 数据。
@@ -73,11 +75,14 @@
 
 ## Owner 行动项（站外，需要账号/人工）
 
-- [ ] 接统计（GA / 百度统计 / Plausible 三选一，拿到 ID 后告知接入）
+当前状态与最晚输入阶段统一在 `docs/marketing/execution-backlog.md` 维护；本节只保留素材提醒。
+
+- [ ] 按 C125 选择统计方案并提供属性 ID
 - [ ] 赞赏码/爱发电入口图（提供图片后站内挂 Footer）
-- [ ] Bing Webmaster + Google Search Console 提交 sitemap（https://algo.illegalscreed.cn/sitemap.xml）
-- [ ] 按上述节奏发帖；录屏动图三段（快排自定义输入 / 测验答题 / ρ 现形）
+- [ ] 按 C124 清单完成 Bing Webmaster + Google Search Console 验证与 sitemap 提交
+- [ ] C128 按上述节奏发帖；录屏动图三段（快排自定义输入 / 测验答题 / ρ 现形）
 
 ## 变更历史
 
 - 2026-07-05：创建（C-118，M12 启动包）。
+- 2026-07-10：C-123 将发布动作后置到分析归因之后；状态与外部依赖改由 execution backlog 统一维护。

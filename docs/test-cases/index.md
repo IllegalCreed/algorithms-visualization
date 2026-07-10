@@ -11,12 +11,18 @@
 
 本项目测试分层裁剪为 L3（前端单元）/ L4（前端组件）/ L5（端到端），不含 L1/L2（无后端）。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例；历史大表未做全量重排。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，并登记 C-123 六个增长执行文档 Case；历史大表未做全量重排。
 
 ## All Cases
 
 | Case ID                   | 标题                                                                                       | 所属功能 / 模块                    | Owner Plan     | 层级  | 自动化路径                                                    | 状态       | 最后验证   |
 | ------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- | -------------- | ----- | ------------------------------------------------------------- | ---------- | ---------- |
+| TC-DOC-GROWTH-123-01      | 增长基线准确区分已有、部分与缺失能力                                                       | marketing / growth docs            | C-20260710-123 | docs  | `docs/marketing/execution-backlog.md`                         | active     | 2026-07-10 |
+| TC-DOC-GROWTH-123-02      | 执行清单固定 C124-C128 顺序、依赖与退出条件                                                | marketing / growth docs            | C-20260710-123 | docs  | `docs/marketing/execution-backlog.md`                         | active     | 2026-07-10 |
+| TC-DOC-GROWTH-123-03      | 自动分发包含 dry-run、人工批准、官方 API 与凭据红线                                        | marketing / automation docs        | C-20260710-123 | docs  | `docs/marketing/execution-backlog.md`                         | active     | 2026-07-10 |
+| TC-DOC-GROWTH-123-04      | C034 四文档和计划索引均为 deprecated 且回链 C123                                           | marketing / plan history           | C-20260710-123 | docs  | `docs/plans/20260629-c034-seo-geo-foundation/`                | active     | 2026-07-10 |
+| TC-DOC-GROWTH-123-05      | roadmap、overview、AGENTS、CLAUDE 均链接当前增长执行清单                                   | docs / memory                      | C-20260710-123 | docs  | `docs/plans/20260710-c123-growth-execution/test-cases.md`     | active     | 2026-07-10 |
+| TC-DOC-GROWTH-123-06      | 增长执行清单记录官方原始资料和适用边界                                                     | marketing / evidence               | C-20260710-123 | docs  | `docs/marketing/execution-backlog.md`                         | active     | 2026-07-10 |
 | TC-CI-UNIT-121            | Pages build job 在 build 前运行 `pnpm test:unit:run`                                       | infra / ci                         | C-20260709-121 | CI    | `.github/workflows/deploy.yml`                                | active     | 2026-07-09 |
 | TC-FORMAT-SCOPE-1         | `format:check` 覆盖 src/docs/e2e/public/workflow/root 配置                                 | infra / format                     | C-20260709-121 | cfg   | `package.json`                                                | active     | 2026-07-09 |
 | TC-404-FALLBACK-1         | 保留 `pathSegmentsToKeep = 1` 与 SPA fallback 跳转逻辑                                     | infra / routing                    | C-20260709-121 | cfg   | `404.html`                                                    | active     | 2026-07-09 |

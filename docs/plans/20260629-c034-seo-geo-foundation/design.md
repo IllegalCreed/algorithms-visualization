@@ -1,13 +1,16 @@
 # 设计：SEO + GEO 可检索地基（预渲染管线 + 路由级 meta 注入）
 
-> Status: draft
+> Status: deprecated
 > Stable ID: C-20260629-034
 > Owner: IllegalCreed
 > Created: 2026-06-29
-> Last reviewed: 2026-06-29
+> Last reviewed: 2026-07-10
 > Requirements: ./requirements.md
 > Implementation: ./implementation.md
 > Test cases: ./test-cases.md
+> Related plan: C-20260710-123
+
+> 历史状态说明：本设计从未获批或实施，2026-07-10 起仅供追溯。C124 将重新评审渲染方案、crawler 策略与双 base 产物，不得直接照此文件开发。
 
 ## 1. 架构概览
 
@@ -299,3 +302,7 @@ async function run() {
 - **L3**：`SEO_ROUTES` 与 `router` 同步（守护，防漏页）；`PAGE_META` 覆盖每个 name、title 唯一/非空、description 非空；`buildJsonLd` 含 schema.org + 三 @type + 正确 url；`gen-seo` 生成 sitemap URL 集 = 路由集、llms 含全部页；`robots.txt` 含 5 个 AI UA + Sitemap。
 - **L4**：挂 `App` + router，切换路由后 `document.title` / `<meta description>` / JSON-LD script 随 `PAGE_META` 更新。
 - **L5**：预渲染产物校验——构建后读 `dist/docs/array/index.html` 等，断言含算法标题正文文本、正确 `<title>`、`application/ld+json`、`<html lang="zh-CN">`（作为构建后 verify，CI 与本地 `build-only` 后执行）。
+
+## 变更历史
+
+- 2026-07-10：标记为 deprecated，仅保留原始方案供 C124 重新评审时参考。

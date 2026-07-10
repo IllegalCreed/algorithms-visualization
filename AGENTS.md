@@ -8,7 +8,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Codex 项目记忆
 
-Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 **`AGENTS.md`** 为主，配合 `docs/overview.md`、`docs/roadmap.md`、`docs/plans/index.md`、`docs/plans/completion-backlog.md` 和 `docs/test-cases/` 使用。Claude 侧继续使用 `CLAUDE.md`。
+Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 **`AGENTS.md`** 为主，配合 `docs/overview.md`、`docs/roadmap.md`、`docs/plans/index.md`、`docs/plans/completion-backlog.md`、`docs/marketing/execution-backlog.md` 和 `docs/test-cases/` 使用。Claude 侧继续使用 `CLAUDE.md`。
 
 如果不同文档之间事实冲突，优先级为：当前源码与本地测试结果 > 最新 plan / completion backlog > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md`。发现旧事实时小步更新文档，不把过期描述继续当真。
 
@@ -87,7 +87,7 @@ Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 *
 
 **新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 278 个 L3/L4 测试文件、2023 个用例本地全绿，L5 Playwright 目录有 102 个 e2e 文件。`docs/plans/completion-backlog.md` 标记 M9-M12 全清单完成，项目进入 1.0 封版后的营销执行与维护期。
+当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 278 个 L3/L4 测试文件、2023 个用例本地全绿，L5 Playwright 目录有 102 个 e2e 文件。M9-M12 已完成，C-20260710-123 将增长执行固定为 C124 SEO/GEO → C125 分析归因 → C126 `/en` 十页试点 → C127 内容与半自动分发 → C128 发布复盘；当前事实源是 `docs/marketing/execution-backlog.md`，C-034 已 deprecated，不得直接实施。
 
 ## 部署（双轨，两步都要做）
 

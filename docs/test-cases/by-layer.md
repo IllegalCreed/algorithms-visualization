@@ -7,7 +7,18 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例；历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，并登记 C-123 六个增长执行文档 Case；历史分层总数未做全量重算。
+
+## 2026-07-10 增长执行文档增量（C-20260710-123）
+
+| 层级 | Case ID              | 标题                                            | 自动化路径                                                |
+| ---- | -------------------- | ----------------------------------------------- | --------------------------------------------------------- |
+| docs | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力                    | `docs/marketing/execution-backlog.md`                     |
+| docs | TC-DOC-GROWTH-123-02 | 固定 C124-C128 顺序、依赖与退出条件             | `docs/marketing/execution-backlog.md`                     |
+| docs | TC-DOC-GROWTH-123-03 | 自动分发具备 dry-run、审批、官方 API 与凭据红线 | `docs/marketing/execution-backlog.md`                     |
+| docs | TC-DOC-GROWTH-123-04 | C034 deprecated 并回链 C123                     | `docs/plans/20260629-c034-seo-geo-foundation/`            |
+| docs | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单       | `docs/plans/20260710-c123-growth-execution/test-cases.md` |
+| docs | TC-DOC-GROWTH-123-06 | 官方资料与适用边界齐全                          | `docs/marketing/execution-backlog.md`                     |
 
 ## 2026-07-09 配置/CI 增量（C-20260709-121）
 

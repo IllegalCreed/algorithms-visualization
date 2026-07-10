@@ -1,7 +1,7 @@
 # 项目概览
 
 > Status: active
-> Last reviewed: 2026-07-09
+> Last reviewed: 2026-07-10
 > Owner: IllegalCreed
 
 ## 项目简介
@@ -20,8 +20,9 @@
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                        |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）                |
 | 测试     | Vitest L3/L4 已落地：278 个测试文件、2023 个用例在 2026-07-10 本地全绿，且已纳入 GitHub Pages build job；Playwright L5 端到端目录已有 102 个 `*.e2e.ts` |
-| 当前阶段 | `docs/plans/completion-backlog.md` 标记 M9-M12 全清单完成，项目进入 1.0 封版后的营销执行与维护期                                                        |
-| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/plans/completion-backlog.md`、`docs/roadmap.md`、`docs/plans/index.md`、`docs/test-cases/index.md`                     |
+| 当前阶段 | M9-M12 全清单完成；C-20260710-123 已建立增长执行主线，下一阶段为 C124 SEO/GEO，随后是分析归因、`/en` 试点、半自动分发和发布复盘                         |
+| 增长现状 | 已有全局 meta/OG、robots、95 URL 静态 sitemap、简版 llms.txt 和首发文案；route meta/canonical/JSON-LD、分析、站点多语言、分发自动化尚未实现             |
+| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`                  |
 
 ## 模块地图
 
@@ -45,6 +46,6 @@
 
 ## AI 阅读提示
 
-新任务优先阅读：`AGENTS.md`（Codex）或 `CLAUDE.md`（Claude）→ `docs/plans/completion-backlog.md` → `docs/roadmap.md` → `docs/plans/index.md` → 相关 plan → 代码。开发前务必先读 `docs/通用分层文档规范.md` 与 `docs/通用测试规范.md`，以及本项目适配说明 `docs/documentation-adapter.md`。
+新任务优先阅读：`AGENTS.md`（Codex）或 `CLAUDE.md`（Claude）→ `docs/roadmap.md` → 当前领域事实源（增长任务读 `docs/marketing/execution-backlog.md`）→ `docs/plans/index.md` → 相关 plan → 代码。`docs/plans/completion-backlog.md` 只保留 M9-M12 封版历史。开发前务必先读 `docs/通用分层文档规范.md` 与 `docs/通用测试规范.md`，以及本项目适配说明 `docs/documentation-adapter.md`。
 
 若文档之间事实冲突，优先级为：当前源码与测试结果 > 最新 plan / completion backlog > agent 记忆文件（`AGENTS.md` / `CLAUDE.md`）> 本概览。发现过期事实时，按本文件这种方式小步校正，不静默沿用旧状态。
