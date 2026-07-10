@@ -3,21 +3,21 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-06-29
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-11
 > Current execution source: `docs/marketing/execution-backlog.md`
-> Related plans: C-20260710-123、C-20260710-124、C-20260710-129；C-20260629-034 与 C-20260710-125 已 superseded
+> Related plans: C-20260710-123、C-20260710-124、C-20260710-129、C-20260711-126；C-20260629-034 与 C-20260710-125 已 superseded
 
 ## 定位
 
 本文件保存增长策略、受众、渠道和指标原则。当前状态、执行顺序、依赖与退出条件以 [`execution-backlog.md`](./execution-backlog.md) 为准；首发文案与素材清单见 [`launch-posts.md`](./launch-posts.md)。
 
-**产品定位**：面向计算机学生、求职/考试准备者和开发者的交互式算法与数据结构学习工具。当前中文体验完整，英文站点尚未实现。
+**产品定位**：面向计算机学生、求职/考试准备者和开发者的交互式算法与数据结构学习工具。当前中文体验完整，英文已上线十页试点，不宣称全量国际化。
 
 ## 当前判断
 
 1. 项目已经有 92 个条目、互动播放器、搜索、学习路径、复杂度速查、全局分享卡和首发文案，内容与产品基础足够进入增长验证。
-2. 当前站点仍是客户端 Vue SPA，但 C124 已用 Playwright 在构建后输出 95 个带真实正文的静态入口，并用双 base 产物门禁与本地 HTTP 命中实验验证；客户端继续接管交互。
-3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms 与 crawler 策略已落地；第三方分析已撤销，站点多语言和分发自动化仍未实现。
+2. 当前站点仍是客户端 Vue SPA，但 C124/C126 已用 Playwright 在构建后输出 105 个带真实正文的静态入口，并用双 base 产物门禁与 HTTP 命中实验验证；客户端继续接管交互。
+3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、十组双向 hreflang 与 crawler 策略已落地；第三方分析已撤销，站点多语言完成十页试点，分发自动化仍未实现。
 4. robots、结构化数据、`llms.txt` 或预渲染都不能保证排名、收录、富结果或 AI 引用。冷启动先用 UTM、渠道原生指标、实际发布 URL 与人工反馈复盘，稳定流量出现后再评审统计投入。
 5. 站点适合内容驱动获客。广告与重度变现应晚于稳定流量和体验验证，不作为冷启动的启动器。
 
@@ -48,8 +48,8 @@ flowchart LR
 | C124 | 建立每页可验证的搜索与机器可读语义               | verified   |
 | C125 | 建立来源、行为和 campaign 归因                   | superseded |
 | C129 | 撤销第三方 tracker，仅保留零成本 UTM 工具        | verified   |
-| C126 | 用十页 `/en` 样本验证国际化质量和需求            | next       |
-| C127 | 自动生成草稿与素材，人工批准后才调用官方发布能力 | planned    |
+| C126 | 用十页 `/en` 样本验证国际化质量和需求            | verified   |
+| C127 | 自动生成草稿与素材，人工批准后才调用官方发布能力 | next       |
 | C128 | 分批发布，在 48 小时和 7 天复盘后决定投入        | planned    |
 
 ## 内容策略
@@ -58,7 +58,7 @@ flowchart LR
 
 - 学习价值：逐步动画把边界、指针、状态转移和数据结构变化显示出来。
 - 可操作性：可改单次输入、拖动步骤、切换四种代码语言、做关键步测验。
-- 内容广度：九大类 92 个条目，并提供复杂度速查与学习路径。
+- 内容广度：中文九大类 92 个条目，并提供复杂度速查、学习路径与十页英文试点。
 - 工程可信度：Vue 3 + TypeScript 的可插拔轨架构，Vitest、Playwright 和覆盖率门禁已经落地。
 
 ### 内容单元
@@ -134,15 +134,16 @@ flowchart LR
 
 ## 关联入口
 
-| 文档                                           | 用途                               |
-| ---------------------------------------------- | ---------------------------------- |
-| `docs/marketing/execution-backlog.md`          | 当前状态、C124-C128 顺序和退出条件 |
-| `docs/marketing/launch-posts.md`               | 掘金、V2EX、B站首发草稿与素材清单  |
-| `docs/plans/20260710-c123-growth-execution/`   | 本轮审计、设计、实现与测试证据     |
-| `docs/plans/20260710-c124-seo-geo-foundation/` | 当前 SEO/GEO 实现、测试与发布证据  |
-| `docs/plans/20260710-c129-analytics-rollback/` | 第三方分析撤销与 UTM 保留决策      |
-| `docs/plans/20260629-c034-seo-geo-foundation/` | 已 superseded 的历史 SEO/GEO 草案  |
-| `docs/roadmap.md`                              | 项目总路线图与当前优先级           |
+| 文档                                           | 用途                                |
+| ---------------------------------------------- | ----------------------------------- |
+| `docs/marketing/execution-backlog.md`          | 当前状态、C124-C128 顺序和退出条件  |
+| `docs/marketing/launch-posts.md`               | 掘金、V2EX、B站首发草稿与素材清单   |
+| `docs/plans/20260710-c123-growth-execution/`   | 本轮审计、设计、实现与测试证据      |
+| `docs/plans/20260710-c124-seo-geo-foundation/` | 当前 SEO/GEO 实现、测试与发布证据   |
+| `docs/plans/20260710-c129-analytics-rollback/` | 第三方分析撤销与 UTM 保留决策       |
+| `docs/plans/20260711-c126-en-pilot/`           | `/en` 十页试点、hreflang 与验证证据 |
+| `docs/plans/20260629-c034-seo-geo-foundation/` | 已 superseded 的历史 SEO/GEO 草案   |
+| `docs/roadmap.md`                              | 项目总路线图与当前优先级            |
 
 外部技术依据及适用边界集中维护在 `execution-backlog.md` 的“官方依据与适用边界”章节。
 
@@ -153,3 +154,4 @@ flowchart LR
 - 2026-07-10：C-124 完成本地实现与门禁，采用 95 页构建后预渲染、route head/JSON-LD 和同源 sitemap/llms；进入双轨发布验证，C125 成为下一执行阶段。
 - 2026-07-10：C-124 双轨发布与静态深链核验完成，状态转 verified；C125 分析与渠道归因成为当前执行阶段。
 - 2026-07-10：C-129 撤销 C125 第三方分析路线，仅保留 UTM；下一执行阶段改为 C126 `/en` 十页试点。
+- 2026-07-11：C-126 十页英文试点、105 页双 base 产物与双轨上线完成；下一执行阶段改为 C127 内容生成与半自动分发。

@@ -1,13 +1,25 @@
 # 测试用例分层视图
 
 > Status: active
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-11
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case。历史分层总数未做全量重算。
+
+## 2026-07-11 多语言十页试点增量（C-20260711-126）
+
+| 层级  | Case ID                     | 标题                                              | 自动化路径                                         |
+| ----- | --------------------------- | ------------------------------------------------- | -------------------------------------------------- |
+| L3    | TC-I18N-REGISTRY-126-01..03 | 十组页面映射、切换 query 与未知页 fallback        | `src/i18n/pilot.spec.ts`                           |
+| L3    | TC-I18N-MODULE-126-01..03   | 七模块结构不变、英文展示无 Han、lineMap 不变      | `src/i18n/englishAlgorithmModules.spec.ts`         |
+| L3    | TC-SEO-I18N-126-01..03      | 105 页 registry、十组 hreflang 与英文 JSON-LD     | `src/seo/site.spec.ts`                             |
+| L4    | TC-I18N-UI-126-01..04 + 03A | route head、Header、Search、Menu 与 Player 本地化 | route/Header/Search/Menu/Player specs              |
+| build | TC-I18N-BUILD-126-01..04    | 105 页发现、静态语言、sitemap/llms 与双 base      | `scripts/prerender.mjs` + `scripts/verify-seo.mjs` |
+| L5    | TC-E2E-I18N-126-01..04      | 深链 SEO、切换、搜索/播放器与 900px 响应式        | `e2e/i18n.e2e.ts`                                  |
+| docs  | TC-DOC-I18N-126-01          | plan、增长事实源、测试索引与 agent 记忆一致       | C126 四文档与全局索引                              |
 
 ## 2026-07-10 第三方分析撤销增量（C-20260710-129）
 

@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-11
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -11,12 +11,35 @@
 
 本项目测试分层裁剪为 L3（前端单元）/ L4（前端组件）/ L5（端到端），不含 L1/L2（无后端）。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。历史大表未做全量重排。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。2026-07-11 登记 C-126 二十三个多语言与国际 SEO Case。历史大表未做全量重排。
 
 ## All Cases
 
 | Case ID                   | 标题                                                                                       | 所属功能 / 模块                    | Owner Plan     | 层级  | 自动化路径                                                    | 状态       | 最后验证   |
 | ------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- | -------------- | ----- | ------------------------------------------------------------- | ---------- | ---------- |
+| TC-I18N-REGISTRY-126-01   | 十组中英页面、route name/path 与 7/2/1 类型边界唯一                                        | i18n / pilot registry              | C-20260711-126 | L3    | `src/i18n/pilot.spec.ts`                                      | active     | 2026-07-11 |
+| TC-I18N-REGISTRY-126-02   | 成对页面切换语言并保留安全 query                                                           | i18n / language switch             | C-20260711-126 | L3    | `src/i18n/pilot.spec.ts`                                      | active     | 2026-07-11 |
+| TC-I18N-REGISTRY-126-03   | 未翻译或未知页面回退目标语言 Home                                                          | i18n / language fallback           | C-20260711-126 | L3    | `src/i18n/pilot.spec.ts`                                      | active     | 2026-07-11 |
+| TC-I18N-MODULE-126-01     | 七个英文 module 的步骤、执行点与全部视觉轨保持不变                                         | i18n / algorithm adapter           | C-20260711-126 | L3    | `src/i18n/englishAlgorithmModules.spec.ts`                    | active     | 2026-07-11 |
+| TC-I18N-MODULE-126-02     | 英文标题、输入、字幕、变量、题卡与源码无 Han 字符                                          | i18n / algorithm copy              | C-20260711-126 | L3    | `src/i18n/englishAlgorithmModules.spec.ts`                    | active     | 2026-07-11 |
+| TC-I18N-MODULE-126-03     | 四语言代码行数与 lineMap 保持不变                                                          | i18n / source mapping              | C-20260711-126 | L3    | `src/i18n/englishAlgorithmModules.spec.ts`                    | active     | 2026-07-11 |
+| TC-SEO-I18N-126-01        | registry 为 95 个中文页加 10 个英文页且全局唯一                                            | seo / multilingual registry        | C-20260711-126 | L3    | `src/seo/site.spec.ts`                                        | active     | 2026-07-11 |
+| TC-SEO-I18N-126-02        | 十组 alternate 双向、自含、带 x-default，未翻译页无假映射                                  | seo / hreflang                     | C-20260711-126 | L3    | `src/seo/site.spec.ts`                                        | active     | 2026-07-11 |
+| TC-SEO-I18N-126-03        | 英文 JSON-LD 使用英文语言、站名与面包屑                                                    | geo / multilingual json-ld         | C-20260711-126 | L3    | `src/seo/site.spec.ts`                                        | active     | 2026-07-11 |
+| TC-I18N-UI-126-01         | 英文 head 完整且导航到未翻译页会清理旧 alternate                                           | seo / route-head                   | C-20260711-126 | L4    | `src/seo/useRouteSeo.spec.ts`                                 | active     | 2026-07-11 |
+| TC-I18N-UI-126-02         | 英文 Header 文案与页面对语言切换目标正确                                                   | i18n / header                      | C-20260711-126 | L4    | `src/views/Master/Header/Header.spec.ts`                      | active     | 2026-07-11 |
+| TC-I18N-UI-126-03         | `/en` 搜索只包含 9 个英文内容页并使用英文交互文案                                          | i18n / search palette              | C-20260711-126 | L4    | `src/components/SearchPalette.spec.ts`                        | active     | 2026-07-11 |
+| TC-I18N-UI-126-03A        | `/en` Docs 菜单只渲染 9 个试点页并高亮当前项                                               | i18n / docs menu                   | C-20260711-126 | L4    | `src/views/Docs/Menu/Menu.spec.ts`                            | active     | 2026-07-11 |
+| TC-I18N-UI-126-04         | 英文播放器覆盖输入、错误、控制、题卡和轨道静态文案                                         | i18n / player                      | C-20260711-126 | L4    | `src/components/player/AlgorithmPlayer.spec.ts`               | active     | 2026-07-11 |
+| TC-I18N-BUILD-126-01      | prerender 从中英首页发现 105 个任务                                                        | seo / prerender discovery          | C-20260711-126 | build | `scripts/prerender.mjs`                                       | active     | 2026-07-11 |
+| TC-I18N-BUILD-126-02      | 静态 HTML 的语言、head、alternate、JSON-LD 与正文语言一致                                  | seo / prerender artifact           | C-20260711-126 | build | `scripts/verify-seo.mjs`                                      | active     | 2026-07-11 |
+| TC-I18N-BUILD-126-03      | sitemap 等于 105 canonical 且 llms 含中文全量与 English pilot                              | seo / discovery artifact           | C-20260711-126 | build | `scripts/verify-seo.mjs`                                      | active     | 2026-07-11 |
+| TC-I18N-BUILD-126-04      | production/selfhost 的 105 个目录入口分别使用正确 base                                     | seo / dual base                    | C-20260711-126 | build | `pnpm build-only` + `pnpm build:selfhost`                     | active     | 2026-07-11 |
+| TC-E2E-I18N-126-01        | 英文首页与算法深链的正文、菜单、lang、canonical 和 alternate 正确                          | i18n / browser SEO                 | C-20260711-126 | L5    | `e2e/i18n.e2e.ts`                                             | active     | 2026-07-11 |
+| TC-E2E-I18N-126-02        | 成对/未成对语言切换与 quick-sort input query 保留正确                                      | i18n / browser navigation          | C-20260711-126 | L5    | `e2e/i18n.e2e.ts`                                             | active     | 2026-07-11 |
+| TC-E2E-I18N-126-03        | 英文搜索直达并完成播放器输入、单步和题卡交互                                               | i18n / browser interaction         | C-20260711-126 | L5    | `e2e/i18n.e2e.ts`                                             | active     | 2026-07-11 |
+| TC-E2E-I18N-126-04        | 900px 窄桌面无横向溢出或 Header 控件重叠                                                   | i18n / responsive browser          | C-20260711-126 | L5    | `e2e/i18n.e2e.ts`                                             | active     | 2026-07-11 |
+| TC-DOC-I18N-126-01        | plan/test/roadmap/marketing/agent 记忆中的范围、页数与测试数一致                           | docs / multilingual memory         | C-20260711-126 | docs  | `docs/plans/20260711-c126-en-pilot/test-cases.md`             | active     | 2026-07-11 |
 | TC-SEO-PAGES-124-01       | 95 页 registry 的 name/path/title/canonical 唯一且描述完整                                 | seo / registry                     | C-20260710-124 | L3    | `src/seo/site.spec.ts`                                        | active     | 2026-07-10 |
 | TC-SEO-PAGES-124-02       | SEO registry 与 router/Home 92 条 catalog 完全对齐                                         | seo / registry                     | C-20260710-124 | L3    | `src/seo/site.spec.ts`                                        | active     | 2026-07-10 |
 | TC-SEO-PAGES-124-03       | canonical 指向主站尾斜杠静态入口且非索引路由回退 noindex                                   | seo / canonical                    | C-20260710-124 | L3    | `src/seo/site.spec.ts`                                        | active     | 2026-07-10 |

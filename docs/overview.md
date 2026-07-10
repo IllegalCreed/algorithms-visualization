@@ -1,7 +1,7 @@
 # 项目概览
 
 > Status: active
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-11
 > Owner: IllegalCreed
 
 ## 项目简介
@@ -15,30 +15,31 @@
 | 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                         |
 | 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                               |
 | 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                   |
-| 内容规模 | 首页/菜单 9 大类、92 个算法与数据结构条目；另有复杂度速查表与学习路径页                                                                     |
-| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径                  |
+| 内容规模 | 中文首页/菜单 9 大类、92 个算法与数据结构条目；另有 `/en` Home、2 个工具页与 7 个算法页的十页试点                                           |
+| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换    |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：282 个测试文件、2041 个用例在 2026-07-10 本地全绿；Playwright L5：103 个文件、110 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | M9-M12 全清单完成；C124 SEO/GEO 已双轨上线；C129 已撤销 C125 第三方分析接入，下一阶段是 C126 `/en` 试点，随后为半自动分发和发布复盘         |
-| 增长现状 | 95 页 SEO/GEO 已落地；当前无 tracker、会话归因或交互上报，仅保留 UTM 链接生成能力；站点多语言与分发自动化未实现                             |
+| 测试     | Vitest L3/L4：284 个测试文件、2055 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、114 个用例全绿；coverage 与双 base 构建门禁通过 |
+| 当前阶段 | M9-M12 全清单完成；C124 SEO/GEO 与 C126 `/en` 十页试点已双轨上线；C129 已撤销 C125 第三方分析接入，下一阶段是 C127 半自动分发与 C128 复盘   |
+| 增长现状 | 95 个中文页 + 10 个英文试点页的 SEO/GEO 已落地；当前无 tracker、会话归因或交互上报，仅保留 UTM 链接生成能力；分发自动化尚未实现             |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
 
 ## 模块地图
 
-| 模块         | 说明                                                                                           | 代码位置                                                                   |
-| ------------ | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 布局外壳     | 顶层 Master + Header；Home/Docs/About 路由                                                     | `src/views/Master`、`src/views/Home`、`src/views/Docs`                     |
-| 内容页       | 数据结构、排序、图算法、动态规划、搜索、字符串、数论、几何、查找等文章页                       | `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}`                |
-| 播放器       | AlgorithmPlayer、播放控制、代码高亮、变量面板、自定义输入、测验卡                              | `src/components/player`                                                    |
-| 可视化轨道   | Bars/Graph/Matrix/Board/Maze/Kmp/Sieve/Gcd/Power/Hull/Network 等可插拔轨道组件                 | `src/components`                                                           |
-| 算法模块     | oracle、步骤构建、四语言 sources 与 lineMap                                                    | `src/algorithms`                                                           |
-| 产品数据资产 | 首页/菜单分类、复杂度速查、学习路径                                                            | `src/views/Home/Main/hooks.ts`、`src/views/Docs/Menu/hooks.ts`、`src/data` |
-| SEO/静态产物 | 95 页 registry、route head/JSON-LD、Playwright 预渲染、JSDOM/HTTP 产物门禁                     | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`               |
-| 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无运行时 tracker、会话归因或交互事件                    | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                |
-| 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                |
-| 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`            |
-| 分层文档     | 需求/设计/实现/测试用例索引，记录每次复杂变更的过程和验证结果                                  | `docs`                                                                     |
+| 模块         | 说明                                                                                           | 代码位置                                                                         |
+| ------------ | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 布局外壳     | 顶层 Master + Header；Home/Docs/About 路由                                                     | `src/views/Master`、`src/views/Home`、`src/views/Docs`                           |
+| 内容页       | 中文数据结构/算法文章与 `/en` 十页试点                                                         | `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}`、`src/views/English` |
+| 播放器       | AlgorithmPlayer、播放控制、代码高亮、变量面板、自定义输入、测验卡                              | `src/components/player`                                                          |
+| 可视化轨道   | Bars/Graph/Matrix/Board/Maze/Kmp/Sieve/Gcd/Power/Hull/Network 等可插拔轨道组件                 | `src/components`                                                                 |
+| 算法模块     | oracle、步骤构建、四语言 sources 与 lineMap                                                    | `src/algorithms`                                                                 |
+| 产品数据资产 | 首页/菜单分类、复杂度速查、学习路径                                                            | `src/views/Home/Main/hooks.ts`、`src/views/Docs/Menu/hooks.ts`、`src/data`       |
+| 多语言试点   | 十组 typed 页面映射、locale composable 与七个英文算法展示 adapter                              | `src/i18n`                                                                       |
+| SEO/静态产物 | 105 页 registry、route head/JSON-LD/hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁           | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
+| 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无运行时 tracker、会话归因或交互事件                    | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                      |
+| 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                      |
+| 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`                  |
+| 分层文档     | 需求/设计/实现/测试用例索引，记录每次复杂变更的过程和验证结果                                  | `docs`                                                                           |
 
 ## 边界
 

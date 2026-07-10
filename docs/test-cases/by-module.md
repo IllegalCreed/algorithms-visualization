@@ -1,11 +1,25 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-11
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供模块视角，便于按功能域评审覆盖度。
+
+---
+
+## 2026-07-11 多语言十页试点增量（C-20260711-126）
+
+| 模块                        | Case ID                     | 标题                                              | 层级  | 自动化路径                                         |
+| --------------------------- | --------------------------- | ------------------------------------------------- | ----- | -------------------------------------------------- |
+| i18n / pilot registry       | TC-I18N-REGISTRY-126-01..03 | 十组页面映射、切换 query 与未知页 fallback        | L3    | `src/i18n/pilot.spec.ts`                           |
+| i18n / algorithm adapter    | TC-I18N-MODULE-126-01..03   | 七模块结构不变、英文展示无 Han、lineMap 不变      | L3    | `src/i18n/englishAlgorithmModules.spec.ts`         |
+| seo / multilingual registry | TC-SEO-I18N-126-01..03      | 105 页 registry、十组 hreflang 与英文 JSON-LD     | L3    | `src/seo/site.spec.ts`                             |
+| i18n / shared UI            | TC-I18N-UI-126-01..04 + 03A | route head、Header、Search、Menu 与 Player 本地化 | L4    | route/Header/Search/Menu/Player specs              |
+| seo / prerender artifact    | TC-I18N-BUILD-126-01..04    | 105 页发现、静态语言、sitemap/llms 与双 base      | build | `scripts/prerender.mjs` + `scripts/verify-seo.mjs` |
+| i18n / browser              | TC-E2E-I18N-126-01..04      | 深链 SEO、切换、搜索/播放器与 900px 响应式        | L5    | `e2e/i18n.e2e.ts`                                  |
+| docs / multilingual memory  | TC-DOC-I18N-126-01          | plan、增长事实源、测试索引与 agent 记忆一致       | docs  | C126 四文档与全局索引                              |
 
 ---
 
