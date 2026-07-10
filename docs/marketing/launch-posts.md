@@ -17,7 +17,7 @@
 
 大家好。一年前我背八股背到快排第 N 遍还是记不住 partition 的边界，一怒之下决定：把每个算法都做成动画，亲眼看它一步一步跑。
 
-今天它长成了这个样子（在线体验：https://algo.illegalscreed.cn ）：
+今天它长成了这个样子（在线体验：https://algo.illegalscreed.cn/?utm_source=juejin&utm_medium=community&utm_campaign=launch-2026q3&utm_content=project-story ）：
 
 - **92 个算法、9 大类**：排序 16 种、图论 12（Dijkstra 到网络流、LCA）、DP 11（背包到换根 DP）、字符串 8（KMP 到 Z 函数）、数论 10（筛法到 FFT、Pollard's Rho）、计算几何、回溯、查找……
 - **逐步动画播放器**：每一步配中文旁白字幕，TypeScript/Python/Go/Rust 四语言代码随步高亮当前行；支持 0.5×–3× 倍速、循环播放、←/→/空格键盘操控。
@@ -41,12 +41,12 @@
 
 **正文**：
 
-背算法背不动，索性做了个可视化站：https://algo.illegalscreed.cn
+背算法背不动，索性做了个可视化站：https://algo.illegalscreed.cn/?utm_source=v2ex&utm_medium=community&utm_campaign=launch-2026q3&utm_content=project-intro
 
 几个可能有意思的点：
 
 1. 不是播视频，是真·逐步执行快照：拖进度条到任何一步，柱子/图/DP 表和四种语言的代码高亮行完全同步。
-2. 排序算法支持自定义输入，URL 直接分享：https://algo.illegalscreed.cn/docs/quick-sort?input=9,5,27,1,14
+2. 排序算法支持自定义输入，URL 直接分享：https://algo.illegalscreed.cn/docs/quick-sort?input=9,5,27,1,14&utm_source=v2ex&utm_medium=community&utm_campaign=launch-2026q3&utm_content=quick-sort-demo
 3. 播放到关键步会弹题（比如二分查找问你下一步区间），答错给你标出正确答案。
 4. Cmd+K 全站搜索、复杂度速查表、四条学习路径。
 
@@ -58,6 +58,8 @@
 
 **S1《60 秒看懂快速排序》**
 0-5s 痛点钩子：「快排的 partition 你是不是每次都要重新想？」→ 5-40s 录屏：默认数组播放，pivot 品红、区间栈右侧堆叠，旁白跟字幕走 → 40-50s 高潮：改输入为观众点播的数组重放 → 50-60s 收尾：站名 + 「简介有链接，92 个算法都有」。
+
+简介链接：https://algo.illegalscreed.cn/docs/quick-sort/?utm_source=bilibili&utm_medium=video&utm_campaign=launch-2026q3&utm_content=s1-quick-sort
 
 **S2《二分查找会考你》**
 钩子「你以为你会二分？」→ 播放到探针步弹出测验 → 故意答错（红✗ 高亮正确项）→「答对才让你继续」→ 收尾导流。
@@ -86,3 +88,4 @@
 
 - 2026-07-05：创建（C-118，M12 启动包）。
 - 2026-07-10：C-123 将发布动作后置到分析归因之后；状态与外部依赖改由 execution backlog 统一维护。
+- 2026-07-10：C-125 用统一 UTM 规则为掘金、V2EX 与 B站 S1 草稿生成可归因链接；正式发布仍等生产统计验证。

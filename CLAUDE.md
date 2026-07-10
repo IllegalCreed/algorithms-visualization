@@ -35,8 +35,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm lint` —— `eslint . --fix`；CI 用只读的 `pnpm lint:check`
 - `pnpm format` —— Prettier 写入项目源码、文档、e2e、public、workflow 与根部配置/HTML/MD/JSON/TS；CI 用只读的 `pnpm format:check`
 - `pnpm preview` —— 预览已构建的 `dist/`
-- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-10 本地现状：280 个测试文件 / 2033 个 L3/L4 用例全绿。
-- `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-10 本地 103 个文件 / 110 个用例全绿）。
+- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-10 本地现状：285 个测试文件 / 2060 个 L3/L4 用例全绿。
+- `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-10 本地 104 个文件 / 112 个用例全绿）。
 - `pnpm verify` —— 本地复现 Pages build job 门禁：`format:check` → `lint:check` → `type-check` → `test:unit:run` → `build-only`；不含 coverage/e2e。
 
 **门禁：** ESLint 10（flat config，`eslint.config.ts`，用 `eslint-plugin-vue` + `@vue/eslint-config-typescript`）+ Prettier（`.prettierrc.json`，`skip-formatting` 让两者不冲突）。`vue/multi-word-component-names` 已关闭（项目单字组件名惯例）。pre-commit 由 husky（`.husky/pre-commit`）+ lint-staged 触发，对暂存的 JS/TS/Vue 跑 `eslint --fix`、对更多类型跑 `prettier --write`。CI（`deploy.yml`）在构建前卡 `lint:check` + `format:check` + `type-check` + `test:unit:run`，Build 前安装 Chromium，`build-only` 再执行 SEO 产物门禁。
@@ -88,7 +88,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 280 个 L3/L4 测试文件、2033 个用例本地全绿，L5 Playwright 为 103 个文件 / 110 个用例全绿。M9-M12 已完成，增长主线为 C124 SEO/GEO → C125 分析归因 → C126 `/en` 十页试点 → C127 内容与半自动分发 → C128 发布复盘；C-20260710-124 已完成双轨上线验证，当前进入 C125，事实源是 `docs/marketing/execution-backlog.md`，C-034 已 superseded。
+当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；测试现状为 285 个 L3/L4 测试文件、2060 个用例本地全绿，L5 Playwright 为 104 个文件 / 112 个用例全绿。M9-M12 已完成，增长主线为 C124 SEO/GEO → C125 分析归因 → C126 `/en` 十页试点 → C127 内容与半自动分发 → C128 发布复盘；C124 已完成双轨上线，C125 本地事件/UTM/隐私/L5 已完成，生产统计仍因 Cloud website ID、EU 区域与保留策略未确认而保持禁用。事实源是 `docs/marketing/execution-backlog.md`，C-034 已 superseded。
 
 ## 部署（双轨，两步都要做）
 

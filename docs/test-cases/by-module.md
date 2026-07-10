@@ -9,6 +9,22 @@
 
 ---
 
+## 2026-07-10 分析与渠道归因增量（C-20260710-125）
+
+| 模块                          | Case ID                       | 标题                                           | 层级  | 自动化/验证路径                                                |
+| ----------------------------- | ----------------------------- | ---------------------------------------------- | ----- | -------------------------------------------------------------- |
+| analytics / attribution       | TC-ATTR-UTM-125-01..06        | UTM、首触/当前触、referrer、ChatGPT 与存储回退 | L3    | `src/analytics/utm.spec.ts` + `attribution.spec.ts`            |
+| analytics / client            | TC-ANL-CLIENT-125-01..05      | 配置、脚本、队列、失败关闭与 payload 白名单    | L3    | `src/analytics/client.spec.ts`                                 |
+| analytics / privacy           | TC-ANL-PRIVACY-125-01..02     | 隐私入口、数据边界、供应商状态与退出方式       | L3/L4 | Footer spec + `src/analytics/privacy.spec.ts`                  |
+| marketing / attribution links | TC-MARKETING-LINKS-125-01..02 | campaign URL 与 launch-post 归因链接           | L3    | `src/analytics/utm.spec.ts`                                    |
+| analytics / route             | TC-ANL-ROUTE-125-01..03       | 首次/SPA page view 与 query/hash 去重          | L4    | `src/analytics/useRouteAnalytics.spec.ts`                      |
+| analytics / interactions      | TC-ANL-EVENTS-125-01..06      | 搜索、播放、输入、测验与分享事件               | L4    | SearchPalette/AlgorithmPlayer/IconLink specs                   |
+| analytics / browser           | TC-E2E-ANL-125-01..02         | 归因 page view、核心事件与隐私边界             | L5    | `e2e/analytics.e2e.ts`                                         |
+| analytics / operations        | TC-OPS-ANL-125-01..04         | 隔离、生产看板、故障韧性、保留与凭据           | ops   | C125 implementation + `e2e/analytics.e2e.ts`                   |
+| marketing / plan history      | TC-DOC-ANL-125-01             | C125 当前入口与后续依赖一致性                  | docs  | `docs/plans/20260710-c125-analytics-attribution/test-cases.md` |
+
+---
+
 ## 2026-07-10 SEO/GEO 增量（C-20260710-124）
 
 | 模块                     | Case ID                     | 标题                                                   | 层级  | 自动化路径                                                  |

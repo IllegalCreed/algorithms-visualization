@@ -9,6 +9,20 @@
 
 > 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case 与 C-124 十九个 SEO/GEO Case；历史分层总数未做全量重算。
 
+## 2026-07-10 分析与渠道归因增量（C-20260710-125）
+
+| 层级  | Case ID                       | 标题                                                | 自动化/验证路径                                                |
+| ----- | ----------------------------- | --------------------------------------------------- | -------------------------------------------------------------- |
+| L3    | TC-ATTR-UTM-125-01..06        | UTM 校验、首触/当前触、referrer、ChatGPT 与存储回退 | `src/analytics/utm.spec.ts` + `attribution.spec.ts`            |
+| L3    | TC-ANL-CLIENT-125-01..05      | 配置、脚本、队列、失败关闭与 payload 白名单         | `src/analytics/client.spec.ts`                                 |
+| L3/L4 | TC-ANL-PRIVACY-125-01..02     | 隐私入口、数据边界、供应商状态与退出方式            | Footer spec + `src/analytics/privacy.spec.ts`                  |
+| L3    | TC-MARKETING-LINKS-125-01..02 | campaign URL 与 launch-post 归因链接                | `src/analytics/utm.spec.ts`                                    |
+| L4    | TC-ANL-ROUTE-125-01..03       | 首次/SPA page view 与 query/hash 去重               | `src/analytics/useRouteAnalytics.spec.ts`                      |
+| L4    | TC-ANL-EVENTS-125-01..06      | 搜索、播放、输入、测验与分享事件                    | SearchPalette/AlgorithmPlayer/IconLink specs                   |
+| L5    | TC-E2E-ANL-125-01..02         | 归因 page view、核心事件与隐私边界                  | `e2e/analytics.e2e.ts`                                         |
+| ops   | TC-OPS-ANL-125-01..04         | 服务器隔离、生产看板、故障韧性、保留与凭据          | C125 implementation + `e2e/analytics.e2e.ts`                   |
+| docs  | TC-DOC-ANL-125-01             | C125 当前入口与后续依赖一致性                       | `docs/plans/20260710-c125-analytics-attribution/test-cases.md` |
+
 ## 2026-07-10 SEO/GEO 增量（C-20260710-124）
 
 | 层级  | Case ID                     | 标题                                                   | 自动化路径                                                  |

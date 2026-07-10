@@ -14,28 +14,28 @@
 
 ## 当前事实
 
-| 项目     | 当前事实                                                                                                                                       |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 产品范围 | 纯前端算法可视化 SPA，Vue 3 + TypeScript + Vite + Pinia + Less，部署到 GitHub Pages 与自有域名                                                 |
-| 内容规模 | 首页/菜单九大类、92 个条目；`src/algorithms` 下 77 个 `*.module.ts`；数据结构互动页、算法播放器页和功能页并存                                  |
-| 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化        |
-| 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
-| 测试基线 | 2026-07-10 本地现状：280 个 Vitest 文件 / 2033 条 L3/L4 用例通过；`pnpm coverage` 与 110 条 Playwright e2e 通过                                |
-| 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
-| 增长基线 | C124 已落地 95 页 route head/JSON-LD/预渲染、生成式 sitemap/llms 与 crawler 策略；分析归因、站点多语言和分发自动化尚未实现                     |
+| 项目     | 当前事实                                                                                                                                          |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 产品范围 | 纯前端算法可视化 SPA，Vue 3 + TypeScript + Vite + Pinia + Less，部署到 GitHub Pages 与自有域名                                                    |
+| 内容规模 | 首页/菜单九大类、92 个条目；`src/algorithms` 下 77 个 `*.module.ts`；数据结构互动页、算法播放器页和功能页并存                                     |
+| 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化           |
+| 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                   |
+| 测试基线 | 2026-07-10 本地现状：285 个 Vitest 文件 / 2060 条 L3/L4 用例通过；`pnpm coverage` 与 112 条 Playwright e2e 通过                                   |
+| 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布    |
+| 增长基线 | C124 已落地 95 页 SEO/GEO 地基；C125 UTM/归因/client/六类事件已完成定向测试，自托管审计否决并转 Umami Cloud Hobby；站点多语言和分发自动化尚未实现 |
 
 ## 维护队列
 
-| 优先级 | 方向                 | 状态     | 下一步                                                                                                                                |
-| ------ | -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| P0     | 保持门禁与线上可用   | ongoing  | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                                     |
-| P0     | SEO/GEO 技术地基     | verified | C124 已完成：95 页 route head + JSON-LD + 构建后预渲染 + 双 base/HTTP 产物门禁与双轨上线核验                                          |
-| P1     | 增长执行             | next     | C125 分析归因是下一阶段，随后 C126 `/en` 十页试点、C127 半自动分发、C128 分批发布复盘；事实源为 `docs/marketing/execution-backlog.md` |
-| P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                                    |
-| P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁             |
-| P2     | 目录数据源收束       | idea     | Home/Menu/Router 已有一致性测试；若后续继续扩容，可考虑抽单一 catalog，避免三处重复维护                                               |
-| P2     | 性能与无障碍继续打磨 | idea     | 可继续跟踪 Lighthouse、键盘导航、色彩对比、Shiki chunk 体感；不把新拟物色彩取舍误判为必须立即改动                                     |
-| P3     | 新算法或新交互       | parked   | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进                     |
+| 优先级 | 方向                 | 状态        | 下一步                                                                                                                    |
+| ------ | -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
+| P0     | 保持门禁与线上可用   | ongoing     | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                         |
+| P0     | SEO/GEO 技术地基     | verified    | C124 已完成：95 页 route head + JSON-LD + 构建后预渲染 + 双 base/HTTP 产物门禁与双轨上线核验                              |
+| P1     | 增长执行             | in-progress | C125 本地事件/归因、隐私与 analytics L5 已完成，正在跑全门禁并等待 Umami Cloud website ID；随后进入 C126 `/en` 十页试点   |
+| P1     | 低风险维护修复       | ongoing     | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                        |
+| P2     | CI / 测试自动化增强  | partial     | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁 |
+| P2     | 目录数据源收束       | idea        | Home/Menu/Router 已有一致性测试；若后续继续扩容，可考虑抽单一 catalog，避免三处重复维护                                   |
+| P2     | 性能与无障碍继续打磨 | idea        | 可继续跟踪 Lighthouse、键盘导航、色彩对比、Shiki chunk 体感；不把新拟物色彩取舍误判为必须立即改动                         |
+| P3     | 新算法或新交互       | parked      | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进         |
 
 ## 近期决策记录
 
@@ -45,6 +45,8 @@
 | 2026-07-10 | C-20260710-124：正式接管 C-034，选择现有 catalog 驱动 route head、Playwright post-build prerender 与 JSDOM 产物门禁，进入 TDD            |
 | 2026-07-10 | C-20260710-124：本地实现与门禁完成；审计修正无尾斜杠 canonical 命中首页 fallback 的问题，改为尾斜杠静态入口并增加 95 URL HTTP 验证       |
 | 2026-07-10 | C-20260710-124：功能提交 `c98dcaa`，Pages run `29065426100` 与 selfhost 双轨上线核验通过，状态转 verified；下一阶段 C125                 |
+| 2026-07-10 | C-20260710-125：四文档建立并进入 TDD；选择 provider-neutral 前端事件层，先评审 Umami 自托管，并在远端变更前做只读资源/隔离审计           |
+| 2026-07-10 | C-20260710-125：T1-T3 定向全绿；服务器仅 1.8 GiB RAM 且已有多服务，否决同机 Umami/PostgreSQL，生产候选转 Umami Cloud Hobby               |
 | 2026-07-09 | C-20260709-120：路线图从 2026-06-29 的历史长表刷新为维护期工作台，避免把 C-034 等旧状态继续当作当前待办                                  |
 | 2026-07-09 | C-20260709-121：Pages build job 增加 `pnpm test:unit:run`，`format:check` 从 src-only 扩展到项目文档、e2e、public、workflow 与根配置     |
 | 2026-07-09 | C-20260709-122：新增 `pnpm verify` 本地一键门禁，串起格式、lint、类型、全量 Vitest 与 build-only                                         |
