@@ -5,7 +5,10 @@
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
-    "playwright.config.*"
+    "playwright.config.*",
+    "scripts/*.ts",
+    "src/analytics/types.ts",
+    "src/analytics/utm.ts"
   ],
   "compilerOptions": {
     "composite": true,
@@ -14,6 +17,7 @@
 
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
     "types": ["node"]
   }
 }

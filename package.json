@@ -16,6 +16,7 @@
     "build:selfhost": "vite build --mode selfhost && node scripts/prerender.mjs --mode selfhost && node scripts/verify-seo.mjs --mode selfhost && cp 404.html dist/",
     "prerender": "node scripts/prerender.mjs --mode production",
     "verify:seo": "node scripts/verify-seo.mjs --mode production",
+    "marketing:link": "node --experimental-strip-types --no-warnings=ExperimentalWarning scripts/generate-campaign-link.ts",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",

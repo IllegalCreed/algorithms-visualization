@@ -5,7 +5,7 @@ import { HOME_PAGE_URL } from './share';
 // TC-HOOK-05: Master/Header useIconLink（C-009 起：分享/仓库按钮；C-030 增个人主页外链）
 
 vi.mock('vue-router', () => ({
-  useRoute: () => ({ fullPath: '/sort/bubble-sort' }),
+  useRoute: () => ({ fullPath: '/sort/bubble-sort', path: '/sort/bubble-sort' }),
 }));
 
 describe('Master/Header useIconLink', () => {

@@ -19,8 +19,18 @@ export function useIconLink(): ComputedRef<IconLink[]> {
   return computed(() => {
     const target = buildShareTargetUrl(route.fullPath);
     return [
-      { title: '分享到微博', src: weiboIcon, url: buildWeiboShareUrl(target, SHARE_TEXT) },
-      { title: '分享到 X', src: twitterIcon, url: buildXShareUrl(target, SHARE_TEXT) },
+      {
+        title: '分享到微博',
+        src: weiboIcon,
+        url: buildWeiboShareUrl(target, SHARE_TEXT),
+        share: { channel: 'weibo' as const, path: route.path },
+      },
+      {
+        title: '分享到 X',
+        src: twitterIcon,
+        url: buildXShareUrl(target, SHARE_TEXT),
+        share: { channel: 'x' as const, path: route.path },
+      },
       { title: 'GitHub 仓库', src: githubIcon, url: GITHUB_REPO_URL },
       { title: '个人主页', src: homepageIcon, url: HOME_PAGE_URL },
     ];
