@@ -51,3 +51,4 @@ git diff --check
 - 2026-07-10：创建八个 docs-only Case，其中六个事实 Case 纳入全局测试索引。
 - 2026-07-10：八个 Case 全部通过，状态转 verified。
 - 2026-07-10：C124 接管 C034 后，Case 04 作为历史时点断言转 obsolete；当前关系由 TC-DOC-SEO-124-01 验证。
+- 2026-07-10：C129 在 C125 后插入撤销决策；Case 02 作为历史顺序断言转 superseded，当前顺序以 execution backlog 为准。

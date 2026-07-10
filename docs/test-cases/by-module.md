@@ -9,7 +9,18 @@
 
 ---
 
-## 2026-07-10 分析与渠道归因增量（C-20260710-125）
+## 2026-07-10 第三方分析撤销增量（C-20260710-129）
+
+| 模块                          | Case ID                    | 标题                                         | 层级 | 自动化路径                       |
+| ----------------------------- | -------------------------- | -------------------------------------------- | ---- | -------------------------------- |
+| analytics / rollback          | TC-ANL-ROLLBACK-129-01..02 | 双环境无分析配置，应用与交互不加载或发送统计 | L3   | `src/analytics/rollback.spec.ts` |
+| marketing / attribution links | TC-ANL-ROLLBACK-129-03     | 保留 UTM 纯函数与 marketing:link             | L3   | `src/analytics/rollback.spec.ts` |
+
+---
+
+## 2026-07-10 分析与渠道归因历史增量（C-20260710-125，superseded）
+
+除 UTM/marketing-link 四个 Case 外，本节均已由 C129 撤销；路径仅供历史追溯，状态以 `index.md` 为准。
 
 | 模块                          | Case ID                       | 标题                                           | 层级  | 自动化/验证路径                                                |
 | ----------------------------- | ----------------------------- | ---------------------------------------------- | ----- | -------------------------------------------------------------- |
@@ -21,7 +32,7 @@
 | analytics / interactions      | TC-ANL-EVENTS-125-01..06      | 搜索、播放、输入、测验与分享事件               | L4    | SearchPalette/AlgorithmPlayer/IconLink specs                   |
 | analytics / browser           | TC-E2E-ANL-125-01..02         | 归因 page view、核心事件与隐私边界             | L5    | `e2e/analytics.e2e.ts`                                         |
 | analytics / operations        | TC-OPS-ANL-125-01..04         | 隔离、生产看板、故障韧性、保留与凭据           | ops   | C125 implementation + `e2e/analytics.e2e.ts`                   |
-| marketing / plan history      | TC-DOC-ANL-125-01             | C125 当前入口与后续依赖一致性                  | docs  | `docs/plans/20260710-c125-analytics-attribution/test-cases.md` |
+| marketing / plan history      | TC-DOC-ANL-125-01             | C125 历史入口与 C129 替代关系                  | docs  | `docs/plans/20260710-c125-analytics-attribution/test-cases.md` |
 
 ---
 
@@ -44,7 +55,7 @@
 | 模块                        | Case ID              | 标题                                            | 层级 | 自动化路径                                                |
 | --------------------------- | -------------------- | ----------------------------------------------- | ---- | --------------------------------------------------------- |
 | marketing / growth docs     | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力                    | docs | `docs/marketing/execution-backlog.md`                     |
-| marketing / growth docs     | TC-DOC-GROWTH-123-02 | 固定 C124-C128 顺序、依赖与退出条件             | docs | `docs/marketing/execution-backlog.md`                     |
+| marketing / growth docs     | TC-DOC-GROWTH-123-02 | 历史 C124-C128 顺序；C129 已插入撤销决策        | docs | `docs/marketing/execution-backlog.md`                     |
 | marketing / automation docs | TC-DOC-GROWTH-123-03 | 自动分发具备 dry-run、审批、官方 API 与凭据红线 | docs | `docs/marketing/execution-backlog.md`                     |
 | marketing / plan history    | TC-DOC-GROWTH-123-04 | 历史时点 C034 deprecated；现已 obsolete         | docs | `docs/plans/20260629-c034-seo-geo-foundation/`            |
 | docs / memory               | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单       | docs | `docs/plans/20260710-c123-growth-execution/test-cases.md` |

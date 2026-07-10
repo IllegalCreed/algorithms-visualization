@@ -1,20 +1,22 @@
 # 需求：分析、事件与渠道归因
 
-> Status: approved
+> Status: superseded
 > Stable ID: C-20260710-125
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-10
 > Progress: 90%
-> Blocked by: Owner 的 Umami Cloud 账号、公开 website ID、EU 区域与实际保留策略确认
-> Next action: 跑全门禁并等待 Owner 提供 Umami Cloud 公开 website ID、区域与保留策略确认
+> Blocked by: none
+> Next action: 已由 C129 撤销第三方 tracker；保留 UTM，增长主线进入 C126
 > Replaces: none
-> Replaced by: none
+> Replaced by: C-20260710-129
 > Related plans: C-20260710-123、C-20260710-124、C-20260705-118
 > Related tests: TC-ATTR-UTM-125-_、TC-ANL-CLIENT-125-_、TC-ANL-PRIVACY-125-_、TC-ANL-ROUTE-125-_、TC-ANL-EVENTS-125-_、TC-MARKETING-LINKS-125-_、TC-E2E-ANL-125-\_、TC-OPS-ANL-125-\_
 
 ## 背景
+
+> 历史状态说明：C125 未曾激活生产统计。C129 已删除第三方运行时、会话归因、事件和隐私入口；本文不再是可执行需求。
 
 C124 已让 95 个可索引页面具备稳定的静态入口、route head、JSON-LD、sitemap 与 llms.txt，但项目仍无法回答“流量从哪里来、用户是否真正使用学习交互、不同发布渠道是否值得继续投入”。`docs/marketing/launch-posts.md` 中的链接也尚无统一归因参数。
 
@@ -114,3 +116,4 @@ C124 已让 95 个可索引页面具备稳定的静态入口、route head、JSON
 - 2026-07-10：T2 完成。client 队列/失败关闭/payload 白名单与 route page view 共 9 个用例及 type-check 全绿，进入交互事件 TDD。
 - 2026-07-10：T3 六类交互事件定向 84/84 与 type-check 全绿。服务器只读审计否决同机自托管，生产候选改为 Umami Cloud Hobby；账号、EU 区域与实际保留期待 Owner 外部动作确认。
 - 2026-07-10：本地交付门禁完成：285 个 Vitest 文件 / 2060 条用例、112 条 Playwright、coverage、production/selfhost 各 95 页与凭据扫描通过；统计仍因 Cloud 外部输入保持禁用。
+- 2026-07-10：Owner 撤销第三方分析路线；C129 保留 UTM 并删除其余接入，本需求转 superseded。

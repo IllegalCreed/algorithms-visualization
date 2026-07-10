@@ -1,6 +1,6 @@
 # 测试用例：分析、事件与渠道归因
 
-> Status: approved
+> Status: superseded
 > Stable ID: C-20260710-125
 > Owner: IllegalCreed
 > Created: 2026-07-10
@@ -8,6 +8,9 @@
 > Requirements: ./requirements.md
 > Design: ./design.md
 > Implementation: ./implementation.md
+> Replaced by: C-20260710-129
+
+> 除仍由 `src/analytics/utm.spec.ts` 承载的 UTM/marketing-link Case 外，本文件中的 client、route、interaction、privacy、L5 与 ops Case 均已被 C129 撤销边界替代。
 
 ## 用例总览
 
@@ -105,3 +108,4 @@
 - 2026-07-10：TC-OPS-ANL-125-01 通过“资源不足则否决”分支：远端保持零改动，生产候选转 Umami Cloud Hobby。
 - 2026-07-10：T4 定向通过 2 个隐私用例与 2 个 Chromium L5；修正 router ready 前误报 `/` 和移动端 Footer 裁切。
 - 2026-07-10：T5 全门禁通过；client 补配置 façade、Pages base、malformed URL 与队列标题覆盖，生产统计继续失败关闭。
+- 2026-07-10：C129 删除第三方分析实现及对应自动化；保留 UTM Case，其他 Case 在全局索引转 superseded。

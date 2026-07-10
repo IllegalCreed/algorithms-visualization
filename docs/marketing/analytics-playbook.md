@@ -1,13 +1,16 @@
 # 分析与渠道归因执行手册
 
-> Status: in-progress
+> Status: superseded
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-10
 > Plan: C-20260710-125
-> Production analytics: disabled until Cloud website ID and retention are confirmed
+> Replaced by: C-20260710-129
+> Production analytics: withdrawn; no third-party tracker is configured
 
-## 当前决策
+> **历史记录，禁止继续执行激活清单。** C129 已删除 Umami 配置、transport、事件、隐私入口与专用 L5；当前只保留下面的 UTM 命名规范和 `pnpm marketing:link`。
+
+## C125 历史决策（已撤销）
 
 - 生产候选：Umami Cloud Hobby，优先 EU 区域。
 - 前端：provider-neutral 类型化事件层，`none|umami`；配置不完整时失败关闭。
@@ -28,7 +31,7 @@
 - [Cloud export](https://docs.umami.is/docs/cloud/export-data)
 - [Cloud account deletion](https://docs.umami.is/docs/cloud/delete-account)
 
-## 激活清单
+## 激活清单（历史，禁止执行）
 
 以下动作需要 Owner 的邮箱与 Cloud 控制台，不在仓库或自动化中代办：
 
@@ -48,7 +51,7 @@
 4. 双轨发布后，用下面的测试 campaign 访问主站并完成 play/input_apply/share。
 5. 在 Cloud dashboard 核对 page view、UTM 和至少三类事件后，C125 才能转 verified。
 
-## UTM 规范
+## UTM 规范（仍有效）
 
 | 字段           | 含义          | 允许示例                                      |
 | -------------- | ------------- | --------------------------------------------- |
@@ -85,7 +88,7 @@ https://algo.illegalscreed.cn/?utm_source=c125-test&utm_medium=qa&utm_campaign=a
 | V2EX | `v2ex`     | `community` | `quick-sort-demo` | Quick Sort input |
 | B站  | `bilibili` | `video`     | `s1-quick-sort`   | Quick Sort       |
 
-## 事件字典
+## 事件字典（历史，已撤销）
 
 | 事件              | 触发                               | 属性                                          | 不发送                         |
 | ----------------- | ---------------------------------- | --------------------------------------------- | ------------------------------ |
@@ -99,7 +102,7 @@ https://algo.illegalscreed.cn/?utm_source=c125-test&utm_medium=qa&utm_campaign=a
 
 所有 custom event 自动附加 `deployment=pages|selfhost`。Umami 原生事件/会话可按 UTM 过滤，不重复存储六个归因属性。
 
-## 48 小时复盘
+## 48 小时复盘（历史模板）
 
 | 指标                | 值  | 口径/限制                                             |
 | ------------------- | --- | ----------------------------------------------------- |
@@ -115,7 +118,7 @@ https://algo.illegalscreed.cn/?utm_source=c125-test&utm_medium=qa&utm_campaign=a
 
 有效互动代理：发生 `play`、`input_apply`、`quiz_complete`、`share` 任一事件。若 dashboard 无法按 visitor 去重，只报告事件/visit 代理，不写“用户转化率”。
 
-## 7 天复盘
+## 7 天复盘（历史模板）
 
 - 对比各 source/campaign 的 visits、landing page 与核心事件。
 - 使用 Umami retention 只描述回访统计，不推断个人学习成果。
@@ -123,7 +126,7 @@ https://algo.illegalscreed.cn/?utm_source=c125-test&utm_medium=qa&utm_campaign=a
 - 每个渠道给出 `continue`、`adjust` 或 `stop`，附原因与下一次实验。
 - 将产品问题拆成独立 bug/内容/功能 plan，不在复盘文档里直接改需求历史。
 
-## 隐私与故障
+## 隐私与故障（历史设计）
 
 - 用户可见说明：`public/privacy.html`，首页 Footer 可达。
 - tracker 被拦截、Cloud 故障或配置不完整时，客户端清空队列并静默禁用；页面、搜索、播放器和预渲染不依赖统计。
@@ -134,3 +137,4 @@ https://algo.illegalscreed.cn/?utm_source=c125-test&utm_medium=qa&utm_campaign=a
 ## 变更历史
 
 - 2026-07-10：创建。记录 Cloud Hobby 激活、UTM、事件、48h/7d 与隐私/故障口径；生产仍等待 website ID 和 retention 确认。
+- 2026-07-10：C129 撤销第三方分析与激活路线；本文转为历史记录，仅 UTM 规范继续有效。

@@ -4,7 +4,7 @@
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-10
-> Current plan: C-20260710-125 分析、事件与渠道归因（in-progress）
+> Current plan: C-20260710-129 撤销第三方分析接入（verified）
 > Next plan: C-126 `/en` 多语言十页试点
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
@@ -15,7 +15,7 @@
 
 - `roadmap.md` 只保存策略、渠道与长期判断。
 - `launch-posts.md` 保存可复用的发布文案和素材清单。
-- 本文件保存 C124-C128 的顺序、状态、依赖、退出条件和 Owner 外部行动。
+- 本文件保存 C124-C129 的顺序、状态、依赖、退出条件和 Owner 外部行动。
 - 每个进入实施的阶段仍需新建四文档 plan，不直接把本清单当实现说明。
 
 ## 当前基线审计
@@ -29,33 +29,34 @@
 | llms.txt         | 已有   | C124 构建生成三个功能入口与 92 个内容页的标题、描述和 canonical                           | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
 | 路由级 SEO       | 已有   | 95 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；docs/about 使用 noindex  | C124 已完成双轨上线核验                                                              |
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 95 页；JSDOM 与本地 HTTP 逐页验证 article 正文、head、base 与内链 | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
-| 分析与归因       | 进行中 | C125 本地事件、UTM/会话归因、隐私页与 analytics L5 已完成，正在跑全门禁                   | 同机自托管已否决，候选为 Umami Cloud Hobby；生产实例与看板尚未验证                   |
+| 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI     | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 站点多语言       | 缺失   | UI 与文章主体为中文；播放器仅代码语言切换                                                 | C126 先做 `/en` 十页试点，不把代码语言标签误写成站点国际化                           |
 | 内容生产自动化   | 缺失   | 只有人工发布草稿，无生成器、审批流、渠道 API 或定时 workflow                              | C127 先做草稿生成和人工审批，再评估官方 API                                          |
-| 发布复盘         | 缺失   | 尚无可归因的 48 小时/7 天发布数据                                                         | C128 执行并形成下一轮投入决策                                                        |
+| 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                 | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析归因` -> `C126 英文试点` -> `C127 内容与分发自动化` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C127 内容与分发自动化` -> `C128 发布与复盘`
 
 顺序约束：
 
 1. C124 先让页面具备可靠的可发现性与可引用语义。
-2. C125 在扩大宣传前建立归因，否则渠道投入无法比较。
+2. C125 完成方案评审但未激活生产统计；C129 在流量/收入验证前撤销第三方成本，只保留 UTM。
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C127 只在内容结构和 UTM 规则稳定后自动生成，不自动放大错误内容。
-5. C128 国内发布至少依赖 C125；海外发布同时依赖 C125 与 C126。
+5. C128 国内发布可先使用渠道原生指标和人工复盘；海外发布依赖 C126，自动化批次再依赖 C127。
 
 ## 阶段看板
 
-| 阶段                      | 状态        | 目标                                               | 退出条件                                                           | 主要依赖                       |
-| ------------------------- | ----------- | -------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------ |
-| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                     | 当前基线、C124-C128、Owner 输入和测试索引全部落档                  | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物 | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪 | C123                           |
-| C125 分析、事件与渠道归因 | in-progress | 每次访问与关键学习行为可按来源比较                 | 生产环境 page view、UTM、核心事件和 48h/7d 看板可验证              | C124；当前 plan C-20260710-125 |
-| C126 `/en` 多语言十页试点 | planned     | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/移动测试通过  | C124、C125                     |
-| C127 内容生成与半自动分发 | planned     | 从单一内容清单生成渠道草稿、素材和 UTM 链接        | dry-run 产物可审阅；人工批准后才允许官方 API 发布                  | C125、C126；渠道账号/API 能力  |
-| C128 发布、监测与迭代     | planned     | 完成国内/海外冷启动并用数据决定下一轮              | 每批次有 48h/7d 报告、渠道 ROI 判断与明确后续动作                  | C125；海外批次还依赖 C126/C127 |
+| 阶段                      | 状态       | 目标                                               | 退出条件                                                           | 主要依赖                       |
+| ------------------------- | ---------- | -------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------ |
+| C123 增长执行审计与编排   | verified   | 统一事实、顺序、边界与历史状态                     | 当前基线、C124-C128、Owner 输入和测试索引全部落档                  | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified   | 让每个可索引页面具备唯一语义和可验证的机器可读产物 | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪 | C123                           |
+| C125 分析、事件与渠道归因 | superseded | 历史方案：第三方 page view、事件与会话归因         | 未激活生产统计；由 C129 撤销                                       | C124                           |
+| C129 撤销第三方分析接入   | verified   | 删除 tracker 与事件，保留零成本 UTM 工具           | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过               | C125；当前 plan C-20260710-129 |
+| C126 `/en` 多语言十页试点 | planned    | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/移动测试通过  | C124、C129                     |
+| C127 内容生成与半自动分发 | planned    | 从单一内容清单生成渠道草稿、素材和 UTM 链接        | dry-run 产物可审阅；人工批准后才允许官方 API 发布                  | C126；渠道账号/API 能力        |
+| C128 发布、监测与迭代     | planned    | 完成国内/海外冷启动并用可得证据决定下一轮          | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作             | 海外批次依赖 C126/C127         |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -89,29 +90,27 @@
 - [ ] 检查线上 `robots.txt` 对 OAI-SearchBot/GPTBot/通用 crawler 的最终策略与仓库一致。
 - [ ] 首次提交后在 48 小时和 7 天记录覆盖变化；IndexNow 暂不启用，出现高频 URL 更新需求时再立项。
 
-## C125 分析、事件与渠道归因
+## C125 / C129 分析路线结论
 
-### 当前决策
+### 当前生效决策
 
-- 官方资料评审结论：GA4 默认第一方 Cookie 与 consent/data-control 面较重；Plausible Cloud 隐私与运维体验好但持续付费；Umami 支持无 Cookie、SPA 与 custom event。服务器审计否决同机自托管，生产候选改为免费 Umami Cloud Hobby。
-- 前端不把组件绑定到 Umami：使用类型化事件契约与 transport adapter；配置缺失、tracker 被拦截或远端故障时失败关闭。
-- 只记录稳定枚举、计数和去 query/hash 的路径；搜索词、算法输入、题目文本、User ID、完整 referrer 一律不发送。
-- 浏览器只在 sessionStorage 保存白名单渠道字段；Cloud 优先选 EU，Hobby 实际 retention/删除能力必须在账号内确认，目标不超过 180 天。
-- 具体需求、设计、测试与实施状态以 `docs/plans/20260710-c125-analytics-attribution/` 为准。
+- C125 曾完成 GA4/Plausible/Umami 评审和未激活的 provider-neutral 前端实现；生产环境从未配置 website ID，也未发送统计数据。
+- Owner 确认项目尚未验证流量与收入，不接受先承担第三方订阅或额外数据库运维成本。C129 因此删除 Umami 配置、transport、会话归因、事件、隐私页和 analytics L5。
+- 当前只保留 `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`、`pnpm marketing:link` 与发布草稿中的 UTM 链接。
+- C125 四文档与 `analytics-playbook.md` 作为历史记录保留，当前实现与测试入口以 `docs/plans/20260710-c129-analytics-rollback/` 为准。
 
-### 必做范围
+### 当前边界
 
-- 在 GA4、Plausible、Umami 或等价方案中做一次隐私、成本、托管与事件能力评审，由 Owner 选择并提供属性 ID。
-- 固化 UTM 命名：`utm_source`、`utm_medium`、`utm_campaign`、`utm_content`，所有发布草稿从同一规则生成。
-- 最小事件集：`page_view`、`search`、`play`、`input_apply`、`quiz_complete`、`share`、`language_switch`。
-- 建立 48 小时与 7 天看板：访问、有效互动、来源、落地页、回访和转化代理指标。
-- 单独识别 ChatGPT 搜索推荐流量中的 `utm_source=chatgpt.com`，同时保留普通 referrer 观察。
+- 不加载任何第三方 tracker，不在前端建立 page view watcher，不发送搜索、播放、输入、测验或分享事件。
+- UTM 值继续使用小写 ASCII、最长 64 的统一规则；不得放入邮箱、自由文本或用户输入。
+- 冷启动复盘明确区分站内不可观测行为与渠道可见指标，不把 UTM 本身误写成已完成归因。
+- 只有出现稳定流量、明确指标问题和可接受预算后，才新建独立 plan 评审 Nginx 最小日志、第三方服务或其他方案。
 
-### 退出条件
+### C129 退出条件
 
-- 生产环境能看到测试访问、UTM campaign 和至少三个核心交互事件。
-- 隐私说明、Cookie/同意需求与数据保留策略有明确结论。
-- launch-posts 中的每个链接可生成可归因版本。
+- production/selfhost 运行时和产物不含 tracker/provider/website ID。
+- launch-posts 链接、UTM 纯函数与 CLI 继续可用。
+- 282/2041 Vitest、110/110 Playwright、coverage 和双 base 95 页门禁通过。
 
 ## C126 `/en` 多语言十页试点
 
@@ -154,8 +153,8 @@
 
 ### 批次
 
-1. 国内批次：掘金、V2EX、B站，至少在 C125 验证后开始。
-2. 海外批次：Hacker News、Reddit、Product Hunt，在 C126 英文试点和 C125 归因完成后开始。
+1. 国内批次：掘金、V2EX、B站；用 UTM、渠道原生指标、实际评论与投入时间复盘，不等待第三方属性 ID。
+2. 海外批次：Hacker News、Reddit、Product Hunt，在 C126 英文试点完成后开始；自动化发布还需 C127。
 3. 每个批次在 48 小时与 7 天复盘，不同渠道不使用同一文案和同一发布时间假设。
 
 ### 退出条件
@@ -166,15 +165,15 @@
 
 ## Owner 外部输入与阻塞
 
-| 输入                                        | 最晚需要阶段 | 说明                                                                        |
-| ------------------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| 分析工具选择与属性 ID                       | 进行中       | 已选 Umami Cloud Hobby；Owner 需邮箱验证、选 EU、创建 website 并提供公开 ID |
-| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                    |
-| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                   |
-| 英文术语与品牌口吻确认                      | C126         | 十页样本上线前人工审校                                                      |
-| 渠道账号、API access 与 secrets             | C127         | 各平台逐项核实，不假定都有自动发布 API                                      |
-| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、分析或发布                                        |
-| 隐私与平台合规确认                          | C125-C128    | 统计、邮件、自动发布和广告均需单独确认                                      |
+| 输入                                        | 最晚需要阶段 | 说明                                                               |
+| ------------------------------------------- | ------------ | ------------------------------------------------------------------ |
+| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID |
+| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                           |
+| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                          |
+| 英文术语与品牌口吻确认                      | C126         | 十页样本上线前人工审校                                             |
+| 渠道账号、API access 与 secrets             | C127         | 各平台逐项核实，不假定都有自动发布 API                             |
+| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                             |
+| 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                         |
 
 ## 官方依据与适用边界
 
@@ -185,8 +184,8 @@
 | 结构化数据        | [Google structured data policies](https://developers.google.com/search/docs/appearance/structured-data/sd-policies)                                                   | 使用 JSON-LD 描述可见内容，测试语法；不承诺富结果或排名                                          |
 | OpenAI 搜索爬虫   | [OpenAI publishers and developers FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)                                                    | OAI-SearchBot 管搜索可见性，GPTBot 训练选择独立；ChatGPT 推荐流量可观察 `utm_source=chatgpt.com` |
 | GA4 Cookie/同意   | [GA4 Cookie usage](https://support.google.com/analytics/answer/11397207)、[Consent types](https://support.google.com/analytics/answer/12334711)                       | 默认 web tag 使用第一方 Cookie；本期不引入 GA4 consent 与广告能力                                |
-| Plausible 分析    | [Plausible data policy](https://plausible.io/data-policy)、[custom events](https://plausible.io/docs/custom-props/for-custom-events)                                  | 无 Cookie/持久标识且支持事件；作为低运维付费备选                                                 |
-| Umami 分析        | [Cloud FAQ](https://docs.umami.is/docs/cloud/faq)、[tracker functions](https://docs.umami.is/docs/tracker-functions)、[sessions](https://docs.umami.is/docs/sessions) | 无 Cookie 并支持手动 SPA/事件；匿名 session 使用 IP/UA/website ID 派生，Hobby 保留期待账号内确认 |
+| Plausible 分析    | [Plausible data policy](https://plausible.io/data-policy)、[custom events](https://plausible.io/docs/custom-props/for-custom-events)                                  | 历史评审备选；当前不接入，未来采用前重新核价与核实能力                                           |
+| Umami 分析        | [Cloud FAQ](https://docs.umami.is/docs/cloud/faq)、[tracker functions](https://docs.umami.is/docs/tracker-functions)、[sessions](https://docs.umami.is/docs/sessions) | C125 历史评审对象；C129 已撤销接入，不再等待账号或 retention                                     |
 | GitHub 定时工作流 | [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)                                                  | `schedule` 使用 UTC 且运行默认分支最新提交；C127 先人工触发再定时                                |
 | URL 更新通知      | [Bing IndexNow](https://www.bing.com/webmasters/help/indexnow-0z209wby)                                                                                               | 仅作变更通知加速，保留 sitemap 和正常抓取路径                                                    |
 | llms.txt          | [llms.txt proposal](https://llmstxt.org/)                                                                                                                             | 视为实验性机器说明文件，不当作标准或收录保证                                                     |
@@ -200,3 +199,4 @@
 - 2026-07-10：C-125 四文档建立并进入 TDD；先评审 Umami 自托管，前端采用 provider-neutral、无自由文本、配置缺失时失败关闭的边界；随后只读审计否决同机部署。
 - 2026-07-10：C-125 T1-T3 完成；服务器资源审计否决同机自托管，改选 Umami Cloud Hobby，待 Owner 完成邮箱验证、EU 区域、website ID 与 retention 确认。
 - 2026-07-10：C-125 本地工程与全门禁完成：285/2060 Vitest、112/112 Playwright、coverage、双 base 95 页及产物凭据扫描通过；生产统计仍禁用。
+- 2026-07-10：C-129 按 Owner 决策撤销第三方分析，保留 UTM；282/2041 Vitest、110/110 Playwright、coverage、双 base 95 页与产物扫描通过，下一阶段 C126。

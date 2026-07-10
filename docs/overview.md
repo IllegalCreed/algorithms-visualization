@@ -19,9 +19,9 @@
 | 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径                  |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：285 个测试文件、2060 个用例在 2026-07-10 本地全绿；Playwright L5：104 个文件、112 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | M9-M12 全清单完成；C124 SEO/GEO 已双轨上线；C125 本地实现完成但生产统计保持禁用，随后是 `/en` 试点、半自动分发和发布复盘                    |
-| 增长现状 | 95 页 SEO/GEO 与 C125 事件/UTM/隐私/L5 地基已落地；Umami Cloud website ID、EU/保留策略和生产看板待确认，站点多语言与分发自动化未实现        |
+| 测试     | Vitest L3/L4：282 个测试文件、2041 个用例在 2026-07-10 本地全绿；Playwright L5：103 个文件、110 个用例全绿；coverage 与双 base 构建门禁通过 |
+| 当前阶段 | M9-M12 全清单完成；C124 SEO/GEO 已双轨上线；C129 已撤销 C125 第三方分析接入，下一阶段是 C126 `/en` 试点，随后为半自动分发和发布复盘         |
+| 增长现状 | 95 页 SEO/GEO 已落地；当前无 tracker、会话归因或交互上报，仅保留 UTM 链接生成能力；站点多语言与分发自动化未实现                             |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
 
 ## 模块地图
@@ -35,7 +35,7 @@
 | 算法模块     | oracle、步骤构建、四语言 sources 与 lineMap                                                    | `src/algorithms`                                                           |
 | 产品数据资产 | 首页/菜单分类、复杂度速查、学习路径                                                            | `src/views/Home/Main/hooks.ts`、`src/views/Docs/Menu/hooks.ts`、`src/data` |
 | SEO/静态产物 | 95 页 registry、route head/JSON-LD、Playwright 预渲染、JSDOM/HTTP 产物门禁                     | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`               |
-| 分析与归因   | provider-neutral 事件、UTM/会话归因、Umami transport、隐私说明；生产缺配置时失败关闭           | `src/analytics`、`docs/marketing/analytics-playbook.md`                    |
+| 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无运行时 tracker、会话归因或交互事件                    | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                |
 | 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                |
 | 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`            |
 | 分层文档     | 需求/设计/实现/测试用例索引，记录每次复杂变更的过程和验证结果                                  | `docs`                                                                     |

@@ -7,9 +7,18 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case 与 C-124 十九个 SEO/GEO Case；历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；历史分层总数未做全量重算。
 
-## 2026-07-10 分析与渠道归因增量（C-20260710-125）
+## 2026-07-10 第三方分析撤销增量（C-20260710-129）
+
+| 层级 | Case ID                    | 标题                                         | 自动化路径                       |
+| ---- | -------------------------- | -------------------------------------------- | -------------------------------- |
+| L3   | TC-ANL-ROLLBACK-129-01..02 | 双环境无分析配置，应用与交互不加载或发送统计 | `src/analytics/rollback.spec.ts` |
+| L3   | TC-ANL-ROLLBACK-129-03     | 保留 UTM 纯函数与 marketing:link             | `src/analytics/rollback.spec.ts` |
+
+## 2026-07-10 分析与渠道归因历史增量（C-20260710-125，superseded）
+
+除 `TC-ATTR-UTM-125-01..02` 与 `TC-MARKETING-LINKS-125-01..02` 外，以下 Case 已由 C129 撤销；路径仅供历史追溯，状态以 `index.md` 为准。
 
 | 层级  | Case ID                       | 标题                                                | 自动化/验证路径                                                |
 | ----- | ----------------------------- | --------------------------------------------------- | -------------------------------------------------------------- |
@@ -21,7 +30,7 @@
 | L4    | TC-ANL-EVENTS-125-01..06      | 搜索、播放、输入、测验与分享事件                    | SearchPalette/AlgorithmPlayer/IconLink specs                   |
 | L5    | TC-E2E-ANL-125-01..02         | 归因 page view、核心事件与隐私边界                  | `e2e/analytics.e2e.ts`                                         |
 | ops   | TC-OPS-ANL-125-01..04         | 服务器隔离、生产看板、故障韧性、保留与凭据          | C125 implementation + `e2e/analytics.e2e.ts`                   |
-| docs  | TC-DOC-ANL-125-01             | C125 当前入口与后续依赖一致性                       | `docs/plans/20260710-c125-analytics-attribution/test-cases.md` |
+| docs  | TC-DOC-ANL-125-01             | C125 历史入口与 C129 替代关系                       | `docs/plans/20260710-c125-analytics-attribution/test-cases.md` |
 
 ## 2026-07-10 SEO/GEO 增量（C-20260710-124）
 
@@ -40,7 +49,7 @@
 | 层级 | Case ID              | 标题                                            | 自动化路径                                                |
 | ---- | -------------------- | ----------------------------------------------- | --------------------------------------------------------- |
 | docs | TC-DOC-GROWTH-123-01 | 基线区分已有、部分与缺失能力                    | `docs/marketing/execution-backlog.md`                     |
-| docs | TC-DOC-GROWTH-123-02 | 固定 C124-C128 顺序、依赖与退出条件             | `docs/marketing/execution-backlog.md`                     |
+| docs | TC-DOC-GROWTH-123-02 | 历史 C124-C128 顺序；C129 已插入撤销决策        | `docs/marketing/execution-backlog.md`                     |
 | docs | TC-DOC-GROWTH-123-03 | 自动分发具备 dry-run、审批、官方 API 与凭据红线 | `docs/marketing/execution-backlog.md`                     |
 | docs | TC-DOC-GROWTH-123-04 | 历史时点 C034 deprecated；现已 obsolete         | `docs/plans/20260629-c034-seo-geo-foundation/`            |
 | docs | TC-DOC-GROWTH-123-05 | 当前路线图与 agent 记忆均链接增长执行清单       | `docs/plans/20260710-c123-growth-execution/test-cases.md` |

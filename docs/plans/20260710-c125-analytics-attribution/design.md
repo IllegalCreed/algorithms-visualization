@@ -1,6 +1,6 @@
 # 设计：隐私优先的分析与渠道归因层
 
-> Status: approved
+> Status: superseded
 > Stable ID: C-20260710-125
 > Owner: IllegalCreed
 > Created: 2026-07-10
@@ -8,6 +8,9 @@
 > Requirements: ./requirements.md
 > Implementation: ./implementation.md
 > Test cases: ./test-cases.md
+> Replaced by: C-20260710-129
+
+> 本设计仅保留为历史评审记录。C129 已撤销第三方 tracker、会话归因和交互事件；当前只保留供应商无关的 UTM 生成能力，不得继续执行本文的 Umami 激活方案。
 
 ## 1. 供应商评审
 
@@ -172,3 +175,4 @@ interface StoredAttribution {
 
 - 2026-07-10：创建并批准。选择 provider-neutral client + Umami transport；明确无自由文本、手动 SPA page view、bounded queue、会话归因和远端先审计后变更。
 - 2026-07-10：远端审计因内存/运行服务/数据库与 DNS 条件否决同机自托管，改选 Umami Cloud Hobby；EU 区域与 retention 待账号内确认。
+- 2026-07-10：Owner 决定在项目尚未验证收入/流量前不承担第三方分析成本；C129 撤销运行时接入，本设计转 superseded。

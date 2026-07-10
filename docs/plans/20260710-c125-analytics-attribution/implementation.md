@@ -1,6 +1,6 @@
 # 实现：分析、事件与渠道归因
 
-> Status: in-progress
+> Status: superseded
 > Stable ID: C-20260710-125
 > Owner: IllegalCreed
 > Created: 2026-07-10
@@ -8,6 +8,9 @@
 > Requirements: ./requirements.md
 > Design: ./design.md
 > Test cases: ./test-cases.md
+> Replaced by: C-20260710-129
+
+> 本文记录 C125 曾完成的实现与验证过程。对应 tracker、归因、事件、隐私页及 analytics L5 已由 C129 删除；仅 UTM 纯函数、CLI 与发布链接继续有效。
 
 ## 执行顺序
 
@@ -86,3 +89,4 @@
 - 2026-07-10：隐私与 L5 定向通过；修复 router ready 前误报 `/`、SPA referrer 重复消费、Umami 默认 URL/referrer 泄漏风险和移动端 Footer 裁切。
 - 2026-07-10：队列新增入队时 title 快照，避免脚本延迟加载后早期页面误记末页标题；client 定向 statements 86.71% / functions 100% / lines 90.4%。
 - 2026-07-10：`pnpm verify`（285/2060）、全量 Playwright 112/112、coverage 与 production/selfhost 各 95 页门禁通过；产物无 tracker script、website ID 或 secret。
+- 2026-07-10：C129 完成撤销并通过 282/2041 Vitest、110/110 Playwright 与双 base 门禁；本文转 superseded。
