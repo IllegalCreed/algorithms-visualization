@@ -6,7 +6,7 @@
 #
 # 策略：本地以 selfhost 模式构建（base=/）→ tar 打包 → scp →
 #       远程解压到 dist.new → 原子切换（mv）。旧版本保留为 dist.old。
-# 注：GitHub Pages 用 `pnpm build`（base=/algorithms-visualization/），与此互不影响。
+# 注：GitHub Pages 用 `pnpm build-only`（base=/algorithms-visualization/），与此互不影响。
 # ============================================================
 set -e
 
@@ -25,13 +25,13 @@ ssh -o ConnectTimeout=5 -o BatchMode=yes "${SERVER_USER}@${SERVER_HOST}" 'echo o
 
 echo "[2/4] 构建（selfhost 模式，base=/）..."
 pnpm type-check
-pnpm exec vite build --mode selfhost
+pnpm build:selfhost
 
 LOCAL_DIST="$PROJECT_ROOT/dist"
 [ -f "$LOCAL_DIST/index.html" ] || { echo "dist 未构建（缺 index.html）"; exit 1; }
 
 echo "[3/4] 打包并上传..."
-tar czf /tmp/algo-dist.tgz --exclude='.DS_Store' -C "$LOCAL_DIST" .
+COPYFILE_DISABLE=1 tar czf /tmp/algo-dist.tgz --exclude='.DS_Store' -C "$LOCAL_DIST" .
 scp -q /tmp/algo-dist.tgz "${SERVER_USER}@${SERVER_HOST}:/tmp/"
 
 echo "[4/4] 远程原子切换..."

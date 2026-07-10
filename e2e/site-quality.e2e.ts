@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-E2E-QUALITY-01 站点质量：meta/main 地标/img alt/robots+sitemap+llms', async ({
-  page,
-  request,
-}) => {
+test('TC-E2E-QUALITY-01 站点质量：meta/main 地标/img alt/robots/OG', async ({ page, request }) => {
   await page.goto('/');
   // meta description
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
@@ -18,16 +15,10 @@ test('TC-E2E-QUALITY-01 站点质量：meta/main 地标/img alt/robots+sitemap+l
     .evaluateAll((imgs) => imgs.filter((i) => !(i as HTMLImageElement).alt).length);
   expect(missing).toBe(0);
 
-  // 静态文件三件套
-  for (const [path, head] of [
-    ['/robots.txt', 'User-agent'],
-    ['/sitemap.xml', '<?xml'],
-    ['/llms.txt', '# 算法可视化'],
-  ] as const) {
-    const res = await request.get(path);
-    expect(res.status(), path).toBe(200);
-    expect((await res.text()).startsWith(head), path).toBe(true);
-  }
+  // robots 是 public 源文件；sitemap/llms 自 C-124 起由真实 build 生成并逐页验证。
+  const robots = await request.get('/robots.txt');
+  expect(robots.status()).toBe(200);
+  expect(await robots.text()).toContain('User-agent: OAI-SearchBot');
 
   // OG 分享卡（C-118）
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(

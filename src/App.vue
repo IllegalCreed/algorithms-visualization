@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouteSeo } from '@/seo/useRouteSeo';
+
+useRouteSeo();
+</script>
 
 <template>
   <RouterView></RouterView>

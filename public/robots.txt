@@ -1,3 +1,10 @@
+# ChatGPT 搜索发现与模型训练抓取分开管理。
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
 User-agent: *
 Allow: /
 
