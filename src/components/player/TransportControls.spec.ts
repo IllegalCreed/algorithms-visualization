@@ -83,4 +83,22 @@ describe('TransportControls', () => {
     const w2 = mountIt({ loop: true });
     expect(w2.find('.ctl-loop').classes()).toContain('ctl-active');
   });
+
+  it('TC-CTRL-A11Y-01 控制按钮、倍速和进度条均有可访问名称（C-119）', () => {
+    const w = mountIt({ isPlaying: false, loop: true });
+    expect(w.find('.ctl[aria-label="重置"]').exists()).toBe(true);
+    expect(w.find('.ctl[aria-label="上一步"]').exists()).toBe(true);
+    expect(w.find('.play').attributes('aria-label')).toBe('播放');
+    expect(w.find('.ctl[aria-label="下一步"]').exists()).toBe(true);
+    expect(w.find('.ctl-loop').attributes('aria-label')).toBe('关闭循环播放');
+    expect(w.find('.ctl-loop').attributes('aria-pressed')).toBe('true');
+    expect(w.find('.speed').attributes('aria-label')).toBe('播放速度');
+    expect(w.find('.scrub').attributes('aria-label')).toBe('播放进度');
+    expect(w.find('.scrub').attributes('aria-valuetext')).toBe('4 / 10');
+  });
+
+  it('TC-CTRL-A11Y-02 播放中主按钮可访问名称切换为暂停（C-119）', () => {
+    const w = mountIt({ isPlaying: true });
+    expect(w.find('.play').attributes('aria-label')).toBe('暂停');
+  });
 });

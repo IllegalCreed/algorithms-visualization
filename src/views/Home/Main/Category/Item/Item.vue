@@ -1,31 +1,24 @@
 <script setup lang="ts">
 import type { Item } from '../../types';
-import { useRouter } from 'vue-router';
 
 const props = defineProps<{
   data: Item;
 }>();
-
-const router = useRouter();
-
-function goDocs(): void {
-  router.push({
-    name: props.data.url,
-  });
-}
 </script>
 <template>
-  <div class="item" @click="goDocs">
+  <RouterLink class="item" :to="{ name: props.data.url }">
     <img :src="props.data.icon" :alt="props.data.title" />
 
     <h3>{{ props.data.title }}</h3>
     <span>{{ props.data.desc }}</span>
-  </div>
+  </RouterLink>
 </template>
 <style scoped lang="less">
 .item {
   width: 280px;
   padding: 30px;
+  color: inherit;
+  text-decoration: none;
   .column-center();
   .neumorphism-btn(4px, 10px);
 

@@ -9,14 +9,16 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "test:unit:run": "vitest run",
     "coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "build-only": "vite build && cp 404.html dist/",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
-    "format": "prettier --write src/",
-    "format:check": "prettier --check src/",
+    "format": "prettier --write src/ docs/ e2e/ public/ .github/workflows/ '*.html' '*.json' '*.md' '*.ts' .prettierrc.json --ignore-unknown",
+    "format:check": "prettier --check src/ docs/ e2e/ public/ .github/workflows/ '*.html' '*.json' '*.md' '*.ts' .prettierrc.json --ignore-unknown",
+    "verify": "run-s format:check lint:check type-check test:unit:run build-only",
     "prepare": "husky"
   },
   "dependencies": {

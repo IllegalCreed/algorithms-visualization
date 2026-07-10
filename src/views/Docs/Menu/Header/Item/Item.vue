@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
 import type { Item } from '../../types';
 import { inject } from 'vue';
 
@@ -8,28 +7,25 @@ const props = defineProps<{
 }>();
 
 const currentSelectMenuItemKey = inject('currentSelectMenuItemKey');
-
-const router = useRouter();
-
-function goDocs(): void {
-  router.push({
-    name: props.data.url,
-  });
-}
 </script>
 <template>
-  <div
+  <RouterLink
+    :to="{ name: props.data.url }"
     :class="['item', 'btn', currentSelectMenuItemKey == props.data.url ? 'item-pressed' : null]"
-    @click="goDocs"
   >
     <span>{{ props.data.title }}</span>
-  </div>
+  </RouterLink>
 </template>
 <style scoped lang="less">
 .item {
+  display: block;
   margin-left: 30px;
   font-size: 18px;
-  transition: all 0.5s ease;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    color 0.5s ease,
+    box-shadow 0.5s ease;
   padding: 5px 15px;
 
   &:not(:first-child) {

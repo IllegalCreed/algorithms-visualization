@@ -3,7 +3,9 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 import SearchPalette from './SearchPalette.vue';
+import { pinyinInitials } from './searchIndex';
 import { useSystemStore } from '@/store/modules/system';
+import { useCategoryData } from '@/views/Home/Main/hooks';
 
 const push = vi.fn();
 vi.mock('vue-router', () => ({
@@ -43,6 +45,70 @@ describe('SearchPalette 全站搜索', () => {
     expect(w.find('.sp-cat').text()).toContain('排序');
     await w.find('.sp-input').setValue('排序');
     expect(w.findAll('.sp-item').length).toBeLessThanOrEqual(10);
+  });
+
+  it('TC-VIZ-SEARCH-09 支持英文名、别名与拼音首字母静态索引（C-119）', async () => {
+    const w = mountIt();
+    const store = useSystemStore();
+    store.openSearch();
+    await flushPromises();
+
+    await w.find('.sp-input').setValue('quick sort');
+    expect(w.findAll('.sp-item').some((item) => item.text().includes('快速排序'))).toBe(true);
+
+    await w.find('.sp-input').setValue('kspx');
+    expect(w.findAll('.sp-item').some((item) => item.text().includes('快速排序'))).toBe(true);
+
+    await w.find('.sp-input').setValue('bit');
+    expect(w.findAll('.sp-item').some((item) => item.text().includes('树状数组'))).toBe(true);
+  });
+
+  it('TC-VIZ-SEARCH-11 首页全部标题与分类均具备完整拼音首字母索引（C-119）', () => {
+    const categories = useCategoryData();
+    const labels = categories.flatMap((category) => [
+      category.title,
+      ...category.children.map((item) => item.title),
+    ]);
+    const incomplete = labels.filter((label) => {
+      const searchableCharacterCount = Array.from(label).filter(
+        (char) => /[\da-z]/i.test(char) || /[\u3400-\u9fff]/.test(char),
+      ).length;
+      return pinyinInitials(label).length !== searchableCharacterCount;
+    });
+
+    expect(incomplete).toEqual([]);
+  });
+
+  it('TC-VIZ-SEARCH-12 多音字按算法标题中的实际读音生成首字母（C-119）', () => {
+    expect(pinyinInitials('双调排序')).toBe('sdpx');
+    expect(pinyinInitials('最长公共子序列')).toBe('zcggzxl');
+  });
+
+  it('TC-VIZ-SEARCH-10 面板具备 dialog 与表单可访问性语义（C-119）', async () => {
+    const w = mountIt();
+    useSystemStore().openSearch();
+    await flushPromises();
+    expect(w.find('.search-palette').attributes('role')).toBe('dialog');
+    expect(w.find('.search-palette').attributes('aria-modal')).toBe('true');
+    const input = w.find('.sp-input');
+    expect(input.attributes('role')).toBe('combobox');
+    expect(input.attributes('aria-label')).toBe('搜索算法');
+    expect(input.attributes('aria-expanded')).toBe('false');
+    expect(input.attributes('aria-describedby')).toBe('search-palette-hint');
+    expect(input.attributes('aria-activedescendant')).toBeUndefined();
+
+    await input.setValue('快速排序');
+    expect(w.find('.sp-results').attributes('role')).toBe('listbox');
+    const refreshedInput = w.find('.sp-input');
+    const item = w.find('.sp-item');
+    expect(refreshedInput.attributes('aria-expanded')).toBe('true');
+    expect(refreshedInput.attributes('aria-controls')).toBe('search-results');
+    expect(refreshedInput.attributes('aria-describedby')).toBeUndefined();
+    expect(refreshedInput.attributes('aria-activedescendant')).toBe(item.attributes('id'));
+    expect(item.attributes('role')).toBe('option');
+    expect(item.attributes('aria-selected')).toBe('true');
+    expect(item.attributes('id')).toMatch(/^search-option-/);
+    expect(item.element.tagName).toBe('BUTTON');
   });
 
   it('TC-VIZ-SEARCH-03 键盘 ↓↑ 移动 + Enter 跳转并关闭', async () => {
@@ -87,6 +153,8 @@ describe('SearchPalette 全站搜索', () => {
     useSystemStore().openSearch();
     await flushPromises();
     await w.find('.sp-input').setValue('不存在的算法xyz');
+    expect(w.find('.sp-input').attributes('aria-expanded')).toBe('false');
+    expect(w.find('.sp-input').attributes('aria-activedescendant')).toBeUndefined();
     expect(w.find('.sp-empty').text()).toContain('没有匹配');
   });
 

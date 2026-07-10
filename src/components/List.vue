@@ -26,6 +26,8 @@ function genPercent(item: number): number {
   const offset = item - minValue.value;
   const total = maxValue.value - minValue.value;
 
+  if (total === 0) return 0.5;
+
   return offset / total;
 }
 </script>
@@ -44,7 +46,9 @@ function genPercent(item: number): number {
 /* 对移动中的元素应用的过渡 */
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
 }
 
 .list-enter-from,

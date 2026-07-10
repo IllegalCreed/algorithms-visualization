@@ -1,12 +1,14 @@
 <!-- src/components/player/InputBar.vue —— 自定义输入条（C-110，M10-P1）：模块声明 inputSpec 才渲染 -->
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, useId, watch } from 'vue';
 import type { InputSpec } from './types';
 import { parseInputArray } from './inputSpec';
 
 const props = defineProps<{ spec: InputSpec; modelText: string }>();
 const emit = defineEmits<{ apply: [value: number[]]; restore: [] }>();
 
+const inputId = `algorithm-player-input-${useId()}`;
+const errorId = `${inputId}-error`;
 const text = ref(props.modelText);
 const error = ref('');
 
@@ -37,12 +39,17 @@ function restore(): void {
 <template>
   <div class="input-bar column">
     <div class="ib-row row">
-      <span class="ib-label">输入</span>
+      <label class="ib-label" :for="inputId">输入</label>
       <input
+        :id="inputId"
         v-model="text"
         class="ib-text"
         type="text"
+        name="algorithm-input"
         :placeholder="spec.hint"
+        :aria-invalid="error ? 'true' : undefined"
+        :aria-describedby="error ? errorId : undefined"
+        autocomplete="off"
         spellcheck="false"
         @keydown.enter="apply"
       />
@@ -51,7 +58,9 @@ function restore(): void {
         恢复默认
       </button>
     </div>
-    <p v-if="error" class="ib-error">{{ error }}</p>
+    <p v-if="error" :id="errorId" class="ib-error" role="alert" aria-live="polite">
+      {{ error }}
+    </p>
   </div>
 </template>
 

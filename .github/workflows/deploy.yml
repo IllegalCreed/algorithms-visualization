@@ -40,12 +40,14 @@ jobs:
         uses: actions/configure-pages@v6
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Lint
-        run: pnpm lint:check
       - name: Format check
         run: pnpm format:check
+      - name: Lint
+        run: pnpm lint:check
       - name: Type check
         run: pnpm type-check
+      - name: Unit tests
+        run: pnpm test:unit:run
       - name: Build
         run: pnpm build-only
       - name: Upload artifact

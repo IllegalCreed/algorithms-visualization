@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { buildSearchTokens, normalizeToken } from './searchIndex';
 import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
 
@@ -10,6 +11,7 @@ interface SearchEntry {
   desc: string;
   url: string;
   category: string;
+  tokens: string[];
 }
 
 const store = useSystemStore();
@@ -17,25 +19,40 @@ const router = useRouter();
 
 // 数据源复用首页九大类（title/desc/url 齐全），拍平一次
 const entries: SearchEntry[] = useCategoryData().flatMap((cat) =>
-  cat.children.map((c) => ({
-    title: c.title,
-    desc: c.desc ?? '',
-    url: c.url,
-    category: cat.title,
-  })),
+  cat.children.map((c) => {
+    const entry = {
+      title: c.title,
+      desc: c.desc ?? '',
+      url: c.url,
+      category: cat.title,
+    };
+    return {
+      ...entry,
+      tokens: buildSearchTokens(entry),
+    };
+  }),
 );
 
 const query = ref('');
 const activeIdx = ref(0);
 const inputRef = ref<HTMLInputElement | null>(null);
 
+function searchOptionId(url: string): string {
+  return `search-option-${url}`;
+}
+
 const results = computed<SearchEntry[]>(() => {
   const q = query.value.trim();
   if (!q) return [];
-  const lower = q.toLowerCase();
+  const lower = normalizeToken(q);
   return entries
-    .filter((e) => e.title.includes(q) || e.desc.includes(q) || e.url.includes(lower))
+    .filter((entry) => entry.tokens.some((token) => token.includes(lower)))
     .slice(0, 10);
+});
+
+const activeResultId = computed(() => {
+  const active = results.value[activeIdx.value];
+  return active ? searchOptionId(active.url) : undefined;
 });
 
 watch(
@@ -95,18 +112,33 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
 <template>
   <Teleport to="body">
     <div v-if="store.isSearchOpen" class="search-overlay" @click.self="store.closeSearch()">
-      <div class="search-palette column">
+      <div
+        class="search-palette column"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="search-palette-title"
+      >
+        <h2 id="search-palette-title" class="sr-only">搜索算法</h2>
         <input
           ref="inputRef"
           v-model="query"
           class="sp-input"
           type="text"
+          name="algorithm-search"
+          role="combobox"
           placeholder="搜索算法：名称 / 关键词 / slug…"
+          aria-label="搜索算法"
+          aria-autocomplete="list"
+          :aria-expanded="results.length ? 'true' : 'false'"
+          :aria-describedby="!query.trim() ? 'search-palette-hint' : undefined"
+          :aria-controls="results.length ? 'search-results' : undefined"
+          :aria-activedescendant="activeResultId"
+          autocomplete="off"
           spellcheck="false"
           @keydown="onInputKeydown"
         />
         <template v-if="!query.trim()">
-          <p class="sp-hint">输入算法名或关键词，↑↓ 选择，回车直达</p>
+          <p id="search-palette-hint" class="sp-hint">输入算法名或关键词，↑↓ 选择，回车直达</p>
           <button type="button" class="sp-shortcut" @click="goTo('/docs/complexity')">
             ⏱ 复杂度速查表——92 个算法一页看完
           </button>
@@ -114,21 +146,27 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
             🗺 学习路径——四条路线按顺序点下去
           </button>
         </template>
-        <p v-else-if="results.length === 0" class="sp-empty">没有匹配「{{ query }}」的算法</p>
-        <ul v-else class="sp-results">
-          <li
-            v-for="(r, i) in results"
-            :key="r.url"
-            class="sp-item"
-            :class="{ 'sp-active': i === activeIdx }"
-            @click="go(r)"
-            @mouseenter="activeIdx = i"
-          >
-            <span class="sp-title">{{ r.title }}</span>
-            <span class="sp-cat">{{ r.category }}</span>
-            <span class="sp-desc"
-              >{{ r.desc.slice(0, 42) }}{{ r.desc.length > 42 ? '…' : '' }}</span
+        <p v-else-if="results.length === 0" class="sp-empty" role="status" aria-live="polite">
+          没有匹配「{{ query }}」的算法
+        </p>
+        <ul v-else id="search-results" class="sp-results" role="listbox" aria-label="搜索结果">
+          <li v-for="(r, i) in results" :key="r.url" class="sp-result" role="presentation">
+            <button
+              :id="searchOptionId(r.url)"
+              type="button"
+              class="sp-item"
+              role="option"
+              :aria-selected="i === activeIdx"
+              :class="{ 'sp-active': i === activeIdx }"
+              @click="go(r)"
+              @mouseenter="activeIdx = i"
             >
+              <span class="sp-title">{{ r.title }}</span>
+              <span class="sp-cat">{{ r.category }}</span>
+              <span class="sp-desc"
+                >{{ r.desc.slice(0, 42) }}{{ r.desc.length > 42 ? '…' : '' }}</span
+              >
+            </button>
           </li>
         </ul>
       </div>
@@ -156,6 +194,17 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
   border-radius: 14px;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 .sp-input {
   width: 100%;
@@ -191,14 +240,23 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown));
   padding: 0;
   overflow-y: auto;
 }
+.sp-result {
+  margin: 0;
+}
 .sp-item {
   display: grid;
+  width: 100%;
   grid-template-columns: auto auto 1fr;
   align-items: baseline;
   gap: 10px;
   padding: 9px 12px;
+  border: none;
   border-radius: 8px;
+  background: transparent;
   cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
   .sp-title {
     font-weight: bold;
     font-size: 14px;

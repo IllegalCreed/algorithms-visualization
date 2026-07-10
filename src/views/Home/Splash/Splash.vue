@@ -1,18 +1,9 @@
-<script setup lang="ts">
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-function goDocsPage(): void {
-  router.push({ name: 'array' });
-}
-</script>
 <template>
   <div class="splash">
     <h1>可视化的</h1>
     <h2>数据结构与算法</h2>
     <span>使用Vue3 + Vite + TypeScript + Pinia编写</span>
-    <div id="start-btn" @click="goDocsPage">开始学习</div>
+    <RouterLink id="start-btn" :to="{ name: 'array' }">开始学习</RouterLink>
   </div>
 </template>
 <style scoped lang="less">
@@ -50,6 +41,8 @@ function goDocsPage(): void {
   #start-btn {
     padding: 15px 30px;
     font-size: 20px;
+    color: inherit;
+    text-decoration: none;
     .neumorphism-btn(3px, 10px);
   }
 }

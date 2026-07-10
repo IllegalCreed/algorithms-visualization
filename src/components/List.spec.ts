@@ -19,4 +19,17 @@ describe('List', () => {
     expect(blocks[0].props('percent')).toBe(0);
     expect(blocks[2].props('percent')).toBe(1);
   });
+
+  it('TC-VIZ-LIST-03: 全部数值相等时 percent 使用中性值而不是 NaN（C-119）', () => {
+    const w = mount(List, {
+      props: {
+        data: [
+          ['0', 5],
+          ['1', 5],
+        ],
+      },
+    });
+    const blocks = w.findAllComponents(Block);
+    expect(blocks.map((block) => block.props('percent'))).toEqual([0.5, 0.5]);
+  });
 });

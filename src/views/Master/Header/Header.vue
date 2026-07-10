@@ -1,33 +1,33 @@
 <script setup lang="ts">
 import { useIconLink } from './hooks';
 import { useSystemStore } from '@/store/modules/system';
-import { useRouter } from 'vue-router';
 import IconLinkComp from './IconLink/IconLink.vue';
 
 const systemStore = useSystemStore();
 
 const iconLinkData = useIconLink();
-
-const router = useRouter();
-function goHomePage(): void {
-  router.push({
-    name: 'home',
-  });
-}
 </script>
 
 <template>
   <div id="header" :class="[systemStore.isShowHeaderShadow ? 'neumorphism-bottom-shadow' : null]">
     <div id="main">
-      <div id="logo" title="首页" @click="goHomePage">
+      <RouterLink id="logo" title="首页" aria-label="首页" :to="{ name: 'home' }">
         <span>V</span>
-      </div>
+      </RouterLink>
       <h1>算法可视化</h1>
       <div class="blank"></div>
 
-      <button class="search-btn" title="搜索算法（⌘K / Ctrl+K）" @click="systemStore.openSearch()">
+      <button
+        type="button"
+        class="search-btn"
+        title="搜索算法（⌘K / Ctrl+K）"
+        aria-label="搜索算法（⌘K / Ctrl+K）"
+        @click="systemStore.openSearch()"
+      >
         <svg
           class="sb-icon"
+          aria-hidden="true"
+          focusable="false"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -65,6 +65,8 @@ function goHomePage(): void {
     #logo {
       width: 50px;
       height: 50px;
+      color: inherit;
+      text-decoration: none;
       .center();
       .neumorphism-btn(5px, 10px);
 

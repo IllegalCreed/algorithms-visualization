@@ -27,6 +27,7 @@ const SPEEDS = [0.5, 1, 2, 3];
 
 // 进度填充百分比（驱动滑块轨道的已播放着色）
 const fillPercent = computed(() => (props.total > 1 ? (props.index / (props.total - 1)) * 100 : 0));
+const progressLabel = computed(() => `${props.index + 1} / ${props.total}`);
 
 function onSeek(e: Event) {
   emit('seek', Number((e.target as HTMLInputElement).value));
@@ -37,9 +38,11 @@ function onSpeed(e: Event) {
 </script>
 <template>
   <div class="transport row center">
-    <button class="ctl" title="重置" @click="emit('reset')">
+    <button type="button" class="ctl" title="重置" aria-label="重置" @click="emit('reset')">
       <svg
         class="icon"
+        aria-hidden="true"
+        focusable="false"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -51,38 +54,88 @@ function onSpeed(e: Event) {
         <path d="M3 3v5h5" />
       </svg>
     </button>
-    <button class="ctl" title="上一步" :disabled="atStart" @click="emit('stepBack')">
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+    <button
+      type="button"
+      class="ctl"
+      title="上一步"
+      aria-label="上一步"
+      :disabled="atStart"
+      @click="emit('stepBack')"
+    >
+      <svg
+        class="icon"
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <rect x="5.5" y="5" width="2.6" height="14" rx="1.3" />
         <polygon points="19 5 10 12 19 19" />
       </svg>
     </button>
-    <button class="ctl play" @click="isPlaying ? emit('pause') : emit('play')">
-      <svg v-if="isPlaying" class="icon" viewBox="0 0 24 24" fill="currentColor">
+    <button
+      type="button"
+      class="ctl play"
+      :aria-label="isPlaying ? '暂停' : '播放'"
+      @click="isPlaying ? emit('pause') : emit('play')"
+    >
+      <svg
+        v-if="isPlaying"
+        class="icon"
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <rect x="6.5" y="4.5" width="3.6" height="15" rx="1.4" />
         <rect x="13.9" y="4.5" width="3.6" height="15" rx="1.4" />
       </svg>
-      <svg v-else class="icon" viewBox="0 0 24 24" fill="currentColor">
+      <svg
+        v-else
+        class="icon"
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <polygon points="8 5 19 12 8 19" />
       </svg>
     </button>
-    <button class="ctl" title="下一步" :disabled="atEnd" @click="emit('stepForward')">
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+    <button
+      type="button"
+      class="ctl"
+      title="下一步"
+      aria-label="下一步"
+      :disabled="atEnd"
+      @click="emit('stepForward')"
+    >
+      <svg
+        class="icon"
+        aria-hidden="true"
+        focusable="false"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <polygon points="5 5 14 12 5 19" />
         <rect x="16.4" y="5" width="2.6" height="14" rx="1.3" />
       </svg>
     </button>
-    <select class="speed" :value="speed" @change="onSpeed">
+    <select class="speed" aria-label="播放速度" :value="speed" @change="onSpeed">
       <option v-for="s in SPEEDS" :key="s" :value="s">{{ s }}×</option>
     </select>
     <button
+      type="button"
       class="ctl ctl-loop"
       :class="{ 'ctl-active': props.loop }"
       :title="props.loop ? '关闭循环' : '播完循环'"
+      :aria-label="props.loop ? '关闭循环播放' : '开启循环播放'"
+      :aria-pressed="props.loop ? 'true' : 'false'"
       @click="emit('toggleLoop')"
     >
       <svg
         class="icon"
+        aria-hidden="true"
+        focusable="false"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -102,6 +155,8 @@ function onSpeed(e: Event) {
       min="0"
       :max="Math.max(0, total - 1)"
       :value="index"
+      aria-label="播放进度"
+      :aria-valuetext="progressLabel"
       :style="{ '--fill': fillPercent + '%' }"
       @input="onSeek"
     />
@@ -136,6 +191,10 @@ function onSpeed(e: Event) {
   opacity: 0.4;
   cursor: not-allowed;
 }
+.ctl:focus-visible {
+  outline: 2px solid #8bd3a0;
+  outline-offset: 3px;
+}
 /* 循环开关激活态：绿色高亮（C-111） */
 .ctl-loop.ctl-active {
   color: #1f5e3a;
@@ -149,7 +208,6 @@ function onSpeed(e: Event) {
   height: 32px;
   padding: 0 28px 0 12px;
   border: none;
-  outline: none;
   border-radius: 9px;
   font-size: 13px;
   color: @font-color;
@@ -164,6 +222,8 @@ function onSpeed(e: Event) {
 }
 .speed:active,
 .speed:focus-visible {
+  outline: 2px solid #8bd3a0;
+  outline-offset: 2px;
   box-shadow:
     inset 2px 2px 4px darken(@neumorphis-background, 15%),
     inset -2px -2px 4px lighten(@neumorphis-background, 15%);
@@ -178,6 +238,10 @@ function onSpeed(e: Event) {
   -webkit-appearance: none;
   background: transparent;
   cursor: pointer;
+}
+.scrub:focus-visible {
+  outline: 2px solid #8bd3a0;
+  outline-offset: 3px;
 }
 // 轨道（WebKit）：凹槽 + 左侧已播放柔绿填充
 .scrub::-webkit-slider-runnable-track {
