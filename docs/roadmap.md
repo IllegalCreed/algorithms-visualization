@@ -1,14 +1,14 @@
 # 项目路线图
 
 > Status: active
-> Last reviewed: 2026-07-11
+> Last reviewed: 2026-07-12
 > Owner: IllegalCreed
 
 ## 当前阶段
 
 项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。当前工程主线为 C127 宣传自动化 T3。
 
-当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 已完成 GitHub 真实 smoke 与微博 T3-D1-A 无写边界并达到 79%。下一步由 Codex 带 Owner 完成微博官方 OAuth、个人认证与 Free/试用 gate，再冻结实际 action；第三方统计继续暂缓。
+当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 达到 79%，微博固定 CLI 与 device OAuth 已完成，个人开发者认证正在官方审核。通过后再完成零费用 Free/试用与 action 冻结；第三方统计继续暂缓。
 
 事实优先级保持不变：当前源码与本地测试结果 > 最新 plan / `docs/plans/completion-backlog.md` > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md` > 本路线图。
 
@@ -32,7 +32,7 @@
 | P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                          |
 | P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                   |
 | P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                        |
-| P1     | 宣传自动化           | ongoing  | C127 T3-D1-A 完成并达到 79%；下一步引导微博官方 setup、冻结 Free action，再做 matching smoke 和其余 adapter               |
+| P1     | 宣传自动化           | ongoing  | C127 79%；微博 device OAuth 已完成、个人开发者认证审核中；通过后完成 Free gate/action 冻结，再做 matching smoke           |
 | P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁 |
 | P2     | 免费索引与需求信号   | pending  | 190 页 sitemap 已稳定，可按 C124 清单提交 Search Console/Bing Webmaster Tools；不引入 tracker                             |
 | P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131             |
@@ -42,6 +42,7 @@
 
 | 日期       | 记录                                                                                                                                        |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-12 | C127 T3-D1-B：微博固定版本与 device OAuth 完成；plugin `088229d` 修复真实 null subscription，个人开发者认证审核中，adapter disabled         |
 | 2026-07-11 | C127 T3-D1-A：plugin `3858b56`；官方微博 CLI 固定无写边界、health 与 fake adapter contract 完成，25/111、coverage、verify 全绿，零登录/写入 |
 | 2026-07-11 | C127 T3-C 授权 smoke：Release `352517542` 完成 create/read/report/delete；receipt deleted，Release/tag 双侧复查不存在，GitHub 保持 enabled  |
 | 2026-07-11 | C132 补齐中文 Docs 侧栏“学习工具”两项；首页仍为 9 类/92 项，双语侧栏为 10 组/94 项；2131 Vitest、118 L5、190 页构建与 720/900/1440 视觉全绿 |

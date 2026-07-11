@@ -3,10 +3,10 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-11
+> Last reviewed: 2026-07-12
 > Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/79%，T1/T2/T3-A/T3-B/T3-C/T3-D1-A 完成）
 > Completed plan: C-20260711-131 英文目录全量对齐（verified）
-> Next action: 由 Codex 带 Owner 完成微博官方 setup；随后只读冻结 Free 实际可用 statuses action，未经 matching campaign 授权不发帖
+> Next action: 等待微博个人开发者认证审核；通过后复查 doctor、领取零费用 Free/试用并只读冻结实际 statuses action
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -33,7 +33,7 @@
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | C127 已完成 GitHub smoke 与微博官方 CLI 无写 health/fake adapter contract                | 当前 79%；GitHub ready/enabled，微博 disabled，下一步官方 setup 与 action 冻结       |
+| 内容生产自动化   | 进行中 | C127 已完成 GitHub smoke、微博无写 contract 与 device OAuth；个人开发者认证审核中        | 当前 79%；微博 disabled，审核通过后完成 Free gate 与 action 冻结                     |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
@@ -47,7 +47,7 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-A 已完成并达到 79%；GitHub 真实 smoke 已清理且保持 ready/enabled；微博官方 CLI `0.8.3` 固定无写 health、只读 statuses 目录和 fake adapter contract 已通过 25/111、coverage 与 verify，production adapter 仍 disabled。下一步为 Owner 引导式官方 setup。
+6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-A 已完成并达到 79%；GitHub 保持 ready/enabled；微博官方 CLI `0.8.3` 已安装且 device OAuth 成功，真实 null subscription 兼容修复为 `088229d`。个人开发者认证正在官方审核，production adapter 仍 disabled。
 7. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
@@ -61,7 +61,7 @@
 | C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页         | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
 | C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                   | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | in-progress | GitHub 闭环与微博 T3-D1-A 无写边界已完成           | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 79%；下一步微博官方 setup      |
+| C127 提示词驱动全自动分发 | in-progress | GitHub 闭环、微博无写边界与 device OAuth 已完成    | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 79%；等待微博认证审核          |
 | C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                   | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
@@ -195,8 +195,8 @@
 - T3-B 已完成：本地插件 `98a9dfc` 增加固定 `gh auth status` / `gh api` typed client、stdin 正文、只读账号/仓库权限健康、0600 非秘密 activation 与惰性 runtime；16 个精确 Case、61 个插件用例、coverage、verify、STDIO 与只读 smoke 通过。
 - T3-C 已由本地插件提交 `60feaff` 固定：增加 Release reactions、Issue comments、14 天仓库 traffic、receipt 查询/删除状态和 MCP status/feedback/report/delete；traffic 明确不可归因 campaign，反馈标记 untrusted。审计补齐 Release 删除后的 adapter-owned Git tag 清理，未知结果不落 deleted。
 - Owner 明确授权后已完成唯一 `marketing-ops-t3c-smoke-127` 真实闭环：`setup github` 建立非秘密 activation，临时 Release `352517542` 的 status、零反馈与不可归因报告读取成功；随后 `delete_post` 返回 deleted，receipt 为 deleted，Release 与 tag ref 独立复查均不存在。GitHub 当前 ready/enabled，未创建评论、回复或 Issue。
-- T3-D1-A 已由本地插件提交 `3858b56` 固定：官方 `@weibo-ai/weibo-cli@0.8.3` 只开放固定 `doctor` 与 available statuses 目录，安全环境不继承 token；脱敏 runtime health 与注入式 `weibo-text@0.1.0` contract 已完成，25 文件/111 用例、coverage、verify、STDIO 与隔离 doctor 全绿。production adapter 仍 disabled，未登录、未读账号命令目录、未发帖。
-- 下一步 T3-D1-B：由 Codex 引导 Owner 完成官方浏览器/设备 OAuth、个人开发者认证与 Free/试用 gate；只读冻结实际可用 publish/read action 后再接 production client 与显式 activation。T3-D1-C 真实 smoke 仍需 matching campaign 单独授权，随后推进 Bluesky、DEV、Mastodon。
+- T3-D1-A 已由本地插件提交 `3858b56` 固定：官方 `@weibo-ai/weibo-cli@0.8.3` 只开放固定 `doctor` 与 available statuses 目录，安全环境不继承 token；脱敏 runtime health 与注入式 `weibo-text@0.1.0` contract 已完成，25 文件/111 用例、coverage、verify、STDIO 与隔离 doctor 全绿。production adapter 仍 disabled。
+- T3-D1-B 已完成固定版本安装与官方 device OAuth；真实 doctor 的 null subscription 经红绿修复并提交 `088229d`。Owner 已提交个人开发者认证，官方页面显示“认证中”；审核通过后领取零费用 Free/试用，只读冻结实际 publish/read action，再接 production client 与显式 activation。T3-D1-C 真实 smoke 仍需 matching campaign 单独授权。
 - 首次真实接入时由 Codex 逐步带 Owner 完成向导；接入后的正常使用只需自然语言 campaign，不要求编辑 JSON、拼 UTM 或记忆 CLI。
 
 ### 退出条件
@@ -230,7 +230,7 @@
 | Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                      |
 | GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                     |
 | 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入    |
-| 首批渠道账号状态                            | C127 T3      | 微博进入引导式官方 setup；随后逐项确认 Bluesky、DEV、Mastodon 是否有账号；不要发送密码/token  |
+| 首批渠道账号状态                            | C127 T3      | 微博 device OAuth 已完成、个人开发者认证审核中；随后确认 Bluesky、DEV、Mastodon 账号状态      |
 | 首批渠道官方授权                            | C127 T3-T6   | 由 Codex 带着在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret |
 | 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                          |
 | Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                        |
@@ -279,3 +279,4 @@
 - 2026-07-11：C127 T3-C 无写 contract 完成 Release/Issue/traffic collector、receipt/MCP 查询撤回和 Release/tag 所有权清理；plugin 21/93、coverage、verify 与扩展只读 smoke 通过，当前 74%。activation 仍缺失、零真实写入，等待固定 smoke campaign 授权。
 - 2026-07-11：Owner 授权固定 campaign 后完成 T3-C 真实 smoke；Release `352517542` 完成 create/read/report/delete，receipt deleted，Release/tag 双侧复查不存在。GitHub 保持 ready/enabled，C127 转 76%，下一步 T3-D。
 - 2026-07-11：C127 T3-D1-A 以插件 `3858b56` 完成微博官方 CLI 固定无写边界、零费用 health gate、只读 statuses 目录与注入式文本 adapter；25/111、coverage、verify 和隔离 doctor 通过，零登录/写入。C127 转 79%，下一步 Owner 引导式官方 setup。
+- 2026-07-12：微博官方 CLI `0.8.3` 安装与 device OAuth 完成；真实 null subscription 以插件 `088229d` 修复。Owner 个人开发者认证进入官方审核，C127 保持 79%，未读 catalog、未启用 adapter、零微博写入。

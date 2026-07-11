@@ -3,8 +3,8 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-11
-> Current implementation: C127 T3-C 已完成 GitHub collector、显式 activation 与 create/read/delete/tag-cleanup 真实 smoke；GitHub ready/enabled，临时 Release/tag 已清理
+> Last reviewed: 2026-07-12
+> Current implementation: GitHub ready/enabled；微博固定 CLI 与 device OAuth 已完成、个人开发者认证审核中，production adapter disabled
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
@@ -109,7 +109,7 @@
 
 ### 微博、Bluesky、DEV、Mastodon、X
 
-- [微博开放平台 Agent CLI](https://open.weibo.com/cli)与官方 npm 包 [`@weibo-ai/weibo-cli`](https://www.npmjs.com/package/@weibo-ai/weibo-cli)提供浏览器/设备 OAuth、OS Keychain、JSON 输出及动态平台命令目录；2026-07-11 复核版本为 `0.8.3`。Free 当前为每小时 5 次且仅本人数据，`doctor` 另检查登录、开发者认证与套餐/试用 gate；本地 MCP 禁止 token 导出、token 环境变量与微博主密码，未 setup 前不猜测动态 publish action。T3-D1-A 只落地无写 health/catalog 边界与 fake adapter contract，production adapter 当前 disabled。
+- [微博开放平台 Agent CLI](https://open.weibo.com/cli)与官方 npm 包 [`@weibo-ai/weibo-cli`](https://www.npmjs.com/package/@weibo-ai/weibo-cli)提供浏览器/设备 OAuth、OS Keychain、JSON 输出及动态平台命令目录；固定版本为 `0.8.3`。Free 当前为每小时 5 次且仅本人数据，`doctor` 另检查登录、开发者认证与套餐/试用 gate；本地 MCP 禁止 token 导出、token 环境变量与微博主密码。T3-D1-A 已落地无写 health/catalog 边界与 fake adapter contract；T3-D1-B 的 device OAuth 已完成，个人开发者认证审核中。production adapter 当前 disabled，尚未读取账号 catalog 或猜测动态 publish action。
 - [Bluesky 入门](https://docs.bsky.app/docs/get-started)与[发帖指南](https://docs.bsky.app/blog/create-post)展示 App Password、session 与 `createRecord` 流程；[速率限制](https://docs.bsky.app/docs/advanced-guides/rate-limits)当前给出每小时 5,000 write points、每天 35,000 points，普通低频 campaign 远低于此值。
 - [Forem API](https://developers.forem.com/api/)支持 API key；[Articles API](https://developers.forem.com/api/v1#tag/articles/operation/createArticle)支持 Markdown 发布、canonical、标签与封面，文章/评论读取可用于指标和反馈采集。本次未在官方 API 找到创建评论端点。
 - [Mastodon statuses API](https://docs.joinmastodon.org/methods/statuses/)支持 OAuth 发布、排期、`Idempotency-Key`、编辑、删除、回复和上下文读取；实例可以设置更严格的本地规则。

@@ -5,10 +5,10 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-11
+> Last reviewed: 2026-07-12
 > Progress: 79%
-> Blocked by: Owner 完成微博官方 OAuth、个人开发者认证与 Free/试用 gate（仅 T3-D1-B/C）
-> Next action: 由 Codex 带 Owner 完成微博官方 setup；随后只读冻结 Free 实际可用 statuses action，未经 matching campaign 授权不发帖
+> Blocked by: 微博官方个人开发者认证审核（T3-D1-B）
+> Next action: 审核通过后复查脱敏 doctor，领取零费用 Free/试用并只读冻结实际 statuses action；未经 matching campaign 授权不发帖
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131

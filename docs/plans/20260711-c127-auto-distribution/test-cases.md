@@ -5,10 +5,10 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-11
+> Last reviewed: 2026-07-12
 > Progress: 79%
-> Blocked by: Owner 完成微博官方 OAuth、个人开发者认证与 Free/试用 gate（仅 T3-D1-B/C）
-> Next action: 由 Codex 带 Owner 完成微博官方 setup；随后只读冻结 Free 实际可用 statuses action，未经 matching campaign 授权不发帖
+> Blocked by: 微博官方个人开发者认证审核（T3-D1-B）
+> Next action: 审核通过后复查脱敏 doctor，领取零费用 Free/试用并只读冻结实际 statuses action；未经 matching campaign 授权不发帖
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -277,3 +277,4 @@ git diff --check
 - 2026-07-11：T3-C 初始 5 文件 red（2 个缺失模块、7 失败/2 通过）后实现到 21 文件 / 93 用例全绿；coverage 与 verify 通过。审计进一步发现 Release 删除不会替代 Git ref 清理，以 2 文件 5 项 red/green 补入 tag 所有权 gate 与 cleanup。扩展只读 smoke 确认 traffic/Issues 可读、目标 Release/tag 均不存在；activation 仍缺失、零真实写入，C127 转 74%。
 - 2026-07-11：Owner 明确授权后执行 TC-AUTO-GHSMOKE-127-02；临时 Release `352517542` 完成发布、读取、零反馈采集、不可归因报告与删除，receipt、Release 和 tag ref 复查一致。C127 转 76%，下一步 T3-D。
 - 2026-07-11：T3-D1-A 初始 5 文件 red，追加审计再锁定 3 个失败断言；本地插件提交 `3858b56` 后 25 文件 / 111 用例、coverage（97.76/93.85/99.23/98.35）与 verify 全绿。官方 CLI `0.8.3` help/源码参数对拍及空白环境 doctor 通过；未登录、未读账号命令目录、未启用 adapter、未发帖。C127 转 79%，下一步为 Owner 引导式微博 setup。
+- 2026-07-12：device OAuth 成功后真实 doctor 返回 `subscription: null`；TC-AUTO-WBCLI-127-03 先红后绿，插件提交 `088229d` 后仍为 25 文件 / 111 用例且 coverage/verify 全绿。Owner 认证页面显示“认证中”，未读 commands catalog、未启用 adapter、零写入。
