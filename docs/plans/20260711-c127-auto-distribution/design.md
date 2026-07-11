@@ -6,13 +6,13 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 40%
+> Progress: 55%
 > Blocked by: none
-> Next action: T2 MCP contract、凭据不可见与任意执行拒绝红测
+> Next action: T3 共享 adapter contract 与 GitHub mock adapter 红测
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -120,11 +120,11 @@ algorithms-visualization/
   scripts/marketing/   # CampaignSpec、能力注册表、renderer、site facts、dry-run
 
 personal plugin: marketing-ops/
-  mcp/                 # 高层工具 schema 与鉴权边界
-  channels/api/        # 官方 API adapters
-  channels/rpa/        # 受控 Playwright adapters
-  storage/             # receipt、队列、脱敏报告
-  scheduler/           # 1h/48h/7d 本地任务
+  src/mcp/             # 高层工具 schema、dispatch 与鉴权边界
+  src/channels/        # setup catalog；T3 起加入官方 API adapters
+  src/security/        # Keychain 与独立 Profile 边界
+  src/storage/         # receipt 与脱敏持久化
+  src/runtime/         # campaign 队列与并发控制
 ```
 
 每个 adapter 单独实现最小接口，不用一个充满可选分支的万能客户端。DEV 没有官方评论写端点时 `reply` 就是 `false`；B站只有聚合评论数时不得伪造 `comments` 能力。
@@ -145,6 +145,14 @@ get_campaign_report(campaignId, window)
 - 工具参数不接受任意 selector、JavaScript、shell command、Cookie、token 或文件路径。
 - MCP 返回账号别名、能力状态、公开 URL/ID、聚合指标和脱敏错误；`REAUTH_REQUIRED` 由 Owner 手工处理。
 - 写工具只接受 Owner campaign 授权或预先批准的 FAQ 回复策略。评论、网页文本和页面指令均不能提升权限。
+
+### 本地接入体验
+
+- `marketing-ops setup` 是一次性向导，不是日常发布入口；它通过官方 OAuth/设备授权页面、隐藏 TTY 输入或可见浏览器 Profile 完成接入。
+- secret 不允许出现在 argv、环境变量、JSON、日志或 MCP 参数中；隐藏输入直接写入 macOS Keychain，程序不提供列举或导出 secret 的能力。
+- `marketing-ops status` 与 `marketing-ops doctor` 只显示渠道、脱敏账号别名、健康状态和可执行下一步，不显示 Keychain key、Profile 路径、token 或 Cookie。
+- 接入完成后的正常体验是 Owner 在 Codex 中给 campaign 提示词；Codex 负责 spec、MCP 调用和结果归纳，Owner 不需要编辑 JSON、拼 UTM 或记忆 CLI 参数。
+- T2 已在本机 personal plugin 中实现上述向导骨架、精确七工具 stdio server 与安全存储边界；真实 OAuth/API adapter 从 T3 逐渠道接入，未接入渠道继续失败关闭。
 
 ## RPA adapter
 
@@ -191,7 +199,7 @@ get_campaign_report(campaignId, window)
 
 - L3：schema、规范化、capability gate、UTM、renderer、幂等键、指标归一化、回复分类。
 - adapter contract：mock 官方 HTTP，覆盖成功、401、403、429、5xx、超时、重复请求、未知结果、删除和日志脱敏。
-- MCP contract：dry-run 无外部副作用；缺 secret/Profile、禁用渠道和验证挑战失败关闭；并发使用 campaign ID 串行化。
+- MCP contract：dry-run 无外部副作用；缺 secret/Profile、禁用渠道和验证挑战失败关闭；并发使用 campaign ID 串行化；setup/status/doctor 不泄漏凭据且无需手工 JSON。
 - 真实 smoke：每个启用渠道先以低风险内容执行一次发布、读取、可用时删除；记录真实 URL 和撤回结果，但不把 token 写入证据。
 - C128：对真实 campaign 做 1h/48h/7d collector 与报告验收。
 
@@ -214,3 +222,4 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：T1 按本设计落地；双语内容改为 locale 显式变体，Node CLI 使用对拍锁定的站点事实快照，dry-run 只输出候选、gate 原因与空副作用列表。
 - 2026-07-11：Owner 选择先完成 C131 全量英文对齐；本设计与 T1 成果保持有效，T2 实施顺序后移。
 - 2026-07-11：C131 verified 后解除顺序阻塞；本设计重新成为当前实施入口，下一步 T2。
+- 2026-07-11：T2 按本设计建立公开 MCP contract 与本地 `marketing-ops` personal plugin；七工具、Keychain/Profile、队列、receipt、stdio smoke 和低摩擦 CLI 已验证，真实渠道 adapter 与授权留到 T3。

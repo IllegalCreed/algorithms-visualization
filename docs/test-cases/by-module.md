@@ -40,22 +40,30 @@
 
 ---
 
-## 2026-07-11 渠道自动化 T0/T1 增量（C-20260711-127）
+## 2026-07-11 渠道自动化 T0-T2 增量（C-20260711-127）
 
-| 模块                          | Case ID                    | 标题                                               | 层级 | 自动化路径                                                 |
-| ----------------------------- | -------------------------- | -------------------------------------------------- | ---- | ---------------------------------------------------------- |
-| marketing / channel inventory | TC-DOC-AUTO-127-01         | 十五渠道集合完整且唯一                             | docs | `docs/marketing/channel-automation-audit.md`               |
-| marketing / official evidence | TC-DOC-AUTO-127-02         | 发布、监测、回复、准入与成本有官方依据             | docs | `docs/marketing/channel-automation-audit.md`               |
-| marketing / capability tiers  | TC-DOC-AUTO-127-03         | 免费个人、后备与硬禁用边界明确                     | docs | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory      | TC-DOC-AUTO-127-04         | C127 in-progress/40%、下一步 T2 与记忆一致         | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
-| marketing / credential safety | TC-DOC-AUTO-127-05         | 官方授权、凭据隔离与失败关闭红线完整               | docs | `docs/marketing/channel-automation-audit.md`               |
-| marketing / MCP boundary      | TC-DOC-AUTO-127-09         | Codex 与凭据/Profile 的工具边界完整                | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
-| marketing / campaign spec     | TC-AUTO-SPEC-127-01..04    | schema、规范化、非法输入与双语内容合同             | L3   | `scripts/marketing/spec.spec.ts`                           |
-| marketing / idempotency       | TC-AUTO-IDEMP-127-01..02   | 语义等价与真实变化的 SHA-256 幂等键                | L3   | `scripts/marketing/spec.spec.ts`                           |
-| marketing / channel gate      | TC-AUTO-CHANNEL-127-01..05 | 15 渠道注册表、政策集合与 fail-closed runtime gate | L3   | `scripts/marketing/channels.spec.ts`                       |
-| marketing / site facts        | TC-AUTO-FACTS-127-01..02   | registry/catalog 对拍与过期事实拒绝                | L3   | `scripts/marketing/site-facts.spec.ts`                     |
-| marketing / renderer          | TC-AUTO-RENDER-127-01..03  | 原生候选、UTM、限制、manual/disabled 边界          | L3   | `scripts/marketing/renderer.spec.ts`                       |
-| marketing / dry-run           | TC-AUTO-DRYRUN-127-01..03  | 确定 manifest、决策、零副作用与凭据不可见          | L3   | `scripts/marketing/dry-run.spec.ts`                        |
+| 模块                          | Case ID                      | 标题                                               | 层级 | 自动化路径                                                 |
+| ----------------------------- | ---------------------------- | -------------------------------------------------- | ---- | ---------------------------------------------------------- |
+| marketing / channel inventory | TC-DOC-AUTO-127-01           | 十五渠道集合完整且唯一                             | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / official evidence | TC-DOC-AUTO-127-02           | 发布、监测、回复、准入与成本有官方依据             | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / capability tiers  | TC-DOC-AUTO-127-03           | 免费个人、后备与硬禁用边界明确                     | docs | `docs/marketing/channel-automation-audit.md`               |
+| docs / automation memory      | TC-DOC-AUTO-127-04           | C127 in-progress/55%、下一步 T3 与记忆一致         | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| marketing / credential safety | TC-DOC-AUTO-127-05           | 官方授权、凭据隔离与失败关闭红线完整               | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / MCP boundary      | TC-DOC-AUTO-127-09           | Codex 与凭据/Profile 的工具边界完整                | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| marketing / campaign spec     | TC-AUTO-SPEC-127-01..04      | schema、规范化、非法输入与双语内容合同             | L3   | `scripts/marketing/spec.spec.ts`                           |
+| marketing / idempotency       | TC-AUTO-IDEMP-127-01..02     | 语义等价与真实变化的 SHA-256 幂等键                | L3   | `scripts/marketing/spec.spec.ts`                           |
+| marketing / channel gate      | TC-AUTO-CHANNEL-127-01..05   | 15 渠道注册表、政策集合与 fail-closed runtime gate | L3   | `scripts/marketing/channels.spec.ts`                       |
+| marketing / site facts        | TC-AUTO-FACTS-127-01..02     | registry/catalog 对拍与过期事实拒绝                | L3   | `scripts/marketing/site-facts.spec.ts`                     |
+| marketing / renderer          | TC-AUTO-RENDER-127-01..03    | 原生候选、UTM、限制、manual/disabled 边界          | L3   | `scripts/marketing/renderer.spec.ts`                       |
+| marketing / dry-run           | TC-AUTO-DRYRUN-127-01..03    | 确定 manifest、决策、零副作用与凭据不可见          | L3   | `scripts/marketing/dry-run.spec.ts`                        |
+| marketing / MCP contract      | TC-AUTO-MCP-127-01..06       | 七工具、schema、写授权、拒绝、脱敏与反馈边界       | L3   | `scripts/marketing/mcp-contract.spec.ts`                   |
+| marketing-ops / setup CLI     | TC-AUTO-SETUP-127-01..03     | 五渠道安全接入、隐藏录入与脱敏诊断                 | L3   | personal plugin `src/setup/setup.spec.ts`                  |
+| marketing-ops / Keychain      | TC-AUTO-SECRET-127-01..02    | opaque ref、stdin 写入与 REAUTH_REQUIRED           | L3   | personal plugin `src/security/keychain.spec.ts`            |
+| marketing-ops / Profile       | TC-AUTO-PROFILE-127-01..02   | 0700 独立目录与 challenge 失败关闭                 | L3   | personal plugin `src/security/profile.spec.ts`             |
+| marketing-ops / queue         | TC-AUTO-QUEUE-127-01..02     | campaign 串行化、跨 campaign 并行与异常释放        | L3   | personal plugin `src/runtime/campaign-lock.spec.ts`        |
+| marketing-ops / receipt       | TC-AUTO-RECEIPT-127-01..02   | 幂等、公开字段、0600 原子存储与损坏拒绝            | L3   | personal plugin `src/storage/receipt-store.spec.ts`        |
+| marketing-ops / transport     | TC-AUTO-TRANSPORT-127-01..02 | stdio-only 与精确七工具真实 client smoke           | MCP  | personal plugin `.mcp.json` + `scripts/stdio-smoke.mjs`    |
+| marketing-ops / owner UX      | TC-AUTO-UX-127-01            | 一次设置、日常自然语言的低摩擦边界                 | L3   | personal plugin `src/cli.spec.ts`                          |
 
 ---
 

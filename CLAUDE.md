@@ -35,7 +35,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm lint` —— `eslint . --fix`；CI 用只读的 `pnpm lint:check`
 - `pnpm format` —— Prettier 写入项目源码、文档、e2e、public、workflow 与根部配置/HTML/MD/JSON/TS；CI 用只读的 `pnpm format:check`
 - `pnpm preview` —— 预览已构建的 `dist/`
-- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-11 本地现状：297 个测试文件 / 2118 个 L3/L4 用例全绿。
+- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-11 本地现状：298 个测试文件 / 2124 个 L3/L4 用例全绿。
 - `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-11 本地 104 个文件 / 117 个用例全绿）。
 - `pnpm verify` —— 本地复现 Pages build job 门禁：`format:check` → `lint:check` → `type-check` → `test:unit:run` → `build-only`；不含 coverage/e2e。
 - `pnpm marketing:dry-run -- --spec <campaign.json>` —— 校验/规范化 CampaignSpec，输出渠道候选、UTM、capability/runtime gate 与 `sideEffects=[]`；可选 `--runtime <status.json>` 只接受非敏感布尔状态。
@@ -89,7 +89,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）各有 92 个中英学习条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条。C131 `/en` 95 页目录（Home、2 个工具页、15 个数据结构页、77 个算法页）与 190 页静态产物已双轨上线；本地 297 个 L3/L4 测试文件 / 2118 个用例、104 个 L5 文件 / 117 个用例、coverage 与双 base 全绿。C127 保持 in-progress/40% 和 T1 代码，C131 阻塞已解除，当前下一步为 T2 MCP contract；仍无 MCP、渠道 adapter、凭据或真实发帖。C125 已由 C129 撤销，当前不加载 tracker、不发送事件，只保留 UTM。Header 搜索入口紧跟站点标题，语言与外链保留右侧。Owner 硬约束为零新增费用、无企业主体，宣传首期只做 GitHub、微博 Free、Bluesky、DEV、Mastodon，Reddit 后备，微信/B站/X 禁用。执行事实源是 `docs/marketing/execution-backlog.md`，C131 事实源是 `docs/plans/20260711-c131-en-full-parity/`；C-034 与 C125 均已 superseded。
+当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）各有 92 个中英学习条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条。C131 `/en` 95 页目录（Home、2 个工具页、15 个数据结构页、77 个算法页）与 190 页静态产物已双轨上线；本地 298 个 L3/L4 测试文件 / 2124 个用例、104 个 L5 文件 / 117 个用例、coverage 与双 base 全绿。C127 为 in-progress/55%，T1/T2 已完成：公开仓库有精确七工具 MCP contract，本机 personal plugin 位于 `~/plugins/marketing-ops`，已具备 stdio、一次性 setup/status/doctor、Keychain/Profile、队列和 receipt 安全骨架；仍无真实渠道 adapter、已存凭据、账号授权或真实发帖，下一步 T3 adapter contract 与 GitHub mock。C125 已由 C129 撤销，当前不加载 tracker、不发送事件，只保留 UTM。Header 搜索入口紧跟站点标题，语言与外链保留右侧。Owner 硬约束为零新增费用、无企业主体，宣传首期只做 GitHub、微博 Free、Bluesky、DEV、Mastodon，Reddit 后备，微信/B站/X 禁用；首次接入由 Codex 带向导，日常只需自然语言 campaign。执行事实源是 `docs/marketing/execution-backlog.md`，C131 事实源是 `docs/plans/20260711-c131-en-full-parity/`；C-034 与 C125 均已 superseded。
 
 ## 部署（双轨，两步都要做）
 
