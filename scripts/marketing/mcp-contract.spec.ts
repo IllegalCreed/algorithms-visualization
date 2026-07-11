@@ -6,6 +6,7 @@ import {
   MARKETING_MCP_TOOL_NAMES,
   MARKETING_MCP_TOOLS,
   markUntrustedContent,
+  RENDERED_PACKAGE_JSON_SCHEMA,
   sanitizeMcpOutput,
 } from './mcp-contract';
 
@@ -37,7 +38,7 @@ function collectObjectSchemas(value: unknown, result: Record<string, unknown>[] 
 
 describe('marketing MCP public contract', () => {
   it('TC-AUTO-MCP-127-01 只公开七个稳定高层工具', () => {
-    expect(MARKETING_MCP_CONTRACT_VERSION).toBe(1);
+    expect(MARKETING_MCP_CONTRACT_VERSION).toBe(2);
     expect(MARKETING_MCP_TOOL_NAMES).toEqual(EXPECTED_TOOLS);
     expect(MARKETING_MCP_TOOLS.map((tool) => tool.name)).toEqual(EXPECTED_TOOLS);
     expect(new Set(MARKETING_MCP_TOOL_NAMES).size).toBe(EXPECTED_TOOLS.length);
@@ -125,5 +126,37 @@ describe('marketing MCP public contract', () => {
     });
     expect(feedback).not.toHaveProperty('execute');
     expect(feedback).not.toHaveProperty('tool');
+  });
+
+  it('TC-AUTO-MCP-127-07 publish_campaign 必须携带 renderer 平台包', () => {
+    const publish = MARKETING_MCP_TOOLS.find((tool) => tool.name === 'publish_campaign');
+
+    expect(publish?.inputSchema.required).toEqual(expect.arrayContaining(['packages']));
+    expect(publish?.inputSchema.properties).toMatchObject({
+      packages: {
+        type: 'array',
+        minItems: 1,
+        maxItems: 5,
+        items: RENDERED_PACKAGE_JSON_SCHEMA,
+      },
+    });
+  });
+
+  it('TC-AUTO-MCP-127-08 renderer package schema 闭合且只含受控发布字段', () => {
+    const objectSchemas = collectObjectSchemas(RENDERED_PACKAGE_JSON_SCHEMA);
+    expect(objectSchemas.every((schema) => schema.additionalProperties === false)).toBe(true);
+    expect(JSON.stringify(RENDERED_PACKAGE_JSON_SCHEMA)).not.toMatch(FORBIDDEN_SURFACE);
+    expect(RENDERED_PACKAGE_JSON_SCHEMA).toMatchObject({
+      type: 'object',
+      additionalProperties: false,
+      required: ['channel', 'format', 'utmMedium', 'variants'],
+      properties: {
+        channel: {
+          enum: expect.arrayContaining(['github', 'weibo', 'bluesky', 'dev', 'mastodon']),
+        },
+        format: { enum: ['release', 'post', 'article', 'status', 'manual-package'] },
+        variants: { type: 'array', minItems: 1, maxItems: 2 },
+      },
+    });
   });
 });
