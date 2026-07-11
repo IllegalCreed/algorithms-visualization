@@ -7,11 +7,11 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
 > Progress: 40%
-> Blocked by: none；C130 已 verified
-> Next action: T2 建立 MCP 高层工具、凭据不可见与任意执行拒绝红测
+> Blocked by: none
+> Next action: T2 MCP contract、凭据不可见与任意执行拒绝红测
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130
+> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_
 > Related requirement: requirements.md
 
@@ -212,3 +212,5 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：选择独立本地 `marketing-ops` MCP；凭据和 RPA Profile 与公开仓库/Codex 隔离，C127 后置实施。
 - 2026-07-11：C130 已 verified，设计恢复为当前实施依据；下一步仍从无副作用的 T1 基础层开始。
 - 2026-07-11：T1 按本设计落地；双语内容改为 locale 显式变体，Node CLI 使用对拍锁定的站点事实快照，dry-run 只输出候选、gate 原因与空副作用列表。
+- 2026-07-11：Owner 选择先完成 C131 全量英文对齐；本设计与 T1 成果保持有效，T2 实施顺序后移。
+- 2026-07-11：C131 verified 后解除顺序阻塞；本设计重新成为当前实施入口，下一步 T2。

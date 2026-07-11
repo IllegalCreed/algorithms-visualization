@@ -5,8 +5,8 @@
 > Created: 2026-07-10
 > Last reviewed: 2026-07-11
 > Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/40%，T1 完成）
-> Completed plan: C-20260711-130 英文目录扩展到 30 页（verified）
-> Next action: C127 T2 建立 MCP 高层工具、凭据不可见与任意执行拒绝红测
+> Completed plan: C-20260711-131 英文目录全量对齐（verified）
+> Next action: C127 T2 MCP contract、凭据不可见与任意执行拒绝红测
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -17,28 +17,28 @@
 
 - `roadmap.md` 只保存策略、渠道与长期判断。
 - `launch-posts.md` 保存可复用的发布文案和素材清单。
-- 本文件保存 C124-C130 的顺序、状态、依赖、退出条件和 Owner 外部行动。
+- 本文件保存 C124-C131 的顺序、状态、依赖、退出条件和 Owner 外部行动。
 - 每个进入实施的阶段仍需新建四文档 plan，不直接把本清单当实现说明。
 
 ## 当前基线审计
 
-| 能力             | 状态    | 仓库事实                                                                                 | 结论                                                                                 |
-| ---------------- | ------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| 全局元数据       | 已有    | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD         | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
-| 分享卡           | 已有    | `public/og-cover.png`，C-118 已产出国内首发文案                                          | 发布素材可用，仍需用渠道数据验证效果                                                 |
-| robots           | 已有    | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap     | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
-| sitemap          | 已有    | C130 构建从中英首页真实链接动态发现 125 个尾斜杠 canonical URL                           | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
-| llms.txt         | 已有    | 构建生成 95 个中文页与 30 个 English catalog 页的标题、描述和 canonical                  | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
-| 路由级 SEO       | 已有    | 125 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；30 组页面双向 hreflang | C130 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
-| 首屏机器可读内容 | 已有    | Playwright 构建后预渲染 125 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
-| 分析与归因       | 已撤销  | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
-| 站点多语言       | 已上线  | `/en` Home、2 工具和 27 算法共 30 页；typed catalog、四批红绿、全门禁与双轨上线完成      | 维持内容质量与 125 页产物门禁；第三语言另立计划                                      |
-| 内容生产自动化   | T1 完成 | CampaignSpec、15 渠道 gate、幂等、事实快照、renderer 与 dry-run 已实现；尚无 MCP/adapter | T2 建立七个高层 MCP 工具、凭据不可见与任意执行拒绝 contract                          |
-| 发布复盘         | 缺失    | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
+| 能力             | 状态   | 仓库事实                                                                                 | 结论                                                                                 |
+| ---------------- | ------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| 全局元数据       | 已有   | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD         | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
+| 分享卡           | 已有   | `public/og-cover.png`，C-118 已产出国内首发文案                                          | 发布素材可用，仍需用渠道数据验证效果                                                 |
+| robots           | 已有   | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap     | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
+| sitemap          | 已有   | C131 构建从中英首页真实链接动态发现 190 个尾斜杠 canonical URL                           | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
+| llms.txt         | 已有   | 构建生成 95 个中文页与 95 个 English catalog 页的标题、描述和 canonical                  | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
+| 路由级 SEO       | 已有   | 190 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；95 组页面双向 hreflang | C131 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
+| 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
+| 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
+| 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
+| 内容生产自动化   | 进行中 | C127 T1 的 CampaignSpec、15 渠道 gate、幂等、事实、renderer 与 dry-run 已实现            | 保持 40%；下一步建立七个 MCP 高层工具与首批 adapter                                  |
+| 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容（verified）` -> `C127 内容与分发自动化（current）` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（current）` -> `C128 发布与复盘`
 
 顺序约束：
 
@@ -46,21 +46,23 @@
 2. C125 完成方案评审但未激活生产统计；C129 在流量/收入验证前撤销第三方成本，只保留 UTM。
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
-5. C127 T1 公开基础层已完成；当前进入 T2 MCP contract，仍不接账号、不存凭据、不做真实发布。
-6. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
+5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
+6. C127 T1 公开基础层已完成并保持 40%；C131 阻塞已解除，当前从 T2 继续，仍未接账号或做真实发布。
+7. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
 | 阶段                      | 状态        | 目标                                                    | 退出条件                                                            | 主要依赖                       |
 | ------------------------- | ----------- | ------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
-| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                          | 当前基线、C124-C130、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
+| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                          | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
 | C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物      | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
 | C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因              | 未激活生产统计；由 C129 撤销                                        | C124                           |
 | C129 撤销第三方分析接入   | verified    | 删除 tracker 与事件，保留零成本 UTM 工具                | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                | C125；当前 plan C-20260710-129 |
 | C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页              | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
+| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                        | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
 | C127 提示词驱动全自动分发 | in-progress | T1 schema/gate/renderer/dry-run 已完成，独立 MCP 仍待建 | MCP 契约、首批 adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过   | 40%；下一步 T2 MCP contract    |
-| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                        | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C126/C130/C127                 |
+| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                        | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -157,6 +159,16 @@
 - 291/2093 Vitest、104 文件/115 Playwright、coverage、125 页 production/selfhost 与视觉检查均已通过。
 - 功能提交 `5dca6c4`、Pages run `29136875578`、latest deployment SHA、自有域原子切换和两域代表 URL 抽查均通过。
 
+## C131 英文目录全量对齐
+
+> Status: verified / 100%（C-20260711-131）
+> 四文档：`docs/plans/20260711-c131-en-full-parity/`
+
+- 当前线上为 95 中文 + 95 英文 = 190 页，95 组页面全部具有双向 hreflang。
+- 已补 65 页由 15 个数据结构互动页和 50 个 AlgorithmPlayer 页组成；20 个 Viz 通过 additive locale 复用。
+- 94 条英文内容路由、92 个英文学习条目、77 个英文 module adapter、Complexity/Paths/Search 与静态 loader 集合全等。
+- 297/2118 Vitest、117 L5、coverage、双 base、Pages run `29145907250` 与 selfhost 线上 smoke 均通过。
+
 ## C127 提示词驱动的全自动内容分发
 
 > Status: in-progress / 40% / current（C-20260711-127）
@@ -178,7 +190,7 @@
 ### 当前决策
 
 - T1 已完成：公开仓库具备版本化 CampaignSpec、15 渠道能力/runtime gate、SHA-256 幂等键、站点事实对拍、渠道 renderer、示例 spec 与零副作用 dry-run。
-- T2 仍未开始；独立插件、MCP、adapter、Keychain/Profile、账号接入与真实发布均不存在，默认 runtime 全部失败关闭。
+- T2 仍未开始；独立插件、MCP、adapter、Keychain/Profile、账号接入与真实发布均不存在，默认 runtime 全部失败关闭。C131 阻塞已解除，下一步从 T2 contract 红测恢复。
 
 ### 退出条件
 
@@ -210,7 +222,7 @@
 | 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID                         |
 | Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                   |
 | GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                  |
-| 英文术语与品牌口吻确认                      | 已完成       | C130 style guide 与 30 页正文、导航、播放器和 SEO 文案已完成人工/自动化校验                |
+| 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入 |
 | 首批渠道账号状态                            | C127 T2      | 只确认微博、Bluesky、DEV、Mastodon 是否有账号；不要发送密码/token                          |
 | 首批渠道官方授权                            | C127 T3-T6   | 恢复实施后在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret |
 | 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                       |
@@ -252,3 +264,5 @@
 - 2026-07-11：C130 typed catalog、二十页增量、27 adapter 与 125 页双 base 全门禁完成；状态转 implemented，等待双轨发布。
 - 2026-07-11：C130 功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 线上抽查通过，状态转 verified；当前阶段切回 C127 T1。
 - 2026-07-11：C127 T1 功能提交 `41324d9` 完成版本化 CampaignSpec、15 渠道 gate、幂等、事实快照、renderer 与 dry-run；291/2092 Vitest、coverage、115 L5 和 125 页 verify 全绿，下一步 T2 MCP contract。
+- 2026-07-11：Owner 决定先完成全部英文翻译；建立 C131（15 互动 + 50 播放器），目标 95 英文/190 总页，C127 保持 40% 后置。
+- 2026-07-11：C131 功能提交 `592d27d`、297/2118 Vitest、117 L5、coverage、190 页双 base、Pages run `29145907250` 与 selfhost 抽查通过；状态转 verified，当前主线恢复 C127 T2。

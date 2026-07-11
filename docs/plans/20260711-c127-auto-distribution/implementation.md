@@ -7,11 +7,11 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
 > Progress: 40%
-> Blocked by: none；C130 已 verified
-> Next action: T2 建立 MCP 高层工具、凭据不可见与任意执行拒绝红测
+> Blocked by: none
+> Next action: T2 MCP contract、凭据不可见与任意执行拒绝红测
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130
+> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_
 > Related design: design.md
 
@@ -85,6 +85,8 @@ T0 调研和方案设计、T1 公开基础层均已完成。`scripts/marketing/`
 
 当前仍没有独立 `marketing-ops` MCP、adapter、Keychain/Profile、账号授权、receipt、collector 或站外发布动作，不能表述为“全自动系统已经可用”。默认 runtime 状态全部失败关闭，因此示例 dry-run 会生成五渠道候选，但不会把任何渠道标为可执行。
 
+C131 已 verified，原顺序阻塞解除。C127 当前可继续 T2，但本轮只恢复计划状态，不提前接入账号、凭据或真实发布。
+
 ## 验证记录
 
 - 官方资料核验日期：2026-07-11。
@@ -105,3 +107,5 @@ T0 调研和方案设计、T1 公开基础层均已完成。`scripts/marketing/`
 - 2026-07-11：独立 `marketing-ops` MCP/RPA 边界设计批准；停止 T1 开工，宣传自动化后置到多语言与内容主线之后。
 - 2026-07-11：C130 双轨发布完成；C127 恢复为当前工程主线，下一步执行 T1 的 schema、能力 gate、幂等与 dry-run 红测。
 - 2026-07-11：T1 完成并通过全门禁；C127 为 in-progress/40%，下一步 T2 MCP contract 与凭据边界，真实发布仍未开始。
+- 2026-07-11：Owner 将全量英文翻译置于 C127 T2 前；保留 40% 进度与 T1 代码，等待 C131 verified 后继续。
+- 2026-07-11：C131 全量英文对齐和双轨发布完成；C127 恢复为当前主线，下一步 T2 MCP contract。

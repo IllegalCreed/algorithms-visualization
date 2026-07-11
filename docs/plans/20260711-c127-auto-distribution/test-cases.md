@@ -7,27 +7,27 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
 > Progress: 40%
-> Blocked by: none；C130 已 verified
-> Next action: T2 先展开 MCP contract 稳定 Case，再写实现
+> Blocked by: none
+> Next action: 展开 T2 MCP contract、凭据不可见与任意执行拒绝 Case
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130
+> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_
 > Related requirement: requirements.md
 
 ## T0 文档用例
 
-| Case ID            | 层级 | 检查对象                     | 预期                                                                                              |
-| ------------------ | ---- | ---------------------------- | ------------------------------------------------------------------------------------------------- |
-| TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                  |
-| TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                           |
-| TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力 |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 in-progress/40%、T1 完成/下一步 T2；不再把每帖人工审批写成当前方案                    |
-| TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过              |
-| TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                             |
-| TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                         |
-| TC-DOC-AUTO-127-08 | docs | plan 状态                    | T0 调研已完成，但 MCP/adapter/secret/真实发布均保持未完成；四文档不得误标 verified                |
-| TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具             |
+| Case ID            | 层级 | 检查对象                     | 预期                                                                                               |
+| ------------------ | ---- | ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                   |
+| TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                            |
+| TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力  |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 in-progress/40%、T1 完成、C131 阻塞已解除且下一步为 T2；不再把每帖人工审批写成当前方案 |
+| TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过               |
+| TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                              |
+| TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                          |
+| TC-DOC-AUTO-127-08 | docs | plan 状态                    | T0 调研已完成，但 MCP/adapter/secret/真实发布均保持未完成；四文档不得误标 verified                 |
+| TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具              |
 
 前六个事实 Case（01..05、09）登记到三份全局测试索引；格式、diff 和当前实施状态只保留在本 plan。
 
@@ -104,4 +104,6 @@ git diff --check
 - 2026-07-11：增加 MCP 隔离 Case；C127 转 approved/25% 并后置，运行时 Case 尚未开始。
 - 2026-07-11：C130 verified 后 C127 恢复为当前下一阶段；运行时 Case 仍须从 T1 先红后绿建立。
 - 2026-07-11：C127 转 in-progress/30%；固定 T1 的 19 个 L3 Case，并收紧双语内容、站点事实和凭据边界。
+- 2026-07-11：Owner 将 C131 全量英文对齐置于 T2 前；既有 T1 Case 保持 active，T2-T5 planned Case 暂不展开。
 - 2026-07-11：T1 先记录 5 文件 import failure，再实现到 19 Case 全绿；291/2092 Vitest、coverage、115 L5、verify 与 125 页 production build 均通过。
+- 2026-07-11：C131 verified；T2-T5 planned Case 恢复可执行，下一步从 T2 MCP contract 红测开始。

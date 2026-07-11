@@ -9,7 +9,24 @@
 
 ---
 
+## 2026-07-11 英文目录全量对齐（C-20260711-131）
+
+| 模块                        | Case ID                                         | 标题                                                  | 层级  | 自动化路径                                      |
+| --------------------------- | ----------------------------------------------- | ----------------------------------------------------- | ----- | ----------------------------------------------- |
+| i18n / full locale catalog  | TC-I18N-CATALOG-131-01..12                      | 95 对 catalog、94 loader/route 与 92 learning pages   | L3    | fullParity/catalog specs                        |
+| i18n / structures           | TC-I18N-STRUCT-131-A01..A03、B01..B02、C01..C02 | 20 Viz locale 与 15 个 structure 页                   | L3/L4 | English structures/structure parity specs       |
+| i18n / algorithm adapters   | TC-I18N-MODULE-131-00..01、D01、D02、D02A、D03  | 77 adapter 全集与 50 个增量 adapter 结构/文案/lineMap | L3    | `src/i18n/en/modules/fullParityModules.spec.ts` |
+| i18n / English content      | TC-I18N-CONTENT-131-01..02                      | 50 个新增播放器 SFC/loader 与非薄正文                 | L4    | `src/views/English/fullParityContent.spec.ts`   |
+| seo / multilingual registry | TC-SEO-I18N-131-01..02                          | 190 页 registry 与 95 组 hreflang                     | L3    | `src/seo/site.spec.ts`                          |
+| i18n / catalog UI           | TC-I18N-UI-131-01..08                           | Menu/Home/工具/Search/轨标签/head 与目录顺序          | L4    | Menu/Search/catalogViews/track/SEO specs        |
+| seo / dual-base artifacts   | TC-I18N-BUILD-131-01..02                        | production/selfhost 各 190 页与静态产物门禁           | build | `pnpm build-only` + `pnpm build:selfhost`       |
+| i18n / browser              | TC-E2E-I18N-131-01..07                          | 全目录、互动、播放器、切换、搜索与 900px              | L5    | `e2e/i18n.e2e.ts`                               |
+
+---
+
 ## 2026-07-11 英文目录 30 页扩容（C-20260711-130）
+
+固定 30/125 规模、旧 UI/SEO/build/L5 集合 Case 已由 C131 supersede；仍存在源码断言的 loader/切换与首 27 个 adapter 子集 Case继续 active，逐项状态见 `index.md`。
 
 | 模块                        | Case ID                          | 标题                                                   | 层级  | 自动化路径                                         |
 | --------------------------- | -------------------------------- | ------------------------------------------------------ | ----- | -------------------------------------------------- |

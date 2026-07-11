@@ -8,10 +8,10 @@
 > Last reviewed: 2026-07-11
 > Progress: 100%
 > Blocked by: none
-> Next action: C127 T1 建立 CampaignSpec、能力注册表与 dry-run 红测
+> Next action: 已由 C131 完成 95 英文 / 190 总页全量对齐
 > Replaces: none
 > Replaced by: none
-> Related plans: C-20260710-124、C-20260711-126、C-20260711-127
+> Related plans: C-20260710-124、C-20260711-126、C-20260711-127、C-20260711-131
 > Related tests: TC-I18N-CATALOG-130-_、TC-I18N-MODULE-130-_、TC-I18N-CONTENT-130-_、TC-SEO-I18N-130-_、TC-I18N-UI-130-_、TC-I18N-BUILD-130-_、TC-E2E-I18N-130-\_
 > Related design: design.md
 
@@ -90,3 +90,5 @@ C130 的代码、内容、测试、双 base 构建、视觉检查和双轨发布
 - 2026-07-11：Owner 批准 C130；状态转 implementing，开始 T0 迁移红测。
 - 2026-07-11：T0-T4 本地实现与验证完成，状态转 implemented；等待精确提交和双轨发布。
 - 2026-07-11：功能提交、Pages/selfhost 双轨发布与线上产物抽查完成，状态转 verified；工程主线回到 C127。
+- 2026-07-11：Owner 后续将全量英文对齐置于 C127 前；C131 继续扩展本实现，C130 维持 verified 历史。
+- 2026-07-11：C131 verified；当前线上已从本计划的 30 英文/125 总页扩为 95 英文/190 总页。

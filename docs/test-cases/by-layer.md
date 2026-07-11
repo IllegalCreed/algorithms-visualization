@@ -7,9 +7,24 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case、C-127 六个渠道自动化设计 Case与 C130 三十七个英文扩容 Case。历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case、C-127 六个渠道自动化设计 Case、C130 三十七个英文扩容 Case与 C131 四十六个全量英文对齐 Case。历史分层总数未做全量重算。
+
+## 2026-07-11 英文目录全量对齐（C-20260711-131）
+
+| 层级  | Case ID                                         | 标题                                                  | 自动化路径                                      |
+| ----- | ----------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------- |
+| L3    | TC-I18N-CATALOG-131-01..12                      | 95 对 catalog、94 loader/route 与 92 learning pages   | fullParity/catalog specs                        |
+| L3/L4 | TC-I18N-STRUCT-131-A01..A03、B01..B02、C01..C02 | 20 Viz locale 与 15 个 structure 页                   | English structures/structure parity specs       |
+| L3    | TC-I18N-MODULE-131-00..01、D01、D02、D02A、D03  | 77 adapter 全集与 50 个增量 adapter 结构/文案/lineMap | `src/i18n/en/modules/fullParityModules.spec.ts` |
+| L3    | TC-SEO-I18N-131-01..02                          | 190 页 registry 与 95 组 hreflang                     | `src/seo/site.spec.ts`                          |
+| L4    | TC-I18N-CONTENT-131-01..02                      | 50 个新增播放器 SFC/loader 与非薄正文                 | `src/views/English/fullParityContent.spec.ts`   |
+| L4    | TC-I18N-UI-131-01..08                           | Menu/Home/工具/Search/轨标签/head 与目录顺序          | Menu/Search/catalogViews/track/SEO specs        |
+| build | TC-I18N-BUILD-131-01..02                        | production/selfhost 各 190 页与静态产物门禁           | `pnpm build-only` + `pnpm build:selfhost`       |
+| L5    | TC-E2E-I18N-131-01..07                          | 全目录、互动、播放器、切换、搜索与 900px              | `e2e/i18n.e2e.ts`                               |
 
 ## 2026-07-11 英文目录 30 页扩容（C-20260711-130）
+
+固定 30/125 规模、旧 UI/SEO/build/L5 集合 Case 已由 C131 supersede；仍存在源码断言的 loader/切换与首 27 个 adapter 子集 Case继续 active，逐项状态见 `index.md`。
 
 | 层级  | Case ID                          | 标题                                                   | 自动化路径                                         |
 | ----- | -------------------------------- | ------------------------------------------------------ | -------------------------------------------------- |

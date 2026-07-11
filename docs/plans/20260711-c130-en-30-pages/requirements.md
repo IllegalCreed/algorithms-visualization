@@ -8,10 +8,10 @@
 > Last reviewed: 2026-07-11
 > Progress: 100%
 > Blocked by: none
-> Next action: C127 T1 建立 CampaignSpec、能力注册表与 dry-run 红测
+> Next action: 已由 C131 完成 95 英文 / 190 总页全量对齐
 > Replaces: none
 > Replaced by: none
-> Related plans: C-20260710-124、C-20260711-126、C-20260711-127
+> Related plans: C-20260710-124、C-20260711-126、C-20260711-127、C-20260711-131
 > Related tests: TC-I18N-CATALOG-130-_、TC-I18N-MODULE-130-_、TC-I18N-CONTENT-130-_、TC-SEO-I18N-130-_、TC-I18N-UI-130-_、TC-I18N-BUILD-130-_、TC-E2E-I18N-130-\_
 
 ## 背景
@@ -116,3 +116,5 @@ Home、Complexity、Paths、Quick Sort、Binary Search、Dijkstra、0/1 Knapsack
 - 2026-07-11：Owner 批准 C130；状态转 implementing，按 10/105 无行为迁移后四批扩容进入 TDD。
 - 2026-07-11：typed catalog、二十页增量、27 个 adapter、125 页构建与全量验证完成；状态转 implemented，等待双轨发布。
 - 2026-07-11：功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 发布/线上抽查通过；状态转 verified。
+- 2026-07-11：Owner 后续批准 C131 全量英文对齐；C130 仍作为 30 页已验证历史，新增范围由 C131 承接。
+- 2026-07-11：C131 已 verified；C130 继续作为首 30 页与 typed catalog 迁移的历史基线。

@@ -4,11 +4,11 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Related plan: C-20260711-130
+> Related plans: C-20260711-130、C-20260711-131
 
 ## Purpose
 
-This guide keeps English algorithm pages consistent as the catalog grows from 10 to 30 pages. It applies to page prose, player captions, variable labels, quizzes, navigation, complexity notes, source comments, and internal links.
+This guide keeps English learning pages consistent as the catalog grows from 30 pages to full parity with all 95 Chinese indexable pages. It applies to page prose, interactive data-structure controls and status text, player captions, variable labels, quizzes, navigation, complexity notes, source comments, and internal links.
 
 ## Voice
 
@@ -58,9 +58,11 @@ Every algorithm page must include:
 
 Do not create title-only placeholders or runtime-translated prose. English content remains reviewable Vue SFC source.
 
+Every interactive data-structure page must preserve the Chinese page's learning scope and controls. Buttons, inputs, empty states, SVG labels, validation messages, and post-interaction status text must all be English when `locale="en"`; the default locale remains Chinese.
+
 ## Links And Product Facts
 
 - Use named Vue Router links for internal navigation.
 - Link to the English counterpart when it exists; do not send an English reader to a Chinese page without saying so.
 - Read page counts, supported languages, and feature claims from current repository facts before publishing content.
-- C130 is live on both deployment tracks with 95 Chinese pages and 30 English pages; this is still a partial English catalog, not full-site localization.
+- C131 is live on both deployment tracks with 95 Chinese pages and 95 English pages. All 95 page pairs have reciprocal locale links; future content claims must preserve the 92-learning-page and 190-indexable-page distinction.
