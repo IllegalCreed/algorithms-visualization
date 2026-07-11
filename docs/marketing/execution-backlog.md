@@ -4,9 +4,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-11
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（approved，T1 待实施）
+> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/40%，T1 完成）
 > Completed plan: C-20260711-130 英文目录扩展到 30 页（verified）
-> Next action: C127 T1 建立 CampaignSpec、能力注册表、幂等键与 dry-run 红测
+> Next action: C127 T2 建立 MCP 高层工具、凭据不可见与任意执行拒绝红测
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -22,19 +22,19 @@
 
 ## 当前基线审计
 
-| 能力             | 状态     | 仓库事实                                                                                 | 结论                                                                                 |
-| ---------------- | -------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| 全局元数据       | 已有     | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD         | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
-| 分享卡           | 已有     | `public/og-cover.png`，C-118 已产出国内首发文案                                          | 发布素材可用，仍需用渠道数据验证效果                                                 |
-| robots           | 已有     | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap     | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
-| sitemap          | 已有     | C130 构建从中英首页真实链接动态发现 125 个尾斜杠 canonical URL                           | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
-| llms.txt         | 已有     | 构建生成 95 个中文页与 30 个 English catalog 页的标题、描述和 canonical                  | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
-| 路由级 SEO       | 已有     | 125 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；30 组页面双向 hreflang | C130 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
-| 首屏机器可读内容 | 已有     | Playwright 构建后预渲染 125 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
-| 分析与归因       | 已撤销   | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
-| 站点多语言       | 已上线   | `/en` Home、2 工具和 27 算法共 30 页；typed catalog、四批红绿、全门禁与双轨上线完成      | 维持内容质量与 125 页产物门禁；第三语言另立计划                                      |
-| 内容生产自动化   | 方案批准 | C127 已完成渠道审计与独立 `marketing-ops` MCP/RPA 隔离设计；尚无生成器、MCP 或 adapter   | 当前下一阶段从 T1 schema、能力 gate、幂等与 dry-run 开始                             |
-| 发布复盘         | 缺失     | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
+| 能力             | 状态    | 仓库事实                                                                                 | 结论                                                                                 |
+| ---------------- | ------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| 全局元数据       | 已有    | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD         | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
+| 分享卡           | 已有    | `public/og-cover.png`，C-118 已产出国内首发文案                                          | 发布素材可用，仍需用渠道数据验证效果                                                 |
+| robots           | 已有    | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap     | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
+| sitemap          | 已有    | C130 构建从中英首页真实链接动态发现 125 个尾斜杠 canonical URL                           | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
+| llms.txt         | 已有    | 构建生成 95 个中文页与 30 个 English catalog 页的标题、描述和 canonical                  | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
+| 路由级 SEO       | 已有    | 125 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；30 组页面双向 hreflang | C130 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
+| 首屏机器可读内容 | 已有    | Playwright 构建后预渲染 125 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
+| 分析与归因       | 已撤销  | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
+| 站点多语言       | 已上线  | `/en` Home、2 工具和 27 算法共 30 页；typed catalog、四批红绿、全门禁与双轨上线完成      | 维持内容质量与 125 页产物门禁；第三语言另立计划                                      |
+| 内容生产自动化   | T1 完成 | CampaignSpec、15 渠道 gate、幂等、事实快照、renderer 与 dry-run 已实现；尚无 MCP/adapter | T2 建立七个高层 MCP 工具、凭据不可见与任意执行拒绝 contract                          |
+| 发布复盘         | 缺失    | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
@@ -46,21 +46,21 @@
 2. C125 完成方案评审但未激活生产统计；C129 在流量/收入验证前撤销第三方成本，只保留 UTM。
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
-5. C127 的 MCP/RPA 方案已经设计完成；C130 已双轨发布，当前从 T1 基础层恢复实施。
+5. C127 T1 公开基础层已完成；当前进入 T2 MCP contract，仍不接账号、不存凭据、不做真实发布。
 6. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
-| 阶段                      | 状态       | 目标                                                 | 退出条件                                                            | 主要依赖                       |
-| ------------------------- | ---------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
-| C123 增长执行审计与编排   | verified   | 统一事实、顺序、边界与历史状态                       | 当前基线、C124-C130、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | verified   | 让每个可索引页面具备唯一语义和可验证的机器可读产物   | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
-| C125 分析、事件与渠道归因 | superseded | 历史方案：第三方 page view、事件与会话归因           | 未激活生产统计；由 C129 撤销                                        | C124                           |
-| C129 撤销第三方分析接入   | verified   | 删除 tracker 与事件，保留零成本 UTM 工具             | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                | C125；当前 plan C-20260710-129 |
-| C126 `/en` 多语言十页试点 | verified   | 验证英文 UI、文章、搜索与国际 SEO 全链路             | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
-| C130 英文目录扩展到 30 页 | verified   | 收束 locale catalog 并新增二十个英文算法页           | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
-| C127 提示词驱动全自动分发 | approved   | 通过独立 MCP 调用 API/RPA，Codex 与凭据/Profile 隔离 | MCP 契约、首批 adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过   | C130 已完成；当前实施阶段      |
-| C128 发布、监测与迭代     | planned    | 用真实 campaign 证据决定渠道投入                     | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C126/C130/C127                 |
+| 阶段                      | 状态        | 目标                                                    | 退出条件                                                            | 主要依赖                       |
+| ------------------------- | ----------- | ------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
+| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                          | 当前基线、C124-C130、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物      | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
+| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因              | 未激活生产统计；由 C129 撤销                                        | C124                           |
+| C129 撤销第三方分析接入   | verified    | 删除 tracker 与事件，保留零成本 UTM 工具                | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                | C125；当前 plan C-20260710-129 |
+| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
+| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页              | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
+| C127 提示词驱动全自动分发 | in-progress | T1 schema/gate/renderer/dry-run 已完成，独立 MCP 仍待建 | MCP 契约、首批 adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过   | 40%；下一步 T2 MCP contract    |
+| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                        | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C126/C130/C127                 |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -154,12 +154,12 @@
 ### 当前边界
 
 - 95 个中文页 + 30 个英文页 = 125 页已在 Pages 与 selfhost 双轨上线。
-- 286/2073 Vitest、104 文件/115 Playwright、coverage、125 页 production/selfhost 与视觉检查均已通过。
+- 291/2092 Vitest、104 文件/115 Playwright、coverage、125 页 production/selfhost 与视觉检查均已通过。
 - 功能提交 `5dca6c4`、Pages run `29136875578`、latest deployment SHA、自有域原子切换和两域代表 URL 抽查均通过。
 
 ## C127 提示词驱动的全自动内容分发
 
-> Status: approved / current（C-20260711-127）
+> Status: in-progress / 40% / current（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
@@ -177,8 +177,8 @@
 
 ### 当前决策
 
-- 方案已完成并批准，代码、插件、MCP、adapter 和账号接入均未开始。
-- C130 已 verified，C127 现在是工程主线；先完成 T1/T2 的纯本地 schema、dry-run 与 MCP contract，再进入账号授权和真实发布。
+- T1 已完成：公开仓库具备版本化 CampaignSpec、15 渠道能力/runtime gate、SHA-256 幂等键、站点事实对拍、渠道 renderer、示例 spec 与零副作用 dry-run。
+- T2 仍未开始；独立插件、MCP、adapter、Keychain/Profile、账号接入与真实发布均不存在，默认 runtime 全部失败关闭。
 
 ### 退出条件
 
@@ -251,3 +251,4 @@
 - 2026-07-11：Owner 批准 C130 的 30 页范围与二十页清单；工程主线进入 10/105 catalog 迁移 TDD。
 - 2026-07-11：C130 typed catalog、二十页增量、27 adapter 与 125 页双 base 全门禁完成；状态转 implemented，等待双轨发布。
 - 2026-07-11：C130 功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 线上抽查通过，状态转 verified；当前阶段切回 C127 T1。
+- 2026-07-11：C127 T1 功能提交 `41324d9` 完成版本化 CampaignSpec、15 渠道 gate、幂等、事实快照、renderer 与 dry-run；291/2092 Vitest、coverage、115 L5 和 125 页 verify 全绿，下一步 T2 MCP contract。

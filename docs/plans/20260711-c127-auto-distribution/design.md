@@ -1,18 +1,18 @@
 # 设计：提示词驱动的全自动内容分发
 
-> Status: approved
+> Status: in-progress
 > Stable ID: C-20260711-127
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 25%
+> Progress: 40%
 > Blocked by: none；C130 已 verified
-> Next action: T1 建立 CampaignSpec、能力注册表、幂等键与 dry-run 红测
+> Next action: T2 建立 MCP 高层工具、凭据不可见与任意执行拒绝红测
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130
-> Related tests: TC-DOC-AUTO-127-\_；运行时 Case 待 T1 先红后绿建立
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -63,8 +63,16 @@ interface CampaignSpec {
   publishAt: string;
   campaign: string;
   content: {
-    angle: string;
-    callToAction: string;
+    variants: Partial<
+      Record<
+        'zh-CN' | 'en',
+        {
+          title: string;
+          angle: string;
+          callToAction: string;
+        }
+      >
+    >;
     media: Array<'image' | 'gif' | 'video'>;
   };
   replies: {
@@ -75,8 +83,9 @@ interface CampaignSpec {
 }
 ```
 
-- `id` 和规范化内容摘要共同生成幂等键。
-- `publishAt` 使用含时区 ISO 8601；本地 scheduler 统一转换为 UTC 存储，同时保留原时区用于报告。
+- `content.variants` 必须与 `locales` 一一对应；不允许把单语文案机械复用成另一语言。
+- `id` 和规范化内容摘要共同生成幂等键；数组顺序等非语义差异先规范化，真实文案、目标 URL 或排期变化必须生成新键。
+- `publishAt` 使用含时区 ISO 8601；规范化结果同时保留原值、UTC 值和原始 offset，供 scheduler 与报告分别使用。
 - `channels = all-authorized` 只展开注册表中已启用且 secret/cost guard 通过的渠道。
 - schema 不接收原始密码、token、Cookie 或自由形式脚本。
 
@@ -108,7 +117,7 @@ interface ChannelCapabilities {
 
 ```text
 algorithms-visualization/
-  scripts/marketing/   # CampaignSpec、renderer、UTM、dry-run
+  scripts/marketing/   # CampaignSpec、能力注册表、renderer、site facts、dry-run
 
 personal plugin: marketing-ops/
   mcp/                 # 高层工具 schema 与鉴权边界
@@ -148,9 +157,11 @@ get_campaign_report(campaignId, window)
 ## 内容生成与验证
 
 - Codex 负责生成候选内容，renderer 负责确定性包装和平台限制。
-- 从 `src/seo/site.ts`、英文 pilot registry、页面正文和当前测试事实读取产品信息；页面数、语言范围和功能声明必须可追溯。
+- 从 `src/seo/site.ts`、C130 typed locale catalog、页面正文和当前测试事实读取产品信息；页面数、语言范围和功能声明必须可追溯。
+- T1 的 Node CLI 使用受测试锁定的站点事实快照，避免引入 Vite alias/组件资产依赖；L3 会把快照与 SEO registry、locale catalog、Home catalog 逐项对拍。营销文案禁止引用易漂移的测试文件数或用例数。
 - `pnpm marketing:link` 的 UTM 规则继续作为 URL 单一规则，不另写一套字符串拼接。
 - validator 检查重复度、链接域名、UTM、字符/标签限制、必需媒体、发布时间、locale 和禁止渠道。
+- T1 renderer 的长度/媒体值是失败关闭的保守 planning limit；T3 adapter 仍须读取或配置平台/实例当前限制并再次校验，不能把快照当永久平台事实。
 - 媒体由 manifest 引用并记录 hash；后续可加入截图/视频生成，但不得把不存在的素材当已上传。
 
 ## 执行与状态
@@ -200,3 +211,4 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。
 - 2026-07-11：选择独立本地 `marketing-ops` MCP；凭据和 RPA Profile 与公开仓库/Codex 隔离，C127 后置实施。
 - 2026-07-11：C130 已 verified，设计恢复为当前实施依据；下一步仍从无副作用的 T1 基础层开始。
+- 2026-07-11：T1 按本设计落地；双语内容改为 locale 显式变体，Node CLI 使用对拍锁定的站点事实快照，dry-run 只输出候选、gate 原因与空副作用列表。

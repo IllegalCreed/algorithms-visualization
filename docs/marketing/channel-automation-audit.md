@@ -4,7 +4,7 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Current implementation: 尚未实现；C-20260711-127 方案已批准，C130 verified 后成为当前下一阶段
+> Current implementation: C127 T1 已完成公开 schema/注册表/renderer/dry-run；T2 MCP、adapter、凭据与真实发布尚未开始
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
@@ -190,3 +190,4 @@ flowchart LR
 - 2026-07-11：完成原计划十渠道及五个补充/替代渠道的官方能力审计；将 C127 从统一“半自动”改为按能力等级失败关闭的提示词驱动方案。
 - 2026-07-11：Owner 确认零新增费用且无企业主体；当前实施收束为五个免费个人渠道，Reddit 后备，微信/B站/X 禁用。
 - 2026-07-11：批准独立 `marketing-ops` MCP/RPA 隔离设计；官方等级与实际执行模式分离，凭据/Profile 不进入 Codex、公开仓库或 GitHub Actions；C127 后置实施。
+- 2026-07-11：T1 将 15 渠道结论固化为代码注册表与 fail-closed runtime gate，完成双语 CampaignSpec、幂等、站点事实、renderer 和零副作用 dry-run；下一步 T2 MCP contract。

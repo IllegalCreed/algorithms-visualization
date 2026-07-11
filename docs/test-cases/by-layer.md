@@ -21,16 +21,22 @@
 | L5    | TC-E2E-I18N-130-01..05           | 深链、工具/轨道、切换、搜索/播放器与 900px 响应式      | `e2e/i18n.e2e.ts`                                  |
 | docs  | TC-I18N-CONTENT-130-01..03       | 二十页正文、术语和内部链接内容 QA                      | English SFC + style guide                          |
 
-## 2026-07-11 渠道自动化审计增量（C-20260711-127）
+## 2026-07-11 渠道自动化 T0/T1 增量（C-20260711-127）
 
-| 层级 | Case ID            | 标题                                     | 自动化路径                                                 |
-| ---- | ------------------ | ---------------------------------------- | ---------------------------------------------------------- |
-| docs | TC-DOC-AUTO-127-01 | 十五渠道集合完整且唯一                   | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-02 | 发布、监测、回复、准入与成本有官方依据   | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-03 | 免费个人、后备与硬禁用边界明确           | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-04 | C127 approved/当前下一阶段与项目记忆一致 | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
-| docs | TC-DOC-AUTO-127-05 | 官方授权、凭据隔离与失败关闭红线完整     | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-09 | Codex 与凭据/Profile 的 MCP 边界完整     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| 层级 | Case ID                    | 标题                                             | 自动化路径                                                 |
+| ---- | -------------------------- | ------------------------------------------------ | ---------------------------------------------------------- |
+| docs | TC-DOC-AUTO-127-01         | 十五渠道集合完整且唯一                           | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-02         | 发布、监测、回复、准入与成本有官方依据           | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-03         | 免费个人、后备与硬禁用边界明确                   | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-04         | C127 in-progress/40%、下一步 T2 与记忆一致       | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs | TC-DOC-AUTO-127-05         | 官方授权、凭据隔离与失败关闭红线完整             | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-09         | Codex 与凭据/Profile 的 MCP 边界完整             | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| L3   | TC-AUTO-SPEC-127-01..04    | schema、规范化、非法输入与双语内容合同           | `scripts/marketing/spec.spec.ts`                           |
+| L3   | TC-AUTO-IDEMP-127-01..02   | 语义等价与真实变化的 SHA-256 幂等键              | `scripts/marketing/spec.spec.ts`                           |
+| L3   | TC-AUTO-CHANNEL-127-01..05 | 15 渠道注册表、政策集合、fail-closed gate 与展开 | `scripts/marketing/channels.spec.ts`                       |
+| L3   | TC-AUTO-FACTS-127-01..02   | 当前站点事实对拍与过期/易漂移声明拒绝            | `scripts/marketing/site-facts.spec.ts`                     |
+| L3   | TC-AUTO-RENDER-127-01..03  | 渠道候选、UTM、限制、manual 与 disabled 边界     | `scripts/marketing/renderer.spec.ts`                       |
+| L3   | TC-AUTO-DRYRUN-127-01..03  | 确定 manifest、渠道决策、零副作用与凭据不可见    | `scripts/marketing/dry-run.spec.ts`                        |
 
 ## 2026-07-11 多语言十页试点增量（C-20260711-126，部分 superseded）
 

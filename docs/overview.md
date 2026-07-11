@@ -19,9 +19,9 @@
 | 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换    |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：286 个测试文件、2073 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、115 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | C130 的 30 页英文目录与 125 页产物已 verified 并双轨上线；下一阶段为 C127 宣传 MCP/RPA 的 T1 基础层                                         |
-| 增长现状 | 线上为 95 中文 + 30 英文、无 tracker；C127 已完成设计但尚无 MCP/adapter/账号接入                                                            |
+| 测试     | Vitest L3/L4：291 个测试文件、2092 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、115 个用例全绿；coverage 与双 base 构建门禁通过 |
+| 当前阶段 | C127 宣传自动化 in-progress/40%；T1 公开 dry-run 基础层已完成，下一步 T2 MCP contract                                                       |
+| 增长现状 | 线上为 95 中文 + 30 英文、无 tracker；已有 CampaignSpec/15 渠道 gate/renderer/dry-run，仍无 MCP、adapter、凭据或真实发布                    |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
 
 ## 模块地图
@@ -37,6 +37,7 @@
 | 多语言目录   | 30 组 typed 页面映射、locale composable、静态 loader map 与 27 个英文算法展示 adapter          | `src/i18n`、`src/views/English/pages.ts`                                         |
 | SEO/静态产物 | 125 页 registry、route head/JSON-LD/hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁           | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
 | 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无运行时 tracker、会话归因或交互事件                    | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                      |
+| 宣传规划     | CampaignSpec、15 渠道能力/runtime gate、幂等键、事实快照、renderer 与零副作用 dry-run          | `scripts/marketing`                                                              |
 | 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                      |
 | 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`                  |
 | 分层文档     | 需求/设计/实现/测试用例索引，记录每次复杂变更的过程和验证结果                                  | `docs`                                                                           |

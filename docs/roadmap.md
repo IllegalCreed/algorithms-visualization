@@ -6,9 +6,9 @@
 
 ## 当前阶段
 
-项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO 技术地基、C126 `/en` 十页试点和 C130 英文 30 页扩容均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。当前阶段恢复已批准的 C127 宣传自动化，从 T1 基础层开始。
+项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO 技术地基、C126 `/en` 十页试点和 C130 英文 30 页扩容均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。C127 宣传自动化 T1 已完成，当前进入 T2 MCP contract。
 
-当前目标不是继续铺中文算法页，而是按既定顺序实施 C127 独立 `marketing-ops` MCP/RPA：先做 CampaignSpec、能力注册表、幂等键与 dry-run，再进入 MCP contract 和首批官方 adapter。C130 已把 C126 十页试点收束为 30 页 typed locale catalog 并双轨上线；第三方统计继续暂缓。
+当前目标不是继续铺中文算法页，而是按既定顺序实施 C127 独立 `marketing-ops` MCP/RPA。公开仓库已完成 CampaignSpec、能力注册表、幂等键、站点事实、renderer 与 dry-run；下一步先用 contract 证明 Codex 看不到凭据、不能调用任意浏览器代码，再进入首批官方 adapter。第三方统计继续暂缓。
 
 事实优先级保持不变：当前源码与本地测试结果 > 最新 plan / `docs/plans/completion-backlog.md` > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md` > 本路线图。
 
@@ -20,9 +20,9 @@
 | 内容规模 | 首页/菜单九大类、92 个条目；`src/algorithms` 下 77 个 `*.module.ts`；数据结构互动页、算法播放器页和功能页并存                                  |
 | 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化        |
 | 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
-| 测试基线 | 2026-07-11 本地现状：286 个 Vitest 文件 / 2073 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 115 条 Playwright e2e 通过                     |
+| 测试基线 | 2026-07-11 本地现状：291 个 Vitest 文件 / 2092 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 115 条 Playwright e2e 通过                     |
 | 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
-| 增长基线 | 95 个中文页 + 30 个英文页及 30 组 hreflang 已双轨上线；C129 只保留 UTM；C127 已完成方案审计，分发自动化代码尚未实现                            |
+| 增长基线 | 95 个中文页 + 30 个英文页及 30 组 hreflang 已双轨上线；C129 只保留 UTM；C127 T1 dry-run 基础层完成，MCP/adapter/凭据/真实发布均未开始          |
 
 ## 维护队列
 
@@ -32,7 +32,7 @@
 | P0     | SEO/GEO 技术地基     | verified | C130 已将 route head、JSON-LD、预渲染和双 base 产物门禁扩到 125 页，并完成双轨上线与代表 URL 抽查                          |
 | P1     | 多语言内容扩容       | verified | C130 typed catalog、20 页增量、27 adapter、125 页全门禁与双轨发布均完成                                                    |
 | P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                         |
-| P2     | 宣传自动化           | approved | 当前下一阶段：C127 从 T1 CampaignSpec/能力注册表/dry-run 红测开始，随后实现独立 MCP contract；尚无 adapter、插件或账号接入 |
+| P2     | 宣传自动化           | ongoing  | C127 T1 已完成并全门禁通过；下一步 T2 MCP 高层工具、凭据不可见和任意执行拒绝红测，尚无 adapter/账号接入                    |
 | P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁  |
 | P2     | 免费索引与需求信号   | pending  | 使用 Search Console/Bing Webmaster Tools 提交现有 sitemap，并以免费覆盖/查询数据决定 30 页后是否继续扩语言；不引入 tracker |
 | P2     | 性能与无障碍继续打磨 | idea     | 可继续跟踪 Lighthouse、键盘导航、色彩对比、Shiki chunk 体感；不把新拟物色彩取舍误判为必须立即改动                          |
@@ -42,6 +42,7 @@
 
 | 日期       | 记录                                                                                                                                     |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-11 | C-20260711-127：T1 提交 `41324d9` 完成 schema/15 渠道 gate/幂等/事实/renderer/dry-run；291/2092 Vitest、coverage、115 L5 与 verify 全绿  |
 | 2026-07-11 | C-20260711-130：功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 双轨上线/125 URL 抽查通过；状态转 verified，下一阶段 C127 T1     |
 | 2026-07-11 | C-20260711-130：typed catalog、29 个内容路由、27 个 adapter、30 页英文目录与 125 页双 base 产物完成；286/2073 Vitest、104/115 L5 全绿    |
 | 2026-07-11 | C-20260711-130：审计十页英文试点的六个硬编码同步点，提出 typed locale catalog + 二十算法页、总计 125 页的 draft                          |
