@@ -1,43 +1,21 @@
 <script setup lang="ts">
 import Article from '@/components/article/Article.vue';
+import { getEnglishLearningPaths } from '@/i18n/catalog';
 
-const learningPaths = [
-  {
-    id: 'foundations',
-    title: 'Foundations',
-    description:
-      'Build a feel for logarithmic elimination, partitioning, and compact cumulative data.',
-    steps: [
-      { name: 'en-binary-search', title: 'Binary Search', category: 'Searching' },
-      { name: 'en-quick-sort', title: 'Quick Sort', category: 'Sorting' },
-      { name: 'en-fenwick', title: 'Fenwick Tree', category: 'Data Structures' },
-    ],
-  },
-  {
-    id: 'optimization',
-    title: 'Optimization and State',
-    description: 'Move from local choices to stored subproblems and shortest paths over a graph.',
-    steps: [
-      { name: 'en-knapsack', title: '0/1 Knapsack', category: 'Dynamic Programming' },
-      { name: 'en-dijkstra', title: "Dijkstra's Shortest Path", category: 'Graph Algorithms' },
-    ],
-  },
-  {
-    id: 'patterns',
-    title: 'Reusable Structure',
-    description: 'See how preprocessing and geometric invariants eliminate repeated work.',
-    steps: [
-      { name: 'en-kmp', title: 'KMP String Matching', category: 'Strings' },
-      { name: 'en-convex-hull', title: 'Convex Hull', category: 'Computational Geometry' },
-    ],
-  },
-];
+const learningPaths = getEnglishLearningPaths().map((path) => ({
+  ...path,
+  steps: path.steps.map((page) => ({
+    name: page.en.name,
+    title: page.en.heading,
+    category: page.en.category,
+  })),
+}));
 </script>
 
 <template>
   <Article>
     <h1>Algorithm Learning Paths</h1>
-    <p class="sub">Three short routes through every translated algorithm in this pilot</p>
+    <p class="sub">Focused routes through every translated algorithm in the catalog</p>
 
     <p>
       Each route is intentionally small. Work through the pages in order, use the player controls

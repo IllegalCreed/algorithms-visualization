@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 import { buildSearchTokens, normalizeToken } from './searchIndex';
 import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
-import { ENGLISH_PILOT_PAGES } from '@/i18n/pilot';
+import { ENGLISH_CONTENT_PAGES, getEnglishAlgorithmPages } from '@/i18n/catalog';
 import { useSiteLocale } from '@/i18n/useSiteLocale';
 
 interface SearchEntry {
@@ -38,15 +38,13 @@ const chineseEntries: SearchEntry[] = useCategoryData().flatMap((cat) =>
   }),
 );
 
-const englishEntries: SearchEntry[] = ENGLISH_PILOT_PAGES.filter(
-  (page) => page.name !== 'en-home',
-).map((page) => {
+const englishEntries: SearchEntry[] = ENGLISH_CONTENT_PAGES.map((page) => {
   const entry = {
-    title: page.heading,
-    desc: page.description,
-    url: page.name,
-    category: page.category ?? 'English Pilot',
-    path: page.path,
+    title: page.en.heading,
+    desc: page.en.description,
+    url: page.en.name,
+    category: page.en.category,
+    path: page.en.path,
   };
   return { ...entry, tokens: buildSearchTokens(entry) };
 });
@@ -58,8 +56,8 @@ const copy = computed(() =>
         title: 'Search algorithms',
         placeholder: 'Search algorithms by name, topic, or slug...',
         hint: 'Type an algorithm name or topic, use Up/Down to choose, then press Enter',
-        complexity: 'Complexity reference - compare 7 pilot algorithms',
-        paths: 'Learning paths - follow three focused routes',
+        complexity: `Complexity reference - compare ${getEnglishAlgorithmPages().length} algorithms`,
+        paths: 'Learning paths - follow focused routes',
         empty: (value: string) => `No algorithm matches "${value}"`,
         results: 'Search results',
         complexityPath: '/en/docs/complexity',

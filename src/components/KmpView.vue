@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { KmpTrack } from '@/components/player/types';
-import type { SiteLocale } from '@/i18n/pilot';
+import type { SiteLocale } from '@/i18n/catalog';
 
 const props = withDefaults(defineProps<{ kmp: KmpTrack; locale?: SiteLocale }>(), {
   locale: 'zh-CN',

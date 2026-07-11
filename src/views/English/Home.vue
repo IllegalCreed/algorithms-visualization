@@ -2,20 +2,24 @@
 import CategoryComp from '@/views/Home/Main/Category/Category.vue';
 import Footer from '@/views/Home/Footer/Footer.vue';
 import { useControlHeaderShadow } from '@/views/Home/hooks';
+import { getEnglishAlgorithmPages, LOCALIZED_PAGE_PAIRS } from '@/i18n/catalog';
 import { getEnglishHomeCategories } from './homeCatalog';
 
 const categories = getEnglishHomeCategories();
+const pageCount = LOCALIZED_PAGE_PAIRS.length;
+const algorithmCount = getEnglishAlgorithmPages().length;
 useControlHeaderShadow();
 </script>
 
 <template>
-  <div id="english-home">
+  <div id="english-home" :data-page-count="pageCount" :data-content-count="pageCount - 1">
     <section class="english-splash">
-      <p class="eyebrow">Interactive learning pilot</p>
+      <p class="eyebrow">Interactive algorithm learning</p>
       <h1>Algorithm Visualizer</h1>
       <p class="lead">
-        See each decision, state change, and line of code. This English pilot contains ten focused
-        pages built from the same tested visual engines as the full Chinese catalog.
+        See each decision, state change, and line of code. This English catalog contains
+        {{ pageCount }} focused pages built from the same tested visual engines as the full Chinese
+        catalog.
       </p>
       <div class="splash-actions">
         <RouterLink class="primary-action" :to="{ name: 'en-quick-sort' }">
@@ -25,12 +29,15 @@ useControlHeaderShadow();
           Choose a learning path
         </RouterLink>
       </div>
-      <a class="catalog-cue" href="#english-catalog">Browse the pilot</a>
+      <a class="catalog-cue" href="#english-catalog">Browse the catalog</a>
     </section>
 
-    <section id="english-catalog" class="english-catalog" aria-labelledby="pilot-heading">
-      <h2 id="pilot-heading">Ten pages, one coherent starting point</h2>
-      <p>Use the tools first, or jump directly into one of seven representative algorithms.</p>
+    <section id="english-catalog" class="english-catalog" aria-labelledby="catalog-heading">
+      <h2 id="catalog-heading">{{ pageCount }} pages, one coherent learning catalog</h2>
+      <p>
+        Use the tools first, or jump directly into one of {{ algorithmCount }} translated
+        algorithms.
+      </p>
     </section>
     <CategoryComp v-for="category in categories" :key="category.title" :data="category" />
     <Footer />

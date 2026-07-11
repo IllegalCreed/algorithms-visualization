@@ -187,7 +187,7 @@ describe('SearchPalette 全站搜索', () => {
     expect(store.isSearchOpen).toBe(false);
   });
 
-  it('TC-I18N-UI-126-03: `/en` 只搜索英文试点并使用英文空态与入口', async () => {
+  it('TC-I18N-UI-130-04: `/en` 只搜索 29 个英文内容页并使用英文空态与入口', async () => {
     mockRoute.path = '/en';
     mockRoute.name = 'en-home';
     const w = mountIt();
@@ -198,6 +198,11 @@ describe('SearchPalette 全站搜索', () => {
     expect(w.find('.sp-input').attributes('placeholder')).toContain('Search algorithms');
     expect(w.find('.sp-hint').text()).toContain('Type an algorithm name');
     expect(w.findAll('.sp-shortcut')[0].text()).toContain('Complexity reference');
+    expect(w.findAll('.sp-shortcut')[0].text()).toContain('27 algorithms');
+
+    await w.find('.sp-input').setValue('euclidean algorithm');
+    expect(w.text()).toContain('Euclidean Algorithm');
+    expect(w.text()).not.toContain('欧几里得算法');
 
     await w.find('.sp-input').setValue('quick sort');
     expect(w.text()).toContain('Quick Sort');

@@ -1,6 +1,6 @@
 // src/components/player/inputSpec.ts —— 自定义输入解析与校验（C-110，M10-P1）
 import type { InputSpec } from './types';
-import type { SiteLocale } from '@/i18n/pilot';
+import type { SiteLocale } from '@/i18n/catalog';
 
 /** 常规排序共享输入规格（第一批 12 模块）；counting/radix/bitonic 约束特殊不用它 */
 export const SORT_INPUT_SPEC: InputSpec = {

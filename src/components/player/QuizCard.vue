@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import type { QuizItem } from './types';
-import type { SiteLocale } from '@/i18n/pilot';
+import type { SiteLocale } from '@/i18n/catalog';
 
 const props = withDefaults(defineProps<{ quiz: QuizItem; locale?: SiteLocale }>(), {
   locale: 'zh-CN',

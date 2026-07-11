@@ -1,11 +1,11 @@
 import { useCategoryData } from '@/views/Home/Main/hooks';
 import {
-  ENGLISH_PILOT_PAGES,
+  ENGLISH_PAGES,
   ENGLISH_SITE_NAME,
-  PILOT_PAGE_PAIRS,
+  LOCALIZED_PAGE_PAIRS,
   siteLocaleFromPath,
   type SiteLocale,
-} from '@/i18n/pilot';
+} from '@/i18n/catalog';
 
 export const SITE_ORIGIN = 'https://algo.illegalscreed.cn';
 export const SITE_NAME = '数据结构和算法可视化';
@@ -104,7 +104,7 @@ const catalogPages: SeoPage[] = useCategoryData().flatMap((category) =>
   ),
 );
 
-const englishPages = ENGLISH_PILOT_PAGES.map((page) =>
+const englishPages = ENGLISH_PAGES.map((page) =>
   createIndexablePage({
     name: page.name,
     path: page.path,
@@ -117,7 +117,7 @@ const englishPages = ENGLISH_PILOT_PAGES.map((page) =>
 );
 
 const pagePairByName = new Map(
-  PILOT_PAGE_PAIRS.flatMap((pair) => [
+  LOCALIZED_PAGE_PAIRS.flatMap((pair) => [
     [pair.zh.name, pair] as const,
     [pair.en.name, pair] as const,
   ]),

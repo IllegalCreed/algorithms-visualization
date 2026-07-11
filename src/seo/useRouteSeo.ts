@@ -1,7 +1,7 @@
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { buildJsonLd, OG_IMAGE_URL, resolveSeoPage, SITE_NAME, type SeoPage } from './site';
-import { ENGLISH_SITE_NAME } from '@/i18n/pilot';
+import { ENGLISH_SITE_NAME } from '@/i18n/catalog';
 
 function upsertMeta(attribute: 'name' | 'property', key: string, content: string): void {
   const selector = `meta[${attribute}="${key}"]`;

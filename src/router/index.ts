@@ -1,10 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import Master from '../views/Master/Master.vue';
 import Home from '../views/Home/Home.vue';
 import Docs from '../views/Docs/Docs.vue';
 import About from '../views/About/About.vue';
+import { englishContentRoutes } from '../views/English/pages';
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: Master,
@@ -500,53 +501,7 @@ const routes = [
         path: '/en/docs',
         name: 'en-docs',
         component: Docs,
-        children: [
-          {
-            path: '/en/docs/complexity',
-            name: 'en-complexity',
-            component: () => import('../views/English/Complexity.vue'),
-          },
-          {
-            path: '/en/docs/paths',
-            name: 'en-paths',
-            component: () => import('../views/English/Paths.vue'),
-          },
-          {
-            path: '/en/docs/quick-sort',
-            name: 'en-quick-sort',
-            component: () => import('../views/English/QuickSort.vue'),
-          },
-          {
-            path: '/en/docs/binary-search',
-            name: 'en-binary-search',
-            component: () => import('../views/English/BinarySearch.vue'),
-          },
-          {
-            path: '/en/docs/dijkstra',
-            name: 'en-dijkstra',
-            component: () => import('../views/English/Dijkstra.vue'),
-          },
-          {
-            path: '/en/docs/knapsack',
-            name: 'en-knapsack',
-            component: () => import('../views/English/Knapsack.vue'),
-          },
-          {
-            path: '/en/docs/kmp',
-            name: 'en-kmp',
-            component: () => import('../views/English/Kmp.vue'),
-          },
-          {
-            path: '/en/docs/fenwick',
-            name: 'en-fenwick',
-            component: () => import('../views/English/Fenwick.vue'),
-          },
-          {
-            path: '/en/docs/convex-hull',
-            name: 'en-convex-hull',
-            component: () => import('../views/English/ConvexHull.vue'),
-          },
-        ],
+        children: [...englishContentRoutes],
       },
     ],
   },

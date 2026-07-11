@@ -5,17 +5,6 @@ import { JSDOM } from 'jsdom';
 
 const SITE_ORIGIN = 'https://algo.illegalscreed.cn';
 const DIST_DIR = resolve(process.cwd(), 'dist');
-const PILOT_SLUGS = new Set([
-  'complexity',
-  'paths',
-  'quick-sort',
-  'binary-search',
-  'dijkstra',
-  'knapsack',
-  'kmp',
-  'fenwick',
-  'convex-hull',
-]);
 
 function readArgument(name, fallback) {
   const index = process.argv.indexOf(`--${name}`);
@@ -33,7 +22,7 @@ function canonicalFor(path) {
   return new URL(canonicalPath, `${SITE_ORIGIN}/`).toString();
 }
 
-function expectedAlternatesFor(path) {
+function expectedAlternatesFor(path, localizedSlugs) {
   let chinesePath;
   let englishPath;
 
@@ -44,7 +33,7 @@ function expectedAlternatesFor(path) {
     const chineseMatch = path.match(/^\/docs\/([^/]+)$/);
     const englishMatch = path.match(/^\/en\/docs\/([^/]+)$/);
     const slug = chineseMatch?.[1] ?? englishMatch?.[1];
-    if (!slug || !PILOT_SLUGS.has(slug)) return [];
+    if (!slug || !localizedSlugs.has(slug)) return [];
     chinesePath = `/docs/${slug}`;
     englishPath = `/en/docs/${slug}`;
   }
@@ -109,7 +98,7 @@ function graphTypes(jsonLd) {
   return jsonLd['@graph'].map((node) => node?.['@type']);
 }
 
-async function verifyPage(page, base) {
+async function verifyPage(page, base, localizedSlugs) {
   const html = await readText(page.outputPath);
   const dom = new JSDOM(html, { url: page.canonical });
   const { document } = dom.window;
@@ -154,7 +143,7 @@ async function verifyPage(page, base) {
       href: link.getAttribute('href') ?? '',
     }),
   );
-  const expectedAlternates = expectedAlternatesFor(page.path);
+  const expectedAlternates = expectedAlternatesFor(page.path, localizedSlugs);
   assert.deepEqual(page.alternates, expectedAlternates, `${prefix} manifest alternate 错误`);
   assert.deepEqual(alternates, expectedAlternates, `${prefix} HTML alternate 错误`);
 
@@ -201,22 +190,33 @@ async function main() {
   assert.equal(manifest.base, expectedBase, 'manifest base 错误');
   assert.equal(manifest.origin, SITE_ORIGIN, 'manifest origin 错误');
   assert.ok(Array.isArray(manifest.pages), 'manifest pages 缺失');
-  assert.equal(manifest.pages.length, 105, 'manifest 必须包含 105 页');
-  assert.equal(
-    manifest.pages.filter((page) => page.locale === 'zh-CN').length,
-    95,
-    'manifest 必须包含 95 个中文页',
+  const chinesePages = manifest.pages.filter((page) => page.locale === 'zh-CN');
+  const englishPages = manifest.pages.filter((page) => page.locale === 'en');
+  const localizedSlugs = new Set(
+    englishPages
+      .filter((page) => page.path !== '/en')
+      .map((page) => page.path.match(/^\/en\/docs\/([^/]+)$/)?.[1]),
   );
-  assert.equal(
-    manifest.pages.filter((page) => page.locale === 'en').length,
-    10,
-    'manifest 必须包含 10 个英文页',
-  );
+
+  assert.ok(!localizedSlugs.has(undefined), 'manifest 包含非法英文内容路径');
+  assert.equal(chinesePages.length, 95, 'manifest 必须包含 95 个中文页');
+  assert.deepEqual(manifest.counts, {
+    total: manifest.pages.length,
+    zhCN: chinesePages.length,
+    en: englishPages.length,
+  });
+  assert.equal(manifest.pages.length, chinesePages.length + englishPages.length);
   assert.equal(
     manifest.pages.filter((page) => page.alternates?.length === 3).length,
-    20,
-    'manifest 必须包含 20 个成对语言页',
+    englishPages.length * 2,
+    '每个英文页及其中文 counterpart 都必须包含三组 alternate',
   );
+
+  const canonicalSet = new Set(manifest.pages.map((page) => page.canonical));
+  for (const page of englishPages) {
+    const chinesePath = page.path === '/en' ? '/' : page.path.replace(/^\/en/, '');
+    assert.ok(canonicalSet.has(canonicalFor(chinesePath)), `${page.path} 缺少中文 counterpart`);
+  }
 
   assertUnique(
     manifest.pages.map((page) => page.name),
@@ -254,7 +254,7 @@ async function main() {
 
   for (const page of manifest.pages) {
     assert.equal(page.canonical, canonicalFor(page.path));
-    await verifyPage(page, expectedBase);
+    await verifyPage(page, expectedBase, localizedSlugs);
   }
 
   console.log(`[verify-seo] ${mode}: ${manifest.pages.length} pages verified (${expectedBase})`);

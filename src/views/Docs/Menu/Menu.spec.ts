@@ -99,15 +99,21 @@ describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
     expect(pressedItems[0].text()).toBe('链表');
   });
 
-  it('TC-I18N-UI-126-03A: 英文 Docs 菜单只渲染 9 个试点内容页并高亮当前项', () => {
+  it('TC-I18N-UI-130-01: 英文 Docs 菜单渲染 29 个内容页并高亮当前项', () => {
     mockRouteName.value = 'en-quick-sort';
     mockRoutePath.value = '/en/docs/quick-sort';
     const w = mountIt();
 
-    expect(w.findAll('.item')).toHaveLength(9);
+    expect(w.findAll('.item')).toHaveLength(29);
     expect(w.text()).toContain('Learning Tools');
     expect(w.text()).toContain('Quick Sort');
     expect(w.text()).toContain('Convex Hull');
+    expect(w.text()).toContain('Topological Sort');
+    expect(w.text()).toContain('Closest Pair of Points');
+    expect(w.text()).toContain('Longest Common Subsequence');
+    expect(w.text()).toContain('N-Queens');
+    expect(w.text()).toContain('Rabin-Karp String Matching');
+    expect(w.text()).toContain('Euclidean Algorithm');
     expect(w.text()).not.toContain('冒泡排序');
     expect(w.find('.item-pressed').text()).toBe('Quick Sort');
   });

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import Article from '@/components/article/Article.vue';
-import { ENGLISH_PILOT_PAGES } from '@/i18n/pilot';
+import { getEnglishAlgorithmPages } from '@/i18n/catalog';
 
 interface ComplexityRow {
   name: string;
@@ -12,52 +12,12 @@ interface ComplexityRow {
   note: string;
 }
 
-const metrics: Record<string, Pick<ComplexityRow, 'time' | 'space' | 'note'>> = {
-  'en-quick-sort': {
-    time: 'Average O(n log n)',
-    space: 'O(log n)',
-    note: 'In-place; worst case O(n^2) with consistently poor pivots.',
-  },
-  'en-binary-search': {
-    time: 'O(log n)',
-    space: 'O(1)',
-    note: 'Requires sorted data and discards half of the candidate range per probe.',
-  },
-  'en-dijkstra': {
-    time: 'O((V+E) log V)',
-    space: 'O(V)',
-    note: 'Heap-based implementation for graphs with non-negative edge weights.',
-  },
-  'en-knapsack': {
-    time: 'O(nW)',
-    space: 'O(nW)',
-    note: 'Pseudo-polynomial in capacity W; space can be reduced to O(W).',
-  },
-  'en-kmp': {
-    time: 'O(n+m)',
-    space: 'O(m)',
-    note: 'The text pointer never moves backward; preprocessing builds the LPS table.',
-  },
-  'en-fenwick': {
-    time: 'O(log n)',
-    space: 'O(n)',
-    note: 'Both point updates and prefix queries follow a lowbit chain.',
-  },
-  'en-convex-hull': {
-    time: 'O(n log n)',
-    space: 'O(n)',
-    note: "Andrew's monotone chain is dominated by sorting the points.",
-  },
-};
-
-const rows: ComplexityRow[] = ENGLISH_PILOT_PAGES.filter((page) => metrics[page.name]).map(
-  (page) => ({
-    name: page.name,
-    title: page.heading,
-    category: page.category ?? 'Other',
-    ...metrics[page.name],
-  }),
-);
+const rows: ComplexityRow[] = getEnglishAlgorithmPages().map((page) => ({
+  name: page.en.name,
+  title: page.en.heading,
+  category: page.en.category,
+  ...page.en.complexity,
+}));
 const categories = ['All', ...new Set(rows.map((row) => row.category))];
 const activeCategory = ref('All');
 const keyword = ref('');
@@ -74,7 +34,7 @@ const filteredRows = computed(() => {
 <template>
   <Article>
     <h1>Algorithm Complexity Reference</h1>
-    <p class="sub">Time and space costs for all seven algorithms in the English pilot</p>
+    <p class="sub">Time and space costs for all {{ rows.length }} translated algorithms</p>
 
     <p>
       Complexity describes how resource use grows with the input. Use this table for comparison,

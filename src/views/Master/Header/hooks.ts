@@ -14,7 +14,7 @@ import {
   buildWeiboShareUrl,
   buildXShareUrl,
 } from './share';
-import { siteLocaleFromPath } from '@/i18n/pilot';
+import { siteLocaleFromPath } from '@/i18n/catalog';
 
 export function useIconLink(): ComputedRef<IconLink[]> {
   const route = useRoute();

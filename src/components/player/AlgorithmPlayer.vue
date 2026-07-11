@@ -29,7 +29,7 @@ import NetworkView from '@/components/NetworkView.vue';
 import CodePanel from './CodePanel.vue';
 import VariablePanel from './VariablePanel.vue';
 import TransportControls from './TransportControls.vue';
-import type { SiteLocale } from '@/i18n/pilot';
+import type { SiteLocale } from '@/i18n/catalog';
 
 const props = withDefaults(defineProps<{ module: AlgorithmModule; locale?: SiteLocale }>(), {
   locale: 'zh-CN',

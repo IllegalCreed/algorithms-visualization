@@ -1,7 +1,7 @@
 <!-- src/components/player/TransportControls.vue -->
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { SiteLocale } from '@/i18n/pilot';
+import type { SiteLocale } from '@/i18n/catalog';
 
 const props = withDefaults(
   defineProps<{

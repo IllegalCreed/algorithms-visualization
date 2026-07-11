@@ -3,7 +3,7 @@
 import { ref, useId, watch } from 'vue';
 import type { InputSpec } from './types';
 import { parseInputArray } from './inputSpec';
-import type { SiteLocale } from '@/i18n/pilot';
+import type { SiteLocale } from '@/i18n/catalog';
 
 const props = withDefaults(
   defineProps<{ spec: InputSpec; modelText: string; locale?: SiteLocale }>(),
