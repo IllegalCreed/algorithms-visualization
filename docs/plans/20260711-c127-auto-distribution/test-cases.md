@@ -6,13 +6,13 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 76%
-> Blocked by: none
-> Next action: 开始 T3-D，先实现微博 Free adapter 的 typed contract、健康 gate 与无写测试，再依次推进 Bluesky、DEV、Mastodon
+> Progress: 79%
+> Blocked by: Owner 完成微博官方 OAuth、个人开发者认证与 Free/试用 gate（仅 T3-D1-B/C）
+> Next action: 由 Codex 带 Owner 完成微博官方 setup；随后只读冻结 Free 实际可用 statuses action，未经 matching campaign 授权不发帖
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_
 > Related requirement: requirements.md
 
 ## T0 文档用例
@@ -22,7 +22,7 @@
 | TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                                    |
 | TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                                             |
 | TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力                   |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 in-progress/76%、T3-C 真实 smoke 已清理完成且 GitHub ready/enabled；不把仓库 traffic 写成 campaign 归因 |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 in-progress/79%、T3-D1-A 无写边界完成且微博 adapter disabled；GitHub 仍 ready/enabled，不误归因 traffic |
 | TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过                                |
 | TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                                               |
 | TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                                           |
@@ -181,6 +181,25 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 - status complete；反馈 0 条、无分页；1h report available，scope/attribution 为 `repository-14d` / `not-attributable-to-campaign`。未保留反馈正文或仓库流量明细。
 - `delete_post` 返回 deleted，receipt 为 deleted；Release 查询 not found，tag ref 查询 404，复跑只读 smoke 同时返回 `releaseFound=false` 与 `tagRefFound=false`。
 
+## T3-D1-A 微博无写 CLI 与 adapter contract 用例
+
+| Case ID                  | 层级             | 检查对象          | 预期                                                                                                     |
+| ------------------------ | ---------------- | ----------------- | -------------------------------------------------------------------------------------------------------- |
+| TC-AUTO-WBPROC-127-01    | L3/runtime       | 固定进程边界      | 只执行 `weibo`、`shell=false`、有界资源与安全环境；不继承 token/refresh token/WBCLI secret               |
+| TC-AUTO-WBPROC-127-02    | L3/runtime       | 进程异常          | ENOENT、同步 spawn 失败、超时和输出超限结构化返回，不泄漏路径或 stderr                                   |
+| TC-AUTO-WBCLI-127-01     | adapter contract | 固定请求 grammar  | 只接受 doctor 与 statuses available catalog；拒绝任意 action、auth token/export、`--token`、路径或脚本   |
+| TC-AUTO-WBCLI-127-02     | adapter contract | doctor ready      | 严格提取 alias 与 login/developerVerification/subscription gate；不返回 user 原始对象、余额或 credential |
+| TC-AUTO-WBCLI-127-03     | adapter contract | 健康分类          | CLI 缺失、未登录、待个人认证、待 Free/试用、ready 与临时失败映射为稳定脱敏 reason                        |
+| TC-AUTO-WBCLI-127-04     | adapter contract | statuses 目录     | 只读固定 group 的 available action ID；描述和未知字段视为不可信且不进入公开状态                          |
+| TC-AUTO-WBCLI-127-05     | adapter contract | 输出与错误边界    | 畸形/超限/失败输出不回显 token、路径或原始 stdout/stderr；写结果未知 contract 预留但本阶段不调用         |
+| TC-AUTO-WBADAPTER-127-01 | adapter contract | 微博文本 draft    | 只接受 renderer 的单个中文 post 变体且字节语义确定，不复制 UTM 或文案 renderer                           |
+| TC-AUTO-WBADAPTER-127-02 | adapter contract | 幂等复用          | 创建前按完整正文查询本人最近发布；同正文复用 receipt，查询不完备时禁止 create                            |
+| TC-AUTO-WBADAPTER-127-03 | adapter contract | 创建与 receipt    | fake client 成功结果严格对拍正文、微博公开 URL、ID 与时间，映射 `weibo-text@0.1.0` receipt               |
+| TC-AUTO-WBADAPTER-127-04 | adapter contract | 失败映射          | 401/403/429/5xx/提交后超时映射共享错误合同；未知结果要求 lookup，不盲重试                                |
+| TC-AUTO-WBADAPTER-127-05 | adapter contract | 保守能力          | 媒体、英文、多变体、metrics/feedback/reply/delete 在 T3-D1-A 均失败关闭                                  |
+| TC-AUTO-WBRUNTIME-127-01 | MCP/runtime      | 动态渠道状态      | channels_status 返回真实微博 health，但 publish action/activation 未冻结前 `adapterReady=false`          |
+| TC-AUTO-WBSMOKE-127-01   | read-only smoke  | 官方 CLI 本机预查 | `--help` 与未登录 doctor 只读执行；不登录、不读 token、不调用 commands catalog 或平台写接口              |
+
 ## T3-D-T5 运行时用例框架
 
 | 层级             | 范围                                                                         |
@@ -232,7 +251,11 @@ git diff --check
 | TC-AUTO-GHSTORE/GHOPS-127-\_   | passed  | 2026-07-11 | receipt 安全查询/状态与 MCP status/feedback/report/delete 通过 |
 | TC-AUTO-GHSMOKE-127-01         | passed  | 2026-07-11 | 固定预案、Release/tag 所有权清理与真实只读预查通过             |
 | TC-AUTO-GHSMOKE-127-02         | passed  | 2026-07-11 | Owner 授权的 create/read/delete/tag-cleanup 闭环及双侧复查通过 |
-| T3-D-T5 运行时 Case            | planned | -          | 其余渠道、collector 与真实 smoke 后续展开                      |
+| TC-AUTO-WBPROC/WBCLI-127-\_    | passed  | 2026-07-11 | 固定官方 CLI、健康 gate、目录白名单、资源与脱敏边界通过        |
+| TC-AUTO-WBADAPTER-127-01..05   | passed  | 2026-07-11 | 注入式正文、幂等、receipt、错误与保守能力合同通过              |
+| TC-AUTO-WBRUNTIME-127-01       | passed  | 2026-07-11 | status 动态但 production adapter 始终 disabled                 |
+| TC-AUTO-WBSMOKE-127-01         | passed  | 2026-07-11 | 空白隔离环境 help/doctor 只读预查通过，零登录、零写入          |
+| T3-D1-B-T5 运行时 Case         | planned | -          | 微博 setup/真实 smoke、其余渠道与 collector 后续展开           |
 
 ## 变更历史
 
@@ -253,3 +276,4 @@ git diff --check
 - 2026-07-11：T3-C 展开二十二个精确 Case；官方能力固定为 Release reactions、Issue comments 与不可归因的 14 天仓库 traffic。真实 smoke 拆为零副作用预案和获授权后的 create/read/delete 证据，避免把“继续开发”误当成某条外部内容的发布授权。
 - 2026-07-11：T3-C 初始 5 文件 red（2 个缺失模块、7 失败/2 通过）后实现到 21 文件 / 93 用例全绿；coverage 与 verify 通过。审计进一步发现 Release 删除不会替代 Git ref 清理，以 2 文件 5 项 red/green 补入 tag 所有权 gate 与 cleanup。扩展只读 smoke 确认 traffic/Issues 可读、目标 Release/tag 均不存在；activation 仍缺失、零真实写入，C127 转 74%。
 - 2026-07-11：Owner 明确授权后执行 TC-AUTO-GHSMOKE-127-02；临时 Release `352517542` 完成发布、读取、零反馈采集、不可归因报告与删除，receipt、Release 和 tag ref 复查一致。C127 转 76%，下一步 T3-D。
+- 2026-07-11：T3-D1-A 初始 5 文件 red，追加审计再锁定 3 个失败断言；本地插件提交 `3858b56` 后 25 文件 / 111 用例、coverage（97.76/93.85/99.23/98.35）与 verify 全绿。官方 CLI `0.8.3` help/源码参数对拍及空白环境 doctor 通过；未登录、未读账号命令目录、未启用 adapter、未发帖。C127 转 79%，下一步为 Owner 引导式微博 setup。

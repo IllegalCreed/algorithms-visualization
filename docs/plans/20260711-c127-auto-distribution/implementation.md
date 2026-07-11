@@ -6,13 +6,13 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 76%
-> Blocked by: none
-> Next action: 开始 T3-D，先实现微博 Free adapter 的 typed contract、健康 gate 与无写测试，再依次推进 Bluesky、DEV、Mastodon
+> Progress: 79%
+> Blocked by: Owner 完成微博官方 OAuth、个人开发者认证与 Free/试用 gate（仅 T3-D1-B/C）
+> Next action: 由 Codex 带 Owner 完成微博官方 setup；随后只读冻结 Free 实际可用 statuses action，未经 matching campaign 授权不发帖
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_
 > Related design: design.md
 
 ## 执行顺序
@@ -73,7 +73,10 @@
 
 ### T3-D 其余首批 API adapters
 
-- [ ] 微博官方 Agent CLI adapter。
+- [x] T3-D1-A：冻结微博官方 CLI 版本、Free/个人 gate、固定进程边界与 production 无写命令面。
+- [x] T3-D1-A：以 red-green tests 实现 `doctor` 健康、只读 statuses 目录、脱敏 runtime 状态与注入式纯文字 adapter contract；live publish 继续不注册。
+- [ ] T3-D1-B：Owner 完成官方 OAuth、个人开发者认证与 Free/试用 gate 后，只读冻结实际可用 publish/read action，接入 production adapter 与显式 activation。
+- [ ] T3-D1-C：经 matching campaign 授权完成微博低风险 publish/read/feedback/可用时 delete smoke；不具备的能力保持 false。
 - [ ] Bluesky AT Protocol adapter。
 - [ ] DEV/Forem article 与 metrics/comments adapter，保持 `reply=false`。
 - [ ] Mastodon statuses/notifications adapter。
@@ -83,6 +86,14 @@
 - [ ] 设置最小平台权限、campaign concurrency、超时、重试和预算 guard。
 - [ ] receipt 记录 ID/URL/hash/幂等键/adapter version，不记录 token、Cookie 或 storage state。
 - [ ] dry-run 与正式 publish 路径有可自动验证的副作用边界。
+
+#### T3-D1-A 实施证据
+
+- 初始 red：5 个测试文件失败，4 个目标模块缺失，`local-runtime` 仍返回静态微博状态；补充边界审计又以 3 个失败断言锁定付费方案拒绝、action 排序与正文/链接校验。
+- 本地插件提交 `3858b56`：固定 `weibo` 进程、安全环境与有界输出；production 只接受 `doctor` 和 available `statuses` 目录；健康输出仅含 alias/gate/reason，adapter 始终未注册。
+- 注入式 `weibo-text@0.1.0` fake adapter 完成单中文正文、完整最近发布查询、幂等复用、严格 receipt、401/403/429/5xx/未知结果与 unsupported capability 对拍；未调用任何微博写接口。
+- 最终 plugin 25 个测试文件 / 111 个用例通过；coverage 为 statements 97.76%、branches 93.85%、functions 99.23%、lines 98.35%；`pnpm verify` 与 STDIO smoke 通过。
+- 官方 `@weibo-ai/weibo-cli@0.8.3` help 与源码参数对拍通过；隔离空白环境的 `doctor --output json` 仅返回 login/developerVerification/subscription 均 false。未登录、未读 commands catalog、未创建 activation、未发帖。
 
 ## T4 监测、回复与复盘
 

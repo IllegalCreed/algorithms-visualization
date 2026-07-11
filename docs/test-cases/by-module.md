@@ -49,14 +49,14 @@
 
 ---
 
-## 2026-07-11 渠道自动化 T0-T3C 增量（C-20260711-127）
+## 2026-07-11 渠道自动化 T0-T3D1A 增量（C-20260711-127）
 
 | 模块                          | Case ID                       | 标题                                                | 层级     | 自动化路径                                                 |
 | ----------------------------- | ----------------------------- | --------------------------------------------------- | -------- | ---------------------------------------------------------- |
 | marketing / channel inventory | TC-DOC-AUTO-127-01            | 十五渠道集合完整且唯一                              | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / official evidence | TC-DOC-AUTO-127-02            | 发布、监测、回复、准入与成本有官方依据              | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / capability tiers  | TC-DOC-AUTO-127-03            | 免费个人、后备与硬禁用边界明确                      | docs     | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory      | TC-DOC-AUTO-127-04            | C127 in-progress/76%、T3-C smoke 已清理且不可误归因 | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs / automation memory      | TC-DOC-AUTO-127-04            | C127 in-progress/79%、微博无写边界完成且仍 disabled | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / credential safety | TC-DOC-AUTO-127-05            | 官方授权、凭据隔离与失败关闭红线完整                | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / MCP boundary      | TC-DOC-AUTO-127-09            | Codex 与凭据/Profile 的工具边界完整                 | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / campaign spec     | TC-AUTO-SPEC-127-01..04       | schema、规范化、非法输入与双语内容合同              | L3       | `scripts/marketing/spec.spec.ts`                           |
@@ -86,6 +86,11 @@
 | marketing-ops / receipt ops   | TC-AUTO-GHSTORE-127-01..02    | postRef 查询、原子 deleted 与文件损坏失败关闭       | L3       | personal plugin receipt-store/failure specs                |
 | marketing-ops / GitHub ops    | TC-AUTO-GHOPS-127-01..06      | MCP status/feedback/report/delete 与输出脱敏        | MCP      | personal plugin local-operations + STDIO smoke             |
 | marketing-ops / GitHub smoke  | TC-AUTO-GHSMOKE-127-01..02    | 固定预案、只读预查与授权真实清理闭环均通过          | smoke    | personal plugin specs + readonly/real smoke                |
+| marketing-ops / Weibo process | TC-AUTO-WBPROC-127-01..02     | 固定进程、安全环境、资源边界与失败脱敏              | L3       | personal plugin `src/weibo-process.spec.ts`                |
+| marketing-ops / Weibo CLI     | TC-AUTO-WBCLI-127-01..05      | doctor/gate、目录白名单、固定 grammar 与脱敏        | L3       | personal plugin `src/weibo-cli.spec.ts`                    |
+| marketing-ops / Weibo adapter | TC-AUTO-WBADAPTER-127-01..05  | 注入式正文、幂等、receipt、错误与保守能力           | L3       | personal plugin `src/weibo-post-adapter.spec.ts`           |
+| marketing-ops / Weibo runtime | TC-AUTO-WBRUNTIME-127-01      | 动态 health 且 production adapter disabled          | MCP      | personal plugin Weibo channel + local runtime specs        |
+| marketing-ops / Weibo smoke   | TC-AUTO-WBSMOKE-127-01        | 官方 help/源码 argv 与空白隔离 doctor 只读预查      | smoke    | official CLI local read-only smoke                         |
 
 ---
 

@@ -6,13 +6,13 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 76%
-> Blocked by: none
-> Next action: 开始 T3-D，先实现微博 Free adapter 的 typed contract、健康 gate 与无写测试，再依次推进 Bluesky、DEV、Mastodon
+> Progress: 79%
+> Blocked by: Owner 完成微博官方 OAuth、个人开发者认证与 Free/试用 gate（仅 T3-D1-B/C）
+> Next action: 由 Codex 带 Owner 完成微博官方 setup；随后只读冻结 Free 实际可用 statuses action，未经 matching campaign 授权不发帖
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -236,6 +236,18 @@ get_campaign_report(campaignId, window)
 7. 只读复查 Release 与 tag 均不存在；证据只保留公开 ID/URL、聚合状态和删除结果，不保留反馈正文、流量明细或 CLI stderr。
 
 执行结果（2026-07-11）：上述顺序完整通过。临时 Release ID 为 `352517542`，公开 URL 为 `https://github.com/IllegalCreed/algorithms-visualization/releases/tag/marketing/marketing-ops-t3c-smoke-127`；反馈为零条，报告正确标记 `repository-14d` / `not-attributable-to-campaign`。`delete_post` 返回 deleted，receipt 转 deleted，Release 查询为 not found，tag ref 查询为 404；未创建评论、回复或 Issue。
+
+### T3-D1-A 微博无写边界
+
+微博 production transport 采用官方 `@weibo-ai/weibo-cli`，但不把该 CLI 的动态 `group/action` 直接暴露给 MCP。当前官方包为 `0.8.3`，内置浏览器/设备 OAuth、OS Keychain 与 JSON 输出；`doctor` 将登录、开发者认证和套餐/试用分别建模，Free 为每小时 5 次且仅本人数据。
+
+本阶段按以下边界实施：
+
+1. 固定 executable、argv grammar、超时、输出上限、`shell: false` 与安全环境白名单；显式剥离 `WEIBO_*`、`WBCLI_*` 和其他 token/secret 环境变量。
+2. production 只允许 `doctor --output json` 与 `commands list --available --group statuses --output json`；禁止 `auth token`、`--token`、任意 group/action、任意文件路径和原始 stdout/stderr 外泄。
+3. 健康状态只返回脱敏 alias、login/developerVerification/free-plan gate 与下一步；即使三个 gate 均 ready，在 publish action 未冻结且 activation 未建立前仍 `adapterReady=false`。
+4. 以注入的 typed fake client 建立微博纯文字 adapter 的渲染、最近本人同正文查询、幂等复用、receipt 与错误合同；媒体、英文变体、metrics/reply/delete 继续失败关闭。
+5. Owner 完成官方 setup 后只读读取其 Free 实际可用 statuses 目录，人工审计并将唯一 publish/read action 固定进代码；随后再做 production client、显式 activation 与低风险真实 smoke。
 
 ## 风险与处理
 

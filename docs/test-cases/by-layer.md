@@ -43,14 +43,14 @@
 | L5    | TC-E2E-I18N-130-01..05           | 深链、工具/轨道、切换、搜索/播放器与 900px 响应式      | `e2e/i18n.e2e.ts`                                  |
 | docs  | TC-I18N-CONTENT-130-01..03       | 二十页正文、术语和内部链接内容 QA                      | English SFC + style guide                          |
 
-## 2026-07-11 渠道自动化 T0-T3C 增量（C-20260711-127）
+## 2026-07-11 渠道自动化 T0-T3D1A 增量（C-20260711-127）
 
 | 层级     | Case ID                       | 标题                                                | 自动化路径                                                 |
 | -------- | ----------------------------- | --------------------------------------------------- | ---------------------------------------------------------- |
 | docs     | TC-DOC-AUTO-127-01            | 十五渠道集合完整且唯一                              | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-02            | 发布、监测、回复、准入与成本有官方依据              | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-03            | 免费个人、后备与硬禁用边界明确                      | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-04            | C127 in-progress/76%、T3-C smoke 已清理且不可误归因 | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs     | TC-DOC-AUTO-127-04            | C127 in-progress/79%、微博无写边界完成且仍 disabled | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | docs     | TC-DOC-AUTO-127-05            | 官方授权、凭据隔离与失败关闭红线完整                | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-09            | Codex 与凭据/Profile 的 MCP 边界完整                | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | L3       | TC-AUTO-SPEC-127-01..04       | schema、规范化、非法输入与双语内容合同              | `scripts/marketing/spec.spec.ts`                           |
@@ -80,6 +80,11 @@
 | L3       | TC-AUTO-GHSTORE-127-01..02    | receipt 查询、并发原子性、deleted 与损坏失败关闭    | personal plugin receipt-store/failure specs                |
 | MCP      | TC-AUTO-GHOPS-127-01..06      | status/feedback/report/delete 与输出脱敏            | personal plugin local-operations + STDIO smoke             |
 | smoke    | TC-AUTO-GHSMOKE-127-01..02    | 固定预案、只读预查与授权真实清理闭环均通过          | personal plugin specs + readonly/real smoke                |
+| L3       | TC-AUTO-WBPROC-127-01..02     | 固定进程、安全环境、资源边界与失败脱敏              | personal plugin `src/weibo-process.spec.ts`                |
+| L3       | TC-AUTO-WBCLI-127-01..05      | doctor/gate、目录白名单、固定 grammar 与脱敏        | personal plugin `src/weibo-cli.spec.ts`                    |
+| L3       | TC-AUTO-WBADAPTER-127-01..05  | 注入式正文、幂等、receipt、错误与保守能力           | personal plugin `src/weibo-post-adapter.spec.ts`           |
+| MCP      | TC-AUTO-WBRUNTIME-127-01      | 动态 health 且 production adapter disabled          | personal plugin Weibo channel + local runtime specs        |
+| smoke    | TC-AUTO-WBSMOKE-127-01        | 官方 help/源码 argv 与空白隔离 doctor 只读预查      | official CLI local read-only smoke                         |
 
 ## 2026-07-11 多语言十页试点增量（C-20260711-126，部分 superseded）
 
