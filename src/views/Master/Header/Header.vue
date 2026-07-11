@@ -33,25 +33,6 @@ const copy = computed(() =>
         <span>V</span>
       </RouterLink>
       <h1>{{ copy.siteName }}</h1>
-      <div class="blank"></div>
-
-      <nav class="language-switch" :aria-label="copy.language">
-        <RouterLink
-          class="locale-option"
-          :class="{ active: !isEnglish }"
-          :aria-current="!isEnglish ? 'page' : undefined"
-          :to="chineseRoute"
-          >ZH</RouterLink
-        >
-        <RouterLink
-          class="locale-option"
-          :class="{ active: isEnglish }"
-          :aria-current="isEnglish ? 'page' : undefined"
-          :to="englishRoute"
-          >EN</RouterLink
-        >
-      </nav>
-
       <button
         type="button"
         class="search-btn"
@@ -74,6 +55,24 @@ const copy = computed(() =>
         </svg>
         <span class="sb-kbd">⌘K</span>
       </button>
+      <div class="blank"></div>
+
+      <nav class="language-switch" :aria-label="copy.language">
+        <RouterLink
+          class="locale-option"
+          :class="{ active: !isEnglish }"
+          :aria-current="!isEnglish ? 'page' : undefined"
+          :to="chineseRoute"
+          >ZH</RouterLink
+        >
+        <RouterLink
+          class="locale-option"
+          :class="{ active: isEnglish }"
+          :aria-current="isEnglish ? 'page' : undefined"
+          :to="englishRoute"
+          >EN</RouterLink
+        >
+      </nav>
 
       <IconLinkComp v-for="item in iconLinkData" :key="item.title" :data="item" />
     </div>
@@ -127,7 +126,7 @@ const copy = computed(() =>
       gap: 8px;
       height: 40px;
       padding: 0 14px;
-      margin-right: 24px;
+      margin-left: 24px;
       border: none;
       cursor: pointer;
       color: @font-color;

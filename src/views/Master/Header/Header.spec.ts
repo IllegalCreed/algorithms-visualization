@@ -95,6 +95,17 @@ describe('Master/Header 组件', () => {
     expect(store.isSearchOpen).toBe(true);
   });
 
+  it('TC-VIEW-HEADER-09: 搜索按钮紧跟标题并位于弹性空白前', () => {
+    const w = mountIt();
+    const children = Array.from(w.find('#main').element.children);
+    const titleIndex = children.findIndex((element) => element.tagName === 'H1');
+    const searchIndex = children.findIndex((element) => element.classList.contains('search-btn'));
+    const blankIndex = children.findIndex((element) => element.classList.contains('blank'));
+
+    expect(searchIndex).toBe(titleIndex + 1);
+    expect(blankIndex).toBe(searchIndex + 1);
+  });
+
   it('TC-I18N-UI-126-02: 英文 Header 与中英切换目标由当前页面对派生', () => {
     mockRoute.fullPath = '/en/docs/quick-sort?input=9,5,1';
     mockRoute.path = '/en/docs/quick-sort';
