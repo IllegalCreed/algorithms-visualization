@@ -8,10 +8,10 @@
 > Last reviewed: 2026-07-11
 > Progress: 100%
 > Blocked by: none
-> Next action: 进入 C127 提示词驱动的全自动内容分发
+> Next action: 评审 C130 英文目录扩展到 30 页
 > Replaces: none
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-124、C-20260710-129
+> Related plans: C-20260710-123、C-20260710-124、C-20260710-129、C-20260711-130
 > Related tests: TC-I18N-REGISTRY-126-_、TC-I18N-MODULE-126-_、TC-SEO-I18N-126-_、TC-I18N-UI-126-_、TC-I18N-BUILD-126-_、TC-E2E-I18N-126-_
 > Related requirement: requirements.md
 

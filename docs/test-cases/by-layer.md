@@ -7,7 +7,7 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case 与 C-127 五个渠道自动化文档 Case。历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case 与 C-127 六个渠道自动化设计 Case。C130 draft Case 尚未登记。历史分层总数未做全量重算。
 
 ## 2026-07-11 渠道自动化审计增量（C-20260711-127）
 
@@ -15,9 +15,10 @@
 | ---- | ------------------ | -------------------------------------- | ---------------------------------------------------------- |
 | docs | TC-DOC-AUTO-127-01 | 十五渠道集合完整且唯一                 | `docs/marketing/channel-automation-audit.md`               |
 | docs | TC-DOC-AUTO-127-02 | 发布、监测、回复、准入与成本有官方依据 | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-03 | A/B/C/D 与付费可选边界明确             | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-03 | 免费个人、后备与硬禁用边界明确         | `docs/marketing/channel-automation-audit.md`               |
 | docs | TC-DOC-AUTO-127-04 | C127 当前状态与项目记忆一致            | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | docs | TC-DOC-AUTO-127-05 | 官方授权、凭据隔离与失败关闭红线完整   | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-09 | Codex 与凭据/Profile 的 MCP 边界完整   | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 
 ## 2026-07-11 多语言十页试点增量（C-20260711-126）
 

@@ -8,10 +8,10 @@
 > Last reviewed: 2026-07-11
 > Progress: 100%
 > Blocked by: none
-> Next action: 进入 C127 提示词驱动的全自动内容分发
+> Next action: 评审 C130 英文目录扩展到 30 页
 > Replaces: none
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-124、C-20260710-129
+> Related plans: C-20260710-123、C-20260710-124、C-20260710-129、C-20260711-130
 > Related tests: TC-I18N-REGISTRY-126-_、TC-I18N-MODULE-126-_、TC-SEO-I18N-126-_、TC-I18N-UI-126-_、TC-I18N-BUILD-126-_、TC-E2E-I18N-126-_
 > Related design: design.md
 
@@ -91,7 +91,7 @@
 
 ## 遗留问题
 
-C126 不扩展其余 85 个中文索引页，也不引入完整 i18n 框架；是否扩容由后续英文自然流量与人工反馈另立计划决定。当前工程主线进入 C127。
+C126 不扩展其余 85 个中文索引页，也不引入完整 i18n 框架；扩容必须另立计划。经 Owner 最新排序，当前主线评审 C130 的 30 页英文扩容草案，C127 宣传自动化后置。
 
 ## 变更历史
 

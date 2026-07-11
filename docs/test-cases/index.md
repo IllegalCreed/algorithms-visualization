@@ -11,7 +11,7 @@
 
 本项目测试分层裁剪为 L3（前端单元）/ L4（前端组件）/ L5（端到端），不含 L1/L2（无后端）。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。2026-07-11 登记 C-126 二十三个多语言与国际 SEO Case、C-127 五个渠道自动化审计 Case；C123 的逐帖人工审批 Case 转 superseded。历史大表未做全量重排。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。2026-07-11 登记 C-126 二十三个多语言与国际 SEO Case、C-127 六个渠道自动化设计 Case；C123 的逐帖人工审批 Case 转 superseded。C130 draft Case 尚未登记。历史大表未做全量重排。
 
 ## All Cases
 
@@ -19,9 +19,10 @@
 | ------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- | -------------- | ----- | ------------------------------------------------------------- | ---------- | ---------- |
 | TC-DOC-AUTO-127-01        | 十个正式渠道与五个补充/替代渠道集合完整且唯一                                              | marketing / channel inventory      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-02        | 每个渠道的发布、监测、回复、准入与成本结论有官方依据                                       | marketing / official evidence      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-03        | 首批、条件、人工监测、禁用与付费可选渠道边界明确                                           | marketing / capability tiers       | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-04        | marketing、roadmap 与 agent 记忆一致指向 implementing 的 C127                              | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-05        | 自动化只用官方授权并禁止主密码、Cookie、内部 API 与浏览器模拟                              | marketing / credential safety      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
+| TC-DOC-AUTO-127-03        | 免费个人首批、Reddit 后备、主体与费用禁用边界明确                                          | marketing / capability tiers       | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
+| TC-DOC-AUTO-127-04        | marketing、roadmap 与 agent 记忆一致指向 approved/后置的 C127                              | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
+| TC-DOC-AUTO-127-05        | API/RPA 凭据隔离并禁止内部 API、stealth 与验证码绕过                                       | marketing / credential safety      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
+| TC-DOC-AUTO-127-09        | Codex 与本地 MCP 的凭据/Profile 边界明确                                                   | marketing / MCP boundary           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
 | TC-I18N-REGISTRY-126-01   | 十组中英页面、route name/path 与 7/2/1 类型边界唯一                                        | i18n / pilot registry              | C-20260711-126 | L3    | `src/i18n/pilot.spec.ts`                                      | active     | 2026-07-11 |
 | TC-I18N-REGISTRY-126-02   | 成对页面切换语言并保留安全 query                                                           | i18n / language switch             | C-20260711-126 | L3    | `src/i18n/pilot.spec.ts`                                      | active     | 2026-07-11 |
 | TC-I18N-REGISTRY-126-03   | 未翻译或未知页面回退目标语言 Home                                                          | i18n / language fallback           | C-20260711-126 | L3    | `src/i18n/pilot.spec.ts`                                      | active     | 2026-07-11 |

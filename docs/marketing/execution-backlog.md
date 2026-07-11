@@ -4,8 +4,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-11
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（implementing）
-> Next plan: C-128 实际发布、监测与迭代（C127 完成后）
+> Current plan: C-20260711-130 英文目录扩展到 30 页（draft，待 Owner 确认范围）
+> Deferred plan: C-20260711-127 提示词驱动的全自动内容分发（approved，宣传阶段再实施）
+> Next action: Owner 确认 C130 范围后，先做 locale catalog 收束
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -16,48 +17,50 @@
 
 - `roadmap.md` 只保存策略、渠道与长期判断。
 - `launch-posts.md` 保存可复用的发布文案和素材清单。
-- 本文件保存 C124-C129 的顺序、状态、依赖、退出条件和 Owner 外部行动。
+- 本文件保存 C124-C130 的顺序、状态、依赖、退出条件和 Owner 外部行动。
 - 每个进入实施的阶段仍需新建四文档 plan，不直接把本清单当实现说明。
 
 ## 当前基线审计
 
-| 能力             | 状态     | 仓库事实                                                                                 | 结论                                                                                 |
-| ---------------- | -------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| 全局元数据       | 已有     | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD         | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
-| 分享卡           | 已有     | `public/og-cover.png`，C-118 已产出国内首发文案                                          | 发布素材可用，仍需用渠道数据验证效果                                                 |
-| robots           | 已有     | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap     | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
-| sitemap          | 已有     | C124/C126 构建从中英首页真实链接生成 105 个尾斜杠 canonical URL                          | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
-| llms.txt         | 已有     | 构建生成 95 个中文页与 10 个 English pilot 页的标题、描述和 canonical                    | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
-| 路由级 SEO       | 已有     | 105 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；十组页面双向 hreflang  | C124 与 C126 均已完成双轨上线核验                                                    |
-| 首屏机器可读内容 | 已有     | Playwright 构建后预渲染 105 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
-| 分析与归因       | 已撤销   | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
-| 站点多语言       | 试点完成 | `/en` 已有 Home、2 个工具页、7 个算法页；共享 UI、搜索、正文、播放器与 SEO 均为英文      | C126 验证范围已双轨上线；不宣称其余 85 个中文索引页已有英文版                        |
-| 内容生产自动化   | 调研完成 | C127 已审计 15 个渠道并建立 A/B/C/D 能力等级；尚无生成器、adapter、workflow 或 collector | 先实现 GitHub、微博、Bluesky、DEV、Mastodon；其他渠道按官方能力失败关闭              |
-| 发布复盘         | 缺失     | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
+| 能力             | 状态     | 仓库事实                                                                                | 结论                                                                                 |
+| ---------------- | -------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| 全局元数据       | 已有     | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD        | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
+| 分享卡           | 已有     | `public/og-cover.png`，C-118 已产出国内首发文案                                         | 发布素材可用，仍需用渠道数据验证效果                                                 |
+| robots           | 已有     | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap    | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
+| sitemap          | 已有     | C124/C126 构建从中英首页真实链接生成 105 个尾斜杠 canonical URL                         | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
+| llms.txt         | 已有     | 构建生成 95 个中文页与 10 个 English pilot 页的标题、描述和 canonical                   | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
+| 路由级 SEO       | 已有     | 105 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；十组页面双向 hreflang | C124 与 C126 均已完成双轨上线核验                                                    |
+| 首屏机器可读内容 | 已有     | Playwright 构建后预渲染 105 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链 | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
+| 分析与归因       | 已撤销   | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI   | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
+| 站点多语言       | 扩容草案 | `/en` 已有 10 页；C130 审计出六个硬编码同步点并提出 typed catalog + 新增 20 算法页      | 待 Owner 确认 30 页范围；未批准前仍以 C126 十页线上事实为准                          |
+| 内容生产自动化   | 方案批准 | C127 已完成渠道审计与独立 `marketing-ops` MCP/RPA 隔离设计；尚无生成器、MCP 或 adapter  | 宣传工作后置；多语言与内容主线完成后再实施                                           |
+| 发布复盘         | 缺失     | 尚无 48 小时/7 天发布数据                                                               | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C127 内容与分发自动化` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容（draft）` -> `C127 内容与分发自动化（后置）` -> `C128 发布与复盘`
 
 顺序约束：
 
 1. C124 先让页面具备可靠的可发现性与可引用语义。
 2. C125 完成方案评审但未激活生产统计；C129 在流量/收入验证前撤销第三方成本，只保留 UTM。
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
-4. C127 以 Owner 提示词作为单次 campaign 授权；只有官方能力、当前授权和成本 guard 同时通过的渠道才自动执行。
-5. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
+4. C130 先把十页试点的六个硬编码同步点收束为 typed catalog，再分批新增二十个英文算法页；未批准前不改代码。
+5. C127 的 MCP/RPA 方案已经设计完成，但宣传自动化排在多语言与内容资产之后。
+6. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
-| 阶段                      | 状态         | 目标                                                  | 退出条件                                                             | 主要依赖                       |
-| ------------------------- | ------------ | ----------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------ |
-| C123 增长执行审计与编排   | verified     | 统一事实、顺序、边界与历史状态                        | 当前基线、C124-C128、Owner 输入和测试索引全部落档                    | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | verified     | 让每个可索引页面具备唯一语义和可验证的机器可读产物    | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪   | C123                           |
-| C125 分析、事件与渠道归因 | superseded   | 历史方案：第三方 page view、事件与会话归因            | 未激活生产统计；由 C129 撤销                                         | C124                           |
-| C129 撤销第三方分析接入   | verified     | 删除 tracker 与事件，保留零成本 UTM 工具              | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                 | C125；当前 plan C-20260710-129 |
-| C126 `/en` 多语言十页试点 | verified     | 验证英文 UI、文章、搜索与国际 SEO 全链路              | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过  | C124、C129                     |
-| C127 提示词驱动全自动分发 | implementing | 生成渠道内容，以能力 gate 调用官方 adapter 并自动监测 | 首批 adapter、幂等发布、1h/48h/7d 采集与至少一个非 GitHub smoke 通过 | C126；渠道官方授权             |
-| C128 发布、监测与迭代     | planned      | 用真实 campaign 证据决定渠道投入                      | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作               | C126/C127                      |
+| 阶段                      | 状态       | 目标                                                 | 退出条件                                                            | 主要依赖                       |
+| ------------------------- | ---------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
+| C123 增长执行审计与编排   | verified   | 统一事实、顺序、边界与历史状态                       | 当前基线、C124-C130、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified   | 让每个可索引页面具备唯一语义和可验证的机器可读产物   | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
+| C125 分析、事件与渠道归因 | superseded | 历史方案：第三方 page view、事件与会话归因           | 未激活生产统计；由 C129 撤销                                        | C124                           |
+| C129 撤销第三方分析接入   | verified   | 删除 tracker 与事件，保留零成本 UTM 工具             | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                | C125；当前 plan C-20260710-129 |
+| C126 `/en` 多语言十页试点 | verified   | 验证英文 UI、文章、搜索与国际 SEO 全链路             | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
+| C130 英文目录扩展到 30 页 | draft      | 收束 locale catalog 并新增二十个英文算法页           | 30 英文/125 总页、27 module adapter 与全门禁/双轨上线               | C126；Owner 确认范围           |
+| C127 提示词驱动全自动分发 | approved   | 通过独立 MCP 调用 API/RPA，Codex 与凭据/Profile 隔离 | MCP 契约、首批 adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过   | 多语言/内容主线完成后实施      |
+| C128 发布、监测与迭代     | planned    | 用真实 campaign 证据决定渠道投入                     | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C126/C130/C127                 |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -136,21 +139,46 @@
 - [x] production/selfhost 均验证 105 页；Pages run `29107386491` 与自有域三个代表 URL 均通过。
 - [ ] 根据后续索引、渠道反馈与可得使用证据决定扩展、修订或停止，不预先承诺 92 页全量翻译。
 
+## C130 英文目录扩展到 30 页
+
+> Status: draft（C-20260711-130）
+> 四文档：`docs/plans/20260711-c130-en-30-pages/`
+
+### 提议范围
+
+- 先把 `pilot.ts`、英文路由、Home、Complexity、Paths 和单体 module adapter 的六个同步点收束为 typed locale catalog、静态 loader map 与分文件 adapter。
+- 保留现有 Home、2 个工具页和 7 个算法页，再新增 20 个已有中文 module 的英文算法页，使英文达到 30 页、全站达到 125 个索引页。
+- 二十页分四批交付，每批五页；最终 27 个英文算法覆盖九大类，不引入新 oracle、可视化轨、运行时机器翻译、第三方翻译 API 或付费服务。
+- T1 先做十页无行为重构并维持 105 页；只有该阶段全绿后才开始新增英文内容，避免目录迁移和翻译扩容同时失控。
+
+### 当前边界
+
+- Owner 尚未确认 30 页目标与二十页清单，因此当前线上事实仍是 95 个中文页 + 10 个英文页 = 105 页。
+- draft Case 不登记到全局 active 测试索引；批准后按 catalog/route/SEO 红测进入 TDD。
+- C130 完成前不启动 C127 adapter、MCP、账号接入或站外发布。
+
 ## C127 提示词驱动的全自动内容分发
 
-> Status: implementing（C-20260711-127）
+> Status: approved / deferred（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
 ### 必做范围
 
 - 将 Owner 提示词规范化为 `CampaignSpec`；提示词是本次 campaign 授权，已接入的 A 级渠道不再逐帖人工审批。
-- 建立发布、指标、评论、回复、删除、授权、成本独立建模的能力注册表，并以官方依据和当前授权失败关闭。
-- 首批自动渠道为 GitHub、微博、Bluesky、DEV、Mastodon；微信公众号、B站、Reddit 等取得官方资质后再启用。
+- 建立发布、指标、评论、回复、删除、授权、成本独立建模的能力注册表，分开记录官方等级与实际执行模式，并以规则评审和当前授权失败关闭。
+- 首批自动渠道为 GitHub、微博、Bluesky、DEV、Mastodon；只使用免费且个人主体可用的官方能力。
+- Reddit 作为个人可申请的后备渠道，不阻塞首期；微信公众号、B站因无企业主体禁用，X 因零新增费用禁用。
 - V2EX、Hacker News、Product Hunt 只生成最终稿，Owner 人工发布并返回 URL 后自动监测；掘金、知乎、小红书维持禁用。
-- 凭据只进入 GitHub Environment Secrets 或等价密钥管理；只接受 OAuth/token/App Password/API key，不接收主密码、Cookie 或浏览器 session。
-- 仅使用平台官方 API 或官方发布工具；不以无头浏览器模拟登录、内部接口、逆向签名或验证码绕过补齐缺失能力。
+- API secret 只进入独立本地 `marketing-ops` 的 macOS Keychain；RPA 登录态只存在每平台专用 Profile，不进入 Codex、公开仓库或 GitHub Actions。
+- 官方 API 优先；RPA 必须逐渠道评审并由 Owner 显式启用，且只能在 MCP 内以 headed Playwright 运行。禁止内部接口、逆向签名、stealth、Cookie 导出和验证码绕过；验证码、设备验证或未知页面必须失败关闭。
 - 每个发布动作使用幂等键和 receipt；1 小时、48 小时、7 天采集可得指标与反馈，并按平台规则限制自动回复。
+- 凭据、Keychain 和浏览器 Profile 全部位于独立本地 `marketing-ops`；Codex 只调用高层 MCP 工具，不获得任意浏览器执行权。
+
+### 当前决策
+
+- 方案已完成并批准，代码、插件、MCP、adapter 和账号接入均未开始。
+- 宣传工作是内容资产之后的最后阶段；当前不以账号输入或 adapter 开工阻塞 C130 多语言扩容。
 
 ### 退出条件
 
@@ -164,9 +192,9 @@
 ### 批次
 
 1. 首批自动批次：GitHub、微博、Bluesky、DEV、Mastodon；只展开已完成官方授权的渠道。
-2. 条件自动批次：微信公众号、B站、Reddit，分别等待账号资质、开放平台审核或目标社区授权。
+2. 后备自动批次：仅 Reddit，等待个人应用审核和目标社区授权；不作为首期退出条件。
 3. 人工发布后监测批次：V2EX、Hacker News、Product Hunt；Owner 返回真实 URL/ID 后进入 collector。
-4. 掘金、知乎、小红书不进入自动批次；X 等 Owner 接受按量付费并设置预算 guard 后再评估。
+4. 掘金、知乎、小红书不进入自动批次；微信公众号、B站、X 在当前 Owner 硬约束下同样禁用。
 5. 每个批次在 48 小时与 7 天复盘，不同渠道不使用同一文案和同一发布时间假设。
 
 ### 退出条件
@@ -177,18 +205,18 @@
 
 ## Owner 外部输入与阻塞
 
-| 输入                                        | 最晚需要阶段 | 说明                                                               |
-| ------------------------------------------- | ------------ | ------------------------------------------------------------------ |
-| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID |
-| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                           |
-| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                          |
-| 英文术语与品牌口吻确认                      | 已完成       | C126 十页正文、导航、播放器与 SEO 文案已完成人工/自动化校验        |
-| 首批渠道账号状态                            | C127 T2      | 只确认微博、Bluesky、DEV、Mastodon 是否有账号；不要发送密码/token  |
-| 首批渠道官方授权                            | C127 T2-T6   | 通过各平台 OAuth/App Password/API key 接入 Environment Secrets     |
-| 条件渠道资质                                | C127 T5      | 确认公众号认证、B站开放平台主体/UP 授权、Reddit 应用/社区授权      |
-| X 自动发布预算                              | optional     | 当前按量付费，未明确单次/月度上限前保持禁用                        |
-| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                             |
-| 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                         |
+| 输入                                        | 最晚需要阶段 | 说明                                                                                       |
+| ------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
+| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID                         |
+| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                   |
+| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                  |
+| 英文术语与品牌口吻确认                      | 已完成       | C126 十页正文、导航、播放器与 SEO 文案已完成人工/自动化校验                                |
+| 首批渠道账号状态                            | C127 T2      | 只确认微博、Bluesky、DEV、Mastodon 是否有账号；不要发送密码/token                          |
+| 首批渠道官方授权                            | C127 T3-T6   | 恢复实施后在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret |
+| 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                       |
+| Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                     |
+| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                                                     |
+| 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                                                 |
 
 ## 官方依据与适用边界
 
@@ -202,7 +230,7 @@
 | Plausible 分析    | [Plausible data policy](https://plausible.io/data-policy)、[custom events](https://plausible.io/docs/custom-props/for-custom-events)                                  | 历史评审备选；当前不接入，未来采用前重新核价与核实能力                                           |
 | Umami 分析        | [Cloud FAQ](https://docs.umami.is/docs/cloud/faq)、[tracker functions](https://docs.umami.is/docs/tracker-functions)、[sessions](https://docs.umami.is/docs/sessions) | C125 历史评审对象；C129 已撤销接入，不再等待账号或 retention                                     |
 | 渠道自动化能力    | [`channel-automation-audit.md`](./channel-automation-audit.md)                                                                                                        | 逐平台维护官方发布、监测、回复、授权、成本和失败关闭边界                                         |
-| GitHub 定时工作流 | [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)                                                  | `schedule` 使用 UTC 且运行默认分支最新提交；先完成显式提示词触发和真实 smoke，再启用采集排期     |
+| GitHub 定时工作流 | [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)                                                  | 仅保留为历史/后续兜底评审；当前本地 MCP scheduler 不把渠道凭据交给 Actions，也不依赖公网回连     |
 | URL 更新通知      | [Bing IndexNow](https://www.bing.com/webmasters/help/indexnow-0z209wby)                                                                                               | 仅作变更通知加速，保留 sitemap 和正常抓取路径                                                    |
 | llms.txt          | [llms.txt proposal](https://llmstxt.org/)                                                                                                                             | 视为实验性机器说明文件，不当作标准或收录保证                                                     |
 
@@ -218,3 +246,5 @@
 - 2026-07-10：C-129 按 Owner 决策撤销第三方分析，保留 UTM；282/2041 Vitest、110/110 Playwright、coverage、双 base 95 页与产物扫描通过，下一阶段 C126。
 - 2026-07-11：C-126 完成 `/en` 十页试点、十组双向 hreflang 与 105 页双 base 产物；284/2055 Vitest、104 文件/114 Playwright、coverage、视觉审计及双轨上线通过，下一阶段 C127。
 - 2026-07-11：C-127 启动。核验十个正式渠道与五个补充/替代渠道的官方能力，将“每帖人工审批”改为“提示词即 campaign 授权 + 能力 gate”；T0 调研完成，adapter/workflow 尚未实现。
+- 2026-07-11：Owner 确认零新增费用且无企业主体；首期固定五个免费个人渠道，Reddit 后备，微信/B站/X 禁用。
+- 2026-07-11：Owner 批准独立 `marketing-ops` MCP/RPA 隔离方案并将 C127 后置；C130 英文 30 页扩容成为下一候选主线。
