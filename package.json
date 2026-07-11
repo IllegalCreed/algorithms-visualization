@@ -17,6 +17,7 @@
     "prerender": "node scripts/prerender.mjs --mode production",
     "verify:seo": "node scripts/verify-seo.mjs --mode production",
     "marketing:link": "node --experimental-strip-types --no-warnings=ExperimentalWarning scripts/generate-campaign-link.ts",
+    "marketing:dry-run": "node --experimental-strip-types --no-warnings=ExperimentalWarning scripts/marketing/dry-run.ts",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",

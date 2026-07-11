@@ -6,9 +6,10 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "scripts/*.ts",
+    "scripts/**/*.ts",
     "src/analytics/utm.ts"
   ],
+  "exclude": ["scripts/**/*.spec.ts", "scripts/marketing/test-fixtures.ts"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
