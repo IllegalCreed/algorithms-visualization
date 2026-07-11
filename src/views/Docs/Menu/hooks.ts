@@ -6,6 +6,19 @@ import { getEnglishHomeSections } from '@/i18n/catalog';
 export function useCategoryData(): Category[] {
   const categoryData: Category[] = [
     {
+      title: '学习工具',
+      children: [
+        {
+          title: '算法复杂度速查',
+          url: 'complexity',
+        },
+        {
+          title: '算法学习路径',
+          url: 'paths',
+        },
+      ],
+    },
+    {
       title: '数据结构',
       children: [
         {

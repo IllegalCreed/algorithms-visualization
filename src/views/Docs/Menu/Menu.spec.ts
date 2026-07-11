@@ -61,6 +61,18 @@ describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
     expect(w.text()).toContain('冒泡排序');
   });
 
+  it('TC-MENU-TOOLS-132-02: 中文菜单渲染两个学习工具并高亮当前复杂度页', () => {
+    mockRouteName.value = 'complexity';
+    mockRoutePath.value = '/docs/complexity';
+    const w = mountIt();
+
+    expect(w.findAll('.item')).toHaveLength(94);
+    expect(w.text()).toContain('学习工具');
+    expect(w.text()).toContain('算法复杂度速查');
+    expect(w.text()).toContain('算法学习路径');
+    expect(w.find('.item-pressed').text()).toBe('算法复杂度速查');
+  });
+
   it('TC-VIEW-MENU-06: useMenuSelect 通过 provide 注入 currentSelectMenuItemKey，初始路由 array 使对应 Item 有 item-pressed class', () => {
     // 设置当前路由名为 'array'
     mockRouteName.value = 'array';
@@ -73,11 +85,11 @@ describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
     expect(pressedItems[0].text()).toBe('数组');
   });
 
-  it('TC-VIEW-MENU-07: 子菜单项渲染为可导航 RouterLink', () => {
+  it('TC-VIEW-MENU-07: 首个子菜单项渲染为可导航 RouterLink', () => {
     const w = mountIt();
     const firstItem = w.find('.item.btn');
     expect(firstItem.exists()).toBe(true);
-    expect(w.findComponent({ name: 'RouterLink' }).props('to')).toEqual({ name: 'array' });
+    expect(w.findComponent({ name: 'RouterLink' }).props('to')).toEqual({ name: 'complexity' });
   });
 
   it('TC-VIEW-MENU-08: onBeforeRouteUpdate 回调触发后 currentSelectMenuItemKey 更新，Item 的 item-pressed class 随之变化', async () => {
@@ -143,6 +155,31 @@ describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
       englishCategories
         .slice(1)
         .map((category) => category.children.map((item) => item.url.replace(/^en-/, ''))),
+    ).toEqual(
+      chineseCategories.slice(1).map((category) => category.children.map((item) => item.url)),
+    );
+  });
+
+  it('TC-MENU-TOOLS-132-03: 中英文完整侧边栏均为十组并保持条目同序', () => {
+    const chineseCategories = useCategoryData();
+    const englishCategories = useEnglishCategoryData();
+
+    expect(chineseCategories.map((category) => category.title)).toEqual([
+      '学习工具',
+      '数据结构',
+      '经典排序算法',
+      '图算法',
+      '动态规划',
+      '回溯与搜索',
+      '字符串',
+      '数学与数论',
+      '计算几何',
+      '查找',
+    ]);
+    expect(
+      englishCategories.map((category) =>
+        category.children.map((item) => item.url.replace(/^en-/, '')),
+      ),
     ).toEqual(chineseCategories.map((category) => category.children.map((item) => item.url)));
   });
 });
