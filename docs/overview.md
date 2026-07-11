@@ -19,7 +19,7 @@
 | 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换    |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：291 个测试文件、2092 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、115 个用例全绿；coverage 与双 base 构建门禁通过 |
+| 测试     | Vitest L3/L4：291 个测试文件、2093 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、115 个用例全绿；coverage 与双 base 构建门禁通过 |
 | 当前阶段 | C127 宣传自动化 in-progress/40%；T1 公开 dry-run 基础层已完成，下一步 T2 MCP contract                                                       |
 | 增长现状 | 线上为 95 中文 + 30 英文、无 tracker；已有 CampaignSpec/15 渠道 gate/renderer/dry-run，仍无 MCP、adapter、凭据或真实发布                    |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |

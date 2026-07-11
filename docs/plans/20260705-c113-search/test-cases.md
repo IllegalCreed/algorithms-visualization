@@ -4,10 +4,11 @@
 > Stable ID: C-20260705-113
 > Owner: IllegalCreed
 > Created: 2026-07-05
+> Last reviewed: 2026-07-11
 > Requirements: ./requirements.md
 > Design: ./design.md
 > 适用层级：L4 / L5
-> 命名空间：`TC-VIZ-SEARCH-*`、`TC-VIEW-HEADER-08`、`TC-E2E-SEARCH-01`
+> 命名空间：`TC-VIZ-SEARCH-*`、`TC-VIEW-HEADER-08..09`、`TC-E2E-SEARCH-01`
 
 ## L4
 
@@ -20,6 +21,7 @@
 | TC-VIZ-SEARCH-05  | 空查询 → 提示行（无结果列表）                                      |
 | TC-VIZ-SEARCH-06  | 无匹配 → 空态文案                                                  |
 | TC-VIEW-HEADER-08 | Header 搜索按钮存在，点击 → store.isSearchOpen=true                |
+| TC-VIEW-HEADER-09 | Header 直接子元素中搜索紧跟 h1，并位于 `.blank` 前                 |
 
 ## L5
 
@@ -29,7 +31,7 @@
 
 ## 回归
 
-播放器快捷键零冲突（面板 input 聚焦被 C-111 守卫覆盖）；Header 既有元素不动。
+播放器快捷键零冲突（面板 input 聚焦被 C-111 守卫覆盖）；Header 语言切换、外链、搜索点击行为不变。搜索入口前移后，900px 英文 Header 仍须无横向溢出或控件重叠。
 
 ## 自测报告
 
@@ -42,3 +44,4 @@
 
 - 2026-07-05：创建（draft → approved）。
 - 2026-07-05：交付验收（approved → verified）。8 Case 全绿。
+- 2026-07-11：新增 `TC-VIEW-HEADER-09`；先红为搜索位于 `.blank` 后，再移动模板转绿。定向 L4 10/10、定向 L5 2/2；全量 Vitest 291 文件 / 2093 用例、coverage、Playwright 115/115 与 125 页 `pnpm verify` 通过。

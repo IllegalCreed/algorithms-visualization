@@ -12,6 +12,8 @@
 本项目测试分层裁剪为 L3（前端单元）/ L4（前端组件）/ L5（端到端），不含 L1/L2（无后端）。
 
 > 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。2026-07-11 登记 C-126 二十三个多语言与国际 SEO Case、C-127 六个渠道自动化设计 Case及十九个 T1 运行时 Case、C130 三十七个英文扩容 Case；C126 中固定十页/105 页集合的 Case 由 C130 supersede，仍适用的子集测试保留 active。历史大表未做全量重排。
+>
+> 2026-07-11 Header 维护增量：新增 `TC-VIEW-HEADER-09`，锁定搜索入口紧跟站点标题并位于弹性空白前。
 
 ## All Cases
 
@@ -2291,6 +2293,7 @@
 | TC-VIZ-SEARCH-05          | 空查询提示行                                                                               | site / 搜索                        | C-20260705-113 | L4    | `src/components/SearchPalette.spec.ts`                        | active     | 2026-07-05 |
 | TC-VIZ-SEARCH-06          | 无匹配空态                                                                                 | site / 搜索                        | C-20260705-113 | L4    | `src/components/SearchPalette.spec.ts`                        | active     | 2026-07-05 |
 | TC-VIEW-HEADER-08         | 搜索按钮开面板（C-113）                                                                    | site / 搜索                        | C-20260705-113 | L4    | `src/views/Master/Header/Header.spec.ts`                      | active     | 2026-07-05 |
+| TC-VIEW-HEADER-09         | 搜索按钮紧跟标题并位于弹性空白前                                                           | site / 搜索                        | C-20260705-113 | L4    | `src/views/Master/Header/Header.spec.ts`                      | active     | 2026-07-11 |
 | TC-VIEW-CPLX-01           | 九大类分组 + 计数 92                                                                       | site / 速查页                      | C-20260705-114 | L4    | `src/views/Article/Complexity.spec.ts`                        | active     | 2026-07-05 |
 | TC-VIEW-CPLX-02           | 标签过滤 + 全部还原                                                                        | site / 速查页                      | C-20260705-114 | L4    | `src/views/Article/Complexity.spec.ts`                        | active     | 2026-07-05 |
 | TC-VIEW-CPLX-03           | 关键词过滤 + 空态                                                                          | site / 速查页                      | C-20260705-114 | L4    | `src/views/Article/Complexity.spec.ts`                        | active     | 2026-07-05 |

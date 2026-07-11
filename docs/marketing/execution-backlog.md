@@ -154,7 +154,7 @@
 ### 当前边界
 
 - 95 个中文页 + 30 个英文页 = 125 页已在 Pages 与 selfhost 双轨上线。
-- 291/2092 Vitest、104 文件/115 Playwright、coverage、125 页 production/selfhost 与视觉检查均已通过。
+- 291/2093 Vitest、104 文件/115 Playwright、coverage、125 页 production/selfhost 与视觉检查均已通过。
 - 功能提交 `5dca6c4`、Pages run `29136875578`、latest deployment SHA、自有域原子切换和两域代表 URL 抽查均通过。
 
 ## C127 提示词驱动的全自动内容分发

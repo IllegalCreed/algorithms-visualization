@@ -20,7 +20,7 @@
 | 内容规模 | 首页/菜单九大类、92 个条目；`src/algorithms` 下 77 个 `*.module.ts`；数据结构互动页、算法播放器页和功能页并存                                  |
 | 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化        |
 | 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
-| 测试基线 | 2026-07-11 本地现状：291 个 Vitest 文件 / 2092 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 115 条 Playwright e2e 通过                     |
+| 测试基线 | 2026-07-11 本地现状：291 个 Vitest 文件 / 2093 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 115 条 Playwright e2e 通过                     |
 | 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
 | 增长基线 | 95 个中文页 + 30 个英文页及 30 组 hreflang 已双轨上线；C129 只保留 UTM；C127 T1 dry-run 基础层完成，MCP/adapter/凭据/真实发布均未开始          |
 
@@ -42,6 +42,7 @@
 
 | 日期       | 记录                                                                                                                                     |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-11 | 提交 `8d07b8b` 按 Owner 宽屏截图反馈将 Header 搜索入口前移到标题后；新增 DOM 顺序回归，1600px/900px 无重叠，功能与快捷键不变             |
 | 2026-07-11 | C-20260711-127：T1 提交 `41324d9` 完成 schema/15 渠道 gate/幂等/事实/renderer/dry-run；291/2092 Vitest、coverage、115 L5 与 verify 全绿  |
 | 2026-07-11 | C-20260711-130：功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 双轨上线/125 URL 抽查通过；状态转 verified，下一阶段 C127 T1     |
 | 2026-07-11 | C-20260711-130：typed catalog、29 个内容路由、27 个 adapter、30 页英文目录与 125 页双 base 产物完成；286/2073 Vitest、104/115 L5 全绿    |

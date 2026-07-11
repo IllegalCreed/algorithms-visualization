@@ -4,6 +4,7 @@
 > Stable ID: C-20260705-113
 > Owner: IllegalCreed
 > Created: 2026-07-05
+> Last reviewed: 2026-07-11
 > Design: ./design.md
 > Test cases: ./test-cases.md
 > Implementation: ./implementation.md
@@ -30,3 +31,4 @@ M11 站点体验首项。114 页靠侧边菜单逐类翻找效率低；命令面
 ## 变更历史
 
 - 2026-07-05：创建（draft → approved）。M11-S1：SearchPalette + Cmd+K + Header 入口。
+- 2026-07-11：Owner 基于宽屏截图明确 Header 搜索入口应紧跟标题；功能范围不变，只调整入口的信息层级与视觉顺序。

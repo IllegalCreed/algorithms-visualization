@@ -2988,6 +2988,7 @@
 | TC-VIZ-SEARCH-05       | 空查询提示行                                       | `src/components/SearchPalette.spec.ts`            |
 | TC-VIZ-SEARCH-06       | 无匹配空态                                         | `src/components/SearchPalette.spec.ts`            |
 | TC-VIEW-HEADER-08      | 搜索按钮开面板（C-113）                            | `src/views/Master/Header/Header.spec.ts`          |
+| TC-VIEW-HEADER-09      | 搜索按钮紧跟标题并位于弹性空白前                   | `src/views/Master/Header/Header.spec.ts`          |
 | TC-VIEW-CPLX-01        | 九大类分组 + 计数 92                               | `src/views/Article/Complexity.spec.ts`            |
 | TC-VIEW-CPLX-02        | 标签过滤 + 全部还原                                | `src/views/Article/Complexity.spec.ts`            |
 | TC-VIEW-CPLX-03        | 关键词过滤 + 空态                                  | `src/views/Article/Complexity.spec.ts`            |
