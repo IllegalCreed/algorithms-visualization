@@ -1,12 +1,19 @@
 <!-- 树互动组件：读者驱动的 BST 插入/查找/中序遍历（二维 SVG 边 + 圆形节点，复用 TreeView 定位） -->
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useTree } from './useTree';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const LEVEL_H = 70;
 const t = useTree();
 const val = ref(35);
-const status = ref('输入一个 1–99 的数，点「插入」看它走到哪、落在哪。');
+const status = ref(
+  english
+    ? 'Enter an integer from 1 to 99, then insert it to trace its path.'
+    : '输入一个 1–99 的数，点「插入」看它走到哪、落在哪。',
+);
 const pathSet = ref<number[]>([]); // 走位逐层高亮中的 pos
 const foundPos = ref(-1); // 命中 / 中序当前点亮的 pos
 const enterId = ref<string | null>(null); // 新节点入场
@@ -48,7 +55,7 @@ const edges = computed(() =>
 const validVal = (): number | null => {
   const v = val.value;
   if (!Number.isInteger(v) || v < 1 || v > 99) {
-    status.value = '请输入 1–99 的整数。';
+    status.value = english ? 'Enter an integer from 1 to 99.' : '请输入 1–99 的整数。';
     return null;
   }
   return v;
@@ -66,25 +73,35 @@ const onInsert = () => {
   if (v === null) return;
   const r = t.insert(v);
   if (!r.ok && r.reason === 'dup') {
-    status.value = `${v} 已经在树里了（BST 不放重复值）。`;
+    status.value = english
+      ? `${v} is already in the tree; this BST ignores duplicates.`
+      : `${v} 已经在树里了（BST 不放重复值）。`;
     return;
   }
   if (!r.ok && r.reason === 'depth') {
-    status.value = '这一支已到演示深度上限（限 4 层）。换个值或重置试试。';
+    status.value = english
+      ? 'This branch reached the four-level demo limit. Try another value or reset.'
+      : '这一支已到演示深度上限（限 4 层）。换个值或重置试试。';
     animatePath(r.path);
     return;
   }
   enterId.value = t.nodeAt(r.pos!)?.id ?? null;
-  status.value = `插入 ${v}：比较 ${r.path.length} 次、走到空位落子。每层排除一半，O(log n)。`;
+  status.value = english
+    ? `Inserted ${v} after ${r.path.length} comparisons, stopping at an empty child position.`
+    : `插入 ${v}：比较 ${r.path.length} 次、走到空位落子。每层排除一半，O(log n)。`;
   animatePath(r.path, () => (enterId.value = null));
 };
 const onSearch = () => {
   const v = validVal();
   if (v === null) return;
   const r = t.search(v);
-  status.value = r.found
-    ? `找到 ${v}！只比较了 ${r.path.length} 次，O(log n)。`
-    : `没找到 ${v}：走到空位就停了（比较 ${r.path.length} 次）。`;
+  status.value = english
+    ? r.found
+      ? `Found ${v} after ${r.path.length} comparisons.`
+      : `${v} is absent; the search stopped at an empty child after ${r.path.length} comparisons.`
+    : r.found
+      ? `找到 ${v}！只比较了 ${r.path.length} 次，O(log n)。`
+      : `没找到 ${v}：走到空位就停了（比较 ${r.path.length} 次）。`;
   animatePath(r.path, () => {
     if (r.found) foundPos.value = r.pos!;
   });
@@ -92,7 +109,9 @@ const onSearch = () => {
 const onInorder = () => {
   if (!t.nodes.value.length) return;
   const seq = t.inorder();
-  status.value = `中序遍历 = ${seq.join(' ')} —— 正好是升序！这是 BST 的招牌性质。`;
+  status.value = english
+    ? `Inorder traversal = ${seq.join(' ')}. A BST visits its values in ascending order.`
+    : `中序遍历 = ${seq.join(' ')} —— 正好是升序！这是 BST 的招牌性质。`;
   clearTimers();
   clearMarks();
   // 按中序（升序）顺序逐个点亮，纯视觉
@@ -106,7 +125,9 @@ const onReset = () => {
   t.reset();
   clearTimers();
   clearMarks();
-  status.value = '已重置 · 输入一个 1–99 的数，点「插入」或「查找」。';
+  status.value = english
+    ? 'Reset complete. Enter an integer from 1 to 99, then insert or search.'
+    : '已重置 · 输入一个 1–99 的数，点「插入」或「查找」。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -115,15 +136,17 @@ onUnmounted(clearTimers);
   <div class="tree-viz column center">
     <div class="toolbar row-wrap">
       <input class="val-input" v-model.number="val" type="number" min="1" max="99" />
-      <button class="btn" @click="onInsert">插入</button>
-      <button class="btn" @click="onSearch">查找</button>
-      <button class="btn" @click="onInorder">中序遍历</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" @click="onInsert">{{ english ? 'Insert' : '插入' }}</button>
+      <button class="btn" @click="onSearch">{{ english ? 'Search' : '查找' }}</button>
+      <button class="btn" @click="onInorder">{{ english ? 'Inorder' : '中序遍历' }}</button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <!-- 画布：定宽定高（限 4 层）；二维 BST -->
       <div class="lane">
-        <span v-if="!t.nodes.value.length" class="empty-hint">树为空</span>
+        <span v-if="!t.nodes.value.length" class="empty-hint">
+          {{ english ? 'Tree is empty' : '树为空' }}
+        </span>
         <div class="stage">
           <svg class="edges" width="492" height="272">
             <line

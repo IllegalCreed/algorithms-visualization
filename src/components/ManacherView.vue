@@ -2,8 +2,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { ManacherTrack } from '@/components/player/types';
+import type { SiteLocale } from '@/i18n/catalog';
 
-const props = defineProps<{ manacher: ManacherTrack }>();
+const props = withDefaults(defineProps<{ manacher: ManacherTrack; locale?: SiteLocale }>(), {
+  locale: 'zh-CN',
+});
+const english = props.locale === 'en';
 
 const sCells = computed(() => {
   const m = props.manacher;
@@ -35,11 +39,11 @@ const statusText = computed(() => {
   if (override) return override;
   switch (st) {
     case 'mirror':
-      return '🪞 镜像复用';
+      return english ? 'Mirror reuse' : '🪞 镜像复用';
     case 'expand':
-      return '↔ 中心扩展';
+      return english ? 'Center expansion' : '↔ 中心扩展';
     default:
-      return '🎯 完成';
+      return english ? 'Complete' : '🎯 完成';
   }
 });
 </script>

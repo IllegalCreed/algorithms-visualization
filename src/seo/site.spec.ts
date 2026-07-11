@@ -86,16 +86,16 @@ describe('SEO page registry', () => {
     });
   });
 
-  it('TC-SEO-I18N-130-01: registry 为 95 个中文页加 30 个英文页且全局唯一', () => {
+  it('TC-SEO-I18N-131-01: registry 为 95 个中文页加 95 个英文页且全局唯一', () => {
     const pages = getIndexablePages();
 
-    expect(pages).toHaveLength(125);
+    expect(pages).toHaveLength(190);
     expect(pages.filter((page) => page.locale === 'zh-CN')).toHaveLength(95);
-    expect(pages.filter((page) => page.locale === 'en')).toHaveLength(30);
-    expect(new Set(pages.map((page) => page.name)).size).toBe(125);
-    expect(new Set(pages.map((page) => page.path)).size).toBe(125);
-    expect(new Set(pages.map((page) => page.title)).size).toBe(125);
-    expect(new Set(pages.map((page) => page.canonical)).size).toBe(125);
+    expect(pages.filter((page) => page.locale === 'en')).toHaveLength(95);
+    expect(new Set(pages.map((page) => page.name)).size).toBe(190);
+    expect(new Set(pages.map((page) => page.path)).size).toBe(190);
+    expect(new Set(pages.map((page) => page.title)).size).toBe(190);
+    expect(new Set(pages.map((page) => page.canonical)).size).toBe(190);
 
     const indexedRouteNames = router
       .getRoutes()
@@ -105,12 +105,12 @@ describe('SEO page registry', () => {
     expect(pages.map((page) => page.name).sort()).toEqual(indexedRouteNames);
   });
 
-  it('TC-SEO-I18N-130-02: 三十组页面 alternate 双向完整且未翻译页不伪造英文版', () => {
+  it('TC-SEO-I18N-131-02: 九十五组页面 alternate 双向完整', () => {
     const pages = getIndexablePages();
     const pairedPages = pages.filter((page) => page.alternates.length > 0);
 
-    expect(pairedPages).toHaveLength(60);
-    expect(pages.filter((page) => page.alternates.length === 0)).toHaveLength(65);
+    expect(pairedPages).toHaveLength(190);
+    expect(pages.filter((page) => page.alternates.length === 0)).toHaveLength(0);
 
     for (const page of pairedPages) {
       expect(page.alternates.map((item) => item.hreflang)).toEqual(['zh-CN', 'en', 'x-default']);

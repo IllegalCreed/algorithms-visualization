@@ -1,7 +1,7 @@
 import type { Category } from './types';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import { ref, provide } from 'vue';
-import { ENGLISH_CONTENT_PAGES } from '@/i18n/catalog';
+import { getEnglishHomeSections } from '@/i18n/catalog';
 
 export function useCategoryData(): Category[] {
   const categoryData: Category[] = [
@@ -423,14 +423,10 @@ export function useCategoryData(): Category[] {
 }
 
 export function useEnglishCategoryData(): Category[] {
-  const categories = new Map<string, Category>();
-  for (const page of ENGLISH_CONTENT_PAGES) {
-    const title = page.en.category;
-    const category = categories.get(title) ?? { title, children: [] };
-    category.children.push({ title: page.en.heading, url: page.en.name });
-    categories.set(title, category);
-  }
-  return [...categories.values()];
+  return getEnglishHomeSections().map((section) => ({
+    title: section.pages[0]?.en.category ?? section.title,
+    children: section.pages.map((page) => ({ title: page.en.heading, url: page.en.name })),
+  }));
 }
 
 export function useMenuSelect(): void {

@@ -15,7 +15,7 @@ const learningPaths = getEnglishLearningPaths().map((path) => ({
 <template>
   <Article>
     <h1>Algorithm Learning Paths</h1>
-    <p class="sub">Focused routes through every translated algorithm in the catalog</p>
+    <p class="sub">Focused routes through every translated learning page in the catalog</p>
 
     <p>
       Each route is intentionally small. Work through the pages in order, use the player controls

@@ -1,10 +1,17 @@
 <!-- 双向链表互动组件：→/← 双箭头 + head/tail + 两端 null；反向遍历(沿 prev) + 无需找前驱的 O(1) 删除 -->
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useDlink } from './useDlink';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const d = useDlink();
-const status = ref('双向链：每个节点都有 prev 和 next。点「反向遍历」，或点节点再删除。');
+const status = ref(
+  english
+    ? 'Each node has prev and next links. Traverse backward, or select a node to delete it.'
+    : '双向链：每个节点都有 prev 和 next。点「反向遍历」，或点节点再删除。',
+);
 const lit = ref(-1); // 反向遍历当前点亮的节点下标
 const rewired = ref<(number | 'head')[]>([]); // 接线改写脉冲
 const busy = ref(false); // 反向遍历期间锁工具栏
@@ -24,14 +31,20 @@ const onSelect = (i: number) => {
   d.select(i);
   status.value =
     d.selected.value === null
-      ? '已取消选中'
-      : `选中 a[${d.selected.value}]（值 ${d.items.value[d.selected.value][1]}）· 可删除`;
+      ? english
+        ? 'Selection cleared.'
+        : '已取消选中'
+      : english
+        ? `Selected a[${d.selected.value}] with value ${d.items.value[d.selected.value][1]}. It can be deleted.`
+        : `选中 a[${d.selected.value}]（值 ${d.items.value[d.selected.value][1]}）· 可删除`;
 };
 const onReverse = async () => {
   if (busy.value) return;
   busy.value = true;
   lit.value = -1;
-  status.value = `反向遍历（沿 prev 从 tail 往回）：${d.backward.value.join(' → ')}。单链表只有 next，做不到。`;
+  status.value = english
+    ? `Traverse backward through prev from tail: ${d.backward.value.join(' → ')}. A singly linked list has no direct reverse link.`
+    : `反向遍历（沿 prev 从 tail 往回）：${d.backward.value.join(' → ')}。单链表只有 next，做不到。`;
   for (let i = d.items.value.length - 1; i >= 0; i--) {
     lit.value = i;
     await sleep(480);
@@ -46,7 +59,9 @@ const onRemove = () => {
   const r = d.removeAt(); // 同步改 items
   if (r) {
     flashRewire([r.rewire.left]);
-    status.value = `删除 a[${i}]=${r.value}：节点自带 prev → 直接 prev.next=next、next.prev=prev，O(1)，不用从 head 找前驱。`;
+    status.value = english
+      ? `Delete a[${i}] = ${r.value}: set prev.next = next and next.prev = prev in O(1), without searching from head.`
+      : `删除 a[${i}]=${r.value}：节点自带 prev → 直接 prev.next=next、next.prev=prev，O(1)，不用从 head 找前驱。`;
   }
 };
 const onReset = () => {
@@ -55,7 +70,9 @@ const onReset = () => {
   lit.value = -1;
   rewired.value = [];
   d.reset();
-  status.value = '已重置 · 点「反向遍历」，或点节点再删除。';
+  status.value = english
+    ? 'Reset complete. Traverse backward, or select a node to delete it.'
+    : '已重置 · 点「反向遍历」，或点节点再删除。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -63,11 +80,23 @@ onUnmounted(clearTimers);
 <template>
   <div class="dlink-viz column center">
     <div class="toolbar row-wrap">
-      <button class="btn" :disabled="busy" @click="onReverse">← 反向遍历</button>
-      <button class="btn" :disabled="busy || !d.hasSelection.value" @click="onRemove">
-        {{ d.hasSelection.value ? `删除 a[${d.selected.value}]` : '删除选中' }}
+      <button class="btn" :disabled="busy" @click="onReverse">
+        ← {{ english ? 'Traverse backward' : '反向遍历' }}
       </button>
-      <button class="btn" :disabled="busy" @click="onReset">重置</button>
+      <button class="btn" :disabled="busy || !d.hasSelection.value" @click="onRemove">
+        {{
+          d.hasSelection.value
+            ? english
+              ? `Delete a[${d.selected.value}]`
+              : `删除 a[${d.selected.value}]`
+            : english
+              ? 'Delete selected'
+              : '删除选中'
+        }}
+      </button>
+      <button class="btn" :disabled="busy" @click="onReset">
+        {{ english ? 'Reset' : '重置' }}
+      </button>
     </div>
     <div class="lane-wrap">
       <!-- 车道：定宽定高（空/满一致）；∅ ⇄ 节点链 ⇄ ∅ -->

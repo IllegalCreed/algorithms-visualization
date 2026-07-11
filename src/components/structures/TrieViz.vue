@@ -1,11 +1,18 @@
 <!-- 字典树互动组件：SVG 字符树 + 查找三结局（不存在/只是前缀/是一个词）+ 前缀子树点亮（自动补全） -->
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useTrie } from './useTrie';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const t = useTrie();
 const word = ref('card');
-const status = ref('输入一个词，点「查找」（精确）或「前缀」（看以它开头的词）。');
+const status = ref(
+  english
+    ? 'Enter a word for exact search, or a prefix to list its completions.'
+    : '输入一个词，点「查找」（精确）或「前缀」（看以它开头的词）。',
+);
 const litPath = ref<number[]>([]); // 走位点亮
 const hotIdx = ref(-1); // 精确命中
 const subtreeLit = ref<number[]>([]); // 前缀子树点亮
@@ -27,14 +34,19 @@ const onSearch = async () => {
   if (busy.value) return;
   const w = input();
   if (!w) {
-    status.value = '先输入一个词。';
+    status.value = english ? 'Enter a word first.' : '先输入一个词。';
     return;
   }
   busy.value = true;
   clearMarks();
   const r = t.search(w); // 同步：三结局
-  status.value =
-    r.reason === 'found'
+  status.value = english
+    ? r.reason === 'found'
+      ? `Search "${w}": the path ends at a terminal node, so the word exists.`
+      : r.reason === 'prefix-only'
+        ? `Search "${w}": the path exists but is not terminal, so it is only a prefix.`
+        : `Search "${w}": a required edge is missing, so the word is absent.`
+    : r.reason === 'found'
       ? `查找 "${w}"：顺着 ${w.length} 个字符走到底，这节点是单词结尾 → "${w}" 是一个词，存在！`
       : r.reason === 'prefix-only'
         ? `查找 "${w}"：走到了，但这节点不是单词结尾 → "${w}" 只是前缀，不算一个词。`
@@ -50,18 +62,22 @@ const onPrefix = async () => {
   if (busy.value) return;
   const p = input();
   if (!p) {
-    status.value = '先输入一个前缀。';
+    status.value = english ? 'Enter a prefix first.' : '先输入一个前缀。';
     return;
   }
   busy.value = true;
   clearMarks();
   const r = t.startsWith(p); // 同步
   if (r.prefixNode === -1) {
-    status.value = `前缀 "${p}"：没有任何词以它开头。`;
+    status.value = english
+      ? `No stored word begins with "${p}".`
+      : `前缀 "${p}"：没有任何词以它开头。`;
     busy.value = false;
     return;
   }
-  status.value = `前缀 "${p}"：以它开头的词有 ${r.words.length} 个——${r.words.join('、')}。这就是自动补全。`;
+  status.value = english
+    ? `Prefix "${p}" has ${r.words.length} completions: ${r.words.join(', ')}.`
+    : `前缀 "${p}"：以它开头的词有 ${r.words.length} 个——${r.words.join('、')}。这就是自动补全。`;
   subtreeLit.value = r.subtree; // 同步置子树点亮（L4 可断言）
   for (let k = 0; k < r.path.length; k++) {
     litPath.value = [...litPath.value, r.path[k]];
@@ -73,7 +89,9 @@ const onReset = () => {
   clearTimers();
   busy.value = false;
   clearMarks();
-  status.value = '已重置 · 输入一个词，点「查找」或「前缀」。';
+  status.value = english
+    ? 'Reset complete. Enter a word for exact or prefix search.'
+    : '已重置 · 输入一个词，点「查找」或「前缀」。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -82,9 +100,13 @@ onUnmounted(clearTimers);
   <div class="trie-viz column center">
     <div class="toolbar row-wrap">
       <input class="val-input" v-model="word" type="text" maxlength="6" />
-      <button class="btn" :disabled="busy" @click="onSearch">查找</button>
-      <button class="btn" :disabled="busy" @click="onPrefix">前缀</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="busy" @click="onSearch">
+        {{ english ? 'Exact search' : '查找' }}
+      </button>
+      <button class="btn" :disabled="busy" @click="onPrefix">
+        {{ english ? 'Prefix search' : '前缀' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <div class="lane">

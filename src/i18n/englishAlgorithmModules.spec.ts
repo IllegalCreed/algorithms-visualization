@@ -159,9 +159,10 @@ function visualStructure(step: Step): Omit<Step, 'caption' | 'vars' | 'quiz'> {
 }
 
 describe('English algorithm module adapters', () => {
-  it('TC-I18N-MODULE-130-01: 二十七个 adapter 由 typed map 完整导出', () => {
-    expect(Object.keys(englishAlgorithmModules).sort()).toEqual(
-      modules.map((item) => item.slug).sort(),
+  it('TC-I18N-MODULE-131-01: typed map 扩为七十七个 adapter 并保留 C130 二十七项', () => {
+    expect(Object.keys(englishAlgorithmModules)).toHaveLength(77);
+    expect(Object.keys(englishAlgorithmModules)).toEqual(
+      expect.arrayContaining(modules.map((item) => item.slug)),
     );
   });
 

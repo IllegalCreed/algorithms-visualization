@@ -157,12 +157,16 @@ function restoreInput(): void {
     <DecisionTreeView v-if="current.decisionTree" :decision-tree="current.decisionTree" />
     <MazeView v-if="current.maze" :maze="current.maze" />
     <KmpView v-if="current.kmp" :kmp="current.kmp" :locale="props.locale" />
-    <ManacherView v-if="current.manacher" :manacher="current.manacher" />
+    <ManacherView v-if="current.manacher" :manacher="current.manacher" :locale="props.locale" />
     <SudokuView v-if="current.sudoku" :sudoku="current.sudoku" />
-    <SuffixArrayView v-if="current.suffixArray" :suffix-array="current.suffixArray" />
+    <SuffixArrayView
+      v-if="current.suffixArray"
+      :suffix-array="current.suffixArray"
+      :locale="props.locale"
+    />
     <SieveView v-if="current.sieve" :sieve="current.sieve" />
     <GcdView v-if="current.gcd" :gcd="current.gcd" />
-    <PowerView v-if="current.power" :power="current.power" />
+    <PowerView v-if="current.power" :power="current.power" :locale="props.locale" />
     <HullView v-if="current.hull" :hull="current.hull" />
     <NetworkView v-if="current.network" :network="current.network" />
     <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />

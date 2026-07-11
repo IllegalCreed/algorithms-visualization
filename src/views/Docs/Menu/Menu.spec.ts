@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { ref, nextTick } from 'vue';
 import Menu from './Menu.vue';
+import { useCategoryData, useEnglishCategoryData } from './hooks';
 
 // TC-VIEW-MENU
 // 同时覆盖 useMenuSelect（provide + onBeforeRouteUpdate）
@@ -99,12 +100,12 @@ describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
     expect(pressedItems[0].text()).toBe('链表');
   });
 
-  it('TC-I18N-UI-130-01: 英文 Docs 菜单渲染 29 个内容页并高亮当前项', () => {
+  it('TC-I18N-UI-131-03: 英文 Docs 菜单渲染 94 个内容页并高亮当前项', () => {
     mockRouteName.value = 'en-quick-sort';
     mockRoutePath.value = '/en/docs/quick-sort';
     const w = mountIt();
 
-    expect(w.findAll('.item')).toHaveLength(29);
+    expect(w.findAll('.item')).toHaveLength(94);
     expect(w.text()).toContain('Learning Tools');
     expect(w.text()).toContain('Quick Sort');
     expect(w.text()).toContain('Convex Hull');
@@ -116,5 +117,32 @@ describe('Docs/Menu 组件（含 useMenuSelect 覆盖）', () => {
     expect(w.text()).toContain('Euclidean Algorithm');
     expect(w.text()).not.toContain('冒泡排序');
     expect(w.find('.item-pressed').text()).toBe('Quick Sort');
+  });
+
+  it('TC-I18N-UI-131-08: 英文学习目录与中文目录保持同分类、同条目顺序', () => {
+    const chineseCategories = useCategoryData();
+    const englishCategories = useEnglishCategoryData();
+
+    expect(englishCategories.map((category) => category.title)).toEqual([
+      'Learning Tools',
+      'Data Structures',
+      'Sorting',
+      'Graph Algorithms',
+      'Dynamic Programming',
+      'Backtracking and Search',
+      'Strings',
+      'Math and Number Theory',
+      'Computational Geometry',
+      'Searching',
+    ]);
+    expect(englishCategories[0].children.map((item) => item.url)).toEqual([
+      'en-complexity',
+      'en-paths',
+    ]);
+    expect(
+      englishCategories
+        .slice(1)
+        .map((category) => category.children.map((item) => item.url.replace(/^en-/, ''))),
+    ).toEqual(chineseCategories.map((category) => category.children.map((item) => item.url)));
   });
 });

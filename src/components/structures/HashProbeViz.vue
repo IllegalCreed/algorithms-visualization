@@ -1,11 +1,18 @@
 <!-- 开放寻址互动组件：7 格扁平表 + 散列 key%7 直达 + 线性探测往后 + 装载因子读数 -->
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useProbe, PROBE_SLOTS } from './useProbe';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const h = useProbe();
 const val = ref(9);
-const status = ref('输入一个数，点「插入」——撞了就在表内往后探一格。');
+const status = ref(
+  english
+    ? 'Insert a value; collisions advance one slot at a time by linear probing.'
+    : '输入一个数，点「插入」——撞了就在表内往后探一格。',
+);
 const homeMark = ref(-1); // hash 算出的「家」
 const probeAt = ref(-1); // 正在探测的格
 const landAt = ref(-1); // 落座的格
@@ -28,7 +35,7 @@ const clearMarks = () => {
 const pct = computed(() => Math.round(h.load.value * 100));
 const validVal = (): number | null => {
   if (!Number.isInteger(val.value) || val.value < 1 || val.value > 99) {
-    status.value = '请输入 1–99 的整数。';
+    status.value = english ? 'Enter an integer from 1 to 99.' : '请输入 1–99 的整数。';
     return null;
   }
   return val.value;
@@ -43,14 +50,22 @@ const onInsert = async () => {
   const r = h.insert(v); // 同步：查重 / 满 / 探测落座
   homeMark.value = r.home;
   if (!r.ok && r.reason === 'dup') {
-    status.value = `查 ${v}：探测命中，${v} 已在表里，不重复插入。`;
+    status.value = english
+      ? `Probing found ${v}, so no duplicate is inserted.`
+      : `查 ${v}：探测命中，${v} 已在表里，不重复插入。`;
   } else if (!r.ok && r.reason === 'full') {
-    status.value = '表满了（装载因子 = 7/7 = 1）—— 该扩容 rehash 了。';
+    status.value = english
+      ? 'The table is full at load factor 1. A real table would resize and rehash.'
+      : '表满了（装载因子 = 7/7 = 1）—— 该扩容 rehash 了。';
   } else {
     enterAt.value = r.slot;
-    status.value = r.collision
-      ? `hash(${v}) = ${v} % 7 = ${r.home}，被占 → 线性探测往后，第 ${r.slot} 号落座（探测 ${r.path.length} 次）。`
-      : `hash(${v}) = ${v} % 7 = ${r.home}，${r.home} 号空 → 直接落座（探测 1 次）。`;
+    status.value = english
+      ? r.collision
+        ? `hash(${v}) = ${r.home}, which is occupied. Linear probing reaches slot ${r.slot} after ${r.path.length} probes.`
+        : `hash(${v}) = ${r.home}. The home slot is empty, so insertion takes one probe.`
+      : r.collision
+        ? `hash(${v}) = ${v} % 7 = ${r.home}，被占 → 线性探测往后，第 ${r.slot} 号落座（探测 ${r.path.length} 次）。`
+        : `hash(${v}) = ${v} % 7 = ${r.home}，${r.home} 号空 → 直接落座（探测 1 次）。`;
     for (let k = 0; k < r.path.length; k++) {
       const idx = r.path[k];
       if (k < r.path.length - 1) {
@@ -77,9 +92,13 @@ const onSearch = async () => {
   clearMarks();
   const r = h.search(v); // 同步：found + slot + steps
   homeMark.value = r.home;
-  status.value = r.found
-    ? `查找 ${v}：从 ${r.home} 号起线性探测 ${r.steps} 次，在 ${r.slot} 号命中！`
-    : `查找 ${v}：从 ${r.home} 号起探测 ${r.steps} 次遇到空位 → 不在表中。`;
+  status.value = english
+    ? r.found
+      ? `Search for ${v}: found it in slot ${r.slot} after ${r.steps} probes from slot ${r.home}.`
+      : `Search for ${v}: an empty slot ends the search after ${r.steps} probes from slot ${r.home}.`
+    : r.found
+      ? `查找 ${v}：从 ${r.home} 号起线性探测 ${r.steps} 次，在 ${r.slot} 号命中！`
+      : `查找 ${v}：从 ${r.home} 号起探测 ${r.steps} 次遇到空位 → 不在表中。`;
   for (let k = 0; k < r.path.length; k++) {
     const idx = r.path[k];
     probeAt.value = idx;
@@ -101,7 +120,9 @@ const onReset = () => {
   busy.value = false;
   clearMarks();
   h.reset();
-  status.value = '已重置 · [_,15,8,23,4,_,_]，格 1-2-3 成一簇。输入一个数试试。';
+  status.value = english
+    ? 'Reset complete. Slots 1 through 3 form a collision cluster.'
+    : '已重置 · [_,15,8,23,4,_,_]，格 1-2-3 成一簇。输入一个数试试。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -110,9 +131,13 @@ onUnmounted(clearTimers);
   <div class="probe-viz column center">
     <div class="toolbar row-wrap">
       <input class="val-input" v-model.number="val" type="number" min="1" max="99" />
-      <button class="btn" :disabled="busy" @click="onInsert">插入</button>
-      <button class="btn" :disabled="busy" @click="onSearch">查找</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="busy" @click="onInsert">
+        {{ english ? 'Insert' : '插入' }}
+      </button>
+      <button class="btn" :disabled="busy" @click="onSearch">
+        {{ english ? 'Search' : '查找' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <!-- 画布：7 格扁平表横排 -->
@@ -136,7 +161,7 @@ onUnmounted(clearTimers);
       </div>
     </div>
     <div class="readout">
-      <span class="lf-label">装载因子</span>
+      <span class="lf-label">{{ english ? 'Load factor' : '装载因子' }}</span>
       <span class="lf-val" :class="{ full: h.isFull.value }"
         >{{ h.size.value }}/{{ PROBE_SLOTS }}</span
       >

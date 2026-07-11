@@ -1,41 +1,56 @@
 <!-- 布隆过滤器互动组件：16 位数组 + k=3 哈希；加入置位（绿）+ 查询取交（探测位橙描边）+ 误判演示 -->
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useBloom } from './useBloom';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const bloom = useBloom();
 const a = ref(3);
-const status = ref('先「加入」几个数（如 3、7、11），再「查询」——试试查 2，看什么是「误判」。');
+const status = ref(
+  english
+    ? 'Add values such as 3, 7, and 11, then query 2 to observe a possible false positive.'
+    : '先「加入」几个数（如 3、7、11），再「查询」——试试查 2，看什么是「误判」。',
+);
 const probe = ref<Set<number>>(new Set()); // 本次哈希探测到的位
 const isFalsePositive = ref(false);
 
 const onAdd = () => {
   const x = a.value;
   if (!Number.isInteger(x) || x < 0) {
-    status.value = '请输入一个非负整数。';
+    status.value = english ? 'Enter a non-negative integer.' : '请输入一个非负整数。';
     return;
   }
   const r = bloom.add(x);
   probe.value = new Set(r.positions);
   isFalsePositive.value = false;
-  status.value = `加入 ${x}：哈希到位 ${r.positions.join('、')}，把这几位都置 1。`;
+  status.value = english
+    ? `Add ${x}: its hashes select bits ${r.positions.join(', ')}, which are all set to 1.`
+    : `加入 ${x}：哈希到位 ${r.positions.join('、')}，把这几位都置 1。`;
 };
 
 const onQuery = () => {
   const x = a.value;
   if (!Number.isInteger(x) || x < 0) {
-    status.value = '请输入一个非负整数。';
+    status.value = english ? 'Enter a non-negative integer.' : '请输入一个非负整数。';
     return;
   }
   const r = bloom.query(x);
   probe.value = new Set(r.positions);
   isFalsePositive.value = r.falsePositive;
   if (!r.mightExist) {
-    status.value = `查询 ${x}：位 ${r.positions.join('、')} 中有 0 → 一定不存在。`;
+    status.value = english
+      ? `Query ${x}: at least one of bits ${r.positions.join(', ')} is 0, so the value is definitely absent.`
+      : `查询 ${x}：位 ${r.positions.join('、')} 中有 0 → 一定不存在。`;
   } else if (r.falsePositive) {
-    status.value = `查询 ${x}：位 ${r.positions.join('、')} 都是 1 → 可能存在；但其实从没加入过，这就是误判（假阳性）！`;
+    status.value = english
+      ? `Query ${x}: all selected bits are 1, but the value was never added. This is a false positive.`
+      : `查询 ${x}：位 ${r.positions.join('、')} 都是 1 → 可能存在；但其实从没加入过，这就是误判（假阳性）！`;
   } else {
-    status.value = `查询 ${x}：位 ${r.positions.join('、')} 都是 1 → 可能存在。`;
+    status.value = english
+      ? `Query ${x}: all selected bits are 1, so the value may exist.`
+      : `查询 ${x}：位 ${r.positions.join('、')} 都是 1 → 可能存在。`;
   }
 };
 
@@ -43,19 +58,23 @@ const onReset = () => {
   bloom.reset();
   probe.value = new Set();
   isFalsePositive.value = false;
-  status.value = '已重置 · 先「加入」几个数，再「查询」。';
+  status.value = english
+    ? 'Reset complete. Add a few values, then query one.'
+    : '已重置 · 先「加入」几个数，再「查询」。';
 };
 </script>
 
 <template>
   <div class="bloom-viz column center">
     <div class="toolbar row-wrap">
-      <label class="lab">值</label>
+      <label class="lab">{{ english ? 'Value' : '值' }}</label>
       <input class="val-input in-a" v-model.number="a" type="number" />
-      <button class="btn" @click="onAdd">加入</button>
-      <button class="btn" @click="onQuery">查询</button>
-      <button class="btn" @click="onReset">重置</button>
-      <span class="hint">m = 16 位 · k = 3 个哈希</span>
+      <button class="btn" @click="onAdd">{{ english ? 'Add' : '加入' }}</button>
+      <button class="btn" @click="onQuery">{{ english ? 'Query' : '查询' }}</button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
+      <span class="hint">{{
+        english ? 'm = 16 bits · k = 3 hashes' : 'm = 16 位 · k = 3 个哈希'
+      }}</span>
     </div>
     <div class="array-wrap">
       <div class="bit-array">

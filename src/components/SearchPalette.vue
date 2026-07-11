@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 import { buildSearchTokens, normalizeToken } from './searchIndex';
 import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
-import { ENGLISH_CONTENT_PAGES, getEnglishAlgorithmPages } from '@/i18n/catalog';
+import { ENGLISH_CONTENT_PAGES, getEnglishLearningPages } from '@/i18n/catalog';
 import { useSiteLocale } from '@/i18n/useSiteLocale';
 
 interface SearchEntry {
@@ -53,12 +53,12 @@ const entries = computed(() => (isEnglish.value ? englishEntries : chineseEntrie
 const copy = computed(() =>
   isEnglish.value
     ? {
-        title: 'Search algorithms',
-        placeholder: 'Search algorithms by name, topic, or slug...',
-        hint: 'Type an algorithm name or topic, use Up/Down to choose, then press Enter',
-        complexity: `Complexity reference - compare ${getEnglishAlgorithmPages().length} algorithms`,
+        title: 'Search learning pages',
+        placeholder: 'Search data structures and algorithms by name, topic, or slug...',
+        hint: 'Type a page name or topic, use Up/Down to choose, then press Enter',
+        complexity: `Complexity reference - compare ${getEnglishLearningPages().length} learning pages`,
         paths: 'Learning paths - follow focused routes',
-        empty: (value: string) => `No algorithm matches "${value}"`,
+        empty: (value: string) => `No learning page matches "${value}"`,
         results: 'Search results',
         complexityPath: '/en/docs/complexity',
         pathsPath: '/en/docs/paths',

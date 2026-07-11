@@ -1,13 +1,18 @@
 <!-- 线段树互动组件：SVG 二叉树（节点显区间和）+ 区间查询拆「整段」点亮（绿）+ 单点更新叶→根路径点亮（黄） -->
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useSegTree } from './useSegTree';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const seg = useSegTree();
 const a = ref(2);
 const b = ref(5);
 const status = ref(
-  '选一段区间点「区间和」——看它把区间拆成几个「现成的整段」相加，而不是逐个累加。',
+  english
+    ? 'Choose a range and sum a few precomputed segments instead of scanning every value.'
+    : '选一段区间点「区间和」——看它把区间拆成几个「现成的整段」相加，而不是逐个累加。',
 );
 const covered = ref<Set<number>>(new Set()); // 查询取用的整段 pos（绿）
 const onpath = ref<Set<number>>(new Set()); // 更新的叶→根路径 pos（黄）
@@ -47,33 +52,43 @@ const onRange = () => {
   const l = a.value;
   const r = b.value;
   if (!validRange(l, r)) {
-    status.value = `请输入合法区间：0 ≤ a ≤ b ≤ ${seg.size - 1}。`;
+    status.value = english
+      ? `Enter a valid range with 0 ≤ a ≤ b ≤ ${seg.size - 1}.`
+      : `请输入合法区间：0 ≤ a ≤ b ≤ ${seg.size - 1}。`;
     return;
   }
   const res = seg.query(l, r);
   onpath.value = new Set();
   covered.value = new Set(res.covered);
-  status.value = `区间 [${l}, ${r}] 的和 = ${res.sum}，只取用了 ${res.covered.length} 个「整段」（≈log n 个节点），没有逐个累加。`;
+  status.value = english
+    ? `Range [${l}, ${r}] sums to ${res.sum} using ${res.covered.length} complete tree segments.`
+    : `区间 [${l}, ${r}] 的和 = ${res.sum}，只取用了 ${res.covered.length} 个「整段」（≈log n 个节点），没有逐个累加。`;
 };
 
 const onUpdate = () => {
   const i = a.value;
   const val = b.value;
   if (!Number.isInteger(i) || i < 0 || i >= seg.size || !Number.isInteger(val)) {
-    status.value = `请输入合法下标 0 ≤ a ≤ ${seg.size - 1} 和整数新值 b。`;
+    status.value = english
+      ? `Enter an index 0 ≤ a ≤ ${seg.size - 1} and an integer replacement b.`
+      : `请输入合法下标 0 ≤ a ≤ ${seg.size - 1} 和整数新值 b。`;
     return;
   }
   const res = seg.update(i, val);
   covered.value = new Set();
   onpath.value = new Set(res.path);
-  status.value = `把第 ${i} 个元素改成 ${val}，沿叶→根更新了 ${res.path.length} 个节点，根的总和 = ${seg.nodes.value[0].sum}。`;
+  status.value = english
+    ? `Set index ${i} to ${val}; ${res.path.length} nodes changed from leaf to root. The total is ${seg.nodes.value[0].sum}.`
+    : `把第 ${i} 个元素改成 ${val}，沿叶→根更新了 ${res.path.length} 个节点，根的总和 = ${seg.nodes.value[0].sum}。`;
 };
 
 const onReset = () => {
   seg.reset();
   covered.value = new Set();
   onpath.value = new Set();
-  status.value = '已重置 · 选一段区间点「区间和」，或改某个元素点「更新」。';
+  status.value = english
+    ? 'Reset complete. Query a range sum or update one element.'
+    : '已重置 · 选一段区间点「区间和」，或改某个元素点「更新」。';
 };
 </script>
 
@@ -84,9 +99,9 @@ const onReset = () => {
       <input class="val-input in-a" v-model.number="a" type="number" />
       <label class="lab">b</label>
       <input class="val-input in-b" v-model.number="b" type="number" />
-      <button class="btn" @click="onRange">区间和</button>
-      <button class="btn" @click="onUpdate">更新</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" @click="onRange">{{ english ? 'Range sum' : '区间和' }}</button>
+      <button class="btn" @click="onUpdate">{{ english ? 'Update' : '更新' }}</button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <div class="lane">

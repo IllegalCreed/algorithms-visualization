@@ -1,41 +1,61 @@
 <!-- 队列互动组件：读者驱动的 enqueue/dequeue/peek/重置（横向车道 + 队首/队尾双指针） -->
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useQueue } from './useQueue';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const q = useQueue();
-const status = ref('点 enqueue 从队尾加入一个元素试试');
+const status = ref(
+  english ? 'Press enqueue to add an item at the rear.' : '点 enqueue 从队尾加入一个元素试试',
+);
 
 const onEnqueue = () => {
   const v = q.enqueue();
-  if (v !== null) status.value = `enqueue：${v} 从队尾入队`;
+  if (v !== null)
+    status.value = english ? `enqueue: add ${v} at the rear.` : `enqueue：${v} 从队尾入队`;
 };
 const onDequeue = () => {
   const v = q.dequeue();
-  if (v !== null) status.value = `dequeue：队首 ${v} 出队`;
+  if (v !== null)
+    status.value = english ? `dequeue: remove front value ${v}.` : `dequeue：队首 ${v} 出队`;
 };
 const onPeek = () => {
   const v = q.peek();
-  if (v !== null) status.value = `peek：队首是 ${v}（只看，不拿走）`;
+  if (v !== null)
+    status.value = english
+      ? `peek: the front is ${v}; the queue is unchanged.`
+      : `peek：队首是 ${v}（只看，不拿走）`;
 };
 const onReset = () => {
   q.reset();
-  status.value = '已重置 · 点 enqueue 从队尾加入一个元素试试';
+  status.value = english
+    ? 'Reset complete. Press enqueue to add an item at the rear.'
+    : '已重置 · 点 enqueue 从队尾加入一个元素试试';
 };
 </script>
 
 <template>
   <div class="queue-viz column center">
     <div class="toolbar row-wrap">
-      <button class="btn" :disabled="!q.canEnqueue.value" @click="onEnqueue">enqueue 入队</button>
-      <button class="btn" :disabled="!q.canDequeue.value" @click="onDequeue">dequeue 出队</button>
-      <button class="btn" :disabled="!q.canDequeue.value" @click="onPeek">peek 看队首</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="!q.canEnqueue.value" @click="onEnqueue">
+        {{ english ? 'enqueue' : 'enqueue 入队' }}
+      </button>
+      <button class="btn" :disabled="!q.canDequeue.value" @click="onDequeue">
+        {{ english ? 'dequeue' : 'dequeue 出队' }}
+      </button>
+      <button class="btn" :disabled="!q.canDequeue.value" @click="onPeek">
+        {{ english ? 'peek front' : 'peek 看队首' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <!-- 车道：队首在左、队尾在右；定宽（空/满一致）、左对齐 -->
       <div class="lane">
-        <span v-if="!q.items.value.length" class="empty-hint">队列为空</span>
+        <span v-if="!q.items.value.length" class="empty-hint">
+          {{ english ? 'Queue is empty' : '队列为空' }}
+        </span>
         <TransitionGroup name="queue" tag="div" class="lane-inner">
           <div
             v-for="(it, i) in q.items.value"
@@ -46,8 +66,8 @@ const onReset = () => {
             <div class="plate">{{ it[1] }}</div>
             <!-- 队首/队尾指针挂在元素上、跟着元素走 -->
             <div class="markers">
-              <div class="m m-front">↑ 队首</div>
-              <div class="m m-rear">↑ 队尾</div>
+              <div class="m m-front">↑ {{ english ? 'front' : '队首' }}</div>
+              <div class="m m-rear">↑ {{ english ? 'rear' : '队尾' }}</div>
             </div>
           </div>
         </TransitionGroup>

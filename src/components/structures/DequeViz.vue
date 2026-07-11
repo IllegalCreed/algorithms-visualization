@@ -1,46 +1,69 @@
 <!-- 双端队列互动组件：横向车道 + 头/尾双标记 + 四向进出（pushFront/pushBack/popFront/popBack） -->
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useDeque } from './useDeque';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const d = useDeque();
-const status = ref('双端队列：头、尾两端都能进出。点四个方向试试。');
+const status = ref(
+  english
+    ? 'A deque accepts insertions and removals at both ends. Try all four operations.'
+    : '双端队列：头、尾两端都能进出。点四个方向试试。',
+);
 
 const onPushFront = () => {
   const v = d.pushFront();
-  if (v !== null) status.value = `头部入：${v} 加到队头`;
+  if (v !== null)
+    status.value = english ? `push front: add ${v} at the front.` : `头部入：${v} 加到队头`;
 };
 const onPushBack = () => {
   const v = d.pushBack();
-  if (v !== null) status.value = `尾部入：${v} 加到队尾`;
+  if (v !== null)
+    status.value = english ? `push back: add ${v} at the back.` : `尾部入：${v} 加到队尾`;
 };
 const onPopFront = () => {
   const v = d.popFront();
-  if (v !== null) status.value = `头部出：队头 ${v} 离开`;
+  if (v !== null)
+    status.value = english ? `pop front: remove ${v} from the front.` : `头部出：队头 ${v} 离开`;
 };
 const onPopBack = () => {
   const v = d.popBack();
-  if (v !== null) status.value = `尾部出：队尾 ${v} 离开`;
+  if (v !== null)
+    status.value = english ? `pop back: remove ${v} from the back.` : `尾部出：队尾 ${v} 离开`;
 };
 const onReset = () => {
   d.reset();
-  status.value = '已重置 · 头、尾两端都能进出。点四个方向试试。';
+  status.value = english
+    ? 'Reset complete. Both ends accept insertions and removals.'
+    : '已重置 · 头、尾两端都能进出。点四个方向试试。';
 };
 </script>
 
 <template>
   <div class="deque-viz column center">
     <div class="toolbar row-wrap">
-      <button class="btn" :disabled="d.isFull.value" @click="onPushFront">头部入</button>
-      <button class="btn" :disabled="d.isFull.value" @click="onPushBack">尾部入</button>
-      <button class="btn" :disabled="d.isEmpty.value" @click="onPopFront">头部出</button>
-      <button class="btn" :disabled="d.isEmpty.value" @click="onPopBack">尾部出</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="d.isFull.value" @click="onPushFront">
+        {{ english ? 'Push front' : '头部入' }}
+      </button>
+      <button class="btn" :disabled="d.isFull.value" @click="onPushBack">
+        {{ english ? 'Push back' : '尾部入' }}
+      </button>
+      <button class="btn" :disabled="d.isEmpty.value" @click="onPopFront">
+        {{ english ? 'Pop front' : '头部出' }}
+      </button>
+      <button class="btn" :disabled="d.isEmpty.value" @click="onPopBack">
+        {{ english ? 'Pop back' : '尾部出' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <!-- 车道：队头在左、队尾在右；定宽（空/满一致） -->
       <div class="lane">
-        <span v-if="!d.items.value.length" class="empty-hint">双端队列为空</span>
+        <span v-if="!d.items.value.length" class="empty-hint">
+          {{ english ? 'Deque is empty' : '双端队列为空' }}
+        </span>
         <TransitionGroup name="deque" tag="div" class="lane-inner">
           <div
             v-for="(it, i) in d.items.value"
@@ -51,8 +74,8 @@ const onReset = () => {
             <div class="plate">{{ it[1] }}</div>
             <!-- 头/尾标记挂元素、跟着元素走 -->
             <div class="markers">
-              <div class="dm dm-front">↑ 队头</div>
-              <div class="dm dm-back">↑ 队尾</div>
+              <div class="dm dm-front">↑ {{ english ? 'front' : '队头' }}</div>
+              <div class="dm dm-back">↑ {{ english ? 'back' : '队尾' }}</div>
             </div>
           </div>
         </TransitionGroup>

@@ -1,10 +1,17 @@
 <!-- 数组互动组件：读者驱动的 访问/插入/删除/尾部追加/重置（贴合格 + 固定下标行 + ↑i 槽位指针） -->
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useArray } from './useArray';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const a = useArray();
-const status = ref('点一个格子选中下标，再用上面的按钮操作');
+const status = ref(
+  english
+    ? 'Select a cell by index, then use an operation above.'
+    : '点一个格子选中下标，再用上面的按钮操作',
+);
 const flashId = ref<string | null>(null);
 let timer: ReturnType<typeof setTimeout> | undefined;
 
@@ -12,8 +19,12 @@ const onSelect = (i: number) => {
   a.select(i);
   status.value =
     a.selected.value === null
-      ? '已取消选中'
-      : `选中下标 ${a.selected.value}（值 ${a.valueAt(a.selected.value)}）· 可访问 / 插入 / 删除`;
+      ? english
+        ? 'Selection cleared.'
+        : '已取消选中'
+      : english
+        ? `Selected index ${a.selected.value} with value ${a.valueAt(a.selected.value)}. Access, insert, or delete it.`
+        : `选中下标 ${a.selected.value}（值 ${a.valueAt(a.selected.value)}）· 可访问 / 插入 / 删除`;
 };
 const onAccess = () => {
   const i = a.selected.value;
@@ -21,7 +32,9 @@ const onAccess = () => {
   flashId.value = a.items.value[i][0];
   clearTimeout(timer);
   timer = setTimeout(() => (flashId.value = null), 600);
-  status.value = `access：按下标直达 a[${i}] = ${a.valueAt(i)}，不用挨个找，O(1)`;
+  status.value = english
+    ? `access: read a[${i}] = ${a.valueAt(i)} directly by index in O(1).`
+    : `access：按下标直达 a[${i}] = ${a.valueAt(i)}，不用挨个找，O(1)`;
 };
 const onInsert = () => {
   const i = a.selected.value;
@@ -29,22 +42,32 @@ const onInsert = () => {
   const moved = a.items.value.length - i;
   const v = a.insert();
   if (v !== null)
-    status.value = `insert：在下标 ${i} 放入 ${v}，下标 ${i} 起 ${moved} 个元素右移腾位，O(n)`;
+    status.value = english
+      ? `insert: place ${v} at index ${i}; shift ${moved} item(s) right in O(n).`
+      : `insert：在下标 ${i} 放入 ${v}，下标 ${i} 起 ${moved} 个元素右移腾位，O(n)`;
 };
 const onRemove = () => {
   const i = a.selected.value;
   if (i === null) return;
   const v = a.remove();
   const moved = a.items.value.length - i;
-  if (v !== null) status.value = `delete：移除 a[${i}] = ${v}，后面 ${moved} 个元素左移补位，O(n)`;
+  if (v !== null)
+    status.value = english
+      ? `delete: remove a[${i}] = ${v}; shift ${moved} item(s) left in O(n).`
+      : `delete：移除 a[${i}] = ${v}，后面 ${moved} 个元素左移补位，O(n)`;
 };
 const onAppend = () => {
   const v = a.append();
-  if (v !== null) status.value = `尾部追加：在末尾放入 ${v}，无需搬移，O(1)`;
+  if (v !== null)
+    status.value = english
+      ? `append: place ${v} at the end with no shifting, O(1).`
+      : `尾部追加：在末尾放入 ${v}，无需搬移，O(1)`;
 };
 const onReset = () => {
   a.reset();
-  status.value = '已重置 · 点一个格子选中下标，再用上面的按钮操作';
+  status.value = english
+    ? 'Reset complete. Select a cell by index, then choose an operation.'
+    : '已重置 · 点一个格子选中下标，再用上面的按钮操作';
 };
 
 onUnmounted(() => clearTimeout(timer));
@@ -54,21 +77,41 @@ onUnmounted(() => clearTimeout(timer));
   <div class="array-viz column center">
     <div class="toolbar row-wrap">
       <button class="btn" :disabled="!a.hasSelection.value" @click="onAccess">
-        访问 a[{{ a.hasSelection.value ? a.selected.value : 'i' }}]
+        {{ english ? 'Access' : '访问' }} a[{{ a.hasSelection.value ? a.selected.value : 'i' }}]
       </button>
       <button class="btn" :disabled="!a.canInsert.value" @click="onInsert">
-        {{ a.hasSelection.value ? `在 ${a.selected.value} 处插入` : '插入' }}
+        {{
+          a.hasSelection.value
+            ? english
+              ? `Insert at ${a.selected.value}`
+              : `在 ${a.selected.value} 处插入`
+            : english
+              ? 'Insert'
+              : '插入'
+        }}
       </button>
       <button class="btn" :disabled="!a.hasSelection.value" @click="onRemove">
-        {{ a.hasSelection.value ? `删除 a[${a.selected.value}]` : '删除' }}
+        {{
+          a.hasSelection.value
+            ? english
+              ? `Delete a[${a.selected.value}]`
+              : `删除 a[${a.selected.value}]`
+            : english
+              ? 'Delete'
+              : '删除'
+        }}
       </button>
-      <button class="btn" :disabled="!a.canAppend.value" @click="onAppend">尾部追加</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="!a.canAppend.value" @click="onAppend">
+        {{ english ? 'Append' : '尾部追加' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <!-- 车道：定宽（空/满一致）；值行贴合排（连续内存），下标行固定不随值走 -->
       <div class="lane">
-        <span v-if="!a.items.value.length" class="empty-hint">数组为空</span>
+        <span v-if="!a.items.value.length" class="empty-hint">
+          {{ english ? 'Array is empty' : '数组为空' }}
+        </span>
         <div class="lane-stack">
           <TransitionGroup name="array" tag="div" class="cells">
             <div

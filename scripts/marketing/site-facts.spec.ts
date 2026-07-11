@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { LOCALIZED_PAGE_PAIRS, getEnglishAlgorithmPages } from '../../src/i18n/catalog';
+import {
+  LOCALIZED_PAGE_PAIRS,
+  getEnglishAlgorithmPages,
+  getEnglishLearningPages,
+} from '../../src/i18n/catalog';
 import { getIndexablePages } from '../../src/seo/site';
 import { useCategoryData } from '../../src/views/Home/Main/hooks';
 import { SITE_FACTS, validateMarketingFactClaims } from './site-facts';
@@ -20,17 +24,19 @@ describe('marketing site facts', () => {
       chinesePageCount: pages.filter((page) => page.locale === 'zh-CN').length,
       englishPageCount: pages.filter((page) => page.locale === 'en').length,
       localizedPairCount: LOCALIZED_PAGE_PAIRS.length,
+      englishLearningPageCount: getEnglishLearningPages().length,
       englishAlgorithmCount: getEnglishAlgorithmPages().length,
       analyticsMode: 'utm-only',
     });
     expect(SITE_FACTS).toMatchObject({
       categoryCount: 9,
       catalogEntryCount: 92,
-      indexablePageCount: 125,
+      indexablePageCount: 190,
       chinesePageCount: 95,
-      englishPageCount: 30,
-      localizedPairCount: 30,
-      englishAlgorithmCount: 27,
+      englishPageCount: 95,
+      localizedPairCount: 95,
+      englishLearningPageCount: 92,
+      englishAlgorithmCount: 77,
     });
     expect('unitTestCount' in SITE_FACTS).toBe(false);
   });
@@ -38,7 +44,7 @@ describe('marketing site facts', () => {
   it('TC-AUTO-FACTS-127-02 拒绝旧页面规模与易漂移测试数量声明', () => {
     expect(
       validateMarketingFactClaims(
-        'The site has 125 indexable pages, including 95 Chinese pages and 30 English pages.',
+        'The site has 190 indexable pages, including 95 Chinese pages and 95 English pages.',
       ),
     ).toEqual([]);
     expect(validateMarketingFactClaims('首页覆盖 9 大类、92 个条目。')).toEqual([]);

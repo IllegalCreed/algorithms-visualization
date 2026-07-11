@@ -8,7 +8,7 @@ describe('English static page loaders', () => {
     const loaderNames = Object.keys(englishPageLoaders).sort();
     const routeNames = englishContentRoutes.map((route) => String(route.name)).sort();
 
-    expect(catalogNames).toHaveLength(29);
+    expect(catalogNames).toHaveLength(94);
     expect(loaderNames).toEqual(catalogNames);
     expect(routeNames).toEqual(catalogNames);
     expect(englishContentRoutes.map((route) => route.path).sort()).toEqual(

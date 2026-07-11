@@ -1,11 +1,18 @@
 <!-- 跳表互动组件：SVG 网格（列=元素、行=层）+ 同层连线 + 楼梯式查找（右走→下沉），高层快车道跳过中间元素 -->
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useSkipList } from './useSkipList';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const sk = useSkipList();
 const target = ref(11);
-const status = ref('输入一个值「查找」——看它怎么在高层快车道上大步跳。');
+const status = ref(
+  english
+    ? 'Search for a value and watch upper express lanes skip over intermediate nodes.'
+    : '输入一个值「查找」——看它怎么在高层快车道上大步跳。',
+);
 const lit = ref<Set<string>>(new Set()); // 'col-level'
 const hot = ref(''); // 命中 cell 'col-level'
 const busy = ref(false);
@@ -46,7 +53,7 @@ const links = computed(() =>
 const onSearch = async () => {
   if (busy.value) return;
   if (!Number.isInteger(target.value)) {
-    status.value = '请输入一个整数。';
+    status.value = english ? 'Enter an integer.' : '请输入一个整数。';
     return;
   }
   const t = target.value;
@@ -54,7 +61,9 @@ const onSearch = async () => {
   lit.value = new Set();
   hot.value = '';
   const r = sk.search(t);
-  status.value = `查找 ${t}：走过 ${r.visitedValues.join(' → ')}，${r.found ? '找到了！' : '没找到（不存在）。'}靠上层快车道跳过了中间元素。`;
+  status.value = english
+    ? `Search ${t}: visited ${r.visitedValues.join(' → ')} and ${r.found ? 'found the value' : 'confirmed it is absent'}. Upper lanes skipped intermediate nodes.`
+    : `查找 ${t}：走过 ${r.visitedValues.join(' → ')}，${r.found ? '找到了！' : '没找到（不存在）。'}靠上层快车道跳过了中间元素。`;
   for (const step of r.path) {
     lit.value = new Set([...lit.value, `${sk.nodes[step.node].col}-${step.level}`]);
     await sleep(420);
@@ -70,7 +79,9 @@ const onReset = () => {
   busy.value = false;
   lit.value = new Set();
   hot.value = '';
-  status.value = '已重置 · 输入一个值「查找」看楼梯走位。';
+  status.value = english
+    ? 'Reset complete. Search for a value to trace the staircase path.'
+    : '已重置 · 输入一个值「查找」看楼梯走位。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -79,8 +90,10 @@ onUnmounted(clearTimers);
   <div class="skip-list-viz column center">
     <div class="toolbar row-wrap">
       <input class="val-input" v-model.number="target" type="number" />
-      <button class="btn" :disabled="busy" @click="onSearch">查找</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="busy" @click="onSearch">
+        {{ english ? 'Search' : '查找' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <div class="lane">

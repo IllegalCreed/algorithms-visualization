@@ -127,7 +127,7 @@ describe('useRouteSeo', () => {
     wrapper.unmount();
   });
 
-  it('TC-I18N-UI-126-01: 英文 head 完整且切到未翻译中文页会清理 alternate', async () => {
+  it('TC-I18N-UI-131-07: 英文 head 完整且切到新配对中文页会更新 alternate', async () => {
     const { router, wrapper } = await mountSeoAt('/en/docs/quick-sort');
     const englishPage = resolveSeoPage('en-quick-sort', '/en/docs/quick-sort');
 
@@ -150,7 +150,11 @@ describe('useRouteSeo', () => {
     expect(document.documentElement.dataset.seoReady).toBe('array');
     expect(queryMeta('meta[property="og:site_name"]').content).toBe('数据结构和算法可视化');
     expect(queryMeta('meta[property="og:locale"]').content).toBe('zh_CN');
-    expect(document.head.querySelectorAll('link[rel="alternate"][hreflang]')).toHaveLength(0);
+    expect(
+      [...document.head.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]')].map(
+        (link) => ({ hreflang: link.hreflang, href: link.href }),
+      ),
+    ).toEqual(resolveSeoPage('array', '/docs/array').alternates);
 
     wrapper.unmount();
   });

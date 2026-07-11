@@ -1,10 +1,17 @@
 <!-- 链表互动组件：读者驱动的 查找/在其后插入/删除/头插/重置（节点 + next 箭头 + head + null） -->
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useLink } from './useLink';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const l = useLink();
-const status = ref('点一个节点选中它，再用上面的按钮操作');
+const status = ref(
+  english
+    ? 'Select a node, then choose an operation above.'
+    : '点一个节点选中它，再用上面的按钮操作',
+);
 const visiting = ref(-1); // 查找逐跳游标所在节点下标
 const rewired = ref<(number | 'head')[]>([]); // 被改写的 next 箭头（脉冲高亮）
 const busy = ref(false); // 仅查找逐跳期间锁工具栏
@@ -21,13 +28,19 @@ const onSelect = (i: number) => {
   l.select(i);
   status.value =
     l.selected.value === null
-      ? '已取消选中'
-      : `选中 a[${l.selected.value}]（值 ${l.valueAt(l.selected.value)}）· 可查找 / 在其后插入 / 删除`;
+      ? english
+        ? 'Selection cleared.'
+        : '已取消选中'
+      : english
+        ? `Selected a[${l.selected.value}] with value ${l.valueAt(l.selected.value)}. Find, insert after, or delete it.`
+        : `选中 a[${l.selected.value}]（值 ${l.valueAt(l.selected.value)}）· 可查找 / 在其后插入 / 删除`;
 };
 const onFind = () => {
   const i = l.selected.value;
   if (i === null || busy.value) return;
-  status.value = `find：从 head 走了 ${i + 1} 步才到 a[${i}]（值 ${l.valueAt(i)}），不能跳，O(n)`;
+  status.value = english
+    ? `find: follow ${i + 1} link(s) from head to reach a[${i}] = ${l.valueAt(i)}; linked lists cannot jump, O(n).`
+    : `find：从 head 走了 ${i + 1} 步才到 a[${i}]（值 ${l.valueAt(i)}），不能跳，O(n)`;
   busy.value = true;
   let k = 0;
   const step = () => {
@@ -50,7 +63,9 @@ const onInsert = () => {
   const v = l.insertAfter();
   if (v !== null) {
     flashRewire([i, i + 1]);
-    status.value = `在 a[${i}] 后插入 ${v}：只改了 2 根 next（高亮），其余节点没动，O(1)`;
+    status.value = english
+      ? `Insert ${v} after a[${i}]: rewrite two next links; every other node stays put, O(1).`
+      : `在 a[${i}] 后插入 ${v}：只改了 2 根 next（高亮），其余节点没动，O(1)`;
   }
 };
 const onRemove = () => {
@@ -59,21 +74,27 @@ const onRemove = () => {
   const v = l.remove();
   if (v !== null) {
     flashRewire([i - 1 >= 0 ? i - 1 : 'head']);
-    status.value = `删除 a[${i}] = ${v}：让前一个节点 next 跳过它，只改 1 根，O(1)`;
+    status.value = english
+      ? `Delete a[${i}] = ${v}: make the previous next link skip this node, O(1) after locating it.`
+      : `删除 a[${i}] = ${v}：让前一个节点 next 跳过它，只改 1 根，O(1)`;
   }
 };
 const onPrepend = () => {
   const v = l.prepend();
   if (v !== null) {
     flashRewire(['head', 0]);
-    status.value = `头插 ${v}：新节点 next 指原头、head 指新节点，O(1)`;
+    status.value = english
+      ? `Prepend ${v}: point the new node to the old head, then move head, O(1).`
+      : `头插 ${v}：新节点 next 指原头、head 指新节点，O(1)`;
   }
 };
 const onReset = () => {
   l.reset();
   visiting.value = -1;
   rewired.value = [];
-  status.value = '已重置 · 点一个节点选中它，再用上面的按钮操作';
+  status.value = english
+    ? 'Reset complete. Select a node, then choose an operation.'
+    : '已重置 · 点一个节点选中它，再用上面的按钮操作';
 };
 
 onUnmounted(() => {
@@ -86,21 +107,51 @@ onUnmounted(() => {
   <div class="link-viz column center">
     <div class="toolbar row-wrap">
       <button class="btn" :disabled="busy || !l.hasSelection.value" @click="onFind">
-        {{ l.hasSelection.value ? `查找 a[${l.selected.value}]` : '查找选中' }}
+        {{
+          l.hasSelection.value
+            ? english
+              ? `Find a[${l.selected.value}]`
+              : `查找 a[${l.selected.value}]`
+            : english
+              ? 'Find selected'
+              : '查找选中'
+        }}
       </button>
       <button class="btn" :disabled="busy || !l.canInsert.value" @click="onInsert">
-        {{ l.hasSelection.value ? `在 a[${l.selected.value}] 后插入` : '在其后插入' }}
+        {{
+          l.hasSelection.value
+            ? english
+              ? `Insert after a[${l.selected.value}]`
+              : `在 a[${l.selected.value}] 后插入`
+            : english
+              ? 'Insert after'
+              : '在其后插入'
+        }}
       </button>
       <button class="btn" :disabled="busy || !l.hasSelection.value" @click="onRemove">
-        {{ l.hasSelection.value ? `删除 a[${l.selected.value}]` : '删除选中' }}
+        {{
+          l.hasSelection.value
+            ? english
+              ? `Delete a[${l.selected.value}]`
+              : `删除 a[${l.selected.value}]`
+            : english
+              ? 'Delete selected'
+              : '删除选中'
+        }}
       </button>
-      <button class="btn" :disabled="busy || !l.canPrepend.value" @click="onPrepend">头插</button>
-      <button class="btn" :disabled="busy" @click="onReset">重置</button>
+      <button class="btn" :disabled="busy || !l.canPrepend.value" @click="onPrepend">
+        {{ english ? 'Prepend' : '头插' }}
+      </button>
+      <button class="btn" :disabled="busy" @click="onReset">
+        {{ english ? 'Reset' : '重置' }}
+      </button>
     </div>
     <div class="lane-wrap">
       <!-- 车道：定宽（空/满一致）；head 胶囊 + 节点[值|next→] + null -->
       <div class="lane">
-        <span v-if="!l.items.value.length" class="empty-hint">链表为空</span>
+        <span v-if="!l.items.value.length" class="empty-hint">
+          {{ english ? 'List is empty' : '链表为空' }}
+        </span>
         <div class="chain">
           <div class="head"><span class="pill">head</span></div>
           <span

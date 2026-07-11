@@ -25,6 +25,9 @@ import { englishRabinKarpModule } from './rabin-karp';
 import { englishManacherModule } from './manacher';
 import { englishSieveModule } from './sieve-of-eratosthenes';
 import { englishGcdModule } from './gcd';
+import { fullParityAlgorithmModules } from './fullParityRegistry';
+
+export { fullParityAlgorithmModules } from './fullParityRegistry';
 
 export {
   englishBinaryBoundsModule,
@@ -84,6 +87,7 @@ export const englishAlgorithmModules = {
   manacher: englishManacherModule,
   'sieve-of-eratosthenes': englishSieveModule,
   gcd: englishGcdModule,
+  ...fullParityAlgorithmModules,
 } as const;
 
 export type EnglishAlgorithmModuleKey = keyof typeof englishAlgorithmModules;

@@ -1,8 +1,11 @@
 <!-- 图互动组件：无向图 BFS(队列)/DFS(栈) 遍历，SVG 二维 + 辅助结构面板（M3 数据结构收官回扣栈/队列） -->
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useGraph } from './useGraph';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const g = useGraph();
 const start = ref(0);
 const visited = ref<number[]>([]);
@@ -10,7 +13,11 @@ const current = ref(-1);
 const frontier = ref<number[]>([]);
 const mode = ref<'' | 'bfs' | 'dfs'>('');
 const busy = ref(false);
-const status = ref('点一个顶点设为起点，再点 BFS 或 DFS。当前起点：A。');
+const status = ref(
+  english
+    ? 'Choose a start vertex, then run BFS or DFS. The current start is A.'
+    : '点一个顶点设为起点，再点 BFS 或 DFS。当前起点：A。',
+);
 let timers: ReturnType<typeof setTimeout>[] = [];
 const sleep = (ms: number) => new Promise<void>((res) => timers.push(setTimeout(res, ms)));
 const clearTimers = () => {
@@ -24,14 +31,24 @@ const clearMarks = () => {
   mode.value = '';
 };
 const helperLabel = computed(() =>
-  mode.value === 'bfs' ? '队列 →' : mode.value === 'dfs' ? '栈 ↑' : '　',
+  mode.value === 'bfs'
+    ? english
+      ? 'Queue →'
+      : '队列 →'
+    : mode.value === 'dfs'
+      ? english
+        ? 'Stack ↑'
+        : '栈 ↑'
+      : '　',
 );
 
 const onPick = (i: number) => {
   if (busy.value) return;
   start.value = i;
   clearMarks();
-  status.value = `当前起点：${g.labelOf(i)}。点 BFS 或 DFS 看遍历。`;
+  status.value = english
+    ? `Start vertex: ${g.labelOf(i)}. Run BFS or DFS to traverse the graph.`
+    : `当前起点：${g.labelOf(i)}。点 BFS 或 DFS 看遍历。`;
 };
 const onRun = async (kind: 'bfs' | 'dfs') => {
   if (busy.value) return;
@@ -40,8 +57,11 @@ const onRun = async (kind: 'bfs' | 'dfs') => {
   mode.value = kind;
   const steps = kind === 'bfs' ? g.bfs(start.value) : g.dfs(start.value);
   const ord = steps.map((s) => g.labelOf(s.visit)).join(' ');
-  status.value =
-    kind === 'bfs'
+  status.value = english
+    ? kind === 'bfs'
+      ? `BFS uses a queue to visit the graph level by level from ${g.labelOf(start.value)}: ${ord}`
+      : `DFS uses a stack to follow one branch at a time from ${g.labelOf(start.value)}: ${ord}`
+    : kind === 'bfs'
       ? `BFS 广度优先（用队列）：从 ${g.labelOf(start.value)} 出发，一层层访问 → ${ord}`
       : `DFS 深度优先（用栈）：从 ${g.labelOf(start.value)} 出发，一条道走到底 → ${ord}`;
   for (const s of steps) {
@@ -58,7 +78,9 @@ const onReset = () => {
   busy.value = false;
   start.value = 0;
   clearMarks();
-  status.value = '已重置 · 点一个顶点设为起点，再点 BFS 或 DFS。当前起点：A。';
+  status.value = english
+    ? 'Reset complete. Choose a start vertex, then run BFS or DFS. The start is A.'
+    : '已重置 · 点一个顶点设为起点，再点 BFS 或 DFS。当前起点：A。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -66,9 +88,13 @@ onUnmounted(clearTimers);
 <template>
   <div class="graph-viz column center">
     <div class="toolbar row-wrap">
-      <button class="btn bfs" :disabled="busy" @click="onRun('bfs')">BFS 广度优先</button>
-      <button class="btn dfs" :disabled="busy" @click="onRun('dfs')">DFS 深度优先</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn bfs" :disabled="busy" @click="onRun('bfs')">
+        {{ english ? 'Breadth-first search' : 'BFS 广度优先' }}
+      </button>
+      <button class="btn dfs" :disabled="busy" @click="onRun('dfs')">
+        {{ english ? 'Depth-first search' : 'DFS 深度优先' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <div class="lane">
@@ -109,9 +135,17 @@ onUnmounted(clearTimers);
     <div class="helper">
       <span class="helper-label">{{ helperLabel }}</span>
       <div class="slots">
-        <span v-if="!frontier.length" class="hint">{{
-          mode ? '（空）' : '点 BFS 或 DFS 开始'
-        }}</span>
+        <span v-if="!frontier.length" class="hint">
+          {{
+            mode
+              ? english
+                ? '(empty)'
+                : '（空）'
+              : english
+                ? 'Run BFS or DFS'
+                : '点 BFS 或 DFS 开始'
+          }}
+        </span>
         <span v-for="(i, k) in frontier" :key="k" class="slot">{{ g.labelOf(i) }}</span>
       </div>
     </div>

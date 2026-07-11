@@ -1,12 +1,19 @@
 <!-- B+ 树互动组件：SVG 多 key 宽框节点 + root→叶 子指针 + 叶链；查找多路下钻点亮（绿）+ 范围叶链横扫点亮（黄） -->
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useBTree } from './useBTree';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const bt = useBTree();
 const a = ref(30);
 const b = ref(38);
-const status = ref('填 a 点「查找」看从根下钻几层就命中；填 a、b 点「范围查」看顺着叶链横扫一段。');
+const status = ref(
+  english
+    ? 'Search for a to descend from the root, or scan range [a, b] across linked leaves.'
+    : '填 a 点「查找」看从根下钻几层就命中；填 a、b 点「范围查」看顺着叶链横扫一段。',
+);
 const onpath = ref<Set<string>>(new Set()); // 下钻路径 / 范围涉及叶（节点 id）
 const hit = ref<Set<string>>(new Set()); // 查找命中 key（`${leafId}:${key}`）
 const inrange = ref<Set<string>>(new Set()); // 范围命中 key
@@ -53,7 +60,7 @@ const leafLinks = computed(() =>
 const onSearch = () => {
   const t = a.value;
   if (!Number.isInteger(t)) {
-    status.value = '请输入一个整数 a。';
+    status.value = english ? 'Enter an integer a.' : '请输入一个整数 a。';
     return;
   }
   const r = bt.search(t);
@@ -61,16 +68,20 @@ const onSearch = () => {
   hit.value = r.found ? new Set([`${r.leafId}:${t}`]) : new Set();
   inrange.value = new Set();
   flow.value = new Set();
-  status.value = r.found
-    ? `查找 ${t}：从根下钻 ${r.path.length} 层就到叶子，找到了 ${t}。`
-    : `查找 ${t}：下钻到对应叶子，${t} 不存在。`;
+  status.value = english
+    ? r.found
+      ? `Search ${t}: descend ${r.path.length} levels to the leaf and find the key.`
+      : `Search ${t}: the selected leaf does not contain the key.`
+    : r.found
+      ? `查找 ${t}：从根下钻 ${r.path.length} 层就到叶子，找到了 ${t}。`
+      : `查找 ${t}：下钻到对应叶子，${t} 不存在。`;
 };
 
 const onRange = () => {
   const lo = a.value;
   const hi = b.value;
   if (!Number.isInteger(lo) || !Number.isInteger(hi) || lo > hi) {
-    status.value = '请输入合法区间整数：a ≤ b。';
+    status.value = english ? 'Enter an integer range with a ≤ b.' : '请输入合法区间整数：a ≤ b。';
     return;
   }
   const r = bt.rangeScan(lo, hi);
@@ -83,9 +94,13 @@ const onRange = () => {
   const links = new Set<string>();
   for (let i = 0; i < r.leafPath.length - 1; i++) links.add(`lnk-${r.leafPath[i]}`);
   flow.value = links;
-  status.value = `范围查 [${lo}, ${hi}]：定位起点叶后顺着叶链扫到 ${r.values.length} 个值${
-    r.values.length ? '：' + r.values.join(', ') : ''
-  }。`;
+  status.value = english
+    ? `Range [${lo}, ${hi}]: locate the first leaf, then follow leaf links across ${r.values.length} values${
+        r.values.length ? `: ${r.values.join(', ')}` : ''
+      }.`
+    : `范围查 [${lo}, ${hi}]：定位起点叶后顺着叶链扫到 ${r.values.length} 个值${
+        r.values.length ? '：' + r.values.join(', ') : ''
+      }。`;
 };
 
 const onReset = () => {
@@ -93,7 +108,9 @@ const onReset = () => {
   hit.value = new Set();
   inrange.value = new Set();
   flow.value = new Set();
-  status.value = '已重置 · 填 a 点「查找」，或填 a、b 点「范围查」。';
+  status.value = english
+    ? 'Reset complete. Search for a key or scan a range.'
+    : '已重置 · 填 a 点「查找」，或填 a、b 点「范围查」。';
 };
 </script>
 
@@ -104,9 +121,9 @@ const onReset = () => {
       <input class="val-input in-a" v-model.number="a" type="number" />
       <label class="lab">b</label>
       <input class="val-input in-b" v-model.number="b" type="number" />
-      <button class="btn" @click="onSearch">查找</button>
-      <button class="btn" @click="onRange">范围查</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" @click="onSearch">{{ english ? 'Search' : '查找' }}</button>
+      <button class="btn" @click="onRange">{{ english ? 'Range scan' : '范围查' }}</button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <div class="lane">

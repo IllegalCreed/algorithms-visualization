@@ -1,33 +1,51 @@
 <!-- LRU 缓存互动组件：横向按最近使用排序（左 MRU / 右 LRU）+ get/put + 满了淘汰最久没用 -->
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useLRU, LRU_CAP } from './useLRU';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const lru = useLRU();
 const keyVal = ref(1);
 const valVal = ref(100);
-const status = ref('缓存按「最近使用」排：左=最近用，右=最久没用。get/put 试试。');
+const status = ref(
+  english
+    ? 'Entries run from most recently used on the left to least recently used on the right.'
+    : '缓存按「最近使用」排：左=最近用，右=最久没用。get/put 试试。',
+);
 
 const onGet = () => {
   const r = lru.get(keyVal.value);
-  status.value =
-    r.type === 'hit'
+  status.value = english
+    ? r.type === 'hit'
+      ? `get(${keyVal.value}) hits value ${r.value} and moves the key to the most-recent end.`
+      : `get(${keyVal.value}) misses because the key is not cached.`
+    : r.type === 'hit'
       ? `get(${keyVal.value})：找到了，值 ${r.value}，移到最前（最近用）。`
       : `get(${keyVal.value})：缓存里没有 ${keyVal.value}，未命中。`;
 };
 const onPut = () => {
   const r = lru.put(keyVal.value, valVal.value);
   if (r.type === 'put-update') {
-    status.value = `put(${keyVal.value},${valVal.value})：${keyVal.value} 已在，更新为 ${valVal.value} 并移到最前。`;
+    status.value = english
+      ? `put(${keyVal.value}, ${valVal.value}) updates the existing key and marks it most recent.`
+      : `put(${keyVal.value},${valVal.value})：${keyVal.value} 已在，更新为 ${valVal.value} 并移到最前。`;
   } else if (r.evicted !== null) {
-    status.value = `put(${keyVal.value},${valVal.value})：缓存满了，淘汰最久没用的 ${r.evicted}，新键放最前。`;
+    status.value = english
+      ? `put(${keyVal.value}, ${valVal.value}) evicts least-recent key ${r.evicted} and inserts the new key.`
+      : `put(${keyVal.value},${valVal.value})：缓存满了，淘汰最久没用的 ${r.evicted}，新键放最前。`;
   } else {
-    status.value = `put(${keyVal.value},${valVal.value})：新键放到最前（最近用）。`;
+    status.value = english
+      ? `put(${keyVal.value}, ${valVal.value}) inserts the key at the most-recent end.`
+      : `put(${keyVal.value},${valVal.value})：新键放到最前（最近用）。`;
   }
 };
 const onReset = () => {
   lru.reset();
-  status.value = '已重置 · 缓存按最近使用排，右端最久没用、下一个被淘汰。';
+  status.value = english
+    ? 'Reset complete. The rightmost entry is least recent and will be evicted next.'
+    : '已重置 · 缓存按最近使用排，右端最久没用、下一个被淘汰。';
 };
 </script>
 
@@ -38,12 +56,14 @@ const onReset = () => {
       <input class="val-input" v-model.number="valVal" type="number" min="1" max="999" />
       <button class="btn" @click="onGet">get</button>
       <button class="btn" @click="onPut">put</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <!-- 车道：左 MRU、右 LRU（下一个被淘汰）；定宽（空/满一致） -->
       <div class="lane">
-        <span v-if="!lru.entries.value.length" class="empty-hint">缓存为空</span>
+        <span v-if="!lru.entries.value.length" class="empty-hint">
+          {{ english ? 'Cache is empty' : '缓存为空' }}
+        </span>
         <TransitionGroup name="lru" tag="div" class="lane-inner">
           <div
             v-for="(e, i) in lru.entries.value"
@@ -55,15 +75,15 @@ const onReset = () => {
             <div class="lru-val">val {{ e[2] }}</div>
             <!-- 端标记挂元素、跟着走 -->
             <div class="markers">
-              <div class="m m-mru">↑ 最近用</div>
-              <div class="m m-lru">↑ 最久没用</div>
+              <div class="m m-mru">↑ {{ english ? 'most recent' : '最近用' }}</div>
+              <div class="m m-lru">↑ {{ english ? 'least recent' : '最久没用' }}</div>
             </div>
           </div>
         </TransitionGroup>
       </div>
     </div>
     <p class="readout">
-      容量
+      {{ english ? 'Capacity' : '容量' }}
       <b :class="{ full: lru.size.value === lru.capacity }">{{ lru.size.value }}/{{ LRU_CAP }}</b>
     </p>
     <p class="status">{{ status }}</p>

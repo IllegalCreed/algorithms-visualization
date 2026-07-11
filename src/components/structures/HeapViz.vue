@@ -1,12 +1,19 @@
 <!-- 堆互动组件：大顶堆 数组+树双视图联动 + 上浮/下沉真实分步（复用 TreeView pos 定位） -->
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useHeap } from './useHeap';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const LEVEL_H = 64;
 const h = useHeap();
 const val = ref(95);
-const status = ref('输入一个数，点「插入」，看它从数组末尾上浮到位。');
+const status = ref(
+  english
+    ? 'Enter a value and insert it to watch it sift up from the array tail.'
+    : '输入一个数，点「插入」，看它从数组末尾上浮到位。',
+);
 const cmp = ref<number[]>([]); // 比较交换中的 pos（黄）
 const hot = ref(-1); // 到位 / 堆顶（深绿）
 const enterId = ref<string | null>(null);
@@ -39,7 +46,7 @@ const edges = computed(() =>
 );
 const validVal = (): number | null => {
   if (!Number.isInteger(val.value) || val.value < 1 || val.value > 99) {
-    status.value = '请输入 1–99 的整数。';
+    status.value = english ? 'Enter an integer from 1 to 99.' : '请输入 1–99 的整数。';
     return null;
   }
   return val.value;
@@ -50,7 +57,9 @@ const onInsert = async () => {
   const v = validVal();
   if (v === null) return;
   if (!h.canInsert.value) {
-    status.value = '堆满了（演示限 15 个），先弹出或重置。';
+    status.value = english
+      ? 'The demo heap is full at 15 values. Extract the root or reset first.'
+      : '堆满了（演示限 15 个），先弹出或重置。';
     return;
   }
   busy.value = true;
@@ -58,7 +67,9 @@ const onInsert = async () => {
   hot.value = -1;
   let i = h.insert(v)!; // 末尾追加（同步）
   enterId.value = h.items.value[i][0];
-  status.value = `插入 ${v}：先放到数组末尾（最后一个叶子），开始上浮……`;
+  status.value = english
+    ? `Insert ${v} at the array tail, then sift it up from the last leaf.`
+    : `插入 ${v}：先放到数组末尾（最后一个叶子），开始上浮……`;
   await sleep(600);
   enterId.value = null;
   let hops = 0;
@@ -71,7 +82,9 @@ const onInsert = async () => {
     await sleep(340);
   }
   hot.value = i;
-  status.value = `插入 ${v}：上浮 ${hops} 次到位，堆顶始终是最大值 ${h.peek()}，O(log n)。`;
+  status.value = english
+    ? `Inserted ${v} after ${hops} upward swaps. The maximum ${h.peek()} remains at the root.`
+    : `插入 ${v}：上浮 ${hops} 次到位，堆顶始终是最大值 ${h.peek()}，O(log n)。`;
   await sleep(700);
   hot.value = -1;
   busy.value = false;
@@ -81,7 +94,9 @@ const onExtract = async () => {
   busy.value = true;
   cmp.value = [];
   const max = h.extractRoot(); // 取根、末位补根（同步）
-  status.value = `弹出堆顶 ${max}（最大值）：末尾元素补到根，开始下沉……`;
+  status.value = english
+    ? `Extract ${max}, move the last value to the root, and begin sifting down.`
+    : `弹出堆顶 ${max}（最大值）：末尾元素补到根，开始下沉……`;
   if (!h.items.value.length) {
     busy.value = false;
     return;
@@ -104,7 +119,9 @@ const onExtract = async () => {
     hops++;
     await sleep(340);
   }
-  status.value = `弹出堆顶 ${max}：末位补根后下沉 ${hops} 次归位，新堆顶 ${h.peek()}，O(log n)。`;
+  status.value = english
+    ? `Extracted ${max}; the replacement settled after ${hops} downward swaps. The new root is ${h.peek()}.`
+    : `弹出堆顶 ${max}：末位补根后下沉 ${hops} 次归位，新堆顶 ${h.peek()}，O(log n)。`;
   busy.value = false;
 };
 const onReset = () => {
@@ -114,7 +131,9 @@ const onReset = () => {
   hot.value = -1;
   enterId.value = null;
   h.reset();
-  status.value = '已重置 · 输入一个数，点「插入」看它上浮。';
+  status.value = english
+    ? 'Reset complete. Insert a value to watch it sift up.'
+    : '已重置 · 输入一个数，点「插入」看它上浮。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -123,15 +142,17 @@ onUnmounted(clearTimers);
   <div class="heap-viz column center">
     <div class="toolbar row-wrap">
       <input class="val-input" v-model.number="val" type="number" min="1" max="99" />
-      <button class="btn" :disabled="busy" @click="onInsert">插入</button>
-      <button class="btn" :disabled="busy || !h.canExtract.value" @click="onExtract">
-        弹出堆顶
+      <button class="btn" :disabled="busy" @click="onInsert">
+        {{ english ? 'Insert' : '插入' }}
       </button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="busy || !h.canExtract.value" @click="onExtract">
+        {{ english ? 'Extract root' : '弹出堆顶' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <div class="lane">
-        <div class="row-label">数组</div>
+        <div class="row-label">{{ english ? 'Array' : '数组' }}</div>
         <div class="arr">
           <!-- 数组轨：值格按下标排，交换时 FLIP 滑动；与树轨同 id 同步 -->
           <TransitionGroup name="cellmv" tag="div" class="cells">
@@ -149,7 +170,7 @@ onUnmounted(clearTimers);
             <div v-for="(_, i) in h.items.value" :key="i" class="idx">{{ i }}</div>
           </div>
         </div>
-        <div class="row-label">树（同一个堆）</div>
+        <div class="row-label">{{ english ? 'Tree view of the same heap' : '树（同一个堆）' }}</div>
         <div class="tree">
           <svg class="edges" width="524" height="280">
             <line
@@ -162,7 +183,9 @@ onUnmounted(clearTimers);
               :y2="e.y2"
             />
           </svg>
-          <span v-if="!h.items.value.length" class="empty-hint">堆为空</span>
+          <span v-if="!h.items.value.length" class="empty-hint">
+            {{ english ? 'Heap is empty' : '堆为空' }}
+          </span>
           <!-- 树轨：节点按 pos 绝对定位、过渡 left/top；与数组轨同 id 同步移动 -->
           <div
             v-for="nd in laid"

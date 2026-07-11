@@ -2,8 +2,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PowerTrack } from '@/components/player/types';
+import type { SiteLocale } from '@/i18n/catalog';
 
-const props = defineProps<{ power: PowerTrack }>();
+const props = withDefaults(defineProps<{ power: PowerTrack; locale?: SiteLocale }>(), {
+  locale: 'zh-CN',
+});
+const english = props.locale === 'en';
 
 const cells = computed(() =>
   props.power.blocks.map((b, i) => ({
@@ -27,10 +31,11 @@ const product = computed(() => {
   <div class="power-view center">
     <!-- 顶部：n 及其二进制 -->
     <div class="power-head">
-      求
+      {{ english ? 'Compute' : '求' }}
       <b
         >{{ power.a }}<sup>{{ power.n }}</sup></b
-      >，指数 {{ power.n }} = <span class="power-bin">{{ power.binary }}</span
+      >{{ english ? ', exponent ' : '，指数 ' }}{{ power.n }} =
+      <span class="power-bin">{{ power.binary }}</span
       ><sub>2</sub>
     </div>
 
@@ -48,13 +53,15 @@ const product = computed(() => {
       >
         <div class="pb-exp">{{ c.label }}</div>
         <div class="pb-val">{{ c.value }}</div>
-        <div class="pb-bit">位={{ c.bit }}{{ c.selected ? ' ✓' : '' }}</div>
+        <div class="pb-bit">
+          {{ english ? 'bit' : '位' }}={{ c.bit }}{{ c.selected ? ' ✓' : '' }}
+        </div>
       </div>
     </div>
 
     <!-- 结果 -->
     <div class="power-result">
-      结果 = {{ product }} = <b>{{ power.result }}</b>
+      {{ english ? 'Result' : '结果' }} = {{ product }} = <b>{{ power.result }}</b>
     </div>
   </div>
 </template>

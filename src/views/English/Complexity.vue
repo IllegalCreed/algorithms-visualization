@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import Article from '@/components/article/Article.vue';
-import { getEnglishAlgorithmPages } from '@/i18n/catalog';
+import { getEnglishLearningPages } from '@/i18n/catalog';
 
 interface ComplexityRow {
   name: string;
@@ -12,7 +12,7 @@ interface ComplexityRow {
   note: string;
 }
 
-const rows: ComplexityRow[] = getEnglishAlgorithmPages().map((page) => ({
+const rows: ComplexityRow[] = getEnglishLearningPages().map((page) => ({
   name: page.en.name,
   title: page.en.heading,
   category: page.en.category,
@@ -34,11 +34,11 @@ const filteredRows = computed(() => {
 <template>
   <Article>
     <h1>Algorithm Complexity Reference</h1>
-    <p class="sub">Time and space costs for all {{ rows.length }} translated algorithms</p>
+    <p class="sub">Time and space costs for all {{ rows.length }} translated learning pages</p>
 
     <p>
       Complexity describes how resource use grows with the input. Use this table for comparison,
-      then open an algorithm to see what each operation actually means in motion.
+      then open a learning page to see what each operation actually means in motion.
     </p>
 
     <div class="complexity-controls">
@@ -62,14 +62,14 @@ const filteredRows = computed(() => {
         aria-label="Filter complexity table"
         spellcheck="false"
       />
-      <span class="complexity-count">{{ filteredRows.length }} algorithms</span>
+      <span class="complexity-count">{{ filteredRows.length }} learning pages</span>
     </div>
 
     <div class="table-wrap">
       <table class="complexity-table">
         <thead>
           <tr>
-            <th>Algorithm</th>
+            <th>Topic</th>
             <th>Time</th>
             <th>Space</th>
             <th>Notes</th>
@@ -87,7 +87,7 @@ const filteredRows = computed(() => {
         </tbody>
       </table>
     </div>
-    <p v-if="filteredRows.length === 0" class="empty">No algorithm matches this filter.</p>
+    <p v-if="filteredRows.length === 0" class="empty">No learning page matches this filter.</p>
   </Article>
 </template>
 

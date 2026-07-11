@@ -1,14 +1,21 @@
 <!-- 平衡互动组件：同 7 个值「退化的链 ↔ 平衡的树」对照 + 查找走位（讲为什么要平衡） -->
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useBalance } from './useBalance';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const b = useBalance();
 const mode = ref<'chain' | 'balanced'>('chain');
 const litPath = ref<number[]>([]); // 走位经过（黄）
 const hotIdx = ref(-1); // 命中（深绿）
 const busy = ref(false);
-const status = ref('同样是 1–7 七个值。点「查找 7」看走几步。');
+const status = ref(
+  english
+    ? 'Both trees contain 1 through 7. Search for 7 and compare the path lengths.'
+    : '同样是 1–7 七个值。点「查找 7」看走几步。',
+);
 let timers: ReturnType<typeof setTimeout>[] = [];
 const sleep = (ms: number) => new Promise<void>((res) => timers.push(setTimeout(res, ms)));
 const clearTimers = () => {
@@ -22,8 +29,11 @@ const onMode = (m: 'chain' | 'balanced') => {
   mode.value = m;
   litPath.value = [];
   hotIdx.value = -1;
-  status.value =
-    m === 'chain'
+  status.value = english
+    ? m === 'chain'
+      ? 'Ascending insertion creates a right-skewed chain. Search for 7 to trace it.'
+      : 'The same seven values form a shorter balanced tree. Search for 7 to compare.'
+    : m === 'chain'
       ? '按顺序插入，全挂右边 → 一条链。点「查找 7」看走几步。'
       : '同样 7 个值，平衡后矮胖。点「查找 7」对比走几步。';
 };
@@ -33,8 +43,11 @@ const onFind = async () => {
   litPath.value = [];
   hotIdx.value = -1;
   const r = b.search(7, mode.value);
-  status.value =
-    mode.value === 'chain'
+  status.value = english
+    ? mode.value === 'chain'
+      ? `Search for 7: ${r.steps} comparisons down the chain, which is O(n) in the worst case.`
+      : `Search for 7: ${r.steps} comparisons (4 → 6 → 7), which is O(log n).`
+    : mode.value === 'chain'
       ? `查找 7：从根一路比下来，走了 ${r.steps} 步才到 —— 最坏 O(n)，链表速度。`
       : `查找 7：${r.steps} 步到（4 → 6 → 7）—— O(log n)。同样的值，平衡后快得多。`;
   for (let k = 0; k < r.path.length; k++) {
@@ -56,7 +69,7 @@ onUnmounted(clearTimers);
         :disabled="busy"
         @click="onMode('chain')"
       >
-        顺序插入（退化）
+        {{ english ? 'Skewed tree' : '顺序插入（退化）' }}
       </button>
       <button
         class="btn"
@@ -64,9 +77,11 @@ onUnmounted(clearTimers);
         :disabled="busy"
         @click="onMode('balanced')"
       >
-        平衡的树
+        {{ english ? 'Balanced tree' : '平衡的树' }}
       </button>
-      <button class="btn find" :disabled="busy" @click="onFind">查找 7</button>
+      <button class="btn find" :disabled="busy" @click="onFind">
+        {{ english ? 'Search for 7' : '查找 7' }}
+      </button>
     </div>
     <div class="lane-wrap">
       <div class="lane">
@@ -98,9 +113,23 @@ onUnmounted(clearTimers);
       </div>
     </div>
     <p class="readout">
-      高度 <span :class="mode === 'chain' ? 'bad' : 'good'">{{ cur.height }} 层</span> · 最坏查找
-      <span :class="mode === 'chain' ? 'bad' : 'good'">{{ cur.worst }} 次</span>
-      <span class="note">（{{ mode === 'chain' ? '退回 O(n)，和链表一样慢' : 'O(log n)' }}）</span>
+      {{ english ? 'Height' : '高度' }}
+      <span :class="mode === 'chain' ? 'bad' : 'good'">
+        {{ cur.height }} {{ english ? 'levels' : '层' }}
+      </span>
+      · {{ english ? 'worst-case search' : '最坏查找' }}
+      <span :class="mode === 'chain' ? 'bad' : 'good'">
+        {{ cur.worst }} {{ english ? 'comparisons' : '次' }}
+      </span>
+      <span class="note">
+        {{
+          english
+            ? mode === 'chain'
+              ? '(O(n), like a linked list)'
+              : '(O(log n))'
+            : `（${mode === 'chain' ? '退回 O(n)，和链表一样慢' : 'O(log n)'}）`
+        }}
+      </span>
     </p>
     <p class="status">{{ status }}</p>
   </div>

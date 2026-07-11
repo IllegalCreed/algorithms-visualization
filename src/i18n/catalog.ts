@@ -1,7 +1,11 @@
 import type { LocationQueryRaw, RouteLocationRaw } from 'vue-router';
+import { ENGLISH_FULL_PARITY_ADDITIONS } from './en/fullParityPages';
+import type { EnglishIconKey } from './en/icons';
+
+export type { EnglishIconKey } from './en/icons';
 
 export type SiteLocale = 'zh-CN' | 'en';
-export type LocalizedPageKind = 'home' | 'tool' | 'algorithm';
+export type LocalizedPageKind = 'home' | 'tool' | 'structure' | 'algorithm';
 export type EnglishCategory =
   | 'Learning Tools'
   | 'Data Structures'
@@ -13,36 +17,6 @@ export type EnglishCategory =
   | 'Math and Number Theory'
   | 'Computational Geometry'
   | 'Searching';
-export type EnglishIconKey =
-  | 'complexity'
-  | 'paths'
-  | 'quick-sort'
-  | 'binary-search'
-  | 'fenwick'
-  | 'dijkstra'
-  | 'knapsack'
-  | 'kmp'
-  | 'convex-hull'
-  | 'bubble-sort'
-  | 'merge-sort'
-  | 'heap-sort'
-  | 'counting-sort'
-  | 'binary-bounds'
-  | 'kruskal'
-  | 'prim'
-  | 'bellman-ford'
-  | 'topological-sort'
-  | 'closest-pair'
-  | 'edit-distance'
-  | 'lcs'
-  | 'lis'
-  | 'n-queens'
-  | 'subsets'
-  | 'maze'
-  | 'rabin-karp'
-  | 'manacher'
-  | 'sieve-of-eratosthenes'
-  | 'gcd';
 export type EnglishHomeGroupId =
   | 'toolkit'
   | 'data-structures'
@@ -91,11 +65,14 @@ export interface ComplexityInfo {
   note: string;
 }
 
-export interface EnglishAlgorithmMetadata extends EnglishContentMetadata {
+export interface EnglishLearningMetadata extends EnglishContentMetadata {
   complexity: ComplexityInfo;
   pathTags: readonly EnglishLearningPathId[];
   pathOrder: number;
 }
+
+export type EnglishAlgorithmMetadata = EnglishLearningMetadata;
+export type EnglishStructureMetadata = EnglishLearningMetadata;
 
 export interface LocalizedHomePagePair {
   key: 'home';
@@ -118,9 +95,19 @@ export interface LocalizedAlgorithmPagePair {
   en: EnglishAlgorithmMetadata;
 }
 
+export interface LocalizedStructurePagePair {
+  key: string;
+  kind: 'structure';
+  zh: LocalizedSourcePage;
+  en: EnglishStructureMetadata;
+}
+
+export type LocalizedLearningPagePair = LocalizedStructurePagePair | LocalizedAlgorithmPagePair;
+
 export type LocalizedPagePair =
   | LocalizedHomePagePair
   | LocalizedToolPagePair
+  | LocalizedStructurePagePair
   | LocalizedAlgorithmPagePair;
 
 export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze([
@@ -185,14 +172,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Sorting',
       iconKey: 'quick-sort',
       homeGroup: 'sorting',
-      order: 10,
+      order: 100,
       complexity: {
         time: 'Average O(n log n)',
         space: 'O(log n)',
         note: 'In-place; worst case O(n^2) with consistently poor pivots.',
       },
       pathTags: ['sorting'],
-      pathOrder: 10,
+      pathOrder: 100,
     },
   },
   {
@@ -209,14 +196,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Sorting',
       iconKey: 'bubble-sort',
       homeGroup: 'sorting',
-      order: 20,
+      order: 10,
       complexity: {
         time: 'O(n^2)',
         space: 'O(1)',
         note: 'Stable and in-place, but quadratic even when this basic version is already sorted.',
       },
       pathTags: ['sorting'],
-      pathOrder: 20,
+      pathOrder: 10,
     },
   },
   {
@@ -233,14 +220,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Sorting',
       iconKey: 'merge-sort',
       homeGroup: 'sorting',
-      order: 30,
+      order: 80,
       complexity: {
         time: 'O(n log n)',
         space: 'O(n)',
         note: 'Stable with predictable time; the array implementation needs auxiliary storage.',
       },
       pathTags: ['sorting'],
-      pathOrder: 30,
+      pathOrder: 80,
     },
   },
   {
@@ -257,14 +244,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Sorting',
       iconKey: 'heap-sort',
       homeGroup: 'sorting',
-      order: 40,
+      order: 130,
       complexity: {
         time: 'O(n log n)',
         space: 'O(1)',
         note: 'In-place with a worst-case O(n log n) bound, but not stable.',
       },
       pathTags: ['sorting'],
-      pathOrder: 40,
+      pathOrder: 130,
     },
   },
   {
@@ -281,14 +268,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Sorting',
       iconKey: 'counting-sort',
       homeGroup: 'sorting',
-      order: 50,
+      order: 140,
       complexity: {
         time: 'O(n+k)',
         space: 'O(k)',
         note: 'Excellent for a compact integer range k; unsuitable when the range is very sparse.',
       },
       pathTags: ['sorting'],
-      pathOrder: 50,
+      pathOrder: 140,
     },
   },
   {
@@ -305,14 +292,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Searching',
       iconKey: 'binary-search',
       homeGroup: 'searching',
-      order: 20,
+      order: 10,
       complexity: {
         time: 'O(log n)',
         space: 'O(1)',
         note: 'Requires sorted data and discards half of the candidate range per probe.',
       },
       pathTags: ['foundations'],
-      pathOrder: 10,
+      pathOrder: 170,
     },
   },
   {
@@ -336,7 +323,7 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
         note: 'Two boundary searches locate an equal range without a special found branch.',
       },
       pathTags: ['foundations'],
-      pathOrder: 30,
+      pathOrder: 180,
     },
   },
   {
@@ -353,14 +340,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Data Structures',
       iconKey: 'fenwick',
       homeGroup: 'data-structures',
-      order: 30,
+      order: 160,
       complexity: {
         time: 'O(log n)',
         space: 'O(n)',
         note: 'Both point updates and prefix queries follow a lowbit chain.',
       },
       pathTags: ['foundations'],
-      pathOrder: 30,
+      pathOrder: 160,
     },
   },
   {
@@ -504,7 +491,7 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
         note: 'Pseudo-polynomial in capacity W; space can be reduced to O(W).',
       },
       pathTags: ['dynamic-programming'],
-      pathOrder: 10,
+      pathOrder: 20,
     },
   },
   {
@@ -521,14 +508,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Dynamic Programming',
       iconKey: 'edit-distance',
       homeGroup: 'dynamic-programming',
-      order: 30,
+      order: 10,
       complexity: {
         time: 'O(mn)',
         space: 'O(mn)',
         note: 'The full table supports reconstruction; distance alone can be computed with O(n) space.',
       },
       pathTags: ['dynamic-programming'],
-      pathOrder: 20,
+      pathOrder: 10,
     },
   },
   {
@@ -552,7 +539,7 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
         note: 'Keeping the table makes the backward reconstruction path explicit.',
       },
       pathTags: ['dynamic-programming'],
-      pathOrder: 30,
+      pathOrder: 40,
     },
   },
   {
@@ -576,7 +563,7 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
         note: 'This DP exposes predecessors; a patience-sorting variant reaches O(n log n).',
       },
       pathTags: ['dynamic-programming'],
-      pathOrder: 40,
+      pathOrder: 50,
     },
   },
   {
@@ -641,14 +628,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Backtracking and Search',
       iconKey: 'maze',
       homeGroup: 'backtracking',
-      order: 30,
+      order: 50,
       complexity: {
         time: 'O(RC)',
         space: 'O(RC)',
         note: 'Each open cell is visited at most once; recursion and visited state can cover the grid.',
       },
       pathTags: ['backtracking'],
-      pathOrder: 30,
+      pathOrder: 50,
     },
   },
   {
@@ -713,14 +700,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Strings',
       iconKey: 'manacher',
       homeGroup: 'strings',
-      order: 30,
+      order: 40,
       complexity: {
         time: 'O(n)',
         space: 'O(n)',
         note: 'Mirror reuse ensures expansion work advances the right boundary only linearly overall.',
       },
       pathTags: ['strings'],
-      pathOrder: 30,
+      pathOrder: 40,
     },
   },
   {
@@ -761,14 +748,14 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Math and Number Theory',
       iconKey: 'gcd',
       homeGroup: 'number-theory',
-      order: 20,
+      order: 30,
       complexity: {
         time: 'O(log min(a,b))',
         space: 'O(1)',
         note: 'Each remainder strictly reduces the pair until the second value reaches zero.',
       },
       pathTags: ['number-theory'],
-      pathOrder: 20,
+      pathOrder: 30,
     },
   },
   {
@@ -785,7 +772,7 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
       category: 'Computational Geometry',
       iconKey: 'convex-hull',
       homeGroup: 'geometry',
-      order: 20,
+      order: 10,
       complexity: {
         time: 'O(n log n)',
         space: 'O(n)',
@@ -816,9 +803,30 @@ export const LOCALIZED_PAGE_PAIRS: readonly LocalizedPagePair[] = Object.freeze(
         note: 'Presorting and a y-ordered merge strip keep each recursion level linear.',
       },
       pathTags: ['geometry'],
-      pathOrder: 20,
+      pathOrder: 30,
     },
   },
+  ...ENGLISH_FULL_PARITY_ADDITIONS.map(
+    (definition): LocalizedLearningPagePair => ({
+      key: definition.key,
+      kind: definition.kind,
+      zh: { name: definition.key, path: `/docs/${definition.key}` },
+      en: {
+        name: `en-${definition.key}`,
+        path: `/en/docs/${definition.key}`,
+        heading: definition.heading,
+        title: `${definition.heading} Visualization | ${ENGLISH_SITE_NAME}`,
+        description: definition.description,
+        category: definition.category,
+        iconKey: definition.key,
+        homeGroup: definition.homeGroup,
+        order: definition.order,
+        complexity: definition.complexity,
+        pathTags: definition.pathTags,
+        pathOrder: definition.pathOrder,
+      },
+    }),
+  ),
 ]);
 
 export const ENGLISH_PAGES: readonly EnglishPageMetadata[] = Object.freeze(
@@ -827,10 +835,14 @@ export const ENGLISH_PAGES: readonly EnglishPageMetadata[] = Object.freeze(
 
 export const ENGLISH_CONTENT_PAGES: readonly (
   | LocalizedToolPagePair
+  | LocalizedStructurePagePair
   | LocalizedAlgorithmPagePair
 )[] = Object.freeze(
   LOCALIZED_PAGE_PAIRS.filter(
-    (pair): pair is LocalizedToolPagePair | LocalizedAlgorithmPagePair => pair.kind !== 'home',
+    (
+      pair,
+    ): pair is LocalizedToolPagePair | LocalizedStructurePagePair | LocalizedAlgorithmPagePair =>
+      pair.kind !== 'home',
   ),
 );
 
@@ -966,11 +978,20 @@ export function getEnglishAlgorithmPages(): readonly LocalizedAlgorithmPagePair[
   );
 }
 
+export function getEnglishLearningPages(): readonly LocalizedLearningPagePair[] {
+  return LOCALIZED_PAGE_PAIRS.filter(
+    (pair): pair is LocalizedLearningPagePair =>
+      pair.kind === 'structure' || pair.kind === 'algorithm',
+  );
+}
+
 export function getEnglishHomeSections(): ReadonlyArray<{
   id: EnglishHomeGroupId;
   title: string;
   description: string;
-  pages: ReadonlyArray<LocalizedToolPagePair | LocalizedAlgorithmPagePair>;
+  pages: ReadonlyArray<
+    LocalizedToolPagePair | LocalizedStructurePagePair | LocalizedAlgorithmPagePair
+  >;
 }> {
   return [...HOME_SECTION_DEFINITIONS]
     .sort((left, right) => left.order - right.order)
@@ -989,16 +1010,16 @@ export function getEnglishLearningPaths(): ReadonlyArray<{
   id: EnglishLearningPathId;
   title: string;
   description: string;
-  steps: readonly LocalizedAlgorithmPagePair[];
+  steps: readonly LocalizedLearningPagePair[];
 }> {
-  const algorithms = getEnglishAlgorithmPages();
+  const learningPages = getEnglishLearningPages();
   return [...LEARNING_PATH_DEFINITIONS]
     .sort((left, right) => left.order - right.order)
     .map((path) => ({
       id: path.id,
       title: path.title,
       description: path.description,
-      steps: algorithms
+      steps: learningPages
         .filter((page) => page.en.pathTags.includes(path.id))
         .sort((left, right) => left.en.pathOrder - right.en.pathOrder),
     }))

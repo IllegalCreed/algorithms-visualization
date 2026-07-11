@@ -2,8 +2,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { SuffixArrayTrack } from '@/components/player/types';
+import type { SiteLocale } from '@/i18n/catalog';
 
-const props = defineProps<{ suffixArray: SuffixArrayTrack }>();
+const props = withDefaults(defineProps<{ suffixArray: SuffixArrayTrack; locale?: SiteLocale }>(), {
+  locale: 'zh-CN',
+});
+const english = props.locale === 'en';
 
 const strCells = computed(() => props.suffixArray.s.split('').map((ch, idx) => ({ ch, idx })));
 
@@ -36,15 +40,23 @@ const kNum = (v: number) => (v < 0 ? '∞' : String(v));
       </div>
     </div>
     <div class="sa-badge">
-      {{ isLcp ? 'LCP：相邻后缀最长公共前缀（Kasai）' : '倍增长度 k = ' + suffixArray.k }}
+      {{
+        isLcp
+          ? english
+            ? 'LCP of adjacent suffixes (Kasai)'
+            : 'LCP：相邻后缀最长公共前缀（Kasai）'
+          : (english ? 'Doubling length k = ' : '倍增长度 k = ') + suffixArray.k
+      }}
     </div>
     <div class="sa-table">
       <div class="sa-head">
-        <span class="sa-col">起点</span>
-        <span class="sa-col sa-suffix">后缀</span>
+        <span class="sa-col">{{ english ? 'Start' : '起点' }}</span>
+        <span class="sa-col sa-suffix">{{ english ? 'Suffix' : '后缀' }}</span>
         <span class="sa-col">rank</span>
         <span v-if="isLcp" class="sa-col">LCP↑</span>
-        <span v-else class="sa-col">关键字 (前, 后)</span>
+        <span v-else class="sa-col">{{
+          english ? 'Keys (first, second)' : '关键字 (前, 后)'
+        }}</span>
       </div>
       <div
         v-for="r in rows"

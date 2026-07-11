@@ -1,11 +1,18 @@
 <!-- 哈希表互动组件：拉链法 7 桶阵列 + 散列直达 key%7 + 冲突追加 + 扫链查找 -->
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useHash } from './useHash';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const h = useHash();
 const val = ref(11);
-const status = ref('输入一个数，点「插入」——看它被算进哪个桶。');
+const status = ref(
+  english
+    ? 'Enter a value and insert it to see which bucket its hash selects.'
+    : '输入一个数，点「插入」——看它被算进哪个桶。',
+);
 const lit = ref(-1); // 命中桶
 const cmpAt = ref<[number, number] | null>(null); // 扫链比较中 [桶, 链下标]
 const hotAt = ref<[number, number] | null>(null); // 命中 [桶, 链下标]
@@ -28,7 +35,7 @@ const isHot = (b: number, j: number) =>
   !!hotAt.value && hotAt.value[0] === b && hotAt.value[1] === j;
 const validVal = (): number | null => {
   if (!Number.isInteger(val.value) || val.value < 1 || val.value > 99) {
-    status.value = '请输入 1–99 的整数。';
+    status.value = english ? 'Enter an integer from 1 to 99.' : '请输入 1–99 的整数。';
     return null;
   }
   return val.value;
@@ -43,15 +50,23 @@ const onInsert = async () => {
   const r = h.insert(v); // 同步：查重 / 满 / 入桶
   lit.value = r.bucket;
   if (!r.ok && r.reason === 'dup') {
-    status.value = `hash(${v}) = ${v} % 7 = ${r.bucket}；${v} 已经在 ${r.bucket} 号桶里了。`;
+    status.value = english
+      ? `hash(${v}) = ${v} % 7 = ${r.bucket}; bucket ${r.bucket} already contains ${v}.`
+      : `hash(${v}) = ${v} % 7 = ${r.bucket}；${v} 已经在 ${r.bucket} 号桶里了。`;
   } else if (!r.ok && r.reason === 'full') {
-    status.value = '演示容量到上限（16 个），先重置。';
+    status.value = english
+      ? 'The demo reached its 16-value limit. Reset before adding more.'
+      : '演示容量到上限（16 个），先重置。';
   } else {
     const chain = h.buckets.value[r.bucket];
     enterId.value = chain[chain.length - 1][0];
-    status.value = r.collision
-      ? `hash(${v}) = ${v} % 7 = ${r.bucket}，${r.bucket} 号桶已有元素 → 冲突！追加到链尾，O(1)。`
-      : `hash(${v}) = ${v} % 7 = ${r.bucket}，${r.bucket} 号桶是空的，直接放入，O(1)。`;
+    status.value = english
+      ? r.collision
+        ? `hash(${v}) = ${r.bucket}. A collision appends ${v} to that bucket's chain.`
+        : `hash(${v}) = ${r.bucket}. The empty bucket accepts ${v} directly.`
+      : r.collision
+        ? `hash(${v}) = ${v} % 7 = ${r.bucket}，${r.bucket} 号桶已有元素 → 冲突！追加到链尾，O(1)。`
+        : `hash(${v}) = ${v} % 7 = ${r.bucket}，${r.bucket} 号桶是空的，直接放入，O(1)。`;
   }
   await sleep(900);
   enterId.value = null;
@@ -66,9 +81,13 @@ const onSearch = async () => {
   clearMarks();
   const r = h.search(v); // 同步：found + bucket + steps
   lit.value = r.bucket;
-  status.value = r.found
-    ? `hash(${v}) = ${v} % 7 = ${r.bucket} → 在 ${r.bucket} 号桶第 ${r.steps} 个找到 ${v}！（扫链 ${r.steps} 次）`
-    : `hash(${v}) = ${v} % 7 = ${r.bucket} → ${r.bucket} 号桶里没有 ${v}（找了 ${r.steps} 个），不存在。`;
+  status.value = english
+    ? r.found
+      ? `hash(${v}) = ${r.bucket}; found ${v} after scanning ${r.steps} chain entries.`
+      : `hash(${v}) = ${r.bucket}; ${v} is absent after scanning ${r.steps} chain entries.`
+    : r.found
+      ? `hash(${v}) = ${v} % 7 = ${r.bucket} → 在 ${r.bucket} 号桶第 ${r.steps} 个找到 ${v}！（扫链 ${r.steps} 次）`
+      : `hash(${v}) = ${v} % 7 = ${r.bucket} → ${r.bucket} 号桶里没有 ${v}（找了 ${r.steps} 个），不存在。`;
   for (let j = 0; j < r.steps; j++) {
     cmpAt.value = [r.bucket, j];
     await sleep(560);
@@ -85,7 +104,9 @@ const onReset = () => {
   clearMarks();
   enterId.value = null;
   h.reset();
-  status.value = '已重置 · 1 号桶里 15、8 已经冲突了。输入一个数试试。';
+  status.value = english
+    ? 'Reset complete. Values 15 and 8 already collide in bucket 1.'
+    : '已重置 · 1 号桶里 15、8 已经冲突了。输入一个数试试。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -94,9 +115,13 @@ onUnmounted(clearTimers);
   <div class="hash-viz column center">
     <div class="toolbar row-wrap">
       <input class="val-input" v-model.number="val" type="number" min="1" max="99" />
-      <button class="btn" :disabled="busy" @click="onInsert">插入</button>
-      <button class="btn" :disabled="busy" @click="onSearch">查找</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" :disabled="busy" @click="onInsert">
+        {{ english ? 'Insert' : '插入' }}
+      </button>
+      <button class="btn" :disabled="busy" @click="onSearch">
+        {{ english ? 'Search' : '查找' }}
+      </button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <!-- 画布：7 桶竖排，每桶一条横向链 -->
@@ -111,7 +136,7 @@ onUnmounted(clearTimers);
           <div class="bindex">{{ b }}</div>
           <div class="barrow">→</div>
           <div class="chain">
-            <span v-if="!chain.length" class="empty-slot">空</span>
+            <span v-if="!chain.length" class="empty-slot">{{ english ? 'empty' : '空' }}</span>
             <div
               v-for="(e, j) in chain"
               :key="e[0]"

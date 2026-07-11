@@ -2,12 +2,12 @@
 import CategoryComp from '@/views/Home/Main/Category/Category.vue';
 import Footer from '@/views/Home/Footer/Footer.vue';
 import { useControlHeaderShadow } from '@/views/Home/hooks';
-import { getEnglishAlgorithmPages, LOCALIZED_PAGE_PAIRS } from '@/i18n/catalog';
+import { getEnglishLearningPages, LOCALIZED_PAGE_PAIRS } from '@/i18n/catalog';
 import { getEnglishHomeCategories } from './homeCatalog';
 
 const categories = getEnglishHomeCategories();
 const pageCount = LOCALIZED_PAGE_PAIRS.length;
-const algorithmCount = getEnglishAlgorithmPages().length;
+const learningPageCount = getEnglishLearningPages().length;
 useControlHeaderShadow();
 </script>
 
@@ -35,8 +35,8 @@ useControlHeaderShadow();
     <section id="english-catalog" class="english-catalog" aria-labelledby="catalog-heading">
       <h2 id="catalog-heading">{{ pageCount }} pages, one coherent learning catalog</h2>
       <p>
-        Use the tools first, or jump directly into one of {{ algorithmCount }} translated
-        algorithms.
+        Use the tools first, or jump directly into one of {{ learningPageCount }} translated data
+        structure and algorithm pages.
       </p>
     </section>
     <CategoryComp v-for="category in categories" :key="category.title" :data="category" />

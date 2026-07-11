@@ -1,14 +1,21 @@
 <!-- 并查集互动组件：固定 8 节点 + 父指针箭头 + 合并 union / 查根 find(路径压缩) / 连通? -->
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue';
+import type { SiteLocale } from '@/i18n/catalog';
 import { useUnionFind, UF_SIZE } from './useUnionFind';
 
+const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), { locale: 'zh-CN' });
+const english = props.locale === 'en';
 const uf = useUnionFind();
 // 每个非根节点一根指向 parent 的边（避免 v-for + v-if 同元素）
 const edges = computed(() => uf.parent.value.map((p, i) => ({ i, p })).filter((e) => e.p !== e.i));
 const valA = ref(0);
 const valB = ref(1);
-const status = ref('选两个元素「合并」，或「查根 / 连通?」试试。一开始 8 个元素各自成组。');
+const status = ref(
+  english
+    ? 'Choose two elements to unite, find a root, or test connectivity. Each starts alone.'
+    : '选两个元素「合并」，或「查根 / 连通?」试试。一开始 8 个元素各自成组。',
+);
 const litPath = ref<number[]>([]);
 const litRoot = ref(-1);
 let timers: ReturnType<typeof setTimeout>[] = [];
@@ -39,32 +46,46 @@ const ok = (v: number) => Number.isInteger(v) && v >= 0 && v < UF_SIZE;
 
 const onUnion = () => {
   if (!ok(valA.value) || !ok(valB.value)) {
-    status.value = `请输入 0–${UF_SIZE - 1} 的元素。`;
+    status.value = english
+      ? `Enter elements from 0 through ${UF_SIZE - 1}.`
+      : `请输入 0–${UF_SIZE - 1} 的元素。`;
     return;
   }
   const r = uf.union(valA.value, valB.value);
-  status.value = r.merged
-    ? `合并 ${valA.value} 和 ${valB.value}：把根 ${r.child} 指向根 ${r.root}，两组并成一组。`
-    : `${valA.value} 和 ${valB.value} 已经在同一组，无需合并。`;
+  status.value = english
+    ? r.merged
+      ? `Unite ${valA.value} and ${valB.value}: root ${r.child} now points to root ${r.root}.`
+      : `${valA.value} and ${valB.value} already belong to the same set.`
+    : r.merged
+      ? `合并 ${valA.value} 和 ${valB.value}：把根 ${r.child} 指向根 ${r.root}，两组并成一组。`
+      : `${valA.value} 和 ${valB.value} 已经在同一组，无需合并。`;
   flash([], r.root);
 };
 const onFind = () => {
   if (!ok(valA.value)) return;
   const fr = uf.find(valA.value);
   if (fr.root === valA.value) {
-    status.value = `查根 ${valA.value}：它本身就是根（走 0 步）。`;
+    status.value = english
+      ? `${valA.value} is already a root; the path has zero edges.`
+      : `查根 ${valA.value}：它本身就是根（走 0 步）。`;
   } else {
     uf.compress(valA.value); // 同步路径压缩
-    status.value = `查根 ${valA.value}：走 ${fr.path.length - 1} 步到根 ${fr.root}；路径压缩——把沿途节点直接指向根 ${fr.root}，下次一步到位。`;
+    status.value = english
+      ? `Find ${valA.value}: reach root ${fr.root} in ${fr.path.length - 1} steps, then compress the path directly to it.`
+      : `查根 ${valA.value}：走 ${fr.path.length - 1} 步到根 ${fr.root}；路径压缩——把沿途节点直接指向根 ${fr.root}，下次一步到位。`;
   }
   flash(fr.path, fr.root);
 };
 const onConnected = () => {
   if (!ok(valA.value) || !ok(valB.value)) return;
   const c = uf.connected(valA.value, valB.value);
-  status.value = c
-    ? `连通？${valA.value} 和 ${valB.value} 同根，在同一组——连通。`
-    : `连通？${valA.value} 和 ${valB.value} 根不同，不在同一组——不连通。`;
+  status.value = english
+    ? c
+      ? `${valA.value} and ${valB.value} have the same root, so they are connected.`
+      : `${valA.value} and ${valB.value} have different roots, so they are disconnected.`
+    : c
+      ? `连通？${valA.value} 和 ${valB.value} 同根，在同一组——连通。`
+      : `连通？${valA.value} 和 ${valB.value} 根不同，不在同一组——不连通。`;
   flash([...uf.find(valA.value).path, ...uf.find(valB.value).path], -1);
 };
 const onReset = () => {
@@ -72,7 +93,9 @@ const onReset = () => {
   litPath.value = [];
   litRoot.value = -1;
   uf.reset();
-  status.value = '已重置 · 8 个元素各自成组。';
+  status.value = english
+    ? 'Reset complete. All eight elements are separate.'
+    : '已重置 · 8 个元素各自成组。';
 };
 onUnmounted(clearTimers);
 </script>
@@ -82,10 +105,10 @@ onUnmounted(clearTimers);
     <div class="toolbar row-wrap">
       <input class="val-input" v-model.number="valA" type="number" min="0" :max="UF_SIZE - 1" />
       <input class="val-input" v-model.number="valB" type="number" min="0" :max="UF_SIZE - 1" />
-      <button class="btn" @click="onUnion">合并</button>
-      <button class="btn" @click="onFind">查根</button>
-      <button class="btn" @click="onConnected">连通?</button>
-      <button class="btn" @click="onReset">重置</button>
+      <button class="btn" @click="onUnion">{{ english ? 'Union' : '合并' }}</button>
+      <button class="btn" @click="onFind">{{ english ? 'Find root' : '查根' }}</button>
+      <button class="btn" @click="onConnected">{{ english ? 'Connected?' : '连通?' }}</button>
+      <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
       <div class="lane">
@@ -120,7 +143,8 @@ onUnmounted(clearTimers);
       </div>
     </div>
     <p class="readout">
-      当前 <b>{{ uf.groupCount.value }}</b> 个组（连通分量）
+      {{ english ? 'Current components:' : '当前' }} <b>{{ uf.groupCount.value }}</b>
+      {{ english ? '' : '个组（连通分量）' }}
     </p>
     <p class="status">{{ status }}</p>
   </div>
