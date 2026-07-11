@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 74%
-> Blocked by: Owner 对固定 smoke campaign 的明确授权
-> Next action: Owner 明确授权固定 campaign `marketing-ops-t3c-smoke-127` 后执行唯一 GitHub Release create/read/delete/tag-cleanup smoke
+> Progress: 76%
+> Blocked by: none
+> Next action: 开始 T3-D，先实现微博 Free adapter 的 typed contract、健康 gate 与无写测试，再依次推进 Bluesky、DEV、Mastodon
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -17,17 +17,17 @@
 
 ## T0 文档用例
 
-| Case ID            | 层级 | 检查对象                     | 预期                                                                                                                      |
-| ------------------ | ---- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                                          |
-| TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                                                   |
-| TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力                         |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 in-progress/74%、T3-C 无写 contract 完成且真实 smoke 等待固定 campaign 授权；不把 health ready 写成已启用实发 |
-| TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过                                      |
-| TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                                                     |
-| TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                                                 |
-| TC-DOC-AUTO-127-08 | docs | plan 状态                    | T0-T3-C 无写部分已完成，但 activation、真实 smoke、其他 adapter 与完整调度未完成；四文档不得误标 verified                 |
-| TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具                                     |
+| Case ID            | 层级 | 检查对象                     | 预期                                                                                                                |
+| ------------------ | ---- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                                    |
+| TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                                             |
+| TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力                   |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 in-progress/76%、T3-C 真实 smoke 已清理完成且 GitHub ready/enabled；不把仓库 traffic 写成 campaign 归因 |
+| TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过                                |
+| TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                                               |
+| TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                                           |
+| TC-DOC-AUTO-127-08 | docs | plan 状态                    | T0-T3-C 无写部分已完成，但 activation、真实 smoke、其他 adapter 与完整调度未完成；四文档不得误标 verified           |
+| TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具                               |
 
 前六个事实 Case（01..05、09）登记到三份全局测试索引；格式、diff 和当前实施状态只保留在本 plan。
 
@@ -174,6 +174,13 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 - 固定 gate：`media=[]`、`replies.mode=off`；Owner 必须在当前任务明确授权上述 campaign 的 create/read/delete/tag-cleanup。
 - 固定顺序：health -> Release/tag-ref 均不存在 -> setup activation -> renderer/package -> publish receipt -> status/feedback/report -> delete -> receipt deleted -> Release/tag-ref 均不存在。任何未知结果停止并先查询，不盲重试。
 
+### T3-C 真实 smoke 证据
+
+- Owner 在当前任务明确授权 campaign `marketing-ops-t3c-smoke-127` 的 create/read/delete/tag-cleanup。
+- Release ID `352517542`、URL `https://github.com/IllegalCreed/algorithms-visualization/releases/tag/marketing/marketing-ops-t3c-smoke-127`；published receipt 与 `github-release@1.2.0` 对拍通过。
+- status complete；反馈 0 条、无分页；1h report available，scope/attribution 为 `repository-14d` / `not-attributable-to-campaign`。未保留反馈正文或仓库流量明细。
+- `delete_post` 返回 deleted，receipt 为 deleted；Release 查询 not found，tag ref 查询 404，复跑只读 smoke 同时返回 `releaseFound=false` 与 `tagRefFound=false`。
+
 ## T3-D-T5 运行时用例框架
 
 | 层级             | 范围                                                                         |
@@ -224,7 +231,7 @@ git diff --check
 | TC-AUTO-GHOBS/GHISSUE-127-\_   | passed  | 2026-07-11 | strict Release/traffic/Issue、分页、错误与归因边界通过         |
 | TC-AUTO-GHSTORE/GHOPS-127-\_   | passed  | 2026-07-11 | receipt 安全查询/状态与 MCP status/feedback/report/delete 通过 |
 | TC-AUTO-GHSMOKE-127-01         | passed  | 2026-07-11 | 固定预案、Release/tag 所有权清理与真实只读预查通过             |
-| TC-AUTO-GHSMOKE-127-02         | planned | -          | 外部 create/delete 等待 matching campaign 明确授权             |
+| TC-AUTO-GHSMOKE-127-02         | passed  | 2026-07-11 | Owner 授权的 create/read/delete/tag-cleanup 闭环及双侧复查通过 |
 | T3-D-T5 运行时 Case            | planned | -          | 其余渠道、collector 与真实 smoke 后续展开                      |
 
 ## 变更历史
@@ -245,3 +252,4 @@ git diff --check
 - 2026-07-11：T3-B 初始四套件因目标模块缺失失败；随后 18 个定向断言转绿。空配置复现未登录 CLI 无 HTTP 401 后，再以 2 项 red/green 补入固定 `gh auth status --active` 前置检查；最终 plugin 16 文件 / 61 用例、coverage、verify、STDIO 与只读 smoke 全绿。activation 仍不存在、adapter disabled、零真实写入，C127 转 68%，下一步 T3-C。
 - 2026-07-11：T3-C 展开二十二个精确 Case；官方能力固定为 Release reactions、Issue comments 与不可归因的 14 天仓库 traffic。真实 smoke 拆为零副作用预案和获授权后的 create/read/delete 证据，避免把“继续开发”误当成某条外部内容的发布授权。
 - 2026-07-11：T3-C 初始 5 文件 red（2 个缺失模块、7 失败/2 通过）后实现到 21 文件 / 93 用例全绿；coverage 与 verify 通过。审计进一步发现 Release 删除不会替代 Git ref 清理，以 2 文件 5 项 red/green 补入 tag 所有权 gate 与 cleanup。扩展只读 smoke 确认 traffic/Issues 可读、目标 Release/tag 均不存在；activation 仍缺失、零真实写入，C127 转 74%。
+- 2026-07-11：Owner 明确授权后执行 TC-AUTO-GHSMOKE-127-02；临时 Release `352517542` 完成发布、读取、零反馈采集、不可归因报告与删除，receipt、Release 和 tag ref 复查一致。C127 转 76%，下一步 T3-D。

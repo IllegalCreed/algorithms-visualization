@@ -8,7 +8,7 @@
 
 项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。当前工程主线为 C127 宣传自动化 T3。
 
-当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 T3-C 无写 contract 与固定 smoke 预案已完成并达到 74%，下一步在 matching campaign 明确授权后执行一次 GitHub Release create/read/delete/tag-cleanup smoke，第三方统计继续暂缓。
+当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 T3-C 已完成 Owner 授权的 GitHub Release create/read/delete/tag-cleanup 真实 smoke 并达到 76%，下一步按微博 Free、Bluesky、DEV、Mastodon 推进 T3-D，第三方统计继续暂缓。
 
 事实优先级保持不变：当前源码与本地测试结果 > 最新 plan / `docs/plans/completion-backlog.md` > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md` > 本路线图。
 
@@ -22,26 +22,27 @@
 | 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
 | 测试基线 | 2026-07-11 本地现状：299 个 Vitest 文件 / 2131 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 118 条 Playwright e2e 通过                     |
 | 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
-| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；C127 T3-C 已接 GitHub collector、运行时查询/撤回和 tag cleanup；当前 adapter disabled、零发布   |
+| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；C127 GitHub adapter ready/enabled，真实 smoke 已读取并清理 Release、receipt 与 owned tag        |
 
 ## 维护队列
 
-| 优先级 | 方向                 | 状态     | 下一步                                                                                                                    |
-| ------ | -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| P0     | 保持门禁与线上可用   | ongoing  | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                         |
-| P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                          |
-| P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                   |
-| P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                        |
-| P1     | 宣传自动化           | ongoing  | C127 T3-C 无写部分达到 74%；下一步固定 GitHub smoke，真实 create/delete 仍需 matching campaign 明确授权                   |
-| P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁 |
-| P2     | 免费索引与需求信号   | pending  | 190 页 sitemap 已稳定，可按 C124 清单提交 Search Console/Bing Webmaster Tools；不引入 tracker                             |
-| P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131             |
-| P3     | 新算法或新交互       | parked   | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进         |
+| 优先级 | 方向                 | 状态     | 下一步                                                                                                                     |
+| ------ | -------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
+| P0     | 保持门禁与线上可用   | ongoing  | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                          |
+| P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                           |
+| P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                    |
+| P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                         |
+| P1     | 宣传自动化           | ongoing  | C127 T3-C 真实 smoke 完成并达到 76%；下一步 T3-D，先做微博 Free typed adapter 与无写 contract，再推进 Bluesky/DEV/Mastodon |
+| P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁  |
+| P2     | 免费索引与需求信号   | pending  | 190 页 sitemap 已稳定，可按 C124 清单提交 Search Console/Bing Webmaster Tools；不引入 tracker                              |
+| P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131              |
+| P3     | 新算法或新交互       | parked   | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进          |
 
 ## 近期决策记录
 
 | 日期       | 记录                                                                                                                                        |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-11 | C127 T3-C 授权 smoke：Release `352517542` 完成 create/read/report/delete；receipt deleted，Release/tag 双侧复查不存在，GitHub 保持 enabled  |
 | 2026-07-11 | C132 补齐中文 Docs 侧栏“学习工具”两项；首页仍为 9 类/92 项，双语侧栏为 10 组/94 项；2131 Vitest、118 L5、190 页构建与 720/900/1440 视觉全绿 |
 | 2026-07-11 | C127 T3-C：plugin `60feaff`；GitHub collector、MCP 查询撤回与 Release/tag 清理完成；目标均不存在、零写入                                    |
 | 2026-07-11 | C127 T3-B：plugin `98a9dfc`；固定 GitHub CLI、只读健康、0600 activation 与惰性 runtime 完成；health ready 但 adapter disabled、零写入       |

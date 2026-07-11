@@ -56,7 +56,7 @@
 | marketing / channel inventory | TC-DOC-AUTO-127-01            | 十五渠道集合完整且唯一                              | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / official evidence | TC-DOC-AUTO-127-02            | 发布、监测、回复、准入与成本有官方依据              | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / capability tiers  | TC-DOC-AUTO-127-03            | 免费个人、后备与硬禁用边界明确                      | docs     | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory      | TC-DOC-AUTO-127-04            | C127 in-progress/74%、T3-C 无写完成且 smoke 待授权  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs / automation memory      | TC-DOC-AUTO-127-04            | C127 in-progress/76%、T3-C smoke 已清理且不可误归因 | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / credential safety | TC-DOC-AUTO-127-05            | 官方授权、凭据隔离与失败关闭红线完整                | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / MCP boundary      | TC-DOC-AUTO-127-09            | Codex 与凭据/Profile 的工具边界完整                 | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / campaign spec     | TC-AUTO-SPEC-127-01..04       | schema、规范化、非法输入与双语内容合同              | L3       | `scripts/marketing/spec.spec.ts`                           |
@@ -85,7 +85,7 @@
 | marketing-ops / GitHub Issue  | TC-AUTO-GHISSUE-127-01..06    | Issue create/comments、远端幂等与 reply=false       | L3       | personal plugin GitHub Issue/CLI specs                     |
 | marketing-ops / receipt ops   | TC-AUTO-GHSTORE-127-01..02    | postRef 查询、原子 deleted 与文件损坏失败关闭       | L3       | personal plugin receipt-store/failure specs                |
 | marketing-ops / GitHub ops    | TC-AUTO-GHOPS-127-01..06      | MCP status/feedback/report/delete 与输出脱敏        | MCP      | personal plugin local-operations + STDIO smoke             |
-| marketing-ops / GitHub smoke  | TC-AUTO-GHSMOKE-127-01..02    | 固定预案/只读预查通过；真实闭环待 matching 授权     | smoke    | personal plugin specs + readonly/real smoke                |
+| marketing-ops / GitHub smoke  | TC-AUTO-GHSMOKE-127-01..02    | 固定预案、只读预查与授权真实清理闭环均通过          | smoke    | personal plugin specs + readonly/real smoke                |
 
 ---
 

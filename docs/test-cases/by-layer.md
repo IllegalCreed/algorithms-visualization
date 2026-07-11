@@ -50,7 +50,7 @@
 | docs     | TC-DOC-AUTO-127-01            | 十五渠道集合完整且唯一                              | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-02            | 发布、监测、回复、准入与成本有官方依据              | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-03            | 免费个人、后备与硬禁用边界明确                      | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-04            | C127 in-progress/74%、T3-C 无写完成且 smoke 待授权  | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs     | TC-DOC-AUTO-127-04            | C127 in-progress/76%、T3-C smoke 已清理且不可误归因 | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | docs     | TC-DOC-AUTO-127-05            | 官方授权、凭据隔离与失败关闭红线完整                | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-09            | Codex 与凭据/Profile 的 MCP 边界完整                | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | L3       | TC-AUTO-SPEC-127-01..04       | schema、规范化、非法输入与双语内容合同              | `scripts/marketing/spec.spec.ts`                           |
@@ -79,7 +79,7 @@
 | L3       | TC-AUTO-GHISSUE-127-01..06    | Issue create/comments、远端幂等与 reply=false       | personal plugin GitHub Issue/CLI specs                     |
 | L3       | TC-AUTO-GHSTORE-127-01..02    | receipt 查询、并发原子性、deleted 与损坏失败关闭    | personal plugin receipt-store/failure specs                |
 | MCP      | TC-AUTO-GHOPS-127-01..06      | status/feedback/report/delete 与输出脱敏            | personal plugin local-operations + STDIO smoke             |
-| smoke    | TC-AUTO-GHSMOKE-127-01..02    | 固定预案/只读预查通过；真实写闭环待 matching 授权   | personal plugin specs + readonly/real smoke                |
+| smoke    | TC-AUTO-GHSMOKE-127-01..02    | 固定预案、只读预查与授权真实清理闭环均通过          | personal plugin specs + readonly/real smoke                |
 
 ## 2026-07-11 多语言十页试点增量（C-20260711-126，部分 superseded）
 

@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 74%
-> Blocked by: Owner 对固定 smoke campaign 的明确授权
-> Next action: Owner 明确授权固定 campaign `marketing-ops-t3c-smoke-127` 后执行唯一 GitHub Release create/read/delete/tag-cleanup smoke
+> Progress: 76%
+> Blocked by: none
+> Next action: 开始 T3-D，先实现微博 Free adapter 的 typed contract、健康 gate 与无写测试，再依次推进 Bluesky、DEV、Mastodon
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -162,7 +162,7 @@ get_campaign_report(campaignId, window)
 - secret 不允许出现在 argv、环境变量、JSON、日志或 MCP 参数中；隐藏输入直接写入 macOS Keychain，程序不提供列举或导出 secret 的能力。
 - `marketing-ops status` 与 `marketing-ops doctor` 只显示渠道、脱敏账号别名、健康状态和可执行下一步，不显示 Keychain key、Profile 路径、token 或 Cookie。
 - 接入完成后的正常体验是 Owner 在 Codex 中给 campaign 提示词；Codex 负责 spec、MCP 调用和结果归纳，Owner 不需要编辑 JSON、拼 UTM 或记忆 CLI 参数。
-- T2 已在本机 personal plugin 中实现上述向导骨架、精确七工具 stdio server 与安全存储边界；T3-C 已接入 GitHub typed CLI、collector、运行时查询/撤回与 `setup github` activation gate，但当前 activation 缺失、adapter disabled。其他真实 OAuth/API adapter 仍逐渠道接入，未接入渠道继续失败关闭。
+- T2 已在本机 personal plugin 中实现上述向导骨架、精确七工具 stdio server 与安全存储边界；T3-C 已接入 GitHub typed CLI、collector、运行时查询/撤回与 `setup github` activation gate。GitHub activation 已通过 Owner 授权的固定 smoke 建立并保持 enabled，其他真实 OAuth/API adapter 仍逐渠道接入，未接入渠道继续失败关闭。
 
 ## RPA adapter
 
@@ -235,6 +235,8 @@ get_campaign_report(campaignId, window)
 6. 用同一 campaign 的明确授权调用 `delete_post`；对拍 marker 后删除 Release 和 adapter-owned Git tag，并把 receipt 原子标为 deleted。
 7. 只读复查 Release 与 tag 均不存在；证据只保留公开 ID/URL、聚合状态和删除结果，不保留反馈正文、流量明细或 CLI stderr。
 
+执行结果（2026-07-11）：上述顺序完整通过。临时 Release ID 为 `352517542`，公开 URL 为 `https://github.com/IllegalCreed/algorithms-visualization/releases/tag/marketing/marketing-ops-t3c-smoke-127`；反馈为零条，报告正确标记 `repository-14d` / `not-attributable-to-campaign`。`delete_post` 返回 deleted，receipt 转 deleted，Release 查询为 not found，tag ref 查询为 404；未创建评论、回复或 Issue。
+
 ## 风险与处理
 
 - **平台规则变化**：官方依据和 adapter version 入档；403/政策警告自动停用渠道，等待复审。
@@ -258,3 +260,4 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：T3-A 将契约升到 v2 并桥接公开 renderer package；建立共享 adapter 错误/能力/receipt 合同、GitHub Release typed fake client 和预检优先 dispatch，默认 server 继续零 live client、零真实写入。
 - 2026-07-11：T3-B 建立固定 `gh auth status` / `gh api` typed transport、stdin 正文、只读账号/仓库权限健康、0600 非秘密 activation 和惰性 runtime；本机只读 smoke 通过，adapter 保持 disabled，零真实写入。
 - 2026-07-11：T3-C 建立 Release reactions、Issue comments、仓库 14 天 traffic、receipt 查询/删除与 MCP 查询/报告/撤回；审计补上 Release 删除后的 Git tag 所有权检查与清理。固定 smoke 预案已冻结，只读确认目标 Release/tag 均不存在；activation 仍缺失，等待 matching campaign 明确授权。
+- 2026-07-11：Owner 授权的固定 GitHub smoke 完整通过；activation 已启用并保留，Release `352517542` 完成 create/read/report/delete，receipt、Release 与 owned tag 三侧清理一致。T3-C 完成，下一步 T3-D。
