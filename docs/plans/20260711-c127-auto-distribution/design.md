@@ -6,13 +6,13 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 62%
+> Progress: 68%
 > Blocked by: none
-> Next action: T3-B GitHub CLI typed client、授权健康检查与 mock transport 红测
+> Next action: T3-C GitHub Release 低风险 write/read/delete smoke 证据与 Issue/collector contract
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -136,7 +136,7 @@ personal plugin: marketing-ops/
 - adapter 只依赖逐平台 typed client，例如 GitHub 的 `findReleaseByTag/createRelease/deleteRelease`；不得接收通用 command、args、selector、path 或任意 HTTP request。
 - 统一错误合同区分 `REAUTH_REQUIRED`、`PERMISSION_DENIED`、`RATE_LIMITED`、`TEMPORARY_FAILURE`、`UNKNOWN_RESULT` 与 `IDEMPOTENCY_CONFLICT`。提交后结果未知时必须先按稳定外部键查询，不能盲重试。
 - `all-or-none` 只承诺写入前的全渠道预检原子性；MCP 必须收到显式渠道集合及一一对应的完整 package，无法证明全集的 `all-authorized` 调用失败关闭。跨平台写入开始后不存在分布式事务，不把后续平台失败伪装成已回滚。
-- GitHub Release 使用 `marketing/<campaignId>` 稳定 tag 与公开 hash marker 实现远端幂等。T3-A 仅注入 typed fake client；live `gh` client、授权健康与显式 enable gate 由 T3-B 完成。
+- GitHub Release 使用 `marketing/<campaignId>` 稳定 tag 与公开 hash marker 实现远端幂等。T3-B 已实现固定 `gh auth status` / `gh api` typed client、只读授权健康与显式 enable gate；健康 ready 与 adapter enabled 分开建模，每次注册前重新检查健康。
 
 ## MCP 工具边界
 
@@ -161,7 +161,7 @@ get_campaign_report(campaignId, window)
 - secret 不允许出现在 argv、环境变量、JSON、日志或 MCP 参数中；隐藏输入直接写入 macOS Keychain，程序不提供列举或导出 secret 的能力。
 - `marketing-ops status` 与 `marketing-ops doctor` 只显示渠道、脱敏账号别名、健康状态和可执行下一步，不显示 Keychain key、Profile 路径、token 或 Cookie。
 - 接入完成后的正常体验是 Owner 在 Codex 中给 campaign 提示词；Codex 负责 spec、MCP 调用和结果归纳，Owner 不需要编辑 JSON、拼 UTM 或记忆 CLI 参数。
-- T2 已在本机 personal plugin 中实现上述向导骨架、精确七工具 stdio server 与安全存储边界；真实 OAuth/API adapter 从 T3 逐渠道接入，未接入渠道继续失败关闭。
+- T2 已在本机 personal plugin 中实现上述向导骨架、精确七工具 stdio server 与安全存储边界；T3-B 已接入 GitHub typed CLI 与 `setup github` activation，但当前 activation 缺失、adapter disabled。其他真实 OAuth/API adapter 仍逐渠道接入，未接入渠道继续失败关闭。
 
 ## RPA adapter
 
@@ -233,3 +233,4 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：C131 verified 后解除顺序阻塞；本设计重新成为当前实施入口，下一步 T2。
 - 2026-07-11：T2 按本设计建立公开 MCP contract 与本地 `marketing-ops` personal plugin；七工具、Keychain/Profile、队列、receipt、stdio smoke 和低摩擦 CLI 已验证，真实渠道 adapter 与授权留到 T3。
 - 2026-07-11：T3-A 将契约升到 v2 并桥接公开 renderer package；建立共享 adapter 错误/能力/receipt 合同、GitHub Release typed fake client 和预检优先 dispatch，默认 server 继续零 live client、零真实写入。
+- 2026-07-11：T3-B 建立固定 `gh auth status` / `gh api` typed transport、stdin 正文、只读账号/仓库权限健康、0600 非秘密 activation 和惰性 runtime；本机只读 smoke 通过，adapter 保持 disabled，零真实写入。
