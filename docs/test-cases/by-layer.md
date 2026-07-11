@@ -7,7 +7,7 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case、C-127 六个渠道自动化设计 Case、十九个 T1、二十个 T2、二十个 T3-A 与十六个 T3-B Case、C130 三十七个英文扩容 Case与 C131 四十六个全量英文对齐 Case。历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case、C-127 六个渠道自动化设计 Case、十九个 T1、二十个 T2、二十个 T3-A、十六个 T3-B 与二十二个 T3-C Case、C130 三十七个英文扩容 Case与 C131 四十六个全量英文对齐 Case。历史分层总数未做全量重算。
 
 ## 2026-07-11 英文目录全量对齐（C-20260711-131）
 
@@ -36,14 +36,14 @@
 | L5    | TC-E2E-I18N-130-01..05           | 深链、工具/轨道、切换、搜索/播放器与 900px 响应式      | `e2e/i18n.e2e.ts`                                  |
 | docs  | TC-I18N-CONTENT-130-01..03       | 二十页正文、术语和内部链接内容 QA                      | English SFC + style guide                          |
 
-## 2026-07-11 渠道自动化 T0-T3B 增量（C-20260711-127）
+## 2026-07-11 渠道自动化 T0-T3C 增量（C-20260711-127）
 
 | 层级     | Case ID                       | 标题                                                | 自动化路径                                                 |
 | -------- | ----------------------------- | --------------------------------------------------- | ---------------------------------------------------------- |
 | docs     | TC-DOC-AUTO-127-01            | 十五渠道集合完整且唯一                              | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-02            | 发布、监测、回复、准入与成本有官方依据              | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-03            | 免费个人、后备与硬禁用边界明确                      | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-04            | C127 in-progress/68%、下一步 T3-C 与记忆一致        | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs     | TC-DOC-AUTO-127-04            | C127 in-progress/74%、T3-C 无写完成且 smoke 待授权  | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | docs     | TC-DOC-AUTO-127-05            | 官方授权、凭据隔离与失败关闭红线完整                | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-09            | Codex 与凭据/Profile 的 MCP 边界完整                | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | L3       | TC-AUTO-SPEC-127-01..04       | schema、规范化、非法输入与双语内容合同              | `scripts/marketing/spec.spec.ts`                           |
@@ -68,6 +68,11 @@
 | L3       | TC-AUTO-GHAUTH-127-01..05     | CLI、账号、仓库权限健康分类与公开输出脱敏           | personal plugin github-cli specs + CLI/STDIO smoke         |
 | L3       | TC-AUTO-ACTIVATION-127-01..03 | 默认关闭、0600 显式启用与损坏/错配失败关闭          | personal plugin `src/github-channel.spec.ts`               |
 | MCP      | TC-AUTO-RUNTIME-127-01        | activation + fresh health 的惰性 adapter 注入       | personal plugin local-runtime spec + STDIO smoke           |
+| L3/smoke | TC-AUTO-GHOBS-127-01..06      | Release/reactions、仓库 traffic、错误与归因边界     | personal plugin observability/CLI specs + readonly smoke   |
+| L3       | TC-AUTO-GHISSUE-127-01..06    | Issue create/comments、远端幂等与 reply=false       | personal plugin GitHub Issue/CLI specs                     |
+| L3       | TC-AUTO-GHSTORE-127-01..02    | receipt 查询、并发原子性、deleted 与损坏失败关闭    | personal plugin receipt-store/failure specs                |
+| MCP      | TC-AUTO-GHOPS-127-01..06      | status/feedback/report/delete 与输出脱敏            | personal plugin local-operations + STDIO smoke             |
+| smoke    | TC-AUTO-GHSMOKE-127-01..02    | 固定预案/只读预查通过；真实写闭环待 matching 授权   | personal plugin specs + readonly/real smoke                |
 
 ## 2026-07-11 多语言十页试点增量（C-20260711-126，部分 superseded）
 

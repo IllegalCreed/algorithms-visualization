@@ -6,13 +6,13 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 68%
-> Blocked by: none
-> Next action: T3-C GitHub Release 低风险 write/read/delete smoke 证据与 Issue/collector contract
+> Progress: 74%
+> Blocked by: Owner 对固定 smoke campaign 的明确授权
+> Next action: Owner 明确授权固定 campaign `marketing-ops-t3c-smoke-127` 后执行唯一 GitHub Release create/read/delete/tag-cleanup smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -136,7 +136,8 @@ personal plugin: marketing-ops/
 - adapter 只依赖逐平台 typed client，例如 GitHub 的 `findReleaseByTag/createRelease/deleteRelease`；不得接收通用 command、args、selector、path 或任意 HTTP request。
 - 统一错误合同区分 `REAUTH_REQUIRED`、`PERMISSION_DENIED`、`RATE_LIMITED`、`TEMPORARY_FAILURE`、`UNKNOWN_RESULT` 与 `IDEMPOTENCY_CONFLICT`。提交后结果未知时必须先按稳定外部键查询，不能盲重试。
 - `all-or-none` 只承诺写入前的全渠道预检原子性；MCP 必须收到显式渠道集合及一一对应的完整 package，无法证明全集的 `all-authorized` 调用失败关闭。跨平台写入开始后不存在分布式事务，不把后续平台失败伪装成已回滚。
-- GitHub Release 使用 `marketing/<campaignId>` 稳定 tag 与公开 hash marker 实现远端幂等。T3-B 已实现固定 `gh auth status` / `gh api` typed client、只读授权健康与显式 enable gate；健康 ready 与 adapter enabled 分开建模，每次注册前重新检查健康。
+- GitHub Release 使用保留命名空间 `marketing/<campaignId>` 与公开 hash marker 实现远端幂等。T3-C 发布前同时查询 Release 和 Git ref：同 marker Release 可复用，只有 tag 而无可证明归属的 Release 时拒绝覆盖。删除前再次对拍 receipt/marker，先删 Release 再删本工具拥有的 tag；任一步未知都保留本地 published 状态供安全重试。依据是 GitHub 将 [Release 删除](https://docs.github.com/en/rest/releases/releases?apiVersion=2026-03-10#delete-a-release) 与 [Git reference 删除](https://docs.github.com/en/rest/git/refs?apiVersion=2026-03-10#delete-a-reference) 定义为两个独立端点。
+- T3-B 已实现固定 `gh auth status` / `gh api` typed client、只读授权健康与显式 enable gate；T3-C 在同一固定命令面增加 Release detail/reactions、仓库 traffic、Issue/comments 和 tag ref get/delete。健康 ready 与 adapter enabled 分开建模，每次读写操作都重新检查 activation 与健康。
 
 ## MCP 工具边界
 
@@ -161,7 +162,7 @@ get_campaign_report(campaignId, window)
 - secret 不允许出现在 argv、环境变量、JSON、日志或 MCP 参数中；隐藏输入直接写入 macOS Keychain，程序不提供列举或导出 secret 的能力。
 - `marketing-ops status` 与 `marketing-ops doctor` 只显示渠道、脱敏账号别名、健康状态和可执行下一步，不显示 Keychain key、Profile 路径、token 或 Cookie。
 - 接入完成后的正常体验是 Owner 在 Codex 中给 campaign 提示词；Codex 负责 spec、MCP 调用和结果归纳，Owner 不需要编辑 JSON、拼 UTM 或记忆 CLI 参数。
-- T2 已在本机 personal plugin 中实现上述向导骨架、精确七工具 stdio server 与安全存储边界；T3-B 已接入 GitHub typed CLI 与 `setup github` activation，但当前 activation 缺失、adapter disabled。其他真实 OAuth/API adapter 仍逐渠道接入，未接入渠道继续失败关闭。
+- T2 已在本机 personal plugin 中实现上述向导骨架、精确七工具 stdio server 与安全存储边界；T3-C 已接入 GitHub typed CLI、collector、运行时查询/撤回与 `setup github` activation gate，但当前 activation 缺失、adapter disabled。其他真实 OAuth/API adapter 仍逐渠道接入，未接入渠道继续失败关闭。
 
 ## RPA adapter
 
@@ -212,6 +213,28 @@ get_campaign_report(campaignId, window)
 - 真实 smoke：每个启用渠道先以低风险内容执行一次发布、读取、可用时删除；记录真实 URL 和撤回结果，但不把 token 写入证据。
 - C128：对真实 campaign 做 1h/48h/7d collector 与报告验收。
 
+### T3-C 固定 GitHub smoke 预案
+
+| 字段        | 固定值                                                                                                                                                         |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| repository  | `IllegalCreed/algorithms-visualization`                                                                                                                        |
+| campaign ID | `marketing-ops-t3c-smoke-127`                                                                                                                                  |
+| tag         | `marketing/marketing-ops-t3c-smoke-127`                                                                                                                        |
+| target URL  | `https://algo.illegalscreed.cn/`，UTM campaign 固定为 `c127-t3c-smoke`                                                                                         |
+| 中文        | 标题“C127 GitHub 自动化临时验证”；正文说明仅验证发布、读取、反馈采集和撤回链路，完成后立即删除；CTA“打开算法可视化”                                            |
+| English     | Title “Temporary C127 GitHub automation check”; body states it only verifies publish/read/feedback/delete and will be removed; CTA “Open Algorithm Visualizer” |
+| media/reply | `media=[]`、`replies.mode=off`，避免未解析素材和自动回复                                                                                                       |
+
+执行顺序固定为：
+
+1. 只读确认 health ready，目标 Release 与 `refs/tags/marketing/marketing-ops-t3c-smoke-127` 均不存在。
+2. Owner 在当前任务明确授权该 campaign 的一次 create/read/delete/tag-cleanup；普通“继续开发”不算授权。
+3. 运行一次本地 `setup github` 写入非秘密 activation，再由公开 renderer 生成固定双语 package 和幂等键。
+4. 调用 `publish_campaign`，只接受持久化 receipt；结果未知时按 tag 查询，不盲重试。
+5. 调用 status、Release detail/reactions、campaign report；traffic 只能标为 `repository-14d` / `not-attributable-to-campaign`。
+6. 用同一 campaign 的明确授权调用 `delete_post`；对拍 marker 后删除 Release 和 adapter-owned Git tag，并把 receipt 原子标为 deleted。
+7. 只读复查 Release 与 tag 均不存在；证据只保留公开 ID/URL、聚合状态和删除结果，不保留反馈正文、流量明细或 CLI stderr。
+
 ## 风险与处理
 
 - **平台规则变化**：官方依据和 adapter version 入档；403/政策警告自动停用渠道，等待复审。
@@ -234,3 +257,4 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：T2 按本设计建立公开 MCP contract 与本地 `marketing-ops` personal plugin；七工具、Keychain/Profile、队列、receipt、stdio smoke 和低摩擦 CLI 已验证，真实渠道 adapter 与授权留到 T3。
 - 2026-07-11：T3-A 将契约升到 v2 并桥接公开 renderer package；建立共享 adapter 错误/能力/receipt 合同、GitHub Release typed fake client 和预检优先 dispatch，默认 server 继续零 live client、零真实写入。
 - 2026-07-11：T3-B 建立固定 `gh auth status` / `gh api` typed transport、stdin 正文、只读账号/仓库权限健康、0600 非秘密 activation 和惰性 runtime；本机只读 smoke 通过，adapter 保持 disabled，零真实写入。
+- 2026-07-11：T3-C 建立 Release reactions、Issue comments、仓库 14 天 traffic、receipt 查询/删除与 MCP 查询/报告/撤回；审计补上 Release 删除后的 Git tag 所有权检查与清理。固定 smoke 预案已冻结，只读确认目标 Release/tag 均不存在；activation 仍缺失，等待 matching campaign 明确授权。
