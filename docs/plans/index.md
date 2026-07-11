@@ -139,6 +139,8 @@
 | C-20260711-130 | feature             | 英文目录扩展到 30 页                                      | 将页面对、路由、Home/Menu/Search、Complexity、Paths 与英文 module adapter 收束为 typed locale catalog，并新增二十个已有 module 的代表算法；95 中文 + 30 英文 = 125 个索引页已双轨上线，暂不增加第三语言。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | verified                                                                                                                                                                                             | 100%                                                                                                                                                                                                                                            | 无      | 已完成；C131 已完成 95 英文 / 190 总页                                                                                                                                                                                                                                                  | i18n / seo / content / growth                                                                                                                                                                                                                                                    | IllegalCreed                   | `20260711-c130-en-30-pages/`                 | 2026-07-11                                                                                                                           | Follows C-20260711-126                |
 | C-20260711-131 | feature             | 英文目录全量对齐                                          | Owner 将全部英文翻译提升到 C127 之前；沿用 C130 typed catalog 与逐算法 adapter，补齐 15 个数据结构互动页和 50 个 AlgorithmPlayer 页。95 组页面对、94 条英文内容路由、92 个英文学习条目、77 个 adapter 与 190 个静态入口均已完成全门禁和双轨发布。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | verified                                                                                                                                                                                             | 100%                                                                                                                                                                                                                                            | 无      | 已完成；工程主线已进入 C127 T3                                                                                                                                                                                                                                                          | i18n / seo / content / growth                                                                                                                                                                                                                                                    | IllegalCreed                   | `20260711-c131-en-full-parity/`              | 2026-07-11                                                                                                                           | Extends C-20260711-130; precedes C127 |
 
+| C-20260711-132 | bugfix | 中文侧边栏补齐学习工具 | 修复中文 Docs 菜单未展示已存在的复杂度速查与学习路径入口；首页保持 9 类/92 项，双语侧栏对齐为 10 组/94 项，190 页集合不变。 | verified | 100% | 无 | 已完成；恢复 C127 T3-C 授权闸门 | navigation / i18n / maintenance | IllegalCreed | `20260711-c132-zh-learning-tools-menu/` | 2026-07-11 | Follows C-20260711-131 |
+
 ## By Type
 
 ### ops
@@ -160,9 +162,10 @@
 
 ### bugfix
 
-| Change ID      | 标题               | 状态     | 完成度 | 阻塞项 | 下一步 | Plan                         |
-| -------------- | ------------------ | -------- | ------ | ------ | ------ | ---------------------------- |
-| C-20260618-005 | 修复 M1 发现的 bug | verified | 100%   | 无     | 已完成 | `20260618-c005-fix-m1-bugs/` |
+| Change ID      | 标题                   | 状态     | 完成度 | 阻塞项 | 下一步                          | Plan                                    |
+| -------------- | ---------------------- | -------- | ------ | ------ | ------------------------------- | --------------------------------------- |
+| C-20260618-005 | 修复 M1 发现的 bug     | verified | 100%   | 无     | 已完成                          | `20260618-c005-fix-m1-bugs/`            |
+| C-20260711-132 | 中文侧边栏补齐学习工具 | verified | 100%   | 无     | 已完成；恢复 C127 T3-C 授权闸门 | `20260711-c132-zh-learning-tools-menu/` |
 
 ### feature
 
@@ -319,6 +322,8 @@
 | C-20260711-127 | feature  | 提示词驱动的全自动内容分发     | in-progress | 74%    | `20260711-c127-auto-distribution/`     |
 | C-20260711-130 | feature  | 英文目录扩展到 30 页           | verified    | 100%   | `20260711-c130-en-30-pages/`           |
 | C-20260711-131 | feature  | 英文目录全量对齐               | verified    | 100%   | `20260711-c131-en-full-parity/`        |
+
+| C-20260711-132 | bugfix | 中文侧边栏补齐学习工具 | verified | 100% | `20260711-c132-zh-learning-tools-menu/` |
 
 ### infra
 

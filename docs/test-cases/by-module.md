@@ -9,6 +9,15 @@
 
 ---
 
+## 2026-07-11 中文侧边栏学习工具（C-20260711-132）
+
+| 模块                     | Case ID                  | 标题                                             | 层级  | 自动化路径              |
+| ------------------------ | ------------------------ | ------------------------------------------------ | ----- | ----------------------- |
+| navigation / locale menu | TC-MENU-TOOLS-132-01..04 | 中文工具组、双语完整对齐及 Home/Menu/router 边界 | L3/L4 | hooks/Menu/router specs |
+| navigation / browser     | TC-E2E-MENU-TOOLS-132-01 | 中文侧栏进入复杂度速查并验证 URL/H1              | L5    | `e2e/docs-menu.e2e.ts`  |
+
+---
+
 ## 2026-07-11 英文目录全量对齐（C-20260711-131）
 
 | 模块                        | Case ID                                         | 标题                                                  | 层级  | 自动化路径                                      |
@@ -174,19 +183,19 @@
 
 ## 2026-07-09 维护增量（C-20260709-119）
 
-| 模块              | Case ID              | 标题                                            | 层级 | 自动化路径                                        |
-| ----------------- | -------------------- | ----------------------------------------------- | ---- | ------------------------------------------------- |
-| router / catalog  | TC-ROUTER-CATALOG-01 | 首页与侧边菜单 slug 集合完全一致                | L3   | `src/router/index.spec.ts`                        |
-| router / catalog  | TC-ROUTER-CATALOG-02 | 每个首页/菜单 slug 都有同名 `/docs/{slug}` 路由 | L3   | `src/router/index.spec.ts`                        |
-| search / palette  | TC-VIZ-SEARCH-09     | 英文名、别名、拼音首字母均能命中对应算法        | L4   | `src/components/SearchPalette.spec.ts`            |
-| search / palette  | TC-VIZ-SEARCH-10     | 搜索面板具备 dialog、输入框、结果列表语义       | L4   | `src/components/SearchPalette.spec.ts`            |
-| search / index    | TC-VIZ-SEARCH-11     | 92 个条目与 9 个分类均有完整拼音首字母映射      | L3   | `src/components/SearchPalette.spec.ts`            |
-| search / index    | TC-VIZ-SEARCH-12     | 多音字按算法标题语境生成正确首字母              | L3   | `src/components/SearchPalette.spec.ts`            |
-| player / controls | TC-CTRL-A11Y-01      | 控制条关键控件均有可访问名称                    | L4   | `src/components/player/TransportControls.spec.ts` |
-| player / controls | TC-CTRL-A11Y-02      | 播放中主按钮可访问名称切换为“暂停”              | L4   | `src/components/player/TransportControls.spec.ts` |
-| player / input    | TC-VIZ-INPUTBAR-05   | 输入框 label 与错误提示通过 aria 正确关联       | L4   | `src/components/player/InputBar.spec.ts`          |
-| player / input    | TC-VIZ-INPUTBAR-06   | 多个输入条同屏时 id 不重复                      | L4   | `src/components/player/InputBar.spec.ts`          |
-| viz-engine / List | TC-VIZ-LIST-03       | 全等数值 percent 为 0.5，不产生 NaN             | L4   | `src/components/List.spec.ts`                     |
+| 模块              | Case ID              | 标题                                           | 层级 | 自动化路径                                        |
+| ----------------- | -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------- |
+| router / catalog  | TC-ROUTER-CATALOG-01 | 历史全集相等断言，已由 C132-04 替代            | L3   | `src/router/index.spec.ts`                        |
+| router / catalog  | TC-ROUTER-CATALOG-02 | 每个侧边菜单 slug 都有同名 `/docs/{slug}` 路由 | L3   | `src/router/index.spec.ts`                        |
+| search / palette  | TC-VIZ-SEARCH-09     | 英文名、别名、拼音首字母均能命中对应算法       | L4   | `src/components/SearchPalette.spec.ts`            |
+| search / palette  | TC-VIZ-SEARCH-10     | 搜索面板具备 dialog、输入框、结果列表语义      | L4   | `src/components/SearchPalette.spec.ts`            |
+| search / index    | TC-VIZ-SEARCH-11     | 92 个条目与 9 个分类均有完整拼音首字母映射     | L3   | `src/components/SearchPalette.spec.ts`            |
+| search / index    | TC-VIZ-SEARCH-12     | 多音字按算法标题语境生成正确首字母             | L3   | `src/components/SearchPalette.spec.ts`            |
+| player / controls | TC-CTRL-A11Y-01      | 控制条关键控件均有可访问名称                   | L4   | `src/components/player/TransportControls.spec.ts` |
+| player / controls | TC-CTRL-A11Y-02      | 播放中主按钮可访问名称切换为“暂停”             | L4   | `src/components/player/TransportControls.spec.ts` |
+| player / input    | TC-VIZ-INPUTBAR-05   | 输入框 label 与错误提示通过 aria 正确关联      | L4   | `src/components/player/InputBar.spec.ts`          |
+| player / input    | TC-VIZ-INPUTBAR-06   | 多个输入条同屏时 id 不重复                     | L4   | `src/components/player/InputBar.spec.ts`          |
+| viz-engine / List | TC-VIZ-LIST-03       | 全等数值 percent 为 0.5，不产生 NaN            | L4   | `src/components/List.spec.ts`                     |
 
 ---
 
@@ -597,67 +606,67 @@
 
 ## home（首页）
 
-| Case ID              | 标题                                                            | 层级 | 自动化路径                                       |
-| -------------------- | --------------------------------------------------------------- | ---- | ------------------------------------------------ |
-| TC-HOOK-01-1         | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp+Boyer-Moore（C-064） | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-2         | 数据结构分类含 15 项（…/B+ 树/布隆 C-036）                      | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-4         | 所有 url 唯一                                                   | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-01-5         | 每个分类含 desc                                                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
-| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                                    | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                                    | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true                     | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false                  | L3   | `src/views/Home/hooks.spec.ts`                   |
-| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                                          | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                                              | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                                              | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
-| TC-VIEW-CATEGORY-01  | 渲染分类标题                                                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-02  | 渲染分类描述                                                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                                     | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
-| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                                  | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                                  | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                                           | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                                      | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name                   | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                                       | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
-| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                                          | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                                    | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                                              | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                                            | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页                            | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
-| TC-E2E-HOME-01       | 首页加载并能进入 docs                                           | L5   | `e2e/home-navigation.e2e.ts`                     |
+| Case ID              | 标题                                           | 层级 | 自动化路径                                       |
+| -------------------- | ---------------------------------------------- | ---- | ------------------------------------------------ |
+| TC-HOOK-01-1         | 首页返回 9 个学习分类，查找类位于末尾          | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-2         | 数据结构分类含 16 项（末项为树状数组 C-102）   | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-3         | 每个条目含 title/desc/icon/url                 | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-4         | 所有 url 唯一                                  | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-01-5         | 每个分类含 desc                                | L3   | `src/views/Home/Main/hooks.spec.ts`              |
+| TC-HOOK-03-1         | 组件挂载时注册 scroll 监听器                   | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-2         | 组件卸载时移除 scroll 监听器                   | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-3         | scrollY > 0 时 isShowHeaderShadow 变为 true    | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-HOOK-03-4         | scrollY === 0 时 isShowHeaderShadow 变为 false | L3   | `src/views/Home/hooks.spec.ts`                   |
+| TC-VIEW-FOOTER-01    | 渲染 MIT Licensed 文案                         | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-02    | 渲染 Copyright 文案                            | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-03    | 渲染 Zhang Xu 署名                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-FOOTER-04    | 渲染 footer 根元素                             | L4   | `src/views/Home/Footer/Footer.spec.ts`           |
+| TC-VIEW-CATEGORY-01  | 渲染分类标题                                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-02  | 渲染分类描述                                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-03  | 渲染 children 数量对应的 Item                  | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-04  | 渲染第一个 Item 标题「数组」                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-05  | 渲染第二个 Item 标题「链表」                   | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-CATEGORY-06  | children 为空时无 Item 渲染                    | L4   | `src/views/Home/Main/Category/Category.spec.ts`  |
+| TC-VIEW-HOME-ITEM-01 | 渲染 item 标题                                 | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-02 | 渲染 item 描述                                 | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-03 | 渲染 img 标签（icon）                          | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-04 | img src 属性对应 icon 字段                     | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-05 | 点击元素调用 router.push，跳转到对应 url name  | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-HOME-ITEM-06 | 不同 url 跳转到对应路由名                      | L4   | `src/views/Home/Main/Category/Item/Item.spec.ts` |
+| TC-VIEW-SPLASH-01    | 渲染主标题「可视化的」                         | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-02    | 渲染副标题「数据结构与算法」                   | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-03    | 渲染技术栈描述文案                             | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-04    | 渲染「开始学习」按钮                           | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-VIEW-SPLASH-05    | 点击「开始学习」跳转到 docs/array 页           | L4   | `src/views/Home/Splash/Splash.spec.ts`           |
+| TC-E2E-HOME-01       | 首页加载并能进入 docs                          | L5   | `e2e/home-navigation.e2e.ts`                     |
 
 ---
 
 ## docs（文档页侧边菜单）
 
-| Case ID              | 标题                                                            | 层级 | 自动化路径                                     |
-| -------------------- | --------------------------------------------------------------- | ---- | ---------------------------------------------- |
-| TC-HOOK-02-1         | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp+Boyer-Moore（C-064） | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-2         | 每项含 title/url 且均非空                                       | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-3         | 所有 url 唯一                                                   | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-02-4         | 数据结构 15 项，排序 15 项（新增鸡尾酒排序 C-045）              | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
-| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true                         | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false                      | L3   | `src/views/Docs/hooks.spec.ts`                 |
-| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                                             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                                            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url                             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class                         | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                                           | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
-| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）                      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮                   | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                                        | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-E2E-MENU-01       | docs 菜单点击切换路由                                           | L5   | `e2e/docs-menu.e2e.ts`                         |
+| Case ID              | 标题                                             | 层级 | 自动化路径                                     |
+| -------------------- | ------------------------------------------------ | ---- | ---------------------------------------------- |
+| TC-HOOK-02-1         | 历史菜单分类计数，已由 TC-MENU-TOOLS-132-01 替代 | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-2         | 每项含 title/url 且均非空                        | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-3         | 所有 url 唯一                                    | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-02-4         | 数据结构与排序分类均含 16 项                     | L3   | `src/views/Docs/Menu/hooks.spec.ts`            |
+| TC-HOOK-04-1         | 组件挂载后 isShowHeaderShadow 变为 true          | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-HOOK-04-2         | 组件卸载后 isShowHeaderShadow 恢复为 false       | L3   | `src/views/Docs/hooks.spec.ts`                 |
+| TC-VIEW-DOCS-ITEM-01 | 渲染 item span 文本                              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-02 | 渲染 .item.btn class                             | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-03 | 点击调用 router.push 跳转到对应 url              | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-04 | url 匹配时 item 有 item-pressed class            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-05 | url 不匹配时 item 无 item-pressed class          | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-DOCS-ITEM-06 | 不同 url 跳转对应路由                            | L4   | `src/views/Docs/Menu/Header/Item/Item.spec.ts` |
+| TC-VIEW-MENU-01      | 挂载成功，渲染 #menu 根元素                      | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-02      | 渲染「数据结构」分类标题                         | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-03      | 渲染「经典排序算法」分类标题                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）       | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 首个子菜单项导航到 complexity                    | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新     | L4   | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-E2E-MENU-01       | docs 菜单点击切换路由                            | L5   | `e2e/docs-menu.e2e.ts`                         |
 
 ---
 

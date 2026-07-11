@@ -111,3 +111,4 @@ const props = withDefaults(defineProps<{ locale?: SiteLocale }>(), {
 
 - 2026-07-11：基于 C130 架构与 92 条中文目录完成全量审计；选择 15 互动页先行、50 播放器页随后、最终 190 页交付的分批方案。
 - 2026-07-11：设计按计划落地；typed catalog、共享 Viz locale、逐算法 adapter、静态 loader 与 190 页产物均完成验证，没有引入运行时翻译或第二套状态机。
+- 2026-07-11：C132 修复中文菜单未接入两个 tool route 的后续缺陷；英文 catalog 派生设计保持不变，中文手写菜单补首组并由新回归守护。

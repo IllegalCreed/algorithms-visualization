@@ -7,7 +7,14 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case、C-127 六个渠道自动化设计 Case、十九个 T1、二十个 T2、二十个 T3-A、十六个 T3-B 与二十二个 T3-C Case、C130 三十七个英文扩容 Case与 C131 四十六个全量英文对齐 Case。历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case、C-127 六个渠道自动化设计 Case、十九个 T1、二十个 T2、二十个 T3-A、十六个 T3-B 与二十二个 T3-C Case、C130 三十七个英文扩容 Case、C131 四十六个全量英文对齐 Case与 C132 五个中文菜单回归。历史分层总数未做全量重算。
+
+## 2026-07-11 中文侧边栏学习工具（C-20260711-132）
+
+| 层级  | Case ID                  | 标题                                             | 自动化路径              |
+| ----- | ------------------------ | ------------------------------------------------ | ----------------------- |
+| L3/L4 | TC-MENU-TOOLS-132-01..04 | 中文工具组、双语完整对齐及 Home/Menu/router 边界 | hooks/Menu/router specs |
+| L5    | TC-E2E-MENU-TOOLS-132-01 | 中文侧栏进入复杂度速查并验证 URL/H1              | `e2e/docs-menu.e2e.ts`  |
 
 ## 2026-07-11 英文目录全量对齐（C-20260711-131）
 
@@ -154,19 +161,19 @@
 
 ## 2026-07-09 维护增量（C-20260709-119）
 
-| 层级 | Case ID              | 标题                                            | 自动化路径                                        |
-| ---- | -------------------- | ----------------------------------------------- | ------------------------------------------------- |
-| L3   | TC-ROUTER-CATALOG-01 | 首页与侧边菜单 slug 集合完全一致                | `src/router/index.spec.ts`                        |
-| L3   | TC-ROUTER-CATALOG-02 | 每个首页/菜单 slug 都有同名 `/docs/{slug}` 路由 | `src/router/index.spec.ts`                        |
-| L4   | TC-VIZ-SEARCH-09     | 英文名、别名、拼音首字母均能命中对应算法        | `src/components/SearchPalette.spec.ts`            |
-| L4   | TC-VIZ-SEARCH-10     | 搜索面板具备 dialog、输入框、结果列表语义       | `src/components/SearchPalette.spec.ts`            |
-| L3   | TC-VIZ-SEARCH-11     | 92 个条目与 9 个分类均有完整拼音首字母映射      | `src/components/SearchPalette.spec.ts`            |
-| L3   | TC-VIZ-SEARCH-12     | 多音字按算法标题语境生成正确首字母              | `src/components/SearchPalette.spec.ts`            |
-| L4   | TC-CTRL-A11Y-01      | 控制条关键控件均有可访问名称                    | `src/components/player/TransportControls.spec.ts` |
-| L4   | TC-CTRL-A11Y-02      | 播放中主按钮可访问名称切换为“暂停”              | `src/components/player/TransportControls.spec.ts` |
-| L4   | TC-VIZ-INPUTBAR-05   | 输入框 label 与错误提示通过 aria 正确关联       | `src/components/player/InputBar.spec.ts`          |
-| L4   | TC-VIZ-INPUTBAR-06   | 多个输入条同屏时 id 不重复                      | `src/components/player/InputBar.spec.ts`          |
-| L4   | TC-VIZ-LIST-03       | 全等数值 percent 为 0.5，不产生 NaN             | `src/components/List.spec.ts`                     |
+| 层级 | Case ID              | 标题                                           | 自动化路径                                        |
+| ---- | -------------------- | ---------------------------------------------- | ------------------------------------------------- |
+| L3   | TC-ROUTER-CATALOG-01 | 历史全集相等断言，已由 C132-04 替代            | `src/router/index.spec.ts`                        |
+| L3   | TC-ROUTER-CATALOG-02 | 每个侧边菜单 slug 都有同名 `/docs/{slug}` 路由 | `src/router/index.spec.ts`                        |
+| L4   | TC-VIZ-SEARCH-09     | 英文名、别名、拼音首字母均能命中对应算法       | `src/components/SearchPalette.spec.ts`            |
+| L4   | TC-VIZ-SEARCH-10     | 搜索面板具备 dialog、输入框、结果列表语义      | `src/components/SearchPalette.spec.ts`            |
+| L3   | TC-VIZ-SEARCH-11     | 92 个条目与 9 个分类均有完整拼音首字母映射     | `src/components/SearchPalette.spec.ts`            |
+| L3   | TC-VIZ-SEARCH-12     | 多音字按算法标题语境生成正确首字母             | `src/components/SearchPalette.spec.ts`            |
+| L4   | TC-CTRL-A11Y-01      | 控制条关键控件均有可访问名称                   | `src/components/player/TransportControls.spec.ts` |
+| L4   | TC-CTRL-A11Y-02      | 播放中主按钮可访问名称切换为“暂停”             | `src/components/player/TransportControls.spec.ts` |
+| L4   | TC-VIZ-INPUTBAR-05   | 输入框 label 与错误提示通过 aria 正确关联      | `src/components/player/InputBar.spec.ts`          |
+| L4   | TC-VIZ-INPUTBAR-06   | 多个输入条同屏时 id 不重复                     | `src/components/player/InputBar.spec.ts`          |
+| L4   | TC-VIZ-LIST-03       | 全等数值 percent 为 0.5，不产生 NaN            | `src/components/List.spec.ts`                     |
 
 ## L3 — 前端单元（Vitest，不 mount）
 
@@ -304,27 +311,27 @@
 
 ### hooks
 
-| Case ID      | 标题                                                            | 自动化路径                              |
-| ------------ | --------------------------------------------------------------- | --------------------------------------- |
-| TC-HOOK-01-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp+Boyer-Moore（C-064） | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-2 | 数据结构分类含 15 项（…/线段树/B+ 树/布隆过滤器 C-036）         | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                                  | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-4 | 所有 url 唯一                                                   | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-01-5 | 每个分类含 desc                                                 | `src/views/Home/Main/hooks.spec.ts`     |
-| TC-HOOK-02-1 | 三分类，6 顶层分类·字符串含 KMP+Rabin-Karp+Boyer-Moore（C-064） | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-2 | 每项含 title/url 且均非空                                       | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-3 | 所有 url 唯一                                                   | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-02-4 | 数据结构含 15 项，排序含 15 项（新增鸡尾酒排序 C-045）          | `src/views/Docs/Menu/hooks.spec.ts`     |
-| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                    | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                     | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false                  | `src/views/Home/hooks.spec.ts`          |
-| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                         | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                      | `src/views/Docs/hooks.spec.ts`          |
-| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4）    | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）            | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）       | `src/views/Master/Header/hooks.spec.ts` |
-| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）                 | `src/views/Master/Header/hooks.spec.ts` |
+| Case ID      | 标题                                                         | 自动化路径                              |
+| ------------ | ------------------------------------------------------------ | --------------------------------------- |
+| TC-HOOK-01-1 | 首页返回 9 个学习分类，查找类位于末尾                        | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-2 | 数据结构分类含 16 项（末项为树状数组 C-102）                 | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-3 | 每个条目含 title/desc/icon/url                               | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-4 | 所有 url 唯一                                                | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-01-5 | 每个分类含 desc                                              | `src/views/Home/Main/hooks.spec.ts`     |
+| TC-HOOK-02-1 | 历史菜单分类计数，已由 TC-MENU-TOOLS-132-01 替代             | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-2 | 每项含 title/url 且均非空                                    | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-3 | 所有 url 唯一                                                | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-02-4 | 数据结构与排序分类均含 16 项                                 | `src/views/Docs/Menu/hooks.spec.ts`     |
+| TC-HOOK-03-1 | 组件挂载时注册 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-2 | 组件卸载时移除 scroll 监听器                                 | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-3 | scrollY > 0 时 isShowHeaderShadow 变为 true                  | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-03-4 | scrollY === 0 时 isShowHeaderShadow 变为 false               | `src/views/Home/hooks.spec.ts`          |
+| TC-HOOK-04-1 | 组件挂载后 isShowHeaderShadow 变为 true                      | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-04-2 | 组件卸载后 isShowHeaderShadow 恢复为 false                   | `src/views/Docs/hooks.spec.ts`          |
+| TC-HOOK-05-1 | 返回 4 项 微博/X/GitHub/个人主页，title 文案（C-030 改 3→4） | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-2 | 每项 title/src/url 非空且 url 为 https（C-009 改写）         | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-3 | 微博/X url 含线上域名+path；GitHub=仓库地址（C-009 改写）    | `src/views/Master/Header/hooks.spec.ts` |
+| TC-HOOK-05-4 | 个人主页项 url 指向 HOME_PAGE_URL（C-030 新增）              | `src/views/Master/Header/hooks.spec.ts` |
 
 ### share（C-009）
 
@@ -1955,7 +1962,7 @@
 | TC-VIEW-MENU-04      | 渲染所有数据结构子项（如「数组」「链表」）    | `src/views/Docs/Menu/Menu.spec.ts`             |
 | TC-VIEW-MENU-05      | 渲染排序算法子项「冒泡排序」                  | `src/views/Docs/Menu/Menu.spec.ts`             |
 | TC-VIEW-MENU-06      | useMenuSelect 初始路由 array 使对应 Item 高亮 | `src/views/Docs/Menu/Menu.spec.ts`             |
-| TC-VIEW-MENU-07      | 点击子菜单项触发路由跳转                      | `src/views/Docs/Menu/Menu.spec.ts`             |
+| TC-VIEW-MENU-07      | 首个子菜单项导航到 complexity                 | `src/views/Docs/Menu/Menu.spec.ts`             |
 | TC-VIEW-MENU-08      | onBeforeRouteUpdate 回调触发后高亮随路由更新  | `src/views/Docs/Menu/Menu.spec.ts`             |
 
 ### master（全局框架 Header）

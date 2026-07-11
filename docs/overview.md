@@ -15,12 +15,12 @@
 | 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                          |
 | 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                                |
 | 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                    |
-| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页，学习目录为 9 大类 92 个条目                              |
+| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项     |
 | 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换     |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                             |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）     |
-| 测试     | Vitest L3/L4：299 个测试文件、2129 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、117 个用例全绿；coverage 与双 base 构建门禁通过  |
-| 当前阶段 | C131 英文全量对齐 verified/100%；C127 in-progress/74%，T3-C 无写 contract 与 smoke 预案已完成，真实 GitHub smoke 等待固定 campaign 明确授权  |
+| 测试     | Vitest L3/L4：299 个测试文件、2131 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过  |
+| 当前阶段 | C132 中文侧栏工具入口修复 verified/100%；C127 in-progress/74%，T3-C 无写 contract 与 smoke 预案已完成，真实 GitHub smoke 等待明确授权        |
 | 增长现状 | 95 中文 + 95 英文、95 组 hreflang 与 190 页静态产物已双轨上线；无 tracker；GitHub CLI/仓库健康，但 activation 缺失、adapter disabled、零发布 |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`       |
 
