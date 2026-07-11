@@ -9,24 +9,40 @@
 
 ---
 
-## 2026-07-11 渠道自动化审计增量（C-20260711-127）
+## 2026-07-11 英文目录 30 页扩容（C-20260711-130）
 
-| 模块                          | Case ID            | 标题                                   | 层级 | 自动化路径                                                 |
-| ----------------------------- | ------------------ | -------------------------------------- | ---- | ---------------------------------------------------------- |
-| marketing / channel inventory | TC-DOC-AUTO-127-01 | 十五渠道集合完整且唯一                 | docs | `docs/marketing/channel-automation-audit.md`               |
-| marketing / official evidence | TC-DOC-AUTO-127-02 | 发布、监测、回复、准入与成本有官方依据 | docs | `docs/marketing/channel-automation-audit.md`               |
-| marketing / capability tiers  | TC-DOC-AUTO-127-03 | 免费个人、后备与硬禁用边界明确         | docs | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory      | TC-DOC-AUTO-127-04 | C127 当前状态与项目记忆一致            | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
-| marketing / credential safety | TC-DOC-AUTO-127-05 | 官方授权、凭据隔离与失败关闭红线完整   | docs | `docs/marketing/channel-automation-audit.md`               |
-| marketing / MCP boundary      | TC-DOC-AUTO-127-09 | Codex 与凭据/Profile 的工具边界完整    | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| 模块                        | Case ID                          | 标题                                                   | 层级  | 自动化路径                                         |
+| --------------------------- | -------------------------------- | ------------------------------------------------------ | ----- | -------------------------------------------------- |
+| i18n / locale catalog       | TC-I18N-CATALOG-130-01..06       | 30 页 catalog、派生数据、loader/route、切换与 fallback | L3    | catalog/pages specs                                |
+| i18n / algorithm adapters   | TC-I18N-MODULE-130-01 + 02A..04D | 27 adapter map 与四批结构、文案、lineMap 守护          | L3    | `src/i18n/englishAlgorithmModules.spec.ts`         |
+| i18n / English prose        | TC-I18N-CONTENT-130-01..03       | 二十页正文、术语和内部链接内容 QA                      | docs  | English SFC + style guide                          |
+| seo / multilingual registry | TC-SEO-I18N-130-01..02           | 125 页 registry、30 组 hreflang 与未翻译页边界         | L3    | `src/seo/site.spec.ts`                             |
+| i18n / catalog views        | TC-I18N-UI-130-01..04            | Menu/Home/Complexity/Paths/Search 派生全集             | L4    | Menu/Search/catalogViews specs                     |
+| seo / prerender artifact    | TC-I18N-BUILD-130-01..04         | 125 页发现、静态语言、sitemap/llms 与双 base           | build | `scripts/prerender.mjs` + `scripts/verify-seo.mjs` |
+| i18n / browser              | TC-E2E-I18N-130-01..05           | 深链、工具/轨道、切换、搜索/播放器与 900px 响应式      | L5    | `e2e/i18n.e2e.ts`                                  |
 
 ---
 
-## 2026-07-11 多语言十页试点增量（C-20260711-126）
+## 2026-07-11 渠道自动化审计增量（C-20260711-127）
+
+| 模块                          | Case ID            | 标题                                     | 层级 | 自动化路径                                                 |
+| ----------------------------- | ------------------ | ---------------------------------------- | ---- | ---------------------------------------------------------- |
+| marketing / channel inventory | TC-DOC-AUTO-127-01 | 十五渠道集合完整且唯一                   | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / official evidence | TC-DOC-AUTO-127-02 | 发布、监测、回复、准入与成本有官方依据   | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / capability tiers  | TC-DOC-AUTO-127-03 | 免费个人、后备与硬禁用边界明确           | docs | `docs/marketing/channel-automation-audit.md`               |
+| docs / automation memory      | TC-DOC-AUTO-127-04 | C127 approved/当前下一阶段与项目记忆一致 | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| marketing / credential safety | TC-DOC-AUTO-127-05 | 官方授权、凭据隔离与失败关闭红线完整     | docs | `docs/marketing/channel-automation-audit.md`               |
+| marketing / MCP boundary      | TC-DOC-AUTO-127-09 | Codex 与凭据/Profile 的工具边界完整      | docs | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+
+---
+
+## 2026-07-11 多语言十页试点增量（C-20260711-126，部分 superseded）
+
+固定十页/105 页、9 个内容入口的 Case 已由 C130 替代；七页 adapter、英文 JSON-LD、Header 与 Player 子集测试仍 active，具体状态以 `index.md` 为准。
 
 | 模块                        | Case ID                     | 标题                                              | 层级  | 自动化路径                                         |
 | --------------------------- | --------------------------- | ------------------------------------------------- | ----- | -------------------------------------------------- |
-| i18n / pilot registry       | TC-I18N-REGISTRY-126-01..03 | 十组页面映射、切换 query 与未知页 fallback        | L3    | `src/i18n/pilot.spec.ts`                           |
+| i18n / pilot registry       | TC-I18N-REGISTRY-126-01..03 | 十组页面映射、切换 query 与未知页 fallback        | L3    | `src/i18n/catalog.spec.ts`                         |
 | i18n / algorithm adapter    | TC-I18N-MODULE-126-01..03   | 七模块结构不变、英文展示无 Han、lineMap 不变      | L3    | `src/i18n/englishAlgorithmModules.spec.ts`         |
 | seo / multilingual registry | TC-SEO-I18N-126-01..03      | 105 页 registry、十组 hreflang 与英文 JSON-LD     | L3    | `src/seo/site.spec.ts`                             |
 | i18n / shared UI            | TC-I18N-UI-126-01..04 + 03A | route head、Header、Search、Menu 与 Player 本地化 | L4    | route/Header/Search/Menu/Player specs              |

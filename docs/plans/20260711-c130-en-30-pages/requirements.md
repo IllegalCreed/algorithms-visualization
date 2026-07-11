@@ -1,14 +1,14 @@
 # 需求：英文目录扩展到 30 页
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260711-130
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 10%
-> Blocked by: Owner 确认 30 页目标与二十页清单
-> Next action: 批准范围后先写 registry/route/SEO 红测
+> Progress: 100%
+> Blocked by: none
+> Next action: C127 T1 建立 CampaignSpec、能力注册表与 dry-run 红测
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260710-124、C-20260711-126、C-20260711-127
@@ -16,11 +16,11 @@
 
 ## 背景
 
-C126 已验证 `/en` 十页试点：Home、Complexity、Paths 和 7 个算法页具备英文正文、播放器、搜索、语言切换、canonical/hreflang、sitemap、llms 与预渲染入口。当前共 95 个中文索引页、10 个英文页，总计 105 页。
+C126 已验证 `/en` 十页试点：Home、Complexity、Paths 和 7 个算法页具备英文正文、播放器、搜索、语言切换、canonical/hreflang、sitemap、llms 与预渲染入口。C130 启动时共 95 个中文索引页、10 个英文页，总计 105 页。
 
 试点为控制风险采用了小型硬编码：`pilot.ts`、router 英文路由、`homeCatalog.ts`、Complexity metrics、Paths 和单体 `englishAlgorithmModules.ts` 分别维护十页集合。继续照此复制 20 页会放大同步成本，且单体 adapter 已超过 450 行。
 
-本计划先把试点收束为可扩展的英文内容目录，再新增 20 个代表算法，使英文达到 30 页：Home 1 页、工具 2 页、算法 27 页；中英总索引页达到 125。C127 宣传自动化保持 approved/后置，不与本计划并行开工。
+本计划先把试点收束为可扩展的英文内容目录，再新增 20 个代表算法，使英文达到 30 页：Home 1 页、工具 2 页、算法 27 页；中英总索引页达到 125。C130 实施期间 C127 宣传自动化保持 approved/后置，不与本计划并行开工。
 
 ## 目标范围
 
@@ -95,20 +95,24 @@ Home、Complexity、Paths、Quick Sort、Binary Search、Dijkstra、0/1 Knapsack
 
 ## 验收口径
 
-- [ ] locale catalog 恰好包含 30 组页面，其中 27 算法、2 工具、1 Home；route name/path 全局唯一。
-- [ ] 二十个新增英文页正文和播放器展示无中文残留，结构与中文 module 一致。
-- [ ] 英文术语与文风基线落档，二十页的核心术语、复杂度表达和交叉链接通过内容 QA。
-- [ ] Home/Menu/Search/Complexity/Paths 全部从 catalog 派生且覆盖 29 个英文内容页。
-- [ ] SEO registry 共 125 页；30 组 alternate 双向、自含，65 个未翻译中文内容页无假英文映射。
-- [ ] production/selfhost 生成并验证 125 个静态入口、sitemap、llms 与 manifest。
-- [ ] L3/L4/L5、coverage、双 base、桌面与窄视口检查通过；两轨部署验证完成。
+- [x] locale catalog 恰好包含 30 组页面，其中 27 算法、2 工具、1 Home；route name/path 全局唯一。
+- [x] 二十个新增英文页正文和播放器展示无中文残留，结构与中文 module 一致。
+- [x] 英文术语与文风基线落档，二十页的核心术语、复杂度表达和交叉链接通过内容 QA。
+- [x] Home/Menu/Search/Complexity/Paths 全部从 catalog 派生且覆盖 29 个英文内容页。
+- [x] SEO registry 共 125 页；30 组 alternate 双向、自含，65 个未翻译中文内容页无假英文映射。
+- [x] production/selfhost 生成并验证 125 个静态入口、sitemap、llms 与 manifest。
+- [x] L3/L4/L5、coverage、双 base、桌面与 900px 窄视口检查通过。
+- [x] GitHub Pages 与 selfhost 两轨部署及代表 URL 线上核验完成。
 
 ## 开放问题
 
-- Owner：确认“30 页 / 新增二十页”是否作为下一实施范围；未确认前保持 draft。
+- 30 页 / 新增二十页范围已由 Owner 批准；若批次中出现真实结构阻塞，只允许同类替换并回写原因，不静默缩减总数。
 - 若某个 adapter 的英文字幕成本显著高于预期，可以在不改变总数的前提下用同类已存在 module 替换，但必须回写本表和原因。
 - 第三语言只在英文 30 页上线后，根据免费 Search Console/Bing 数据与维护成本另立计划，不在 C130 预选。
 
 ## 变更历史
 
 - 2026-07-11：基于 C126 十页真实实现完成扩容审计，提出“先收束目录，再新增二十页”的 30 页草案。
+- 2026-07-11：Owner 批准 C130；状态转 implementing，按 10/105 无行为迁移后四批扩容进入 TDD。
+- 2026-07-11：typed catalog、二十页增量、27 个 adapter、125 页构建与全量验证完成；状态转 implemented，等待双轨发布。
+- 2026-07-11：功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 发布/线上抽查通过；状态转 verified。

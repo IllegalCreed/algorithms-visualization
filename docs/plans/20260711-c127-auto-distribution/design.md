@@ -7,8 +7,8 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
 > Progress: 25%
-> Blocked by: none；Owner 明确将宣传自动化后置
-> Next action: 多语言与内容主线完成后，再实施独立 `marketing-ops` MCP
+> Blocked by: none；C130 已 verified
+> Next action: T1 建立 CampaignSpec、能力注册表、幂等键与 dry-run 红测
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130
@@ -199,3 +199,4 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。
 - 2026-07-11：选择独立本地 `marketing-ops` MCP；凭据和 RPA Profile 与公开仓库/Codex 隔离，C127 后置实施。
+- 2026-07-11：C130 已 verified，设计恢复为当前实施依据；下一步仍从无副作用的 T1 基础层开始。

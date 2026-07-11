@@ -31,14 +31,14 @@ Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 *
 
 - `pnpm dev` —— 启动 Vite 开发服务器
 - `pnpm build` —— 通过 `npm-run-all` 并行执行 `type-check` 和 `build-only`；任何类型错误都会导致构建失败
-- `pnpm build-only` —— production base 构建后用 Playwright 预渲染并验证 105 页，再复制 `404.html`（GitHub Pages）
-- `pnpm build:selfhost` —— selfhost base=`/` 构建，同样预渲染并验证 105 页，再复制 `404.html`
+- `pnpm build-only` —— production base 构建后用 Playwright 预渲染并验证当前 125 页，再复制 `404.html`（GitHub Pages）
+- `pnpm build:selfhost` —— selfhost base=`/` 构建，同样预渲染并验证当前 125 页，再复制 `404.html`
 - `pnpm type-check` —— `vue-tsc --build --force`
 - `pnpm lint` —— `eslint . --fix`；CI 用只读的 `pnpm lint:check`
 - `pnpm format` —— Prettier 写入项目源码、文档、e2e、public、workflow 与根部配置/HTML/MD/JSON/TS；CI 用只读的 `pnpm format:check`
 - `pnpm preview` —— 预览已构建的 `dist/`
-- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-11 本地现状：284 个测试文件 / 2055 个 L3/L4 用例全绿。
-- `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-11 本地 104 个文件 / 114 个用例全绿）。
+- `pnpm test:unit` —— Vitest（jsdom + `@vue/test-utils`）监听模式；单次运行用 `pnpm test:unit:run` 或加 `run`（`pnpm test:unit run <file>`），按名称过滤 `-t "<name>"`，覆盖率用 `pnpm coverage`。2026-07-11 本地现状：286 个测试文件 / 2073 个 L3/L4 用例全绿。
+- `pnpm exec playwright test [<name>]` —— L5 端到端（真机 Chromium），用例在 `e2e/*.e2e.ts`（2026-07-11 本地 104 个文件 / 115 个用例全绿）。
 - `pnpm verify` —— 本地复现 Pages build job 门禁：`format:check` → `lint:check` → `type-check` → `test:unit:run` → `build-only`；不含 coverage/e2e。
 
 **门禁：** ESLint 10（flat config，`eslint.config.ts`，用 `eslint-plugin-vue` + `@vue/eslint-config-typescript`）+ Prettier（`.prettierrc.json`，`skip-formatting` 让两者不冲突）。`vue/multi-word-component-names` 已关闭（项目单字组件名惯例）。pre-commit 由 husky（`.husky/pre-commit`）+ lint-staged 触发，对暂存的 JS/TS/Vue 跑 `eslint --fix`、对更多类型跑 `prettier --write`。CI（`deploy.yml`）在构建前卡 `lint:check` + `format:check` + `type-check` + `test:unit:run`，Build 前安装 Chromium，`build-only` 再执行 SEO 产物门禁。
@@ -58,9 +58,9 @@ Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 *
 - `/` → `Master.vue`（带全局 `Header` 的外壳）包裹：
   - ``→`Home.vue`（Splash + 分类网格 + Footer）
   - `/docs` → `Docs.vue`（侧边 `Menu` + `Main` 内容区）包裹懒加载的文章页
-- 中文文章页位于 `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}/*.vue`；C126 英文十页试点位于 `src/views/English/`。页面以**懒加载** `() => import()` 的方式注册路由。中文 route `name` 必须等于菜单的 `url` slug（例如 `bubble-sort`），英文 route 使用 `en-*`；`Docs/Menu/hooks.ts` 中的 `useMenuSelect` 读取当前路由名来高亮菜单项。
+- 中文文章页位于 `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}/*.vue`；C130 的 30 页英文目录位于 `src/views/English/`，29 个内容路由由 `src/views/English/pages.ts` 的显式静态 loader map 与 locale catalog 共同生成。页面以**懒加载** `() => import()` 的方式注册路由。中文 route `name` 必须等于菜单的 `url` slug（例如 `bubble-sort`），英文 route 使用 `en-*`；`Docs/Menu/hooks.ts` 中的 `useMenuSelect` 读取当前路由名来高亮菜单项。
 
-**SEO/静态入口：** `src/seo/site.ts` 管理 95 个中文页与 C126 新增的 10 个 `/en` 试点页，共 105 个可索引页面；`useRouteSeo.ts` 管理路由级 head、JSON-LD 与十组双向 `hreflang`。构建后 `scripts/prerender.mjs` 用 Playwright 输出 `dist/<route>/index.html`、sitemap、llms 与 manifest，`scripts/verify-seo.mjs` 用 JSDOM 逐页验证。内容页 canonical、sitemap 和预渲染内链统一使用尾斜杠，以命中目录静态入口；Vue Router 内部 path 仍保持原有无尾斜杠形式。
+**SEO/静态入口：** `src/seo/site.ts` 管理 95 个中文页与 30 个 `/en` 页面，共 125 个可索引页面；`useRouteSeo.ts` 管理路由级 head、JSON-LD 与 30 组双向 `hreflang`。构建后 `scripts/prerender.mjs` 用 Playwright 输出 `dist/<route>/index.html`、sitemap、llms 与 manifest，`scripts/verify-seo.mjs` 用 JSDOM 逐页验证；页面总数和成对集合从 catalog/manifest 动态发现，不维护 pilot slug 或 105 页常量。内容页 canonical、sitemap 和预渲染内链统一使用尾斜杠，以命中目录静态入口；Vue Router 内部 path 仍保持原有无尾斜杠形式。
 
 ### 状态（`src/store/modules/system.ts`）
 
@@ -90,14 +90,14 @@ Codex 不读取 Claude 的外部 memory；本仓库内的持久项目记忆以 *
 
 **新增一个页面（涉及多文件）**：① 需要新轨则先 T0（types.ts 加 `XxxTrack`/`XxxExecPoint`/`Step.xxx?` + 新建 `XxxView.vue` + `AlgorithmPlayer` 加一行 v-if + spec）；② module 三件套 + spec；③ 新页 `src/views/Article/<Cat>/<Name>.vue`（`<Article>` 正文 + `<AlgorithmPlayer :module>`）；④ `src/router/index.ts` 懒加载路由（`name`=slug）；⑤ `src/views/Docs/Menu/hooks.ts` 侧边菜单条目；⑥ `src/views/Home/Main/hooks.ts` 首页网格条目（图标 svg + 描述）；⑦ 改对应 `TC-HOOK`（菜单/首页 children 断言）。
 
-当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个中文首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条；C126 已上线 `/en` 十页试点（Home、2 个工具页、7 个算法页），可索引页面共 105 个。测试现状为 284 个 L3/L4 测试文件、2055 个用例本地全绿，L5 Playwright 为 104 个文件 / 114 个用例全绿。M9-M12 已完成；C124 SEO/GEO 与 C126 英文试点已双轨上线，C125 第三方分析尝试已由 C129 撤销，当前不加载 tracker、不发送事件，只保留 `pnpm marketing:link` 与 UTM 纯函数。C127 宣传自动化已完成 15 渠道审计和独立 `marketing-ops` MCP/RPA 隔离设计，状态 approved/25% 并后置；Owner 硬约束为零新增费用、无企业主体，首期只做 GitHub、微博 Free、Bluesky、DEV、Mastodon，Reddit 后备，微信/B站/X 禁用。当前候选主线是 C130 英文目录从 10 页扩到 30 页的 draft，目标 95 中文 + 30 英文 = 125 个索引页。执行事实源是 `docs/marketing/execution-backlog.md`，渠道能力源是 `docs/marketing/channel-automation-audit.md`；C-034 与 C125 均已 superseded。
+当前状态：九大类（数据结构 / 排序 / 图算法 / 动态规划 / 回溯与搜索 / 字符串 / 数学与数论 / 计算几何 / 查找）已铺开 92 个中文首页/菜单条目；`src/algorithms` 下有 77 个 `*.module.ts`；播放器可插拔轨约 20 条。C130 `/en` 30 页目录（Home、2 个工具页、27 个算法页）与 125 页静态产物已双轨上线；本地 286 个 L3/L4 测试文件 / 2073 个用例、104 个 L5 文件 / 115 个用例、coverage 与双 base 全绿，功能提交 `5dca6c4`、Pages run `29136875578` 和 selfhost 抽查均通过。M9-M12 已完成；C125 第三方分析尝试已由 C129 撤销，当前不加载 tracker、不发送事件，只保留 `pnpm marketing:link` 与 UTM 纯函数。下一阶段恢复 C127 宣传自动化：已完成 15 渠道审计和独立 `marketing-ops` MCP/RPA 隔离设计，状态 approved/25%，从 T1 CampaignSpec/能力注册表/dry-run 开始；Owner 硬约束为零新增费用、无企业主体，首期只做 GitHub、微博 Free、Bluesky、DEV、Mastodon，Reddit 后备，微信/B站/X 禁用。执行事实源是 `docs/marketing/execution-backlog.md`，渠道能力源是 `docs/marketing/channel-automation-audit.md`；C-034 与 C125 均已 superseded。
 
 ## 部署（双轨，两步都要做）
 
 线上有**两个独立部署**，发版必须两步做全，否则自有域名滞后旧版：
 
 1. **GitHub Pages**（`/algorithms-visualization/` 子路径）：`git push` 到 `main` 后 `.github/workflows/deploy.yml` **自动**部署——`pnpm install --frozen-lockfile` → 门禁（`lint:check` + `format:check` + `type-check` + `test:unit:run`）→ `pnpm build-only`（base=`/algorithms-visualization/`）→ 上传 `dist/` → Pages（Node 22 + `pnpm/action-setup`）。
-2. **自有域名 algo.illegalscreed.cn**（自有域，用户主用）：本地**手动**跑 `./scripts/deploy.sh`（`build:selfhost` + 105 页 SEO 门禁 → tar → scp → 远程原子切换，旧版备份 `/var/www/algorithms/dist.old`）。**deploy.yml 不碰这台服务器。**
+2. **自有域名 algo.illegalscreed.cn**（自有域，用户主用）：本地**手动**跑 `./scripts/deploy.sh`（`build:selfhost` + 当前 125 页 SEO 门禁 → tar → scp → 远程原子切换，旧版备份 `/var/www/algorithms/dist.old`）。**deploy.yml 不碰这台服务器。**
 
 发版验证：两个域名各 `curl` 一下目标页 200，且 Pages 部署 SHA = HEAD；不要只看一个域名就下结论（C-007 只 push、自有域滞留旧版，因新路由未上线表现为「跳转静默失败」，排查绕弯）。
 
@@ -111,7 +111,7 @@ sleep 8; gh run rerun <失败runId> --failed   # build 已绿，只重跑 Deploy
 
 重置**不动 cname**（始终 `null`），故自有域走独立自托管、完全不受影响。属外部基础设施操作，套用前一句话告知用户即可。
 
-**SPA 路由：** 应用用 `createWebHistory`；105 个可索引 URL 已有目录式预渲染入口，未知路径与无尾斜杠客户端深链仍由 [spa-github-pages](https://github.com/rafgraph/spa-github-pages) 的 `404.html` + `index.html` 还原逻辑兜底。改动路由时预渲染发现、SEO registry 与 fallback 都要保持一致。`VITE_BASE_URL` 同驱 Vite `base` 与路由 base：开发 `/`（`.env.development`）、生产 `/algorithms-visualization/`（`.env.production`）。换仓库/Pages 路径需同步改 `.env.production`。
+**SPA 路由：** 应用用 `createWebHistory`；当前 125 个可索引 URL 已有目录式预渲染入口，未知路径与无尾斜杠客户端深链仍由 [spa-github-pages](https://github.com/rafgraph/spa-github-pages) 的 `404.html` + `index.html` 还原逻辑兜底。改动路由时预渲染发现、SEO registry 与 fallback 都要保持一致。`VITE_BASE_URL` 同驱 Vite `base` 与路由 base：开发 `/`（`.env.development`）、生产 `/algorithms-visualization/`（`.env.production`）。换仓库/Pages 路径需同步改 `.env.production`。
 
 ## 仓库工作流与变更交付流程
 

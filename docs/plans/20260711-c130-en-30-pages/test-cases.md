@@ -1,34 +1,34 @@
 # 测试用例：英文目录扩展到 30 页
 
-> Status: draft
+> Status: verified
 > Stable ID: C-20260711-130
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 10%
-> Blocked by: Owner 确认 30 页目标与二十页清单
-> Next action: 批准范围后先写 registry/route/SEO 红测
+> Progress: 100%
+> Blocked by: none
+> Next action: C127 T1 建立 CampaignSpec、能力注册表与 dry-run 红测
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260710-124、C-20260711-126、C-20260711-127
 > Related tests: TC-I18N-CATALOG-130-_、TC-I18N-MODULE-130-_、TC-I18N-CONTENT-130-_、TC-SEO-I18N-130-_、TC-I18N-UI-130-_、TC-I18N-BUILD-130-_、TC-E2E-I18N-130-\_
 > Related requirement: requirements.md
 
-## 用例草案
+## 用例清单
 
-当前 Case 均为 draft，不登记到全局 active 测试索引；计划批准并写出红测时再逐条登记。
+以下 Case 已实现并登记到全局 active 测试索引；C126 中带十页/105 页固定数量的 Case 已转 superseded，仍适用的七页 adapter、JSON-LD、Header 与 Player 子集测试继续保留。
 
-| 层级  | Case ID 区间               | 数量 | 目标                                                                |
-| ----- | -------------------------- | ---- | ------------------------------------------------------------------- |
-| L3    | TC-I18N-CATALOG-130-01..04 | 4    | 30/27/2/1、唯一性、loader/router 全集、分类/complexity/path 完整性  |
-| L3    | TC-I18N-MODULE-130-01..04  | 4    | 27 adapter 结构不变、无 Han、lineMap 不变、共享 helper 不修改原步骤 |
-| docs  | TC-I18N-CONTENT-130-01..03 | 3    | 二十页正文完整、术语一致、交叉链接存在                              |
-| L3/L4 | TC-SEO-I18N-130-01..04     | 4    | 125 页 registry、30 组 alternate、未翻译页无假映射、导航清理        |
-| L4    | TC-I18N-UI-130-01..04      | 4    | Home/Menu/Search 29 页、Complexity 27 行、Paths 全覆盖、语言切换    |
-| build | TC-I18N-BUILD-130-01..04   | 4    | 125 页发现、正文语言、sitemap/llms/manifest、production/selfhost    |
-| L5    | TC-E2E-I18N-130-01..04     | 4    | 九大类深链、搜索/菜单、播放器、125 页 SEO 与窄视口                  |
-| 合计  |                            | 27   |                                                                     |
+| 层级  | Case ID 区间               | 数量 | 目标                                                             |
+| ----- | -------------------------- | ---- | ---------------------------------------------------------------- |
+| L3    | TC-I18N-CATALOG-130-01..06 | 6    | 30/27/2/1、唯一性、loader/router 全集、派生视图、切换与 fallback |
+| L3    | TC-I18N-MODULE-130-01..04D | 13   | 27 adapter map；四批结构不变、无 Han、lineMap 不变               |
+| docs  | TC-I18N-CONTENT-130-01..03 | 3    | 二十页正文完整、术语一致、交叉链接存在                           |
+| L3    | TC-SEO-I18N-130-01..02     | 2    | 125 页 registry、30 组 alternate、未翻译页无假映射               |
+| L4    | TC-I18N-UI-130-01..04      | 4    | Home/Menu/Search 29 页、Complexity 27 行、Paths 全覆盖、语言切换 |
+| build | TC-I18N-BUILD-130-01..04   | 4    | 125 页发现、正文语言、sitemap/llms/manifest、production/selfhost |
+| L5    | TC-E2E-I18N-130-01..05     | 5    | 深链/SEO、工具与代表轨、切换、搜索/播放器、900px 窄视口          |
+| 合计  |                            | 37   |                                                                  |
 
 ## 关键断言
 
@@ -63,6 +63,18 @@
 3. T2 每批五页先把预期推进到 15/110、20/115、25/120、30/125 并变红，再实现该批 adapter、SFC 和 metadata 到全绿。
 4. T3 运行最终 125 页 build/L5；任何未完成内容不得进入 sitemap，也不得把红测留给后续批次。
 
+## 执行结果
+
+- 四个五页批次均先出现 11 个预期失败，再实现到定向全绿；最终 C130 定向集为 7 个测试文件、56 个用例。
+- 全量 Vitest：286 个文件、2073 个用例通过。
+- 全量 Playwright：104 个文件、115 个用例通过；C130 新增 5 个端到端用例。
+- Coverage：Statements 95.24%、Branches 87.02%、Functions 91.46%、Lines 95.54%。
+- production/selfhost 均完成 125 页预渲染与 SEO 产物验证；视觉抽查覆盖 1440px 与 900px。
+- Pages run `29136875578` 与 selfhost 线上抽查通过；两域代表页均为 200，sitemap 均为 125 URL。
+
 ## 变更历史
 
 - 2026-07-11：创建 27 个 draft Case；待 requirements approved 后登记全局索引并进入 TDD。
+- 2026-07-11：Owner 批准 C130；状态转 implementing，先建立 10/105 等价迁移红测。
+- 2026-07-11：按实际自动化拆分登记 37 个 C130 Case；本地全门禁完成，等待双轨发布。
+- 2026-07-11：双轨上线和线上产物 Case 通过；状态转 verified。

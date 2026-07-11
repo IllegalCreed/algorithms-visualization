@@ -7,8 +7,8 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
 > Progress: 25%
-> Blocked by: none；Owner 明确将宣传自动化后置
-> Next action: 多语言与内容主线完成后，再实施独立 `marketing-ops` MCP
+> Blocked by: none；C130 已 verified
+> Next action: T1 建立 CampaignSpec、能力注册表、幂等键与 dry-run 红测
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130
@@ -81,7 +81,7 @@
 
 ## 当前实际变更
 
-当前只完成 T0 调研和方案设计，没有新增发布器、adapter、MCP、secret、依赖或站外发布动作。C127 为 approved/25%，由 Owner 明确后置，不能表述为“全自动系统已经可用”。
+当前只完成 T0 调研和方案设计，没有新增发布器、adapter、MCP、secret、依赖或站外发布动作。C127 为 approved/25%，C130 完成后已恢复为当前下一阶段，但仍不能表述为“全自动系统已经可用”。
 
 ## 验证记录
 
@@ -96,3 +96,4 @@
 
 - 2026-07-11：完成 T0；确认五个免费个人首批、Reddit 后备、三个人工监测、三个 D 级禁用、微信/B站主体禁用和 X 费用禁用。
 - 2026-07-11：独立 `marketing-ops` MCP/RPA 边界设计批准；停止 T1 开工，宣传自动化后置到多语言与内容主线之后。
+- 2026-07-11：C130 双轨发布完成；C127 恢复为当前工程主线，下一步执行 T1 的 schema、能力 gate、幂等与 dry-run 红测。

@@ -15,13 +15,13 @@
 | 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                         |
 | 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                               |
 | 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                   |
-| 内容规模 | 中文首页/菜单 9 大类、92 个算法与数据结构条目；另有 `/en` Home、2 个工具页与 7 个算法页的十页试点                                           |
+| 内容规模 | 中文首页/菜单 9 大类、92 个算法与数据结构条目；`/en` 为 Home、2 个工具页与 27 个算法页，共 30 页                                            |
 | 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换    |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：284 个测试文件、2055 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、114 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | C127 宣传 MCP/RPA 方案 approved 并后置；C130 英文目录从 10 页扩到 30 页的 draft 等待范围确认                                                |
-| 增长现状 | 当前线上仍为 95 中文 + 10 英文、无 tracker；C130 目标 125 页，C127 尚无 MCP/adapter/账号接入                                                |
+| 测试     | Vitest L3/L4：286 个测试文件、2073 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、115 个用例全绿；coverage 与双 base 构建门禁通过 |
+| 当前阶段 | C130 的 30 页英文目录与 125 页产物已 verified 并双轨上线；下一阶段为 C127 宣传 MCP/RPA 的 T1 基础层                                         |
+| 增长现状 | 线上为 95 中文 + 30 英文、无 tracker；C127 已完成设计但尚无 MCP/adapter/账号接入                                                            |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
 
 ## 模块地图
@@ -29,13 +29,13 @@
 | 模块         | 说明                                                                                           | 代码位置                                                                         |
 | ------------ | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | 布局外壳     | 顶层 Master + Header；Home/Docs/About 路由                                                     | `src/views/Master`、`src/views/Home`、`src/views/Docs`                           |
-| 内容页       | 中文数据结构/算法文章与 `/en` 十页试点                                                         | `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}`、`src/views/English` |
+| 内容页       | 中文数据结构/算法文章与 `/en` 30 页目录                                                        | `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}`、`src/views/English` |
 | 播放器       | AlgorithmPlayer、播放控制、代码高亮、变量面板、自定义输入、测验卡                              | `src/components/player`                                                          |
 | 可视化轨道   | Bars/Graph/Matrix/Board/Maze/Kmp/Sieve/Gcd/Power/Hull/Network 等可插拔轨道组件                 | `src/components`                                                                 |
 | 算法模块     | oracle、步骤构建、四语言 sources 与 lineMap                                                    | `src/algorithms`                                                                 |
 | 产品数据资产 | 首页/菜单分类、复杂度速查、学习路径                                                            | `src/views/Home/Main/hooks.ts`、`src/views/Docs/Menu/hooks.ts`、`src/data`       |
-| 多语言试点   | 十组 typed 页面映射、locale composable 与七个英文算法展示 adapter                              | `src/i18n`                                                                       |
-| SEO/静态产物 | 105 页 registry、route head/JSON-LD/hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁           | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
+| 多语言目录   | 30 组 typed 页面映射、locale composable、静态 loader map 与 27 个英文算法展示 adapter          | `src/i18n`、`src/views/English/pages.ts`                                         |
+| SEO/静态产物 | 125 页 registry、route head/JSON-LD/hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁           | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
 | 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无运行时 tracker、会话归因或交互事件                    | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                      |
 | 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                      |
 | 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`                  |

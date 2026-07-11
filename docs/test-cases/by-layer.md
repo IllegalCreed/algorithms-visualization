@@ -7,24 +7,38 @@
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供分层视角，便于按层级评审覆盖度。
 
-> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case 与 C-127 六个渠道自动化设计 Case。C130 draft Case 尚未登记。历史分层总数未做全量重算。
+> 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；2026-07-11 登记 C-126 二十三个多语言 Case、C-127 六个渠道自动化设计 Case与 C130 三十七个英文扩容 Case。历史分层总数未做全量重算。
+
+## 2026-07-11 英文目录 30 页扩容（C-20260711-130）
+
+| 层级  | Case ID                          | 标题                                                   | 自动化路径                                         |
+| ----- | -------------------------------- | ------------------------------------------------------ | -------------------------------------------------- |
+| L3    | TC-I18N-CATALOG-130-01..06       | 30 页 catalog、派生数据、loader/route、切换与 fallback | catalog/pages specs                                |
+| L3    | TC-I18N-MODULE-130-01 + 02A..04D | 27 adapter map 与四批结构、文案、lineMap 守护          | `src/i18n/englishAlgorithmModules.spec.ts`         |
+| L3    | TC-SEO-I18N-130-01..02           | 125 页 registry、30 组 hreflang 与未翻译页边界         | `src/seo/site.spec.ts`                             |
+| L4    | TC-I18N-UI-130-01..04            | Menu/Home/Complexity/Paths/Search 派生全集             | Menu/Search/catalogViews specs                     |
+| build | TC-I18N-BUILD-130-01..04         | 125 页发现、静态语言、sitemap/llms 与双 base           | `scripts/prerender.mjs` + `scripts/verify-seo.mjs` |
+| L5    | TC-E2E-I18N-130-01..05           | 深链、工具/轨道、切换、搜索/播放器与 900px 响应式      | `e2e/i18n.e2e.ts`                                  |
+| docs  | TC-I18N-CONTENT-130-01..03       | 二十页正文、术语和内部链接内容 QA                      | English SFC + style guide                          |
 
 ## 2026-07-11 渠道自动化审计增量（C-20260711-127）
 
-| 层级 | Case ID            | 标题                                   | 自动化路径                                                 |
-| ---- | ------------------ | -------------------------------------- | ---------------------------------------------------------- |
-| docs | TC-DOC-AUTO-127-01 | 十五渠道集合完整且唯一                 | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-02 | 发布、监测、回复、准入与成本有官方依据 | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-03 | 免费个人、后备与硬禁用边界明确         | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-04 | C127 当前状态与项目记忆一致            | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
-| docs | TC-DOC-AUTO-127-05 | 官方授权、凭据隔离与失败关闭红线完整   | `docs/marketing/channel-automation-audit.md`               |
-| docs | TC-DOC-AUTO-127-09 | Codex 与凭据/Profile 的 MCP 边界完整   | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| 层级 | Case ID            | 标题                                     | 自动化路径                                                 |
+| ---- | ------------------ | ---------------------------------------- | ---------------------------------------------------------- |
+| docs | TC-DOC-AUTO-127-01 | 十五渠道集合完整且唯一                   | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-02 | 发布、监测、回复、准入与成本有官方依据   | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-03 | 免费个人、后备与硬禁用边界明确           | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-04 | C127 approved/当前下一阶段与项目记忆一致 | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs | TC-DOC-AUTO-127-05 | 官方授权、凭据隔离与失败关闭红线完整     | `docs/marketing/channel-automation-audit.md`               |
+| docs | TC-DOC-AUTO-127-09 | Codex 与凭据/Profile 的 MCP 边界完整     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 
-## 2026-07-11 多语言十页试点增量（C-20260711-126）
+## 2026-07-11 多语言十页试点增量（C-20260711-126，部分 superseded）
+
+固定十页/105 页、9 个内容入口的 Case 已由 C130 替代；七页 adapter、英文 JSON-LD、Header 与 Player 子集测试仍 active，具体状态以 `index.md` 为准。
 
 | 层级  | Case ID                     | 标题                                              | 自动化路径                                         |
 | ----- | --------------------------- | ------------------------------------------------- | -------------------------------------------------- |
-| L3    | TC-I18N-REGISTRY-126-01..03 | 十组页面映射、切换 query 与未知页 fallback        | `src/i18n/pilot.spec.ts`                           |
+| L3    | TC-I18N-REGISTRY-126-01..03 | 十组页面映射、切换 query 与未知页 fallback        | `src/i18n/catalog.spec.ts`                         |
 | L3    | TC-I18N-MODULE-126-01..03   | 七模块结构不变、英文展示无 Han、lineMap 不变      | `src/i18n/englishAlgorithmModules.spec.ts`         |
 | L3    | TC-SEO-I18N-126-01..03      | 105 页 registry、十组 hreflang 与英文 JSON-LD     | `src/seo/site.spec.ts`                             |
 | L4    | TC-I18N-UI-126-01..04 + 03A | route head、Header、Search、Menu 与 Player 本地化 | route/Header/Search/Menu/Player specs              |
