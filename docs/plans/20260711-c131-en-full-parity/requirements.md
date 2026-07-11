@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-11
 > Progress: 100%
 > Blocked by: none
-> Next action: 继续 C127 T3 adapter contract 与 GitHub mock 红测
+> Next action: 继续 C127 T3-B GitHub CLI typed client 与授权健康检查红测
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260711-126、C-20260711-130、C-20260711-127、C-20260710-124

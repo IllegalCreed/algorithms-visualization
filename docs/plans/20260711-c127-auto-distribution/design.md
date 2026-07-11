@@ -6,13 +6,13 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-11
-> Progress: 55%
+> Progress: 62%
 > Blocked by: none
-> Next action: T3 共享 adapter contract 与 GitHub mock adapter 红测
+> Next action: T3-B GitHub CLI typed client、授权健康检查与 mock transport 红测
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -120,14 +120,23 @@ algorithms-visualization/
   scripts/marketing/   # CampaignSpec、能力注册表、renderer、site facts、dry-run
 
 personal plugin: marketing-ops/
-  src/mcp/             # 高层工具 schema、dispatch 与鉴权边界
-  src/channels/        # setup catalog；T3 起加入官方 API adapters
-  src/security/        # Keychain 与独立 Profile 边界
-  src/storage/         # receipt 与脱敏持久化
-  src/runtime/         # campaign 队列与并发控制
+  src/contract.ts      # 高层工具 schema 与鉴权边界
+  src/server-factory.ts # stdio MCP 注册与输出脱敏
+  src/adapters/        # 共享合同与逐平台 typed adapter；不暴露通用 HTTP/shell
+  src/security/        # Keychain 边界
+  src/receipt-store.ts # receipt 与脱敏持久化
+  src/campaign-lock.ts # campaign 队列与并发控制
 ```
 
 每个 adapter 单独实现最小接口，不用一个充满可选分支的万能客户端。DEV 没有官方评论写端点时 `reply` 就是 `false`；B站只有聚合评论数时不得伪造 `comments` 能力。
+
+### MCP v2 与 adapter contract
+
+- `publish_campaign` 除 `CampaignSpec` 外必须携带公开 renderer 已生成的 `packages`；`buildPublishCampaignPayload()` 从自然语言落成的 spec、MCP 渠道状态和 renderer 结果确定性组装调用参数，Owner 不编辑 JSON。插件只校验和执行，不复制平台文案或 UTM 规则。
+- adapter 只依赖逐平台 typed client，例如 GitHub 的 `findReleaseByTag/createRelease/deleteRelease`；不得接收通用 command、args、selector、path 或任意 HTTP request。
+- 统一错误合同区分 `REAUTH_REQUIRED`、`PERMISSION_DENIED`、`RATE_LIMITED`、`TEMPORARY_FAILURE`、`UNKNOWN_RESULT` 与 `IDEMPOTENCY_CONFLICT`。提交后结果未知时必须先按稳定外部键查询，不能盲重试。
+- `all-or-none` 只承诺写入前的全渠道预检原子性；MCP 必须收到显式渠道集合及一一对应的完整 package，无法证明全集的 `all-authorized` 调用失败关闭。跨平台写入开始后不存在分布式事务，不把后续平台失败伪装成已回滚。
+- GitHub Release 使用 `marketing/<campaignId>` 稳定 tag 与公开 hash marker 实现远端幂等。T3-A 仅注入 typed fake client；live `gh` client、授权健康与显式 enable gate 由 T3-B 完成。
 
 ## MCP 工具边界
 
@@ -223,3 +232,4 @@ get_campaign_report(campaignId, window)
 - 2026-07-11：Owner 选择先完成 C131 全量英文对齐；本设计与 T1 成果保持有效，T2 实施顺序后移。
 - 2026-07-11：C131 verified 后解除顺序阻塞；本设计重新成为当前实施入口，下一步 T2。
 - 2026-07-11：T2 按本设计建立公开 MCP contract 与本地 `marketing-ops` personal plugin；七工具、Keychain/Profile、队列、receipt、stdio smoke 和低摩擦 CLI 已验证，真实渠道 adapter 与授权留到 T3。
+- 2026-07-11：T3-A 将契约升到 v2 并桥接公开 renderer package；建立共享 adapter 错误/能力/receipt 合同、GitHub Release typed fake client 和预检优先 dispatch，默认 server 继续零 live client、零真实写入。

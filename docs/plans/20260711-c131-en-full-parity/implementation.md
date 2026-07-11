@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-11
 > Progress: 100%
 > Blocked by: none
-> Next action: 继续 C127 T3 adapter contract 与 GitHub mock 红测
+> Next action: 继续 C127 T3-B GitHub CLI typed client 与授权健康检查红测
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260711-126、C-20260711-130、C-20260711-127、C-20260710-124
@@ -17,7 +17,7 @@
 
 ## 当前状态
 
-C131 已完成并双轨上线：95 个中文页与 95 个英文页形成 95 组页面对和 190 个可索引入口。英文侧为 Home、2 个工具页、15 个数据结构互动页与 77 个 AlgorithmPlayer 页；C127 当前为 in-progress/55%，T1/T2 已完成，下一步进入 T3。
+C131 已完成并双轨上线：95 个中文页与 95 个英文页形成 95 组页面对和 190 个可索引入口。英文侧为 Home、2 个工具页、15 个数据结构互动页与 77 个 AlgorithmPlayer 页；C127 当前为 in-progress/62%，T3-A 已完成，下一步进入 T3-B。
 
 ## 审计证据
 

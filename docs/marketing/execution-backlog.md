@@ -4,9 +4,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-11
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/55%，T1/T2 完成）
+> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/62%，T1/T2/T3-A 完成）
 > Completed plan: C-20260711-131 英文目录全量对齐（verified）
-> Next action: C127 T3 共享 adapter contract 与 GitHub mock adapter 红测
+> Next action: C127 T3-B GitHub CLI typed client、授权健康检查与 mock transport 红测
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -33,7 +33,7 @@
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | C127 T1/T2 已实现 dry-run、七工具 contract 与本地隔离 MCP 安全骨架                       | 保持 55%；下一步建立 adapter contract 与 GitHub mock，仍不接真实账号                 |
+| 内容生产自动化   | 进行中 | C127 T3-A 已完成 MCP v2、共享 adapter contract、GitHub typed fake 与失败关闭 dispatch    | 保持 62%；下一步 GitHub CLI typed client，仍不启用真实账号写入                       |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
@@ -47,22 +47,22 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2 已完成并达到 55%；本机已有隔离的 personal plugin 安全骨架，当前从 T3 adapter contract 与 GitHub mock 继续，仍未接账号或做真实发布。
+6. C127 T1/T2/T3-A 已完成并达到 62%；MCP v2 已桥接 renderer package，GitHub Release 仅通过 typed fake client 验证。当前从 T3-B GitHub CLI 边界继续，仍未接账号或做真实发布。
 7. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
-| 阶段                      | 状态        | 目标                                                      | 退出条件                                                            | 主要依赖                        |
-| ------------------------- | ----------- | --------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------- |
-| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                            | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122           |
-| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物        | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                            |
-| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因                | 未激活生产统计；由 C129 撤销                                        | C124                            |
-| C129 撤销第三方分析接入   | verified    | 删除 tracker 与事件，保留零成本 UTM 工具                  | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                | C125；当前 plan C-20260710-129  |
-| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                  | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                      |
-| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页                | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                            |
-| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                          | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                          |
-| C127 提示词驱动全自动分发 | in-progress | T1/T2 已完成 dry-run、七工具 contract 与独立 MCP 安全骨架 | 首批 adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过             | 55%；下一步 T3 adapter contract |
-| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                          | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                       |
+| 阶段                      | 状态        | 目标                                                                | 退出条件                                                            | 主要依赖                       |
+| ------------------------- | ----------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
+| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                                      | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物                  | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
+| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因                          | 未激活生产统计；由 C129 撤销                                        | C124                           |
+| C129 撤销第三方分析接入   | verified    | 删除 tracker 与事件，保留零成本 UTM 工具                            | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                | C125；当前 plan C-20260710-129 |
+| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                            | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
+| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页                          | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
+| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                                    | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
+| C127 提示词驱动全自动分发 | in-progress | T3-A 已完成 MCP v2、adapter contract、GitHub typed fake 与 dispatch | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 62%；下一步 T3-B GitHub CLI    |
+| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                                    | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -171,7 +171,7 @@
 
 ## C127 提示词驱动的全自动内容分发
 
-> Status: in-progress / 55% / current（C-20260711-127）
+> Status: in-progress / 62% / current（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
@@ -191,7 +191,8 @@
 
 - T1 已完成：公开仓库具备版本化 CampaignSpec、15 渠道能力/runtime gate、SHA-256 幂等键、站点事实对拍、渠道 renderer、示例 spec 与零副作用 dry-run。
 - T2 已完成：公开仓库固定精确七工具 contract；本机 `/Users/zhangxu/plugins/marketing-ops` personal plugin 已实现 stdio、一次性 setup/status/doctor、Keychain/Profile、campaign 锁和 0600 receipt 安全骨架，20 个精确 Case 与真实 client smoke 通过。
-- 真实 adapter、账号授权、已保存凭据、collector 与站外发布仍不存在，默认 runtime 全部失败关闭。下一步 T3 先建立共享 adapter contract 与 GitHub mock，不提前向 Owner 收集 secret。
+- T3-A 已完成：MCP v2 携带公开 renderer package；共享 adapter contract、GitHub Release typed fake client、全渠道预检、幂等 receipt 与 runtime handler 共 20 个 Case 通过。
+- live GitHub CLI client、账号授权、enabled adapter、collector 与站外发布仍不存在，默认 runtime 全部失败关闭。下一步 T3-B 建立 GitHub CLI typed client 和授权健康检查，不提前向 Owner 收集 secret。
 - 首次真实接入时由 Codex 逐步带 Owner 完成向导；接入后的正常使用只需自然语言 campaign，不要求编辑 JSON、拼 UTM 或记忆 CLI。
 
 ### 退出条件
@@ -269,3 +270,4 @@
 - 2026-07-11：Owner 决定先完成全部英文翻译；建立 C131（15 互动 + 50 播放器），目标 95 英文/190 总页，C127 保持 40% 后置。
 - 2026-07-11：C131 功能提交 `592d27d`、297/2118 Vitest、117 L5、coverage、190 页双 base、Pages run `29145907250` 与 selfhost 抽查通过；状态转 verified，当前主线恢复 C127 T2。
 - 2026-07-11：C127 T2 完成公开七工具 contract 与本地 `marketing-ops` personal plugin 安全骨架；20 Case、coverage、stdio smoke 和 validator 通过，当前 55%，下一步 T3 adapter contract 与 GitHub mock。
+- 2026-07-11：C127 T3-A 以公开仓库 `98f8deb` 与本地插件 `ba6d4c3` 完成 MCP v2 renderer package 桥接、共享 adapter contract、GitHub Release typed fake 与失败关闭 dispatch；20 Case、最终竞争边界审计与 plugin 12/43 测试通过，当前 62%，下一步 T3-B GitHub CLI。
