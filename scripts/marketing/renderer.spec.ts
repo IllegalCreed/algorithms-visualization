@@ -29,6 +29,7 @@ describe('marketing channel renderer', () => {
     ]);
     expect(packages[0]?.variants.map((variant) => variant.locale)).toEqual(['zh-CN', 'en']);
     expect(packages[1]?.variants.map((variant) => variant.locale)).toEqual(['zh-CN']);
+    expect(packages[2]?.variants.map((variant) => variant.locale)).toEqual(['en']);
     expect(packages[3]?.variants.map((variant) => variant.locale)).toEqual(['en']);
 
     const trackedLinks = packages.flatMap(

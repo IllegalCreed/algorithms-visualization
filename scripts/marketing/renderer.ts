@@ -117,7 +117,7 @@ const RENDER_PROFILES: Partial<Record<ChannelId, RenderProfile>> = {
   bluesky: {
     format: 'post',
     utmMedium: 'social',
-    locales: ['zh-CN', 'en'],
+    locales: ['en'],
     media: ['image'],
     maxTitleLength: 200,
     maxBodyLength: 300,
