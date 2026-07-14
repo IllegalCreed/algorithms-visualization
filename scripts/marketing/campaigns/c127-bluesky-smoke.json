@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "marketing-ops-t3d2-smoke-127",
+  "topic": "Bluesky publishing and cleanup smoke test",
+  "targetUrls": ["https://algo.illegalscreed.cn/en/docs/quick-sort/"],
+  "locales": ["en"],
+  "channels": ["bluesky"],
+  "publishAt": "2026-07-14T22:00:00+09:00",
+  "campaign": "c127-t3d2-smoke",
+  "content": {
+    "variants": {
+      "en": {
+        "title": "Quick Sort, visualized step by step",
+        "angle": "Owner-approved integration test using a real interactive algorithm page.",
+        "callToAction": "Explore"
+      }
+    },
+    "media": []
+  },
+  "replies": {
+    "mode": "off",
+    "createBugIssues": false
+  },
+  "failureMode": "all-or-none"
+}
