@@ -7,8 +7,8 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-14
 > Progress: 85%
-> Blocked by: 无（Bluesky adapter 默认关闭；账号接入与真实 smoke 分开授权）
-> Next action: 确认或创建 Bluesky 账号，在本机向导隐藏录入专用 App Password；随后另行授权低风险 smoke
+> Blocked by: 无（Bluesky setup 已完成；真实 smoke 仍需 matching campaign 单独授权）
+> Next action: 授权或拒绝固定 campaign `marketing-ops-t3d2-smoke-127` 的 publish/read/delete smoke
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -22,7 +22,7 @@
 | TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                          |
 | TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                                   |
 | TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力         |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 85%；Bluesky 工程边界完成但账号未接入、adapter disabled、零写入；下一步一次性 setup 与 smoke  |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 85%；Bluesky ready/enabled、安全删除与 dry-run 完成、零帖子；下一步 matching campaign smoke   |
 | TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过                      |
 | TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                                     |
 | TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                                 |
@@ -204,12 +204,22 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 
 | Case ID                        | 层级             | 检查对象                    | 预期                                                                                         |
 | ------------------------------ | ---------------- | --------------------------- | -------------------------------------------------------------------------------------------- |
-| TC-AUTO-BSKYAPI-127-00..06     | adapter contract | 官方 SDK client             | 固定服务、凭据规范化、公开健康、本人 feed、RichText 链接、严格响应与脱敏错误映射通过         |
-| TC-AUTO-BSKYADAPTER-127-01..05 | adapter contract | 英文文本 adapter            | 只接受 renderer 单英文正文；完整查询幂等复用，冲突/媒体/中文/多变体/丢链接与超长均失败关闭   |
+| TC-AUTO-BSKYAPI-127-00..06     | adapter contract | 官方 SDK client             | 固定服务、凭据规范化、公开健康、本人 feed、RichText 链接、本人 DID 删除与脱敏错误映射通过    |
+| TC-AUTO-BSKYADAPTER-127-01..07 | adapter contract | 英文文本 adapter            | 单英文正文与幂等发布；删除只收精确 receipt，transport/未知结果失败关闭                       |
 | TC-AUTO-BSKYACT-127-01..04     | L3/security      | 非秘密 activation           | 缺失返回 null；0600 只保存 handle/DID；身份、损坏、错渠道与未来版本严格拒绝                  |
 | TC-AUTO-BSKYCHANNEL-127-01..09 | L3/security      | setup、Keychain 与身份 gate | 先验证再保存；activation、Keychain handle、实时 handle/DID 或健康异常时不注册且不泄露 secret |
-| TC-AUTO-BSKYRUNTIME-127-01     | MCP/runtime      | 惰性 adapter 注册           | 只为请求中明确包含的 Bluesky package 创建 registration；其他渠道请求不触发 Keychain 或 SDK   |
-| TC-AUTO-BSKYSMOKE-127-01       | live smoke       | 真实 publish/read           | planned；须先完成一次性 setup，再由 Owner 对 matching campaign 单独授权，不由“继续开发”代替  |
+| TC-AUTO-BSKYRUNTIME-127-01..02 | MCP/runtime      | 惰性注册与安全删除          | 发布/删除均动态取得 ready registration；只处理请求渠道和已知 receipt                         |
+| TC-AUTO-BSKYSMOKE-127-01       | live smoke       | 真实 publish/read/delete    | planned；setup 已完成，须由 Owner 对固定 matching campaign 单独授权，不由“继续开发”代替      |
+
+### T3-D2-B 固定 smoke 输入与顺序
+
+- spec：`scripts/marketing/campaigns/c127-bluesky-smoke.json`
+- preflight：`scripts/marketing/campaigns/c127-bluesky-smoke.preflight.json`
+- campaign / UTM：`marketing-ops-t3d2-smoke-127` / `c127-t3d2-smoke`
+- target：`https://algo.illegalscreed.cn/en/docs/quick-sort/`
+- package：Bluesky only、English text only、media `[]`、replies off、`all-or-none`
+- 当前证据：正文 265 graphemes；dry-run 仅 `EXECUTION_NOT_APPROVED`，`renderIssues=[]`、`sideEffects=[]`；idempotency key 为 `campaign-v1/marketing-ops-t3d2-smoke-127/aaefa046759152bf9f89bc0cef86b0970bf5239709d5250a41a2fad7af87f59c`；本地 receipt count 为 0
+- 授权后顺序：publish -> status/public URL/read -> 同正文幂等复查 -> delete -> receipt/public URL 清理复查
 
 ## T3-D-T5 运行时用例框架
 
@@ -238,39 +248,39 @@ git diff --check
 
 ## 当前结果
 
-| Case                           | 结果    | 日期       | 说明                                                                |
-| ------------------------------ | ------- | ---------- | ------------------------------------------------------------------- |
-| TC-DOC-AUTO-127-01..05、08..09 | passed  | 2026-07-14 | 渠道、约束、MCP 隔离、记忆与状态一致                                |
-| TC-DOC-AUTO-127-06..07         | passed  | 2026-07-14 | format:check 与 diff check 通过                                     |
-| TC-AUTO-SPEC/IDEMP-127-\_      | passed  | 2026-07-11 | schema、规范化、排期与幂等通过                                      |
-| TC-AUTO-CHANNEL-127-\_         | passed  | 2026-07-14 | 15 渠道集合与全部 gate 分支通过                                     |
-| TC-AUTO-FACTS/RENDER-127-\_    | passed  | 2026-07-14 | 当前事实、平台候选与限制校验通过                                    |
-| TC-AUTO-DRYRUN-127-\_          | passed  | 2026-07-14 | 确定性、零副作用与脱敏边界通过                                      |
-| TC-AUTO-MCP-127-01..06         | passed  | 2026-07-11 | 公开七工具 contract、授权、拒绝与脱敏通过                           |
-| TC-AUTO-SETUP/SECRET-127-\_    | passed  | 2026-07-11 | 向导目录、隐藏录入与 Keychain 边界通过                              |
-| TC-AUTO-PROFILE/QUEUE-127-\_   | passed  | 2026-07-11 | Profile 隔离、失败关闭与并发释放通过                                |
-| TC-AUTO-RECEIPT-127-01..02     | passed  | 2026-07-11 | 幂等、原子 0600 持久化与损坏拒绝通过                                |
-| TC-AUTO-TRANSPORT-127-01..02   | passed  | 2026-07-11 | stdio-only 配置与真实 client smoke 通过                             |
-| TC-AUTO-UX-127-01              | passed  | 2026-07-11 | 一次设置、日常自然语言的 CLI 边界通过                               |
-| TC-AUTO-MCP-127-07..08         | passed  | 2026-07-11 | MCP v2 renderer package 桥接与严格校验通过                          |
-| TC-AUTO-ADAPTER-127-01..08     | passed  | 2026-07-11 | 共享能力、错误、幂等与 receipt 合同通过                             |
-| TC-AUTO-GITHUB-127-01..07      | passed  | 2026-07-11 | typed fake Release 创建/复用/删除边界通过                           |
-| TC-AUTO-DISPATCH-127-01..03    | passed  | 2026-07-11 | registry、预检、短路与持久化顺序通过                                |
-| TC-AUTO-GHCLI/GHAUTH-127-\_    | passed  | 2026-07-11 | 固定 CLI、stdin、错误、只读授权/仓库健康与 smoke 通过               |
-| TC-AUTO-ACTIVATION/RUNTIME-127 | passed  | 2026-07-11 | 0600 显式启用、损坏失败关闭与惰性 runtime 通过                      |
-| TC-AUTO-GHOBS/GHISSUE-127-\_   | passed  | 2026-07-11 | strict Release/traffic/Issue、分页、错误与归因边界通过              |
-| TC-AUTO-GHSTORE/GHOPS-127-\_   | passed  | 2026-07-11 | receipt 安全查询/状态与 MCP status/feedback/report/delete 通过      |
-| TC-AUTO-GHSMOKE-127-01         | passed  | 2026-07-11 | 固定预案、Release/tag 所有权清理与真实只读预查通过                  |
-| TC-AUTO-GHSMOKE-127-02         | passed  | 2026-07-11 | Owner 授权的 create/read/delete/tag-cleanup 闭环及双侧复查通过      |
-| TC-AUTO-WBPROC/WBCLI-127-\_    | passed  | 2026-07-11 | 固定官方 CLI、健康 gate、目录白名单、资源与脱敏边界通过             |
-| TC-AUTO-WBADAPTER-127-01..05   | passed  | 2026-07-11 | 注入式正文、幂等、receipt、错误与保守能力合同通过                   |
-| TC-AUTO-WBRUNTIME-127-01       | passed  | 2026-07-14 | Free ready 仍明确只读，production adapter 始终 disabled             |
-| TC-AUTO-WBSMOKE-127-01         | passed  | 2026-07-11 | 空白隔离环境 help/doctor 只读预查通过，零登录、零写入               |
-| TC-AUTO-BSKYAPI/ADAPTER-127-\_ | passed  | 2026-07-14 | 固定官方 SDK、英文正文、幂等、链接 facet、receipt 与脱敏错误通过    |
-| TC-AUTO-BSKYACT/CHANNEL-127-\_ | passed  | 2026-07-14 | Keychain/0600 activation、身份对拍与全部失败关闭分支四项 100% 覆盖  |
-| TC-AUTO-BSKYRUNTIME-127-01     | passed  | 2026-07-14 | 请求级惰性注册通过；默认状态为 not-configured/setup-required        |
-| TC-AUTO-BSKYSMOKE-127-01       | planned | 2026-07-14 | 账号与 App Password 未接入，零网络写入；等待 setup 与 matching 授权 |
-| T3-D2-B-T5 运行时 Case         | partial | 2026-07-14 | Bluesky 工程边界 29/140 全绿；真实 smoke、DEV、Mastodon 后续展开    |
+| Case                           | 结果    | 日期       | 说明                                                                   |
+| ------------------------------ | ------- | ---------- | ---------------------------------------------------------------------- |
+| TC-DOC-AUTO-127-01..05、08..09 | passed  | 2026-07-14 | 渠道、约束、MCP 隔离、记忆与状态一致                                   |
+| TC-DOC-AUTO-127-06..07         | passed  | 2026-07-14 | format:check 与 diff check 通过                                        |
+| TC-AUTO-SPEC/IDEMP-127-\_      | passed  | 2026-07-11 | schema、规范化、排期与幂等通过                                         |
+| TC-AUTO-CHANNEL-127-\_         | passed  | 2026-07-14 | 15 渠道集合与全部 gate 分支通过                                        |
+| TC-AUTO-FACTS/RENDER-127-\_    | passed  | 2026-07-14 | 当前事实、平台候选与限制校验通过                                       |
+| TC-AUTO-DRYRUN-127-\_          | passed  | 2026-07-14 | 确定性、零副作用与脱敏边界通过                                         |
+| TC-AUTO-MCP-127-01..06         | passed  | 2026-07-11 | 公开七工具 contract、授权、拒绝与脱敏通过                              |
+| TC-AUTO-SETUP/SECRET-127-\_    | passed  | 2026-07-11 | 向导目录、隐藏录入与 Keychain 边界通过                                 |
+| TC-AUTO-PROFILE/QUEUE-127-\_   | passed  | 2026-07-11 | Profile 隔离、失败关闭与并发释放通过                                   |
+| TC-AUTO-RECEIPT-127-01..02     | passed  | 2026-07-11 | 幂等、原子 0600 持久化与损坏拒绝通过                                   |
+| TC-AUTO-TRANSPORT-127-01..02   | passed  | 2026-07-11 | stdio-only 配置与真实 client smoke 通过                                |
+| TC-AUTO-UX-127-01              | passed  | 2026-07-11 | 一次设置、日常自然语言的 CLI 边界通过                                  |
+| TC-AUTO-MCP-127-07..08         | passed  | 2026-07-11 | MCP v2 renderer package 桥接与严格校验通过                             |
+| TC-AUTO-ADAPTER-127-01..08     | passed  | 2026-07-11 | 共享能力、错误、幂等与 receipt 合同通过                                |
+| TC-AUTO-GITHUB-127-01..07      | passed  | 2026-07-11 | typed fake Release 创建/复用/删除边界通过                              |
+| TC-AUTO-DISPATCH-127-01..03    | passed  | 2026-07-11 | registry、预检、短路与持久化顺序通过                                   |
+| TC-AUTO-GHCLI/GHAUTH-127-\_    | passed  | 2026-07-11 | 固定 CLI、stdin、错误、只读授权/仓库健康与 smoke 通过                  |
+| TC-AUTO-ACTIVATION/RUNTIME-127 | passed  | 2026-07-11 | 0600 显式启用、损坏失败关闭与惰性 runtime 通过                         |
+| TC-AUTO-GHOBS/GHISSUE-127-\_   | passed  | 2026-07-11 | strict Release/traffic/Issue、分页、错误与归因边界通过                 |
+| TC-AUTO-GHSTORE/GHOPS-127-\_   | passed  | 2026-07-11 | receipt 安全查询/状态与 MCP status/feedback/report/delete 通过         |
+| TC-AUTO-GHSMOKE-127-01         | passed  | 2026-07-11 | 固定预案、Release/tag 所有权清理与真实只读预查通过                     |
+| TC-AUTO-GHSMOKE-127-02         | passed  | 2026-07-11 | Owner 授权的 create/read/delete/tag-cleanup 闭环及双侧复查通过         |
+| TC-AUTO-WBPROC/WBCLI-127-\_    | passed  | 2026-07-11 | 固定官方 CLI、健康 gate、目录白名单、资源与脱敏边界通过                |
+| TC-AUTO-WBADAPTER-127-01..05   | passed  | 2026-07-11 | 注入式正文、幂等、receipt、错误与保守能力合同通过                      |
+| TC-AUTO-WBRUNTIME-127-01       | passed  | 2026-07-14 | Free ready 仍明确只读，production adapter 始终 disabled                |
+| TC-AUTO-WBSMOKE-127-01         | passed  | 2026-07-11 | 空白隔离环境 help/doctor 只读预查通过，零登录、零写入                  |
+| TC-AUTO-BSKYAPI/ADAPTER-127-\_ | passed  | 2026-07-14 | 固定官方 SDK、英文正文、幂等、链接 facet、receipt 与脱敏错误通过       |
+| TC-AUTO-BSKYACT/CHANNEL-127-\_ | passed  | 2026-07-14 | Keychain/0600 activation、身份对拍与全部失败关闭分支四项 100% 覆盖     |
+| TC-AUTO-BSKYRUNTIME-127-01     | passed  | 2026-07-14 | 请求级惰性注册通过；默认状态为 not-configured/setup-required           |
+| TC-AUTO-BSKYSMOKE-127-01       | planned | 2026-07-14 | 账号与 App Password 未接入，零网络写入；等待 setup 与 matching 授权    |
+| T3-D2-B-T5 运行时 Case         | partial | 2026-07-14 | Bluesky setup/安全删除 29/144 全绿；真实 smoke、DEV、Mastodon 后续展开 |
 
 ## 变更历史
 
@@ -296,3 +306,4 @@ git diff --check
 - 2026-07-14：官方 Free 复核显示 7 天只读、0 写/小时。先以 TC-AUTO-WBRUNTIME-127-01 复现“冻结 Free publish command”错误提示，再修正为只读/发布 disabled；plugin `263fd3f` 后 25 文件 / 111 用例、coverage 与 verify 全绿。
 - 2026-07-14：T3-D2-A 先以缺失模块、运行时未接线和 renderer 双语错位红测推进；plugin `2107843` 最终 29 文件 / 140 用例、coverage（97.53/93.31/99.35/98.25）、verify 与 STDIO smoke 全绿，安全模块四项 100%。公开 renderer 收紧为单英文变体；账号未接入、零写入，C127 转 85%。
 - 2026-07-14：公开仓库 `pnpm verify` 通过 299 文件 / 2131 用例与 190 页 production SEO 门禁；coverage 与 118 条 Playwright 全绿。T3-D2-B 真实 smoke 继续 planned，不因工程门禁通过而视为已授权。
+- 2026-07-14：Bluesky setup 后只读状态为 ready/enabled；安全删除以 5 个 red failure 推进至 plugin `5d9aef1`、29/144、coverage、verify 全绿。固定 smoke dry-run 唯一阻塞为 `EXECUTION_NOT_APPROVED`，receipt count 为 0，未执行平台写入。

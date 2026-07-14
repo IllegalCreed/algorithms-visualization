@@ -8,7 +8,7 @@
 
 项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。当前工程主线为 C127 宣传自动化 T3。
 
-当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 85%。微博零费用 API 发布路径已关闭；Bluesky T3-D2-A 工程边界已完成但账号未接入、adapter 默认关闭且零写入，下一步为一次性 setup 与另行授权 smoke。第三方统计继续暂缓。
+当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 85%。微博零费用 API 发布路径已关闭；Bluesky 已完成一次性 setup 并保持 ready/enabled，安全删除与固定 smoke dry-run 已完成，尚未发布帖子，下一步为 matching campaign 单独授权的 publish/read/delete smoke。第三方统计继续暂缓。
 
 事实优先级保持不变：当前源码与本地测试结果 > 最新 plan / `docs/plans/completion-backlog.md` > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md` > 本路线图。
 
@@ -22,7 +22,7 @@
 | 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
 | 测试基线 | 2026-07-11 本地现状：299 个 Vitest 文件 / 2131 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 118 条 Playwright e2e 通过                     |
 | 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
-| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；GitHub ready/enabled；微博 API disabled；Bluesky 工程就绪但未接入、默认 disabled                |
+| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；GitHub/Bluesky ready/enabled；微博 API disabled；Bluesky 尚未执行真实发布                       |
 
 ## 维护队列
 
@@ -32,7 +32,7 @@
 | P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                          |
 | P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                   |
 | P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                        |
-| P1     | 宣传自动化           | ongoing  | C127 85%；Bluesky T3-D2-A 工程边界已完成，账号未接入且零写入；下一步一次性 setup 与另行授权 smoke                         |
+| P1     | 宣传自动化           | ongoing  | C127 85%；Bluesky setup、安全删除与无副作用 dry-run 已完成；下一步 matching campaign 单独授权的 publish/read/delete smoke |
 | P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁 |
 | P2     | 免费索引与需求信号   | pending  | 190 页 sitemap 已稳定，可按 C124 清单提交 Search Console/Bing Webmaster Tools；不引入 tracker                             |
 | P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131             |
@@ -42,6 +42,7 @@
 
 | 日期       | 记录                                                                                                                                        |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-14 | C127 T3-D2-B 部分完成：Bluesky ready/enabled；plugin `5d9aef1` 补齐安全删除，29/144 全绿；固定 smoke 仅缺 `EXECUTION_NOT_APPROVED`          |
 | 2026-07-14 | C127 T3-D2-A：plugin `2107843`；官方 SDK、英文文本、Keychain/activation 与惰性 runtime 完成，29/140 全绿；账号未接入、零写入，C127 85%      |
 | 2026-07-14 | C127 T3-D1-B：微博个人认证已通过；官方 Free 复核为 0 元/7 天、5 读/小时、0 写/小时，未领取试用，plugin `263fd3f` 继续失败关闭               |
 | 2026-07-12 | C127 T3-D1-B：微博固定版本与 device OAuth 完成；plugin `088229d` 修复真实 null subscription，个人开发者认证审核中，adapter disabled         |

@@ -56,7 +56,7 @@
 | marketing / channel inventory      | TC-DOC-AUTO-127-01             | 十五渠道集合完整且唯一                                 | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / official evidence      | TC-DOC-AUTO-127-02             | 发布、监测、回复、准入与成本有官方依据                 | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / capability tiers       | TC-DOC-AUTO-127-03             | 免费个人、后备与硬禁用边界明确                         | docs     | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 85%、Bluesky 工程完成但未接入、下一步 setup/smoke | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 85%、Bluesky ready/enabled、下一步固定 smoke 授权 | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / credential safety      | TC-DOC-AUTO-127-05             | 官方授权、凭据隔离与失败关闭红线完整                   | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / MCP boundary           | TC-DOC-AUTO-127-09             | Codex 与凭据/Profile 的工具边界完整                    | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / campaign spec          | TC-AUTO-SPEC-127-01..04        | schema、规范化、非法输入与双语内容合同                 | L3       | `scripts/marketing/spec.spec.ts`                           |
@@ -91,12 +91,12 @@
 | marketing-ops / Weibo adapter      | TC-AUTO-WBADAPTER-127-01..05   | 注入式正文、幂等、receipt、错误与保守能力              | L3       | personal plugin `src/weibo-post-adapter.spec.ts`           |
 | marketing-ops / Weibo runtime      | TC-AUTO-WBRUNTIME-127-01       | Free ready 仍只读且 production adapter disabled        | MCP      | personal plugin Weibo channel + local runtime specs        |
 | marketing-ops / Weibo smoke        | TC-AUTO-WBSMOKE-127-01         | 官方 help/源码 argv 与空白隔离 doctor 只读预查         | smoke    | official CLI local read-only smoke                         |
-| marketing-ops / Bluesky API        | TC-AUTO-BSKYAPI-127-00..06     | 固定 SDK、公开健康、本人 feed、链接 facet 与错误脱敏   | L3       | personal plugin `src/bluesky-api.spec.ts`                  |
-| marketing-ops / Bluesky adapter    | TC-AUTO-BSKYADAPTER-127-01..05 | 单英文正文、幂等、receipt、共享错误与保守能力          | L3       | personal plugin `src/bluesky-post-adapter.spec.ts`         |
+| marketing-ops / Bluesky API        | TC-AUTO-BSKYAPI-127-00..06     | 固定 SDK、本人 feed、链接 facet、本人 DID 删除与脱敏   | L3       | personal plugin `src/bluesky-api.spec.ts`                  |
+| marketing-ops / Bluesky adapter    | TC-AUTO-BSKYADAPTER-127-01..07 | 单英文正文、幂等、receipt、安全删除与未知结果关闭      | L3       | personal plugin `src/bluesky-post-adapter.spec.ts`         |
 | marketing-ops / Bluesky activation | TC-AUTO-BSKYACT-127-01..04     | 0600 activation、严格身份与损坏/版本失败关闭           | L3       | personal plugin `src/bluesky-activation-store.spec.ts`     |
 | marketing-ops / Bluesky channel    | TC-AUTO-BSKYCHANNEL-127-01..09 | TTY setup、Keychain、activation 与实时身份三方对拍     | L3       | personal plugin `src/bluesky-channel.spec.ts`              |
-| marketing-ops / Bluesky runtime    | TC-AUTO-BSKYRUNTIME-127-01     | 仅为请求中的 Bluesky package 惰性注册                  | MCP      | personal plugin `src/local-runtime.spec.ts`                |
-| marketing-ops / Bluesky smoke      | TC-AUTO-BSKYSMOKE-127-01       | planned；需一次性 setup 与 matching campaign 单独授权  | smoke    | official API local smoke                                   |
+| marketing-ops / Bluesky runtime    | TC-AUTO-BSKYRUNTIME-127-01..02 | 请求级惰性注册与已知 receipt 安全删除                  | MCP      | personal plugin `src/local-runtime.spec.ts`                |
+| marketing-ops / Bluesky smoke      | TC-AUTO-BSKYSMOKE-127-01       | planned；setup 已完成，需 matching campaign 单独授权   | smoke    | official API local smoke                                   |
 
 ---
 
