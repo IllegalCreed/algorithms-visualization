@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-14
-> Progress: 79%
-> Blocked by: 无（微博 Free 零写额度已失败关闭，不阻塞其他渠道）
-> Next action: 推进 Bluesky T3-D2 contract 与 App Password 向导；微博发布只作后续独立 RPA 评审候选
+> Progress: 85%
+> Blocked by: 无（Bluesky adapter 默认关闭；账号接入与真实 smoke 分开授权）
+> Next action: 确认或创建 Bluesky 账号，在本机向导隐藏录入专用 App Password；随后另行授权低风险 smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -249,6 +249,17 @@ get_campaign_report(campaignId, window)
 4. 以注入的 typed fake client 建立微博纯文字 adapter 的渲染、最近本人同正文查询、幂等复用、receipt 与错误合同；媒体、英文变体、metrics/reply/delete 继续失败关闭。
 5. Owner 完成 OAuth 与个人认证后，套餐审计证明 Free 没有写额度。不消耗 7 天试用去冻结无法发布的 catalog，production client、activation 与 publish smoke 均失败关闭；零费用微博发布只能在 T5 作独立 RPA 评审。
 
+### T3-D2-A Bluesky 安全发布边界
+
+Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Protocol SDK，不需要企业认证或新增费用。本阶段只建立默认关闭的发布边界，不代替 Owner 创建账号，也不把工程完成视为真实 campaign 授权。
+
+1. 固定官方 `@atproto/api@0.20.28` 与 `https://bsky.social` 服务；不提供通用 HTTP、任意 endpoint 或原始 SDK 响应出口。
+2. 公开 renderer 只生成一个英文 `post` 变体；adapter 校验 300 grapheme、链接完整性、零未解析媒体与英文 locale，不在插件内重写文案或 UTM。
+3. setup 仅在交互式 TTY 接受公开 handle 与不回显的专用 App Password；App Password 只写 macOS Keychain，activation 只以 0600 保存公开 handle/DID。
+4. 登录健康、activation、Keychain handle 与实时 handle/DID 必须一致；缺失、损坏、401、429、服务异常或身份漂移均失败关闭，且不回显 secret、session 或原始响应。
+5. 发布前查询本人最近 100 条非回复正文；完整同正文命中则幂等复用，不完整或畸形查询禁止 create。RichText 只保留可解析链接 facet，创建结果严格对拍 AT URI、CID 与公开 URL。
+6. runtime 仅在本次 `publish_campaign` package 包含 Bluesky 时惰性注册 adapter；setup 成功也不等于 campaign 写授权。当前账号未接入、activation 不存在、零 Bluesky 网络写入。
+
 ## 风险与处理
 
 - **平台规则变化**：官方依据和 adapter version 入档；403/政策警告自动停用渠道，等待复审。
@@ -261,6 +272,7 @@ get_campaign_report(campaignId, window)
 
 ## 变更历史
 
+- 2026-07-14：T3-D2-A 以 plugin `2107843` 落地固定官方 SDK、英文文本 contract、Keychain/0600 activation、隐藏 setup、身份对拍与惰性 runtime；29/140、coverage、verify 全绿。账号未接入、零写入，下一步为一次性 setup 与另行授权 smoke。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

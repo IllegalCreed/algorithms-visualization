@@ -20,7 +20,7 @@
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                              |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）      |
 | 测试     | Vitest L3/L4：299 个测试文件、2131 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过   |
-| 当前阶段 | C132 中文侧栏工具入口修复 verified/100%；C127 in-progress/79%，微博 T3-D1-B 零费用能力审计已收口，下一步 Bluesky                              |
+| 当前阶段 | C132 中文侧栏工具入口修复 verified/100%；C127 in-progress/85%，Bluesky T3-D2-A 工程边界已完成，下一步一次性 setup 与另行授权 smoke            |
 | 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；GitHub ready/enabled；微博认证已通过，Free 为 7 天只读且零写额度，API 发布 disabled |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`        |
 
