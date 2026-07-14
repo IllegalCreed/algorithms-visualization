@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-14
-> Progress: 85%
-> Blocked by: 无（Bluesky setup 已完成；真实 smoke 仍需 matching campaign 单独授权）
-> Next action: 授权或拒绝固定 campaign `marketing-ops-t3d2-smoke-127` 的 publish/read/delete smoke
+> Progress: 87%
+> Blocked by: 无（Bluesky 真实 smoke 已完成并清理；DEV/Mastodon 尚未接入）
+> Next action: T3-D3 DEV 官方 API adapter contract、一次性 setup 与零副作用 smoke 预案
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -258,7 +258,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 3. setup 仅在交互式 TTY 接受公开 handle 与不回显的专用 App Password；App Password 只写 macOS Keychain，activation 只以 0600 保存公开 handle/DID。
 4. 登录健康、activation、Keychain handle 与实时 handle/DID 必须一致；缺失、损坏、401、429、服务异常或身份漂移均失败关闭，且不回显 secret、session 或原始响应。
 5. 发布前查询本人最近 100 条非回复正文；完整同正文命中则幂等复用，不完整或畸形查询禁止 create。RichText 只保留可解析链接 facet，创建结果严格对拍 AT URI、CID 与公开 URL。
-6. runtime 仅在本次 `publish_campaign` package 包含 Bluesky 时惰性注册 adapter；setup 成功也不等于 campaign 写授权。当前 activation、Keychain 与 live identity 对拍为 ready/enabled，但尚未创建帖子。
+6. runtime 仅在本次 `publish_campaign` package 包含 Bluesky 时惰性注册 adapter；setup 成功也不等于 campaign 写授权。当前 activation、Keychain 与 live identity 对拍为 ready/enabled；固定 smoke 已完成并删除，当前无临时帖子残留。
 
 ### T3-D2-B Bluesky setup、安全删除与固定 smoke
 
@@ -266,8 +266,9 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 2. plugin `5d9aef1` 将 adapter 升至 `bluesky-text@0.2.0`：`delete_post` 只接受本工具已知且仍为 published 的 receipt，要求 adapter version、AT URI、公开 URL 和实时认证 DID 全部一致；删除成功后才把 receipt 标记为 deleted。
 3. 固定输入为 `scripts/marketing/campaigns/c127-bluesky-smoke.json`；预授权布尔状态为同目录的 `.preflight.json`，其中仅 `executionApproved=false`，不得把该文件改写成凭据载体。
 4. campaign ID / UTM campaign：`marketing-ops-t3d2-smoke-127` / `c127-t3d2-smoke`；目标为 `https://algo.illegalscreed.cn/en/docs/quick-sort/`，仅 Bluesky、仅英文纯文本、无媒体、回复关闭、`all-or-none`。
-5. 固定正文由公开 renderer 生成：标题 `Quick Sort, visualized step by step`，正文说明这是 Owner-approved integration test，并附唯一 Bluesky UTM 链接；正文共 265 graphemes。dry-run 无 render issue、`sideEffects=[]`，唯一 gate 为 `EXECUTION_NOT_APPROVED`；idempotency key 为 `campaign-v1/marketing-ops-t3d2-smoke-127/aaefa046759152bf9f89bc0cef86b0970bf5239709d5250a41a2fad7af87f59c`。
+5. 固定正文由公开 renderer 生成：标题 `Quick Sort, visualized step by step`，正文说明这是 Owner-approved integration test，并附唯一 Bluesky UTM 链接；正文共 265 graphemes。授权前 dry-run 无 render issue、`sideEffects=[]`，唯一 gate 为 `EXECUTION_NOT_APPROVED`；idempotency key 为 `campaign-v1/marketing-ops-t3d2-smoke-127/aaefa046759152bf9f89bc0cef86b0970bf5239709d5250a41a2fad7af87f59c`。
 6. 获得对该 campaign 的明确授权后，顺序固定为 publish -> receipt/status 与公开 URL 读取 -> 同文案幂等复查 -> `delete_post` -> receipt deleted 与公开 URL 不存在复查。授权前不调用任何 Bluesky 写接口。
+7. 该顺序已真实执行：AT Protocol 读取正文与 renderer 完全一致；相同 publish 返回同一 receipt；delete 与重复 delete 分别返回 deleted/already-deleted；receipt 为 deleted，远端 record 返回不存在。完整公开 URL 含账号 DID，只保存在私有 receipt，不写入公开仓库。
 
 ## 风险与处理
 
@@ -282,7 +283,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 ## 变更历史
 
 - 2026-07-14：T3-D2-A 以 plugin `2107843` 落地固定官方 SDK、英文文本 contract、Keychain/0600 activation、隐藏 setup、身份对拍与惰性 runtime；29/140、coverage、verify 全绿。账号未接入、零写入，下一步为一次性 setup 与另行授权 smoke。
-- 2026-07-14：一次性 setup 完成并复查 ready/enabled；plugin `5d9aef1` 补齐三重对拍安全删除，29/144、coverage、verify 全绿。固定 smoke dry-run 仅缺 matching campaign 授权，零帖子写入。
+- 2026-07-14：一次性 setup 完成并复查 ready/enabled；plugin `5d9aef1` 补齐三重对拍安全删除，29/144、coverage、verify 全绿。Owner 随后授权固定 smoke，publish/read/同回执复放/delete/重复 delete 与远端不存在复查全部通过；当前无临时帖子残留，下一步 T3-D3 DEV。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

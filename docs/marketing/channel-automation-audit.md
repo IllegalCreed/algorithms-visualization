@@ -4,7 +4,7 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-14
-> Current implementation: GitHub/Bluesky ready/enabled；微博 Free 只读/零写额度且 adapter disabled；Bluesky 固定 smoke 待 matching campaign 授权
+> Current implementation: GitHub/Bluesky ready/enabled 且真实 smoke 已清理；微博 Free 只读/零写额度且 adapter disabled；下一步 DEV adapter
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
@@ -173,7 +173,7 @@ flowchart LR
 
 1. **T1 基础层（完成）**：`CampaignSpec`、官方等级/执行模式分离的能力注册表、renderer、UTM、schema、dry-run 和幂等键。
 2. **T2 MCP 边界（完成）**：七个高层工具、Keychain/Profile 隔离、本地队列、receipt 和任意浏览器执行拒绝测试；该阶段交付为失败关闭的本地安全骨架。
-3. **T3 首批 API adapter（进行中）**：T3-A/T3-B/T3-C 已完成 GitHub renderer bridge、共享合同、固定 live typed client、collector、显式启用 gate 与真实 smoke；T3-D1 微博 API 线在 Free 零写额度处失败关闭；Bluesky 已完成 setup、安全删除和 dry-run，真实 smoke 待授权，随后按 DEV、Mastodon 继续。未启用渠道自动跳过并输出接入清单。
+3. **T3 首批 API adapter（进行中）**：T3-A/T3-B/T3-C 已完成 GitHub renderer bridge、共享合同、固定 live typed client、collector、显式启用 gate 与真实 smoke；T3-D1 微博 API 线在 Free 零写额度处失败关闭；Bluesky 已完成 setup、安全删除及 Owner 授权的 publish/read/idempotency/delete smoke，临时记录已清理。下一步按 DEV、Mastodon 继续；未启用渠道自动跳过并输出接入清单。
 4. **T4 反馈层**：1h/48h/7d collectors、Codex 一次性跟进、标准化报告、受控回复和 GitHub Issue 分流。
 5. **T5 条件路径**：逐渠道评审 RPA；Reddit 只在审核/社区授权后启用；V2EX、HN、Product Hunt 维持人工发布后监测。
 6. **长期禁用**：掘金、知乎、小红书默认 D/禁用；微信、B站因主体约束禁用，X 因费用约束禁用；只有官方能力、平台规则或 Owner 硬约束变化并完成复审后才调整。
@@ -196,4 +196,4 @@ flowchart LR
 - 2026-07-11：T3-B 完成固定 `gh auth status` / `gh api` typed client、只读账号/仓库健康、0600 非秘密 activation 与惰性 runtime；本机 health ready 但未启用，未创建或删除 Release。
 - 2026-07-11：T3-C 完成 collector、查询/报告/撤回与 Release/tag 所有权清理；Owner 授权的 Release `352517542` 真实 smoke 完成后已删除，receipt、Release 和 tag ref 复查一致，GitHub 保持 ready/enabled。
 - 2026-07-14：微博个人认证通过后复核套餐；Free 为 0 元/7 天、5 读/小时、0 写/小时。零费用 API 自动集合修正为 GitHub、Bluesky、DEV、Mastodon，微博移入人工/独立 RPA 评审。
-- 2026-07-14：Bluesky 一次性 setup 完成并保持 ready/enabled；plugin `5d9aef1` 补齐已知 receipt、公开 URL 与实时 DID 对拍的安全删除。固定 smoke dry-run 仅缺 matching campaign 授权，尚未写入平台。
+- 2026-07-14：Bluesky 一次性 setup 完成并保持 ready/enabled；plugin `5d9aef1` 补齐已知 receipt、公开 URL 与实时 DID 对拍的安全删除。Owner 随后明确授权固定 campaign `marketing-ops-t3d2-smoke-127`：发布后 AT Protocol 正文读取一致，相同请求复放返回同一 receipt，删除与重复删除分别返回 deleted/already-deleted；receipt 已标 deleted，远端 record 不存在且无临时帖子残留。

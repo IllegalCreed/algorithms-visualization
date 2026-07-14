@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-14
-> Progress: 85%
-> Blocked by: 无（Bluesky setup 已完成；真实 smoke 仍需 matching campaign 单独授权）
-> Next action: 授权或拒绝固定 campaign `marketing-ops-t3d2-smoke-127` 的 publish/read/delete smoke
+> Progress: 87%
+> Blocked by: 无（Bluesky 真实 smoke 已完成并清理；DEV/Mastodon 尚未接入）
+> Next action: T3-D3 DEV 官方 API adapter contract、一次性 setup 与零副作用 smoke 预案
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -17,17 +17,17 @@
 
 ## T0 文档用例
 
-| Case ID            | 层级 | 检查对象                     | 预期                                                                                                      |
-| ------------------ | ---- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
-| TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                          |
-| TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                                   |
-| TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力         |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 85%；Bluesky ready/enabled、安全删除与 dry-run 完成、零帖子；下一步 matching campaign smoke   |
-| TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过                      |
-| TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                                     |
-| TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                                 |
-| TC-DOC-AUTO-127-08 | docs | plan 状态                    | T0-T3-C 无写部分已完成，但 activation、真实 smoke、其他 adapter 与完整调度未完成；四文档不得误标 verified |
-| TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具                     |
+| Case ID            | 层级 | 检查对象                     | 预期                                                                                              |
+| ------------------ | ---- | ---------------------------- | ------------------------------------------------------------------------------------------------- |
+| TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                  |
+| TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                           |
+| TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力 |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 87%；Bluesky ready/enabled 且真实 smoke 已清理；下一步 T3-D3 DEV adapter              |
+| TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过              |
+| TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                             |
+| TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                         |
+| TC-DOC-AUTO-127-08 | docs | plan 状态                    | GitHub/Bluesky 真实 smoke 已完成，但 DEV/Mastodon、完整调度与采集未完成；四文档不得误标 verified  |
+| TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具             |
 
 前六个事实 Case（01..05、09）登记到三份全局测试索引；格式、diff 和当前实施状态只保留在本 plan。
 
@@ -209,7 +209,7 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 | TC-AUTO-BSKYACT-127-01..04     | L3/security      | 非秘密 activation           | 缺失返回 null；0600 只保存 handle/DID；身份、损坏、错渠道与未来版本严格拒绝                  |
 | TC-AUTO-BSKYCHANNEL-127-01..09 | L3/security      | setup、Keychain 与身份 gate | 先验证再保存；activation、Keychain handle、实时 handle/DID 或健康异常时不注册且不泄露 secret |
 | TC-AUTO-BSKYRUNTIME-127-01..02 | MCP/runtime      | 惰性注册与安全删除          | 发布/删除均动态取得 ready registration；只处理请求渠道和已知 receipt                         |
-| TC-AUTO-BSKYSMOKE-127-01       | live smoke       | 真实 publish/read/delete    | planned；setup 已完成，须由 Owner 对固定 matching campaign 单独授权，不由“继续开发”代替      |
+| TC-AUTO-BSKYSMOKE-127-01       | live smoke       | 真实 publish/read/delete    | Owner 授权固定 campaign 后发布/读取/幂等复放/删除通过，receipt 与远端 record 均完成清理      |
 
 ### T3-D2-B 固定 smoke 输入与顺序
 
@@ -218,8 +218,8 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 - campaign / UTM：`marketing-ops-t3d2-smoke-127` / `c127-t3d2-smoke`
 - target：`https://algo.illegalscreed.cn/en/docs/quick-sort/`
 - package：Bluesky only、English text only、media `[]`、replies off、`all-or-none`
-- 当前证据：正文 265 graphemes；dry-run 仅 `EXECUTION_NOT_APPROVED`，`renderIssues=[]`、`sideEffects=[]`；idempotency key 为 `campaign-v1/marketing-ops-t3d2-smoke-127/aaefa046759152bf9f89bc0cef86b0970bf5239709d5250a41a2fad7af87f59c`；本地 receipt count 为 0
-- 授权后顺序：publish -> status/public URL/read -> 同正文幂等复查 -> delete -> receipt/public URL 清理复查
+- 授权前证据：正文 265 graphemes；dry-run 仅 `EXECUTION_NOT_APPROVED`，`renderIssues=[]`、`sideEffects=[]`；idempotency key 为 `campaign-v1/marketing-ops-t3d2-smoke-127/aaefa046759152bf9f89bc0cef86b0970bf5239709d5250a41a2fad7af87f59c`；当时本地 receipt count 为 0
+- 授权后证据：publish 后 AT Protocol 正文读取一致；相同请求复放返回同一 postId/publishedAt；receipt 总数为 1；delete 返回 deleted，重复 delete 返回 already-deleted；receipt 为 deleted，远端 `getRecord` 返回 HTTP 400。完整公开 URL 含账号 DID，不写入公开仓库
 
 ## T3-D-T5 运行时用例框架
 
@@ -279,8 +279,8 @@ git diff --check
 | TC-AUTO-BSKYAPI/ADAPTER-127-\_ | passed  | 2026-07-14 | 固定官方 SDK、英文正文、幂等、链接 facet、receipt 与脱敏错误通过       |
 | TC-AUTO-BSKYACT/CHANNEL-127-\_ | passed  | 2026-07-14 | Keychain/0600 activation、身份对拍与全部失败关闭分支四项 100% 覆盖     |
 | TC-AUTO-BSKYRUNTIME-127-01     | passed  | 2026-07-14 | 请求级惰性注册通过；默认状态为 not-configured/setup-required           |
-| TC-AUTO-BSKYSMOKE-127-01       | planned | 2026-07-14 | 账号与 App Password 未接入，零网络写入；等待 setup 与 matching 授权    |
-| T3-D2-B-T5 运行时 Case         | partial | 2026-07-14 | Bluesky setup/安全删除 29/144 全绿；真实 smoke、DEV、Mastodon 后续展开 |
+| TC-AUTO-BSKYSMOKE-127-01       | passed  | 2026-07-14 | Owner 授权的 publish/read/同回执复放/delete/重复 delete 与远端清理通过 |
+| T3-D2-B-T5 运行时 Case         | partial | 2026-07-14 | Bluesky setup/安全删除/smoke 完成；DEV、Mastodon 与 T4-T6 后续展开     |
 
 ## 变更历史
 
@@ -307,3 +307,4 @@ git diff --check
 - 2026-07-14：T3-D2-A 先以缺失模块、运行时未接线和 renderer 双语错位红测推进；plugin `2107843` 最终 29 文件 / 140 用例、coverage（97.53/93.31/99.35/98.25）、verify 与 STDIO smoke 全绿，安全模块四项 100%。公开 renderer 收紧为单英文变体；账号未接入、零写入，C127 转 85%。
 - 2026-07-14：公开仓库 `pnpm verify` 通过 299 文件 / 2131 用例与 190 页 production SEO 门禁；coverage 与 118 条 Playwright 全绿。T3-D2-B 真实 smoke 继续 planned，不因工程门禁通过而视为已授权。
 - 2026-07-14：Bluesky setup 后只读状态为 ready/enabled；安全删除以 5 个 red failure 推进至 plugin `5d9aef1`、29/144、coverage、verify 全绿。固定 smoke dry-run 唯一阻塞为 `EXECUTION_NOT_APPROVED`，receipt count 为 0，未执行平台写入。
+- 2026-07-14：Owner 明确授权后执行 TC-AUTO-BSKYSMOKE-127-01；固定正文发布与 AT Protocol 读取一致，相同请求复放复用同一 receipt，删除/重复删除返回 deleted/already-deleted，receipt deleted 且远端 record 不存在。C127 转 87%，下一步 T3-D3 DEV。
