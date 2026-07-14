@@ -1,7 +1,7 @@
 # 测试用例分层视图
 
 > Status: active
-> Last reviewed: 2026-07-11
+> Last reviewed: 2026-07-14
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、自动化路径、状态、最后验证）见 `index.md`。
@@ -45,46 +45,46 @@
 
 ## 2026-07-11 渠道自动化 T0-T3D1A 增量（C-20260711-127）
 
-| 层级     | Case ID                       | 标题                                                | 自动化路径                                                 |
-| -------- | ----------------------------- | --------------------------------------------------- | ---------------------------------------------------------- |
-| docs     | TC-DOC-AUTO-127-01            | 十五渠道集合完整且唯一                              | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-02            | 发布、监测、回复、准入与成本有官方依据              | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-03            | 免费个人、后备与硬禁用边界明确                      | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-04            | C127 in-progress/79%、微博无写边界完成且仍 disabled | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
-| docs     | TC-DOC-AUTO-127-05            | 官方授权、凭据隔离与失败关闭红线完整                | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-09            | Codex 与凭据/Profile 的 MCP 边界完整                | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
-| L3       | TC-AUTO-SPEC-127-01..04       | schema、规范化、非法输入与双语内容合同              | `scripts/marketing/spec.spec.ts`                           |
-| L3       | TC-AUTO-IDEMP-127-01..02      | 语义等价与真实变化的 SHA-256 幂等键                 | `scripts/marketing/spec.spec.ts`                           |
-| L3       | TC-AUTO-CHANNEL-127-01..05    | 15 渠道注册表、政策集合、fail-closed gate 与展开    | `scripts/marketing/channels.spec.ts`                       |
-| L3       | TC-AUTO-FACTS-127-01..02      | 当前站点事实对拍与过期/易漂移声明拒绝               | `scripts/marketing/site-facts.spec.ts`                     |
-| L3       | TC-AUTO-RENDER-127-01..03     | 渠道候选、UTM、限制、manual 与 disabled 边界        | `scripts/marketing/renderer.spec.ts`                       |
-| L3       | TC-AUTO-DRYRUN-127-01..03     | 确定 manifest、渠道决策、零副作用与凭据不可见       | `scripts/marketing/dry-run.spec.ts`                        |
-| L3       | TC-AUTO-MCP-127-01..06        | 七工具、schema、写授权、拒绝、脱敏与反馈边界        | `scripts/marketing/mcp-contract.spec.ts`                   |
-| L3       | TC-AUTO-SETUP-127-01..03      | 五渠道安全接入、隐藏录入与脱敏诊断                  | personal plugin onboarding/CLI specs                       |
-| L3       | TC-AUTO-SECRET-127-01..02     | Keychain stdin 边界与 REAUTH_REQUIRED               | personal plugin `src/security/secret-store.spec.ts`        |
-| L3       | TC-AUTO-PROFILE-127-01..02    | 0700 Profile 隔离与 challenge 失败关闭              | personal plugin `src/profile-store.spec.ts`                |
-| L3       | TC-AUTO-QUEUE-127-01..02      | campaign 并发串行化与异常释放                       | personal plugin `src/campaign-lock.spec.ts`                |
-| L3       | TC-AUTO-RECEIPT-127-01..02    | 幂等、公开字段、0600 原子存储与损坏拒绝             | personal plugin `src/receipt-store.spec.ts`                |
-| MCP      | TC-AUTO-TRANSPORT-127-01..02  | stdio-only 配置与七工具真实 client smoke            | personal plugin transport spec + stdio smoke               |
-| L3       | TC-AUTO-UX-127-01             | 一次设置、日常自然语言的低摩擦边界                  | personal plugin `src/cli.spec.ts`                          |
-| L3       | TC-AUTO-MCP-127-07..08        | MCP v2 renderer package 桥接与严格匹配              | public/plugin MCP contract specs                           |
-| L3       | TC-AUTO-ADAPTER-127-01..08    | 共享能力、错误、幂等与 receipt 合同                 | personal plugin `src/adapter-contract.spec.ts`             |
-| L3       | TC-AUTO-GITHUB-127-01..07     | GitHub Release typed fake 全边界                    | personal plugin `src/github-release-adapter.spec.ts`       |
-| L3       | TC-AUTO-DISPATCH-127-01..03   | registry、预检、短路、冲突与持久化顺序              | personal plugin publish-service/runtime-handler specs      |
-| L3/smoke | TC-AUTO-GHCLI-127-01..07      | 固定 gh/auth/API、stdin、响应/错误/资源与只读 smoke | personal plugin github-cli/gh-process specs + smoke        |
-| L3       | TC-AUTO-GHAUTH-127-01..05     | CLI、账号、仓库权限健康分类与公开输出脱敏           | personal plugin github-cli specs + CLI/STDIO smoke         |
-| L3       | TC-AUTO-ACTIVATION-127-01..03 | 默认关闭、0600 显式启用与损坏/错配失败关闭          | personal plugin `src/github-channel.spec.ts`               |
-| MCP      | TC-AUTO-RUNTIME-127-01        | activation + fresh health 的惰性 adapter 注入       | personal plugin local-runtime spec + STDIO smoke           |
-| L3/smoke | TC-AUTO-GHOBS-127-01..06      | Release/reactions、仓库 traffic、错误与归因边界     | personal plugin observability/CLI specs + readonly smoke   |
-| L3       | TC-AUTO-GHISSUE-127-01..06    | Issue create/comments、远端幂等与 reply=false       | personal plugin GitHub Issue/CLI specs                     |
-| L3       | TC-AUTO-GHSTORE-127-01..02    | receipt 查询、并发原子性、deleted 与损坏失败关闭    | personal plugin receipt-store/failure specs                |
-| MCP      | TC-AUTO-GHOPS-127-01..06      | status/feedback/report/delete 与输出脱敏            | personal plugin local-operations + STDIO smoke             |
-| smoke    | TC-AUTO-GHSMOKE-127-01..02    | 固定预案、只读预查与授权真实清理闭环均通过          | personal plugin specs + readonly/real smoke                |
-| L3       | TC-AUTO-WBPROC-127-01..02     | 固定进程、安全环境、资源边界与失败脱敏              | personal plugin `src/weibo-process.spec.ts`                |
-| L3       | TC-AUTO-WBCLI-127-01..05      | doctor/gate、目录白名单、固定 grammar 与脱敏        | personal plugin `src/weibo-cli.spec.ts`                    |
-| L3       | TC-AUTO-WBADAPTER-127-01..05  | 注入式正文、幂等、receipt、错误与保守能力           | personal plugin `src/weibo-post-adapter.spec.ts`           |
-| MCP      | TC-AUTO-WBRUNTIME-127-01      | 动态 health 且 production adapter disabled          | personal plugin Weibo channel + local runtime specs        |
-| smoke    | TC-AUTO-WBSMOKE-127-01        | 官方 help/源码 argv 与空白隔离 doctor 只读预查      | official CLI local read-only smoke                         |
+| 层级     | Case ID                       | 标题                                                       | 自动化路径                                                 |
+| -------- | ----------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| docs     | TC-DOC-AUTO-127-01            | 十五渠道集合完整且唯一                                     | `docs/marketing/channel-automation-audit.md`               |
+| docs     | TC-DOC-AUTO-127-02            | 发布、监测、回复、准入与成本有官方依据                     | `docs/marketing/channel-automation-audit.md`               |
+| docs     | TC-DOC-AUTO-127-03            | 免费个人、后备与硬禁用边界明确                             | `docs/marketing/channel-automation-audit.md`               |
+| docs     | TC-DOC-AUTO-127-04            | C127 79%、微博 API disabled/manual package、下一步 Bluesky | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs     | TC-DOC-AUTO-127-05            | 官方授权、凭据隔离与失败关闭红线完整                       | `docs/marketing/channel-automation-audit.md`               |
+| docs     | TC-DOC-AUTO-127-09            | Codex 与凭据/Profile 的 MCP 边界完整                       | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| L3       | TC-AUTO-SPEC-127-01..04       | schema、规范化、非法输入与双语内容合同                     | `scripts/marketing/spec.spec.ts`                           |
+| L3       | TC-AUTO-IDEMP-127-01..02      | 语义等价与真实变化的 SHA-256 幂等键                        | `scripts/marketing/spec.spec.ts`                           |
+| L3       | TC-AUTO-CHANNEL-127-01..05    | 15 渠道、4 自动、4 人工桥接与 fail-closed gate             | `scripts/marketing/channels.spec.ts`                       |
+| L3       | TC-AUTO-FACTS-127-01..02      | 当前站点事实对拍与过期/易漂移声明拒绝                      | `scripts/marketing/site-facts.spec.ts`                     |
+| L3       | TC-AUTO-RENDER-127-01..03     | 渠道候选、UTM、限制、manual 与 disabled 边界               | `scripts/marketing/renderer.spec.ts`                       |
+| L3       | TC-AUTO-DRYRUN-127-01..03     | 确定 manifest、渠道决策、零副作用与凭据不可见              | `scripts/marketing/dry-run.spec.ts`                        |
+| L3       | TC-AUTO-MCP-127-01..06        | 七工具、schema、写授权、拒绝、脱敏与反馈边界               | `scripts/marketing/mcp-contract.spec.ts`                   |
+| L3       | TC-AUTO-SETUP-127-01..03      | 五渠道安全接入、隐藏录入与脱敏诊断                         | personal plugin onboarding/CLI specs                       |
+| L3       | TC-AUTO-SECRET-127-01..02     | Keychain stdin 边界与 REAUTH_REQUIRED                      | personal plugin `src/security/secret-store.spec.ts`        |
+| L3       | TC-AUTO-PROFILE-127-01..02    | 0700 Profile 隔离与 challenge 失败关闭                     | personal plugin `src/profile-store.spec.ts`                |
+| L3       | TC-AUTO-QUEUE-127-01..02      | campaign 并发串行化与异常释放                              | personal plugin `src/campaign-lock.spec.ts`                |
+| L3       | TC-AUTO-RECEIPT-127-01..02    | 幂等、公开字段、0600 原子存储与损坏拒绝                    | personal plugin `src/receipt-store.spec.ts`                |
+| MCP      | TC-AUTO-TRANSPORT-127-01..02  | stdio-only 配置与七工具真实 client smoke                   | personal plugin transport spec + stdio smoke               |
+| L3       | TC-AUTO-UX-127-01             | 一次设置、日常自然语言的低摩擦边界                         | personal plugin `src/cli.spec.ts`                          |
+| L3       | TC-AUTO-MCP-127-07..08        | MCP v2 renderer package 桥接与严格匹配                     | public/plugin MCP contract specs                           |
+| L3       | TC-AUTO-ADAPTER-127-01..08    | 共享能力、错误、幂等与 receipt 合同                        | personal plugin `src/adapter-contract.spec.ts`             |
+| L3       | TC-AUTO-GITHUB-127-01..07     | GitHub Release typed fake 全边界                           | personal plugin `src/github-release-adapter.spec.ts`       |
+| L3       | TC-AUTO-DISPATCH-127-01..03   | registry、预检、短路、冲突与持久化顺序                     | personal plugin publish-service/runtime-handler specs      |
+| L3/smoke | TC-AUTO-GHCLI-127-01..07      | 固定 gh/auth/API、stdin、响应/错误/资源与只读 smoke        | personal plugin github-cli/gh-process specs + smoke        |
+| L3       | TC-AUTO-GHAUTH-127-01..05     | CLI、账号、仓库权限健康分类与公开输出脱敏                  | personal plugin github-cli specs + CLI/STDIO smoke         |
+| L3       | TC-AUTO-ACTIVATION-127-01..03 | 默认关闭、0600 显式启用与损坏/错配失败关闭                 | personal plugin `src/github-channel.spec.ts`               |
+| MCP      | TC-AUTO-RUNTIME-127-01        | activation + fresh health 的惰性 adapter 注入              | personal plugin local-runtime spec + STDIO smoke           |
+| L3/smoke | TC-AUTO-GHOBS-127-01..06      | Release/reactions、仓库 traffic、错误与归因边界            | personal plugin observability/CLI specs + readonly smoke   |
+| L3       | TC-AUTO-GHISSUE-127-01..06    | Issue create/comments、远端幂等与 reply=false              | personal plugin GitHub Issue/CLI specs                     |
+| L3       | TC-AUTO-GHSTORE-127-01..02    | receipt 查询、并发原子性、deleted 与损坏失败关闭           | personal plugin receipt-store/failure specs                |
+| MCP      | TC-AUTO-GHOPS-127-01..06      | status/feedback/report/delete 与输出脱敏                   | personal plugin local-operations + STDIO smoke             |
+| smoke    | TC-AUTO-GHSMOKE-127-01..02    | 固定预案、只读预查与授权真实清理闭环均通过                 | personal plugin specs + readonly/real smoke                |
+| L3       | TC-AUTO-WBPROC-127-01..02     | 固定进程、安全环境、资源边界与失败脱敏                     | personal plugin `src/weibo-process.spec.ts`                |
+| L3       | TC-AUTO-WBCLI-127-01..05      | doctor/gate、目录白名单、固定 grammar 与脱敏               | personal plugin `src/weibo-cli.spec.ts`                    |
+| L3       | TC-AUTO-WBADAPTER-127-01..05  | 注入式正文、幂等、receipt、错误与保守能力                  | personal plugin `src/weibo-post-adapter.spec.ts`           |
+| MCP      | TC-AUTO-WBRUNTIME-127-01      | Free ready 仍只读且 production adapter disabled            | personal plugin Weibo channel + local runtime specs        |
+| smoke    | TC-AUTO-WBSMOKE-127-01        | 官方 help/源码 argv 与空白隔离 doctor 只读预查             | official CLI local read-only smoke                         |
 
 ## 2026-07-11 多语言十页试点增量（C-20260711-126，部分 superseded）
 

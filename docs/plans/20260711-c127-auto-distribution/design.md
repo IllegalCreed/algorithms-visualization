@@ -5,10 +5,10 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-12
+> Last reviewed: 2026-07-14
 > Progress: 79%
-> Blocked by: 微博官方个人开发者认证审核（T3-D1-B）
-> Next action: 审核通过后复查脱敏 doctor，领取零费用 Free/试用并只读冻结实际 statuses action；未经 matching campaign 授权不发帖
+> Blocked by: 无（微博 Free 零写额度已失败关闭，不阻塞其他渠道）
+> Next action: 推进 Bluesky T3-D2 contract 与 App Password 向导；微博发布只作后续独立 RPA 评审候选
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -239,7 +239,7 @@ get_campaign_report(campaignId, window)
 
 ### T3-D1-A 微博无写边界
 
-微博 production transport 采用官方 `@weibo-ai/weibo-cli`，但不把该 CLI 的动态 `group/action` 直接暴露给 MCP。当前官方包为 `0.8.3`，内置浏览器/设备 OAuth、OS Keychain 与 JSON 输出；`doctor` 将登录、开发者认证和套餐/试用分别建模，Free 为每小时 5 次且仅本人数据。
+微博 production transport 原候选采用官方 `@weibo-ai/weibo-cli`，但不把该 CLI 的动态 `group/action` 直接暴露给 MCP。当前官方包为 `0.8.3`，内置浏览器/设备 OAuth、OS Keychain 与 JSON 输出；`doctor` 将登录、开发者认证和套餐/试用分别建模。2026-07-14 复核确认 Free 为 0 元/7 天、仅本人数据、5 读/小时、0 写/小时。
 
 本阶段按以下边界实施：
 
@@ -247,7 +247,7 @@ get_campaign_report(campaignId, window)
 2. production 只允许 `doctor --output json` 与 `commands list --available --group statuses --output json`；禁止 `auth token`、`--token`、任意 group/action、任意文件路径和原始 stdout/stderr 外泄。
 3. 健康状态只返回脱敏 alias、login/developerVerification/free-plan gate 与下一步；即使三个 gate 均 ready，在 publish action 未冻结且 activation 未建立前仍 `adapterReady=false`。
 4. 以注入的 typed fake client 建立微博纯文字 adapter 的渲染、最近本人同正文查询、幂等复用、receipt 与错误合同；媒体、英文变体、metrics/reply/delete 继续失败关闭。
-5. Owner 完成官方 setup 后只读读取其 Free 实际可用 statuses 目录，人工审计并将唯一 publish/read action 固定进代码；随后再做 production client、显式 activation 与低风险真实 smoke。
+5. Owner 完成 OAuth 与个人认证后，套餐审计证明 Free 没有写额度。不消耗 7 天试用去冻结无法发布的 catalog，production client、activation 与 publish smoke 均失败关闭；零费用微博发布只能在 T5 作独立 RPA 评审。
 
 ## 风险与处理
 
@@ -261,6 +261,7 @@ get_campaign_report(campaignId, window)
 
 ## 变更历史
 
+- 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。
 - 2026-07-11：选择独立本地 `marketing-ops` MCP；凭据和 RPA Profile 与公开仓库/Codex 隔离，C127 后置实施。

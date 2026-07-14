@@ -17,13 +17,8 @@ describe('marketing dry-run', () => {
 
     expect(first).toEqual(second);
     expect(first).toMatchObject({ schemaVersion: 1, mode: 'dry-run', sideEffects: [] });
-    expect(first.summary.selectedChannels).toEqual([
-      'github',
-      'weibo',
-      'bluesky',
-      'dev',
-      'mastodon',
-    ]);
+    expect(first.summary.selectedChannels).toEqual(['github', 'bluesky', 'dev', 'mastodon']);
+    expect(first.summary.manualChannels).toContain('weibo');
   });
 
   it('TC-AUTO-DRYRUN-127-02 manifest 分离 selected、blocked 与 manual', () => {

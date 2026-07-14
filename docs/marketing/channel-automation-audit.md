@@ -3,15 +3,15 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-12
-> Current implementation: GitHub ready/enabled；微博固定 CLI 与 device OAuth 已完成、个人开发者认证审核中，production adapter disabled
+> Last reviewed: 2026-07-14
+> Current implementation: GitHub ready/enabled；微博认证已通过，Free 为 7 天只读/零写额度，production adapter disabled；下一步 Bluesky
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
 
 本文件回答一个具体问题：Owner 只给一次 campaign 提示词后，哪些渠道能通过受支持的官方能力完成内容生成、发布、监测、反馈归纳和允许范围内的回复。
 
-官方能力结论只依据截至 2026-07-11 可核验的官方文档、当前仓库配置和平台公开规则。账号价值高低不改变接口是否受支持。后续实现可在独立本地 MCP 内使用逐渠道批准的受控 RPA，但这不会提升平台的官方能力等级，也不能使用内部接口、Cookie 导出、stealth、验证码绕过或明文密码托管。
+官方能力结论只依据截至 2026-07-14 可核验的官方文档、当前仓库配置和平台公开规则。账号价值高低不改变接口是否受支持。后续实现可在独立本地 MCP 内使用逐渠道批准的受控 RPA，但这不会提升平台的官方能力等级，也不能使用内部接口、Cookie 导出、stealth、验证码绕过或明文密码托管。
 
 ## “全自动”的项目定义
 
@@ -60,15 +60,15 @@
 
 ## 补充与替代渠道
 
-| 渠道          | 等级           | 自动化能力                                                                        | 成本/门槛                                      | 当前决策                                                           |
-| ------------- | -------------- | --------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
-| 微博          | A              | 官方 Agent CLI 支持文字、图片、视频、长文发布，以及评论、转发、搜索和趋势工作流   | 一次设备 OAuth；Free 为每小时 5 次调用         | 国内自动渠道优先级最高；低频首发先使用 Free                        |
-| Bluesky       | A              | 官方 AT Protocol 支持发帖、串文、图片、链接、回复和公开数据读取                   | 账号 + App Password；遵守反垃圾规则            | 海外自动渠道优先级最高                                             |
-| DEV Community | A（发布/监测） | Forem API 支持 Markdown 文章发布、canonical、标签、阅读/反应/评论数据和评论树读取 | 账号 + API key；官方限制 30 秒 10 次请求       | 用于英文技术长文同步；评论回复保留人工，避免假设不存在的写评论端点 |
-| Mastodon      | A              | 官方 API 支持发布、排期、幂等、编辑、删除、回复、上下文和通知                     | 选择实例 + OAuth token；同时受实例规则约束     | 作为可选的开放社交渠道；启用前固定实例及其规则                     |
-| X             | A（付费禁用）  | X API v2 支持发帖、回复和指标读取                                                 | 预付 credits；带 URL 发帖当前为每次 0.200 美元 | Owner 已确认零新增费用，当前和后续 C127 实施均禁用                 |
+| 渠道          | 等级           | 自动化能力                                                                        | 成本/门槛                                              | 当前决策                                                           |
+| ------------- | -------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------ |
+| 微博          | A（付费写）    | 官方 Agent CLI 支持发布与互动；当前 Free 只提供本人数据读取                       | 设备 OAuth + 个人认证；Free 7 天、5 读/小时、0 写/小时 | Owner 零费用约束下 API 发布禁用；保留人工分享和独立 RPA 评审       |
+| Bluesky       | A              | 官方 AT Protocol 支持发帖、串文、图片、链接、回复和公开数据读取                   | 账号 + App Password；遵守反垃圾规则                    | 海外自动渠道优先级最高                                             |
+| DEV Community | A（发布/监测） | Forem API 支持 Markdown 文章发布、canonical、标签、阅读/反应/评论数据和评论树读取 | 账号 + API key；官方限制 30 秒 10 次请求               | 用于英文技术长文同步；评论回复保留人工，避免假设不存在的写评论端点 |
+| Mastodon      | A              | 官方 API 支持发布、排期、幂等、编辑、删除、回复、上下文和通知                     | 选择实例 + OAuth token；同时受实例规则约束             | 作为可选的开放社交渠道；启用前固定实例及其规则                     |
+| X             | A（付费禁用）  | X API v2 支持发帖、回复和指标读取                                                 | 预付 credits；带 URL 发帖当前为每次 0.200 美元         | Owner 已确认零新增费用，当前和后续 C127 实施均禁用                 |
 
-由此，零新增订阅成本的第一自动渠道组合是 **GitHub + 微博 Free + Bluesky + DEV + Mastodon**。DEV 的发布和反馈采集可自动，回复保持人工；其余四个渠道可以在规则允许范围内形成更完整闭环。
+由此，零新增订阅成本的官方 API 自动渠道组合修正为 **GitHub + Bluesky + DEV + Mastodon**。DEV 的发布和反馈采集可自动，回复保持人工；微博 Free 不具备写额度，不能纳入自动发布承诺。
 
 ## 当前 Owner 硬约束
 
@@ -76,7 +76,7 @@
 
 - **零新增费用**：不购买 API credits、订阅、托管服务或额外模型 API；只使用现有 GitHub/Codex 能力和平台免费额度。
 - **仅个人主体**：Owner 没有企业，不办理企业认证、营业执照或企业服务号。
-- **当前自动实施集合**：GitHub、微博 Free、Bluesky、DEV、Mastodon。
+- **当前自动实施集合**：GitHub、Bluesky、DEV、Mastodon；微博 API 发布因 Free 零写额度禁用。
 - **个人可申请的后备渠道**：Reddit；仍须通过应用审核和目标社区授权，不作为 T1/T2 退出条件。
 - **当前明确排除**：微信公众号、B站、X，以及原 D 级的掘金、知乎、小红书。
 - V2EX、Hacker News、Product Hunt 继续保留“人工发布后自动监测”，但不属于“只给提示词即可完成”的自动发布集合。
@@ -109,7 +109,7 @@
 
 ### 微博、Bluesky、DEV、Mastodon、X
 
-- [微博开放平台 Agent CLI](https://open.weibo.com/cli)与官方 npm 包 [`@weibo-ai/weibo-cli`](https://www.npmjs.com/package/@weibo-ai/weibo-cli)提供浏览器/设备 OAuth、OS Keychain、JSON 输出及动态平台命令目录；固定版本为 `0.8.3`。Free 当前为每小时 5 次且仅本人数据，`doctor` 另检查登录、开发者认证与套餐/试用 gate；本地 MCP 禁止 token 导出、token 环境变量与微博主密码。T3-D1-A 已落地无写 health/catalog 边界与 fake adapter contract；T3-D1-B 的 device OAuth 已完成，个人开发者认证审核中。production adapter 当前 disabled，尚未读取账号 catalog 或猜测动态 publish action。
+- [微博开放平台 Agent CLI](https://open.weibo.com/cli)与官方 npm 包 [`@weibo-ai/weibo-cli`](https://www.npmjs.com/package/@weibo-ai/weibo-cli)提供浏览器/设备 OAuth、OS Keychain、JSON 输出及动态平台命令目录；固定版本为 `0.8.3`。Owner 个人认证已通过；2026-07-14 对[官方套餐页](https://open.weibo.com/cli/plan)的复核显示 Free 为 0 元/7 天、仅本人数据、5 读/小时、0 写/小时。CLI `doctor` 仍返回 2026-07-11 的旧认证快照；本地 MCP 禁止 token 导出、token 环境变量、微博主密码和付费套餐。未领取 Free、未读取账号 catalog、production adapter disabled，plugin `263fd3f` 已禁止将 Free 误报为可发布。
 - [Bluesky 入门](https://docs.bsky.app/docs/get-started)与[发帖指南](https://docs.bsky.app/blog/create-post)展示 App Password、session 与 `createRecord` 流程；[速率限制](https://docs.bsky.app/docs/advanced-guides/rate-limits)当前给出每小时 5,000 write points、每天 35,000 points，普通低频 campaign 远低于此值。
 - [Forem API](https://developers.forem.com/api/)支持 API key；[Articles API](https://developers.forem.com/api/v1#tag/articles/operation/createArticle)支持 Markdown 发布、canonical、标签与封面，文章/评论读取可用于指标和反馈采集。本次未在官方 API 找到创建评论端点。
 - [Mastodon statuses API](https://docs.joinmastodon.org/methods/statuses/)支持 OAuth 发布、排期、`Idempotency-Key`、编辑、删除、回复和上下文读取；实例可以设置更严格的本地规则。
@@ -173,7 +173,7 @@ flowchart LR
 
 1. **T1 基础层（完成）**：`CampaignSpec`、官方等级/执行模式分离的能力注册表、renderer、UTM、schema、dry-run 和幂等键。
 2. **T2 MCP 边界（完成）**：七个高层工具、Keychain/Profile 隔离、本地队列、receipt 和任意浏览器执行拒绝测试；该阶段交付为失败关闭的本地安全骨架。
-3. **T3 首批 API adapter（进行中）**：T3-A/T3-B/T3-C 已完成 GitHub renderer bridge、共享合同、固定 live typed client、collector、显式启用 gate 与真实 smoke；T3-D 按微博 Free、Bluesky、DEV、Mastodon 逐渠道推进。未启用渠道自动跳过并输出接入清单。
+3. **T3 首批 API adapter（进行中）**：T3-A/T3-B/T3-C 已完成 GitHub renderer bridge、共享合同、固定 live typed client、collector、显式启用 gate 与真实 smoke；T3-D1 微博 API 线在 Free 零写额度处失败关闭，当前按 Bluesky、DEV、Mastodon 继续。未启用渠道自动跳过并输出接入清单。
 4. **T4 反馈层**：1h/48h/7d collectors、Codex 一次性跟进、标准化报告、受控回复和 GitHub Issue 分流。
 5. **T5 条件路径**：逐渠道评审 RPA；Reddit 只在审核/社区授权后启用；V2EX、HN、Product Hunt 维持人工发布后监测。
 6. **长期禁用**：掘金、知乎、小红书默认 D/禁用；微信、B站因主体约束禁用，X 因费用约束禁用；只有官方能力、平台规则或 Owner 硬约束变化并完成复审后才调整。
@@ -195,3 +195,4 @@ flowchart LR
 - 2026-07-11：T3-A 完成 MCP v2 renderer package 桥接、共享 adapter contract、GitHub Release typed fake client 与失败关闭 dispatch；默认 server 不注入 live client，仍无真实授权或站外写入。
 - 2026-07-11：T3-B 完成固定 `gh auth status` / `gh api` typed client、只读账号/仓库健康、0600 非秘密 activation 与惰性 runtime；本机 health ready 但未启用，未创建或删除 Release。
 - 2026-07-11：T3-C 完成 collector、查询/报告/撤回与 Release/tag 所有权清理；Owner 授权的 Release `352517542` 真实 smoke 完成后已删除，receipt、Release 和 tag ref 复查一致，GitHub 保持 ready/enabled。
+- 2026-07-14：微博个人认证通过后复核套餐；Free 为 0 元/7 天、5 读/小时、0 写/小时。零费用 API 自动集合修正为 GitHub、Bluesky、DEV、Mastodon，微博移入人工/独立 RPA 评审。

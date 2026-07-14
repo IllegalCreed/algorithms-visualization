@@ -77,6 +77,7 @@ describe('marketing channel renderer', () => {
     for (const channel of ['v2ex', 'hacker-news', 'product-hunt']) {
       expect(renderChannelPackage(spec, channel as never)?.format).toBe('manual-package');
     }
+    expect(renderChannelPackage(spec, 'weibo')?.format).toBe('post');
     for (const channel of ['juejin', 'bilibili', 'zhihu', 'xiaohongshu', 'wechat', 'x']) {
       expect(renderChannelPackage(spec, channel as never)).toBeNull();
     }

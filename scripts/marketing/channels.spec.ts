@@ -35,8 +35,8 @@ describe('marketing channel registry', () => {
     }
   });
 
-  it('TC-AUTO-CHANNEL-127-02 首批五渠道均为免费个人 API 路径', () => {
-    expect(AUTOMATIC_CHANNEL_IDS).toEqual(['github', 'weibo', 'bluesky', 'dev', 'mastodon']);
+  it('TC-AUTO-CHANNEL-127-02 首批四渠道均为免费个人 API 路径', () => {
+    expect(AUTOMATIC_CHANNEL_IDS).toEqual(['github', 'bluesky', 'dev', 'mastodon']);
     for (const id of AUTOMATIC_CHANNEL_IDS) {
       expect(CHANNEL_REGISTRY[id]).toMatchObject({
         tier: 'A',
@@ -57,7 +57,14 @@ describe('marketing channel registry', () => {
       enabled: false,
       status: 'conditional',
     });
-    expect(MANUAL_BRIDGE_CHANNEL_IDS).toEqual(['v2ex', 'hacker-news', 'product-hunt']);
+    expect(CHANNEL_REGISTRY.weibo).toMatchObject({
+      tier: 'A',
+      execution: 'manual',
+      cost: 'free',
+      enabled: false,
+      status: 'manual',
+    });
+    expect(MANUAL_BRIDGE_CHANNEL_IDS).toEqual(['v2ex', 'hacker-news', 'product-hunt', 'weibo']);
     expect(DISABLED_CHANNEL_IDS).toEqual([
       'juejin',
       'bilibili',
@@ -109,12 +116,14 @@ describe('marketing channel registry', () => {
     expect(evaluateChannelAction('x', 'publish', READY_RUNTIME_STATE).reasons).toContain(
       'PAID_CHANNEL',
     );
+    expect(evaluateChannelAction('weibo', 'publish', READY_RUNTIME_STATE).reasons).toEqual([
+      'MANUAL_EXECUTION_REQUIRED',
+    ]);
   });
 
   it('TC-AUTO-CHANNEL-127-05 all-authorized 只展开全部 runtime gate 通过的渠道', () => {
     const result = resolveAuthorizedChannels('all-authorized', {
       github: READY_RUNTIME_STATE,
-      weibo: { ...READY_RUNTIME_STATE, authorized: false },
       bluesky: READY_RUNTIME_STATE,
       dev: { ...READY_RUNTIME_STATE, adapterReady: false },
       mastodon: { ...READY_RUNTIME_STATE, quotaAvailable: false },
@@ -122,7 +131,7 @@ describe('marketing channel registry', () => {
     });
 
     expect(result.selected).toEqual(['github', 'bluesky']);
-    expect(result.decisions.weibo.reasons).toContain('AUTH_REQUIRED');
+    expect(result.decisions.weibo).toBeUndefined();
     expect(result.decisions.dev.reasons).toContain('ADAPTER_UNAVAILABLE');
     expect(result.decisions.mastodon.reasons).toContain('QUOTA_UNAVAILABLE');
     expect(result.decisions.x).toBeUndefined();

@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-07-11
+> Last reviewed: 2026-07-14
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -32,7 +32,7 @@
 | TC-DOC-AUTO-127-01                              | 十个正式渠道与五个补充/替代渠道集合完整且唯一                                              | marketing / channel inventory      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-02                              | 每个渠道的发布、监测、回复、准入与成本结论有官方依据                                       | marketing / official evidence      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-03                              | 免费个人首批、Reddit 后备、主体与费用禁用边界明确                                          | marketing / capability tiers       | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-04                              | C127 in-progress/79%；T3-D1-A 无写边界完成，微博 disabled，GitHub ready/enabled            | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
+| TC-DOC-AUTO-127-04                              | C127 79%；微博 Free 只读/零写额度，API disabled 但保留人工稿；下一步 Bluesky               | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-14 |
 | TC-DOC-AUTO-127-05                              | API/RPA 凭据隔离并禁止内部 API、stealth 与验证码绕过                                       | marketing / credential safety      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-09                              | Codex 与本地 MCP 的凭据/Profile 边界明确                                                   | marketing / MCP boundary           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
 | TC-AUTO-SPEC-127-01                             | token、集合、URL 与含时区排期确定性规范化                                                  | marketing / campaign spec          | C-20260711-127 | L3    | `scripts/marketing/spec.spec.ts`                              | active     | 2026-07-11 |
@@ -42,8 +42,8 @@
 | TC-AUTO-IDEMP-127-01                            | 语义等价 spec 生成同一 SHA-256 幂等键                                                      | marketing / idempotency            | C-20260711-127 | L3    | `scripts/marketing/spec.spec.ts`                              | active     | 2026-07-11 |
 | TC-AUTO-IDEMP-127-02                            | 文案、URL 或排期变化生成不同幂等键                                                         | marketing / idempotency            | C-20260711-127 | L3    | `scripts/marketing/spec.spec.ts`                              | active     | 2026-07-11 |
 | TC-AUTO-CHANNEL-127-01                          | 注册表包含官方审计的 15 个唯一渠道且均有依据                                               | marketing / channel registry       | C-20260711-127 | L3    | `scripts/marketing/channels.spec.ts`                          | active     | 2026-07-11 |
-| TC-AUTO-CHANNEL-127-02                          | 首批五渠道均为免费、个人可用、API 执行且 policy enabled                                    | marketing / automatic channels     | C-20260711-127 | L3    | `scripts/marketing/channels.spec.ts`                          | active     | 2026-07-11 |
-| TC-AUTO-CHANNEL-127-03                          | Reddit 条件后备、三个人工桥接与六个硬禁用集合固定                                          | marketing / channel policy         | C-20260711-127 | L3    | `scripts/marketing/channels.spec.ts`                          | active     | 2026-07-11 |
+| TC-AUTO-CHANNEL-127-02                          | GitHub、Bluesky、DEV、Mastodon 为免费个人 API；微博移出自动集合但保留人工稿                | marketing / automatic channels     | C-20260711-127 | L3    | `scripts/marketing/channels.spec.ts`                          | active     | 2026-07-14 |
+| TC-AUTO-CHANNEL-127-03                          | Reddit 条件后备、四个人工桥接与六个硬禁用集合固定                                          | marketing / channel policy         | C-20260711-127 | L3    | `scripts/marketing/channels.spec.ts`                          | active     | 2026-07-14 |
 | TC-AUTO-CHANNEL-127-04                          | capability/runtime/cost/个人主体任一 gate 缺失均失败关闭                                   | marketing / capability gate        | C-20260711-127 | L3    | `scripts/marketing/channels.spec.ts`                          | active     | 2026-07-11 |
 | TC-AUTO-CHANNEL-127-05                          | all-authorized 只展开全部 runtime gate 通过的渠道                                          | marketing / authorized expansion   | C-20260711-127 | L3    | `scripts/marketing/channels.spec.ts`                          | active     | 2026-07-11 |
 | TC-AUTO-FACTS-127-01                            | 站点事实快照与 SEO、locale、Home catalog 对拍                                              | marketing / site facts             | C-20260711-127 | L3    | `scripts/marketing/site-facts.spec.ts`                        | active     | 2026-07-11 |
@@ -79,7 +79,7 @@
 | TC-AUTO-WBPROC-127-01..02                       | 固定 weibo 进程、安全环境、超时/输出与 spawn 失败脱敏                                      | marketing-ops / Weibo process      | C-20260711-127 | L3    | plugin: `weibo-process.spec.ts`                               | active     | 2026-07-11 |
 | TC-AUTO-WBCLI-127-01..05                        | doctor/gate、只读 statuses 目录、固定 grammar 与错误脱敏                                   | marketing-ops / Weibo CLI          | C-20260711-127 | L3    | plugin: `weibo-cli.spec.ts`                                   | active     | 2026-07-11 |
 | TC-AUTO-WBADAPTER-127-01..05                    | 注入式中文正文、幂等 lookup、receipt、错误与保守能力                                       | marketing-ops / Weibo adapter      | C-20260711-127 | L3    | plugin: `weibo-post-adapter.spec.ts`                          | active     | 2026-07-11 |
-| TC-AUTO-WBRUNTIME-127-01                        | 动态脱敏 health；未冻结 action/activation 时 adapter disabled                              | marketing-ops / Weibo runtime      | C-20260711-127 | MCP   | plugin: `weibo-channel.spec.ts` + local runtime               | active     | 2026-07-11 |
+| TC-AUTO-WBRUNTIME-127-01                        | 动态脱敏 health；Free ready 仍明确只读且 adapter disabled                                  | marketing-ops / Weibo runtime      | C-20260711-127 | MCP   | plugin: `weibo-channel.spec.ts` + local runtime               | active     | 2026-07-14 |
 | TC-AUTO-WBSMOKE-127-01                          | 官方 CLI help/源码 argv 与空白隔离 doctor 只读预查，零登录/写入                            | marketing-ops / Weibo smoke        | C-20260711-127 | smoke | official CLI read-only local smoke                            | active     | 2026-07-11 |
 | TC-I18N-CATALOG-130-01                          | locale catalog 为 30 页、27/2/1 类型边界且路由唯一                                         | i18n / locale catalog              | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |
 | TC-I18N-CATALOG-130-02                          | 二十七算法 metadata 足以派生目录、复杂度与学习路径                                         | i18n / locale metadata             | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |

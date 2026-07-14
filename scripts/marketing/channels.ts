@@ -63,7 +63,7 @@ const OFFICIAL = {
   reddit: ['https://developers.reddit.com/docs/capabilities/server/userActions'],
   'product-hunt': ['https://api.producthunt.com/v2/docs'],
   github: ['https://docs.github.com/en/rest/releases/releases'],
-  weibo: ['https://open.weibo.com/cli'],
+  weibo: ['https://open.weibo.com/cli', 'https://open.weibo.com/cli/plan'],
   bluesky: ['https://docs.bsky.app/docs/get-started'],
   dev: ['https://developers.forem.com/api/'],
   mastodon: ['https://docs.joinmastodon.org/methods/statuses/'],
@@ -249,7 +249,7 @@ export const CHANNEL_REGISTRY = Object.freeze({
     id: 'weibo',
     label: '微博',
     tier: 'A',
-    execution: 'api',
+    execution: 'manual',
     publish: true,
     metrics: true,
     comments: true,
@@ -258,8 +258,8 @@ export const CHANNEL_REGISTRY = Object.freeze({
     auth: 'oauth',
     cost: 'free',
     personalAvailable: true,
-    enabled: true,
-    status: 'enabled',
+    enabled: false,
+    status: 'manual',
     evidence: evidence('weibo'),
   },
   bluesky: {
@@ -334,7 +334,6 @@ export const CHANNEL_REGISTRY = Object.freeze({
 
 export const AUTOMATIC_CHANNEL_IDS = Object.freeze([
   'github',
-  'weibo',
   'bluesky',
   'dev',
   'mastodon',
@@ -344,6 +343,7 @@ export const MANUAL_BRIDGE_CHANNEL_IDS = Object.freeze([
   'v2ex',
   'hacker-news',
   'product-hunt',
+  'weibo',
 ] as const satisfies readonly ChannelId[]);
 
 export const DISABLED_CHANNEL_IDS = Object.freeze([

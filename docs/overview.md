@@ -1,7 +1,7 @@
 # 项目概览
 
 > Status: active
-> Last reviewed: 2026-07-12
+> Last reviewed: 2026-07-14
 > Owner: IllegalCreed
 
 ## 项目简介
@@ -10,19 +10,19 @@
 
 ## 当前事实
 
-| 项       | 当前值                                                                                                                                      |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                         |
-| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                               |
-| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                   |
-| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项    |
-| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换    |
-| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
-| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：299 个测试文件、2131 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | C132 中文侧栏工具入口修复 verified/100%；C127 in-progress/79%，T3-D1-A 微博官方 CLI 无写边界已完成                                          |
-| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；GitHub ready/enabled；微博 OAuth 完成、个人开发者认证审核中，adapter disabled     |
-| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
+| 项       | 当前值                                                                                                                                        |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                           |
+| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                                 |
+| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                     |
+| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项      |
+| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换      |
+| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                              |
+| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）      |
+| 测试     | Vitest L3/L4：299 个测试文件、2131 个用例在 2026-07-11 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过   |
+| 当前阶段 | C132 中文侧栏工具入口修复 verified/100%；C127 in-progress/79%，微博 T3-D1-B 零费用能力审计已收口，下一步 Bluesky                              |
+| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；GitHub ready/enabled；微博认证已通过，Free 为 7 天只读且零写额度，API 发布 disabled |
+| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`        |
 
 ## 模块地图
 
