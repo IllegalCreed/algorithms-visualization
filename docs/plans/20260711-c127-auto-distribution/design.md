@@ -5,14 +5,14 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-14
-> Progress: 87%
-> Blocked by: 无（Bluesky 真实 smoke 已完成并清理；DEV/Mastodon 尚未接入）
-> Next action: T3-D3 DEV 官方 API adapter contract、一次性 setup 与零副作用 smoke 预案
+> Last reviewed: 2026-07-15
+> Progress: 90%
+> Blocked by: Owner（仅 T3-D3-B 一次性 DEV API key setup；尚无 DEV campaign 写授权）
+> Next action: Owner 创建专用 DEV API key，并在隐藏 TTY 完成只读身份 setup；正式文章另行授权
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -210,7 +210,7 @@ get_campaign_report(campaignId, window)
 - L3：schema、规范化、capability gate、UTM、renderer、幂等键、指标归一化、回复分类。
 - adapter contract：mock 官方 HTTP，覆盖成功、401、403、429、5xx、超时、重复请求、未知结果、删除和日志脱敏。
 - MCP contract：dry-run 无外部副作用；缺 secret/Profile、禁用渠道和验证挑战失败关闭；并发使用 campaign ID 串行化；setup/status/doctor 不泄漏凭据且无需手工 JSON。
-- 真实 smoke：每个启用渠道先以低风险内容执行一次发布、读取、可用时删除；记录真实 URL 和撤回结果，但不把 token 写入证据。
+- 真实 smoke：每个启用渠道先以低风险内容执行一次发布和读取；仅平台真实支持时删除。DEV 使用可长期保留的正式文章，不把改回草稿伪装成删除；证据不写入 token。
 - C128：对真实 campaign 做 1h/48h/7d collector 与报告验收。
 
 ### T3-C 固定 GitHub smoke 预案
@@ -270,6 +270,17 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 6. 获得对该 campaign 的明确授权后，顺序固定为 publish -> receipt/status 与公开 URL 读取 -> 同文案幂等复查 -> `delete_post` -> receipt deleted 与公开 URL 不存在复查。授权前不调用任何 Bluesky 写接口。
 7. 该顺序已真实执行：AT Protocol 读取正文与 renderer 完全一致；相同 publish 返回同一 receipt；delete 与重复 delete 分别返回 deleted/already-deleted；receipt 为 deleted，远端 record 返回不存在。完整公开 URL 含账号 DID，只保存在私有 receipt，不写入公开仓库。
 
+### T3-D3-A DEV 官方文章与反馈边界
+
+1. 固定 `https://dev.to/api`、Forem v1 `Accept` 与 `api-key` 请求头，只暴露 `GET /users/me`、本人文章分页查询、文章创建/读取和评论读取；不用通用 HTTP、任意 endpoint 或原始响应出口。
+2. built-in fetch 使用 10 秒超时、2 MB 流式响应上限和最多 10 页 x 100 条的查找边界；写请求不自动重试，提交后超时、5xx 或畸形回执都标为结果未知并要求先查找。
+3. 公开 renderer 只生成一个英文、无媒体的 article package；adapter 校验项目 canonical、正文中的唯一追踪链接和固定 `algorithms, webdev, opensource` 标签，并加入 content hash + 幂等键 hash 的隐藏 marker。
+4. setup 只在交互式 TTY 接收不回显的专用 API key，secret 写 macOS Keychain；0600 activation 只保存公开 username/user ID。每次注册前重新读取实时身份并与 activation 对拍，缺失、损坏、认证失败或身份漂移全部失败关闭。
+5. 发布前最多完整扫描本人 1,000 篇文章，以 title + canonical 定位候选后读取全文；同 marker/正文则复用，查询不完整、多个候选或内容冲突均禁止 create。runtime 只在请求含 DEV package 时惰性注册。
+6. collector 只接受本工具已知 published receipt，采集文章 lifetime reactions/comments；稳定文章响应没有 page views 时明确返回 unavailable。评论树有分页、深度与数量上限，正文输出标为 `untrusted=true`。
+7. 官方作者 API 可更新文章为未发布状态，但当前没有真正删除文章端点；本 adapter 固定 `reply=false`、`delete=false`，不把 draft reversion 当作删除。`c127-dev-smoke` 因此设计成有价值且可长期公开的 Quick Sort 英文文章，setup 与正式 publish 分别授权。
+8. 2026-07-15 工程门禁和公开 dry-run 已通过；本机 status/doctor 仍为 DEV `not-configured / disabled`，没有录入 API key、没有读取私有账号数据、没有发文。
+
 ## 风险与处理
 
 - **平台规则变化**：官方依据和 adapter version 入档；403/政策警告自动停用渠道，等待复审。
@@ -284,6 +295,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 
 - 2026-07-14：T3-D2-A 以 plugin `2107843` 落地固定官方 SDK、英文文本 contract、Keychain/0600 activation、隐藏 setup、身份对拍与惰性 runtime；29/140、coverage、verify 全绿。账号未接入、零写入，下一步为一次性 setup 与另行授权 smoke。
 - 2026-07-14：一次性 setup 完成并复查 ready/enabled；plugin `5d9aef1` 补齐三重对拍安全删除，29/144、coverage、verify 全绿。Owner 随后授权固定 smoke，publish/read/同回执复放/delete/重复 delete 与远端不存在复查全部通过；当前无临时帖子残留，下一步 T3-D3 DEV。
+- 2026-07-15：T3-D3-A 完成固定 Forem v1 API、英文文章 adapter、隐藏 setup/Keychain/0600 activation、惰性 runtime 和 metrics/comments collector；明确 `reply=false`、`delete=false`。plugin 35/178、coverage、verify、STDIO 全绿，公开 durable campaign dry-run 零副作用；DEV 尚未 setup 或写入。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

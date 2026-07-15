@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-07-14
+> Last reviewed: 2026-07-15
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -13,7 +13,7 @@
 
 > 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。2026-07-11 登记 C-126 二十三个多语言与国际 SEO Case、C-127 六个渠道自动化设计 Case及十九个 T1 运行时 Case、C130 三十七个英文扩容 Case；C126 中固定十页/105 页集合的 Case 由 C130 supersede，仍适用的子集测试保留 active。历史大表未做全量重排。
 >
-> 2026-07-11 Header 维护增量：新增 `TC-VIEW-HEADER-09`，锁定搜索入口紧跟站点标题并位于弹性空白前。随后登记 C131 四十六个显式参数化 Case，覆盖 95 对页面、15 个互动页、77 个 adapter、190 页双 base 与 117 条 L5 全量回归；C130 固定 30/125 规模 Case 由 C131 supersede，仍有源码断言的首 27 个 adapter 子集 Case继续 active。C127 T2 登记二十个 MCP/本地运行时 Case；T3-A 登记二十个 MCP v2、共享 adapter、GitHub typed fake 与 dispatch Case；T3-B 登记十六个固定 GitHub CLI、只读健康、显式 activation 与惰性 runtime Case；T3-C 再登记二十二个 Release/Issue/traffic/receipt/MCP/smoke Case；T3-D2 登记 Bluesky SDK、文本 adapter、activation、channel、惰性 runtime、安全删除与真实 smoke Case。C132 登记四个 L3/L4 与一个 L5 菜单回归，当前基线为 2131 Vitest / 118 Playwright。GitHub 与 Bluesky 真实 smoke 均已通过并完成清理；Bluesky 工程门禁为 29 文件 / 144 用例全绿。
+> 2026-07-11 Header 维护增量：新增 `TC-VIEW-HEADER-09`，锁定搜索入口紧跟站点标题并位于弹性空白前。随后登记 C131 四十六个显式参数化 Case，覆盖 95 对页面、15 个互动页、77 个 adapter、190 页双 base 与 117 条 L5 全量回归；C130 固定 30/125 规模 Case 由 C131 supersede，仍有源码断言的首 27 个 adapter 子集 Case继续 active。C127 T2-T3-D2 已登记 MCP、GitHub、微博与 Bluesky 边界；2026-07-15 T3-D3-A 再登记 DEV API、文章 adapter、activation/channel、collector/runtime 与 durable preflight Case。C132 登记四个 L3/L4 与一个 L5 菜单回归，当前基线为 2132 Vitest / 118 Playwright。DEV 私有插件工程门禁为 35 文件 / 178 用例全绿；本机仍 not-configured/disabled、零写入。
 
 ## All Cases
 
@@ -32,7 +32,7 @@
 | TC-DOC-AUTO-127-01                              | 十个正式渠道与五个补充/替代渠道集合完整且唯一                                              | marketing / channel inventory      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-02                              | 每个渠道的发布、监测、回复、准入与成本结论有官方依据                                       | marketing / official evidence      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-03                              | 免费个人首批、Reddit 后备、主体与费用禁用边界明确                                          | marketing / capability tiers       | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-04                              | C127 87%；Bluesky ready/enabled 且真实 smoke 已清理；下一步 T3-D3 DEV adapter              | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-14 |
+| TC-DOC-AUTO-127-04                              | C127 90%；DEV 工程/preflight 完成但 not-configured/disabled；下一步隐藏 setup              | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-15 |
 | TC-DOC-AUTO-127-05                              | API/RPA 凭据隔离并禁止内部 API、stealth 与验证码绕过                                       | marketing / credential safety      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-09                              | Codex 与本地 MCP 的凭据/Profile 边界明确                                                   | marketing / MCP boundary           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
 | TC-AUTO-SPEC-127-01                             | token、集合、URL 与含时区排期确定性规范化                                                  | marketing / campaign spec          | C-20260711-127 | L3    | `scripts/marketing/spec.spec.ts`                              | active     | 2026-07-11 |
@@ -87,6 +87,14 @@
 | TC-AUTO-BSKYCHANNEL-127-01..09                  | TTY setup、Keychain、activation 与实时身份三方对拍                                         | marketing-ops / Bluesky channel    | C-20260711-127 | L3    | plugin: `bluesky-channel.spec.ts`                             | active     | 2026-07-14 |
 | TC-AUTO-BSKYRUNTIME-127-01..02                  | 请求级惰性注册与已知 receipt 的安全删除                                                    | marketing-ops / Bluesky runtime    | C-20260711-127 | MCP   | plugin: `local-runtime.spec.ts`                               | active     | 2026-07-14 |
 | TC-AUTO-BSKYSMOKE-127-01                        | Owner 授权的 publish/read/同回执复放/delete/重复 delete 与远端 record 清理通过             | marketing-ops / Bluesky smoke      | C-20260711-127 | smoke | official API local smoke                                      | active     | 2026-07-14 |
+| TC-AUTO-DEVAPI-127-00..06                       | 固定 Forem v1、opaque key、分页/资源边界、文章/评论解析与错误脱敏                          | marketing-ops / DEV API            | C-20260711-127 | L3    | plugin: `dev-api.spec.ts`                                     | active     | 2026-07-15 |
+| TC-AUTO-DEVADAPTER-127-01..07                   | 单英文 durable article、canonical/marker、幂等、receipt 与失败关闭                         | marketing-ops / DEV adapter        | C-20260711-127 | L3    | plugin: `dev-article-adapter.spec.ts`                         | active     | 2026-07-15 |
+| TC-AUTO-DEVACT-127-01..04                       | 0600 非秘密 activation、身份、损坏、权限与版本严格拒绝                                     | marketing-ops / DEV activation     | C-20260711-127 | L3    | plugin: `dev-activation-store.spec.ts`                        | active     | 2026-07-15 |
+| TC-AUTO-DEVCHANNEL-127-01..07                   | 隐藏 setup、Keychain、activation 与实时 username/userId 对拍                               | marketing-ops / DEV channel        | C-20260711-127 | L3    | plugin: `dev-channel.spec.ts`                                 | active     | 2026-07-15 |
+| TC-AUTO-DEVOBS-127-01..05                       | lifetime reactions/comments、page views unavailable、untrusted 反馈与有界分页              | marketing-ops / DEV collector      | C-20260711-127 | L3    | plugin: `dev-observability.spec.ts`                           | active     | 2026-07-15 |
+| TC-AUTO-DEVRUNTIME-127-01..04                   | 动态状态、请求级惰性注册、已知 receipt 读取与 reply/delete 失败关闭                        | marketing-ops / DEV runtime        | C-20260711-127 | MCP   | plugin: `dev-runtime.spec.ts`                                 | active     | 2026-07-15 |
+| TC-AUTO-DEVSMOKE-127-01                         | durable campaign 三项预期 blocker、零 render issue 与零副作用 dry-run                      | marketing / DEV preflight          | C-20260711-127 | L3    | `scripts/marketing/publish-payload.spec.ts`                   | active     | 2026-07-15 |
+| TC-AUTO-DEVSMOKE-127-02                         | setup 后仍需 matching 授权的正式文章 publish/read/幂等/feedback/report                     | marketing-ops / DEV smoke          | C-20260711-127 | smoke | planned official API local smoke                              | planned    | 2026-07-15 |
 | TC-I18N-CATALOG-130-01                          | locale catalog 为 30 页、27/2/1 类型边界且路由唯一                                         | i18n / locale catalog              | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |
 | TC-I18N-CATALOG-130-02                          | 二十七算法 metadata 足以派生目录、复杂度与学习路径                                         | i18n / locale metadata             | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |
 | TC-I18N-CATALOG-130-03                          | Home 与八条学习路径由 catalog 派生且无孤儿算法                                             | i18n / derived catalogs            | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |

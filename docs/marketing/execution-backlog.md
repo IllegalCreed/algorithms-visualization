@@ -3,10 +3,10 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-14
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/87%，T3-D2-B Bluesky 真实 smoke 已完成并清理）
+> Last reviewed: 2026-07-15
+> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/90%，T3-D3-A DEV 工程与 durable preflight 已完成）
 > Completed plan: C-20260711-131 英文目录全量对齐（verified）
-> Next action: T3-D3 DEV 官方 API adapter contract、一次性 setup 与零副作用 smoke 预案
+> Next action: Owner 创建专用 DEV API key，并在本机隐藏向导完成一次性 setup；正式文章另行授权
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -33,7 +33,7 @@
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | GitHub 闭环完成；微博 API disabled；Bluesky ready/enabled 且真实 smoke 已完成清理        | 当前 87%；下一步 T3-D3 DEV adapter、setup 与零副作用 smoke 预案                      |
+| 内容生产自动化   | 进行中 | GitHub/Bluesky 闭环完成；微博 API disabled；DEV 工程/preflight 完成但尚未配置            | 当前 90%；下一步 DEV 一次性隐藏 setup，正式 durable article 另行授权                 |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
@@ -47,7 +47,7 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B 已完成并转 87%；GitHub 与 Bluesky 保持 ready/enabled。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；Bluesky plugin `5d9aef1` 已补齐安全删除，Owner 授权的固定 smoke 已完成发布、读取、幂等复放和删除，receipt 与远端 record 清理一致。
+6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-A 已完成并转 90%；GitHub 与 Bluesky 保持 ready/enabled。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；DEV 固定 API、文章 adapter、collector 与 durable preflight 已全绿，但仍 not-configured/disabled、零写入，下一步为 Owner 一次性隐藏 setup。
 7. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
@@ -61,7 +61,7 @@
 | C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页         | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
 | C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                   | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky 闭环完成，微博 API 失败关闭         | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 87%；下一步 T3-D3 DEV adapter  |
+| C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky 闭环、DEV 工程/preflight 完成       | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 90%；下一步 DEV 隐藏 setup     |
 | C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                   | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
@@ -171,7 +171,7 @@
 
 ## C127 提示词驱动的全自动内容分发
 
-> Status: in-progress / 87% / current（C-20260711-127）
+> Status: in-progress / 90% / current（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
@@ -199,6 +199,8 @@
 - T3-D1-B 已完成固定版本安装、官方 device OAuth 与个人认证；CLI `/cli/whoami` 仍返回 2026-07-11 的旧 `unverified` 快照。2026-07-14 官方套餐目录复核确认 Free 为 0 元/7 天、仅本人数据、5 读/小时、0 写/小时；未领取试用、未读 catalog、零写入。plugin `263fd3f` 禁止将 Free 误报为可发布；零费用 API 线不再进入 T3-D1-C smoke，微博 RPA 须另行评审。
 - T3-D2-A 已由本地插件 `2107843` 完成：固定官方 `@atproto/api@0.20.28`、单英文文本 adapter、RichText 链接、本人 feed 幂等查询、Keychain/0600 activation、隐藏 setup 与请求级惰性 runtime。随后一次性 setup 完成，status/doctor 为 ready/enabled。
 - T3-D2-B 已完成：plugin `5d9aef1` 将 adapter 升至 `bluesky-text@0.2.0`，仅允许删除本工具已知 published receipt，且 AT URI、公开 URL、adapter version 与实时 DID 必须全部一致。29 文件 / 144 用例、coverage、verify 与 STDIO 全绿。Owner 明确授权固定 campaign `marketing-ops-t3d2-smoke-127` 后，真实发布、AT Protocol 正文读取、同请求幂等复放、安全删除与重复删除全部通过；receipt 为 deleted，远端 record 返回不存在。完整公开 URL 因包含账号 DID 不写入公开仓库。
+- T3-D3-A 已完成：固定 Forem API v1、`dev-article@0.1.0`、单英文无媒体文章、Keychain/0600 activation、身份对拍、请求级惰性 runtime、lifetime reactions/comments 与 untrusted 评论采集；`reply=false`、`delete=false`，不把 draft reversion 当作删除。plugin 35 文件 / 178 用例、coverage（97.88/94.35/99.46/98.58）、verify 与 STDIO 全绿。
+- 固定 `marketing-ops-t3d3-smoke-127` 是可长期保留的 Quick Sort 正式英文文章候选。授权前 dry-run 只有执行、adapter、账号三项 blocker 且 `sideEffects=[]`；本机 DEV 为 not-configured/disabled，未录入 API key、未读私有账号数据、零写入。setup 与正式文章 publish 必须分别获得 Owner 行动/授权。
 - 首次真实接入时由 Codex 逐步带 Owner 完成向导；接入后的正常使用只需自然语言 campaign，不要求编辑 JSON、拼 UTM 或记忆 CLI。
 
 ### 退出条件
@@ -232,7 +234,7 @@
 | Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                      |
 | GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                     |
 | 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入    |
-| 首批渠道账号状态                            | C127 T3      | 微博 OAuth/认证完成但 Free 零写额度；Bluesky ready/enabled 且 smoke 完成；DEV/Mastodon 后续   |
+| 首批渠道账号状态                            | C127 T3      | 微博 Free 零写额度；Bluesky ready/enabled；DEV 工程完成但待隐藏 setup；Mastodon 后续          |
 | 首批渠道官方授权                            | C127 T3-T6   | 由 Codex 带着在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret |
 | 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                          |
 | Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                        |
@@ -285,3 +287,4 @@
 - 2026-07-14：微博个人认证通过；Free 复核为 0 元/7 天、5 读/小时、0 写/小时，未领取试用、未读 catalog、零写入。公开注册表将微博移出自动集合，保留可渲染的 manual package 并返回 `MANUAL_EXECUTION_REQUIRED`；plugin `263fd3f` 禁止误报发布能力，下一步 Bluesky T3-D2。
 - 2026-07-14：Bluesky T3-D2-A 以 plugin `2107843` 完成固定官方 SDK、英文文本 adapter、Keychain/0600 activation、隐藏 setup 与惰性 runtime；plugin 29/140、coverage、verify 全绿，公开仓库 299/2131、190 页 verify、coverage 与 118 条 Playwright 全绿。renderer 收紧为单英文变体；账号未接入、零写入，C127 转 85%。
 - 2026-07-14：Bluesky 一次性 setup 完成并复查 ready/enabled；plugin `5d9aef1` 补齐安全删除，29/144、coverage、verify 与 STDIO 全绿。Owner 明确授权固定 `marketing-ops-t3d2-smoke-127` 后完成 publish/read/同回执幂等复放/delete/重复 delete；receipt deleted，远端 record 不存在，无临时帖子残留。C127 转 87%，下一步 T3-D3 DEV。
+- 2026-07-15：DEV T3-D3-A 完成固定 Forem v1 API、英文 article adapter、Keychain/0600 activation、惰性 runtime、metrics/comments collector 与 durable campaign preflight；plugin 35/178、coverage、verify、STDIO 全绿。DEV 仍 not-configured/disabled、零写入，C127 转 90%，下一步一次性隐藏 setup。
