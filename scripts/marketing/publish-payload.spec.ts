@@ -63,7 +63,7 @@ describe('publish campaign MCP v2 payload bridge', () => {
     ).toThrow(/authorizedAt/i);
   });
 
-  it('TC-AUTO-DEVSMOKE-127-01 固定 DEV 候选在账号/写授权前保持零副作用', () => {
+  it('TC-AUTO-DEVSMOKE-127-01 固定 DEV 候选在写授权前保持零副作用', () => {
     const manifest = buildDryRunManifest(devSmokeCampaign, {
       runtimeStates: devSmokePreflight,
     });
@@ -77,7 +77,7 @@ describe('publish campaign MCP v2 payload bridge', () => {
           channel: 'dev',
           selected: false,
           decision: {
-            reasons: ['EXECUTION_NOT_APPROVED', 'ADAPTER_UNAVAILABLE', 'AUTH_REQUIRED'],
+            reasons: ['EXECUTION_NOT_APPROVED'],
           },
           renderIssues: [],
           content: {

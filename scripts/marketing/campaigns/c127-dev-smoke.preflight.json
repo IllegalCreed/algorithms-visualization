@@ -1,8 +1,8 @@
 {
   "dev": {
     "executionApproved": false,
-    "adapterReady": false,
-    "authorized": false,
+    "adapterReady": true,
+    "authorized": true,
     "quotaAvailable": true
   }
 }
