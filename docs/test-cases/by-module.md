@@ -49,14 +49,14 @@
 
 ---
 
-## 2026-07-11 至 2026-07-15 渠道自动化 T0-T3D3B 增量（C-20260711-127）
+## 2026-07-11 至 2026-07-15 渠道自动化 T0-T3D3C 增量（C-20260711-127）
 
 | 模块                               | Case ID                        | 标题                                                 | 层级     | 自动化路径                                                 |
 | ---------------------------------- | ------------------------------ | ---------------------------------------------------- | -------- | ---------------------------------------------------------- |
 | marketing / channel inventory      | TC-DOC-AUTO-127-01             | 十五渠道集合完整且唯一                               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / official evidence      | TC-DOC-AUTO-127-02             | 发布、监测、回复、准入与成本有官方依据               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / capability tiers       | TC-DOC-AUTO-127-03             | 免费个人、后备与硬禁用边界明确                       | docs     | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 90%、DEV 工程/setup 完成、下一步 matching 授权  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 90%、DEV 正式文章闭环、下一步 Mastodon 工程     | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / credential safety      | TC-DOC-AUTO-127-05             | 官方授权、凭据隔离与失败关闭红线完整                 | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / MCP boundary           | TC-DOC-AUTO-127-09             | Codex 与凭据/Profile 的工具边界完整                  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / campaign spec          | TC-AUTO-SPEC-127-01..04        | schema、规范化、非法输入与双语内容合同               | L3       | `scripts/marketing/spec.spec.ts`                           |
@@ -104,7 +104,7 @@
 | marketing-ops / DEV collector      | TC-AUTO-DEVOBS-127-01..05      | lifetime 指标、untrusted 反馈与有界评论分页          | L3       | personal plugin `src/dev-observability.spec.ts`            |
 | marketing-ops / DEV runtime        | TC-AUTO-DEVRUNTIME-127-01..04  | 动态状态、惰性注册、已知 receipt 与禁用 reply/delete | MCP      | personal plugin `src/dev-runtime.spec.ts`                  |
 | marketing / DEV preflight          | TC-AUTO-DEVSMOKE-127-01        | setup 后仅执行授权 blocker 与零副作用 dry-run        | L3       | `scripts/marketing/publish-payload.spec.ts`                |
-| marketing-ops / DEV smoke          | TC-AUTO-DEVSMOKE-127-02        | 正式文章 publish/read/幂等/反馈/报告待 matching 授权 | smoke    | planned official API local smoke                           |
+| marketing-ops / DEV smoke          | TC-AUTO-DEVSMOKE-127-02        | 正式文章 publish/read/幂等/反馈/报告已通过           | smoke    | official API local smoke                                   |
 
 ---
 

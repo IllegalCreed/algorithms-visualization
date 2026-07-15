@@ -7,8 +7,8 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-15
 > Progress: 90%
-> Blocked by: Owner（仅 T3-D3-C 固定 DEV durable campaign 写授权）
-> Next action: Owner 对 `marketing-ops-t3d3-smoke-127` 正式英文文章单独明确授权
+> Blocked by: none
+> Next action: T3-D4-A 固定 Mastodon statuses/notifications adapter 工程
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -279,7 +279,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 5. 发布前最多完整扫描本人 1,000 篇文章，以 title + canonical 定位候选后读取全文；同 marker/正文则复用，查询不完整、多个候选或内容冲突均禁止 create。runtime 只在请求含 DEV package 时惰性注册。
 6. collector 只接受本工具已知 published receipt，采集文章 lifetime reactions/comments；稳定文章响应没有 page views 时明确返回 unavailable。评论树有分页、深度与数量上限，正文输出标为 `untrusted=true`。
 7. 官方作者 API 可更新文章为未发布状态，但当前没有真正删除文章端点；本 adapter 固定 `reply=false`、`delete=false`，不把 draft reversion 当作删除。`c127-dev-smoke` 因此设计成有价值且可长期公开的 Quick Sort 英文文章，setup 与正式 publish 分别授权。
-8. 2026-07-15 工程门禁和公开 dry-run 已通过；随后隐藏 setup 与只读身份对拍完成，本机 status/doctor 为 DEV `ready / enabled`。API key 只在 Keychain；当前没有 receipt/文章，preflight 唯一 blocker 为 `EXECUTION_NOT_APPROVED`。
+8. 2026-07-15 工程门禁、公开 dry-run、隐藏 setup 与只读身份对拍完成，本机 status/doctor 为 DEV `ready / enabled`。Owner matching 授权后，文章 `4146005` 的 publish、完整正文对拍、同 receipt 幂等复放与 feedback/report 读取全部通过；API key 只在 Keychain，文章长期公开。
 
 ## 风险与处理
 
@@ -297,6 +297,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-14：一次性 setup 完成并复查 ready/enabled；plugin `5d9aef1` 补齐三重对拍安全删除，29/144、coverage、verify 全绿。Owner 随后授权固定 smoke，publish/read/同回执复放/delete/重复 delete 与远端不存在复查全部通过；当前无临时帖子残留，下一步 T3-D3 DEV。
 - 2026-07-15：T3-D3-A 完成固定 Forem v1 API、英文文章 adapter、隐藏 setup/Keychain/0600 activation、惰性 runtime 和 metrics/comments collector；明确 `reply=false`、`delete=false`。plugin 35/178、coverage、verify、STDIO 全绿，公开 durable campaign dry-run 零副作用；DEV 尚未 setup 或写入。
 - 2026-07-15：T3-D3-B 隐藏 setup 与只读身份对拍完成；DEV status/doctor ready/enabled，key 仅在 Keychain，preflight 仅余 `EXECUTION_NOT_APPROVED`。尚无 receipt/文章，等待固定 durable campaign matching 授权。
+- 2026-07-15：T3-D3-C Owner matching 授权后完成正式 DEV 文章 publish、完整正文/API 元数据对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

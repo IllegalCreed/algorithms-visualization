@@ -8,7 +8,7 @@
 
 项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。当前工程主线为 C127 宣传自动化 T3。
 
-当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 90%。微博零费用 API 发布路径已关闭；Bluesky 闭环已完成并清理；DEV 工程、durable preflight 与一次性隐藏 setup 已完成并保持 ready/enabled，下一步为固定正式文章 matching 授权。第三方统计继续暂缓。
+当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 90%。微博零费用 API 发布路径已关闭；Bluesky 闭环已完成并清理；DEV 正式文章 publish/read/幂等/反馈/报告闭环已完成并保持 ready/enabled，文章长期公开，下一步为 Mastodon adapter 工程。第三方统计继续暂缓。
 
 事实优先级保持不变：当前源码与本地测试结果 > 最新 plan / `docs/plans/completion-backlog.md` > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md` > 本路线图。
 
@@ -22,7 +22,7 @@
 | 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
 | 测试基线 | 2026-07-15 本地现状：299 个 Vitest 文件 / 2132 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 118 条 Playwright e2e 通过                     |
 | 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
-| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；GitHub/Bluesky 闭环完成；微博 API disabled；DEV ready/enabled、尚无文章                         |
+| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；GitHub/Bluesky/DEV 闭环完成；微博 API disabled；DEV 正式文章长期公开                            |
 
 ## 维护队列
 
@@ -32,7 +32,7 @@
 | P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                          |
 | P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                   |
 | P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                        |
-| P1     | 宣传自动化           | ongoing  | C127 90%；DEV 工程、preflight 与一次性隐藏 setup 已完成；下一步固定正式文章 matching 授权                                 |
+| P1     | 宣传自动化           | ongoing  | C127 90%；DEV 正式文章与观测 smoke 已完成；下一步 Mastodon adapter 工程                                                   |
 | P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁 |
 | P2     | 免费索引与需求信号   | pending  | 190 页 sitemap 已稳定，可按 C124 清单提交 Search Console/Bing Webmaster Tools；不引入 tracker                             |
 | P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131             |
@@ -42,6 +42,7 @@
 
 | 日期       | 记录                                                                                                                                        |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-15 | C127 T3-D3-C：DEV 正式文章完成 publish、正文对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开     |
 | 2026-07-15 | C127 T3-D3-B：DEV 隐藏 setup 与只读身份对拍完成，status/doctor ready/enabled；key 仅在 Keychain，尚无 receipt/文章，等待 matching 授权      |
 | 2026-07-15 | C127 T3-D3-A：DEV 固定 Forem v1、英文 durable article、Keychain/activation 与 collector 完成；plugin 35/178 全绿，未 setup/写入，C127 90%   |
 | 2026-07-14 | C127 T3-D2-B 完成：Owner 授权的 Bluesky publish/read/幂等/delete smoke 已清理；receipt deleted、远端 record 不存在，C127 87%，下一步 DEV    |

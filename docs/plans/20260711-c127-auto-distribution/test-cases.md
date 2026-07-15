@@ -7,8 +7,8 @@
 > Created: 2026-07-11
 > Last reviewed: 2026-07-15
 > Progress: 90%
-> Blocked by: Owner（仅 T3-D3-C 固定 DEV durable campaign 写授权）
-> Next action: Owner 对 `marketing-ops-t3d3-smoke-127` 正式英文文章单独明确授权
+> Blocked by: none
+> Next action: T3-D4-A 固定 Mastodon statuses/notifications adapter 工程
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -22,7 +22,7 @@
 | TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                  |
 | TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                           |
 | TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力 |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 90%；DEV 工程/preflight/setup 完成并 ready/enabled；下一步为 matching 授权            |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 90%；DEV 正式文章闭环完成并长期公开；下一步为 Mastodon adapter 工程                   |
 | TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过              |
 | TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                             |
 | TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                         |
@@ -232,7 +232,7 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 | TC-AUTO-DEVOBS-127-01..05     | L3/collector     | metrics 与评论树            | lifetime reactions/comments、page views unavailable、untrusted 反馈、分页/深度/receipt 边界 |
 | TC-AUTO-DEVRUNTIME-127-01..04 | MCP/runtime      | 惰性注册与已知 receipt      | 动态状态、按请求注册、feedback/report 可读；reply/delete 和失去健康状态失败关闭             |
 | TC-AUTO-DEVSMOKE-127-01       | dry-run          | durable campaign preflight  | setup 前三项 blocker、setup 后仅执行授权 blocker；始终零 render issue、`sideEffects=[]`     |
-| TC-AUTO-DEVSMOKE-127-02       | live smoke       | 正式文章 publish/read       | planned；setup 后仍须 matching 授权，文章长期保留，验证幂等、反馈和报告但不调用伪删除       |
+| TC-AUTO-DEVSMOKE-127-02       | live smoke       | 正式文章 publish/read       | passed；matching 授权后完成正文、幂等、反馈和报告验证；文章长期保留且不调用伪删除           |
 
 ### T3-D3 固定 durable smoke 输入与顺序
 
@@ -242,7 +242,7 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 - target：`https://algo.illegalscreed.cn/en/docs/quick-sort/`
 - package：DEV only、English article only、media `[]`、replies off、`all-or-none`
 - 授权前证据：正文包含 Lomuto 分区、输入实验和复杂度观察三个实质小节；setup 前 dry-run 有 `EXECUTION_NOT_APPROVED`、`ADAPTER_UNAVAILABLE`、`AUTH_REQUIRED` 三项 blocker。setup 与只读 status/doctor 验收后只剩 `EXECUTION_NOT_APPROVED`，始终无 render issue、`sideEffects=[]`；idempotency key 为 `campaign-v1/marketing-ops-t3d3-smoke-127/f3b723fbff257e8e8d5b291bf996b44bb5fc2cc00f67bb941fdc276f7459366b`
-- 待执行顺序：Owner 对该固定 durable campaign 单独授权 -> publish -> API 正文/receipt 读取 -> 相同请求幂等复放 -> feedback/report 读取。DEV 没有真实文章删除 API，不安排 delete，文章作为正式内容长期保留
+- 已执行顺序：Owner 对该固定 durable campaign 单独授权 -> publish -> API 正文/receipt 读取 -> 相同请求幂等复放 -> feedback/report 读取。DEV 没有真实文章删除 API，未安排 delete，文章作为正式内容长期保留
 
 ## T3-D-T5 运行时用例框架
 
@@ -307,8 +307,8 @@ git diff --check
 | TC-AUTO-DEVACT/CHANNEL-127-\_  | passed  | 2026-07-15 | Keychain/0600 activation、身份对拍与失败关闭分支通过                   |
 | TC-AUTO-DEVOBS/RUNTIME-127-\_  | passed  | 2026-07-15 | metrics/comments、untrusted 反馈、惰性注册与禁用 reply/delete 通过     |
 | TC-AUTO-DEVSMOKE-127-01        | passed  | 2026-07-15 | setup 前三项、setup 后仅执行授权 blocker；两次均零副作用               |
-| TC-AUTO-DEVSMOKE-127-02        | planned | 2026-07-15 | setup 已完成；等待 Owner matching 正式文章授权                         |
-| T3-D3-A-T5 运行时 Case         | partial | 2026-07-15 | DEV 工程/preflight/setup 完成；正式文章、Mastodon 与 T4-T6 后续展开    |
+| TC-AUTO-DEVSMOKE-127-02        | passed  | 2026-07-15 | 正文/API 元数据、同 receipt、零反馈与 `1h` report 均验证通过           |
+| T3-D3-A-T5 运行时 Case         | partial | 2026-07-15 | DEV 工程/preflight/setup/正式文章完成；Mastodon 与 T4-T6 后续展开      |
 
 ## 变更历史
 
@@ -339,3 +339,4 @@ git diff --check
 - 2026-07-15：T3-D3-A 初始 5 个目标套件因模块缺失失败，随后 DEV API/adapter/activation/channel/observability/runtime 共 34 个显式 Case 转绿；plugin 35 文件 / 178 用例、coverage（97.88/94.35/99.46/98.58）、verify 与 STDIO 全绿。公开 durable campaign dry-run 三项预期 blocker 且 `sideEffects=[]`；DEV 仍 not-configured/disabled、零写入，C127 转 90%。
 - 2026-07-15：T3-D3-A 公开仓库全门禁通过：verify 为 299 个 Vitest 文件 / 2132 个用例并完成 190 页 production 预渲染/SEO 校验；coverage 为 95.48/86.31/92.03/95.82；Playwright 104 个文件 / 118 个用例全绿。
 - 2026-07-15：T3-D3-B 隐藏 setup 完成，status/doctor 只读验收为 ready/enabled；preflight 更新后 TC-AUTO-DEVSMOKE-127-01 唯一 blocker 为 `EXECUTION_NOT_APPROVED` 且 `sideEffects=[]`。未创建 receipt/文章。
+- 2026-07-15：Owner matching 授权后执行 TC-AUTO-DEVSMOKE-127-02；文章 `4146005` publish 成功，公开 API 对拍 ID/title/body/canonical/URL 全部一致，相同 payload 复放返回同一 receipt 且仅一条记录。feedback 为 0，`1h` lifetime report available；未 reply/delete，文章长期公开。
