@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "marketing-ops-t3d3-smoke-127",
+  "topic": "DEV launch article for the interactive Quick Sort visualizer",
+  "targetUrls": ["https://algo.illegalscreed.cn/en/docs/quick-sort/"],
+  "locales": ["en"],
+  "channels": ["dev"],
+  "publishAt": "2026-07-16T20:00:00+09:00",
+  "campaign": "c127-t3d3-smoke",
+  "content": {
+    "variants": {
+      "en": {
+        "title": "See Quick Sort partitioning, one step at a time",
+        "angle": "Quick Sort is easy to summarize: choose a pivot, partition, and repeat. It is much harder to reason about while indices and subranges are moving. This visualizer turns those hidden state changes into a timeline you can inspect.\n\n## What the visualization shows\n\nThis implementation uses Lomuto partitioning with the rightmost item as the pivot. The red `i` pointer marks the boundary of the smaller-than-pivot region, while the blue `j` pointer scans the active range. When `a[j] < pivot`, that value moves into the smaller region and `i` advances. Once the scan reaches `hi`, the pivot swaps into `i` and reaches its final position.\n\nPending `[lo, hi]` ranges appear on an explicit stack, so the recursive work is visible instead of being hand-waved. Every frame keeps the array, active range, pivot, pointers, swap count, stack, caption, and current source line synchronized. You can compare the same execution against TypeScript, Python, Go, and Rust implementations.\n\n## Try these inputs\n\n- An already sorted array shows how a rightmost pivot can create severely unbalanced partitions.\n- A reverse-sorted array exposes the same worst-case shape through a different sequence of swaps.\n- Duplicate-heavy input reveals that the strict `< pivot` comparison leaves equal values on the other side of the boundary.\n- A mixed input makes the typical divide-and-conquer behavior easier to see.\n\n## What to look for\n\nQuick Sort runs in `O(n log n)` time on average, but this pivot strategy can degrade to `O(n^2)`. Pause at each pivot placement, compare the sizes of the two resulting ranges, and watch the pending stack grow or shrink. Then change the input and replay the exact same checkpoints. The goal is not only to see a sorted result, but to understand how partition balance determines the work required.",
+        "callToAction": "Explore the interactive Quick Sort visualizer"
+      }
+    },
+    "media": []
+  },
+  "replies": {
+    "mode": "off",
+    "createBugIssues": false
+  },
+  "failureMode": "all-or-none"
+}
