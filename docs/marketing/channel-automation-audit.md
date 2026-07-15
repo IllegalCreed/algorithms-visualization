@@ -4,7 +4,7 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-15
-> Current implementation: GitHub/Bluesky 闭环完成；微博 API disabled；DEV 工程/preflight 完成但 not-configured/disabled，下一步一次性隐藏 setup
+> Current implementation: GitHub/Bluesky 闭环完成；微博 API disabled；DEV 工程/preflight/setup 完成并 ready/enabled，下一步固定正式文章 matching 授权
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
@@ -173,7 +173,7 @@ flowchart LR
 
 1. **T1 基础层（完成）**：`CampaignSpec`、官方等级/执行模式分离的能力注册表、renderer、UTM、schema、dry-run 和幂等键。
 2. **T2 MCP 边界（完成）**：七个高层工具、Keychain/Profile 隔离、本地队列、receipt 和任意浏览器执行拒绝测试；该阶段交付为失败关闭的本地安全骨架。
-3. **T3 首批 API adapter（进行中）**：GitHub 与 Bluesky 闭环完成，微博 API 线因 Free 零写额度失败关闭；DEV T3-D3-A 已完成固定 Forem v1 client、文章 adapter、Keychain/activation、collector 和 durable preflight，当前待一次性 setup 与单独文章授权。之后继续 Mastodon；未启用渠道自动跳过并输出接入清单。
+3. **T3 首批 API adapter（进行中）**：GitHub 与 Bluesky 闭环完成，微博 API 线因 Free 零写额度失败关闭；DEV T3-D3-A/B 已完成固定 Forem v1 client、文章 adapter、Keychain/activation、collector、durable preflight 与一次性隐藏 setup，当前 ready/enabled、尚无文章，等待单独 matching 授权。之后继续 Mastodon；未启用渠道自动跳过并输出接入清单。
 4. **T4 反馈层**：1h/48h/7d collectors、Codex 一次性跟进、标准化报告、受控回复和 GitHub Issue 分流。
 5. **T5 条件路径**：逐渠道评审 RPA；Reddit 只在审核/社区授权后启用；V2EX、HN、Product Hunt 维持人工发布后监测。
 6. **长期禁用**：掘金、知乎、小红书默认 D/禁用；微信、B站因主体约束禁用，X 因费用约束禁用；只有官方能力、平台规则或 Owner 硬约束变化并完成复审后才调整。
@@ -198,3 +198,4 @@ flowchart LR
 - 2026-07-14：微博个人认证通过后复核套餐；Free 为 0 元/7 天、5 读/小时、0 写/小时。零费用 API 自动集合修正为 GitHub、Bluesky、DEV、Mastodon，微博移入人工/独立 RPA 评审。
 - 2026-07-14：Bluesky 一次性 setup 完成并保持 ready/enabled；plugin `5d9aef1` 补齐已知 receipt、公开 URL 与实时 DID 对拍的安全删除。Owner 随后明确授权固定 campaign `marketing-ops-t3d2-smoke-127`：发布后 AT Protocol 正文读取一致，相同请求复放返回同一 receipt，删除与重复删除分别返回 deleted/already-deleted；receipt 已标 deleted，远端 record 不存在且无临时帖子残留。
 - 2026-07-15：DEV T3-D3-A 完成固定 Forem v1 API、英文 durable article、Keychain/0600 activation、惰性 runtime 与 reactions/comments collector；明确 page views unavailable、`reply=false`、`delete=false`。plugin 35/178 与全门禁通过，公开 preflight 零副作用；尚未 setup 或发文。
+- 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor 为 ready/enabled，API key 仅在本机 Keychain。当前无 receipt/文章，正式 durable campaign 仍需单独 matching 授权。
