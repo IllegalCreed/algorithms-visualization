@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-27
-> Progress: 92%
+> Progress: 94%
 > Blocked by: none
-> Next action: T3-D4-C 零副作用预案已冻结；等待 matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
+> Next action: T3-D4-C2 Mastodon 真实闭环已完成；进入 T4 监测、回复与复盘
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
@@ -24,11 +24,11 @@
 | TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                  |
 | TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                           |
 | TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力 |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 92%；Mastodon ready/enabled；T3-D4-C 预案已冻结并等待 matching 授权                   |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 94%；Mastodon T3-D4-C2 闭环完成并已清理；下一步 T4                                    |
 | TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过              |
 | TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                             |
 | TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                         |
-| TC-DOC-AUTO-127-08 | docs | plan 状态                    | GitHub/Bluesky/DEV 真实闭环已完成，Mastodon 仅完成 setup；T3-D4-C 与完整调度/采集仍未完成         |
+| TC-DOC-AUTO-127-08 | docs | plan 状态                    | GitHub/Bluesky/DEV/Mastodon 真实闭环已完成；T4 完整调度、采集与复盘仍未完成                       |
 | TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具             |
 
 前六个事实 Case（01..05、09）登记到三份全局测试索引；格式、diff 和当前实施状态只保留在本 plan。
@@ -345,9 +345,9 @@ git diff --check
 | TC-AUTO-MASTOACT/CHANNEL-127   | passed  | 2026-07-27 | acct 补全、Keychain/0600 activation、身份对拍与失败关闭通过                      |
 | TC-AUTO-MASTOOBS/RUNTIME-127   | passed  | 2026-07-27 | lifetime 指标、untrusted 通知、惰性注册与已知 receipt 边界通过                   |
 | TC-AUTO-MASTOSMOKE-127-01      | passed  | 2026-07-27 | 固定 campaign/正文/UTM/幂等键；dry-run 唯一授权 blocker 且 `sideEffects=[]`      |
-| TC-AUTO-MASTOSMOKE-127-02      | planned | -          | 等待 Owner 对 matching campaign 的明确 publish/read/delete 授权                  |
+| TC-AUTO-MASTOSMOKE-127-02      | passed  | 2026-07-27 | matching 授权闭环完成；唯一状态被认领，正文/幂等/反馈/报告/delete/远端不存在通过 |
 | T3-D3-A-T5 运行时 Case         | partial | 2026-07-16 | DEV 工程/preflight/setup/正式文章完成；Mastodon adapter 工程完成，T4-T6 后续展开 |
-| T3-D4-C-T5 运行时 Case         | partial | 2026-07-27 | Mastodon 预案 Case 通过；真实发布 smoke、T4-T6 后续展开                          |
+| T3-D4-C-T5 运行时 Case         | passed  | 2026-07-27 | smoke 已清理；段落回归、deleted/404、自包含 bundle 与安装缓存握手均通过          |
 
 ## 变更历史
 
@@ -383,3 +383,4 @@ git diff --check
 - 2026-07-27：C133 十三个 Project Profile/MCP v3/隔离 Case 全绿；plugin 44 文件 / 223 用例，公开仓库 299 文件 / 2132 用例。
 - 2026-07-27：T3-D4-B 完成 token regenerate、隐藏 setup 与只读 status/doctor；两项新增回归先红后绿，plugin `bb62731` 后为 44/225，coverage、verify、validator、安装态与 Gitleaks 全绿。Mastodon ready/enabled，下一步 T3-D4-C。
 - 2026-07-27：TC-AUTO-MASTOSMOKE-127-01 先红后绿；固定预案 dry-run 只有 `EXECUTION_NOT_APPROVED`，等待 TC-AUTO-MASTOSMOKE-127-02 matching 授权。
+- 2026-07-27：TC-AUTO-MASTOSMOKE-127-02 通过；首次 after-submit `UNKNOWN_RESULT` 由 `<p>` 段落空行还原缺陷触发，扩展 `TC-AUTO-MASTOAPI-127-04` 回归后由 plugin `44a7e9a` 修复并以同 payload 认领唯一状态。正文、幂等、feedback、`1h` report、delete、deleted receipt 与无缓存远端 404 全部通过；plugin `7cc60a5` 再以自包含 bundle 修复安装缓存依赖链接丢失，并通过隔离/安装态 STDIO。

@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-27
 > Progress: 100%
 > Blocked by: none
-> Next action: 已完成；工程主线返回 C127 T3-D4-C
+> Next action: 已完成；当前工程主线为 C127 T4
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260710-129

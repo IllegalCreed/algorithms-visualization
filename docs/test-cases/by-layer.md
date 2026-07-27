@@ -75,7 +75,7 @@
 | docs     | TC-DOC-AUTO-127-01             | 十五渠道集合完整且唯一                               | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-02             | 发布、监测、回复、准入与成本有官方依据               | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-03             | 免费个人、后备与硬禁用边界明确                       | `docs/marketing/channel-automation-audit.md`               |
-| docs     | TC-DOC-AUTO-127-04             | C127 92%、Mastodon ready，预案已冻结并等待授权       | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs     | TC-DOC-AUTO-127-04             | C127 94%、Mastodon 闭环已清理，下一步 T4             | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | docs     | TC-DOC-AUTO-127-05             | 官方授权、凭据隔离与失败关闭红线完整                 | `docs/marketing/channel-automation-audit.md`               |
 | docs     | TC-DOC-AUTO-127-09             | Codex 与凭据/Profile 的 MCP 边界完整                 | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | L3       | TC-AUTO-SPEC-127-01..04        | schema、规范化、非法输入与双语内容合同               | `scripts/marketing/spec.spec.ts`                           |

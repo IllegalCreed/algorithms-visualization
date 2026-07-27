@@ -4,9 +4,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-27
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/92%，T3-D4-B Mastodon setup/identity smoke 已完成）
+> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/94%，T3-D4-C2 Mastodon 真实闭环已完成）
 > Completed plan: C-20260727-134 AdSense 主域审核与算法站接入（verified）
-> Next action: T3-D4-C 零副作用 campaign 预案已冻结；等待 Owner matching 授权后执行 publish/read/幂等/反馈/报告/delete smoke
+> Next action: 进入 T4，补齐 1h/48h/7d 调度、跨渠道报告、FAQ-only 回复边界与 Bug Issue 分流
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -34,7 +34,7 @@
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核     |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | MCP v3 多项目隔离完成；GitHub/Bluesky/DEV 闭环完成；Mastodon ready/enabled               | 当前 92%；T3-D4-C 预案已冻结，下一步 matching 授权 smoke                             |
+| 内容生产自动化   | 进行中 | MCP v3 多项目隔离完成；GitHub/Bluesky/DEV/Mastodon 真实闭环完成                          | 当前 94%；下一步 T4 调度、跨渠道报告、回复边界与 Bug 分流                            |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
@@ -48,7 +48,7 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B 已完成并保持 92%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；Mastodon T3-D4-C 零副作用预案已冻结，等待 matching campaign 授权。
+6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B/T3-D4-C 已完成并转 94%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步进入 T4。
 7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口，不恢复行为分析。
 8. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
@@ -63,7 +63,7 @@
 | C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页         | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
 | C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                   | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky/DEV 闭环；Mastodon ready/enabled    | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 92%；下一步 T3-D4-C smoke      |
+| C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky/DEV/Mastodon 真实闭环完成           | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 94%；下一步 T4                 |
 | C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                     | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
 | C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告         | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
 | C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                   | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
@@ -175,7 +175,7 @@
 
 ## C127 提示词驱动的全自动内容分发
 
-> Status: in-progress / 92% / current（C-20260711-127）
+> Status: in-progress / 94% / current（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
@@ -209,6 +209,8 @@
 - C133 已完成：`marketing-ops` 已有独立公开源码仓库，secret/runtime state 仍仅留本机，当前契约为 MCP v3；七工具均要求 `projectId`，Project Profile 驱动仓库/origin/tags/渠道策略，幂等键与 receipt 按项目隔离。历史 T2/T3-A 的 MCP v1/v2 记录仅描述当时交付，当前实现以 C133 为准；DEV adapter 已升至 `dev-article@0.2.0`。
 - T3-D4-A 已完成 Mastodon statuses/notifications adapter。
 - T3-D4-B 已完成：旧 token 经 Mastodon 官方 regenerate 失效；真实 `verify_credentials` 返回本地 `acct=illegals0001`，先以 `TC-AUTO-MASTOAPI-127-02A` 和 `TC-AUTO-MASTODONCHANNEL-127-03A` 复现完整句柄与 Keychain 顺序缺陷，再由 plugin `bb62731` 补全为 `illegals0001@mastodon.social`、先验证非秘密 activation 后写 secret，并修复隐藏输入结束后 CLI 不退出。替代 token 只经本机 PTY 进入 Keychain，0600 activation 不含 secret；status/doctor 均为 ready/enabled。plugin 44 文件 / 225 用例、coverage、verify、validator、installed/enabled 与 Gitleaks 全绿；未发布状态、未创建 receipt。
+- T3-D4-C 已完成：Owner matching 授权后，首次提交因 Mastodon 相邻 `<p>` 只还原为单换行而 after-submit 失败关闭为 `UNKNOWN_RESULT / lookupRequired`。公开只读查询确认只有一条正文正确的状态；扩展 `TC-AUTO-MASTOAPI-127-04` 回归并由 plugin `44a7e9a` 修复段落空行后，同一 payload 预查询认领既有状态并落 receipt，账号状态数未增加。
+- T3-D4-C 后续正文精确对拍、同 payload 幂等复放、feedback、`1h` report 和 `delete_post` 均通过；receipt 为 deleted。普通 GET 曾命中删除前 CDN cache，带唯一查询参数的官方 status API 为 404，账号状态列表为空。收尾发现 Codex 插件缓存不保留 pnpm 依赖符号链接，plugin `7cc60a5` 将 MCP server 改为自包含 bundle，并以无 `node_modules` 隔离 STDIO 和真实安装缓存握手验证七工具；当前安装版为 `0.1.0+codex.20260727115555`。Mastodon 保持 ready/enabled，后续 campaign 仍需独立 matching 授权。
 - 首次真实接入时由 Codex 逐步带 Owner 完成向导；接入后的正常使用只需自然语言 campaign，不要求编辑 JSON、拼 UTM 或记忆 CLI。
 
 ### 退出条件
@@ -236,19 +238,19 @@
 
 ## Owner 外部输入与阻塞
 
-| 输入                                        | 最晚需要阶段 | 说明                                                                                          |
-| ------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------- |
-| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID                            |
-| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                      |
-| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                     |
-| 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入    |
-| 首批渠道账号状态                            | C127 T3      | 微博 Free 零写额度；Bluesky/DEV/Mastodon ready/enabled；Mastodon 尚未执行真实发布 smoke       |
-| 首批渠道官方授权                            | C127 T3-T6   | 由 Codex 带着在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret |
-| 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                          |
-| Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                        |
-| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                                                        |
-| AdSense 后台设置                            | C134 发布后  | Owner 完成付款资料、Google 认证 CMP、Auto ads 和重新送审；仓库与 Codex 不保存登录或付款资料   |
-| 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                                                    |
+| 输入                                        | 最晚需要阶段 | 说明                                                                                                 |
+| ------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID                                   |
+| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                             |
+| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                            |
+| 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入           |
+| 首批渠道账号状态                            | 已完成       | 微博 Free 零写额度；Bluesky/DEV/Mastodon 已完成各自真实闭环；Mastodon ready/enabled 且临时状态已清理 |
+| 首批渠道官方授权                            | C127 T3-T6   | 由 Codex 带着在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret        |
+| 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                                 |
+| Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                               |
+| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                                                               |
+| AdSense 后台设置                            | C134 发布后  | Owner 完成付款资料、Google 认证 CMP、Auto ads 和重新送审；仓库与 Codex 不保存登录或付款资料          |
+| 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                                                           |
 
 ## 官方依据与适用边界
 
@@ -304,3 +306,5 @@
 - 2026-07-27：C133 完成 `IllegalCreed/marketing-ops` MCP v3 多项目通用化；Owner 后续将源码仓库改为 public，切换前后 Gitleaks 均无泄漏，secret/runtime state 仍仅留本机。plugin 44/223、coverage、stdio、validator 和公开仓库 299/2132、190 页门禁全绿。
 - 2026-07-27：T3-D4-B 完成 token regenerate、隐藏 setup 与只读身份对拍；plugin `bb62731` 修复本地 acct 补全、Keychain 写入顺序与隐藏 CLI 退出，44/225、coverage、verify、validator、安装态和 Gitleaks 全绿。Mastodon ready/enabled，零平台写入；下一步 T3-D4-C 固定预案。
 - 2026-07-27：C134 完成主域 AdSense 所有权/ads.txt/真实内容与算法站 production-only loader；个人站 `5f6c4f1`、算法站 `1a50864` 已推送和自托管上线，300/2136 Vitest、118 L5、coverage、双 base 与 14 项线上断言全绿，主线返回 C127 T3-D4-C。
+- 2026-07-27：T3-D4-C1 固定 Mastodon 英文临时 status、UTM、幂等键与清理顺序；dry-run 唯一授权 blocker 且零副作用。
+- 2026-07-27：T3-D4-C2 matching 授权闭环完成；plugin `44a7e9a` 修复段落还原并同 payload 认领唯一状态，正文、幂等、feedback、`1h` report、delete、deleted receipt 与无缓存远端 404 全部通过；plugin `7cc60a5` 追加自包含 MCP bundle 与安装缓存握手。C127 转 94%，下一步 T4。

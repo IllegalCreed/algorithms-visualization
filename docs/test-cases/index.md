@@ -19,7 +19,7 @@
 >
 > 2026-07-27 C127 T3-D4-B 增量：登记 Mastodon API/adapter/activation/channel/collector/runtime Case；新增本地 acct 补全与无效 activation 不写 Keychain 两项回归。plugin `bb62731` 后为 44 文件 / 225 用例，coverage、verify、validator、安装态与 Gitleaks 全绿；真实 setup/identity/status/doctor ready/enabled，零平台写入。
 >
-> 2026-07-27 C127 T3-D4-C1 增量：登记 `TC-AUTO-MASTOSMOKE-127-01..02`；固定英文临时 status、UTM、幂等键与清理顺序。预案 Case 已通过，真实 smoke 等待 matching 授权；当前主项目 `pnpm verify` 为 300 文件 / 2137 用例及 190 页 production 门禁全绿。
+> 2026-07-27 C127 T3-D4-C1/C2 增量：登记并验证 `TC-AUTO-MASTOSMOKE-127-01..02`；固定英文临时 status、UTM、幂等键与清理顺序。matching 授权后首次提交暴露 Mastodon `<p>` 段落空行还原缺陷，扩展 `TC-AUTO-MASTOAPI-127-04` 回归后由 plugin `44a7e9a` 修复并以同 payload 认领唯一状态；正文、幂等、反馈、`1h` 报告、删除、deleted receipt 与无缓存远端 404 全部通过。plugin `7cc60a5` 进一步以自包含 bundle 修复 Codex 安装缓存依赖链接丢失，隔离/安装态 STDIO 七工具握手通过；44 文件 / 225 用例、coverage 与 verify 全绿。主项目 `pnpm verify` 为 300 文件 / 2137 用例及 190 页 production 门禁全绿。
 >
 > 2026-07-27 登记并验证 C134 十四个 AdSense Case，覆盖个人站 account meta/ads.txt/真实内容/信任页、算法站 build-only 注入/预渲染/双语隐私链接、双 base、development 失败关闭和双域线上复查。C134 收尾基线为 300 个 Vitest 文件 / 2136 个用例、104 个 Playwright 文件 / 118 个用例，coverage 与双 base 全绿。
 
@@ -55,7 +55,7 @@
 | TC-DOC-AUTO-127-01                              | 十个正式渠道与五个补充/替代渠道集合完整且唯一                                              | marketing / channel inventory      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-02                              | 每个渠道的发布、监测、回复、准入与成本结论有官方依据                                       | marketing / official evidence      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-03                              | 免费个人首批、Reddit 后备、主体与费用禁用边界明确                                          | marketing / capability tiers       | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-04                              | C127 92%；Mastodon ready/enabled，T3-D4-C 预案已冻结并等待 matching 授权                   | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-27 |
+| TC-DOC-AUTO-127-04                              | C127 94%；Mastodon T3-D4-C2 闭环已完成并清理，下一步 T4                                    | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-27 |
 | TC-DOC-AUTO-127-05                              | API/RPA 凭据隔离并禁止内部 API、stealth 与验证码绕过                                       | marketing / credential safety      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-09                              | Codex 与本地 MCP 的凭据/Profile 边界明确                                                   | marketing / MCP boundary           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
 | TC-AUTO-SPEC-127-01                             | token、集合、URL 与含时区排期确定性规范化                                                  | marketing / campaign spec          | C-20260711-127 | L3    | `scripts/marketing/spec.spec.ts`                              | active     | 2026-07-11 |

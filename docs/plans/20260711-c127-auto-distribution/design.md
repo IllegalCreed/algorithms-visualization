@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-27
-> Progress: 92%
+> Progress: 94%
 > Blocked by: none
-> Next action: T3-D4-C 零副作用预案已冻结；等待 matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
+> Next action: T3-D4-C2 Mastodon 真实闭环已完成；进入 T4 监测、回复与复盘
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
@@ -21,7 +21,10 @@
 2. **能力显式化**：平台不是一个布尔开关，发布、指标、评论、回复、删除分别建模。
 3. **执行路径可审计**：官方 API 永远优先；RPA 只能位于独立 MCP 内、逐渠道显式启用并失败关闭，禁止内部 API、逆向签名、stealth 和验证码绕过。
 
-> 当前实现说明：C133 已将早期单项目 MCP v1/v2 设计升级为 Project Profile 驱动的 MCP v3；本文件中的 v1/v2 段落继续作为历史设计记录，当前契约与隔离设计见 `docs/plans/20260727-c133-multi-project-marketing-ops/design.md`。4. **按 campaign 授权**：Owner 的提示词授权本次 campaign；一次性账号授权完成后，A 级渠道不逐帖审批。5. **默认幂等和最小数据**：所有写动作带幂等键；只保存公开 ID、URL、聚合值和清洗摘要。
+> 当前实现说明：C133 已将早期单项目 MCP v1/v2 设计升级为 Project Profile 驱动的 MCP v3；本文件中的 v1/v2 段落继续作为历史设计记录，当前契约与隔离设计见 `docs/plans/20260727-c133-multi-project-marketing-ops/design.md`。
+
+4. **按 campaign 授权**：Owner 的提示词授权本次 campaign；一次性账号授权完成后，A 级渠道不逐帖审批。
+5. **默认幂等和最小数据**：所有写动作带幂等键；只保存公开 ID、URL、聚合值和清洗摘要。
 
 ## 数据流
 
@@ -311,6 +314,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-27：C133 将运行时升级为 Project Profile 驱动的 MCP v3，并完成独立仓库与跨项目隔离；Owner 后续将源码仓库改为 public，secret/runtime state 仍仅留本机。
 - 2026-07-27：T3-D4-B 通过官方 regenerate 轮换 token；健康层把 Mastodon 本地 `acct` 补全为实例域名，setup 先落非秘密 activation 再写 Keychain，隐藏 prompt 恢复原 stdin 状态。status/doctor ready/enabled；下一步 T3-D4-C。
 - 2026-07-27：T3-D4-C1 固定英文 Quick Sort 临时 status、UTM、幂等键与完整清理顺序；公开 dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，等待 matching 授权。
+- 2026-07-27：T3-D4-C2 首次提交后因相邻 `<p>` 被还原为单换行而触发 `UNKNOWN_RESULT`；公开只读查询确认只有一条正文正确的状态，回归修复后同 payload 预查询认领该状态并落 receipt，未重复创建。正文、同 payload 幂等、feedback、`1h` report、delete 与 deleted receipt 均通过；带 cache-buster 的官方状态 API 为 404、账号状态列表为空。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

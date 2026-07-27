@@ -6,9 +6,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-27
-> Progress: 92%
+> Progress: 94%
 > Blocked by: none
-> Next action: T3-D4-C 零副作用预案已冻结；等待 matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
+> Next action: T3-D4-C2 Mastodon 真实闭环已完成；进入 T4 监测、回复与复盘
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
@@ -90,7 +90,7 @@
 - [x] T3-D4-A：Mastodon statuses/notifications adapter。
 - [x] T3-D4-B：旧 token 经官方 regenerate 失效；替代 token 只走本机隐藏 PTY，setup/identity/status/doctor 均通过。
 - [x] T3-D4-C1：冻结零副作用 campaign 预案，锁定英文正文、UTM、幂等键、单渠道 package 与清理顺序。
-- [ ] T3-D4-C2：matching 授权后执行 publish/read/幂等/反馈/报告/delete 与远端清理复查。
+- [x] T3-D4-C2：matching 授权后完成 publish/read/幂等/反馈/报告/delete 与远端清理复查。
 - [ ] 每个 adapter 完成成功、认证失败、限流、未知结果、幂等和日志脱敏 contract tests。
 
 - [ ] 每个 adapter 只通过 `marketing-ops` 读取所需 secret；公开仓库和 GitHub Actions 不持有渠道凭据。
@@ -251,6 +251,10 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 固定 dry-run 仅返回 `EXECUTION_NOT_APPROVED`，`renderIssues=[]`、`selectedChannels=[]`、`sideEffects=[]`；单通道只读身份复查为 Mastodon `ready/enabled`，未调用平台写接口、未创建 receipt。
 - 主仓库 `pnpm verify` 通过 format、lint、type-check、300 个测试文件 / 2137 个用例与 190 页 production 预渲染/SEO 门禁；独立工具仓库 `pnpm format:check` 通过。
 - 同轮事实复查发现 DEV 现有 API key 返回 `reauth-required`；2026-07-15 的正式文章与历史 smoke 证据不受影响，但后续 DEV campaign 前需重新执行隐藏 setup。
+- T3-D4-C2 首次真实提交创建了唯一远端状态，但 Mastodon 把空行渲染为相邻 `<p>`，客户端还原为单换行后触发 after-submit `UNKNOWN_RESULT / lookupRequired`，因此未错误落 receipt，也未盲重试。
+- `TC-AUTO-MASTOAPI-127-04` 扩展段落回归先红后绿；`htmlToText()` 保留相邻段落的双换行。修复后同一 renderer package 与 caller idempotency key 先查询并认领既有状态，公开账号状态数在认领和同 payload 复放后始终为 1。
+- 持久 receipt、公开正文精确对拍、feedback 与 `1h` report 均成功；公开 post-lifetime favourites/reblogs/replies 均为 0。`delete_post` 返回 deleted，receipt 为 deleted。普通 GET 曾命中旧 CDN cache；加入唯一查询参数后的官方 status API 为 404，账号状态列表为空。
+- plugin `pnpm verify` 与 `pnpm coverage` 全绿：44 个测试文件 / 225 个用例，coverage 97.23/93.91/99.78/97.82。凭据未进入聊天、命令参数、输出或仓库。
 
 ## 变更历史
 
@@ -276,3 +280,4 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 2026-07-27：C133 完成 MCP v3 多项目通用化与独立远端；Owner 后续将 `marketing-ops` 源码仓库改为 public，secret/runtime state 仍仅留本机。plugin 44/223、coverage、stdio、validator、Gitleaks 及主项目仓库 299/2132、190 页门禁全绿。
 - 2026-07-27：T3-D4-B 完成官方 token regenerate、隐藏 setup 与只读身份对拍；plugin `bb62731` 修复本地 acct 补全、Keychain 顺序和隐藏 CLI 退出，44/225、coverage、verify、validator、安装态及 Gitleaks 全绿。Mastodon ready/enabled，C127 保持 92%，下一步 T3-D4-C 固定预案。
 - 2026-07-27：T3-D4-C1 零副作用预案已冻结；固定 campaign、renderer 正文、UTM、幂等键、授权 blocker 与 publish/read/幂等/反馈/报告/delete/远端复查顺序，C127 保持 92%，等待 matching 授权。
+- 2026-07-27：T3-D4-C2 matching 授权闭环完成；plugin `44a7e9a` 修复段落还原后同 payload 安全认领唯一状态并完成读取、幂等、反馈、`1h` 报告、删除与远端不存在复查。安装审计随后发现 Codex 缓存不保留 pnpm 依赖符号链接，plugin `7cc60a5` 将 MCP server 打包为自包含 bundle；无 `node_modules` 隔离 STDIO 与最终安装缓存七工具握手均通过。C127 转 94%，下一步 T4。
