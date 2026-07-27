@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-27
 > Progress: 100%
 > Blocked by: none
-> Next action: 已完成；返回 C127，先撤销暴露的 Mastodon token，再用隐藏输入完成 setup/identity smoke
+> Next action: 已完成；C127 T3-D4-B setup/identity smoke 已完成，继续 T3-D4-C 固定预案
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260711-127
@@ -108,7 +108,7 @@ marketing-ops doctor --project <project-id>
 - profile 是非秘密配置，但仍按 `0600` 防止本地篡改目标。
 - 不接受 MCP 侧任意 repository、origin、tags、path 或 command 覆盖。
 - profile/receipt/activation 的符号链接、宽松权限、损坏 schema 与跨项目不匹配全部失败关闭。
-- 被暴露的 Mastodon token 不进入命令、日志、测试 fixture、git 历史或 profile。
+- 被暴露的 Mastodon token 不进入 C133 命令、日志、测试 fixture、git 历史或 profile；2026-07-27 已通过官方 regenerate 失效。
 
 ## 测试策略
 

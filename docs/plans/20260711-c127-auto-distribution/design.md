@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: 撤销聊天中暴露的 Mastodon token，再经本机隐藏输入完成 T3-D4-B setup/identity smoke
+> Next action: 冻结 T3-D4-C 零副作用预案；matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
@@ -299,7 +299,8 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-15：T3-D3-B 隐藏 setup 与只读身份对拍完成；DEV status/doctor ready/enabled，key 仅在 Keychain，preflight 仅余 `EXECUTION_NOT_APPROVED`。尚无 receipt/文章，等待固定 durable campaign matching 授权。
 - 2026-07-15：T3-D3-C Owner matching 授权后完成正式 DEV 文章 publish、完整正文/API 元数据对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
-- 2026-07-27：C133 将运行时升级为 Project Profile 驱动的 MCP v3，并完成独立仓库与跨项目隔离；Owner 后续将源码仓库改为 public，secret/runtime state 仍仅留本机。Mastodon setup 在暴露 token 被撤销前暂停。
+- 2026-07-27：C133 将运行时升级为 Project Profile 驱动的 MCP v3，并完成独立仓库与跨项目隔离；Owner 后续将源码仓库改为 public，secret/runtime state 仍仅留本机。
+- 2026-07-27：T3-D4-B 通过官方 regenerate 轮换 token；健康层把 Mastodon 本地 `acct` 补全为实例域名，setup 先落非秘密 activation 再写 Keychain，隐藏 prompt 恢复原 stdin 状态。status/doctor ready/enabled；下一步 T3-D4-C。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

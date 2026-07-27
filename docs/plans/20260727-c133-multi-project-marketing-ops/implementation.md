@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-27
 > Progress: 100%
 > Blocked by: none
-> Next action: 已完成；返回 C127，先撤销暴露的 Mastodon token，再用隐藏输入完成 setup/identity smoke
+> Next action: 已完成；C127 T3-D4-B setup/identity smoke 已完成，继续 T3-D4-C 固定预案
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260711-127
@@ -101,4 +101,4 @@
 
 ### 未完成项
 
-- C133 已完成。聊天中暴露的 Mastodon token 从未被实现、命令、测试或日志使用；C127 T3-D4-B 必须等待 Owner 先在 Mastodon 撤销该 token，再通过本机隐藏 TTY 输入替代 token。
+- C133 已完成。聊天中暴露的 Mastodon token 从未被 C133 实现、命令、测试或日志使用；2026-07-27 已在 C127 T3-D4-B 通过官方 regenerate 使其失效，并以本机隐藏 PTY 完成替代 token setup。

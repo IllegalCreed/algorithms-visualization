@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-27
 > Progress: 100%
 > Blocked by: none
-> Next action: 已完成；返回 C127，先撤销暴露的 Mastodon token，再用隐藏输入完成 setup/identity smoke
+> Next action: 已完成；C127 T3-D4-B setup/identity smoke 已完成，继续 T3-D4-C 固定预案
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260711-127
@@ -81,4 +81,4 @@ C127 已把发布凭据和平台执行能力隔离到本机独立 `marketing-ops
 - 本期不新增平台 adapter、Web 管理界面、云端凭据服务或多账号路由。
 - 本期不启用微博 RPA，不改变 C127 的平台成本与认证决策。
 - 本期不把 secret、runtime state 或真实账号标识提交到任一 GitHub 仓库。
-- 被暴露的 Mastodon token 不进入实现或测试；必须撤销后再通过本机隐藏输入录入替代 token。
+- 被暴露的 Mastodon token 不进入 C133 实现或测试；2026-07-27 已通过官方 regenerate 失效，替代 token 随 C127 T3-D4-B 经本机隐藏 PTY 完成 setup。

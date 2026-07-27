@@ -8,7 +8,7 @@
 > Last reviewed: 2026-07-27
 > Progress: 100%
 > Blocked by: none
-> Next action: 已完成；返回 C127，先撤销暴露的 Mastodon token，再用隐藏输入完成 setup/identity smoke
+> Next action: 已完成；C127 T3-D4-B setup/identity smoke 已完成，继续 T3-D4-C 固定预案
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260711-127

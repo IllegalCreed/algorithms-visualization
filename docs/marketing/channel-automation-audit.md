@@ -3,8 +3,8 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-16
-> Current implementation: GitHub/Bluesky/DEV 闭环完成；微博 API disabled；DEV 正式文章长期公开；Mastodon statuses/notifications adapter 工程已完成并通过本地 verify，下一步 setup/identity smoke
+> Last reviewed: 2026-07-27
+> Current implementation: GitHub/Bluesky/DEV 闭环完成；微博 API disabled；DEV 正式文章长期公开；Mastodon 已完成凭据轮换、隐藏 setup 与身份对拍，当前 ready/enabled，下一步 T3-D4-C 固定 smoke
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
@@ -173,7 +173,7 @@ flowchart LR
 
 1. **T1 基础层（完成）**：`CampaignSpec`、官方等级/执行模式分离的能力注册表、renderer、UTM、schema、dry-run 和幂等键。
 2. **T2 MCP 边界（完成）**：七个高层工具、Keychain/Profile 隔离、本地队列、receipt 和任意浏览器执行拒绝测试；该阶段交付为失败关闭的本地安全骨架。
-3. **T3 首批 API adapter（进行中）**：GitHub 与 Bluesky 闭环完成，微博 API 线因 Free 零写额度失败关闭；DEV T3-D3-A/B/C 已完成固定 Forem v1 client、文章 adapter、Keychain/activation、collector、durable preflight/setup 与真实正式文章闭环，当前 ready/enabled，文章长期公开。Mastodon statuses/notifications adapter 工程已完成并通过本地 verify，下一步 setup/identity smoke；未启用渠道自动跳过并输出接入清单。
+3. **T3 首批 API adapter（进行中）**：GitHub 与 Bluesky 闭环完成，微博 API 线因 Free 零写额度失败关闭；DEV T3-D3-A/B/C 已完成固定 Forem v1 client、文章 adapter、Keychain/activation、collector、durable preflight/setup 与真实正式文章闭环，当前 ready/enabled，文章长期公开。Mastodon T3-D4-A/B 已完成 statuses/notifications adapter、凭据轮换、隐藏 setup 与身份对拍，当前 ready/enabled，下一步 T3-D4-C 固定 smoke；未启用渠道自动跳过并输出接入清单。
 4. **T4 反馈层**：1h/48h/7d collectors、Codex 一次性跟进、标准化报告、受控回复和 GitHub Issue 分流。
 5. **T5 条件路径**：逐渠道评审 RPA；Reddit 只在审核/社区授权后启用；V2EX、HN、Product Hunt 维持人工发布后监测。
 6. **长期禁用**：掘金、知乎、小红书默认 D/禁用；微信、B站因主体约束禁用，X 因费用约束禁用；只有官方能力、平台规则或 Owner 硬约束变化并完成复审后才调整。

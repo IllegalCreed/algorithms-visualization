@@ -3,7 +3,7 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-06-29
-> Last reviewed: 2026-07-15
+> Last reviewed: 2026-07-27
 > Current execution source: `docs/marketing/execution-backlog.md`
 > Related plans: C-20260710-123、C-20260710-124、C-20260710-129、C-20260711-126、C-20260711-127、C-20260711-130、C-20260711-131；C-20260629-034 与 C-20260710-125 已 superseded
 
@@ -17,7 +17,7 @@
 
 1. 项目已经有 92 个条目、互动播放器、搜索、学习路径、复杂度速查、全局分享卡和首发文案，内容与产品基础足够进入增长验证。
 2. 当前站点仍是客户端 Vue SPA，但 C131 已用 Playwright 在构建后输出 190 个带真实正文的静态入口，并通过双 base 门禁、Pages/selfhost 与线上 HTTP 抽查；客户端继续接管交互。
-3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方分析已撤销。C127 为 90%；微博 API disabled，GitHub/Bluesky/DEV 闭环完成，DEV 正式文章长期公开，下一步 Mastodon adapter 工程。
+3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方分析已撤销。C127 为 92%；微博 API disabled，GitHub/Bluesky/DEV 闭环完成，DEV 正式文章长期公开；Mastodon setup 与身份对拍完成，当前 ready/enabled，下一步 T3-D4-C 固定 smoke。
 4. robots、结构化数据、`llms.txt` 或预渲染都不能保证排名、收录、富结果或 AI 引用。冷启动先用 UTM、渠道原生指标、实际发布 URL 与人工反馈复盘，稳定流量出现后再评审统计投入。
 5. 站点适合内容驱动获客。广告与重度变现应晚于稳定流量和体验验证，不作为冷启动的启动器。
 
@@ -44,17 +44,17 @@ flowchart LR
   C127 --> C128["C128 发布与复盘"]
 ```
 
-| 阶段 | 策略目的                                                  | 当前状态    |
-| ---- | --------------------------------------------------------- | ----------- |
-| C123 | 把历史草案、现有资产和缺口整理成唯一执行清单              | verified    |
-| C124 | 建立每页可验证的搜索与机器可读语义                        | verified    |
-| C125 | 建立来源、行为和 campaign 归因                            | superseded  |
-| C129 | 撤销第三方 tracker，仅保留零成本 UTM 工具                 | verified    |
-| C126 | 用十页 `/en` 样本验证国际化质量和需求                     | verified    |
-| C130 | 收束 locale catalog，并将英文扩到 30 页                   | verified    |
-| C131 | 将 95 个中文索引页全部对齐英文                            | verified    |
-| C127 | GitHub/Bluesky/DEV 闭环完成；下一步 Mastodon adapter 工程 | in-progress |
-| C128 | 分批发布，在 48 小时和 7 天复盘后决定投入                 | planned     |
+| 阶段 | 策略目的                                                       | 当前状态    |
+| ---- | -------------------------------------------------------------- | ----------- |
+| C123 | 把历史草案、现有资产和缺口整理成唯一执行清单                   | verified    |
+| C124 | 建立每页可验证的搜索与机器可读语义                             | verified    |
+| C125 | 建立来源、行为和 campaign 归因                                 | superseded  |
+| C129 | 撤销第三方 tracker，仅保留零成本 UTM 工具                      | verified    |
+| C126 | 用十页 `/en` 样本验证国际化质量和需求                          | verified    |
+| C130 | 收束 locale catalog，并将英文扩到 30 页                        | verified    |
+| C131 | 将 95 个中文索引页全部对齐英文                                 | verified    |
+| C127 | GitHub/Bluesky/DEV 闭环、Mastodon setup 完成；下一步固定 smoke | in-progress |
+| C128 | 分批发布，在 48 小时和 7 天复盘后决定投入                      | planned     |
 
 ## 内容策略
 
@@ -187,3 +187,4 @@ SEO/GEO 外部依据集中维护在 `execution-backlog.md`；渠道发布、监�
 - 2026-07-15：DEV T3-D3-A 完成固定 Forem v1、英文 durable article、Keychain/activation、collector 与零副作用 preflight；plugin 35/178 全绿。DEV 仍 not-configured/disabled、零写入，C127 转 90%。
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor ready/enabled，key 仅在 Keychain，尚无 receipt/文章，等待 matching 授权。
 - 2026-07-15：DEV T3-D3-C 固定正式文章完成 publish、完整正文对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon。
+- 2026-07-27：Mastodon T3-D4-B 完成旧凭据撤销轮换、隐藏 setup、只读身份对拍与失败原子性修复；plugin `bb62731` 的 44 文件/225 用例、coverage、secret scan 与 validator 全绿，当前 ready/enabled，C127 保持 92%，下一步 T3-D4-C 固定 smoke。
