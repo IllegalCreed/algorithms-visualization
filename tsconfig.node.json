@@ -7,7 +7,8 @@
     "nightwatch.conf.*",
     "playwright.config.*",
     "scripts/**/*.ts",
-    "src/analytics/utm.ts"
+    "src/analytics/utm.ts",
+    "src/monetization/adsense.ts"
   ],
   "exclude": ["scripts/**/*.spec.ts", "scripts/marketing/test-fixtures.ts"],
   "compilerOptions": {

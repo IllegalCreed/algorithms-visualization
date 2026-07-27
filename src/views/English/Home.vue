@@ -40,7 +40,7 @@ useControlHeaderShadow();
       </p>
     </section>
     <CategoryComp v-for="category in categories" :key="category.title" :data="category" />
-    <Footer />
+    <Footer locale="en" />
   </div>
 </template>
 

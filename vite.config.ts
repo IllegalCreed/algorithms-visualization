@@ -1,6 +1,45 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import {
+  ADSENSE_ACCOUNT_META_NAME,
+  ADSENSE_CLIENT_ID,
+  ADSENSE_SCRIPT_URL,
+} from './src/monetization/adsense';
+
+function adsenseHeadPlugin(): Plugin {
+  let isBuild = false;
+
+  return {
+    name: 'adsense-head',
+    configResolved(config) {
+      isBuild = config.command === 'build';
+    },
+    transformIndexHtml() {
+      if (!isBuild) return [];
+
+      return [
+        {
+          tag: 'meta',
+          attrs: {
+            name: ADSENSE_ACCOUNT_META_NAME,
+            content: ADSENSE_CLIENT_ID,
+          },
+          injectTo: 'head',
+        },
+        {
+          tag: 'script',
+          attrs: {
+            async: true,
+            src: ADSENSE_SCRIPT_URL,
+            crossorigin: 'anonymous',
+          },
+          injectTo: 'head',
+        },
+      ];
+    },
+  };
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -11,7 +50,7 @@ export default defineConfig(({ mode }) => {
   Object.assign(process.env, loadEnv(mode, process.cwd()));
   return {
     base: process.env.VITE_BASE_URL || '/',
-    plugins: [vue()],
+    plugins: [vue(), adsenseHeadPlugin()],
     // 定义别名，方便ts中import使用绝对路径
     resolve: {
       alias: {

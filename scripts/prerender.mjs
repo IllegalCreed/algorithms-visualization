@@ -216,6 +216,22 @@ async function verifyStaticEntryResponse(origin, base, page) {
   const html = await response.text();
   assert.ok(html.includes(`data-seo-ready="${page.name}"`), `${staticPath} 未命中对应预渲染 HTML`);
   assert.ok(html.includes(`href="${page.canonical}"`), `${staticPath} canonical 未写入静态响应`);
+  assert.equal(
+    html.split('name="google-adsense-account"').length - 1,
+    1,
+    `${staticPath} AdSense account meta 数量错误`,
+  );
+  assert.ok(
+    html.includes('content="ca-pub-4047630223754404"'),
+    `${staticPath} AdSense account 错误`,
+  );
+  assert.equal(
+    html.split(
+      'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4047630223754404',
+    ).length - 1,
+    1,
+    `${staticPath} AdSense loader 数量错误`,
+  );
 }
 
 async function discoverCatalog(context, origin, base) {
@@ -349,6 +365,13 @@ async function main() {
     const origin = previewOrigin(server);
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
+    await context.route('https://pagead2.googlesyndication.com/**', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/javascript',
+        body: '',
+      }),
+    );
 
     const catalogTasks = (await discoverCatalog(context, origin, base)).map((task) => ({
       ...task,
