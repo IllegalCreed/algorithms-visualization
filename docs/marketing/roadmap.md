@@ -17,7 +17,7 @@
 
 1. 项目已经有 92 个条目、互动播放器、搜索、学习路径、复杂度速查、全局分享卡和首发文案，内容与产品基础足够进入增长验证。
 2. 当前站点仍是客户端 Vue SPA，但 C131 已用 Playwright 在构建后输出 190 个带真实正文的静态入口，并通过双 base 门禁、Pages/selfhost 与线上 HTTP 抽查；客户端继续接管交互。
-3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方行为分析已撤销。C127 为 92%；微博 API disabled，GitHub/Bluesky/DEV 闭环完成，DEV 正式文章长期公开；Mastodon setup 与身份对拍完成，当前 ready/enabled，下一步 T3-D4-C 固定 smoke。
+3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方行为分析已撤销。C127 为 92%；微博 API disabled，GitHub/Bluesky/DEV 闭环完成，DEV 正式文章长期公开但后续写入需重新授权；Mastodon setup 与身份对拍完成，当前 ready/enabled，T3-D4-C 预案已固定并等待 matching 授权。
 4. robots、结构化数据、`llms.txt` 或预渲染都不能保证排名、收录、富结果或 AI 引用。冷启动先用 UTM、渠道原生指标、实际发布 URL 与人工反馈复盘，稳定流量出现后再评审统计投入。
 5. 站点适合内容驱动获客。C134 已因现有 AdSense 审核问题完成主域验证、ads.txt、隐私入口和算法站 production loader；这只是技术准备，不代表审核通过、广告已展示或已有收入，也不改变学习体验优先原则。
 
@@ -193,4 +193,5 @@ SEO/GEO 外部依据集中维护在 `execution-backlog.md`；渠道发布、监�
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor ready/enabled，key 仅在 Keychain，尚无 receipt/文章，等待 matching 授权。
 - 2026-07-15：DEV T3-D3-C 固定正式文章完成 publish、完整正文对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon。
 - 2026-07-27：Mastodon T3-D4-B 完成旧凭据撤销轮换、隐藏 setup、只读身份对拍与失败原子性修复；plugin `bb62731` 的 44 文件/225 用例、coverage、secret scan 与 validator 全绿，当前 ready/enabled，C127 保持 92%，下一步 T3-D4-C 固定 smoke。
+- 2026-07-27：Mastodon T3-D4-C1 固定英文 status、UTM、幂等键与 publish/read/feedback/report/delete 清理顺序；dry-run 唯一授权 blocker 且零副作用，等待 matching 授权。
 - 2026-07-27：C134 完成主域 AdSense account meta/ads.txt/真实内容与算法站 production-only loader；双仓库提交推送、自托管上线、算法站 Pages 和 14 项线上复查通过，工程主线返回 C127 T3-D4-C。

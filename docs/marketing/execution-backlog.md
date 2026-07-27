@@ -6,7 +6,7 @@
 > Last reviewed: 2026-07-27
 > Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/92%，T3-D4-B Mastodon setup/identity smoke 已完成）
 > Completed plan: C-20260727-134 AdSense 主域审核与算法站接入（verified）
-> Next action: 冻结 T3-D4-C 零副作用 campaign 预案；Owner matching 授权后执行 publish/read/幂等/反馈/报告/delete smoke
+> Next action: T3-D4-C 零副作用 campaign 预案已冻结；等待 Owner matching 授权后执行 publish/read/幂等/反馈/报告/delete smoke
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -32,9 +32,9 @@
 | 路由级 SEO       | 已有   | 190 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；95 组页面双向 hreflang | C131 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
-| 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料和重新送审仍由 Owner 完成      |
+| 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核     |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | MCP v3 多项目隔离完成；GitHub/Bluesky/DEV 闭环完成；Mastodon ready/enabled               | 当前 92%；下一步 T3-D4-C 零副作用预案与 matching 授权 smoke                          |
+| 内容生产自动化   | 进行中 | MCP v3 多项目隔离完成；GitHub/Bluesky/DEV 闭环完成；Mastodon ready/enabled               | 当前 92%；T3-D4-C 预案已冻结，下一步 matching 授权 smoke                             |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
@@ -48,7 +48,7 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B 已完成并保持 92%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步冻结 Mastodon T3-D4-C 预案，再等待 matching campaign 授权。
+6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B 已完成并保持 92%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；Mastodon T3-D4-C 零副作用预案已冻结，等待 matching campaign 授权。
 7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口，不恢复行为分析。
 8. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 

@@ -85,7 +85,7 @@
 | marketing / channel inventory      | TC-DOC-AUTO-127-01             | 十五渠道集合完整且唯一                               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / official evidence      | TC-DOC-AUTO-127-02             | 发布、监测、回复、准入与成本有官方依据               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / capability tiers       | TC-DOC-AUTO-127-03             | 免费个人、后备与硬禁用边界明确                       | docs     | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 92%、Mastodon setup 完成、下一步 T3-D4-C smoke  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 92%、Mastodon ready，预案已冻结并等待授权       | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / credential safety      | TC-DOC-AUTO-127-05             | 官方授权、凭据隔离与失败关闭红线完整                 | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / MCP boundary           | TC-DOC-AUTO-127-09             | Codex 与凭据/Profile 的工具边界完整                  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / campaign spec          | TC-AUTO-SPEC-127-01..04        | schema、规范化、非法输入与双语内容合同               | L3       | `scripts/marketing/spec.spec.ts`                           |
@@ -137,14 +137,16 @@
 
 ### 2026-07-27 Mastodon T3-D4-B
 
-| 模块                               | Case ID                                | 标题                                             | 层级 | 自动化路径                                              |
-| ---------------------------------- | -------------------------------------- | ------------------------------------------------ | ---- | ------------------------------------------------------- |
-| marketing-ops / Mastodon API       | TC-AUTO-MASTOAPI-127-01..07/02A        | 固定 v1 API、本地 acct 补全、状态/通知与错误脱敏 | L3   | personal plugin `src/adapters/mastodon-api.spec.ts`     |
-| marketing-ops / Mastodon adapter   | TC-AUTO-MASTOADAPTER-127-01..06        | 中英文 status、幂等、receipt、限制与安全删除     | L3   | personal plugin `src/adapters/mastodon-status.spec.ts`  |
-| marketing-ops / Mastodon auth      | TC-AUTO-MASTOACT-127-01..04            | activation、身份/损坏/版本失败关闭               | L3   | personal plugin `src/mastodon-activation-store.spec.ts` |
-| marketing-ops / Mastodon channel   | TC-AUTO-MASTODONCHANNEL-127-01..07/03A | 隐藏 setup、Keychain 顺序与实时身份对拍          | L3   | personal plugin `src/mastodon-channel.spec.ts`          |
-| marketing-ops / Mastodon collector | TC-AUTO-MASTOOBS-127-01..03            | lifetime 指标、untrusted 通知与 receipt 边界     | L3   | personal plugin `src/mastodon-observability.spec.ts`    |
-| marketing-ops / Mastodon runtime   | TC-AUTO-MASTORUNTIME-127-01            | 请求级惰性注册与失去健康时失败关闭               | MCP  | personal plugin `src/local-runtime.spec.ts`             |
+| 模块                               | Case ID                                | 标题                                             | 层级  | 自动化路径                                              |
+| ---------------------------------- | -------------------------------------- | ------------------------------------------------ | ----- | ------------------------------------------------------- |
+| marketing-ops / Mastodon API       | TC-AUTO-MASTOAPI-127-01..07/02A        | 固定 v1 API、本地 acct 补全、状态/通知与错误脱敏 | L3    | personal plugin `src/adapters/mastodon-api.spec.ts`     |
+| marketing-ops / Mastodon adapter   | TC-AUTO-MASTOADAPTER-127-01..06        | 中英文 status、幂等、receipt、限制与安全删除     | L3    | personal plugin `src/adapters/mastodon-status.spec.ts`  |
+| marketing-ops / Mastodon auth      | TC-AUTO-MASTOACT-127-01..04            | activation、身份/损坏/版本失败关闭               | L3    | personal plugin `src/mastodon-activation-store.spec.ts` |
+| marketing-ops / Mastodon channel   | TC-AUTO-MASTODONCHANNEL-127-01..07/03A | 隐藏 setup、Keychain 顺序与实时身份对拍          | L3    | personal plugin `src/mastodon-channel.spec.ts`          |
+| marketing-ops / Mastodon collector | TC-AUTO-MASTOOBS-127-01..03            | lifetime 指标、untrusted 通知与 receipt 边界     | L3    | personal plugin `src/mastodon-observability.spec.ts`    |
+| marketing-ops / Mastodon runtime   | TC-AUTO-MASTORUNTIME-127-01            | 请求级惰性注册与失去健康时失败关闭               | MCP   | personal plugin `src/local-runtime.spec.ts`             |
+| marketing-ops / Mastodon smoke     | TC-AUTO-MASTOSMOKE-127-01              | 固定正文/UTM/幂等键与授权前零副作用              | smoke | `scripts/marketing/publish-payload.spec.ts`             |
+| marketing-ops / Mastodon smoke     | TC-AUTO-MASTOSMOKE-127-02              | matching 授权后的发布、读取、报告与安全清理      | smoke | local MCP real smoke                                    |
 
 ---
 

@@ -8,11 +8,11 @@
 > Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: 冻结 T3-D4-C 零副作用预案；matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
+> Next action: T3-D4-C 零副作用预案已冻结；等待 matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -281,6 +281,15 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 7. 官方作者 API 可更新文章为未发布状态，但当前没有真正删除文章端点；本 adapter 固定 `reply=false`、`delete=false`，不把 draft reversion 当作删除。`c127-dev-smoke` 因此设计成有价值且可长期公开的 Quick Sort 英文文章，setup 与正式 publish 分别授权。
 8. 2026-07-15 工程门禁、公开 dry-run、隐藏 setup 与只读身份对拍完成，本机 status/doctor 为 DEV `ready / enabled`。Owner matching 授权后，文章 `4146005` 的 publish、完整正文对拍、同 receipt 幂等复放与 feedback/report 读取全部通过；API key 只在 Keychain，文章长期公开。
 
+### T3-D4-C 固定 Mastodon smoke 预案
+
+1. 固定输入为 `scripts/marketing/campaigns/c127-mastodon-smoke.json`；预授权布尔状态为同目录的 `.preflight.json`，其中仅 `executionApproved=false`，不得保存账号、token、Keychain 引用或本机路径。
+2. Project / campaign / UTM 固定为 `algorithm-visualizer` / `marketing-ops-t3d4-smoke-127` / `c127-t3d4-smoke`；目标固定为 `https://algo.illegalscreed.cn/en/docs/quick-sort/`。
+3. renderer 只生成一个英文 `status`：标题 `Quick Sort, visualized step by step`，正文明确这是 Owner-approved 临时集成测试，并覆盖 publish/read/idempotency/feedback/report/delete 后删除；`media=[]`、`replies.mode=off`、`failureMode=all-or-none`。
+4. 固定幂等键为 `campaign-v1/marketing-ops-t3d4-smoke-127/d31992711a03d2ae0b0fd77dd08d88f8fc5d8a1a0f0cad1914860fb286eb510a`。改变正文、排期、URL 或 campaign 都必须产生新键并重新授权。
+5. 授权前 dry-run 必须只有 `EXECUTION_NOT_APPROVED`，`renderIssues=[]`、`selectedChannels=[]`、`sideEffects=[]`；Mastodon 只读单通道状态必须为 `ready/enabled`。
+6. matching 授权后的固定顺序为 publish -> persisted receipt/status 与公开 URL 正文读取 -> 同 payload 幂等复放 -> feedback -> `1h` report -> `delete_post` -> receipt deleted -> 官方状态读取确认远端不存在。未知结果时停止并按同一 receipt/status ID 查询，不盲重试。
+
 ## 风险与处理
 
 - **平台规则变化**：官方依据和 adapter version 入档；403/政策警告自动停用渠道，等待复审。
@@ -301,6 +310,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
 - 2026-07-27：C133 将运行时升级为 Project Profile 驱动的 MCP v3，并完成独立仓库与跨项目隔离；Owner 后续将源码仓库改为 public，secret/runtime state 仍仅留本机。
 - 2026-07-27：T3-D4-B 通过官方 regenerate 轮换 token；健康层把 Mastodon 本地 `acct` 补全为实例域名，setup 先落非秘密 activation 再写 Keychain，隐藏 prompt 恢复原 stdin 状态。status/doctor ready/enabled；下一步 T3-D4-C。
+- 2026-07-27：T3-D4-C1 固定英文 Quick Sort 临时 status、UTM、幂等键与完整清理顺序；公开 dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，等待 matching 授权。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

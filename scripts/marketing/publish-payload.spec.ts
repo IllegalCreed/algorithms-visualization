@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import campaign from './example-campaign.json';
 import devSmokeCampaign from './campaigns/c127-dev-smoke.json';
 import devSmokePreflight from './campaigns/c127-dev-smoke.preflight.json';
+import mastodonSmokeCampaign from './campaigns/c127-mastodon-smoke.json';
+import mastodonSmokePreflight from './campaigns/c127-mastodon-smoke.preflight.json';
 import { buildDryRunManifest } from './dry-run';
 import { buildPublishCampaignPayload } from './publish-payload';
 
@@ -114,6 +116,72 @@ describe('publish campaign MCP v3 payload bridge', () => {
           channel: 'dev',
           format: 'article',
           canonicalUrl: 'https://algo.illegalscreed.cn/en/docs/quick-sort/',
+          variants: [{ locale: 'en' }],
+        },
+      ],
+    });
+  });
+
+  it('TC-AUTO-MASTOSMOKE-127-01 固定 Mastodon 候选在 matching 授权前保持零副作用', () => {
+    const manifest = buildDryRunManifest(mastodonSmokeCampaign, {
+      runtimeStates: mastodonSmokePreflight,
+    });
+
+    expect(manifest).toMatchObject({
+      mode: 'dry-run',
+      campaign: {
+        id: 'marketing-ops-t3d4-smoke-127',
+        campaign: 'c127-t3d4-smoke',
+        targetUrls: ['https://algo.illegalscreed.cn/en/docs/quick-sort/'],
+        locales: ['en'],
+      },
+      summary: { selectedChannels: [], blockedChannels: ['mastodon'] },
+      sideEffects: [],
+      channels: [
+        {
+          channel: 'mastodon',
+          selected: false,
+          decision: {
+            reasons: ['EXECUTION_NOT_APPROVED'],
+          },
+          renderIssues: [],
+          content: {
+            format: 'status',
+            variants: [{ locale: 'en', media: [] }],
+          },
+        },
+      ],
+    });
+    expect(manifest.campaign.idempotencyKey).toBe(
+      'campaign-v1/marketing-ops-t3d4-smoke-127/d31992711a03d2ae0b0fd77dd08d88f8fc5d8a1a0f0cad1914860fb286eb510a',
+    );
+    const statusBody = manifest.channels.find((item) => item.channel === 'mastodon')?.content
+      ?.variants[0]?.body;
+    expect(statusBody).toContain('Quick Sort, visualized step by step');
+    expect(statusBody).toContain('This temporary post');
+    expect(statusBody).toContain('utm_source=mastodon');
+    expect(statusBody).toContain('utm_medium=social');
+    expect(statusBody).toContain('utm_campaign=c127-t3d4-smoke');
+    expect(statusBody).toContain('utm_content=mastodon-en-link-1');
+
+    const payload = buildPublishCampaignPayload(mastodonSmokeCampaign, {
+      runtimeStates: {
+        mastodon: {
+          executionApproved: true,
+          adapterReady: true,
+          authorized: true,
+          quotaAvailable: true,
+        },
+      },
+      authorizedAt: '2026-07-27T12:00:00+09:00',
+    });
+    expect(payload).toMatchObject({
+      projectId: 'algorithm-visualizer',
+      campaignId: 'marketing-ops-t3d4-smoke-127',
+      packages: [
+        {
+          channel: 'mastodon',
+          format: 'status',
           variants: [{ locale: 'en' }],
         },
       ],

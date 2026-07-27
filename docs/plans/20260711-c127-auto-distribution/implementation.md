@@ -8,11 +8,11 @@
 > Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: 冻结 T3-D4-C 零副作用预案；matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
+> Next action: T3-D4-C 零副作用预案已冻结；等待 matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
 > Related design: design.md
 
 ## 执行顺序
@@ -89,7 +89,8 @@
 - [x] T3-D3-C：Owner 对 durable campaign 单独明确授权后执行 publish/read/幂等/反馈与报告 smoke；文章长期保留，不执行伪删除。
 - [x] T3-D4-A：Mastodon statuses/notifications adapter。
 - [x] T3-D4-B：旧 token 经官方 regenerate 失效；替代 token 只走本机隐藏 PTY，setup/identity/status/doctor 均通过。
-- [ ] T3-D4-C：冻结零副作用 campaign 预案；matching 授权后执行 publish/read/幂等/反馈/报告/delete 与远端清理复查。
+- [x] T3-D4-C1：冻结零副作用 campaign 预案，锁定英文正文、UTM、幂等键、单渠道 package 与清理顺序。
+- [ ] T3-D4-C2：matching 授权后执行 publish/read/幂等/反馈/报告/delete 与远端清理复查。
 - [ ] 每个 adapter 完成成功、认证失败、限流、未知结果、幂等和日志脱敏 contract tests。
 
 - [ ] 每个 adapter 只通过 `marketing-ops` 读取所需 secret；公开仓库和 GitHub Actions 不持有渠道凭据。
@@ -246,6 +247,10 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 同次失败发现 controller 先写 Keychain、后验证 activation，`TC-AUTO-MASTODONCHANNEL-127-03A` 先红；修复后先落非秘密 activation，再写 secret。隐藏 prompt 还会在完成后保持 stdin 活跃，真实假 token PTY 复现后增加输入流恢复，失败与成功路径均可立即退出。
 - 旧 token 经官方 regenerate 失效，替代 token 未进入聊天、argv、env、JSON、日志或 Git，只经本机 PTY 进入 Keychain。activation 文件为 `0600`、目录为 `0700`；status/doctor 均显示 Mastodon ready/enabled，未执行平台写入、未创建 receipt。
 - plugin `bb62731` 已推送公开 `main`；44 个测试文件 / 225 个用例、coverage 97.23/93.91/99.78/97.82、verify、MCP stdio v3、plugin/skill validator、安装态 `0.1.0+codex.20260727045503` 与 Gitleaks 全绿。
+- T3-D4-C1 公开 red/green：`publish-payload.spec.ts` 先因固定 Mastodon campaign 文件缺失失败，补入 spec/preflight 后 1 文件 / 5 用例转绿；幂等键固定为 `campaign-v1/marketing-ops-t3d4-smoke-127/d31992711a03d2ae0b0fd77dd08d88f8fc5d8a1a0f0cad1914860fb286eb510a`。
+- 固定 dry-run 仅返回 `EXECUTION_NOT_APPROVED`，`renderIssues=[]`、`selectedChannels=[]`、`sideEffects=[]`；单通道只读身份复查为 Mastodon `ready/enabled`，未调用平台写接口、未创建 receipt。
+- 主仓库 `pnpm verify` 通过 format、lint、type-check、300 个测试文件 / 2137 个用例与 190 页 production 预渲染/SEO 门禁；独立工具仓库 `pnpm format:check` 通过。
+- 同轮事实复查发现 DEV 现有 API key 返回 `reauth-required`；2026-07-15 的正式文章与历史 smoke 证据不受影响，但后续 DEV campaign 前需重新执行隐藏 setup。
 
 ## 变更历史
 
@@ -270,3 +275,4 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
 - 2026-07-27：C133 完成 MCP v3 多项目通用化与独立远端；Owner 后续将 `marketing-ops` 源码仓库改为 public，secret/runtime state 仍仅留本机。plugin 44/223、coverage、stdio、validator、Gitleaks 及主项目仓库 299/2132、190 页门禁全绿。
 - 2026-07-27：T3-D4-B 完成官方 token regenerate、隐藏 setup 与只读身份对拍；plugin `bb62731` 修复本地 acct 补全、Keychain 顺序和隐藏 CLI 退出，44/225、coverage、verify、validator、安装态及 Gitleaks 全绿。Mastodon ready/enabled，C127 保持 92%，下一步 T3-D4-C 固定预案。
+- 2026-07-27：T3-D4-C1 零副作用预案已冻结；固定 campaign、renderer 正文、UTM、幂等键、授权 blocker 与 publish/read/幂等/反馈/报告/delete/远端复查顺序，C127 保持 92%，等待 matching 授权。

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "marketing-ops-t3d4-smoke-127",
+  "topic": "Mastodon publishing and cleanup smoke test",
+  "targetUrls": ["https://algo.illegalscreed.cn/en/docs/quick-sort/"],
+  "locales": ["en"],
+  "channels": ["mastodon"],
+  "publishAt": "2026-07-28T20:00:00+09:00",
+  "campaign": "c127-t3d4-smoke",
+  "content": {
+    "variants": {
+      "en": {
+        "title": "Quick Sort, visualized step by step",
+        "angle": "Owner-approved Mastodon integration test for the interactive algorithm visualizer. This temporary post verifies publishing, reading, idempotency, feedback, reporting, and safe cleanup, then it will be removed.",
+        "callToAction": "Explore the visualizer"
+      }
+    },
+    "media": []
+  },
+  "replies": {
+    "mode": "off",
+    "createBugIssues": false
+  },
+  "failureMode": "all-or-none"
+}

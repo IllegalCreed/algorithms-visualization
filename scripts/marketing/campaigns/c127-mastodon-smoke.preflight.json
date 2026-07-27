@@ -1,0 +1,8 @@
+{
+  "mastodon": {
+    "executionApproved": false,
+    "adapterReady": true,
+    "authorized": true,
+    "quotaAvailable": true
+  }
+}

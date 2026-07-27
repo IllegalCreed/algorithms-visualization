@@ -19,8 +19,8 @@
 | 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换                 |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                         |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）                 |
-| 测试     | Vitest L3/L4：300 个测试文件、2136 个用例在 2026-07-27 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过              |
-| 当前阶段 | C134 AdSense 技术接入 verified/100%；工程主线返回 C127 in-progress/92%，下一步冻结 Mastodon T3-D4-C 发布/读取/撤回预案并等待 matching 授权               |
+| 测试     | Vitest L3/L4：300 个测试文件、2137 个用例在 2026-07-27 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过              |
+| 当前阶段 | C134 AdSense 技术接入 verified/100%；C127 in-progress/92%，Mastodon T3-D4-C 零副作用预案已冻结，下一步等待 matching 授权执行真实闭环                     |
 | 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无站内行为分析 tracker；C134 已完成主域审核入口与算法站生产 AdSense loader；C127/C133 自动分发能力继续维护 |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`                   |
 

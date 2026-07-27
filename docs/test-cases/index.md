@@ -19,7 +19,9 @@
 >
 > 2026-07-27 C127 T3-D4-B 增量：登记 Mastodon API/adapter/activation/channel/collector/runtime Case；新增本地 acct 补全与无效 activation 不写 Keychain 两项回归。plugin `bb62731` 后为 44 文件 / 225 用例，coverage、verify、validator、安装态与 Gitleaks 全绿；真实 setup/identity/status/doctor ready/enabled，零平台写入。
 >
-> 2026-07-27 登记并验证 C134 十四个 AdSense Case，覆盖个人站 account meta/ads.txt/真实内容/信任页、算法站 build-only 注入/预渲染/双语隐私链接、双 base、development 失败关闭和双域线上复查。当前主项目基线为 300 个 Vitest 文件 / 2136 个用例、104 个 Playwright 文件 / 118 个用例，coverage 与双 base 全绿。
+> 2026-07-27 C127 T3-D4-C1 增量：登记 `TC-AUTO-MASTOSMOKE-127-01..02`；固定英文临时 status、UTM、幂等键与清理顺序。预案 Case 已通过，真实 smoke 等待 matching 授权；当前主项目 `pnpm verify` 为 300 文件 / 2137 用例及 190 页 production 门禁全绿。
+>
+> 2026-07-27 登记并验证 C134 十四个 AdSense Case，覆盖个人站 account meta/ads.txt/真实内容/信任页、算法站 build-only 注入/预渲染/双语隐私链接、双 base、development 失败关闭和双域线上复查。C134 收尾基线为 300 个 Vitest 文件 / 2136 个用例、104 个 Playwright 文件 / 118 个用例，coverage 与双 base 全绿。
 
 ## All Cases
 
@@ -53,7 +55,7 @@
 | TC-DOC-AUTO-127-01                              | 十个正式渠道与五个补充/替代渠道集合完整且唯一                                              | marketing / channel inventory      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-02                              | 每个渠道的发布、监测、回复、准入与成本结论有官方依据                                       | marketing / official evidence      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-03                              | 免费个人首批、Reddit 后备、主体与费用禁用边界明确                                          | marketing / capability tiers       | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-04                              | C127 92%；Mastodon setup/identity smoke 完成且 ready/enabled，下一步 T3-D4-C               | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-27 |
+| TC-DOC-AUTO-127-04                              | C127 92%；Mastodon ready/enabled，T3-D4-C 预案已冻结并等待 matching 授权                   | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-27 |
 | TC-DOC-AUTO-127-05                              | API/RPA 凭据隔离并禁止内部 API、stealth 与验证码绕过                                       | marketing / credential safety      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-09                              | Codex 与本地 MCP 的凭据/Profile 边界明确                                                   | marketing / MCP boundary           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
 | TC-AUTO-SPEC-127-01                             | token、集合、URL 与含时区排期确定性规范化                                                  | marketing / campaign spec          | C-20260711-127 | L3    | `scripts/marketing/spec.spec.ts`                              | active     | 2026-07-11 |
@@ -122,6 +124,8 @@
 | TC-AUTO-MASTODONCHANNEL-127-01..07/03A          | 隐藏 setup、Keychain、activation/实时身份对拍及无效身份不残留 secret                       | marketing-ops / Mastodon channel   | C-20260711-127 | L3    | plugin: `mastodon-channel.spec.ts`                            | active     | 2026-07-27 |
 | TC-AUTO-MASTOOBS-127-01..03                     | lifetime replies/boosts/favourites、untrusted 通知与已知 receipt 边界                      | marketing-ops / Mastodon collector | C-20260711-127 | L3    | plugin: `mastodon-observability.spec.ts`                      | active     | 2026-07-27 |
 | TC-AUTO-MASTORUNTIME-127-01                     | 请求级惰性注册；未配置、失去健康或身份不匹配时失败关闭                                     | marketing-ops / Mastodon runtime   | C-20260711-127 | MCP   | plugin: `local-runtime.spec.ts`                               | active     | 2026-07-27 |
+| TC-AUTO-MASTOSMOKE-127-01                       | 固定英文正文、UTM、幂等键、单渠道 package 与清理顺序；授权前唯一 blocker 且零副作用        | marketing-ops / Mastodon smoke     | C-20260711-127 | smoke | `scripts/marketing/publish-payload.spec.ts`                   | active     | 2026-07-27 |
+| TC-AUTO-MASTOSMOKE-127-02                       | matching 授权后的 publish/read/幂等/反馈/报告/delete 与远端不存在复查                      | marketing-ops / Mastodon smoke     | C-20260711-127 | smoke | local MCP real smoke                                          | active     | 2026-07-27 |
 | TC-I18N-CATALOG-130-01                          | locale catalog 为 30 页、27/2/1 类型边界且路由唯一                                         | i18n / locale catalog              | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |
 | TC-I18N-CATALOG-130-02                          | 二十七算法 metadata 足以派生目录、复杂度与学习路径                                         | i18n / locale metadata             | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |
 | TC-I18N-CATALOG-130-03                          | Home 与八条学习路径由 catalog 派生且无孤儿算法                                             | i18n / derived catalogs            | C-20260711-130 | L3    | `src/i18n/catalog.spec.ts`                                    | superseded | 2026-07-11 |

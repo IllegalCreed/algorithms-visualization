@@ -8,11 +8,11 @@
 > Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: 冻结 T3-D4-C 零副作用预案；matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
+> Next action: T3-D4-C 零副作用预案已冻结；等待 matching 授权后执行 Mastodon publish/read/幂等/反馈/报告/delete smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
-> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_
+> Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
 
 ## 背景
 
@@ -128,7 +128,7 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 ## 开放输入
 
 - GitHub、Bluesky 与 DEV 均已完成一次性 setup 并保持 ready/enabled。Bluesky App Password 与 DEV API key 仅在本机隐藏向导进入 Keychain，不在聊天、公开仓库或 evidence 中出现；日常 campaign 不要求再次操作向导。
-- DEV 固定 `marketing-ops-t3d3-smoke-127` 已完成 publish、正文读取、幂等复放、feedback 与 report；receipt `4146005` published，文章长期公开。后续 DEV 写入仍需对新 campaign 单独 matching 授权。
+- DEV 固定 `marketing-ops-t3d3-smoke-127` 已完成 publish、正文读取、幂等复放、feedback 与 report；receipt `4146005` published，文章长期公开。2026-07-27 只读复查显示现有 API key 为 `reauth-required`，后续 DEV 写入前需重新隐藏 setup，并仍需对新 campaign 单独 matching 授权。
 - 微博 setup 只能调用官方浏览器/设备 OAuth；`marketing-ops` 不接受 `--token`、`auth token --export`、微博主密码、Cookie 或 token 环境变量。当前不领取 Free 短期只读试用，不为通过 gate 购买套餐。
 - Reddit 可后续报告应用审核与目标社区授权状态，不阻塞首期。
 - 微信公众号、B站、X 已由 Owner 明确排除，不再等待账号、企业资质或预算输入。
@@ -156,3 +156,4 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
 - 2026-07-27：C133 完成独立仓库、Project Profile、MCP v3 与跨项目隔离；Owner 后续将 `IllegalCreed/marketing-ops` 源码仓库改为 public，secret/runtime state 仍仅留本机。
 - 2026-07-27：T3-D4-B 完成 Mastodon token regenerate、隐藏 setup 与只读身份对拍；status/doctor ready/enabled，下一步 T3-D4-C 固定预案与 matching 授权。
+- 2026-07-27：T3-D4-C1 固定 campaign、英文正文、UTM、幂等键与清理顺序；dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，等待 matching 授权。
