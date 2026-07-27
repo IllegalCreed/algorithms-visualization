@@ -1,7 +1,7 @@
 # 项目概览
 
 > Status: active
-> Last reviewed: 2026-07-16
+> Last reviewed: 2026-07-27
 > Owner: IllegalCreed
 
 ## 项目简介
@@ -19,9 +19,9 @@
 | 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换    |
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：299 个测试文件、2132 个用例在 2026-07-15 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | C132 中文侧栏工具入口修复 verified/100%；C127 in-progress/92%，DEV 正式文章闭环完成，Mastodon adapter 工程已完成，下一步为 setup/smoke      |
-| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；GitHub/Bluesky/DEV 闭环通过；微博 API disabled；DEV 正式文章长期公开              |
+| 测试     | Vitest L3/L4：299 个测试文件、2132 个用例在 2026-07-27 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过 |
+| 当前阶段 | C133 多项目通用化 verified/100%；C127 in-progress/92%，下一步先撤销暴露的 Mastodon token，再经隐藏输入完成 setup/identity smoke             |
+| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；私有 `marketing-ops` 仓库及 MCP v3 多项目隔离已就位；DEV 正式文章长期公开         |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
 
 ## 模块地图
@@ -37,7 +37,7 @@
 | 多语言目录   | 95 组 typed 页面映射、94 个静态内容 loader、15 个共享 Viz locale 与 77 个英文算法 adapter      | `src/i18n`、`src/views/English/pages.ts`                                         |
 | SEO/静态产物 | 190 页 registry、route head/JSON-LD/95 组 hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁     | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
 | 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无运行时 tracker、会话归因或交互事件                    | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                      |
-| 宣传规划     | CampaignSpec、15 渠道能力/runtime gate、幂等键、事实快照、renderer 与零副作用 dry-run          | `scripts/marketing`                                                              |
+| 宣传规划     | CampaignSpec、15 渠道能力/runtime gate、MCP v3 bridge、事实快照、renderer 与零副作用 dry-run   | `scripts/marketing`                                                              |
 | 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                      |
 | 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`                  |
 | 分层文档     | 需求/设计/实现/测试用例索引，记录每次复杂变更的过程和验证结果                                  | `docs`                                                                           |

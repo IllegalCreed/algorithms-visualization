@@ -5,15 +5,17 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-16
+> Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-B Mastodon setup/identity smoke
+> Next action: 撤销聊天中暴露的 Mastodon token，再经本机隐藏输入完成 T3-D4-B setup/identity smoke
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
+> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_
 > Related requirement: requirements.md
+
+> 当前验证说明：MCP v1/v2 Case 保留为历史回归；C133 新增的 MCP v3、Project Profile 与跨项目隔离 Case 见 `docs/plans/20260727-c133-multi-project-marketing-ops/test-cases.md`。
 
 ## T0 文档用例
 
@@ -341,3 +343,4 @@ git diff --check
 - 2026-07-15：T3-D3-B 隐藏 setup 完成，status/doctor 只读验收为 ready/enabled；preflight 更新后 TC-AUTO-DEVSMOKE-127-01 唯一 blocker 为 `EXECUTION_NOT_APPROVED` 且 `sideEffects=[]`。未创建 receipt/文章。
 - 2026-07-15：Owner matching 授权后执行 TC-AUTO-DEVSMOKE-127-02；文章 `4146005` publish 成功，公开 API 对拍 ID/title/body/canonical/URL 全部一致，相同 payload 复放返回同一 receipt 且仅一条记录。feedback 为 0，`1h` lifetime report available；未 reply/delete，文章长期公开。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
+- 2026-07-27：C133 十三个 Project Profile/MCP v3/隔离 Case 全绿；plugin 44 文件 / 223 用例，公开仓库 299 文件 / 2132 用例。Mastodon setup 在暴露 token 被撤销前保持暂停。

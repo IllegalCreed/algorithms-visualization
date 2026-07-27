@@ -5,13 +5,13 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-16
+> Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-B Mastodon setup/identity smoke
+> Next action: 撤销聊天中暴露的 Mastodon token，再经本机隐藏输入完成 T3-D4-B setup/identity smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
+> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_
 
 ## 背景
@@ -19,6 +19,8 @@
 原 C123 方案把 C127 定义为“生成草稿、每帖人工审批后发布”。Owner 现明确要求：完成一次性账号授权后，只给 campaign 提示词，系统应自动完成后续生成、发布、监测和复盘。
 
 逐平台官方审计同时证明，各渠道能力并不对称。GitHub、Bluesky、DEV、Mastodon 可通过零费用官方能力进入首批自动化；微博官方写能力要求付费套餐，Free 只读，因此在 Owner 约束下移出 API 首批。Reddit 依赖应用审核与社区授权；V2EX、Hacker News、Product Hunt 只能人工发布后自动监测；掘金、知乎、小红书当前没有可依赖的官方创作者发布/反馈 API。
+
+2026-07-27：C133 已将本计划早期的单项目 MCP v1/v2 运行时假设升级为 Project Profile 驱动的 MCP v3。历史段落保留当时事实；当前契约、隔离键、receipt 与 adapter 版本以 `docs/plans/20260727-c133-multi-project-marketing-ops/` 为准。
 
 Owner 进一步确认本项目必须零新增费用，且没有企业主体、不会办理企业认证。因此微信公众号、B站和付费 X 即使理论上存在官方能力，也不进入当前实现范围。
 
@@ -151,3 +153,4 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - 2026-07-15：T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor 为 ready/enabled，API key 只在本机 Keychain。公开 preflight 现仅返回 `EXECUTION_NOT_APPROVED` 且 `sideEffects=[]`；尚无 receipt/文章，等待 T3-D3-C matching 授权。
 - 2026-07-15：Owner matching 授权后完成 T3-D3-C；DEV 文章 `4146005` 的完整正文/API 元数据对拍、同 receipt 幂等复放、零反馈与 `1h` report 均通过。receipt published，文章长期公开，下一步 Mastodon。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
+- 2026-07-27：C133 完成私有仓库、Project Profile、MCP v3 与跨项目隔离；C127 下一步改为先撤销暴露的 Mastodon token，再经隐藏输入继续 T3-D4-B。

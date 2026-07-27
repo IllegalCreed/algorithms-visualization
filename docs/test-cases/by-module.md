@@ -1,11 +1,28 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-07-15
+> Last reviewed: 2026-07-27
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供模块视角，便于按功能域评审覆盖度。
+
+---
+
+## 2026-07-27 marketing-ops 多项目通用化（C-20260727-133）
+
+| 模块                               | Case ID                      | 标题                                                    | 层级   | 自动化路径                                  |
+| ---------------------------------- | ---------------------------- | ------------------------------------------------------- | ------ | ------------------------------------------- |
+| marketing-ops / project profile    | TC-AUTO-PROJECT-133-01..03   | Profile 存储、schema 与文件系统安全                     | L3     | plugin project-profile-store spec           |
+| marketing / MCP contract           | TC-AUTO-CONTRACT-133-01      | 七工具 contract v3 与 projectId 必填                    | L3     | public/plugin MCP contract specs            |
+| marketing-ops / project isolation  | TC-AUTO-ISOLATION-133-01..02 | 项目级幂等/receipt 与跨项目 operation 拒绝              | L3/MCP | plugin publish/receipt/operations specs     |
+| marketing-ops / target policy      | TC-AUTO-TARGET-133-01        | URL、canonical 与渠道 profile policy                    | L3     | plugin project-policy spec                  |
+| marketing-ops / GitHub project ctx | TC-AUTO-GITHUB-133-01        | repository、tag、activation 项目上下文                  | L3/MCP | plugin GitHub channel/adapter/runtime specs |
+| marketing-ops / DEV project ctx    | TC-AUTO-DEV-133-01           | canonical origins 与 tags 项目上下文                    | L3/MCP | plugin DEV adapter/runtime specs            |
+| marketing-ops / state migration    | TC-AUTO-MIGRATION-133-01     | v1 receipt 与旧 GitHub activation 兼容                  | L3     | plugin receipt/activation migration specs   |
+| marketing-ops / project CLI        | TC-AUTO-CLI-133-01           | project add/list/show 与项目级 GitHub setup/status      | L3/CLI | plugin CLI specs                            |
+| marketing / publish bridge         | TC-AUTO-BRIDGE-133-01        | Algorithm Visualizer projectId payload 与 contract 镜像 | L3     | `scripts/marketing/*contract*.spec.ts`      |
+| marketing-ops / plugin delivery    | TC-AUTO-PLUGIN-133-01        | 通用插件包装、validator、stdio、coverage 与泄漏扫描     | build  | plugin delivery gates                       |
 
 ---
 
@@ -56,7 +73,7 @@
 | marketing / channel inventory      | TC-DOC-AUTO-127-01             | 十五渠道集合完整且唯一                               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / official evidence      | TC-DOC-AUTO-127-02             | 发布、监测、回复、准入与成本有官方依据               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / capability tiers       | TC-DOC-AUTO-127-03             | 免费个人、后备与硬禁用边界明确                       | docs     | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 90%、DEV 正式文章闭环、下一步 Mastodon 工程     | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 92%、Mastodon 工程完成、下一步安全 setup smoke  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / credential safety      | TC-DOC-AUTO-127-05             | 官方授权、凭据隔离与失败关闭红线完整                 | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / MCP boundary           | TC-DOC-AUTO-127-09             | Codex 与凭据/Profile 的工具边界完整                  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / campaign spec          | TC-AUTO-SPEC-127-01..04        | schema、规范化、非法输入与双语内容合同               | L3       | `scripts/marketing/spec.spec.ts`                           |

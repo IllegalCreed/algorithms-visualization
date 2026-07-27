@@ -5,13 +5,13 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-16
+> Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-B Mastodon setup/identity smoke
+> Next action: 撤销聊天中暴露的 Mastodon token，再经本机隐藏输入完成 T3-D4-B setup/identity smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
+> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_
 > Related requirement: requirements.md
 
@@ -20,8 +20,8 @@
 1. **意图与执行分离**：Codex 把自然语言变为 `CampaignSpec`；发布器只执行经过 schema 和 capability gate 验证的确定性动作。
 2. **能力显式化**：平台不是一个布尔开关，发布、指标、评论、回复、删除分别建模。
 3. **执行路径可审计**：官方 API 永远优先；RPA 只能位于独立 MCP 内、逐渠道显式启用并失败关闭，禁止内部 API、逆向签名、stealth 和验证码绕过。
-4. **按 campaign 授权**：Owner 的提示词授权本次 campaign；一次性账号授权完成后，A 级渠道不逐帖审批。
-5. **默认幂等和最小数据**：所有写动作带幂等键；只保存公开 ID、URL、聚合值和清洗摘要。
+
+> 当前实现说明：C133 已将早期单项目 MCP v1/v2 设计升级为 Project Profile 驱动的 MCP v3；本文件中的 v1/v2 段落继续作为历史设计记录，当前契约与隔离设计见 `docs/plans/20260727-c133-multi-project-marketing-ops/design.md`。4. **按 campaign 授权**：Owner 的提示词授权本次 campaign；一次性账号授权完成后，A 级渠道不逐帖审批。5. **默认幂等和最小数据**：所有写动作带幂等键；只保存公开 ID、URL、聚合值和清洗摘要。
 
 ## 数据流
 
@@ -299,6 +299,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-15：T3-D3-B 隐藏 setup 与只读身份对拍完成；DEV status/doctor ready/enabled，key 仅在 Keychain，preflight 仅余 `EXECUTION_NOT_APPROVED`。尚无 receipt/文章，等待固定 durable campaign matching 授权。
 - 2026-07-15：T3-D3-C Owner matching 授权后完成正式 DEV 文章 publish、完整正文/API 元数据对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
+- 2026-07-27：C133 将运行时升级为 Project Profile 驱动的 MCP v3，并完成私有仓库与跨项目隔离；Mastodon setup 在暴露 token 被撤销前暂停。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

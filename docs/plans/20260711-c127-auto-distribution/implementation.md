@@ -5,19 +5,21 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-16
+> Last reviewed: 2026-07-27
 > Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-B Mastodon setup/identity smoke
+> Next action: 撤销聊天中暴露的 Mastodon token，再经本机隐藏输入完成 T3-D4-B setup/identity smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
-> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
+> Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_
 > Related design: design.md
 
 ## 执行顺序
 
 `T0 渠道能力与 MCP 方案审计` -> `T1 CampaignSpec/能力注册表/dry-run` -> `T2 MCP contract/凭据边界` -> `T3 首批 API adapters/receipt` -> `T4 collectors/回复/报告` -> `T5 RPA 评审/Reddit 后备/人工桥接` -> `T6 全门禁/真实 smoke/C128 移交`。
+
+> 当前实现说明：C133 已把本文件记录的单项目 MCP v1/v2 演进为 MCP v3 多项目运行时，并建立独立私有 GitHub 仓库。历史提交和版本号保留当时事实；当前实现与门禁见 `docs/plans/20260727-c133-multi-project-marketing-ops/implementation.md`。
 
 ## T0 渠道审计与方案收束
 
@@ -86,7 +88,7 @@
 - [x] T3-D3-B：Owner 创建专用 DEV API key，并在隐藏 TTY 完成一次性只读身份 setup；不在聊天或仓库录入 secret。
 - [x] T3-D3-C：Owner 对 durable campaign 单独明确授权后执行 publish/read/幂等/反馈与报告 smoke；文章长期保留，不执行伪删除。
 - [x] T3-D4-A：Mastodon statuses/notifications adapter。
-- [ ] T3-D4-B：Mastodon setup/identity smoke。
+- [ ] T3-D4-B：Mastodon setup/identity smoke；先撤销聊天中暴露的 token，替代 token 只走本机隐藏 TTY。
 - [ ] 每个 adapter 完成成功、认证失败、限流、未知结果、幂等和日志脱敏 contract tests。
 
 - [ ] 每个 adapter 只通过 `marketing-ops` 读取所需 secret；公开仓库和 GitHub Actions 不持有渠道凭据。
@@ -178,9 +180,11 @@
 
 ## 当前实际变更
 
-T0 调研和方案设计、T1 公开基础层、T2 MCP 安全运行时骨架、T3-A adapter contract/GitHub mock、T3-B GitHub CLI/显式启用 gate、T3-C GitHub 闭环、T3-D2 Bluesky 闭环与 T3-D3-C DEV 正式文章闭环已完成。`scripts/marketing/` 现包含版本化 schema/严格 validator、规范化与 SHA-256 幂等键、15 渠道能力注册表和 runtime gate、站点事实快照及对拍、渠道 renderer、示例 campaign、`pnpm marketing:dry-run`、MCP v2 contract 与 `buildPublishCampaignPayload()`。v2 的 `publish_campaign.packages` 直接承接公开 renderer 结果，Owner 不编辑 JSON，私有插件也不复制平台文案或 UTM 逻辑。
+T0 调研和方案设计、T1 公开基础层、T2 MCP 安全运行时骨架、T3-A adapter contract/GitHub mock、T3-B GitHub CLI/显式启用 gate、T3-C GitHub 闭环、T3-D2 Bluesky 闭环与 T3-D3-C DEV 正式文章闭环已完成。`scripts/marketing/` 现包含版本化 schema/严格 validator、规范化与 SHA-256 幂等键、15 渠道能力注册表和 runtime gate、站点事实快照及对拍、渠道 renderer、示例 campaign、`pnpm marketing:dry-run`、MCP v3 contract 与 `buildPublishCampaignPayload()`。v3 的七工具均要求 `projectId`，`publish_campaign.packages` 继续直接承接公开 renderer 结果；Owner 不编辑 JSON，私有插件也不复制平台文案或 UTM 逻辑。
 
-独立 personal plugin 已在本机 `/Users/zhangxu/plugins/marketing-ops` 建立；T2 骨架由本地提交 `a53f411` 固定，T3-A 由本地提交 `ba6d4c3` 固定。它通过 stdio 暴露精确七个高层 MCP 工具，提供一次性 `setup`、只读 `status/doctor`、macOS Keychain helper、每渠道独立 Profile、campaign 锁、0600 原子 receipt 存储与输出脱敏；凭据只经子进程 stdin/隐藏输入进入 Keychain，不进入 argv、env、JSON、日志或 MCP 输出。
+独立 personal plugin 已在本机 `/Users/zhangxu/plugins/marketing-ops` 建立并安装/enabled，远端为私有仓库 `IllegalCreed/marketing-ops`；T2 骨架由本地提交 `a53f411` 固定，T3-A 由本地提交 `ba6d4c3` 固定。它通过 stdio 暴露精确七个高层 MCP 工具，提供一次性 `setup`、只读 `status/doctor`、macOS Keychain helper、每渠道独立 Profile、campaign 锁、0600 原子 receipt 存储与输出脱敏；凭据只经子进程 stdin/隐藏输入进入 Keychain，不进入 argv、env、JSON、日志或 MCP 输出。
+
+C133 新增严格的本地 Project Profile、项目 URL/渠道策略、`campaign-v3/<projectId>/...` 幂等键、receipt v2 与跨项目 operation 拒绝；`algorithm-visualizer` profile 已通过交互 CLI 注册。GitHub repository/tag/activation 改为项目级，DEV origin/tags 改由 profile 注入；当前 GitHub Release、GitHub Issue、DEV adapter 分别为 `1.3.0`、`1.1.0`、`0.2.0`。v1 receipt 只受控映射到 Algorithm Visualizer，旧 GitHub activation 仅仓库完全匹配时迁移。
 
 personal plugin 的 T3-A 新增共享 adapter contract、GitHub Release adapter、PublishService 与 runtime handler。GitHub adapter 只接受 typed client 的 `findReleaseByTag/createRelease/deleteRelease`，以稳定 tag、公开 hash marker、本地 receipt 和同键异内容冲突检测形成幂等闭环；平台确认值与持久化返回值都会对拍 campaign/channel/key/hash，竞争写入不能混入异内容 receipt。媒体只有类型而没有受验证资产引用时失败关闭。`all-or-none` 要求显式渠道与完整 package，仅承诺写入前预检零副作用，不伪造跨平台事务回滚。
 
@@ -259,3 +263,4 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读 status/doctor 验收完成，DEV ready/enabled；公开 preflight 仅余 `EXECUTION_NOT_APPROVED`。API key 不进入证据，尚无 receipt/文章，下一步 T3-D3-C matching 授权。
 - 2026-07-15：Owner 精确授权后完成 DEV T3-D3-C；文章 `4146005` publish、完整正文/API 元数据对拍、同 receipt 幂等复放、feedback 与 `1h` report 全部通过。receipt published，文章长期公开，下一步 T3-D4-A Mastodon。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
+- 2026-07-27：C133 完成 MCP v3 多项目通用化与独立私有远端；plugin 44/223、coverage、stdio、validator、Gitleaks 及公开仓库 299/2132、190 页门禁全绿。C127 仍为 92%，先撤销暴露的 Mastodon token。

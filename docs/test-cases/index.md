@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-07-15
+> Last reviewed: 2026-07-27
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -14,11 +14,23 @@
 > 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。2026-07-11 登记 C-126 二十三个多语言与国际 SEO Case、C-127 六个渠道自动化设计 Case及十九个 T1 运行时 Case、C130 三十七个英文扩容 Case；C126 中固定十页/105 页集合的 Case 由 C130 supersede，仍适用的子集测试保留 active。历史大表未做全量重排。
 >
 > 2026-07-11 Header 维护增量：新增 `TC-VIEW-HEADER-09`，锁定搜索入口紧跟站点标题并位于弹性空白前。随后登记 C131 四十六个显式参数化 Case，覆盖 95 对页面、15 个互动页、77 个 adapter、190 页双 base 与 117 条 L5 全量回归；C130 固定 30/125 规模 Case 由 C131 supersede，仍有源码断言的首 27 个 adapter 子集 Case继续 active。C127 T2-T3-D2 已登记 MCP、GitHub、微博与 Bluesky 边界；2026-07-15 T3-D3-A/B/C 再登记 DEV API、文章 adapter、activation/channel、collector/runtime、durable preflight、真实 setup 与正式文章 smoke。C132 登记四个 L3/L4 与一个 L5 菜单回归，当前基线为 2132 Vitest / 118 Playwright。DEV 私有插件工程门禁为 35 文件 / 178 用例全绿；本机 ready/enabled，receipt `4146005` published，文章长期公开。
+>
+> 2026-07-27 登记并验证 C133 十三个多项目通用化 Case，覆盖本地 Project Profile、MCP v3、项目级幂等/receipt、目标策略、GitHub/DEV 项目上下文、旧状态迁移、CLI、公开 bridge 与插件交付。私有插件 44 文件 / 223 用例、公开仓库 299 文件 / 2132 用例及 190 页构建门禁全绿。
 
 ## All Cases
 
 | Case ID                                         | 标题                                                                                       | 所属功能 / 模块                    | Owner Plan     | 层级  | 自动化路径                                                    | 状态       | 最后验证   |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- | -------------- | ----- | ------------------------------------------------------------- | ---------- | ---------- |
+| TC-AUTO-PROJECT-133-01..03                      | Project Profile 0600 原子存储、严格 schema 与文件系统失败关闭                              | marketing-ops / project profile    | C-20260727-133 | L3    | plugin: `src/project-profile-store.spec.ts`                   | active     | 2026-07-27 |
+| TC-AUTO-CONTRACT-133-01                         | 七工具 contract v3 均要求 projectId 且不开放任意目标字段                                   | marketing / MCP contract           | C-20260727-133 | L3    | public/plugin MCP contract specs                              | active     | 2026-07-27 |
+| TC-AUTO-ISOLATION-133-01..02                    | 跨项目幂等/receipt 分离且查询、反馈、回复、报告、删除失败关闭                              | marketing-ops / project isolation  | C-20260727-133 | MCP   | plugin: publish/receipt/operations specs                      | active     | 2026-07-27 |
+| TC-AUTO-TARGET-133-01                           | profile 外 URL、canonical 与未允许渠道在副作用前拒绝                                       | marketing-ops / target policy      | C-20260727-133 | L3    | plugin: `src/project-policy.spec.ts`                          | active     | 2026-07-27 |
+| TC-AUTO-GITHUB-133-01                           | GitHub repository、tag 与 activation 只由 project context 决定                             | marketing-ops / GitHub project ctx | C-20260727-133 | MCP   | plugin: GitHub channel/adapter/runtime specs                  | active     | 2026-07-27 |
+| TC-AUTO-DEV-133-01                              | DEV canonical origins/tags 来自 profile，账号凭据全局复用                                  | marketing-ops / DEV project ctx    | C-20260727-133 | MCP   | plugin: DEV adapter/runtime specs                             | active     | 2026-07-27 |
+| TC-AUTO-MIGRATION-133-01                        | Algorithm Visualizer v1 receipt 与仓库匹配的旧 GitHub activation 安全兼容                  | marketing-ops / state migration    | C-20260727-133 | L3    | plugin: receipt/activation migration specs                    | active     | 2026-07-27 |
+| TC-AUTO-CLI-133-01                              | project add/list/show 无 JSON/secret，GitHub setup/status 显式选择项目                     | marketing-ops / project CLI        | C-20260727-133 | CLI   | plugin: `src/cli.spec.ts`                                     | active     | 2026-07-27 |
+| TC-AUTO-BRIDGE-133-01                           | Algorithm Visualizer payload 固定 projectId 且公开/私有 contract v3 对齐                   | marketing / publish bridge         | C-20260727-133 | L3    | `scripts/marketing/*contract*.spec.ts`                        | active     | 2026-07-27 |
+| TC-AUTO-PLUGIN-133-01                           | 通用插件文档、cachebuster、validator、stdio 与泄漏扫描门禁                                 | marketing-ops / plugin delivery    | C-20260727-133 | build | plugin verify/validator/Gitleaks                              | active     | 2026-07-27 |
 | TC-MENU-TOOLS-132-01..04                        | 中文工具组、94 项渲染/高亮、双语十组同序及 Home/Menu/router 边界                           | navigation / locale menu           | C-20260711-132 | L3/L4 | hooks/Menu/router specs                                       | active     | 2026-07-11 |
 | TC-E2E-MENU-TOOLS-132-01                        | 中文侧栏显示学习工具并可进入复杂度速查页                                                   | navigation / browser               | C-20260711-132 | L5    | `e2e/docs-menu.e2e.ts`                                        | active     | 2026-07-11 |
 | TC-I18N-CATALOG-131-01..12                      | 95 对 catalog、94 loader/route、92 learning pages、唯一性、派生数据与语言切换全等          | i18n / full locale catalog         | C-20260711-131 | L3    | `src/i18n/fullParity.spec.ts` + `src/i18n/catalog.spec.ts`    | active     | 2026-07-11 |
@@ -32,7 +44,7 @@
 | TC-DOC-AUTO-127-01                              | 十个正式渠道与五个补充/替代渠道集合完整且唯一                                              | marketing / channel inventory      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-02                              | 每个渠道的发布、监测、回复、准入与成本结论有官方依据                                       | marketing / official evidence      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-03                              | 免费个人首批、Reddit 后备、主体与费用禁用边界明确                                          | marketing / capability tiers       | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
-| TC-DOC-AUTO-127-04                              | C127 90%；DEV 正式文章闭环完成并长期公开；下一步 Mastodon adapter 工程                     | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-15 |
+| TC-DOC-AUTO-127-04                              | C127 92%；Mastodon adapter 工程完成，下一步安全 setup/identity smoke                       | docs / automation memory           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-27 |
 | TC-DOC-AUTO-127-05                              | API/RPA 凭据隔离并禁止内部 API、stealth 与验证码绕过                                       | marketing / credential safety      | C-20260711-127 | docs  | `docs/marketing/channel-automation-audit.md`                  | active     | 2026-07-11 |
 | TC-DOC-AUTO-127-09                              | Codex 与本地 MCP 的凭据/Profile 边界明确                                                   | marketing / MCP boundary           | C-20260711-127 | docs  | `C127 test-cases.md`                                          | active     | 2026-07-11 |
 | TC-AUTO-SPEC-127-01                             | token、集合、URL 与含时区排期确定性规范化                                                  | marketing / campaign spec          | C-20260711-127 | L3    | `scripts/marketing/spec.spec.ts`                              | active     | 2026-07-11 |
