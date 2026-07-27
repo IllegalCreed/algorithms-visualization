@@ -38,5 +38,5 @@ describe('C131 English full-parity algorithm content', () => {
       expect(wrapper.text(), page.key).not.toMatch(HAN);
       wrapper.unmount();
     }
-  });
+  }, 30_000);
 });

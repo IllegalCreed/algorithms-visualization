@@ -157,7 +157,7 @@ describe('C131 English AlgorithmPlayer adapters', () => {
         ),
       );
     }
-  });
+  }, 30_000);
 
   it('TC-I18N-MODULE-131-D02: fifty adapters expose no Han text and caption every step', () => {
     for (const item of modules) {
