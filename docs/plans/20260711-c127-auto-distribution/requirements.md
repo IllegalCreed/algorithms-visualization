@@ -5,10 +5,10 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-15
-> Progress: 90%
+> Last reviewed: 2026-07-16
+> Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-A 固定 Mastodon statuses/notifications adapter 工程
+> Next action: T3-D4-B Mastodon setup/identity smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -150,3 +150,4 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - 2026-07-15：T3-D3-A 完成 Forem v1 固定 API、`dev-article@0.1.0`、Keychain/0600 activation、惰性 runtime、文章指标/评论采集与 durable smoke preflight。plugin 35 文件 / 178 用例、coverage、verify、STDIO 全绿；公开 dry-run 仅返回执行/adapter/授权三项 blocker 且 `sideEffects=[]`。DEV 仍未 setup、零写入，C127 转 90%。
 - 2026-07-15：T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor 为 ready/enabled，API key 只在本机 Keychain。公开 preflight 现仅返回 `EXECUTION_NOT_APPROVED` 且 `sideEffects=[]`；尚无 receipt/文章，等待 T3-D3-C matching 授权。
 - 2026-07-15：Owner matching 授权后完成 T3-D3-C；DEV 文章 `4146005` 的完整正文/API 元数据对拍、同 receipt 幂等复放、零反馈与 `1h` report 均通过。receipt published，文章长期公开，下一步 Mastodon。
+- 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。

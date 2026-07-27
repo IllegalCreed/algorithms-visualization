@@ -5,10 +5,10 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-15
-> Progress: 90%
+> Last reviewed: 2026-07-16
+> Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-A 固定 Mastodon statuses/notifications adapter 工程
+> Next action: T3-D4-B Mastodon setup/identity smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -85,7 +85,8 @@
 - [x] T3-D3-A：DEV/Forem 固定 API、英文 article adapter、Keychain/0600 activation、惰性 runtime 与 metrics/comments collector，保持 `reply=false`、`delete=false`。
 - [x] T3-D3-B：Owner 创建专用 DEV API key，并在隐藏 TTY 完成一次性只读身份 setup；不在聊天或仓库录入 secret。
 - [x] T3-D3-C：Owner 对 durable campaign 单独明确授权后执行 publish/read/幂等/反馈与报告 smoke；文章长期保留，不执行伪删除。
-- [ ] T3-D4-A：Mastodon statuses/notifications adapter。
+- [x] T3-D4-A：Mastodon statuses/notifications adapter。
+- [ ] T3-D4-B：Mastodon setup/identity smoke。
 - [ ] 每个 adapter 完成成功、认证失败、限流、未知结果、幂等和日志脱敏 contract tests。
 
 - [ ] 每个 adapter 只通过 `marketing-ops` 读取所需 secret；公开仓库和 GitHub Actions 不持有渠道凭据。
@@ -257,3 +258,4 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 2026-07-15：DEV T3-D3-A 完成固定 Forem v1 API、英文 article adapter、Keychain/0600 activation、惰性 runtime、metrics/comments collector 与 durable campaign dry-run；plugin 35/178、coverage、verify、STDIO 全绿。DEV 仍未配置且零写入，C127 转 90%，下一步为 Owner 一次性 setup。
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读 status/doctor 验收完成，DEV ready/enabled；公开 preflight 仅余 `EXECUTION_NOT_APPROVED`。API key 不进入证据，尚无 receipt/文章，下一步 T3-D3-C matching 授权。
 - 2026-07-15：Owner 精确授权后完成 DEV T3-D3-C；文章 `4146005` publish、完整正文/API 元数据对拍、同 receipt 幂等复放、feedback 与 `1h` report 全部通过。receipt published，文章长期公开，下一步 T3-D4-A Mastodon。
+- 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。

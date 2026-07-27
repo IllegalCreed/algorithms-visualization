@@ -5,10 +5,10 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-15
-> Progress: 90%
+> Last reviewed: 2026-07-16
+> Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-A 固定 Mastodon statuses/notifications adapter 工程
+> Next action: T3-D4-B Mastodon setup/identity smoke
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -271,44 +271,44 @@ git diff --check
 
 ## 当前结果
 
-| Case                           | 结果    | 日期       | 说明                                                                   |
-| ------------------------------ | ------- | ---------- | ---------------------------------------------------------------------- |
-| TC-DOC-AUTO-127-01..05、08..09 | passed  | 2026-07-14 | 渠道、约束、MCP 隔离、记忆与状态一致                                   |
-| TC-DOC-AUTO-127-06..07         | passed  | 2026-07-14 | format:check 与 diff check 通过                                        |
-| TC-AUTO-SPEC/IDEMP-127-\_      | passed  | 2026-07-11 | schema、规范化、排期与幂等通过                                         |
-| TC-AUTO-CHANNEL-127-\_         | passed  | 2026-07-14 | 15 渠道集合与全部 gate 分支通过                                        |
-| TC-AUTO-FACTS/RENDER-127-\_    | passed  | 2026-07-14 | 当前事实、平台候选与限制校验通过                                       |
-| TC-AUTO-DRYRUN-127-\_          | passed  | 2026-07-14 | 确定性、零副作用与脱敏边界通过                                         |
-| TC-AUTO-MCP-127-01..06         | passed  | 2026-07-11 | 公开七工具 contract、授权、拒绝与脱敏通过                              |
-| TC-AUTO-SETUP/SECRET-127-\_    | passed  | 2026-07-11 | 向导目录、隐藏录入与 Keychain 边界通过                                 |
-| TC-AUTO-PROFILE/QUEUE-127-\_   | passed  | 2026-07-11 | Profile 隔离、失败关闭与并发释放通过                                   |
-| TC-AUTO-RECEIPT-127-01..02     | passed  | 2026-07-11 | 幂等、原子 0600 持久化与损坏拒绝通过                                   |
-| TC-AUTO-TRANSPORT-127-01..02   | passed  | 2026-07-11 | stdio-only 配置与真实 client smoke 通过                                |
-| TC-AUTO-UX-127-01              | passed  | 2026-07-11 | 一次设置、日常自然语言的 CLI 边界通过                                  |
-| TC-AUTO-MCP-127-07..08         | passed  | 2026-07-11 | MCP v2 renderer package 桥接与严格校验通过                             |
-| TC-AUTO-ADAPTER-127-01..08     | passed  | 2026-07-11 | 共享能力、错误、幂等与 receipt 合同通过                                |
-| TC-AUTO-GITHUB-127-01..07      | passed  | 2026-07-11 | typed fake Release 创建/复用/删除边界通过                              |
-| TC-AUTO-DISPATCH-127-01..03    | passed  | 2026-07-11 | registry、预检、短路与持久化顺序通过                                   |
-| TC-AUTO-GHCLI/GHAUTH-127-\_    | passed  | 2026-07-11 | 固定 CLI、stdin、错误、只读授权/仓库健康与 smoke 通过                  |
-| TC-AUTO-ACTIVATION/RUNTIME-127 | passed  | 2026-07-11 | 0600 显式启用、损坏失败关闭与惰性 runtime 通过                         |
-| TC-AUTO-GHOBS/GHISSUE-127-\_   | passed  | 2026-07-11 | strict Release/traffic/Issue、分页、错误与归因边界通过                 |
-| TC-AUTO-GHSTORE/GHOPS-127-\_   | passed  | 2026-07-11 | receipt 安全查询/状态与 MCP status/feedback/report/delete 通过         |
-| TC-AUTO-GHSMOKE-127-01         | passed  | 2026-07-11 | 固定预案、Release/tag 所有权清理与真实只读预查通过                     |
-| TC-AUTO-GHSMOKE-127-02         | passed  | 2026-07-11 | Owner 授权的 create/read/delete/tag-cleanup 闭环及双侧复查通过         |
-| TC-AUTO-WBPROC/WBCLI-127-\_    | passed  | 2026-07-11 | 固定官方 CLI、健康 gate、目录白名单、资源与脱敏边界通过                |
-| TC-AUTO-WBADAPTER-127-01..05   | passed  | 2026-07-11 | 注入式正文、幂等、receipt、错误与保守能力合同通过                      |
-| TC-AUTO-WBRUNTIME-127-01       | passed  | 2026-07-14 | Free ready 仍明确只读，production adapter 始终 disabled                |
-| TC-AUTO-WBSMOKE-127-01         | passed  | 2026-07-11 | 空白隔离环境 help/doctor 只读预查通过，零登录、零写入                  |
-| TC-AUTO-BSKYAPI/ADAPTER-127-\_ | passed  | 2026-07-14 | 固定官方 SDK、英文正文、幂等、链接 facet、receipt 与脱敏错误通过       |
-| TC-AUTO-BSKYACT/CHANNEL-127-\_ | passed  | 2026-07-14 | Keychain/0600 activation、身份对拍与全部失败关闭分支四项 100% 覆盖     |
-| TC-AUTO-BSKYRUNTIME-127-01     | passed  | 2026-07-14 | 请求级惰性注册通过；默认状态为 not-configured/setup-required           |
-| TC-AUTO-BSKYSMOKE-127-01       | passed  | 2026-07-14 | Owner 授权的 publish/read/同回执复放/delete/重复 delete 与远端清理通过 |
-| TC-AUTO-DEVAPI/ADAPTER-127-\_  | passed  | 2026-07-15 | 固定 Forem v1、英文文章、完整幂等查找、receipt 与错误边界通过          |
-| TC-AUTO-DEVACT/CHANNEL-127-\_  | passed  | 2026-07-15 | Keychain/0600 activation、身份对拍与失败关闭分支通过                   |
-| TC-AUTO-DEVOBS/RUNTIME-127-\_  | passed  | 2026-07-15 | metrics/comments、untrusted 反馈、惰性注册与禁用 reply/delete 通过     |
-| TC-AUTO-DEVSMOKE-127-01        | passed  | 2026-07-15 | setup 前三项、setup 后仅执行授权 blocker；两次均零副作用               |
-| TC-AUTO-DEVSMOKE-127-02        | passed  | 2026-07-15 | 正文/API 元数据、同 receipt、零反馈与 `1h` report 均验证通过           |
-| T3-D3-A-T5 运行时 Case         | partial | 2026-07-15 | DEV 工程/preflight/setup/正式文章完成；Mastodon 与 T4-T6 后续展开      |
+| Case                           | 结果    | 日期       | 说明                                                                             |
+| ------------------------------ | ------- | ---------- | -------------------------------------------------------------------------------- |
+| TC-DOC-AUTO-127-01..05、08..09 | passed  | 2026-07-14 | 渠道、约束、MCP 隔离、记忆与状态一致                                             |
+| TC-DOC-AUTO-127-06..07         | passed  | 2026-07-14 | format:check 与 diff check 通过                                                  |
+| TC-AUTO-SPEC/IDEMP-127-\_      | passed  | 2026-07-11 | schema、规范化、排期与幂等通过                                                   |
+| TC-AUTO-CHANNEL-127-\_         | passed  | 2026-07-14 | 15 渠道集合与全部 gate 分支通过                                                  |
+| TC-AUTO-FACTS/RENDER-127-\_    | passed  | 2026-07-14 | 当前事实、平台候选与限制校验通过                                                 |
+| TC-AUTO-DRYRUN-127-\_          | passed  | 2026-07-14 | 确定性、零副作用与脱敏边界通过                                                   |
+| TC-AUTO-MCP-127-01..06         | passed  | 2026-07-11 | 公开七工具 contract、授权、拒绝与脱敏通过                                        |
+| TC-AUTO-SETUP/SECRET-127-\_    | passed  | 2026-07-11 | 向导目录、隐藏录入与 Keychain 边界通过                                           |
+| TC-AUTO-PROFILE/QUEUE-127-\_   | passed  | 2026-07-11 | Profile 隔离、失败关闭与并发释放通过                                             |
+| TC-AUTO-RECEIPT-127-01..02     | passed  | 2026-07-11 | 幂等、原子 0600 持久化与损坏拒绝通过                                             |
+| TC-AUTO-TRANSPORT-127-01..02   | passed  | 2026-07-11 | stdio-only 配置与真实 client smoke 通过                                          |
+| TC-AUTO-UX-127-01              | passed  | 2026-07-11 | 一次设置、日常自然语言的 CLI 边界通过                                            |
+| TC-AUTO-MCP-127-07..08         | passed  | 2026-07-11 | MCP v2 renderer package 桥接与严格校验通过                                       |
+| TC-AUTO-ADAPTER-127-01..08     | passed  | 2026-07-11 | 共享能力、错误、幂等与 receipt 合同通过                                          |
+| TC-AUTO-GITHUB-127-01..07      | passed  | 2026-07-11 | typed fake Release 创建/复用/删除边界通过                                        |
+| TC-AUTO-DISPATCH-127-01..03    | passed  | 2026-07-11 | registry、预检、短路与持久化顺序通过                                             |
+| TC-AUTO-GHCLI/GHAUTH-127-\_    | passed  | 2026-07-11 | 固定 CLI、stdin、错误、只读授权/仓库健康与 smoke 通过                            |
+| TC-AUTO-ACTIVATION/RUNTIME-127 | passed  | 2026-07-11 | 0600 显式启用、损坏失败关闭与惰性 runtime 通过                                   |
+| TC-AUTO-GHOBS/GHISSUE-127-\_   | passed  | 2026-07-11 | strict Release/traffic/Issue、分页、错误与归因边界通过                           |
+| TC-AUTO-GHSTORE/GHOPS-127-\_   | passed  | 2026-07-11 | receipt 安全查询/状态与 MCP status/feedback/report/delete 通过                   |
+| TC-AUTO-GHSMOKE-127-01         | passed  | 2026-07-11 | 固定预案、Release/tag 所有权清理与真实只读预查通过                               |
+| TC-AUTO-GHSMOKE-127-02         | passed  | 2026-07-11 | Owner 授权的 create/read/delete/tag-cleanup 闭环及双侧复查通过                   |
+| TC-AUTO-WBPROC/WBCLI-127-\_    | passed  | 2026-07-11 | 固定官方 CLI、健康 gate、目录白名单、资源与脱敏边界通过                          |
+| TC-AUTO-WBADAPTER-127-01..05   | passed  | 2026-07-11 | 注入式正文、幂等、receipt、错误与保守能力合同通过                                |
+| TC-AUTO-WBRUNTIME-127-01       | passed  | 2026-07-14 | Free ready 仍明确只读，production adapter 始终 disabled                          |
+| TC-AUTO-WBSMOKE-127-01         | passed  | 2026-07-11 | 空白隔离环境 help/doctor 只读预查通过，零登录、零写入                            |
+| TC-AUTO-BSKYAPI/ADAPTER-127-\_ | passed  | 2026-07-14 | 固定官方 SDK、英文正文、幂等、链接 facet、receipt 与脱敏错误通过                 |
+| TC-AUTO-BSKYACT/CHANNEL-127-\_ | passed  | 2026-07-14 | Keychain/0600 activation、身份对拍与全部失败关闭分支四项 100% 覆盖               |
+| TC-AUTO-BSKYRUNTIME-127-01     | passed  | 2026-07-14 | 请求级惰性注册通过；默认状态为 not-configured/setup-required                     |
+| TC-AUTO-BSKYSMOKE-127-01       | passed  | 2026-07-14 | Owner 授权的 publish/read/同回执复放/delete/重复 delete 与远端清理通过           |
+| TC-AUTO-DEVAPI/ADAPTER-127-\_  | passed  | 2026-07-15 | 固定 Forem v1、英文文章、完整幂等查找、receipt 与错误边界通过                    |
+| TC-AUTO-DEVACT/CHANNEL-127-\_  | passed  | 2026-07-15 | Keychain/0600 activation、身份对拍与失败关闭分支通过                             |
+| TC-AUTO-DEVOBS/RUNTIME-127-\_  | passed  | 2026-07-15 | metrics/comments、untrusted 反馈、惰性注册与禁用 reply/delete 通过               |
+| TC-AUTO-DEVSMOKE-127-01        | passed  | 2026-07-15 | setup 前三项、setup 后仅执行授权 blocker；两次均零副作用                         |
+| TC-AUTO-DEVSMOKE-127-02        | passed  | 2026-07-15 | 正文/API 元数据、同 receipt、零反馈与 `1h` report 均验证通过                     |
+| T3-D3-A-T5 运行时 Case         | partial | 2026-07-16 | DEV 工程/preflight/setup/正式文章完成；Mastodon adapter 工程完成，T4-T6 后续展开 |
 
 ## 变更历史
 
@@ -340,3 +340,4 @@ git diff --check
 - 2026-07-15：T3-D3-A 公开仓库全门禁通过：verify 为 299 个 Vitest 文件 / 2132 个用例并完成 190 页 production 预渲染/SEO 校验；coverage 为 95.48/86.31/92.03/95.82；Playwright 104 个文件 / 118 个用例全绿。
 - 2026-07-15：T3-D3-B 隐藏 setup 完成，status/doctor 只读验收为 ready/enabled；preflight 更新后 TC-AUTO-DEVSMOKE-127-01 唯一 blocker 为 `EXECUTION_NOT_APPROVED` 且 `sideEffects=[]`。未创建 receipt/文章。
 - 2026-07-15：Owner matching 授权后执行 TC-AUTO-DEVSMOKE-127-02；文章 `4146005` publish 成功，公开 API 对拍 ID/title/body/canonical/URL 全部一致，相同 payload 复放返回同一 receipt 且仅一条记录。feedback 为 0，`1h` lifetime report available；未 reply/delete，文章长期公开。
+- 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。

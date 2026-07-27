@@ -5,10 +5,10 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-15
-> Progress: 90%
+> Last reviewed: 2026-07-16
+> Progress: 92%
 > Blocked by: none
-> Next action: T3-D4-A 固定 Mastodon statuses/notifications adapter 工程
+> Next action: T3-D4-B Mastodon setup/identity smoke
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131
@@ -298,6 +298,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-15：T3-D3-A 完成固定 Forem v1 API、英文文章 adapter、隐藏 setup/Keychain/0600 activation、惰性 runtime 和 metrics/comments collector；明确 `reply=false`、`delete=false`。plugin 35/178、coverage、verify、STDIO 全绿，公开 durable campaign dry-run 零副作用；DEV 尚未 setup 或写入。
 - 2026-07-15：T3-D3-B 隐藏 setup 与只读身份对拍完成；DEV status/doctor ready/enabled，key 仅在 Keychain，preflight 仅余 `EXECUTION_NOT_APPROVED`。尚无 receipt/文章，等待固定 durable campaign matching 授权。
 - 2026-07-15：T3-D3-C Owner matching 授权后完成正式 DEV 文章 publish、完整正文/API 元数据对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon。
+- 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

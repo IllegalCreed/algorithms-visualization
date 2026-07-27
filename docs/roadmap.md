@@ -1,14 +1,14 @@
 # 项目路线图
 
 > Status: active
-> Last reviewed: 2026-07-15
+> Last reviewed: 2026-07-16
 > Owner: IllegalCreed
 
 ## 当前阶段
 
 项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。当前工程主线为 C127 宣传自动化 T3。
 
-当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 90%。微博零费用 API 发布路径已关闭；Bluesky 闭环已完成并清理；DEV 正式文章 publish/read/幂等/反馈/报告闭环已完成并保持 ready/enabled，文章长期公开，下一步为 Mastodon adapter 工程。第三方统计继续暂缓。
+当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 92%。微博零费用 API 发布路径已关闭；Bluesky 闭环已完成并清理；DEV 正式文章 publish/read/幂等/反馈/报告闭环已完成并保持 ready/enabled，文章长期公开；Mastodon adapter 工程已完成，下一步进入 setup/identity smoke。第三方统计继续暂缓。
 
 事实优先级保持不变：当前源码与本地测试结果 > 最新 plan / `docs/plans/completion-backlog.md` > `AGENTS.md` / `CLAUDE.md` > `docs/overview.md` > 本路线图。
 
@@ -32,7 +32,7 @@
 | P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                          |
 | P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                   |
 | P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                        |
-| P1     | 宣传自动化           | ongoing  | C127 90%；DEV 正式文章与观测 smoke 已完成；下一步 Mastodon adapter 工程                                                   |
+| P1     | 宣传自动化           | ongoing  | C127 92%；DEV 正式文章与观测 smoke 已完成；Mastodon adapter 工程已完成，下一步 setup/smoke                                |
 | P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁 |
 | P2     | 免费索引与需求信号   | pending  | 190 页 sitemap 已稳定，可按 C124 清单提交 Search Console/Bing Webmaster Tools；不引入 tracker                             |
 | P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131             |
@@ -67,6 +67,7 @@
 | 2026-07-11 | C127 独立 `marketing-ops` MCP/RPA 隔离设计批准并后置；凭据/Profile 服务侧持有，Codex 只调用高层工具                                         |
 | 2026-07-11 | C127 Owner 约束：零新增费用、无企业主体；首期五个免费个人渠道，Reddit 后备，微信/B站/X 禁用                                                 |
 | 2026-07-11 | C-20260711-127：完成 15 渠道官方能力审计；提示词作为 campaign 授权，首批自动渠道为 GitHub、微博、Bluesky、DEV、Mastodon，代码尚未实现       |
+| 2026-07-16 | C127 T3-D4-A：Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke                                |
 | 2026-07-11 | C-20260711-126：`/en` 十页试点、105 页 registry/预渲染、双向 hreflang 与英文共享 UI 完成；284/2055 Vitest、104/114 L5、双轨上线均通过       |
 | 2026-07-10 | C-20260710-123：完成增长资产全面审计，C-034 标记 deprecated；建立 C124-C128 顺序、退出条件、Owner 输入和自动发布红线                        |
 | 2026-07-10 | C-20260710-124：正式接管 C-034，选择现有 catalog 驱动 route head、Playwright post-build prerender 与 JSDOM 产物门禁，进入 TDD               |

@@ -3,10 +3,10 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-15
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/90%，T3-D3-C DEV 正式文章闭环已完成）
+> Last reviewed: 2026-07-16
+> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/92%，T3-D4-A Mastodon adapter 工程已完成）
 > Completed plan: C-20260711-131 英文目录全量对齐（verified）
-> Next action: T3-D4-A 固定 Mastodon statuses/notifications adapter 工程
+> Next action: T3-D4-B Mastodon setup/identity smoke
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -33,7 +33,7 @@
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | GitHub/Bluesky/DEV 闭环完成；微博 API disabled；DEV 正式文章长期公开                     | 当前 90%；下一步 T3-D4-A Mastodon adapter 工程                                       |
+| 内容生产自动化   | 进行中 | GitHub/Bluesky/DEV/Mastodon 工程完成；微博 API disabled；DEV 正式文章长期公开            | 当前 92%；下一步 T3-D4-B Mastodon setup/identity smoke                               |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
@@ -47,7 +47,7 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C 已完成并保持 90%；GitHub、Bluesky 与 DEV 均为 ready/enabled。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；DEV 正式文章长期公开，下一步为 Mastodon adapter 工程。
+6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A 已完成并保持 92%；GitHub、Bluesky、DEV 与 Mastodon 工程均已落地。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；DEV 正式文章长期公开，下一步为 Mastodon setup/identity smoke。
 7. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
@@ -61,7 +61,7 @@
 | C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页         | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
 | C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                   | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky/DEV 闭环完成                        | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 90%；下一步 Mastodon 工程      |
+| C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky/DEV 闭环；Mastodon 工程完成         | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 92%；下一步 Mastodon setup     |
 | C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                   | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
@@ -171,7 +171,7 @@
 
 ## C127 提示词驱动的全自动内容分发
 
-> Status: in-progress / 90% / current（C-20260711-127）
+> Status: in-progress / 92% / current（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
@@ -235,7 +235,7 @@
 | Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                      |
 | GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                     |
 | 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入    |
-| 首批渠道账号状态                            | C127 T3      | 微博 Free 零写额度；Bluesky/DEV ready/enabled；DEV 正式文章长期公开；Mastodon 后续            |
+| 首批渠道账号状态                            | C127 T3      | 微博 Free 零写额度；Bluesky/DEV ready/enabled；DEV 正式文章长期公开；Mastodon 待 setup        |
 | 首批渠道官方授权                            | C127 T3-T6   | 由 Codex 带着在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret |
 | 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                          |
 | Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                        |
@@ -291,3 +291,4 @@
 - 2026-07-15：DEV T3-D3-A 完成固定 Forem v1 API、英文 article adapter、Keychain/0600 activation、惰性 runtime、metrics/comments collector 与 durable campaign preflight；plugin 35/178、coverage、verify、STDIO 全绿。DEV 仍 not-configured/disabled、零写入，C127 转 90%，下一步一次性隐藏 setup。
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor ready/enabled，API key 仅在本机 Keychain。preflight 现仅阻塞 `EXECUTION_NOT_APPROVED`，尚无 receipt/文章，等待 matching 授权。
 - 2026-07-15：DEV T3-D3-C matching 授权后完成正式文章 publish、完整正文读取、同 receipt 幂等复放、feedback 与 `1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon adapter 工程。
+- 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
