@@ -14,7 +14,7 @@ const READY_GITHUB = {
   },
 };
 
-describe('publish campaign MCP v2 payload bridge', () => {
+describe('publish campaign MCP v3 payload bridge', () => {
   it('TC-AUTO-MCP-127-07 直接复用 renderer package 与 campaign 幂等键', () => {
     const payload = buildPublishCampaignPayload(
       { ...campaign, channels: ['github'], content: { ...campaign.content, media: [] } },
@@ -25,6 +25,7 @@ describe('publish campaign MCP v2 payload bridge', () => {
     );
 
     expect(payload).toMatchObject({
+      projectId: 'algorithm-visualizer',
       campaignId: 'quick-sort-launch',
       authorization: { source: 'owner-prompt', authorizedAt: '2026-07-11T01:00:00.000Z' },
       spec: { publishAt: '2026-07-12T20:00:00+09:00', channels: ['github'] },
@@ -106,6 +107,7 @@ describe('publish campaign MCP v2 payload bridge', () => {
       authorizedAt: '2026-07-15T12:00:00+09:00',
     });
     expect(payload).toMatchObject({
+      projectId: 'algorithm-visualizer',
       campaignId: 'marketing-ops-t3d3-smoke-127',
       packages: [
         {

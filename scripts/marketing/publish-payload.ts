@@ -8,6 +8,8 @@ export interface BuildPublishCampaignPayloadOptions {
   authorizedAt: string;
 }
 
+export const MARKETING_PROJECT_ID = 'algorithm-visualizer' as const;
+
 function normalizeAuthorizationTime(value: string): string {
   if (!/(?:Z|[+-]\d{2}:\d{2})$/.test(value) || Number.isNaN(Date.parse(value))) {
     throw new MarketingInputError('authorizedAt must be ISO 8601 with an explicit timezone');
@@ -47,6 +49,7 @@ export function buildPublishCampaignPayload(
   };
 
   return {
+    projectId: MARKETING_PROJECT_ID,
     campaignId: normalized.id,
     spec,
     packages,

@@ -38,7 +38,7 @@ function collectObjectSchemas(value: unknown, result: Record<string, unknown>[] 
 
 describe('marketing MCP public contract', () => {
   it('TC-AUTO-MCP-127-01 只公开七个稳定高层工具', () => {
-    expect(MARKETING_MCP_CONTRACT_VERSION).toBe(2);
+    expect(MARKETING_MCP_CONTRACT_VERSION).toBe(3);
     expect(MARKETING_MCP_TOOL_NAMES).toEqual(EXPECTED_TOOLS);
     expect(MARKETING_MCP_TOOLS.map((tool) => tool.name)).toEqual(EXPECTED_TOOLS);
     expect(new Set(MARKETING_MCP_TOOL_NAMES).size).toBe(EXPECTED_TOOLS.length);
@@ -65,6 +65,16 @@ describe('marketing MCP public contract', () => {
       expect(tool.inputSchema.required).toEqual(
         expect.arrayContaining(['campaignId', 'idempotencyKey', 'authorization']),
       );
+    }
+
+    for (const tool of MARKETING_MCP_TOOLS) {
+      expect(tool.inputSchema.required).toContain('projectId');
+      expect(tool.inputSchema.properties).toMatchObject({
+        projectId: {
+          type: 'string',
+          pattern: '^[a-z0-9][a-z0-9-]{0,62}$',
+        },
+      });
     }
 
     expect(tools.delete_post.annotations.destructiveHint).toBe(true);
