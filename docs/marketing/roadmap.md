@@ -5,7 +5,7 @@
 > Created: 2026-06-29
 > Last reviewed: 2026-07-27
 > Current execution source: `docs/marketing/execution-backlog.md`
-> Related plans: C-20260710-123、C-20260710-124、C-20260710-129、C-20260711-126、C-20260711-127、C-20260711-130、C-20260711-131；C-20260629-034 与 C-20260710-125 已 superseded
+> Related plans: C-20260710-123、C-20260710-124、C-20260710-129、C-20260711-126、C-20260711-127、C-20260711-130、C-20260711-131、C-20260727-134；C-20260629-034 与 C-20260710-125 已 superseded
 
 ## 定位
 
@@ -17,9 +17,9 @@
 
 1. 项目已经有 92 个条目、互动播放器、搜索、学习路径、复杂度速查、全局分享卡和首发文案，内容与产品基础足够进入增长验证。
 2. 当前站点仍是客户端 Vue SPA，但 C131 已用 Playwright 在构建后输出 190 个带真实正文的静态入口，并通过双 base 门禁、Pages/selfhost 与线上 HTTP 抽查；客户端继续接管交互。
-3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方分析已撤销。C127 为 92%；微博 API disabled，GitHub/Bluesky/DEV 闭环完成，DEV 正式文章长期公开；Mastodon setup 与身份对拍完成，当前 ready/enabled，下一步 T3-D4-C 固定 smoke。
+3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方行为分析已撤销。C127 为 92%；微博 API disabled，GitHub/Bluesky/DEV 闭环完成，DEV 正式文章长期公开；Mastodon setup 与身份对拍完成，当前 ready/enabled，下一步 T3-D4-C 固定 smoke。
 4. robots、结构化数据、`llms.txt` 或预渲染都不能保证排名、收录、富结果或 AI 引用。冷启动先用 UTM、渠道原生指标、实际发布 URL 与人工反馈复盘，稳定流量出现后再评审统计投入。
-5. 站点适合内容驱动获客。广告与重度变现应晚于稳定流量和体验验证，不作为冷启动的启动器。
+5. 站点适合内容驱动获客。C134 已因现有 AdSense 审核问题完成主域验证、ads.txt、隐私入口和算法站 production loader；这只是技术准备，不代表审核通过、广告已展示或已有收入，也不改变学习体验优先原则。
 
 ## 双线策略
 
@@ -41,7 +41,9 @@ flowchart LR
   C126 --> C130["C130 英文 30 页扩容"]
   C130 --> C131["C131 英文全量对齐"]
   C131 --> C127["C127 提示词驱动全自动分发"]
-  C127 --> C128["C128 发布与复盘"]
+  C127 --> C134["C134 AdSense 技术准备"]
+  C134 --> C127B["C127 Mastodon 收尾"]
+  C127B --> C128["C128 发布与复盘"]
 ```
 
 | 阶段 | 策略目的                                                       | 当前状态    |
@@ -54,6 +56,7 @@ flowchart LR
 | C130 | 收束 locale catalog，并将英文扩到 30 页                        | verified    |
 | C131 | 将 95 个中文索引页全部对齐英文                                 | verified    |
 | C127 | GitHub/Bluesky/DEV 闭环、Mastodon setup 完成；下一步固定 smoke | in-progress |
+| C134 | 主域审核入口与算法站 production-only AdSense 接入              | verified    |
 | C128 | 分批发布，在 48 小时和 7 天复盘后决定投入                      | planned     |
 
 ## 内容策略
@@ -129,8 +132,9 @@ flowchart LR
 
 1. 冷启动阶段保持学习体验优先，不为了少量展示提前铺满广告。
 2. 赞赏/爱发电可以作为低干扰的意愿信号，但需 Owner 提供合规素材。
-3. AdSense 或其他广告方案在 C128 之后单独立项，基于真实流量、地域、隐私和体验数据设门槛。
-4. 国内备案、广告联盟和平台合规要求在采用前重新核实，不把 2026-06-29 的估算当当前事实。
+3. C134 已完成现有 AdSense 资产的技术整改：主域负责审核与 ads.txt，算法站仅在 production/selfhost 加载广告脚本；不创建手工广告位，不承诺审核或收益。
+4. Owner 需在 AdSense 后台完成付款资料、Google 认证 CMP、Auto ads 与重新送审；获批后先用低干扰配置观察页面稳定性和学习体验。
+5. 国内备案、广告联盟和平台合规要求在采用前重新核实，不把 2026-06-29 的估算当当前事实。
 
 ## 风险与红线
 
@@ -156,6 +160,7 @@ flowchart LR
 | `docs/plans/20260711-c127-auto-distribution/`  | C127 需求、架构、实施和测试入口     |
 | `docs/plans/20260711-c130-en-30-pages/`        | 英文 30 页扩容实现与验证证据        |
 | `docs/plans/20260711-c131-en-full-parity/`     | 英文全量对齐实现与验证证据          |
+| `docs/plans/20260727-c134-adsense-readiness/`  | AdSense 主域审核与算法站接入证据    |
 | `docs/plans/20260629-c034-seo-geo-foundation/` | 已 superseded 的历史 SEO/GEO 草案   |
 | `docs/roadmap.md`                              | 项目总路线图与当前优先级            |
 
@@ -188,3 +193,4 @@ SEO/GEO 外部依据集中维护在 `execution-backlog.md`；渠道发布、监�
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor ready/enabled，key 仅在 Keychain，尚无 receipt/文章，等待 matching 授权。
 - 2026-07-15：DEV T3-D3-C 固定正式文章完成 publish、完整正文对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon。
 - 2026-07-27：Mastodon T3-D4-B 完成旧凭据撤销轮换、隐藏 setup、只读身份对拍与失败原子性修复；plugin `bb62731` 的 44 文件/225 用例、coverage、secret scan 与 validator 全绿，当前 ready/enabled，C127 保持 92%，下一步 T3-D4-C 固定 smoke。
+- 2026-07-27：C134 完成主域 AdSense account meta/ads.txt/真实内容与算法站 production-only loader；双仓库提交推送、自托管上线、算法站 Pages 和 14 项线上复查通过，工程主线返回 C127 T3-D4-C。

@@ -5,7 +5,7 @@
 > Created: 2026-07-10
 > Last reviewed: 2026-07-27
 > Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/92%，T3-D4-B Mastodon setup/identity smoke 已完成）
-> Completed plan: C-20260727-133 marketing-ops 多项目隔离与通用化（verified）
+> Completed plan: C-20260727-134 AdSense 主域审核与算法站接入（verified）
 > Next action: 冻结 T3-D4-C 零副作用 campaign 预案；Owner matching 授权后执行 publish/read/幂等/反馈/报告/delete smoke
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
@@ -32,13 +32,14 @@
 | 路由级 SEO       | 已有   | 190 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；95 组页面双向 hreflang | C131 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
+| 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料和重新送审仍由 Owner 完成      |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
 | 内容生产自动化   | 进行中 | MCP v3 多项目隔离完成；GitHub/Bluesky/DEV 闭环完成；Mastodon ready/enabled               | 当前 92%；下一步 T3-D4-C 零副作用预案与 matching 授权 smoke                          |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化` -> `C133 多项目通用化（verified）` -> `C127 Mastodon 接入（current）` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `C127 Mastodon 接入（current）` -> `C128 发布与复盘`
 
 顺序约束：
 
@@ -48,7 +49,8 @@
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
 6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B 已完成并保持 92%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步冻结 Mastodon T3-D4-C 预案，再等待 matching campaign 授权。
-7. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
+7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口，不恢复行为分析。
+8. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
@@ -57,12 +59,13 @@
 | C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                     | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
 | C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物 | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
 | C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因         | 未激活生产统计；由 C129 撤销                                        | C124                           |
-| C129 撤销第三方分析接入   | verified    | 删除 tracker 与事件，保留零成本 UTM 工具           | 运行时/产物零 tracker；UTM CLI、全门禁和双 base 通过                | C125；当前 plan C-20260710-129 |
+| C129 撤销第三方分析接入   | verified    | 删除行为分析 tracker 与事件，保留零成本 UTM 工具   | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
 | C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页         | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
 | C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                   | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
 | C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky/DEV 闭环；Mastodon ready/enabled    | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 92%；下一步 T3-D4-C smoke      |
 | C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                     | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
+| C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告         | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
 | C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                   | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
@@ -108,7 +111,7 @@
 
 ### 当前边界
 
-- 不加载任何第三方 tracker，不在前端建立 page view watcher，不发送搜索、播放、输入、测验或分享事件。
+- 不加载第三方行为分析 tracker，不在前端建立 page view watcher，不发送搜索、播放、输入、测验或分享事件；C134 的 AdSense loader 是单独批准的广告能力，不恢复这些事件。
 - UTM 值继续使用小写 ASCII、最长 64 的统一规则；不得放入邮箱、自由文本或用户输入。
 - 冷启动复盘明确区分站内不可观测行为与渠道可见指标，不把 UTM 本身误写成已完成归因。
 - 只有出现稳定流量、明确指标问题和可接受预算后，才新建独立 plan 评审 Nginx 最小日志、第三方服务或其他方案。
@@ -229,7 +232,7 @@
 
 - 每个发布记录实际 URL、版本、时间、UTM、素材、48h/7d 指标与评论反馈。
 - 明确保留 1-2 个高投入产出渠道，暂停低效渠道，并将反馈转成独立 bug/内容/产品 plan。
-- 广告与重度变现继续作为流量验证后的决策，不在冷启动阶段牺牲学习体验。
+- C134 只完成 AdSense 技术审核入口；即使获批也不在冷启动阶段手工铺满广告，先用 Auto ads 的低干扰设置观察体验。
 
 ## Owner 外部输入与阻塞
 
@@ -244,23 +247,25 @@
 | 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                          |
 | Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                        |
 | 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                                                        |
+| AdSense 后台设置                            | C134 发布后  | Owner 完成付款资料、Google 认证 CMP、Auto ads 和重新送审；仓库与 Codex 不保存登录或付款资料   |
 | 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                                                    |
 
 ## 官方依据与适用边界
 
-| 主题              | 官方资料                                                                                                                                                              | 本项目采用的边界                                                                                 |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| JavaScript SEO    | [Google JavaScript SEO basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)                                          | Google 可渲染 JavaScript，但渲染可能排队；不能由此推断所有爬虫都能可靠读取 SPA                   |
-| 多语言与 hreflang | [Google localized versions](https://developers.google.com/search/docs/specialty/international/localized-versions)                                                     | alternate 必须自引用、双向、完整 URL；项目优先选一种维护面最小的声明方式                         |
-| 结构化数据        | [Google structured data policies](https://developers.google.com/search/docs/appearance/structured-data/sd-policies)                                                   | 使用 JSON-LD 描述可见内容，测试语法；不承诺富结果或排名                                          |
-| OpenAI 搜索爬虫   | [OpenAI publishers and developers FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)                                                    | OAI-SearchBot 管搜索可见性，GPTBot 训练选择独立；ChatGPT 推荐流量可观察 `utm_source=chatgpt.com` |
-| GA4 Cookie/同意   | [GA4 Cookie usage](https://support.google.com/analytics/answer/11397207)、[Consent types](https://support.google.com/analytics/answer/12334711)                       | 默认 web tag 使用第一方 Cookie；本期不引入 GA4 consent 与广告能力                                |
-| Plausible 分析    | [Plausible data policy](https://plausible.io/data-policy)、[custom events](https://plausible.io/docs/custom-props/for-custom-events)                                  | 历史评审备选；当前不接入，未来采用前重新核价与核实能力                                           |
-| Umami 分析        | [Cloud FAQ](https://docs.umami.is/docs/cloud/faq)、[tracker functions](https://docs.umami.is/docs/tracker-functions)、[sessions](https://docs.umami.is/docs/sessions) | C125 历史评审对象；C129 已撤销接入，不再等待账号或 retention                                     |
-| 渠道自动化能力    | [`channel-automation-audit.md`](./channel-automation-audit.md)                                                                                                        | 逐平台维护官方发布、监测、回复、授权、成本和失败关闭边界                                         |
-| GitHub 定时工作流 | [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)                                                  | 仅保留为历史/后续兜底评审；当前本地 MCP scheduler 不把渠道凭据交给 Actions，也不依赖公网回连     |
-| URL 更新通知      | [Bing IndexNow](https://www.bing.com/webmasters/help/indexnow-0z209wby)                                                                                               | 仅作变更通知加速，保留 sitemap 和正常抓取路径                                                    |
-| llms.txt          | [llms.txt proposal](https://llmstxt.org/)                                                                                                                             | 视为实验性机器说明文件，不当作标准或收录保证                                                     |
+| 主题              | 官方资料                                                                                                                                                                                  | 本项目采用的边界                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| JavaScript SEO    | [Google JavaScript SEO basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)                                                              | Google 可渲染 JavaScript，但渲染可能排队；不能由此推断所有爬虫都能可靠读取 SPA                   |
+| 多语言与 hreflang | [Google localized versions](https://developers.google.com/search/docs/specialty/international/localized-versions)                                                                         | alternate 必须自引用、双向、完整 URL；项目优先选一种维护面最小的声明方式                         |
+| 结构化数据        | [Google structured data policies](https://developers.google.com/search/docs/appearance/structured-data/sd-policies)                                                                       | 使用 JSON-LD 描述可见内容，测试语法；不承诺富结果或排名                                          |
+| OpenAI 搜索爬虫   | [OpenAI publishers and developers FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)                                                                        | OAI-SearchBot 管搜索可见性，GPTBot 训练选择独立；ChatGPT 推荐流量可观察 `utm_source=chatgpt.com` |
+| GA4 Cookie/同意   | [GA4 Cookie usage](https://support.google.com/analytics/answer/11397207)、[Consent types](https://support.google.com/analytics/answer/12334711)                                           | 默认 web tag 使用第一方 Cookie；本期不引入 GA4 consent 与广告能力                                |
+| Plausible 分析    | [Plausible data policy](https://plausible.io/data-policy)、[custom events](https://plausible.io/docs/custom-props/for-custom-events)                                                      | 历史评审备选；当前不接入，未来采用前重新核价与核实能力                                           |
+| Umami 分析        | [Cloud FAQ](https://docs.umami.is/docs/cloud/faq)、[tracker functions](https://docs.umami.is/docs/tracker-functions)、[sessions](https://docs.umami.is/docs/sessions)                     | C125 历史评审对象；C129 已撤销接入，不再等待账号或 retention                                     |
+| AdSense 站点接入  | [Add a site](https://support.google.com/adsense/answer/12169212)、[ads.txt](https://support.google.com/adsense/answer/7679060)、[CMP](https://support.google.com/adsense/answer/13554116) | C134 仅提交公开 publisher 信息和生产 loader；付款、同意消息与审核仍在 Google 后台完成            |
+| 渠道自动化能力    | [`channel-automation-audit.md`](./channel-automation-audit.md)                                                                                                                            | 逐平台维护官方发布、监测、回复、授权、成本和失败关闭边界                                         |
+| GitHub 定时工作流 | [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)                                                                      | 仅保留为历史/后续兜底评审；当前本地 MCP scheduler 不把渠道凭据交给 Actions，也不依赖公网回连     |
+| URL 更新通知      | [Bing IndexNow](https://www.bing.com/webmasters/help/indexnow-0z209wby)                                                                                                                   | 仅作变更通知加速，保留 sitemap 和正常抓取路径                                                    |
+| llms.txt          | [llms.txt proposal](https://llmstxt.org/)                                                                                                                                                 | 视为实验性机器说明文件，不当作标准或收录保证                                                     |
 
 ## 变更历史
 
@@ -298,3 +303,4 @@
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
 - 2026-07-27：C133 完成 `IllegalCreed/marketing-ops` MCP v3 多项目通用化；Owner 后续将源码仓库改为 public，切换前后 Gitleaks 均无泄漏，secret/runtime state 仍仅留本机。plugin 44/223、coverage、stdio、validator 和公开仓库 299/2132、190 页门禁全绿。
 - 2026-07-27：T3-D4-B 完成 token regenerate、隐藏 setup 与只读身份对拍；plugin `bb62731` 修复本地 acct 补全、Keychain 写入顺序与隐藏 CLI 退出，44/225、coverage、verify、validator、安装态和 Gitleaks 全绿。Mastodon ready/enabled，零平台写入；下一步 T3-D4-C 固定预案。
+- 2026-07-27：C134 完成主域 AdSense 所有权/ads.txt/真实内容与算法站 production-only loader；个人站 `5f6c4f1`、算法站 `1a50864` 已推送和自托管上线，300/2136 Vitest、118 L5、coverage、双 base 与 14 项线上断言全绿，主线返回 C127 T3-D4-C。

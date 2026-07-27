@@ -10,19 +10,19 @@
 
 ## 当前事实
 
-| 项       | 当前值                                                                                                                                                                 |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                                                    |
-| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                                                          |
-| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                                              |
-| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项                               |
-| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换                               |
-| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                                       |
-| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）                               |
-| 测试     | Vitest L3/L4：299 个测试文件、2132 个用例在 2026-07-27 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过                            |
-| 当前阶段 | C133 多项目通用化 verified/100%；C127 in-progress/92%，Mastodon setup/identity smoke 已完成，下一步冻结 T3-D4-C 发布/读取/撤回预案并等待 matching 授权                 |
-| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；公开 `marketing-ops` 源码仓库及 MCP v3 多项目隔离已就位，secret/runtime state 仅留本机；DEV 正式文章长期公开 |
-| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`                                 |
+| 项       | 当前值                                                                                                                                                   |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                                      |
+| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                                            |
+| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                                |
+| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项                 |
+| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换                 |
+| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                         |
+| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）                 |
+| 测试     | Vitest L3/L4：300 个测试文件、2136 个用例在 2026-07-27 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过              |
+| 当前阶段 | C134 AdSense 技术接入 verified/100%；工程主线返回 C127 in-progress/92%，下一步冻结 Mastodon T3-D4-C 发布/读取/撤回预案并等待 matching 授权               |
+| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无站内行为分析 tracker；C134 已完成主域审核入口与算法站生产 AdSense loader；C127/C133 自动分发能力继续维护 |
+| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`                   |
 
 ## 模块地图
 
@@ -36,7 +36,8 @@
 | 产品数据资产 | 首页/菜单分类、复杂度速查、学习路径                                                            | `src/views/Home/Main/hooks.ts`、`src/views/Docs/Menu/hooks.ts`、`src/data`       |
 | 多语言目录   | 95 组 typed 页面映射、94 个静态内容 loader、15 个共享 Viz locale 与 77 个英文算法 adapter      | `src/i18n`、`src/views/English/pages.ts`                                         |
 | SEO/静态产物 | 190 页 registry、route head/JSON-LD/95 组 hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁     | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
-| 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无运行时 tracker、会话归因或交互事件                    | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                      |
+| 广告接入     | 公开 publisher 常量、build-only AdSense head、根级 ads.txt 与双语隐私入口                      | `src/monetization`、`vite.config.ts`、`public/ads.txt`、`src/views/Home/Footer`  |
+| 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无行为分析 tracker、会话归因或交互事件                  | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                      |
 | 宣传规划     | CampaignSpec、15 渠道能力/runtime gate、MCP v3 bridge、事实快照、renderer 与零副作用 dry-run   | `scripts/marketing`                                                              |
 | 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                      |
 | 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`                  |
@@ -46,7 +47,7 @@
 
 - 本系统负责：算法/数据结构的前端可视化演示。
 - 本系统不负责：后端服务、数据持久化、用户账号。
-- 外部依赖：无运行时后端服务；仅依赖静态资源、浏览器环境与部署基础设施。
+- 外部依赖：无自有运行时后端服务；生产页面会加载 Google AdSense，广告展示与同意状态依赖 Google 服务，核心学习功能仍可独立运行。
 
 ## AI 阅读提示
 

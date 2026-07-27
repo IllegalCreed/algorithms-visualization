@@ -9,6 +9,18 @@
 
 ---
 
+## 2026-07-27 AdSense 主域审核与算法站接入（C-20260727-134）
+
+| 模块                               | Case ID                 | 标题                                                  | 层级   | 自动化路径                             |
+| ---------------------------------- | ----------------------- | ----------------------------------------------------- | ------ | -------------------------------------- |
+| monetization / personal site       | TC-ADS-ROOT-134-01..04  | 主域静态授权、所有权、真实内容、信任页与示例清理      | script | personal `pnpm adsense:check`          |
+| monetization / build integration   | TC-ADS-ALGO-134-01..03  | publisher 常量、build-only head 与预渲染请求隔离      | L3     | `src/monetization/adsense.spec.ts`     |
+| monetization / privacy navigation  | TC-ADS-ALGO-134-04      | Footer 中英文隐私链接与外链属性                       | L4     | `src/views/Home/Footer/Footer.spec.ts` |
+| monetization / dual-base artifacts | TC-ADS-BUILD-134-01..03 | production/selfhost 190 页与 development 零注入       | build  | verify/selfhost/local smoke            |
+| monetization / live deployment     | TC-ADS-LIVE-134-01..03  | 两域静态资源、代表 HTML、注入次数和 HTTP 状态线上复查 | L5     | online HTTP/HTML assertions            |
+
+---
+
 ## 2026-07-27 marketing-ops 多项目通用化（C-20260727-133）
 
 | 模块                               | Case ID                      | 标题                                                    | 层级   | 自动化路径                                  |
