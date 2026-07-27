@@ -16,11 +16,12 @@
 
 ## 背景
 
-C127 已把发布凭据和平台执行能力隔离到本机私有 `marketing-ops` 插件，但当前实现仍把 GitHub 仓库、项目域名、DEV 标签与 Algorithm Visualizer 写死在运行时。Owner 希望同一套免费个人账号和同一个本地工具继续服务其他项目，因此必须先建立项目级配置与隔离边界，再继续 Mastodon 等渠道的真实接入。
+C127 已把发布凭据和平台执行能力隔离到本机独立 `marketing-ops` 插件，但当前实现仍把 GitHub 仓库、项目域名、DEV 标签与 Algorithm Visualizer 写死在运行时。Owner 希望同一套免费个人账号和同一个本地工具继续服务其他项目，因此必须先建立项目级配置与隔离边界，再继续 Mastodon 等渠道的真实接入。
 
 ## Owner 决策
 
-- `marketing-ops` 使用独立私有 GitHub 仓库维护，不把凭据、activation、receipt 或浏览器状态提交到仓库。
+- 原始决策：`marketing-ops` 使用独立私有 GitHub 仓库维护，不把凭据、activation、receipt 或浏览器状态提交到仓库。
+- 后续决策（2026-07-27）：Owner 批准将 `IllegalCreed/marketing-ops` 改为公开仓库；仅源码可见性发生变化，凭据、activation、receipt、profile、浏览器状态与其他 runtime state 仍不得提交。
 - 平台账号与凭据默认全局复用；每个项目只保存非秘密的目标、品牌和渠道策略。
 - 日常仍由 Owner 给自然语言提示词，Codex 调用七个高层 MCP 工具；Owner 不编辑 JSON，也不接触内部 adapter 参数。
 - 保持零新增费用、个人主体可用、官方 API 优先和失败关闭边界。
@@ -73,7 +74,7 @@ C127 已把发布凭据和平台执行能力隔离到本机私有 `marketing-ops
 3. 任意站外 URL、任意 repository 注入、凭据字段或宽松 profile 权限在副作用前被拒绝。
 4. Algorithm Visualizer 公开 renderer 生成的 payload 固定携带 `projectId=algorithm-visualizer`。
 5. 旧 DEV 正式文章 receipt 与已有全局渠道 activation 在迁移后仍可安全读取。
-6. 私有插件 `verify`、coverage、MCP stdio smoke、插件 validator 和泄漏扫描通过；公开仓库相关单测与门禁通过。
+6. 独立插件 `verify`、coverage、MCP stdio smoke、插件 validator 和泄漏扫描通过；主项目仓库相关单测与门禁通过。
 
 ## 非目标
 

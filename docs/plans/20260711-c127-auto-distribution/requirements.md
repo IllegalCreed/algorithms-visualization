@@ -67,7 +67,7 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - 条件 adapter：仅 Reddit，且只在个人应用审核和目标社区授权通过后启用。
 - 微信公众号、B站、X 在能力注册表中保留审计事实，但 `enabled=false` 且不得实现当前发布 adapter。
 - 每次发布产生 receipt，记录平台 post ID、URL、时间、内容摘要、幂等键和 adapter 版本；重试不得重复发帖。
-- `publish_campaign` 使用 version 2 契约携带公开 renderer 生成的确定性平台包；私有插件不得复制文案、长度或 UTM renderer。
+- `publish_campaign` 使用 version 2 契约携带公开 renderer 生成的确定性平台包；本地插件不得复制文案、长度或 UTM renderer。
 - 支持平台具备官方能力时实现查询、更新或删除；不伪造不存在的撤回能力。
 - 微博采用官方 `@weibo-ai/weibo-cli`；CLI 的平台 action 目录由登录账号和套餐动态返回，不得猜测 `statuses` 写 action。T3-D1-A 只实现固定进程边界、`doctor` 健康、只读 statuses 目录和注入式 fake adapter。Owner 的 OAuth 与个人认证已完成，但官方 Free 为 7 天只读试用、写额度为 0；不领取短期试用、不冻结 publish action、不启用 production adapter。
 - Bluesky 固定使用官方 `@atproto/api@0.20.28`；公开 renderer 只生成一个英文正文变体。一次性 setup 只在交互式 TTY 接收公开 handle 与专用 App Password，secret 写入 macOS Keychain，本地 activation 只保存公开 handle/DID；每次注册 adapter 前重新对拍三者与实时身份。2026-07-14 setup 已完成，status/doctor 为 ready/enabled；Owner 授权的固定 smoke 已完成发布、读取、幂等复放与删除，receipt 为 deleted、远端 record 不存在，当前无临时帖子残留。
@@ -153,4 +153,4 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - 2026-07-15：T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor 为 ready/enabled，API key 只在本机 Keychain。公开 preflight 现仅返回 `EXECUTION_NOT_APPROVED` 且 `sideEffects=[]`；尚无 receipt/文章，等待 T3-D3-C matching 授权。
 - 2026-07-15：Owner matching 授权后完成 T3-D3-C；DEV 文章 `4146005` 的完整正文/API 元数据对拍、同 receipt 幂等复放、零反馈与 `1h` report 均通过。receipt published，文章长期公开，下一步 Mastodon。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
-- 2026-07-27：C133 完成私有仓库、Project Profile、MCP v3 与跨项目隔离；C127 下一步改为先撤销暴露的 Mastodon token，再经隐藏输入继续 T3-D4-B。
+- 2026-07-27：C133 完成独立仓库、Project Profile、MCP v3 与跨项目隔离；Owner 后续将 `IllegalCreed/marketing-ops` 源码仓库改为 public，secret/runtime state 仍仅留本机。C127 下一步改为先撤销暴露的 Mastodon token，再经隐藏输入继续 T3-D4-B。

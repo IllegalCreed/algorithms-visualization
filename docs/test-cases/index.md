@@ -13,9 +13,9 @@
 
 > 2026-07-09 增量说明：本次补录 C-20260709-119 / C-20260709-121 / C-20260709-122 新增维护用例；2026-07-10 为 C-119 补录完整拼音映射与多音字用例，登记 C-123 六个增长执行文档 Case、C-124 十九个 SEO/GEO Case 与 C-129 三个回滚边界 Case；C125 仅四个 UTM/marketing-link Case 保持 active，其余转 superseded。2026-07-11 登记 C-126 二十三个多语言与国际 SEO Case、C-127 六个渠道自动化设计 Case及十九个 T1 运行时 Case、C130 三十七个英文扩容 Case；C126 中固定十页/105 页集合的 Case 由 C130 supersede，仍适用的子集测试保留 active。历史大表未做全量重排。
 >
-> 2026-07-11 Header 维护增量：新增 `TC-VIEW-HEADER-09`，锁定搜索入口紧跟站点标题并位于弹性空白前。随后登记 C131 四十六个显式参数化 Case，覆盖 95 对页面、15 个互动页、77 个 adapter、190 页双 base 与 117 条 L5 全量回归；C130 固定 30/125 规模 Case 由 C131 supersede，仍有源码断言的首 27 个 adapter 子集 Case继续 active。C127 T2-T3-D2 已登记 MCP、GitHub、微博与 Bluesky 边界；2026-07-15 T3-D3-A/B/C 再登记 DEV API、文章 adapter、activation/channel、collector/runtime、durable preflight、真实 setup 与正式文章 smoke。C132 登记四个 L3/L4 与一个 L5 菜单回归，当前基线为 2132 Vitest / 118 Playwright。DEV 私有插件工程门禁为 35 文件 / 178 用例全绿；本机 ready/enabled，receipt `4146005` published，文章长期公开。
+> 2026-07-11 Header 维护增量：新增 `TC-VIEW-HEADER-09`，锁定搜索入口紧跟站点标题并位于弹性空白前。随后登记 C131 四十六个显式参数化 Case，覆盖 95 对页面、15 个互动页、77 个 adapter、190 页双 base 与 117 条 L5 全量回归；C130 固定 30/125 规模 Case 由 C131 supersede，仍有源码断言的首 27 个 adapter 子集 Case继续 active。C127 T2-T3-D2 已登记 MCP、GitHub、微博与 Bluesky 边界；2026-07-15 T3-D3-A/B/C 再登记 DEV API、文章 adapter、activation/channel、collector/runtime、durable preflight、真实 setup 与正式文章 smoke。C132 登记四个 L3/L4 与一个 L5 菜单回归，当前基线为 2132 Vitest / 118 Playwright。DEV 本地插件工程门禁为 35 文件 / 178 用例全绿；本机 ready/enabled，receipt `4146005` published，文章长期公开。
 >
-> 2026-07-27 登记并验证 C133 十三个多项目通用化 Case，覆盖本地 Project Profile、MCP v3、项目级幂等/receipt、目标策略、GitHub/DEV 项目上下文、旧状态迁移、CLI、公开 bridge 与插件交付。私有插件 44 文件 / 223 用例、公开仓库 299 文件 / 2132 用例及 190 页构建门禁全绿。
+> 2026-07-27 登记并验证 C133 十三个多项目通用化 Case，覆盖本地 Project Profile、MCP v3、项目级幂等/receipt、目标策略、GitHub/DEV 项目上下文、旧状态迁移、CLI、公开 bridge 与插件交付。本地插件 44 文件 / 223 用例、主项目仓库 299 文件 / 2132 用例及 190 页构建门禁全绿。
 
 ## All Cases
 

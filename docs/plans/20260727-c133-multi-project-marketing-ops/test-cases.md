@@ -50,8 +50,8 @@
 
 ## 测试层说明
 
-- 新增 13 个精确 Case，主要覆盖私有插件 L3/MCP 与公开 bridge L3。
+- 新增 13 个精确 Case，主要覆盖本地插件 L3/MCP 与公开 bridge L3。
 - 本变更不改变 Vue 页面、路由或交互，因此不新增 L4/L5；公开仓库完整 `pnpm verify` 负责现有 UI 回归。
 - profile/path/policy/receipt migration 属安全边界，行与分支覆盖率目标均为 100%。
 - 所有测试使用临时目录、fake adapter 和非秘密 fixture，不访问真实平台，不产生站外副作用。
-- 2026-07-27 最后验证：私有插件 44 文件 / 223 用例与 coverage/stdio/validator/Gitleaks 全绿；公开 bridge 定向 2 文件 / 12 用例、全量 299 文件 / 2132 用例及 190 页构建/SEO 门禁全绿。
+- 2026-07-27 最后验证：本地插件 44 文件 / 223 用例与 coverage/stdio/validator/Gitleaks 全绿；公开 bridge 定向 2 文件 / 12 用例、主项目仓库全量 299 文件 / 2132 用例及 190 页构建/SEO 门禁全绿。

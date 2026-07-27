@@ -10,19 +10,19 @@
 
 ## 当前事实
 
-| 项       | 当前值                                                                                                                                      |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                         |
-| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                               |
-| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                   |
-| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项    |
-| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换    |
-| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                            |
-| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）    |
-| 测试     | Vitest L3/L4：299 个测试文件、2132 个用例在 2026-07-27 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过 |
-| 当前阶段 | C133 多项目通用化 verified/100%；C127 in-progress/92%，下一步先撤销暴露的 Mastodon token，再经隐藏输入完成 setup/identity smoke             |
-| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；私有 `marketing-ops` 仓库及 MCP v3 多项目隔离已就位；DEV 正式文章长期公开         |
-| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`      |
+| 项       | 当前值                                                                                                                                                                 |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                                                    |
+| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                                                          |
+| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                                              |
+| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项                               |
+| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换                               |
+| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                                       |
+| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）                               |
+| 测试     | Vitest L3/L4：299 个测试文件、2132 个用例在 2026-07-27 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过                            |
+| 当前阶段 | C133 多项目通用化 verified/100%；C127 in-progress/92%，下一步先撤销暴露的 Mastodon token，再经隐藏输入完成 setup/identity smoke                                        |
+| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无 tracker；公开 `marketing-ops` 源码仓库及 MCP v3 多项目隔离已就位，secret/runtime state 仅留本机；DEV 正式文章长期公开 |
+| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`                                 |
 
 ## 模块地图
 

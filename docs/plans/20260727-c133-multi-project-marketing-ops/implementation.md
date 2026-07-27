@@ -21,7 +21,8 @@
 
 ## T0 文档与边界
 
-- [x] 确认私有 `IllegalCreed/marketing-ops` 仓库已创建并保持 private。
+- [x] 首次交付时确认私有 `IllegalCreed/marketing-ops` 仓库已创建。
+- [x] Owner 后续批准改为 public；切换前后重新执行工作树和完整 Git 历史泄漏扫描。
 - [x] 确认凭据、activation、receipt、profile 与 state 均被 git ignore。
 - [x] 用 Gitleaks 扫描现有 git 历史，无已提交 secret。
 - [x] Owner 明确要求同一工具服务多个项目，并保持统一个人账号、零新增费用。
@@ -64,30 +65,30 @@
 
 ## T6 验证与交付
 
-- [x] 私有插件 format、type-check、unit、coverage、build、verify 与 stdio smoke 全绿。
+- [x] 独立插件 format、type-check、unit、coverage、build、verify 与 stdio smoke 全绿。
 - [x] 插件 cachebuster、validator、安装态和 Gitleaks 全绿。
-- [x] 公开仓库相关单测与 `pnpm verify` 全绿。
+- [x] 主项目仓库相关单测与 `pnpm verify` 全绿。
 - [x] 填写本文件自测报告，四文档转 verified。
 - [x] 两个仓库分别精确暂存、提交并推送；不提交 runtime state。
 
 ## 实现偏差
 
 - CLI 的项目级状态命令实际为 `status --project <id>` / `doctor --project <id>`，不是早期草案中的 `status github --project <id>`，已同步设计文档。
-- 私有插件没有独立 ESLint 脚本；交付门禁按仓库现有 `format:check`、`type-check`、Vitest、build 与 stdio smoke 执行。
+- 独立插件没有独立 ESLint 脚本；交付门禁按仓库现有 `format:check`、`type-check`、Vitest、build 与 stdio smoke 执行。
 - 公开全量 Vitest 在并行负载下使既有 `TC-I18N-MODULE-131-D01` 与 `TC-I18N-CONTENT-131-02` 超过默认 5 秒；前者的 10 秒试调在高负载复跑时仍不足，而定向复跑结果均正确。这两条分别遍历 50 个 adapter、逐个 mount 50 个页面，最终只把两条重用例的局部预算调整为 30 秒，不涉及运行时逻辑，也不放宽其他测试。
 
 ## 自测报告
 
-### 私有 `marketing-ops`
+### 独立 `marketing-ops`
 
 - `pnpm verify`：format、type-check、44 个测试文件 / 223 个用例、build 与真实 MCP stdio v3 七工具 smoke 全绿。
 - `pnpm coverage`：statements 97.23%、branches 93.90%、functions 99.78%、lines 97.82%；project profile、project policy、receipt、activation、local runtime 与 DEV 安全边界达到各自门槛。
 - `pnpm test:github-readonly`：GitHub 账号/目标仓库、traffic 与 Issue 只读检查通过，固定临时 Release/tag 均不存在。
 - 官方 plugin validator、skill quick validator 与已安装插件 smoke 通过；cachebuster 为 `0.1.0+codex.20260727032639`。
-- Gitleaks 对工作树与既有 17 个提交历史扫描均无泄漏；私有仓库保持 private。
+- 首次交付时 Gitleaks 对工作树与既有 17 个提交历史扫描均无泄漏；Owner 批准公开后，切换前后再次扫描工作树与当时完整的 19 个提交历史，结果仍无泄漏。GitHub 当前返回 `visibility=PUBLIC`、`isPrivate=false`。
 - 通过交互 CLI 注册 `algorithm-visualizer` profile；运行时目录为 `0700`、profile 与项目级 GitHub activation 为 `0600`。平台 secret、receipt、activation 与 profile 均未进入 git。
 
-### 公开仓库
+### 主项目仓库
 
 - bridge 红测先出现 contract v2 / 缺少 `projectId` 的 4 项预期失败；实现后定向 2 个文件 / 12 个用例全绿。
 - `pnpm verify`：format、lint、type-check、299 个测试文件 / 2132 个用例、production build、190 页预渲染与 SEO 校验全绿。
@@ -95,8 +96,8 @@
 
 ### 交付提交
 
-- 私有 `marketing-ops`：`62e6c73`（多项目运行时）与 `b7c49a5`（通用插件入口）已推送 `main`。
-- 公开仓库：`1f0b0d7`（MCP v3 bridge）与 `d1e15a3`（两条 C131 重测试局部预算）已提交；C133 文档随本次文档提交推送。
+- 独立 `marketing-ops`：`62e6c73`（多项目运行时）与 `b7c49a5`（通用插件入口）已推送 `main`；Owner 后续将仓库可见性改为 public。
+- 主项目仓库：`1f0b0d7`（MCP v3 bridge）与 `d1e15a3`（两条 C131 重测试局部预算）已提交；C133 文档随本次文档提交推送。
 
 ### 未完成项
 

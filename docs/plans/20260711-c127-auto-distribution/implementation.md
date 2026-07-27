@@ -19,7 +19,7 @@
 
 `T0 渠道能力与 MCP 方案审计` -> `T1 CampaignSpec/能力注册表/dry-run` -> `T2 MCP contract/凭据边界` -> `T3 首批 API adapters/receipt` -> `T4 collectors/回复/报告` -> `T5 RPA 评审/Reddit 后备/人工桥接` -> `T6 全门禁/真实 smoke/C128 移交`。
 
-> 当前实现说明：C133 已把本文件记录的单项目 MCP v1/v2 演进为 MCP v3 多项目运行时，并建立独立私有 GitHub 仓库。历史提交和版本号保留当时事实；当前实现与门禁见 `docs/plans/20260727-c133-multi-project-marketing-ops/implementation.md`。
+> 当前实现说明：C133 已把本文件记录的单项目 MCP v1/v2 演进为 MCP v3 多项目运行时，并建立独立 GitHub 仓库；Owner 后续将源码仓库改为 public，secret/runtime state 仍仅留本机。历史提交和版本号保留当时事实；当前实现与门禁见 `docs/plans/20260727-c133-multi-project-marketing-ops/implementation.md`。
 
 ## T0 渠道审计与方案收束
 
@@ -134,7 +134,7 @@
 #### T3-D3-A DEV 工程与零副作用证据
 
 - 官方 Forem v1 审计确认 API key 身份读取、文章创建/读取、本人文章列表及评论树可用；未找到真正的作者删除文章端点。adapter 因此只声明 publish/status/metrics/feedback，固定 `reply=false`、`delete=false`。
-- 初始 red 为 5 个测试文件因 DEV activation/API/adapter/channel/observability 模块缺失失败；随后补齐 runtime 测试和公开 durable campaign dry-run。私有插件最终 35 个测试文件 / 178 个用例全绿。
+- 初始 red 为 5 个测试文件因 DEV activation/API/adapter/channel/observability 模块缺失失败；随后补齐 runtime 测试和公开 durable campaign dry-run。本地插件最终 35 个测试文件 / 178 个用例全绿。
 - `pnpm verify` 完成 format、type-check、178 tests、build、Swift Keychain helper 与七工具 STDIO smoke；coverage 为 statements 97.88%、branches 94.35%、functions 99.46%、lines 98.58%，DEV activation/channel/observability/article adapter 四项均满足 100% 独立门槛，DEV API 为 98.11/95.38/100/100。
 - 真实只读 CLI 复查为 `DEV Community not-configured setup-required`，doctor 为 `DEV API: not-configured` / `DEV adapter: disabled`；没有创建 activation、没有录入 API key、没有访问私有 DEV 账号数据或调用写接口。
 - 公开 `c127-dev-smoke.json` 固定 Quick Sort 英文长文候选；正文覆盖 Lomuto 分区语义、可尝试输入与复杂度观察点。dry-run 无 render issue、`sideEffects=[]`，只返回 `EXECUTION_NOT_APPROVED`、`ADAPTER_UNAVAILABLE`、`AUTH_REQUIRED` 三项 blocker。幂等键为 `campaign-v1/marketing-ops-t3d3-smoke-127/f3b723fbff257e8e8d5b291bf996b44bb5fc2cc00f67bb941fdc276f7459366b`。
@@ -180,9 +180,9 @@
 
 ## 当前实际变更
 
-T0 调研和方案设计、T1 公开基础层、T2 MCP 安全运行时骨架、T3-A adapter contract/GitHub mock、T3-B GitHub CLI/显式启用 gate、T3-C GitHub 闭环、T3-D2 Bluesky 闭环与 T3-D3-C DEV 正式文章闭环已完成。`scripts/marketing/` 现包含版本化 schema/严格 validator、规范化与 SHA-256 幂等键、15 渠道能力注册表和 runtime gate、站点事实快照及对拍、渠道 renderer、示例 campaign、`pnpm marketing:dry-run`、MCP v3 contract 与 `buildPublishCampaignPayload()`。v3 的七工具均要求 `projectId`，`publish_campaign.packages` 继续直接承接公开 renderer 结果；Owner 不编辑 JSON，私有插件也不复制平台文案或 UTM 逻辑。
+T0 调研和方案设计、T1 公开基础层、T2 MCP 安全运行时骨架、T3-A adapter contract/GitHub mock、T3-B GitHub CLI/显式启用 gate、T3-C GitHub 闭环、T3-D2 Bluesky 闭环与 T3-D3-C DEV 正式文章闭环已完成。`scripts/marketing/` 现包含版本化 schema/严格 validator、规范化与 SHA-256 幂等键、15 渠道能力注册表和 runtime gate、站点事实快照及对拍、渠道 renderer、示例 campaign、`pnpm marketing:dry-run`、MCP v3 contract 与 `buildPublishCampaignPayload()`。v3 的七工具均要求 `projectId`，`publish_campaign.packages` 继续直接承接公开 renderer 结果；Owner 不编辑 JSON，本地插件也不复制平台文案或 UTM 逻辑。
 
-独立 personal plugin 已在本机 `/Users/zhangxu/plugins/marketing-ops` 建立并安装/enabled，远端为私有仓库 `IllegalCreed/marketing-ops`；T2 骨架由本地提交 `a53f411` 固定，T3-A 由本地提交 `ba6d4c3` 固定。它通过 stdio 暴露精确七个高层 MCP 工具，提供一次性 `setup`、只读 `status/doctor`、macOS Keychain helper、每渠道独立 Profile、campaign 锁、0600 原子 receipt 存储与输出脱敏；凭据只经子进程 stdin/隐藏输入进入 Keychain，不进入 argv、env、JSON、日志或 MCP 输出。
+独立 personal plugin 已在本机 `/Users/zhangxu/plugins/marketing-ops` 建立并安装/enabled，远端为公开仓库 `IllegalCreed/marketing-ops`；T2 骨架由本地提交 `a53f411` 固定，T3-A 由本地提交 `ba6d4c3` 固定。它通过 stdio 暴露精确七个高层 MCP 工具，提供一次性 `setup`、只读 `status/doctor`、macOS Keychain helper、每渠道独立 Profile、campaign 锁、0600 原子 receipt 存储与输出脱敏；凭据只经子进程 stdin/隐藏输入进入 Keychain，不进入 argv、env、JSON、日志或 MCP 输出。
 
 C133 新增严格的本地 Project Profile、项目 URL/渠道策略、`campaign-v3/<projectId>/...` 幂等键、receipt v2 与跨项目 operation 拒绝；`algorithm-visualizer` profile 已通过交互 CLI 注册。GitHub repository/tag/activation 改为项目级，DEV origin/tags 改由 profile 注入；当前 GitHub Release、GitHub Issue、DEV adapter 分别为 `1.3.0`、`1.1.0`、`0.2.0`。v1 receipt 只受控映射到 Algorithm Visualizer，旧 GitHub activation 仅仓库完全匹配时迁移。
 
@@ -237,7 +237,7 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - T3-C smoke 收尾门禁通过：personal plugin 修正 `.codex-plugin/plugin.json` 的 Prettier 格式后，`pnpm verify` 完成 format、type-check、21 文件 / 93 用例、build 与 STDIO smoke；主仓库 `pnpm verify` 完成 format、lint、type-check、299 文件 / 2131 用例及 190 页 production 预渲染/SEO 验证。
 - T3-C personal plugin 本地提交：`60feaff`（`feat: 完成 T3-C GitHub 观测与安全撤回`）；cachebuster 为 `0.1.0+codex.20260711122325`，plugin/skill validator 通过。`codex plugin add marketing-ops@personal` 仍因用户全局 Codex npm 包缺少 vendor binary 报 `ENOENT`，未修改全局安装；该私有插件仓库没有 remote，故无 push 目标。
 - T3-C 公开仓库 `pnpm verify` 通过：format、lint、type-check、299 文件 / 2129 个 Vitest 用例与 production 190 页预渲染/SEO 门禁全绿；本轮只改维护文档，不重复 coverage/L5/selfhost，也不手动部署未变化的 SPA 产物。
-- T3-D3-A 私有插件 red/green 与全门禁通过：35 个测试文件 / 178 个用例；coverage 97.88/94.35/99.46/98.58；build、Swift Keychain helper 与 STDIO smoke 全绿。只读 status/doctor 明确 DEV not-configured/disabled。
+- T3-D3-A 本地插件 red/green 与全门禁通过：35 个测试文件 / 178 个用例；coverage 97.88/94.35/99.46/98.58；build、Swift Keychain helper 与 STDIO smoke 全绿。只读 status/doctor 明确 DEV not-configured/disabled。
 - T3-D3-A 公开定向测试与全门禁通过；固定 campaign dry-run 输出三项预期 blocker、零 render issue 与 `sideEffects=[]`，主仓库 verify 为 299/2132、coverage 为 95.48/86.31/92.03/95.82、Playwright 为 104/118。尚未执行 setup、账号读取或任何 DEV 写操作。
 - T3-D3-B 只读 setup 验收通过：status/doctor 为 DEV ready/enabled；公开 preflight 更新后 dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，无 render issue、`sideEffects=[]`。当前无 receipt/文章，零 DEV 写入。
 - T3-D3-C Owner 授权 smoke 通过：publish receipt `4146005`，公开 API 完整正文/API 元数据对拍一致，相同 payload 复放复用同一 receipt；feedback 0，`1h` report available 且 reactions/comments 均为 0。公开 URL 200，未 reply/delete。
@@ -263,4 +263,4 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读 status/doctor 验收完成，DEV ready/enabled；公开 preflight 仅余 `EXECUTION_NOT_APPROVED`。API key 不进入证据，尚无 receipt/文章，下一步 T3-D3-C matching 授权。
 - 2026-07-15：Owner 精确授权后完成 DEV T3-D3-C；文章 `4146005` publish、完整正文/API 元数据对拍、同 receipt 幂等复放、feedback 与 `1h` report 全部通过。receipt published，文章长期公开，下一步 T3-D4-A Mastodon。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
-- 2026-07-27：C133 完成 MCP v3 多项目通用化与独立私有远端；plugin 44/223、coverage、stdio、validator、Gitleaks 及公开仓库 299/2132、190 页门禁全绿。C127 仍为 92%，先撤销暴露的 Mastodon token。
+- 2026-07-27：C133 完成 MCP v3 多项目通用化与独立远端；Owner 后续将 `marketing-ops` 源码仓库改为 public，secret/runtime state 仍仅留本机。plugin 44/223、coverage、stdio、validator、Gitleaks 及主项目仓库 299/2132、190 页门禁全绿。C127 仍为 92%，先撤销暴露的 Mastodon token。

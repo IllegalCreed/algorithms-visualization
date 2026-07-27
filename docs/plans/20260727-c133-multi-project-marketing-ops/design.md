@@ -112,7 +112,7 @@ marketing-ops doctor --project <project-id>
 
 ## 测试策略
 
-- 私有插件 L3：store、policy、contract、receipt、runtime、adapter、migration 与 CLI。
+- 本地插件 L3：store、policy、contract、receipt、runtime、adapter、migration 与 CLI。
 - 公开仓库 L3：契约镜像与 Algorithm Visualizer payload bridge。
 - MCP：七工具 stdio smoke，验证 project ID 必填与输出脱敏。
 - 安全代码：profile/path/policy/receipt migration 维持行与分支 100%。

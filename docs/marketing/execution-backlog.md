@@ -47,7 +47,7 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A 已完成并保持 92%；C133 已补齐私有仓库、Project Profile、MCP v3 与跨项目隔离。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步先撤销暴露的 Mastodon token，再以隐藏输入继续 setup/identity smoke。
+6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A 已完成并保持 92%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步先撤销暴露的 Mastodon token，再以隐藏输入继续 setup/identity smoke。
 7. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
@@ -62,7 +62,7 @@
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页         | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
 | C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                   | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
 | C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky/DEV 闭环；Mastodon 工程完成         | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 92%；撤销 token 后 setup       |
-| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                     | 私有仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过         | 已完成                         |
+| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                     | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
 | C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                   | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
@@ -203,7 +203,7 @@
 - T3-D3-A 已完成：固定 Forem API v1、`dev-article@0.1.0`、单英文无媒体文章、Keychain/0600 activation、身份对拍、请求级惰性 runtime、lifetime reactions/comments 与 untrusted 评论采集；`reply=false`、`delete=false`，不把 draft reversion 当作删除。plugin 35 文件 / 178 用例、coverage（97.88/94.35/99.46/98.58）、verify 与 STDIO 全绿。
 - T3-D3-B 已完成：固定 `marketing-ops-t3d3-smoke-127` 是可长期保留的 Quick Sort 正式英文文章候选。2026-07-15 隐藏 setup 与只读身份对拍完成，status/doctor 为 ready/enabled；API key 只在本机 Keychain。授权前 preflight 唯一 blocker 为 `EXECUTION_NOT_APPROVED` 且 `sideEffects=[]`。
 - T3-D3-C 已完成：Owner matching 授权后发布文章 `4146005`；DEV 公开 API 对拍 ID、标题、完整 Markdown、canonical 与 URL 全部一致，相同 payload 复放返回同一 receipt 且 receipt 总数仍为 1。即时 feedback 为 0，`1h` report 为 available，comments/public reactions/positive reactions 均为 0，page views 明确 unavailable。matching 授权仅注入本次 MCP payload，仓库 preflight 继续保持 `executionApproved=false`；receipt 保持 published，文章长期公开，不执行 reply/delete。
-- C133 已完成：`marketing-ops` 已有独立私有仓库，当前契约为 MCP v3；七工具均要求 `projectId`，Project Profile 驱动仓库/origin/tags/渠道策略，幂等键与 receipt 按项目隔离。历史 T2/T3-A 的 MCP v1/v2 记录仅描述当时交付，当前实现以 C133 为准；DEV adapter 已升至 `dev-article@0.2.0`。
+- C133 已完成：`marketing-ops` 已有独立公开源码仓库，secret/runtime state 仍仅留本机，当前契约为 MCP v3；七工具均要求 `projectId`，Project Profile 驱动仓库/origin/tags/渠道策略，幂等键与 receipt 按项目隔离。历史 T2/T3-A 的 MCP v1/v2 记录仅描述当时交付，当前实现以 C133 为准；DEV adapter 已升至 `dev-article@0.2.0`。
 - T3-D4-A 已完成 Mastodon statuses/notifications adapter。聊天中曾暴露一枚 token，工具从未读取或使用；在 Owner 撤销前不运行 Mastodon status/setup，替代 token 只能通过本机隐藏 TTY 输入。
 - 首次真实接入时由 Codex 逐步带 Owner 完成向导；接入后的正常使用只需自然语言 campaign，不要求编辑 JSON、拼 UTM 或记忆 CLI。
 
@@ -295,4 +295,4 @@
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor ready/enabled，API key 仅在本机 Keychain。preflight 现仅阻塞 `EXECUTION_NOT_APPROVED`，尚无 receipt/文章，等待 matching 授权。
 - 2026-07-15：DEV T3-D3-C matching 授权后完成正式文章 publish、完整正文读取、同 receipt 幂等复放、feedback 与 `1h` report；receipt `4146005` published，文章长期公开，下一步 Mastodon adapter 工程。
 - 2026-07-16：T3-D4-A Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke。
-- 2026-07-27：C133 完成 `IllegalCreed/marketing-ops` 私有仓库与 MCP v3 多项目通用化；plugin 44/223、coverage、stdio、validator、Gitleaks 和公开仓库 299/2132、190 页门禁全绿。下一步先撤销暴露的 Mastodon token。
+- 2026-07-27：C133 完成 `IllegalCreed/marketing-ops` MCP v3 多项目通用化；Owner 后续将源码仓库改为 public，切换前后 Gitleaks 均无泄漏，secret/runtime state 仍仅留本机。plugin 44/223、coverage、stdio、validator 和公开仓库 299/2132、190 页门禁全绿。下一步先撤销暴露的 Mastodon token。
