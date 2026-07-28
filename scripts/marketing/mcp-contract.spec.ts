@@ -157,10 +157,41 @@ describe('marketing MCP public contract', () => {
       packages: {
         type: 'array',
         minItems: 1,
-        maxItems: 5,
+        maxItems: 20,
         items: RENDERED_PACKAGE_JSON_SCHEMA,
       },
     });
+  });
+
+  it('TC-AUTO-ASSISTED-127-02 七工具契约内闭合 automatic/prepare/confirm 三种模式', () => {
+    const publish = MARKETING_MCP_TOOLS.find((tool) => tool.name === 'publish_campaign');
+
+    expect(publish?.inputSchema.required).not.toContain('execution');
+    expect(publish?.inputSchema.properties).toMatchObject({
+      execution: {
+        oneOf: [
+          {
+            type: 'object',
+            additionalProperties: false,
+            required: ['mode'],
+            properties: { mode: { const: 'automatic' } },
+          },
+          {
+            type: 'object',
+            additionalProperties: false,
+            required: ['mode'],
+            properties: { mode: { const: 'assisted-prepare' } },
+          },
+          {
+            type: 'object',
+            additionalProperties: false,
+            required: ['mode', 'confirmations'],
+          },
+        ],
+        default: { mode: 'automatic' },
+      },
+    });
+    expect(JSON.stringify(publish?.inputSchema)).not.toMatch(FORBIDDEN_SURFACE);
   });
 
   it('TC-AUTO-MCP-127-08 renderer package schema 闭合且只含受控发布字段', () => {

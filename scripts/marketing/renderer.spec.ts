@@ -73,13 +73,25 @@ describe('marketing channel renderer', () => {
     expect(expectRenderCodes(staleFact, 'dev')).toContain('STALE_SITE_FACT');
   });
 
-  it('TC-AUTO-RENDER-127-03 人工渠道生成 manual package，禁用渠道不生成内容', () => {
+  it('TC-AUTO-RENDER-127-03 人工确认渠道自动生成 manual package，未评审渠道不生成', () => {
     const spec = normalizeCampaignSpec(makeCampaignSpec());
-    for (const channel of ['v2ex', 'hacker-news', 'product-hunt']) {
+    for (const channel of [
+      'v2ex',
+      'hacker-news',
+      'product-hunt',
+      'juejin',
+      'bilibili',
+      'zhihu',
+      'x',
+      'jianshu',
+      'facebook',
+      'youtube',
+      'douyin',
+    ]) {
       expect(renderChannelPackage(spec, channel as never)?.format).toBe('manual-package');
     }
     expect(renderChannelPackage(spec, 'weibo')?.format).toBe('post');
-    for (const channel of ['juejin', 'bilibili', 'zhihu', 'xiaohongshu', 'wechat', 'x']) {
+    for (const channel of ['xiaohongshu', 'wechat']) {
       expect(renderChannelPackage(spec, channel as never)).toBeNull();
     }
   });

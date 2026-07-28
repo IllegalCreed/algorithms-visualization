@@ -5,7 +5,10 @@ import devSmokePreflight from './campaigns/c127-dev-smoke.preflight.json';
 import mastodonSmokeCampaign from './campaigns/c127-mastodon-smoke.json';
 import mastodonSmokePreflight from './campaigns/c127-mastodon-smoke.preflight.json';
 import { buildDryRunManifest } from './dry-run';
-import { buildPublishCampaignPayload } from './publish-payload';
+import {
+  buildAssistedPublishCampaignPayload,
+  buildPublishCampaignPayload,
+} from './publish-payload';
 
 const READY_GITHUB = {
   github: {
@@ -186,5 +189,42 @@ describe('publish campaign MCP v3 payload bridge', () => {
         },
       ],
     });
+  });
+
+  it('TC-AUTO-ASSISTED-127-03 自动复用 manual package 生成 prepare/confirm payload', () => {
+    const spec = {
+      ...campaign,
+      channels: ['zhihu', 'jianshu', 'x'],
+      content: { ...campaign.content, media: [] },
+    };
+    const prepared = buildAssistedPublishCampaignPayload(spec, {
+      authorizedAt: '2026-07-28T18:00:00+09:00',
+    });
+
+    expect(prepared).toMatchObject({
+      projectId: 'algorithm-visualizer',
+      campaignId: 'quick-sort-launch',
+      execution: { mode: 'assisted-prepare' },
+      packages: [
+        { channel: 'zhihu', format: 'manual-package' },
+        { channel: 'x', format: 'manual-package' },
+        { channel: 'jianshu', format: 'manual-package' },
+      ],
+    });
+    expect(prepared.packages.every((item) => item.variants[0]?.links[0])).toBe(true);
+
+    const confirmed = buildAssistedPublishCampaignPayload(spec, {
+      authorizedAt: '2026-07-28T18:30:00+09:00',
+      confirmations: [
+        { channel: 'zhihu', publicUrl: 'https://zhuanlan.zhihu.com/p/123456789' },
+        { channel: 'jianshu', publicUrl: 'https://www.jianshu.com/p/abcdef123456' },
+        { channel: 'x', publicUrl: 'https://x.com/illegalcreed/status/1234567890' },
+      ],
+    });
+    expect(confirmed.execution).toMatchObject({
+      mode: 'assisted-confirm',
+      confirmations: expect.any(Array),
+    });
+    expect(confirmed.idempotencyKey).toBe(prepared.idempotencyKey);
   });
 });

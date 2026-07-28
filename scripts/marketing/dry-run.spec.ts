@@ -45,7 +45,7 @@ describe('marketing dry-run', () => {
     );
     expect(manifest.channels.find((item) => item.channel === 'x')).toMatchObject({
       selected: false,
-      content: null,
+      content: { format: 'manual-package' },
     });
     expect(manifest.channels.find((item) => item.channel === 'dev')?.decision.reasons).toContain(
       'ADAPTER_UNAVAILABLE',

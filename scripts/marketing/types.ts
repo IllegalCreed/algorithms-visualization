@@ -14,6 +14,10 @@ export const CHANNEL_IDS = [
   'dev',
   'mastodon',
   'x',
+  'jianshu',
+  'facebook',
+  'youtube',
+  'douyin',
 ] as const;
 
 export const CAMPAIGN_LOCALES = ['zh-CN', 'en'] as const;

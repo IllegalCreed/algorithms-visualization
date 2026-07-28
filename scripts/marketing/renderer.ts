@@ -1,5 +1,4 @@
 import { buildCampaignUrl } from '../../src/analytics/utm.ts';
-import { CHANNEL_REGISTRY } from './channels.ts';
 import { validateMarketingFactClaims, type MarketingFactIssueCode } from './site-facts.ts';
 import {
   type CampaignContentVariant,
@@ -60,6 +59,15 @@ export class CampaignRenderError extends TypeError {
 
 const ALL_MEDIA = ['image', 'gif', 'video'] as const satisfies readonly CampaignMediaType[];
 const RENDER_PROFILES: Partial<Record<ChannelId, RenderProfile>> = {
+  juejin: {
+    format: 'manual-package',
+    utmMedium: 'community',
+    locales: ['zh-CN'],
+    media: ALL_MEDIA,
+    maxTitleLength: 100,
+    maxBodyLength: 100_000,
+    bodyStyle: 'markdown',
+  },
   v2ex: {
     format: 'manual-package',
     utmMedium: 'community',
@@ -67,6 +75,24 @@ const RENDER_PROFILES: Partial<Record<ChannelId, RenderProfile>> = {
     media: ALL_MEDIA,
     maxTitleLength: 120,
     maxBodyLength: 20_000,
+    bodyStyle: 'markdown',
+  },
+  bilibili: {
+    format: 'manual-package',
+    utmMedium: 'social',
+    locales: ['zh-CN'],
+    media: ALL_MEDIA,
+    maxTitleLength: 80,
+    maxBodyLength: 2_000,
+    bodyStyle: 'markdown',
+  },
+  zhihu: {
+    format: 'manual-package',
+    utmMedium: 'community',
+    locales: ['zh-CN'],
+    media: ALL_MEDIA,
+    maxTitleLength: 100,
+    maxBodyLength: 100_000,
     bodyStyle: 'markdown',
   },
   'hacker-news': {
@@ -141,6 +167,51 @@ const RENDER_PROFILES: Partial<Record<ChannelId, RenderProfile>> = {
     maxBodyLength: 500,
     bodyStyle: 'social',
   },
+  x: {
+    format: 'manual-package',
+    utmMedium: 'social',
+    locales: ['zh-CN', 'en'],
+    media: ALL_MEDIA,
+    maxTitleLength: 200,
+    maxBodyLength: 280,
+    bodyStyle: 'social',
+  },
+  jianshu: {
+    format: 'manual-package',
+    utmMedium: 'community',
+    locales: ['zh-CN'],
+    media: ALL_MEDIA,
+    maxTitleLength: 100,
+    maxBodyLength: 100_000,
+    bodyStyle: 'markdown',
+  },
+  facebook: {
+    format: 'manual-package',
+    utmMedium: 'social',
+    locales: ['zh-CN', 'en'],
+    media: ALL_MEDIA,
+    maxTitleLength: 200,
+    maxBodyLength: 63_000,
+    bodyStyle: 'social',
+  },
+  youtube: {
+    format: 'manual-package',
+    utmMedium: 'social',
+    locales: ['zh-CN', 'en'],
+    media: ALL_MEDIA,
+    maxTitleLength: 100,
+    maxBodyLength: 5_000,
+    bodyStyle: 'markdown',
+  },
+  douyin: {
+    format: 'manual-package',
+    utmMedium: 'social',
+    locales: ['zh-CN'],
+    media: ALL_MEDIA,
+    maxTitleLength: 100,
+    maxBodyLength: 2_000,
+    bodyStyle: 'social',
+  },
 };
 
 function graphemeLength(value: string, locale: CampaignLocale): number {
@@ -178,9 +249,6 @@ export function renderChannelPackage(
   spec: NormalizedCampaignSpec,
   channel: ChannelId,
 ): RenderedChannelPackage | null {
-  const capability = CHANNEL_REGISTRY[channel];
-  if (capability.status === 'disabled') return null;
-
   const profile = RENDER_PROFILES[channel];
   if (!profile) return null;
   const issues: RenderIssue[] = [];

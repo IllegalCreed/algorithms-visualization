@@ -1,4 +1,4 @@
-import { CHANNEL_IDS } from './channels.ts';
+import { CHANNEL_IDS, MANUAL_BRIDGE_CHANNEL_IDS } from './channels.ts';
 import { CAMPAIGN_SPEC_JSON_SCHEMA } from './spec.ts';
 import { isPlainRecord, MarketingInputError, requireString } from './validation.ts';
 
@@ -108,6 +108,48 @@ export const RENDERED_PACKAGE_JSON_SCHEMA = Object.freeze({
   },
 });
 
+const ASSISTED_CONFIRMATION_JSON_SCHEMA = Object.freeze({
+  type: 'object',
+  additionalProperties: false,
+  required: ['channel', 'publicUrl'],
+  properties: {
+    channel: { enum: [...MANUAL_BRIDGE_CHANNEL_IDS] },
+    publicUrl: { type: 'string', format: 'uri', pattern: '^https://' },
+  },
+});
+
+const EXECUTION_JSON_SCHEMA = Object.freeze({
+  oneOf: [
+    {
+      type: 'object',
+      additionalProperties: false,
+      required: ['mode'],
+      properties: { mode: { const: 'automatic' } },
+    },
+    {
+      type: 'object',
+      additionalProperties: false,
+      required: ['mode'],
+      properties: { mode: { const: 'assisted-prepare' } },
+    },
+    {
+      type: 'object',
+      additionalProperties: false,
+      required: ['mode', 'confirmations'],
+      properties: {
+        mode: { const: 'assisted-confirm' },
+        confirmations: {
+          type: 'array',
+          minItems: 1,
+          maxItems: 20,
+          items: ASSISTED_CONFIRMATION_JSON_SCHEMA,
+        },
+      },
+    },
+  ],
+  default: { mode: 'automatic' },
+});
+
 const READ_ANNOTATIONS = Object.freeze({
   readOnlyHint: true,
   destructiveHint: false,
@@ -145,11 +187,12 @@ export const MARKETING_MCP_TOOLS = Object.freeze([
         packages: {
           type: 'array',
           minItems: 1,
-          maxItems: 5,
+          maxItems: 20,
           items: RENDERED_PACKAGE_JSON_SCHEMA,
         },
         idempotencyKey: { type: 'string', pattern: IDEMPOTENCY_KEY_PATTERN },
         authorization: CAMPAIGN_AUTHORIZATION_SCHEMA,
+        execution: EXECUTION_JSON_SCHEMA,
       },
     },
     annotations: WRITE_ANNOTATIONS,

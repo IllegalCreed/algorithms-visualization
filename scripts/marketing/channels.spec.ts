@@ -11,7 +11,7 @@ import {
 import { READY_RUNTIME_STATE } from './test-fixtures';
 
 describe('marketing channel registry', () => {
-  it('TC-AUTO-CHANNEL-127-01 注册表包含审计中的 15 个唯一渠道', () => {
+  it('TC-AUTO-CHANNEL-127-01 注册表包含审计中的 19 个唯一渠道', () => {
     expect(CHANNEL_IDS).toEqual([
       'juejin',
       'v2ex',
@@ -28,11 +28,31 @@ describe('marketing channel registry', () => {
       'dev',
       'mastodon',
       'x',
+      'jianshu',
+      'facebook',
+      'youtube',
+      'douyin',
     ]);
-    expect(new Set(CHANNEL_IDS).size).toBe(15);
+    expect(new Set(CHANNEL_IDS).size).toBe(19);
     for (const channel of Object.values(CHANNEL_REGISTRY)) {
       expect(channel.evidence.length).toBeGreaterThan(0);
     }
+  });
+
+  it('TC-AUTO-ASSISTED-127-01 新增内容平台只进入人工确认桥接，不扩大自动写集合', () => {
+    expect(AUTOMATIC_CHANNEL_IDS).toEqual(['github', 'bluesky', 'dev', 'mastodon']);
+    expect(MANUAL_BRIDGE_CHANNEL_IDS).toEqual(
+      expect.arrayContaining([
+        'juejin',
+        'bilibili',
+        'zhihu',
+        'x',
+        'jianshu',
+        'facebook',
+        'youtube',
+        'douyin',
+      ]),
+    );
   });
 
   it('TC-AUTO-CHANNEL-127-02 首批四渠道均为免费个人 API 路径', () => {
@@ -64,7 +84,20 @@ describe('marketing channel registry', () => {
       enabled: false,
       status: 'manual',
     });
-    expect(MANUAL_BRIDGE_CHANNEL_IDS).toEqual(['v2ex', 'hacker-news', 'product-hunt', 'weibo']);
+    expect(MANUAL_BRIDGE_CHANNEL_IDS).toEqual([
+      'juejin',
+      'v2ex',
+      'bilibili',
+      'zhihu',
+      'hacker-news',
+      'product-hunt',
+      'weibo',
+      'x',
+      'jianshu',
+      'facebook',
+      'youtube',
+      'douyin',
+    ]);
     expect(DISABLED_CHANNEL_IDS).toEqual([
       'juejin',
       'bilibili',
