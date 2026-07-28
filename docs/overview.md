@@ -20,7 +20,7 @@
 | 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                |
 | 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）        |
 | 测试     | Vitest L3/L4：300 个测试文件、2141 个用例在 2026-07-28 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过     |
-| 当前阶段 | C134 AdSense 技术接入与 C127 内容分发均 verified/100%；下一步建立独立 `content-studio`，自动生成图文/视频资产并交给 marketing-ops               |
+| 当前阶段 | C134 与 C127 均 verified；`content-studio` V0.1 内容/视频计划编译器已公开交付，下一步实现通用 Playwright 录制器并接 FFmpeg                      |
 | 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无站内 tracker；C127/C133 分发能力已交付，当前只读状态为 GitHub ready、其余自动渠道需按需重新接入 |
 | 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`          |
 

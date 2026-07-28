@@ -17,7 +17,7 @@
 
 1. 项目已经有 92 个条目、互动播放器、搜索、学习路径、复杂度速查、全局分享卡和首发文案，内容与产品基础足够进入增长验证。
 2. 当前站点仍是客户端 Vue SPA，但 C131 已用 Playwright 在构建后输出 190 个带真实正文的静态入口，并通过双 base 门禁、Pages/selfhost 与线上 HTTP 抽查；客户端继续接管交互。
-3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方行为分析已撤销。C127 已 verified/100%：GitHub/Bluesky/DEV/Mastodon 历史真实闭环、T4 安全跟进和 T5/T6 的 12 渠道 Owner 辅助发布交接均完成；当前只读健康为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required。下一步建设独立 `content-studio`。
+3. route head、尾斜杠 canonical、JSON-LD、按 catalog 生成的 sitemap/llms、95 组双向 hreflang 与 crawler 策略已落地；第三方行为分析已撤销。C127 已 verified/100%：GitHub/Bluesky/DEV/Mastodon 历史真实闭环、T4 安全跟进和 T5/T6 的 12 渠道 Owner 辅助发布交接均完成；当前只读健康为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required。公开 `content-studio` V0.1 已能编译平台内容与视频计划，下一步实现通用录制与合成。
 4. robots、结构化数据、`llms.txt` 或预渲染都不能保证排名、收录、富结果或 AI 引用。冷启动先用 UTM、渠道原生指标、实际发布 URL 与人工反馈复盘，稳定流量出现后再评审统计投入。
 5. 站点适合内容驱动获客。C134 已因现有 AdSense 审核问题完成主域验证、ads.txt、隐私入口和算法站 production loader；这只是技术准备，不代表审核通过、广告已展示或已有收入，也不改变学习体验优先原则。
 
@@ -57,7 +57,7 @@ flowchart LR
 | C130   | 收束 locale catalog，并将英文扩到 30 页                      | verified   |
 | C131   | 将 95 个中文索引页全部对齐英文                               | verified   |
 | C127   | 四渠道历史真实闭环、T4 安全跟进与 12 渠道 Owner 辅助发布交接 | verified   |
-| Studio | 跨项目自动内容、图文和视频资产生产                           | current    |
+| Studio | V0.1 内容/视频计划编译完成，推进通用录制与合成               | current    |
 | C134   | 主域审核入口与算法站 production-only AdSense 接入            | verified   |
 | C128   | 分批发布，在 48 小时和 7 天复盘后决定投入                    | planned    |
 
@@ -199,4 +199,5 @@ SEO/GEO 外部依据集中维护在 `execution-backlog.md`；渠道发布、监�
 - 2026-07-27：Mastodon T3-D4-C2 matching 授权闭环完成；plugin `44a7e9a` 修复段落还原后同 payload 认领唯一状态，正文、幂等、feedback、`1h` report、delete、deleted receipt 与无缓存远端 404 全通过；plugin `7cc60a5` 补齐自包含 MCP bundle 与安装缓存握手。C127 转 94%，下一步 T4。
 - 2026-07-28：C127 T4 完成 1h/48h/7d 确定性计划、跨渠道标准报告、project-scoped policy、FAQ-only GitHub 回复和 Bug Issue 最小化分流；零真实反馈写入，C127 转 97%，下一步 T5。
 - 2026-07-28：C127 T5/T6 完成 19 渠道注册表、12 渠道 owner-assisted prepare/confirm、多渠道 receipt 原子预检、双仓库全门禁、插件安装与只读状态复核；C127 verified/100%，下一步独立 `content-studio`。
+- 2026-07-28：公开 `IllegalCreed/content-studio` V0.1 提交 `da426e6`：19 渠道内容策略、三类文案、语义 capture flow、三画幅视频计划和安全 CLI 完成；8/20、coverage 与 Node 22/24/26 × Ubuntu/Windows CI 全绿，下一步通用 Playwright 录制器。
 - 2026-07-27：C134 完成主域 AdSense account meta/ads.txt/真实内容与算法站 production-only loader；双仓库提交推送、自托管上线、算法站 Pages 和 14 项线上复查通过，工程主线返回 C127 T3-D4-C。

@@ -6,7 +6,7 @@
 
 ## 当前阶段
 
-项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。C133 已把独立 `marketing-ops` 收束为 MCP v3 多项目工具并公开源码；C134 已完成主域 AdSense 审核入口和算法站 production-only 广告接入；C127 宣传自动化已 verified/100%。下一步建立独立 `content-studio` 自动内容生产仓库。
+项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成双轨发布，C125 第三方分析尝试已由 C129 撤销。C133 已把独立 `marketing-ops` 收束为 MCP v3 多项目工具并公开源码；C134 已完成主域 AdSense 审核入口和算法站 production-only 广告接入；C127 宣传自动化已 verified/100%。独立公开仓库 `IllegalCreed/content-studio` V0.1 已完成跨项目内容与视频计划编译器；下一步实现通用 Playwright 录制器。
 
 当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 verified/100%。微博零费用 API 发布路径已关闭；Bluesky 和 Mastodon 真实 smoke 均已完成并清理；DEV 正式文章长期公开。T4 已建立确定性 1h/48h/7d 计划、标准报告、FAQ-only 与 Bug Issue 失败关闭分流；T5 已把 Facebook、X、知乎、掘金、简书、B站、YouTube、抖音等 12 个渠道收束为 Owner 辅助发布交接，内容包自动生成、登录/挑战/最终发布由 Owner 在官方 UI 完成，确认 URL 后才落 receipt。最终只读状态为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required；历史闭环不代表当前写授权，后续写入仍需重新接入和 matching campaign 授权。第三方统计继续暂缓。
 
@@ -22,7 +22,7 @@
 | 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
 | 测试基线 | 2026-07-28 本地现状：300 个 Vitest 文件 / 2141 条 L3/L4 用例通过；`pnpm coverage` 与 104 文件 / 118 条 Playwright e2e 通过                     |
 | 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
-| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；`marketing-ops` MCP v3 多项目隔离完成；C134 广告技术入口已上线；DEV 正式文章长期公开            |
+| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；`marketing-ops` MCP v3 与 `content-studio` V0.1 已公开；C134 广告技术入口已上线                 |
 
 ## 维护队列
 
@@ -32,7 +32,7 @@
 | P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                           |
 | P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                    |
 | P1     | 低风险维护修复       | ongoing  | 优先处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归                                         |
-| P1     | 宣传自动化           | verified | C127/C133 已完成；下一步由 `content-studio` 自动生成图文/视频资产，marketing-ops 继续负责自动或 Owner 辅助发布交接         |
+| P1     | 宣传自动化           | ongoing  | C127/C133 与 `content-studio` V0.1 已完成；下一步为通用录制器、FFmpeg 合成和 marketing-ops 资产交接                        |
 | P1     | AdSense 审核准备     | verified | C134 已完成主域 account meta/ads.txt/信任页与算法站 production loader；后台 CMP、Auto ads、付款资料及重新送审由 Owner 完成 |
 | P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁  |
 | P2     | 免费索引与需求信号   | pending  | 190 页 sitemap 已稳定，可按 C124 清单提交 Search Console/Bing Webmaster Tools；不引入行为分析 tracker                      |
@@ -43,6 +43,7 @@
 
 | 日期       | 记录                                                                                                                                                     |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-28 | 公开 `IllegalCreed/content-studio` V0.1：19 渠道确定性内容编译、语义视频计划与安全 CLI 完成；8/20、coverage 与六平台 Node CI 全绿，下一步录制器          |
 | 2026-07-28 | C127 verified/100%：plugin `60152d3`、主仓库 `ef8c18c`；53/263、300/2141、coverage、118 L5、双 base、安装态与泄漏扫描全绿；零真实渠道写入                |
 | 2026-07-28 | C127 T5：新增 12 渠道 Owner 辅助发布交接，自动生成内容包；官方 UI 登录/挑战/最终发布由 Owner 控制，确认 URL 后才保存 receipt；零真实渠道写入，C127 99%   |
 | 2026-07-28 | C127 T4：确定性 1h/48h/7d 计划、标准报告、project-scoped policy、FAQ-only GitHub 回复与最小化 Bug Issue 分流完成；零真实写入，C127 97%                   |

@@ -6,7 +6,7 @@
 > Last reviewed: 2026-07-28
 > Current plan: C-20260711-127 提示词驱动的全自动内容分发（verified/100%）
 > Completed plan: C-20260727-134 AdSense 主域审核与算法站接入（verified）
-> Next action: 建立独立 `content-studio` 自动内容生产仓库，再进入 C128 真实发布与复盘
+> Next action: 推进 `content-studio` V0.2 通用 Playwright 录制器，再接 FFmpeg 合成与 marketing-ops 资产交接
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -34,12 +34,12 @@
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核     |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 已完成 | MCP v3 多项目隔离、四渠道真实闭环、T4 安全跟进、T5 Owner 辅助交接与 T6 交付完成          | C127 verified/100%；下一步由 `content-studio` 生成图文/视频资产                      |
+| 内容生产自动化   | 进行中 | C127 已完成；`content-studio` V0.1 可确定性生成 19 渠道内容包和三画幅视频计划            | 下一步实现通用 Playwright 录制器、FFmpeg 合成及 marketing-ops 资产交接               |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（verified）` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `content-studio 自动内容生产（current）` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（verified）` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `content-studio V0.1 编译器（verified）` -> `V0.2 录制与合成（current）` -> `C128 发布与复盘`
 
 顺序约束：
 
@@ -48,25 +48,26 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1-T6 已完成并转 verified/100%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 API plugin `263fd3f` 因 Free 零写额度保持 disabled；T5 将其与另外 11 个无当前自动 adapter 的渠道收束为 Owner 辅助发布交接。下一步建立 `content-studio`。
+6. C127 T1-T6 已完成并转 verified/100%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 API plugin `263fd3f` 因 Free 零写额度保持 disabled；T5 将其与另外 11 个无当前自动 adapter 的渠道收束为 Owner 辅助发布交接。`content-studio` V0.1 已完成，当前推进通用录制与合成。
 7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口，不恢复行为分析。
 8. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
-| 阶段                      | 状态       | 目标                                                         | 退出条件                                                            | 主要依赖                       |
-| ------------------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------ |
-| C123 增长执行审计与编排   | verified   | 统一事实、顺序、边界与历史状态                               | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | verified   | 让每个可索引页面具备唯一语义和可验证的机器可读产物           | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
-| C125 分析、事件与渠道归因 | superseded | 历史方案：第三方 page view、事件与会话归因                   | 未激活生产统计；由 C129 撤销                                        | C124                           |
-| C129 撤销第三方分析接入   | verified   | 删除行为分析 tracker 与事件，保留零成本 UTM 工具             | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
-| C126 `/en` 多语言十页试点 | verified   | 验证英文 UI、文章、搜索与国际 SEO 全链路                     | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
-| C130 英文目录扩展到 30 页 | verified   | 收束 locale catalog 并新增二十个英文算法页                   | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
-| C131 英文目录全量对齐     | verified   | 补齐 15 个互动页与 50 个播放器页                             | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | verified   | 四渠道真实闭环、T4 安全跟进、T5 Owner 辅助发布与 T6 交付完成 | 首批 live adapter、幂等发布、确定性跟进与 Owner 辅助交接可验证      | 100%；下一步 `content-studio`  |
-| C133 多项目隔离与通用化   | verified   | 一套本地发布器安全服务多个项目                               | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
-| C134 AdSense 技术准备     | verified   | 修复主域审核入口并让算法站仅在生产加载广告                   | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
-| C128 发布、监测与迭代     | planned    | 用真实 campaign 证据决定渠道投入                             | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
+| 阶段                      | 状态        | 目标                                                         | 退出条件                                                            | 主要依赖                       |
+| ------------------------- | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------ |
+| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                               | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物           | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
+| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因                   | 未激活生产统计；由 C129 撤销                                        | C124                           |
+| C129 撤销第三方分析接入   | verified    | 删除行为分析 tracker 与事件，保留零成本 UTM 工具             | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
+| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                     | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
+| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页                   | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
+| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                             | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
+| C127 提示词驱动全自动分发 | verified    | 四渠道真实闭环、T4 安全跟进、T5 Owner 辅助发布与 T6 交付完成 | 首批 live adapter、幂等发布、确定性跟进与 Owner 辅助交接可验证      | 已完成                         |
+| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                               | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
+| C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告                   | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
+| Studio 跨项目内容生产     | in-progress | 自动生成平台原生内容、项目演示视频及发布资产                 | 通用录制器、三画幅合成、字幕/旁白与 marketing-ops 资产交接通过      | V0.1 verified；V0.2 current    |
+| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                             | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -320,3 +321,4 @@
 - 2026-07-28：C127 T4 完成三窗口确定性计划、跨渠道标准报告、FAQ-only GitHub Issue 回复边界与 Bug Issue 最小化分流；plugin 51/252、coverage 和安全模块 100% 门槛全绿，全程零真实反馈写入。C127 转 97%，下一步 T5。
 - 2026-07-28：C127 T5 完成 12 个 Owner 辅助渠道的自动内容包、prepare/confirm 交接、官方 URL 校验、幂等 receipt 与跟进计划接线；先红后绿，未调用平台 adapter、未执行真实发布。C127 转 99%，下一步 T6 全门禁、安装与精确交付。
 - 2026-07-28：C127 T6 完成最终多渠道 receipt 预检修复、双仓库全门禁、插件安装/只读状态与精确提交；C127 verified/100%。纯 contract/docs 未部署 SPA，下一步建立 `content-studio`。
+- 2026-07-28：公开 `IllegalCreed/content-studio` V0.1 提交 `da426e6`：版本化项目/活动契约、19 渠道内容策略、三类文案、语义 capture flow、三画幅视频计划与安全 CLI 完成；Algorithm Visualizer 示例生成 12 个渠道包和 1 个视频计划，8 文件/20 用例、coverage 95.00%/90.27%/98.59%/94.87% 与 Node 22/24/26 × Ubuntu/Windows CI 全绿。下一步 V0.2 通用 Playwright 录制器；零站外写入。
