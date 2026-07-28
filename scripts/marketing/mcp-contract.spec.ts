@@ -88,6 +88,17 @@ describe('marketing MCP public contract', () => {
     }
   });
 
+  it('TC-AUTO-FAQ-127-03 reply action 闭合且固定模板正文不由 caller 必填', () => {
+    const reply = MARKETING_MCP_TOOLS.find((tool) => tool.name === 'reply_feedback');
+
+    expect(reply?.inputSchema.required).not.toContain('body');
+    expect(reply?.inputSchema.properties).toMatchObject({
+      action: { enum: ['faq-reply', 'bug-issue'], default: 'faq-reply' },
+      body: { type: 'string', minLength: 1, maxLength: 2_000 },
+      policy: { const: 'faq-only' },
+    });
+  });
+
   it('TC-AUTO-MCP-127-04 敌意嵌套字段在 dispatch 前失败关闭', () => {
     for (const unsafeField of [
       'password',

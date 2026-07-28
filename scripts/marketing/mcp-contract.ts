@@ -188,7 +188,8 @@ export const MARKETING_MCP_TOOLS = Object.freeze([
   {
     name: 'reply_feedback',
     title: 'Reply to feedback',
-    description: 'Send an idempotent FAQ-only reply under an owner-authorized campaign.',
+    description:
+      'Send an idempotent FAQ-only reply or route a high-confidence Bug under an owner-authorized campaign.',
     inputSchema: {
       type: 'object',
       additionalProperties: false,
@@ -197,7 +198,6 @@ export const MARKETING_MCP_TOOLS = Object.freeze([
         'campaignId',
         'postRef',
         'commentId',
-        'body',
         'policy',
         'idempotencyKey',
         'authorization',
@@ -207,6 +207,7 @@ export const MARKETING_MCP_TOOLS = Object.freeze([
         campaignId: { type: 'string', pattern: CAMPAIGN_ID_PATTERN },
         postRef: POST_REF_SCHEMA,
         commentId: { type: 'string', minLength: 1, maxLength: 200 },
+        action: { enum: ['faq-reply', 'bug-issue'], default: 'faq-reply' },
         body: { type: 'string', minLength: 1, maxLength: 2_000 },
         policy: { const: 'faq-only' },
         idempotencyKey: { type: 'string', pattern: IDEMPOTENCY_KEY_PATTERN },
