@@ -1,7 +1,7 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-07-27
+> Last reviewed: 2026-07-28
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
@@ -85,7 +85,7 @@
 | marketing / channel inventory      | TC-DOC-AUTO-127-01             | 十五渠道集合完整且唯一                               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / official evidence      | TC-DOC-AUTO-127-02             | 发布、监测、回复、准入与成本有官方依据               | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / capability tiers       | TC-DOC-AUTO-127-03             | 免费个人、后备与硬禁用边界明确                       | docs     | `docs/marketing/channel-automation-audit.md`               |
-| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 94%、Mastodon 闭环已清理，下一步 T4             | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
+| docs / automation memory           | TC-DOC-AUTO-127-04             | C127 97%、T4 调度/报告/反馈分流完成，下一步 T5       | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / credential safety      | TC-DOC-AUTO-127-05             | 官方授权、凭据隔离与失败关闭红线完整                 | docs     | `docs/marketing/channel-automation-audit.md`               |
 | marketing / MCP boundary           | TC-DOC-AUTO-127-09             | Codex 与凭据/Profile 的工具边界完整                  | docs     | `docs/plans/20260711-c127-auto-distribution/test-cases.md` |
 | marketing / campaign spec          | TC-AUTO-SPEC-127-01..04        | schema、规范化、非法输入与双语内容合同               | L3       | `scripts/marketing/spec.spec.ts`                           |
@@ -147,6 +147,17 @@
 | marketing-ops / Mastodon runtime   | TC-AUTO-MASTORUNTIME-127-01            | 请求级惰性注册与失去健康时失败关闭               | MCP   | personal plugin `src/local-runtime.spec.ts`             |
 | marketing-ops / Mastodon smoke     | TC-AUTO-MASTOSMOKE-127-01              | 固定正文/UTM/幂等键与授权前零副作用              | smoke | `scripts/marketing/publish-payload.spec.ts`             |
 | marketing-ops / Mastodon smoke     | TC-AUTO-MASTOSMOKE-127-02              | matching 授权后的发布、读取、报告与安全清理      | smoke | local MCP real smoke                                    |
+
+### 2026-07-28 调度、报告与反馈安全 T4
+
+| 模块                               | Case ID                     | 标题                                        | 层级   | 自动化路径                                   |
+| ---------------------------------- | --------------------------- | ------------------------------------------- | ------ | -------------------------------------------- |
+| marketing-ops / follow-up schedule | TC-AUTO-SCHEDULE-127-01..04 | 三窗口计划、恢复与到期前零采集              | L3/MCP | plugin follow-up schedule + T4 runtime specs |
+| marketing-ops / campaign report    | TC-AUTO-REPORT-127-01..04   | 标准指标、不可用值、归因与部分失败          | L3/MCP | plugin campaign report + T4 runtime specs    |
+| marketing-ops / campaign policy    | TC-AUTO-POLICY-127-01       | 0700/0600 project policy 与失败关闭         | L3     | plugin campaign-policy-store specs           |
+| marketing-ops / FAQ reply          | TC-AUTO-FAQ-127-01..04      | FAQ 固定模板、升级边界与写前对拍            | L3/MCP | plugin feedback-policy + T4 runtime specs    |
+| marketing-ops / GitHub Issue reply | TC-AUTO-GHREPLY-127-01..05  | typed comment transport 与 marker 幂等      | L3     | plugin github-issue-reply-adapter spec       |
+| marketing-ops / Bug routing        | TC-AUTO-BUGROUTE-127-01..05 | 双信号、最小化 Issue 与 receipt/marker 幂等 | L3/MCP | plugin feedback-policy + T4 runtime specs    |
 
 ---
 

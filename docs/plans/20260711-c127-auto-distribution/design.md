@@ -5,14 +5,15 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-27
-> Progress: 94%
+> Last reviewed: 2026-07-28
+> Progress: 97%
 > Blocked by: none
-> Next action: T3-D4-C2 Mastodon 真实闭环已完成；进入 T4 监测、回复与复盘
+> Next action: T4 调度、标准报告、FAQ-only 与 Bug Issue 分流已完成；进入 T5 RPA/Reddit/人工桥接评审
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
+> T4 tests: TC-AUTO-SCHEDULE-127-\_、TC-AUTO-REPORT-127-\_、TC-AUTO-POLICY-127-\_、TC-AUTO-FAQ-127-\_、TC-AUTO-GHREPLY-127-\_、TC-AUTO-BUGROUTE-127-\_
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -195,11 +196,39 @@ get_campaign_report(campaignId, window)
 - 私有运行细节只进入本地受权限保护的存储；GitHub Issue 只写公开 URL、聚合指标和清洗摘要。
 - 同一幂等键已成功时返回已有 receipt；未知结果先查询平台再决定重试。
 
+### T4 一次性调度与恢复模型
+
+- 调度锚点是同一 project/campaign 最后一条成功主发布 receipt 的 `publishedAt`；GitHub Issue、FAQ reply 等后续反馈 artifact 不参与锚点，避免后续写入把 48h/7d 窗口向后漂移。
+- 固定窗口为 `1h`、`48h`、`7d`，分别加 3,600、172,800、604,800 秒；使用绝对 UTC 时间，不按日历日或本地 DST 重新解释。
+- 每项计划包含 `projectId`、`campaignId`、`window`、`anchorAt`、`dueAt`、稳定 `taskKey`、`delivery=codex-one-time-task` 和只读报告调用说明。publish 与 get status 从 receipt 计算同一结果，不另建易漂移的第二事实源。
+- Codex 收到 publish 成功结果后用产品的一次性 automation 创建三个跟进；插件不尝试从本地 STDIO 进程直接控制 Codex，也不监听公网端口。若原任务中断，重新调用 status 即可从 0600 receipt 恢复相同计划。
+- `get_campaign_report` 在 `dueAt` 前返回 `scheduled` 且不触发 collector；到期后才采集。重复读取允许刷新平台 lifetime 数值，但任务键不变，automation 本身只执行一次。
+
+### T4 跨渠道标准报告
+
+报告顶层固定为 `schemaVersion/projectId/campaignId/window/status/anchorAt/dueAt/generatedAt/channels/artifacts/limitations`：
+
+- `status` 为 `scheduled`、`available`、`partial` 或 `unavailable`；
+- 每个主发布 receipt 恰好产生一个 channel entry，状态为 `available`、`unavailable` 或 `failed`；
+- metric 使用统一 `{ key, valueStatus, value?, reason?, unit, scope, attribution }`，不把平台特有 raw response 直接暴露为合同，缺失或畸形计数必须 unavailable；
+- GitHub Release reactions/downloads 为 post-level；仓库 views/clones 固定 `repository-14d` + `not-attributable-to-campaign`；
+- DEV reactions/comments 与 Mastodon favourites/reblogs/replies 是 post lifetime；DEV page views、Bluesky 当前指标显式 unavailable；
+- collector 的单渠道 401/403/429/5xx 不让其他渠道消失；报告转 `partial` 并保留脱敏错误码。Issue/reply receipt 进入 `artifacts`，不参与主发布汇总和调度锚点。
+
 ## 回复策略
 
 `off` 是默认值。`faq-only` 只允许：致谢、已批准 FAQ、文档链接、已确认 Bug 的收集说明。模型无法高置信度分类、用户表达负面/争议、包含隐私信息或涉及法律/安全/付款时一律升级 Owner。
 
 平台硬限制优先于 campaign：V2EX、Hacker News、Product Hunt、DEV 当前禁用自动回复。微博、Bluesky、Mastodon、GitHub 和审核通过后的 Reddit 仍需各自频率与社区规则 gate；微信/B站/X 在 Owner 当前硬约束下整体禁用。
+
+### T4 FAQ-only 与 Bug 分流
+
+1. publish 前把原 spec 中仅含 `replies.mode/createBugIssues` 的 project-scoped policy 以 0600 原子文件保存；同 project/campaign 异策略冲突时在任何站外写入前失败关闭。旧 campaign 没有该 policy 时不能自动回复或建 Issue。
+2. `reply_feedback` 保持单一高层写工具，但用闭合 `action=faq-reply|bug-issue` 区分两条路径；两者都要求当前 Owner matching authorization、caller idempotency key、已知 published receipt 和从平台重新读取的精确 feedback ID。
+3. feedback 正文先转纯文本并检查敏感/升级信号。FAQ 只识别短致谢与明确“文档/如何使用”问题；回复正文必须等于插件按 Project Profile canonical origin 生成的固定中/英文模板。
+4. 首期 FAQ 写 transport 只增加 GitHub Issue comment 的固定 typed CLI 操作；请求正文只经 stdin JSON，创建后严格对拍 marker、Issue/comment URL 与公开 ID。其他渠道即使分类为 FAQ 也返回 adapter unavailable。
+5. Bug 必须同时命中缺陷词与复现/确定性信号；只命中“坏了”、情绪或建议不自动建 Issue。Issue 标题和正文由插件生成，不复制不可信原文，不带 author alias；只列 project、channel、campaign、feedback ID SHA-256 和公开 source URL。
+6. GitHub Issue 使用 project/campaign/feedback ID/caller key 的 hash marker 做远端 lookup；同 marker 同内容复用，异内容冲突，分页未穷尽或提交后未知时停止查询，不盲目再次创建。成功 receipt 保存为 artifact。
 
 ## 账号接入
 
@@ -315,6 +344,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-27：T3-D4-B 通过官方 regenerate 轮换 token；健康层把 Mastodon 本地 `acct` 补全为实例域名，setup 先落非秘密 activation 再写 Keychain，隐藏 prompt 恢复原 stdin 状态。status/doctor ready/enabled；下一步 T3-D4-C。
 - 2026-07-27：T3-D4-C1 固定英文 Quick Sort 临时 status、UTM、幂等键与完整清理顺序；公开 dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，等待 matching 授权。
 - 2026-07-27：T3-D4-C2 首次提交后因相邻 `<p>` 被还原为单换行而触发 `UNKNOWN_RESULT`；公开只读查询确认只有一条正文正确的状态，回归修复后同 payload 预查询认领该状态并落 receipt，未重复创建。正文、同 payload 幂等、feedback、`1h` report、delete 与 deleted receipt 均通过；带 cache-buster 的官方状态 API 为 404、账号状态列表为空。
+- 2026-07-28：T4 按本设计落地确定性三窗口计划、到期采集 gate、标准化 per-receipt 报告、project-scoped reply policy、GitHub Issue FAQ 固定模板与最小化 Bug Issue 分流。计划本身不等于已创建自动任务；任何真实回复或 Issue 仍须 matching Owner 授权并在写前 fresh reread。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

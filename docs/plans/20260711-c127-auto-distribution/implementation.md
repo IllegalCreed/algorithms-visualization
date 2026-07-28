@@ -5,14 +5,15 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-27
-> Progress: 94%
+> Last reviewed: 2026-07-28
+> Progress: 97%
 > Blocked by: none
-> Next action: T3-D4-C2 Mastodon 真实闭环已完成；进入 T4 监测、回复与复盘
+> Next action: T4 调度、标准报告、FAQ-only 与 Bug Issue 分流已完成；进入 T5 RPA/Reddit/人工桥接评审
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
+> T4 tests: TC-AUTO-SCHEDULE-127-\_、TC-AUTO-REPORT-127-\_、TC-AUTO-POLICY-127-\_、TC-AUTO-FAQ-127-\_、TC-AUTO-GHREPLY-127-\_、TC-AUTO-BUGROUTE-127-\_
 > Related design: design.md
 
 ## 执行顺序
@@ -158,11 +159,24 @@
 
 ## T4 监测、回复与复盘
 
-- [ ] 实现 1h/48h/7d collector 和跨渠道指标 schema。
-- [ ] 发布成功后创建三个一次性 Codex 跟进任务，到点采集并回写原任务；验证中断恢复路径。
-- [ ] 实现 FAQ-only 回复白名单和人工升级分类；硬禁用 V2EX/HN/Product Hunt/DEV 自动回复。
-- [ ] 缺陷反馈去重后创建 GitHub Issue。
-- [ ] 生成包含观测限制、投入时间和下一步判断的报告。
+- [x] T4-A：先以 `TC-AUTO-SCHEDULE-127-*` 红测固定 latest-primary-receipt 锚点、1h/48h/7d UTC 到期时间、稳定 task key、publish/status 同源恢复与提前读取不采集。
+- [x] T4-B：先以 `TC-AUTO-REPORT-127-*` 红测固定跨渠道 schema、全 receipt 覆盖、标准 metric、单渠道失败隔离、GitHub 14 天 traffic 不可归因与 artifact 排除。
+- [x] T4-C：先以 `TC-AUTO-FAQ-127-*` 红测固定 campaign policy 0600 持久化、FAQ 白名单、敏感/争议/模糊升级、固定模板和未支持渠道失败关闭。
+- [x] T4-D：先以 `TC-AUTO-GHREPLY-127-*` 红测增加 GitHub Issue comment 固定 typed CLI、远端 marker 幂等、stdin 正文、结果对拍与日志脱敏。
+- [x] T4-E：先以 `TC-AUTO-BUGROUTE-127-*` 红测从真实已知 feedback 分流 GitHub Issue；只保存通用说明/来源，不复制正文，marker + receipt 双重幂等。
+- [x] T4-F：publish/status 返回三个 `codex-one-time-task` 计划；实际 campaign 成功后由 Codex 创建一次性 automation，到点调用只读 report 并回写原任务。本轮无新 campaign，不创建空 automation。
+- [x] T4-G：生成包含观测限制、不可归因项、失败渠道、投入时间 unavailable 和下一步判断的报告；DEV/V2EX/HN/Product Hunt 与未接线 reply 继续失败关闭。
+
+### T4 完成事实（2026-07-28）
+
+- 审计确认 GitHub、DEV、Mastodon 已有 typed collector；Bluesky 当前无 collector，DEV 与 Mastodon 无 reply transport；既有 GitHub Issue adapter 已具备远端 marker 幂等，但运行时尚未分流，GitHub CLI 尚无 comment create。
+- 第一轮红灯由 5 个缺失模块触发；实现 schedule/report/policy/classifier/Issue reply 后 49 文件/239 用例转绿。第二轮运行时红灯固定 publish/status 计划、到期 gate 与 Bug artifact；完成接线后继续补齐 FAQ、CLI、失败分支和安全覆盖。
+- `publish_campaign` 与 `get_publish_status` 现在从 project-scoped receipt 计算相同 1h/48h/7d 一次性任务描述；`get_campaign_report` 到期前不调用 collector，到期后按主发布 receipt 返回标准 entry，artifact 不移动锚点。
+- campaign reply policy 只保存 `mode/createBugIssues`，采用 0700 目录、0600 文件与原子 hard-link；旧 campaign、策略冲突、损坏或宽权限文件全部失败关闭。
+- `reply_feedback` 保持 MCP v3 七工具之一，新增闭合 action。FAQ 只在 GitHub Issue 使用 canonical 固定模板；Bug Issue 只含 project/campaign/channel、feedback ID SHA-256、公开 source URL 和通用待复核说明。
+- 插件提交 `1ccfb9e` 已推送；安装版 `0.1.0+codex.20260728143703` enabled，实际安装缓存的自包含 server 已完成 MCP v3 七工具和只读脱敏 status 握手。
+- 插件最终 51 个测试文件/252 个用例、verify 与 coverage（97.28/93.43/99.81/97.82）全绿；`campaign-policy-store.ts`、`github-issue-reply.ts` 与 `local-runtime.ts` 均执行 100% line/branch/function/statement 门槛，Gitleaks 无泄漏。
+- 本轮只调用了 `channels_status` 和本地 fake/隔离测试；未真实发布、回复、删除或创建 GitHub Issue，也未读取任何 secret。
 
 ## T5 RPA 评审、Reddit 后备与人工桥接
 
@@ -196,7 +210,7 @@ personal plugin 的 T3-C 新增 Release detail/reactions、14 天仓库 traffic�
 
 本机现有 GitHub CLI 账号 `IllegalCreed` 与目标仓库权限为 ready；Owner 已明确授权固定 campaign 并完成 `setup github`，非秘密 activation 保持 enabled。唯一真实 smoke 创建 Release `352517542`，读取 status、零条反馈与明确不可归因的仓库级报告后，经 MCP 删除 Release 和 owned tag；receipt 为 deleted，Release/tag 独立复查均不存在。全过程未读取聊天凭据，未创建评论、回复或 Issue。
 
-Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke，临时记录已清理。DEV 已完成工程 adapter、collector、公开 durable campaign preflight/setup 与固定正式文章 smoke，当前 ready/enabled；receipt `4146005` published，文章长期公开。Mastodon 和完整 1h/48h/7d 调度仍未完成，不能表述为“全自动系统已经可用”。
+Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke，临时记录已清理。DEV 已完成工程 adapter、collector、公开 durable campaign preflight/setup 与固定正式文章 smoke；receipt `4146005` published，文章长期公开，但当前 key 为 reauth-required。Mastodon 真实闭环已完成并清理。T4 已补齐 1h/48h/7d 确定性计划、标准报告和反馈安全分流；计划输出不代表已经创建 Codex 自动任务，T5/T6 未完成前仍不能表述为“全自动系统已经可用”。
 
 ## 验证记录
 
@@ -255,6 +269,8 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - `TC-AUTO-MASTOAPI-127-04` 扩展段落回归先红后绿；`htmlToText()` 保留相邻段落的双换行。修复后同一 renderer package 与 caller idempotency key 先查询并认领既有状态，公开账号状态数在认领和同 payload 复放后始终为 1。
 - 持久 receipt、公开正文精确对拍、feedback 与 `1h` report 均成功；公开 post-lifetime favourites/reblogs/replies 均为 0。`delete_post` 返回 deleted，receipt 为 deleted。普通 GET 曾命中旧 CDN cache；加入唯一查询参数后的官方 status API 为 404，账号状态列表为空。
 - plugin `pnpm verify` 与 `pnpm coverage` 全绿：44 个测试文件 / 225 个用例，coverage 97.23/93.91/99.78/97.82。凭据未进入聊天、命令参数、输出或仓库。
+- T4 plugin `pnpm verify`、`pnpm coverage`、安装缓存 STDIO 和 Gitleaks 全绿：51 个测试文件 / 252 个用例，coverage 97.28/93.43/99.81/97.82；安装版 `0.1.0+codex.20260728143703` enabled。
+- T4 主仓库 `pnpm verify`、`pnpm coverage` 与 `pnpm exec playwright test` 全绿：300 个 Vitest 文件 / 2138 个用例、coverage 95.49/86.32/92.03/95.82、104 个 Playwright 文件 / 118 个用例，以及 190 页 production 预渲染/SEO 门禁通过。
 
 ## 变更历史
 
@@ -281,3 +297,4 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 2026-07-27：T3-D4-B 完成官方 token regenerate、隐藏 setup 与只读身份对拍；plugin `bb62731` 修复本地 acct 补全、Keychain 顺序和隐藏 CLI 退出，44/225、coverage、verify、validator、安装态及 Gitleaks 全绿。Mastodon ready/enabled，C127 保持 92%，下一步 T3-D4-C 固定预案。
 - 2026-07-27：T3-D4-C1 零副作用预案已冻结；固定 campaign、renderer 正文、UTM、幂等键、授权 blocker 与 publish/read/幂等/反馈/报告/delete/远端复查顺序，C127 保持 92%，等待 matching 授权。
 - 2026-07-27：T3-D4-C2 matching 授权闭环完成；plugin `44a7e9a` 修复段落还原后同 payload 安全认领唯一状态并完成读取、幂等、反馈、`1h` 报告、删除与远端不存在复查。安装审计随后发现 Codex 缓存不保留 pnpm 依赖符号链接，plugin `7cc60a5` 将 MCP server 打包为自包含 bundle；无 `node_modules` 隔离 STDIO 与最终安装缓存七工具握手均通过。C127 转 94%，下一步 T4。
+- 2026-07-28：T4 先红后绿完成三窗口计划、跨渠道标准报告、FAQ-only GitHub Issue 回复边界与 Bug Issue 安全分流；plugin 51 文件 / 252 用例与 coverage 全绿，三个高风险模块执行 100% 门槛。全部写路径使用 fake client 验证，未执行真实回复或建 Issue。C127 转 97%，下一步 T5。

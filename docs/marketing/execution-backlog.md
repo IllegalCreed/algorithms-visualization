@@ -3,10 +3,10 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-27
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/94%，T3-D4-C2 Mastodon 真实闭环已完成）
+> Last reviewed: 2026-07-28
+> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/97%，T4 调度、标准报告与反馈安全分流已完成）
 > Completed plan: C-20260727-134 AdSense 主域审核与算法站接入（verified）
-> Next action: 进入 T4，补齐 1h/48h/7d 调度、跨渠道报告、FAQ-only 回复边界与 Bug Issue 分流
+> Next action: 进入 T5，评审受控 RPA、Reddit 后备与人工发布桥接
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -34,12 +34,12 @@
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核     |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | MCP v3 多项目隔离完成；GitHub/Bluesky/DEV/Mastodon 真实闭环完成                          | 当前 94%；下一步 T4 调度、跨渠道报告、回复边界与 Bug 分流                            |
+| 内容生产自动化   | 进行中 | MCP v3 多项目隔离、四渠道真实闭环与 T4 调度/报告/反馈安全分流完成                        | 当前 97%；下一步 T5 RPA/Reddit/人工桥接评审                                          |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `C127 Mastodon 接入（current）` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `C127 T4 监测与反馈安全（complete）` -> `C127 T5 RPA/人工桥接（current）` -> `C128 发布与复盘`
 
 顺序约束：
 
@@ -48,25 +48,25 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B/T3-D4-C 已完成并转 94%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步进入 T4。
+6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B/T3-D4-C/T4 已完成并转 97%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步进入 T5。
 7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口，不恢复行为分析。
 8. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
-| 阶段                      | 状态        | 目标                                               | 退出条件                                                            | 主要依赖                       |
-| ------------------------- | ----------- | -------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
-| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                     | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物 | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
-| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因         | 未激活生产统计；由 C129 撤销                                        | C124                           |
-| C129 撤销第三方分析接入   | verified    | 删除行为分析 tracker 与事件，保留零成本 UTM 工具   | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
-| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路           | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
-| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页         | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
-| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                   | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | in-progress | GitHub/Bluesky/DEV/Mastodon 真实闭环完成           | 首批 live adapter、幂等发布、1h/48h/7d 采集与真实 smoke 通过        | 94%；下一步 T4                 |
-| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                     | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
-| C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告         | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
-| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                   | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
+| 阶段                      | 状态        | 目标                                                 | 退出条件                                                            | 主要依赖                       |
+| ------------------------- | ----------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
+| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                       | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物   | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
+| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因           | 未激活生产统计；由 C129 撤销                                        | C124                           |
+| C129 撤销第三方分析接入   | verified    | 删除行为分析 tracker 与事件，保留零成本 UTM 工具     | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
+| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路             | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
+| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页           | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
+| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                     | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
+| C127 提示词驱动全自动分发 | in-progress | 四渠道真实闭环与 T4 调度、标准报告、反馈安全分流完成 | 首批 live adapter、幂等发布、确定性跟进与真实 smoke 通过            | 97%；下一步 T5                 |
+| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                       | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
+| C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告           | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
+| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                     | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -175,7 +175,7 @@
 
 ## C127 提示词驱动的全自动内容分发
 
-> Status: in-progress / 94% / current（C-20260711-127）
+> Status: in-progress / 97% / current（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
@@ -211,6 +211,10 @@
 - T3-D4-B 已完成：旧 token 经 Mastodon 官方 regenerate 失效；真实 `verify_credentials` 返回本地 `acct=illegals0001`，先以 `TC-AUTO-MASTOAPI-127-02A` 和 `TC-AUTO-MASTODONCHANNEL-127-03A` 复现完整句柄与 Keychain 顺序缺陷，再由 plugin `bb62731` 补全为 `illegals0001@mastodon.social`、先验证非秘密 activation 后写 secret，并修复隐藏输入结束后 CLI 不退出。替代 token 只经本机 PTY 进入 Keychain，0600 activation 不含 secret；status/doctor 均为 ready/enabled。plugin 44 文件 / 225 用例、coverage、verify、validator、installed/enabled 与 Gitleaks 全绿；未发布状态、未创建 receipt。
 - T3-D4-C 已完成：Owner matching 授权后，首次提交因 Mastodon 相邻 `<p>` 只还原为单换行而 after-submit 失败关闭为 `UNKNOWN_RESULT / lookupRequired`。公开只读查询确认只有一条正文正确的状态；扩展 `TC-AUTO-MASTOAPI-127-04` 回归并由 plugin `44a7e9a` 修复段落空行后，同一 payload 预查询认领既有状态并落 receipt，账号状态数未增加。
 - T3-D4-C 后续正文精确对拍、同 payload 幂等复放、feedback、`1h` report 和 `delete_post` 均通过；receipt 为 deleted。普通 GET 曾命中删除前 CDN cache，带唯一查询参数的官方 status API 为 404，账号状态列表为空。收尾发现 Codex 插件缓存不保留 pnpm 依赖符号链接，plugin `7cc60a5` 将 MCP server 改为自包含 bundle，并以无 `node_modules` 隔离 STDIO 和真实安装缓存握手验证七工具；当前安装版为 `0.1.0+codex.20260727115555`。Mastodon 保持 ready/enabled，后续 campaign 仍需独立 matching 授权。
+- T4 已完成：从主发布 receipt 确定性派生 1h/48h/7d `codex-one-time-task` 计划，publish/status 可恢复同一 taskKey/dueAt，窗口到期前报告保持 scheduled 且不调用 collector；计划输出不等于已创建自动任务。
+- 跨渠道报告按主 receipt 标准化 available/unavailable/failed metric，GitHub 14 天仓库 traffic 固定不可归因，artifact 单列，Bluesky 与缺失/畸形指标不伪造为 0，单渠道失败不阻塞其余渠道。
+- campaign reply policy 以 project-scoped 0700/0600 原子文件保存。FAQ-only 只允许 GitHub Issue 固定中英文模板；敏感/含注入指令/模糊内容升级人工。Bug Issue 需要缺陷和复现双信号，只保存 feedback ID SHA-256、公开 source URL 与通用待复核说明，远端 marker 和本地 receipt 双重幂等。
+- 所有反馈写动作仍要求 matching Owner 授权、已知 published receipt、fresh exact feedback reread 与可用 transport；T4 工程验证只使用 fake client/clock，没有真实回复或创建 Issue。plugin `1ccfb9e` 已推送，安装版 `0.1.0+codex.20260728143703` enabled；51 文件 / 252 用例、verify、coverage、安装缓存握手、Gitleaks 与高风险模块 100% 门槛全绿。
 - 首次真实接入时由 Codex 逐步带 Owner 完成向导；接入后的正常使用只需自然语言 campaign，不要求编辑 JSON、拼 UTM 或记忆 CLI。
 
 ### 退出条件
@@ -308,3 +312,4 @@
 - 2026-07-27：C134 完成主域 AdSense 所有权/ads.txt/真实内容与算法站 production-only loader；个人站 `5f6c4f1`、算法站 `1a50864` 已推送和自托管上线，300/2136 Vitest、118 L5、coverage、双 base 与 14 项线上断言全绿，主线返回 C127 T3-D4-C。
 - 2026-07-27：T3-D4-C1 固定 Mastodon 英文临时 status、UTM、幂等键与清理顺序；dry-run 唯一授权 blocker 且零副作用。
 - 2026-07-27：T3-D4-C2 matching 授权闭环完成；plugin `44a7e9a` 修复段落还原并同 payload 认领唯一状态，正文、幂等、feedback、`1h` report、delete、deleted receipt 与无缓存远端 404 全部通过；plugin `7cc60a5` 追加自包含 MCP bundle 与安装缓存握手。C127 转 94%，下一步 T4。
+- 2026-07-28：C127 T4 完成三窗口确定性计划、跨渠道标准报告、FAQ-only GitHub Issue 回复边界与 Bug Issue 最小化分流；plugin 51/252、coverage 和安全模块 100% 门槛全绿，全程零真实反馈写入。C127 转 97%，下一步 T5。

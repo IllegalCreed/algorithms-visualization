@@ -5,14 +5,15 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-27
-> Progress: 94%
+> Last reviewed: 2026-07-28
+> Progress: 97%
 > Blocked by: none
-> Next action: T3-D4-C2 Mastodon 真实闭环已完成；进入 T4 监测、回复与复盘
+> Next action: T4 调度、标准报告、FAQ-only 与 Bug Issue 分流已完成；进入 T5 RPA/Reddit/人工桥接评审
 > Replaces: C-20260710-123 中 TC-DOC-GROWTH-123-03 的“每帖人工审批”历史断言
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
+> T4 tests: TC-AUTO-SCHEDULE-127-\_、TC-AUTO-REPORT-127-\_、TC-AUTO-POLICY-127-\_、TC-AUTO-FAQ-127-\_、TC-AUTO-GHREPLY-127-\_、TC-AUTO-BUGROUTE-127-\_
 > Related requirement: requirements.md
 
 > 当前验证说明：MCP v1/v2 Case 保留为历史回归；C133 新增的 MCP v3、Project Profile 与跨项目隔离 Case 见 `docs/plans/20260727-c133-multi-project-marketing-ops/test-cases.md`。
@@ -24,11 +25,11 @@
 | TC-DOC-AUTO-127-01 | docs | 渠道审计                     | 十个正式渠道与微博、X、DEV、Bluesky、Mastodon 五个补充渠道各出现一次，集合无遗漏                  |
 | TC-DOC-AUTO-127-02 | docs | 官方依据                     | 每个渠道都有发布、监测、回复、授权/准入、成本或限制结论，并链接官方资料                           |
 | TC-DOC-AUTO-127-03 | docs | 能力等级与 Owner 约束        | 免费个人首批、Reddit 后备、人工监测、主体禁用和费用禁用集合明确；不把聚合评论数误写成评论正文能力 |
-| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 94%；Mastodon T3-D4-C2 闭环完成并已清理；下一步 T4                                    |
+| TC-DOC-AUTO-127-04 | docs | marketing/roadmap/agent 记忆 | C127 一致为 97%；T4 调度、标准报告与反馈分流完成；下一步 T5                                       |
 | TC-DOC-AUTO-127-05 | docs | 凭据与失败策略               | API/RPA 凭据隔离、幂等与失败关闭完整；禁止主密码回传、内部 API、stealth 和验证码绕过              |
 | TC-DOC-AUTO-127-06 | docs | `pnpm format:check`          | 本轮文档符合 Prettier                                                                             |
 | TC-DOC-AUTO-127-07 | docs | `git diff --check`           | diff 无尾随空白或空白错误                                                                         |
-| TC-DOC-AUTO-127-08 | docs | plan 状态                    | GitHub/Bluesky/DEV/Mastodon 真实闭环已完成；T4 完整调度、采集与复盘仍未完成                       |
+| TC-DOC-AUTO-127-08 | docs | plan 状态                    | GitHub/Bluesky/DEV/Mastodon 真实闭环与 T4 工程实现完成；T5/T6 仍未完成                            |
 | TC-DOC-AUTO-127-09 | docs | MCP 凭据边界                 | Codex 只见高层工具与脱敏结果；凭据/Profile 位于独立本地服务且不存在任意浏览器执行工具             |
 
 前六个事实 Case（01..05、09）登记到三份全局测试索引；格式、diff 和当前实施状态只保留在本 plan。
@@ -277,14 +278,31 @@ T3-C 固定以下 22 个 Case。Release reactions 是无正文反馈；Issue com
 - 幂等键：`campaign-v1/marketing-ops-t3d4-smoke-127/d31992711a03d2ae0b0fd77dd08d88f8fc5d8a1a0f0cad1914860fb286eb510a`
 - 固定顺序：Mastodon direct health -> renderer/dry-run -> matching Owner 授权 -> publish receipt -> status/公开正文 -> 同 payload 幂等复放 -> feedback -> `1h` report -> delete -> receipt deleted -> 官方读取确认远端不存在
 
-## T3-D-T5 运行时用例框架
+## T4 调度、标准报告、FAQ 回复与 Bug Issue 分流
 
-| 层级             | 范围                                                                         |
-| ---------------- | ---------------------------------------------------------------------------- |
-| L3               | 其他渠道、指标归一化、回复分类与 T1 新增分支                                 |
-| adapter contract | 其他官方 HTTP/CLI 的成功、401、403、429、5xx、超时、未知结果、删除和日志脱敏 |
-| smoke            | 每个启用渠道的低风险真实发布、读取和官方支持时撤回；DEV 使用长期保留正式文章 |
-| C128             | 1h/48h/7d collector、跨渠道报告、FAQ-only 回复、Bug Issue 分流               |
+全部 T4 自动化使用 fake clock、fake receipt/collector/typed client，不连接真实渠道、不创建真实回复或 Issue。安全存储和写路径继续执行高覆盖率门槛。
+
+| Case ID                    | 层级             | 检查对象              | 预期                                                                                                          |
+| -------------------------- | ---------------- | --------------------- | ------------------------------------------------------------------------------------------------------------- |
+| TC-AUTO-SCHEDULE-127-01    | L3               | 三窗口计算            | 以最后一条主发布 receipt 为锚点，确定性生成 1h/48h/7d UTC dueAt、稳定 taskKey 与 `codex-one-time-task`        |
+| TC-AUTO-SCHEDULE-127-02    | L3               | 主发布/artifact 边界  | GitHub Issue/reply artifact 不移动锚点；无成功/已删除前主发布时按 receipt 事实返回空计划或不可用              |
+| TC-AUTO-SCHEDULE-127-03    | MCP/runtime      | publish/status 恢复   | publish 与 get status 返回同一计划；receipt 顺序、重复调用和进程重启不改变 taskKey/dueAt                      |
+| TC-AUTO-SCHEDULE-127-04    | MCP/runtime      | 到期 gate             | dueAt 前 report 为 scheduled 且 collector 未调用；到期和超过到期后才允许采集                                  |
+| TC-AUTO-REPORT-127-01      | L3               | 标准 schema           | 每个主发布 receipt 恰好一项；metric 统一 key/value-or-unavailable/unit/scope/attribution                      |
+| TC-AUTO-REPORT-127-02      | L3               | 渠道映射              | GitHub/DEV/Mastodon 转标准 metric；Bluesky 无 collector 显式 unavailable，不伪造 0                            |
+| TC-AUTO-REPORT-127-03      | L3               | 归因与 artifact       | GitHub traffic 固定 repository-14d/non-attributable；Issue/reply receipt 只进入 artifacts                     |
+| TC-AUTO-REPORT-127-04      | MCP/runtime      | 部分失败              | 单渠道 auth/permission/rate/temporary failure 转脱敏 failed entry，其他渠道仍返回，顶层 status=partial        |
+| TC-AUTO-POLICY-127-01      | L3/storage       | campaign reply policy | 0700/0600 project-scoped 原子保存；同策略复用、异策略冲突、损坏/宽权限/跨项目读取失败关闭                     |
+| TC-AUTO-FAQ-127-01         | L3               | FAQ 白名单            | 仅短致谢与明确文档/使用问题分类为 FAQ；按 canonical origin 生成固定中/英文模板                                |
+| TC-AUTO-FAQ-127-02         | L3               | 升级边界              | 法律、安全、隐私、付款、账号、凭据、投诉、争议、PII、模糊文本全部 escalate                                    |
+| TC-AUTO-FAQ-127-03         | MCP/runtime      | 写前对拍              | 要求原 campaign faq-only policy、matching authorization、known published receipt 与平台回读精确 feedback      |
+| TC-AUTO-FAQ-127-04         | MCP/runtime      | 渠道边界              | 仅 GitHub Issue comment 可执行首期 FAQ reply；DEV 和未接线渠道始终 ADAPTER_UNAVAILABLE                        |
+| TC-AUTO-GHREPLY-127-01..05 | adapter contract | Issue comment reply   | 固定 CLI/stdin、marker lookup/复用/冲突、创建结果对拍、401/403/429/5xx/未知结果与脱敏全部通过                 |
+| TC-AUTO-BUGROUTE-127-01    | L3               | Bug 高置信分类        | 同时命中缺陷与复现信号且无升级词才进入 bug；情绪、建议、单一“坏了”或敏感内容均升级                            |
+| TC-AUTO-BUGROUTE-127-02    | L3               | 最小化 Issue          | 标题/正文只含 project/campaign/channel/feedback ID SHA-256/source URL 和通用待复核说明，不复制评论正文/author |
+| TC-AUTO-BUGROUTE-127-03    | MCP/runtime      | policy 与健康 gate    | createBugIssues=true、matching authorization、source collector 与 GitHub fresh health 缺一即失败关闭          |
+| TC-AUTO-BUGROUTE-127-04    | adapter contract | 跨重试幂等            | project/campaign/feedback/caller key 生成稳定 marker；远端同内容复用、异内容冲突、未知结果先 lookup           |
+| TC-AUTO-BUGROUTE-127-05    | MCP/runtime      | receipt/artifact      | Issue 成功后保存 project-scoped receipt；重复调用复用同一 Issue，报告只列为 artifact                          |
 
 ## 验证方法
 
@@ -346,7 +364,12 @@ git diff --check
 | TC-AUTO-MASTOOBS/RUNTIME-127   | passed  | 2026-07-27 | lifetime 指标、untrusted 通知、惰性注册与已知 receipt 边界通过                   |
 | TC-AUTO-MASTOSMOKE-127-01      | passed  | 2026-07-27 | 固定 campaign/正文/UTM/幂等键；dry-run 唯一授权 blocker 且 `sideEffects=[]`      |
 | TC-AUTO-MASTOSMOKE-127-02      | passed  | 2026-07-27 | matching 授权闭环完成；唯一状态被认领，正文/幂等/反馈/报告/delete/远端不存在通过 |
-| T3-D3-A-T5 运行时 Case         | partial | 2026-07-16 | DEV 工程/preflight/setup/正式文章完成；Mastodon adapter 工程完成，T4-T6 后续展开 |
+| TC-AUTO-SCHEDULE/REPORT-127-\_ | passed  | 2026-07-28 | 确定性三窗口、到期 gate、标准指标、不可用值与单渠道失败隔离通过                  |
+| TC-AUTO-POLICY/FAQ-127-\_      | passed  | 2026-07-28 | project-scoped 策略存储、固定 FAQ 模板、升级边界和写前对拍通过                   |
+| TC-AUTO-GHREPLY-127-01..05     | passed  | 2026-07-28 | GitHub Issue comment 固定 CLI、幂等查找、创建对拍与失败关闭通过                  |
+| TC-AUTO-BUGROUTE-127-01..05    | passed  | 2026-07-28 | Bug 双信号、最小化 Issue、双重幂等与 artifact receipt 通过                       |
+| T4 运行时与工程门禁            | passed  | 2026-07-28 | plugin 51 文件 / 252 用例、coverage 与安全模块 100%；零真实站外写入              |
+| T5-T6 运行时 Case              | planned | 2026-07-28 | RPA/Reddit/人工桥接评审、最终 smoke 与 C128 移交仍待后续展开                     |
 | T3-D4-C-T5 运行时 Case         | passed  | 2026-07-27 | smoke 已清理；段落回归、deleted/404、自包含 bundle 与安装缓存握手均通过          |
 
 ## 变更历史
@@ -384,3 +407,4 @@ git diff --check
 - 2026-07-27：T3-D4-B 完成 token regenerate、隐藏 setup 与只读 status/doctor；两项新增回归先红后绿，plugin `bb62731` 后为 44/225，coverage、verify、validator、安装态与 Gitleaks 全绿。Mastodon ready/enabled，下一步 T3-D4-C。
 - 2026-07-27：TC-AUTO-MASTOSMOKE-127-01 先红后绿；固定预案 dry-run 只有 `EXECUTION_NOT_APPROVED`，等待 TC-AUTO-MASTOSMOKE-127-02 matching 授权。
 - 2026-07-27：TC-AUTO-MASTOSMOKE-127-02 通过；首次 after-submit `UNKNOWN_RESULT` 由 `<p>` 段落空行还原缺陷触发，扩展 `TC-AUTO-MASTOAPI-127-04` 回归后由 plugin `44a7e9a` 修复并以同 payload 认领唯一状态。正文、幂等、feedback、`1h` report、delete、deleted receipt 与无缓存远端 404 全部通过；plugin `7cc60a5` 再以自包含 bundle 修复安装缓存依赖链接丢失，并通过隔离/安装态 STDIO。
+- 2026-07-28：T4 先以五个缺失模块和运行时未接线断言形成 red，再实现确定性 1h/48h/7d 计划、标准化跨渠道报告、project-scoped policy、FAQ-only GitHub Issue 回复及 Bug Issue 安全分流。plugin 51 文件 / 252 用例与 coverage 全绿，策略存储、回复 adapter 和本地运行时命中 100% 强制门槛；全部使用 fake client/clock，未执行真实回复或建 Issue。

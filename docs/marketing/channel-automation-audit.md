@@ -3,8 +3,8 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-27
-> Current implementation: GitHub/Bluesky/DEV/Mastodon 真实闭环完成；微博 API disabled；DEV 正式文章长期公开；Mastodon 临时状态已删除并保持 ready/enabled，下一步 T4
+> Last reviewed: 2026-07-28
+> Current implementation: GitHub/Bluesky/DEV/Mastodon 真实闭环与 T4 调度/标准报告/反馈安全分流完成；微博 API disabled；下一步 T5
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
@@ -201,3 +201,4 @@ flowchart LR
 - 2026-07-15：DEV T3-D3-B 隐藏 setup 与只读身份对拍完成；status/doctor 为 ready/enabled，API key 仅在本机 Keychain。当前无 receipt/文章，正式 durable campaign 仍需单独 matching 授权。
 - 2026-07-15：Owner 授权 DEV T3-D3-C 固定 campaign；文章 `4146005` 完成 publish、公开 API 完整正文对拍、同 receipt 幂等复放、零反馈与 `1h` lifetime report 读取。receipt published，文章长期公开，未回复或伪删除。
 - 2026-07-16：Mastodon statuses/notifications adapter 工程完成并通过本地 verify；正式 setup/identity smoke 仍待 Owner 完成实例授权与 token 录入。
+- 2026-07-28：T4 完成确定性三窗口计划、标准报告、FAQ-only GitHub Issue 回复边界与 Bug Issue 安全分流；写前 matching 授权、known receipt、fresh reread 和失败关闭边界不变，工程验证未执行真实反馈写入。

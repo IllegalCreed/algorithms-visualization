@@ -5,14 +5,15 @@
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
-> Last reviewed: 2026-07-27
-> Progress: 94%
+> Last reviewed: 2026-07-28
+> Progress: 97%
 > Blocked by: none
-> Next action: T3-D4-C2 Mastodon 真实闭环已完成；进入 T4 监测、回复与复盘
+> Next action: T4 调度、标准报告、FAQ-only 与 Bug Issue 分流已完成；进入 T5 RPA/Reddit/人工桥接评审
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
+> T4 tests: TC-AUTO-SCHEDULE-127-\_、TC-AUTO-REPORT-127-\_、TC-AUTO-POLICY-127-\_、TC-AUTO-FAQ-127-\_、TC-AUTO-GHREPLY-127-\_、TC-AUTO-BUGROUTE-127-\_
 
 ## 背景
 
@@ -93,9 +94,13 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 
 - 自动执行 1 小时健康检查、48 小时首轮复盘和 7 天最终复盘。
 - 发布成功后自动建立三个一次性 Codex 跟进任务；到点调用 collector 并把摘要送回原任务，不要求 Owner 再次提示。
+- 三个窗口以同一 campaign 最后一条成功主发布 receipt 的 `publishedAt` 为锚点，分别按 1、48、168 小时计算；任务键和到期时间必须确定且可由持久 receipt 重建，不能因进程重启、重复 publish/status 查询或渠道返回顺序变化而漂移。
+- 插件只返回可供 Codex 创建一次性 automation 的脱敏计划，不监听公网端口、不把渠道凭据交给 GitHub Actions；到点前读取报告只能返回 `scheduled`，不能提前采集后伪装成对应窗口结果。
 - 统一指标 schema，区分平台可见数值、不可观测项和推断；没有站内 tracker 时不得声称完成站内转化归因。
-- 只在官方 API 与平台规则同时允许时按白名单策略自动回复；争议、投诉、隐私、法律、安全和付款问题升级给 Owner。
-- 可操作的缺陷反馈去重后创建 GitHub Issue，并附来源 URL 和不含敏感信息的摘要。
+- 报告必须逐条覆盖主发布 receipt：可采集渠道返回标准化 metric；无 collector、授权失效、平台失败和已删除记录分别标记 `unavailable` / `failed`，不得省略渠道或把不可观测项写成 0。GitHub 最近 14 天仓库 traffic 只能作为不可归因背景。
+- 只在原 campaign 保存的 `replies.mode=faq-only`、当前匹配授权、已知 published receipt、可重新读取的真实 feedback、白名单分类和渠道 reply adapter 全部通过时自动回复。首期只实现 GitHub Issue 评论的 typed reply；DEV、V2EX、Hacker News、Product Hunt 以及未接线渠道继续失败关闭。
+- FAQ 白名单只覆盖简短致谢和项目文档/使用入口；争议、投诉、隐私、法律、安全、付款、账号、凭据、模糊分类和无法精确对拍的回复正文一律升级 Owner。
+- 只有原 campaign 的 `createBugIssues=true`、feedback 同时命中明确缺陷与复现信号、无敏感/升级信号且 GitHub 目标健康时，才把反馈分流为 GitHub Issue。Issue 不复制原评论正文，只保存稳定 feedback ID 的 SHA-256、来源 URL、渠道、campaign 和通用待复核说明；远端 marker、本地 receipt 与 caller idempotency key 共同去重。
 
 ### R7 凭据和数据最小化
 
@@ -119,10 +124,10 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - [x] MCP 契约证明 Codex 无法读取凭据或调用任意浏览器代码；RPA challenge 必须失败关闭。
 - [x] GitHub 首次接入已通过 `setup` 向导完成，`status/doctor` 只显示账号别名、健康状态和下一步；真实 smoke 由 Owner 自然语言授权触发，未要求其操作 CLI 或 JSON。
 - [x] DEV 一次性隐藏 setup 已完成；Keychain/0600 activation/实时身份对拍为 ready/enabled，公开 preflight 仅保留 matching campaign 执行授权 gate。
-- [ ] 首批 adapter 在 mock/sandbox 下验证成功、幂等、失败、限流、撤回和脱敏行为。
+- [x] 首批 adapter 在 mock/sandbox 下验证成功、幂等、失败、限流、撤回和脱敏行为。
 - [x] 至少一个非 GitHub 官方渠道完成真实授权和低风险端到端发布/采集演练（Bluesky 已完成并清理）。
-- [ ] 1h/48h/7d collector 与报告、回复白名单、Bug Issue 分流可验证。
-- [ ] 一次性跟进能在原任务交付 1h/48h/7d 结果；任务中断时仍有脱敏 artifact/Issue 可恢复。
+- [x] 1h/48h/7d collector 与报告、回复白名单、Bug Issue 分流可验证。
+- [x] 一次性跟进计划能由 publish/status 确定性恢复；任务中断时仍可从 project-scoped receipt 与脱敏 artifact 恢复。
 - [ ] 全门禁通过，文档回写 verified；随后进入 C128 实际发布复盘。
 
 ## 开放输入
@@ -158,3 +163,4 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - 2026-07-27：T3-D4-B 完成 Mastodon token regenerate、隐藏 setup 与只读身份对拍；status/doctor ready/enabled，下一步 T3-D4-C 固定预案与 matching 授权。
 - 2026-07-27：T3-D4-C1 固定 campaign、英文正文、UTM、幂等键与清理顺序；dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，等待 matching 授权。
 - 2026-07-27：T3-D4-C2 matching 授权闭环完成；提交后段落还原缺陷先触发 `UNKNOWN_RESULT`，修复回归后同 payload 认领唯一远端状态，正文、幂等、反馈、`1h` 报告、删除、deleted receipt 与无缓存远端不存在均通过。
+- 2026-07-28：T4 完成确定性 1h/48h/7d 跟进计划、跨渠道标准报告、FAQ-only 固定模板与 Bug Issue 安全分流。所有反馈写动作继续要求 matching Owner 授权、已知 published receipt 与平台 fresh reread；工程测试没有执行真实回复或建 Issue，C127 转 97%，下一步 T5。
