@@ -4,14 +4,14 @@
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-28
-> Current implementation: GitHub/Bluesky/DEV/Mastodon 真实闭环与 T4 调度/标准报告/反馈安全分流完成；微博 API disabled；下一步 T5
+> Current implementation: C127 verified/100%；GitHub/Bluesky/DEV/Mastodon 历史真实闭环与 T4 调度/报告/反馈分流完成；12 渠道 owner-assisted handoff 已实现；当前只读健康为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required
 > Execution source: `docs/marketing/execution-backlog.md`
 
 ## 目的
 
 本文件回答一个具体问题：Owner 只给一次 campaign 提示词后，哪些渠道能通过受支持的官方能力完成内容生成、发布、监测、反馈归纳和允许范围内的回复。
 
-官方能力结论只依据截至 2026-07-15 可核验的官方文档、当前仓库配置和平台公开规则。账号价值高低不改变接口是否受支持。后续实现可在独立本地 MCP 内使用逐渠道批准的受控 RPA，但这不会提升平台的官方能力等级，也不能使用内部接口、Cookie 导出、stealth、验证码绕过或明文密码托管。
+官方能力结论只依据截至 2026-07-28 可核验的官方文档、当前仓库配置和平台公开规则。账号价值高低不改变接口是否受支持。后续实现可在独立本地 MCP 内使用逐渠道批准的受控 RPA，但这不会提升平台的官方能力等级，也不能使用内部接口、Cookie 导出、stealth、验证码绕过或明文密码托管。
 
 ## “全自动”的项目定义
 
@@ -30,7 +30,9 @@
 
 发布成功后，Codex 为本次 campaign 建立 1h/48h/7d 一次性跟进任务；到点后触发独立 `marketing-ops` 的确定性 collector，再在原任务中归纳结果。这样内容理解继续使用 Owner 已在使用的 Codex，本地服务只做 schema、发布和采集，不需要另配按量付费的 LLM API key，也不把渠道凭据交给 Codex 或 GitHub Actions。
 
-提示词本身就是本次 campaign 的发布授权，已接入的 A 级渠道不再逐帖要求人工确认。账号授权过期、平台审核、付款、验证码或资质变化属于一次性/异常接入事件，不能伪装成已自动完成。
+提示词只有在包含并匹配 Owner 对具体 campaign 的明确执行授权时，才能作为本次发布授权；普通内容生成请求、历史授权或账号已接入均不能替代逐 campaign 授权。账号授权过期、平台审核、付款、验证码或资质变化属于一次性/异常接入事件，不能伪装成已自动完成。
+
+对没有获准自动写能力的平台，“内容自动化”和“发布自动化”分开处理：renderer 仍自动生成最终标题、正文、链接和媒体计划；`assisted-prepare` 只生成本地交接单，不操作浏览器、不创建 receipt。Owner 在平台官方 UI 中完成登录、验证码/2FA、复核与最终发布后，`assisted-confirm` 只接受匹配平台规则的公开 URL，并保存 `assisted-owner-confirmed` receipt。该 receipt 表示 Owner 确认，不表示 MCP 创建或远端验证了内容；没有 collector 的指标保持 `unavailable`。
 
 ## 能力等级
 
@@ -49,7 +51,7 @@
 | ------------ | ---- | -------------------------------------------- | ------------------------------------------ | -------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | 掘金         | D    | 不支持：未找到公开创作者发布 API             | 不支持：未找到公开评论/数据 API            | 不支持                                 | 保留人工草稿；禁止复用网页 Cookie、内部 `content_api` 或主密码                                             |
 | V2EX         | C    | 不支持：API 2.0 无创建主题/回复端点          | 支持：主题、回复、通知可读                 | 不支持；规则也禁止把 AI 回复冒充本人   | 人工发帖后自动监测；不自动回帖                                                                             |
-| B站          | B    | 支持视频/文章，但需开放平台与 UP 授权        | 支持稿件状态和播放、点赞、评论数等聚合数据 | 未找到评论正文读取/回复的受支持接口    | Owner 无企业主体且不做企业认证，当前实施禁用；保留能力记录供未来复审                                       |
+| B站          | B    | 支持视频/文章，但需开放平台与 UP 授权        | 支持稿件状态和播放、点赞、评论数等聚合数据 | 未找到评论正文读取/回复的受支持接口    | API 自动发布禁用；T5 自动生成视频发布包，Owner 在官方 UI 发布并确认公开 URL                                |
 | 知乎         | D    | 不支持：未找到公开创作者发布 API             | 不支持：未找到公开创作者反馈 API           | 不支持                                 | 保留人工渠道；服务条款明确限制未经授权的自动程序访问                                                       |
 | 小红书       | D    | 不支持无人值守发布；官方分享平台已暂停接入   | 不支持：未找到普通笔记反馈 API             | 不支持                                 | 保留人工渠道；广告/营销开放平台不等于普通创作者笔记发布 API                                                |
 | 微信公众号   | B    | 支持草稿和发布接口，但账号类型与认证有门槛   | 支持阅读/分享数据及留言管理                | 支持留言回复                           | Owner 无企业主体且不做企业认证，当前实施禁用；2025-07 起个人主体、未认证企业等账号已被回收相关接口权限     |
@@ -60,13 +62,24 @@
 
 ## 补充与替代渠道
 
-| 渠道          | 等级           | 自动化能力                                                                   | 成本/门槛                                              | 当前决策                                                      |
-| ------------- | -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------- |
-| 微博          | A（付费写）    | 官方 Agent CLI 支持发布与互动；当前 Free 只提供本人数据读取                  | 设备 OAuth + 个人认证；Free 7 天、5 读/小时、0 写/小时 | Owner 零费用约束下 API 发布禁用；保留人工分享和独立 RPA 评审  |
-| Bluesky       | A              | 官方 AT Protocol 支持发帖、串文、图片、链接、回复和公开数据读取              | 账号 + App Password；遵守反垃圾规则                    | 海外自动渠道优先级最高                                        |
-| DEV Community | A（发布/监测） | Forem API 支持 Markdown 文章发布、canonical、标签、反应/评论计数和评论树读取 | 账号 + 免费 API key；遵守平台 rate limit/429           | 英文技术长文；page views 不承诺，回复人工，当前无真实删除能力 |
-| Mastodon      | A              | 官方 API 支持发布、排期、幂等、编辑、删除、回复、上下文和通知                | 选择实例 + OAuth token；同时受实例规则约束             | 作为可选的开放社交渠道；启用前固定实例及其规则                |
-| X             | A（付费禁用）  | X API v2 支持发帖、回复和指标读取                                            | 预付 credits；带 URL 发帖当前为每次 0.200 美元         | Owner 已确认零新增费用，当前和后续 C127 实施均禁用            |
+| 渠道          | 等级           | 自动化能力                                                                   | 成本/门槛                                              | 当前决策                                                                |
+| ------------- | -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------- |
+| 微博          | A（付费写）    | 官方 Agent CLI 支持发布与互动；当前 Free 只提供本人数据读取                  | 设备 OAuth + 个人认证；Free 7 天、5 读/小时、0 写/小时 | Owner 零费用约束下 API 发布禁用；保留人工分享和独立 RPA 评审            |
+| Bluesky       | A              | 官方 AT Protocol 支持发帖、串文、图片、链接、回复和公开数据读取              | 账号 + App Password；遵守反垃圾规则                    | 海外自动渠道优先级最高                                                  |
+| DEV Community | A（发布/监测） | Forem API 支持 Markdown 文章发布、canonical、标签、反应/评论计数和评论树读取 | 账号 + 免费 API key；遵守平台 rate limit/429           | 英文技术长文；page views 不承诺，回复人工，当前无真实删除能力           |
+| Mastodon      | A              | 官方 API 支持发布、排期、幂等、编辑、删除、回复、上下文和通知                | 选择实例 + OAuth token；同时受实例规则约束             | 作为可选的开放社交渠道；启用前固定实例及其规则                          |
+| X             | A（付费禁用）  | X API v2 支持发帖、回复和指标读取                                            | 预付 credits；带 URL 发帖当前为每次 0.200 美元         | API 自动发布禁用；T5 自动生成内容包，Owner 在官方 UI 发布并确认公开 URL |
+
+## 新增内容与视频渠道
+
+| 渠道     | 官方能力结论                                                             | C127 执行决策                                                                  |
+| -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| 简书     | 未发现面向普通作者的受支持发布/反馈 API                                  | 自动生成中文长文包；Owner 在官方 UI 发布并回填公开文章 URL                     |
+| Facebook | Pages API 存在，但对象类型、权限与 App Review 条件必须逐账号核验         | 首期不接 API；自动生成双语社交包，Owner 在官方 UI 发布并回填公开 URL           |
+| YouTube  | `videos.insert` 支持 OAuth 上传；未审核的新项目上传会被限制为 private    | 首期自动生成标题/描述包；视频 artifact 与 OAuth adapter 由 content-studio 后续 |
+| 抖音     | 官方 `video.create` 要求权限申请、用户授权，并要求用户明确感知每次代发布 | 首期自动生成中文视频发布包；Owner 在官方 UI 发布并回填公开 URL                 |
+
+T5 的 owner-assisted 集合为：掘金、V2EX、B站、知乎、Hacker News、Product Hunt、微博、X、简书、Facebook、YouTube、抖音。它不改变 GitHub、Bluesky、DEV、Mastodon 四个 API 自动渠道，也不把付费、企业主体或审核门槛描述为已解除。小红书与微信公众号在本轮仍不生成可确认包。
 
 由此，零新增订阅成本的官方 API 自动渠道组合修正为 **GitHub + Bluesky + DEV + Mastodon**。DEV 的发布和反馈采集可自动，page views 不可得，回复保持人工，文章发布后按 durable 内容长期保留；微博 Free 不具备写额度，不能纳入自动发布承诺。
 
@@ -78,8 +91,9 @@
 - **仅个人主体**：Owner 没有企业，不办理企业认证、营业执照或企业服务号。
 - **当前自动实施集合**：GitHub、Bluesky、DEV、Mastodon；微博 API 发布因 Free 零写额度禁用。
 - **个人可申请的后备渠道**：Reddit；仍须通过应用审核和目标社区授权，不作为 T1/T2 退出条件。
-- **当前明确排除**：微信公众号、B站、X，以及原 D 级的掘金、知乎、小红书。
-- V2EX、Hacker News、Product Hunt 继续保留“人工发布后自动监测”，但不属于“只给提示词即可完成”的自动发布集合。
+- **当前明确排除 API 自动写**：微信公众号、B站、X，以及原 D 级的掘金、知乎、小红书。
+- **Owner-assisted UI 发布**：掘金、V2EX、B站、知乎、Hacker News、Product Hunt、微博、X、简书、Facebook、YouTube、抖音可自动生成包；最终发布仍由 Owner 控制。
+- V2EX、Product Hunt 的官方读取当前需要隐藏 PAT/token setup；Hacker News 可公开只读。未接 collector 前，确认后的报告显式返回 `collector-not-implemented`，不伪造自动监测结果。
 
 这些约束高于平台的理论能力等级。即使某渠道技术上提供 API，只要要求付费或当前需要企业主体，能力 gate 也必须返回禁用原因。
 
@@ -115,6 +129,13 @@
 - [Mastodon statuses API](https://docs.joinmastodon.org/methods/statuses/)支持 OAuth 发布、排期、`Idempotency-Key`、编辑、删除、回复和上下文读取；实例可以设置更严格的本地规则。
 - [X 创建帖子](https://docs.x.com/x-api/posts/create-post)使用 X API v2；[当前定价](https://docs.x.com/x-api/getting-started/pricing)为预付 credits 的按量计费，含 URL 的 content create 当前为每次 0.200 美元，[指标文档](https://docs.x.com/x-api/fundamentals/metrics)说明可得指标范围。
 
+### 简书、Facebook、YouTube、抖音
+
+- 简书当前以[官方网站](https://www.jianshu.com/)提供作者 UI；本轮未找到面向普通作者的受支持发布、评论或统计开放 API，因此只允许 Owner 官方 UI 发布，不设计 Cookie/内部接口自动化。
+- [Facebook Pages API Posts](https://developers.facebook.com/docs/pages-api/posts/)描述 Page 内容能力；实际发布仍取决于 Page 身份、权限、访问令牌与 App Review。本轮不把它推广为个人 Profile 自动发帖能力。
+- [YouTube `videos.insert`](https://developers.google.com/youtube/v3/docs/videos/insert)支持 OAuth 视频上传与元数据；官方文档同时说明，2020-07-28 后创建且未通过审核的 API 项目上传内容会限制为 private。
+- [抖音创建视频](https://open.douyin.com/platform/resource/docs/openapi/video-management/douyin/create/create-video)要求 `video.create` 权限申请和用户授权；官方说明代用户创建时每次操作都要让用户明确感知。[上传视频](https://open.douyin.com/platform/resource/docs/openapi/video-management/douyin/create/upload/)另有格式、大小、时长与审核约束。
+
 ## 目标架构
 
 ```mermaid
@@ -130,7 +151,8 @@ flowchart LR
   G -->|禁用/异常| F["失败关闭并报告原因"]
   A --> R["Receipt：ID、URL、幂等键"]
   B --> R
-  H --> R
+  H --> Q["Owner 官方 UI 发布并回填 URL"]
+  Q --> R
   R --> K["1h / 48h / 7d collector"]
   K --> N["标准化指标与反馈摘要"]
   N --> O["报告、受控回复、Bug Issue"]
@@ -157,7 +179,7 @@ flowchart LR
 | 微信公众号 | 当前不接入；仅在 Owner 改变个人主体约束后复审   | 不保存                                | 后台登录密码                 |
 | B站        | 当前不接入；仅在 Owner 取得合规主体后复审       | 不保存                                | UP 主密码、Cookie            |
 | Reddit     | 完成应用审核并获得目标 subreddit 安装/授权      | approved app/OAuth secrets            | 浏览器 session、未批准旧脚本 |
-| X          | 当前不接入；零新增费用约束下保持禁用            | 不保存                                | 主密码、付费 credits         |
+| X          | API 不接入；Owner 辅助发布不托管登录态          | 不保存                                | 主密码、Cookie、付费 credits |
 
 所有 API secret 进入本机 macOS Keychain，RPA 登录态只存在每平台专用持久化 Profile；两者都位于公开仓库和 Codex 上下文之外，日志必须脱敏。聊天中曾经暴露过的主密码不作为接入材料，应先轮换；未来只提供“账号是否存在、官方授权是否完成”的状态，不在聊天中发送 secret。
 
@@ -173,10 +195,10 @@ flowchart LR
 
 1. **T1 基础层（完成）**：`CampaignSpec`、官方等级/执行模式分离的能力注册表、renderer、UTM、schema、dry-run 和幂等键。
 2. **T2 MCP 边界（完成）**：七个高层工具、Keychain/Profile 隔离、本地队列、receipt 和任意浏览器执行拒绝测试；该阶段交付为失败关闭的本地安全骨架。
-3. **T3 首批 API adapter（完成）**：GitHub 与 Bluesky 闭环完成，微博 API 线因 Free 零写额度失败关闭；DEV T3-D3-A/B/C 已完成固定 Forem v1 client、文章 adapter、Keychain/activation、collector、durable preflight/setup 与真实正式文章闭环，文章长期公开。Mastodon T3-D4-A/B/C 已完成 statuses/notifications adapter、凭据轮换、隐藏 setup、身份对拍和真实临时 smoke，状态已删除且渠道保持 ready/enabled；未启用渠道自动跳过并输出接入清单。
-4. **T4 反馈层**：1h/48h/7d collectors、Codex 一次性跟进、标准化报告、受控回复和 GitHub Issue 分流。
-5. **T5 条件路径**：逐渠道评审 RPA；Reddit 只在审核/社区授权后启用；V2EX、HN、Product Hunt 维持人工发布后监测。
-6. **长期禁用**：掘金、知乎、小红书默认 D/禁用；微信、B站因主体约束禁用，X 因费用约束禁用；只有官方能力、平台规则或 Owner 硬约束变化并完成复审后才调整。
+3. **T3 首批 API adapter（完成）**：GitHub 与 Bluesky 闭环完成，微博 API 线因 Free 零写额度失败关闭；DEV T3-D3-A/B/C 已完成固定 Forem v1 client、文章 adapter、Keychain/activation、collector、durable preflight/setup 与真实正式文章闭环，文章长期公开。Mastodon T3-D4-A/B/C 已完成 statuses/notifications adapter、凭据轮换、隐藏 setup、身份对拍和真实临时 smoke，状态已删除。2026-07-28 最终只读健康为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required；未启用渠道自动跳过并输出接入清单。
+4. **T4 反馈层（完成）**：1h/48h/7d 确定性计划、标准化报告、FAQ-only 受控回复和 GitHub Issue 分流。
+5. **T5/T6 Owner 辅助路径（完成）**：12 个渠道自动生成内容包；Owner 在官方 UI 登录、处理挑战并最终发布，confirm 只接受官方公开 URL；多渠道确认在写 receipt 前全量预检。
+6. **后续条件路径**：Reddit 只在审核/社区授权后启用；微信公众号和小红书当前不生成包。RPA、自动上传和新 collector 必须逐渠道重新评审，不因已有内容包自动获得站外写权限。
 
 ## 复审触发条件
 

@@ -1,19 +1,20 @@
 # 需求：提示词驱动的全自动内容分发
 
-> Status: in-progress
+> Status: verified
 > Stable ID: C-20260711-127
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-28
-> Progress: 97%
+> Progress: 100%
 > Blocked by: none
-> Next action: T4 调度、标准报告、FAQ-only 与 Bug Issue 分流已完成；进入 T5 RPA/Reddit/人工桥接评审
+> Next action: 已完成；下一步建立 `content-studio` 自动内容生产仓库，再进入 C128 真实发布复盘
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
 > T4 tests: TC-AUTO-SCHEDULE-127-\_、TC-AUTO-REPORT-127-\_、TC-AUTO-POLICY-127-\_、TC-AUTO-FAQ-127-\_、TC-AUTO-GHREPLY-127-\_、TC-AUTO-BUGROUTE-127-\_
+> T5 tests: TC-AUTO-ASSISTED-127-01..10
 
 ## 背景
 
@@ -23,38 +24,41 @@
 
 2026-07-27：C133 已将本计划早期的单项目 MCP v1/v2 运行时假设升级为 Project Profile 驱动的 MCP v3。历史段落保留当时事实；当前契约、隔离键、receipt 与 adapter 版本以 `docs/plans/20260727-c133-multi-project-marketing-ops/` 为准。
 
-Owner 进一步确认本项目必须零新增费用，且没有企业主体、不会办理企业认证。因此微信公众号、B站和付费 X 即使理论上存在官方能力，也不进入当前实现范围。
+Owner 进一步确认本项目必须零新增费用，且没有企业主体、不会办理企业认证。因此微信公众号不进入当前实现范围；B站和付费 X 的 API 自动写不进入范围，但可以生成内容包并由 Owner 在官方 UI 免费发布。
 
-因此本期的“全自动”不是用任意技术强行操作所有网站，而是：官方 API 优先；只有逐渠道完成规则评审、Owner 明确启用且能够失败关闭时，独立 MCP 才可使用受控 RPA。其余渠道保持禁用或进入明确的人工发布队列。
+因此本期的“全自动”不是用任意技术强行操作所有网站，而是：内容生产全自动；发布优先使用免费官方 API，其余已登记渠道进入明确的 Owner 辅助发布队列。C127 不实现浏览器 RPA；未来如需逐渠道引入，必须另行完成规则评审、Owner 明确启用与失败关闭测试。
+
+2026-07-28 Owner 进一步明确：内容生成必须自动，平台发布可以半自动，并新增简书、Facebook、YouTube、抖音及既有掘金、知乎、B站、X 的后续分发诉求。T5 因此把“禁用 API 自动写”和“禁止生成内容”解耦：未获准 API/RPA 写入的平台仍可生成最终渠道包，但登录、验证码/2FA、复核与官方 UI 最终发布由 Owner 控制。
 
 ## 用户故事
 
-Owner 完成一次性渠道接入后，只需给出主题、语言、时间、目标页面和期望反馈策略。Codex 将其转换为结构化 campaign，生成平台原生内容，再调用独立 `marketing-ops` MCP；MCP 内部选择官方 API 或受控本地 RPA，并在 1 小时、48 小时、7 天汇总指标与反馈。
+Owner 给出主题、语言、时间、目标页面和期望反馈策略后，Codex 将其转换为结构化 campaign，生成平台原生内容，再调用独立 `marketing-ops` MCP。已接入且获得 matching campaign 授权的免费官方 adapter 可以自动发布；其余已登记渠道由 MCP 生成交接单，Owner 在官方 UI 最终发布并回填公开 URL。两条路径都可接续 1 小时、48 小时、7 天报告。
 
-Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次批准 A 级渠道；但账号授权过期、平台审核、付费确认、验证码与资质变更仍需 Owner 处理。
+Owner 不需要逐帖复制文案、手工拼 UTM 或逐个查看评论。内容生成不授予站外写权限；自动发布必须由 Owner 对匹配 campaign 明确授权，辅助发布还由 Owner 控制登录、验证码/2FA、复核与最终发布。账号授权过期、平台审核、付费确认与资质变更同样必须失败关闭。
 
 ## Owner 硬约束
 
 - C127 不产生新的订阅、API credits、托管或模型调用费用。
 - 只接入普通个人能够合规注册和授权的免费能力，不要求营业执照、企业认证或企业服务号。
-- 微信公众号、B站、X 在本期固定禁用；不得为了“完成渠道数”加入不可用 adapter 或付费 fallback。
+- 微信公众号、B站、X 的 API 自动写在本期固定禁用；不得为了“完成渠道数”加入不可用 adapter 或付费 fallback。B站与 X 只允许 owner-assisted 官方 UI 交接。
 - Reddit 可作为个人后备渠道，但审核成功不是 C127 首期退出条件。
 - 首次渠道接入必须由向导逐步完成；日常使用只需自然语言 campaign，不要求 Owner 编辑 JSON、记忆命令或手工拼 UTM。
 
 ## 功能需求
 
-### R1 提示词即 campaign 授权
+### R1 自然语言 campaign 与显式执行授权
 
 - 提示词必须规范化为可校验的 `CampaignSpec`，至少含主题、目标 URL、语言、渠道集合、发布时间、campaign ID、媒体策略、回复策略和失败策略。
-- A/B 级且已授权渠道在该 campaign 范围内不再要求逐帖人工审批。
-- dry-run 保留为调试和预览能力，但不是每次正式发布的必经人工闸门。
+- 普通内容生成提示词只生成 campaign 和内容包；只有 Owner 对匹配 campaign 明确授权的指令才允许自动渠道执行站外写入。
+- owner-assisted 渠道即使已有 campaign 授权，也必须由 Owner 在官方 UI 控制登录、挑战、复核和最终发布；confirm 只登记公开引用。
+- dry-run 保留为调试和预览能力；没有 matching 执行授权时必须保持零副作用。
 
 ### R2 能力注册表与失败关闭
 
 - 每个渠道显式记录发布、指标、评论、回复、删除、授权、配额、成本和启用状态。
 - 只有“执行模式已评审（官方 API 或受控 RPA）+ 当前授权完成 + 成本为免费 + 个人主体可用”时才能执行对应动作；官方能力等级与实际执行模式分别记录，RPA 不得把 D 级伪装成官方支持。
 - Codex 只调用高层 MCP 工具，不接触 token、Cookie、密码、选择器或任意浏览器执行接口。
-- 官方接口缺失时，MCP 可对 Owner 自有账号使用本地 Playwright RPA；遇到验证码、设备验证、会话失效或未知页面立即返回结构化错误，不做绕过。
+- C127 不实现通用浏览器 RPA，也不接受浏览器 Profile、selector、脚本、文件路径、Cookie 或 token。未来逐渠道引入时必须另立安全评审；遇到验证码、设备验证、会话失效或未知页面立即失败关闭，不做绕过。
 
 ### R3 渠道原生内容
 
@@ -66,9 +70,9 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 
 - 首批零费用 API adapter：GitHub、Bluesky、DEV、Mastodon。微博是原候选，2026-07-14 因 Free 零写额度移入后续独立 RPA 评审。
 - 条件 adapter：仅 Reddit，且只在个人应用审核和目标社区授权通过后启用。
-- 微信公众号、B站、X 在能力注册表中保留审计事实，但 `enabled=false` 且不得实现当前发布 adapter。
+- 微信公众号、B站、X 在能力注册表中保留审计事实，但 `enabled=false` 且不得实现当前 API 发布 adapter；B站/X 可以生成 owner-assisted package。
 - 每次发布产生 receipt，记录平台 post ID、URL、时间、内容摘要、幂等键和 adapter 版本；重试不得重复发帖。
-- `publish_campaign` 使用 version 2 契约携带公开 renderer 生成的确定性平台包；本地插件不得复制文案、长度或 UTM renderer。
+- `publish_campaign` 使用 MCP v3 七工具契约携带公开 renderer 生成的确定性平台包；本地插件不得复制文案、长度或 UTM renderer。
 - 支持平台具备官方能力时实现查询、更新或删除；不伪造不存在的撤回能力。
 - 微博采用官方 `@weibo-ai/weibo-cli`；CLI 的平台 action 目录由登录账号和套餐动态返回，不得猜测 `statuses` 写 action。T3-D1-A 只实现固定进程边界、`doctor` 健康、只读 statuses 目录和注入式 fake adapter。Owner 的 OAuth 与个人认证已完成，但官方 Free 为 7 天只读试用、写额度为 0；不领取短期试用、不冻结 publish action、不启用 production adapter。
 - Bluesky 固定使用官方 `@atproto/api@0.20.28`；公开 renderer 只生成一个英文正文变体。一次性 setup 只在交互式 TTY 接收公开 handle 与专用 App Password，secret 写入 macOS Keychain，本地 activation 只保存公开 handle/DID；每次注册 adapter 前重新对拍三者与实时身份。2026-07-14 setup 已完成，status/doctor 为 ready/enabled；Owner 授权的固定 smoke 已完成发布、读取、幂等复放与删除，receipt 为 deleted、远端 record 不存在，当前无临时帖子残留。
@@ -86,9 +90,13 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 
 ### R5 人工发布桥接
 
-- V2EX、Hacker News、Product Hunt 生成最终稿和发布说明，但不自动操作官方 UI。
-- Owner 返回真实发布 URL/ID 后，系统自动接管官方可支持的监测与复盘。
-- 掘金、知乎、小红书只生成可选人工草稿，不进入自动监测承诺。
+- owner-assisted 集合固定为掘金、V2EX、B站、知乎、Hacker News、Product Hunt、微博、X、简书、Facebook、YouTube、抖音；renderer 自动生成最终标题、正文、UTM 链接和媒体计划，但不操作官方 UI。
+- `publish_campaign.execution` 默认 `automatic`；`assisted-prepare` 只返回本地交接，不调用自动 adapter、不创建 publication receipt。
+- Owner 在官方 UI 中控制登录、验证码/2FA、复核和最终发布；系统不接收 Cookie、Profile、selector、浏览器脚本、密码或本地文件路径。
+- `assisted-confirm` 必须复用相同 project/campaign/package/caller 幂等键，并接收与渠道 host/path 规则匹配的公开 URL；post ID 由 URL 提取，不能由 caller 任意覆盖。
+- 确认后保存 `assisted-owner-confirmed@1.0.0` project receipt；它只表示 Owner 确认，不宣称 MCP 创建或远端验证了帖子。没有 collector 的报告保持 `collector-not-implemented`。
+- 现有媒体合同只有 `image|gif|video` 类型，没有可验证 artifact reference；因此 owner-assisted package 只允许 `media=[]`，非空媒体默认失败关闭，待 content-studio 提供资产合同后再扩展。
+- 小红书、微信公众号没有进入本轮 owner-assisted 集合；Reddit 继续是审核后 API 后备，不阻塞 C127。
 
 ### R6 监测、回复与复盘
 
@@ -112,13 +120,13 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 
 - 不在 C127 接入第三方站内 tracker、付费分析订阅或独立数据库。
 - 不购买平台 API credits，不办理企业认证，不建设只有企业主体才能启用的 adapter。
-- 不承诺所有十五个审计渠道都能自动发布；平台规则、逐渠道评审、验证挑战和运行时安全 gate 都是硬边界。
+- 不承诺全部十九个登记渠道都能自动发布；平台规则、逐渠道评审、验证挑战和运行时安全 gate 都是硬边界。
 - 不在 Codex 或公开仓库中运行任意浏览器脚本；本地 MCP 的 RPA 不使用 stealth、验证码代答、逆向签名或内部 API。
 - 不在没有真实 campaign 证据前扩展其余 85 个英文页面或投放广告。
 
 ## 验收口径
 
-- [x] 十个原计划渠道和五个补充/替代渠道均有发布、监测、回复、授权、成本和官方依据结论。
+- [x] 原 15 渠道与简书、Facebook、YouTube、抖音共 19 个渠道均有发布、监测、回复、授权、成本和官方依据结论。
 - [x] 免费个人首批、Reddit 后备、人工桥接和硬禁用渠道边界已在 marketing、plan、roadmap 与 agent 记忆中一致落档。
 - [x] `CampaignSpec`、能力注册表、renderer、UTM、schema 与 dry-run 有 L3 测试并通过。
 - [x] MCP 契约证明 Codex 无法读取凭据或调用任意浏览器代码；RPA challenge 必须失败关闭。
@@ -128,15 +136,16 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - [x] 至少一个非 GitHub 官方渠道完成真实授权和低风险端到端发布/采集演练（Bluesky 已完成并清理）。
 - [x] 1h/48h/7d collector 与报告、回复白名单、Bug Issue 分流可验证。
 - [x] 一次性跟进计划能由 publish/status 确定性恢复；任务中断时仍可从 project-scoped receipt 与脱敏 artifact 恢复。
-- [ ] 全门禁通过，文档回写 verified；随后进入 C128 实际发布复盘。
+- [x] 19 渠道登记、12 个 owner-assisted renderer package、prepare/confirm、URL/ID gate、receipt 幂等和报告 unavailable 边界均有 TDD 测试。
+- [x] 全门禁通过，文档回写 verified；随后先建立 `content-studio` 自动内容生产仓库，再进入 C128 实际发布复盘。
 
 ## 开放输入
 
-- GitHub、Bluesky 与 DEV 均已完成一次性 setup 并保持 ready/enabled。Bluesky App Password 与 DEV API key 仅在本机隐藏向导进入 Keychain，不在聊天、公开仓库或 evidence 中出现；日常 campaign 不要求再次操作向导。
+- GitHub、Bluesky、DEV 与 Mastodon 均曾完成一次性 setup 和真实闭环。2026-07-28 最终只读 `channels_status` 的当前状态为 GitHub ready；Bluesky、DEV、Mastodon `reauth-required`；微博 blocked。后续任何自动写入都需先重新隐藏 setup，并仍要求新 campaign 的 matching Owner 授权。
 - DEV 固定 `marketing-ops-t3d3-smoke-127` 已完成 publish、正文读取、幂等复放、feedback 与 report；receipt `4146005` published，文章长期公开。2026-07-27 只读复查显示现有 API key 为 `reauth-required`，后续 DEV 写入前需重新隐藏 setup，并仍需对新 campaign 单独 matching 授权。
 - 微博 setup 只能调用官方浏览器/设备 OAuth；`marketing-ops` 不接受 `--token`、`auth token --export`、微博主密码、Cookie 或 token 环境变量。当前不领取 Free 短期只读试用，不为通过 gate 购买套餐。
 - Reddit 可后续报告应用审核与目标社区授权状态，不阻塞首期。
-- 微信公众号、B站、X 已由 Owner 明确排除，不再等待账号、企业资质或预算输入。
+- 微信公众号继续排除；B站/X 的 API adapter 继续排除，但 owner-assisted 官方 UI 发布不等待企业资质或付费 API。
 
 ## 变更历史
 
@@ -164,3 +173,5 @@ Owner 不需要逐帖复制文案、手工拼 UTM、逐个查看评论或再次�
 - 2026-07-27：T3-D4-C1 固定 campaign、英文正文、UTM、幂等键与清理顺序；dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，等待 matching 授权。
 - 2026-07-27：T3-D4-C2 matching 授权闭环完成；提交后段落还原缺陷先触发 `UNKNOWN_RESULT`，修复回归后同 payload 认领唯一远端状态，正文、幂等、反馈、`1h` 报告、删除、deleted receipt 与无缓存远端不存在均通过。
 - 2026-07-28：T4 完成确定性 1h/48h/7d 跟进计划、跨渠道标准报告、FAQ-only 固定模板与 Bug Issue 安全分流。所有反馈写动作继续要求 matching Owner 授权、已知 published receipt 与平台 fresh reread；工程测试没有执行真实回复或建 Issue，C127 转 97%，下一步 T5。
+- 2026-07-28：Owner 要求内容全自动、发布可半自动，并补充简书/Facebook/YouTube/抖音。T5 以 10 个精确 Case 先红后绿完成 19 渠道登记、12 渠道 owner-assisted package、七工具内 prepare/confirm、平台 URL/ID gate、project receipt 与三窗口接续；没有浏览器/RPA 或真实站外写入，C127 转 99%，进入 T6。
+- 2026-07-28：T6 完成。plugin `60152d3` / 安装版 `0.1.0+codex.20260728231229` 与主仓库功能提交 `ef8c18c` 已固定；多渠道部分 receipt 缺陷追加 red/green 后，plugin 53 文件 / 263 用例、verify、coverage、Gitleaks、安装态和只读 status 全绿。主仓库 300 文件 / 2141 用例、coverage、118 L5 与 production/selfhost 各 190 页门禁全绿；C127 转 verified/100%，无真实渠道写入。

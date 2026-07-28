@@ -4,9 +4,9 @@
 > Owner: IllegalCreed
 > Created: 2026-07-10
 > Last reviewed: 2026-07-28
-> Current plan: C-20260711-127 提示词驱动的全自动内容分发（in-progress/97%，T4 调度、标准报告与反馈安全分流已完成）
+> Current plan: C-20260711-127 提示词驱动的全自动内容分发（verified/100%）
 > Completed plan: C-20260727-134 AdSense 主域审核与算法站接入（verified）
-> Next action: 进入 T5，评审受控 RPA、Reddit 后备与人工发布桥接
+> Next action: 建立独立 `content-studio` 自动内容生产仓库，再进入 C128 真实发布与复盘
 > Strategy: `docs/marketing/roadmap.md`
 > Launch materials: `docs/marketing/launch-posts.md`
 > Channel audit: `docs/marketing/channel-automation-audit.md`
@@ -34,12 +34,12 @@
 | 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
 | 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核     |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | MCP v3 多项目隔离、四渠道真实闭环与 T4 调度/报告/反馈安全分流完成                        | 当前 97%；下一步 T5 RPA/Reddit/人工桥接评审                                          |
+| 内容生产自动化   | 已完成 | MCP v3 多项目隔离、四渠道真实闭环、T4 安全跟进、T5 Owner 辅助交接与 T6 交付完成          | C127 verified/100%；下一步由 `content-studio` 生成图文/视频资产                      |
 | 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `C127 T4 监测与反馈安全（complete）` -> `C127 T5 RPA/人工桥接（current）` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（verified）` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `content-studio 自动内容生产（current）` -> `C128 发布与复盘`
 
 顺序约束：
 
@@ -48,25 +48,25 @@
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
-6. C127 T1/T2/T3-A/T3-B/T3-C/T3-D1-B/T3-D2-B/T3-D3-C/T3-D4-A/T3-D4-B/T3-D4-C/T4 已完成并转 97%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 plugin `263fd3f` 因 Free 零写额度保持 disabled；下一步进入 T5。
+6. C127 T1-T6 已完成并转 verified/100%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 API plugin `263fd3f` 因 Free 零写额度保持 disabled；T5 将其与另外 11 个无当前自动 adapter 的渠道收束为 Owner 辅助发布交接。下一步建立 `content-studio`。
 7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口，不恢复行为分析。
 8. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
-| 阶段                      | 状态        | 目标                                                 | 退出条件                                                            | 主要依赖                       |
-| ------------------------- | ----------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ |
-| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                       | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物   | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
-| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因           | 未激活生产统计；由 C129 撤销                                        | C124                           |
-| C129 撤销第三方分析接入   | verified    | 删除行为分析 tracker 与事件，保留零成本 UTM 工具     | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
-| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路             | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
-| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页           | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
-| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                     | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | in-progress | 四渠道真实闭环与 T4 调度、标准报告、反馈安全分流完成 | 首批 live adapter、幂等发布、确定性跟进与真实 smoke 通过            | 97%；下一步 T5                 |
-| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                       | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
-| C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告           | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
-| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                     | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
+| 阶段                      | 状态       | 目标                                                         | 退出条件                                                            | 主要依赖                       |
+| ------------------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------ |
+| C123 增长执行审计与编排   | verified   | 统一事实、顺序、边界与历史状态                               | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified   | 让每个可索引页面具备唯一语义和可验证的机器可读产物           | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
+| C125 分析、事件与渠道归因 | superseded | 历史方案：第三方 page view、事件与会话归因                   | 未激活生产统计；由 C129 撤销                                        | C124                           |
+| C129 撤销第三方分析接入   | verified   | 删除行为分析 tracker 与事件，保留零成本 UTM 工具             | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
+| C126 `/en` 多语言十页试点 | verified   | 验证英文 UI、文章、搜索与国际 SEO 全链路                     | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
+| C130 英文目录扩展到 30 页 | verified   | 收束 locale catalog 并新增二十个英文算法页                   | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
+| C131 英文目录全量对齐     | verified   | 补齐 15 个互动页与 50 个播放器页                             | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
+| C127 提示词驱动全自动分发 | verified   | 四渠道真实闭环、T4 安全跟进、T5 Owner 辅助发布与 T6 交付完成 | 首批 live adapter、幂等发布、确定性跟进与 Owner 辅助交接可验证      | 100%；下一步 `content-studio`  |
+| C133 多项目隔离与通用化   | verified   | 一套本地发布器安全服务多个项目                               | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
+| C134 AdSense 技术准备     | verified   | 修复主域审核入口并让算法站仅在生产加载广告                   | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
+| C128 发布、监测与迭代     | planned    | 用真实 campaign 证据决定渠道投入                             | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -175,19 +175,19 @@
 
 ## C127 提示词驱动的全自动内容分发
 
-> Status: in-progress / 97% / current（C-20260711-127）
+> Status: verified / 100%（C-20260711-127）
 > 详细能力与官方依据：[`channel-automation-audit.md`](./channel-automation-audit.md)
 > 四文档：`docs/plans/20260711-c127-auto-distribution/`
 
 ### 必做范围
 
-- 将 Owner 提示词规范化为 `CampaignSpec`；提示词是本次 campaign 授权，已接入的 A 级渠道不再逐帖人工审批。
+- 将 Owner 提示词规范化为 `CampaignSpec`；只有明确包含并匹配具体 campaign 执行授权的 Owner 指令才允许站外写入，普通内容生成请求、历史授权或已接入账号均不构成授权。
 - 建立发布、指标、评论、回复、删除、授权、成本独立建模的能力注册表，分开记录官方等级与实际执行模式，并以规则评审和当前授权失败关闭。
-- 首批零费用 API 自动渠道为 GitHub、Bluesky、DEV、Mastodon；微博是原候选，2026-07-14 因 Free 零写额度移出，只保留人工分享和后续独立 RPA 评审。
-- Reddit 作为个人可申请的后备渠道，不阻塞首期；微信公众号、B站因无企业主体禁用，X 因零新增费用禁用。
-- V2EX、Hacker News、Product Hunt 只生成最终稿，Owner 人工发布并返回 URL 后自动监测；掘金、知乎、小红书维持禁用。
-- API secret 只进入独立本地 `marketing-ops` 的 macOS Keychain；RPA 登录态只存在每平台专用 Profile，不进入 Codex、公开仓库或 GitHub Actions。
-- 官方 API 优先；RPA 必须逐渠道评审并由 Owner 显式启用，且只能在 MCP 内以 headed Playwright 运行。禁止内部接口、逆向签名、stealth、Cookie 导出和验证码绕过；验证码、设备验证或未知页面必须失败关闭。
+- 首批零费用 API 自动渠道为 GitHub、Bluesky、DEV、Mastodon；微博是原候选，2026-07-14 因 Free 零写额度移出自动集合。
+- 19 渠道注册表中的 12 个 Owner 辅助渠道为掘金、V2EX、B站、知乎、Hacker News、Product Hunt、微博、X、简书、Facebook、YouTube、抖音；自动生成最终内容包后，由 Owner 在官方 UI 登录、处理挑战并执行最终发布，再回传公开 URL。
+- Reddit 作为个人可申请的后备渠道，不阻塞首期；微信公众号和小红书当前仍不生成发布包。平台 API 不可用不再等同于禁止 Owner 手工使用官方 UI。
+- API secret 只进入独立本地 `marketing-ops` 的 macOS Keychain；当前未实现 RPA。未来若逐渠道批准 RPA，登录态也只能存在每平台专用 Profile，不进入 Codex、公开仓库或 GitHub Actions。
+- 官方 API 优先；T5 不实现通用浏览器 RPA，不接收浏览器 Profile、selector、脚本、文件路径、Cookie 或 token。若未来逐渠道引入 RPA，必须单独评审并由 Owner 显式启用；禁止内部接口、逆向签名、stealth、Cookie 导出和验证码绕过，验证码、设备验证或未知页面必须失败关闭。
 - 每个发布动作使用幂等键和 receipt；1 小时、48 小时、7 天采集可得指标与反馈，并按平台规则限制自动回复。
 - 凭据、Keychain 和浏览器 Profile 全部位于独立本地 `marketing-ops`；Codex 只调用高层 MCP 工具，不获得任意浏览器执行权。
 
@@ -215,6 +215,10 @@
 - 跨渠道报告按主 receipt 标准化 available/unavailable/failed metric，GitHub 14 天仓库 traffic 固定不可归因，artifact 单列，Bluesky 与缺失/畸形指标不伪造为 0，单渠道失败不阻塞其余渠道。
 - campaign reply policy 以 project-scoped 0700/0600 原子文件保存。FAQ-only 只允许 GitHub Issue 固定中英文模板；敏感/含注入指令/模糊内容升级人工。Bug Issue 需要缺陷和复现双信号，只保存 feedback ID SHA-256、公开 source URL 与通用待复核说明，远端 marker 和本地 receipt 双重幂等。
 - 所有反馈写动作仍要求 matching Owner 授权、已知 published receipt、fresh exact feedback reread 与可用 transport；T4 工程验证只使用 fake client/clock，没有真实回复或创建 Issue。plugin `1ccfb9e` 已推送，安装版 `0.1.0+codex.20260728143703` enabled；51 文件 / 252 用例、verify、coverage、安装缓存握手、Gitleaks 与高风险模块 100% 门槛全绿。
+- T5 已完成：`publish_campaign.execution` 支持 `automatic`、`assisted-prepare`、`assisted-confirm`。prepare 只返回本地内容包与 `awaiting-owner` 交接，不调用 adapter、不写 receipt；confirm 仅接受注册渠道、HTTPS、官方 host/path 的公开 URL，派生 post ID 后保存 project-scoped `assisted-owner-confirmed@1.0.0` receipt。该 receipt 只表示 Owner 确认，不声明工具创建或远端验证了帖子。
+- T5 默认失败关闭：含媒体的内容包在资产引用合同落地前拒绝交接；错误 host/path、非 HTTPS、凭据样式 URL、未知渠道、receipt 字段冲突和不同 URL 幂等冲突均拒绝。Owner 确认后的主 receipt 可派生 1h/48h/7d 计划；没有 collector 的渠道报告 `collector-not-implemented`，不伪造为零。
+- T6 已完成：最终安全复核以 red case 复现多渠道 confirm 后项非法时遗留部分 receipt，再以两阶段全量 URL/冲突预检修复。plugin `60152d3`、安装版 `0.1.0+codex.20260728231229` 与主仓库 `ef8c18c` 已固定；plugin 53/263、主仓库 300/2141、两仓库 coverage/verify、118 L5、双 base 190 页、Gitleaks、安装态和只读 status 全绿。
+- 2026-07-28 最终只读 `channels_status`：GitHub ready；微博 blocked；Bluesky、DEV、Mastodon reauth-required。该健康状态不改变历史真实闭环，但后续自动写入前必须重新隐藏 setup，并继续要求 matching Owner 授权。
 - 首次真实接入时由 Codex 逐步带 Owner 完成向导；接入后的正常使用只需自然语言 campaign，不要求编辑 JSON、拼 UTM 或记忆 CLI。
 
 ### 退出条件
@@ -223,6 +227,7 @@
 - 首批 adapter 的成功、授权失败、限流、未知结果、重试、幂等、可用撤回和日志脱敏均有自动化测试。
 - 至少一个非 GitHub 渠道完成低风险真实发布/采集 smoke；每个启用渠道有速率、成本、密钥 Owner 和合规记录。
 - 1h/48h/7d collector、跨渠道报告、FAQ-only 回复边界和 Bug Issue 分流可验证。
+- 12 个无当前自动 adapter 的渠道可自动生成内容包，并通过 Owner 官方 UI 发布 + 公开 URL 确认形成幂等 receipt；未确认前无发布 receipt。
 
 ## C128 发布、监测与迭代
 
@@ -230,8 +235,8 @@
 
 1. 首批自动批次：GitHub、Bluesky、DEV、Mastodon；只展开已完成官方授权的渠道。微博 Free 零写额度，不进入 API 自动批次。
 2. 后备自动批次：仅 Reddit，等待个人应用审核和目标社区授权；不作为首期退出条件。
-3. 人工发布后监测批次：V2EX、Hacker News、Product Hunt；Owner 返回真实 URL/ID 后进入 collector。
-4. 掘金、知乎、小红书不进入自动批次；微信公众号、B站、X 在当前 Owner 硬约束下同样禁用。
+3. Owner 辅助发布后监测批次：掘金、V2EX、B站、知乎、Hacker News、Product Hunt、微博、X、简书、Facebook、YouTube、抖音；系统自动生成内容包，Owner 在官方 UI 发布并返回真实 URL 后进入 receipt/collector 流程。
+4. 微信公众号和小红书当前不生成发布包；新增平台先进入 `content-studio` 内容契约和逐渠道安全评审，不能直接获得站外写权限。
 5. 每个批次在 48 小时与 7 天复盘，不同渠道不使用同一文案和同一发布时间假设。
 
 ### 退出条件
@@ -242,19 +247,19 @@
 
 ## Owner 外部输入与阻塞
 
-| 输入                                        | 最晚需要阶段 | 说明                                                                                                 |
-| ------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
-| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID                                   |
-| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                             |
-| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                            |
-| 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入           |
-| 首批渠道账号状态                            | 已完成       | 微博 Free 零写额度；Bluesky/DEV/Mastodon 已完成各自真实闭环；Mastodon ready/enabled 且临时状态已清理 |
-| 首批渠道官方授权                            | C127 T3-T6   | 由 Codex 带着在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret        |
-| 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；微信/B站/X 固定禁用                                                 |
-| Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                               |
-| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                                                               |
-| AdSense 后台设置                            | C134 发布后  | Owner 完成付款资料、Google 认证 CMP、Auto ads 和重新送审；仓库与 Codex 不保存登录或付款资料          |
-| 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                                                           |
+| 输入                                        | 最晚需要阶段 | 说明                                                                                                    |
+| ------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID                                      |
+| Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                                |
+| GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                               |
+| 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入              |
+| 首批渠道账号状态                            | 已完成       | 四渠道历史真实闭环完成；最终只读健康为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required |
+| 首批渠道官方授权                            | C127 T3-T6   | 由 Codex 带着在本地 `marketing-ops` 完成 OAuth/App Password/API key 接入；聊天中不发送 secret           |
+| 零费用与个人主体约束                        | 已完成       | 不购买 API/订阅，不办理企业认证；不可用 API 保持 disabled，但允许 Owner 在官方 UI 免费手工发布          |
+| Reddit 后备授权                             | optional     | 个人应用审核与目标社区授权；不阻塞首期                                                                  |
+| 赞赏码/爱发电图片                           | C128 前可选  | 早期信号实验，不阻塞 SEO、多语言或发布                                                                  |
+| AdSense 后台设置                            | C134 发布后  | Owner 完成付款资料、Google 认证 CMP、Auto ads 和重新送审；仓库与 Codex 不保存登录或付款资料             |
+| 隐私与平台合规确认                          | C127-C128    | 邮件、自动发布、未来统计和广告均需单独确认                                                              |
 
 ## 官方依据与适用边界
 
@@ -313,3 +318,5 @@
 - 2026-07-27：T3-D4-C1 固定 Mastodon 英文临时 status、UTM、幂等键与清理顺序；dry-run 唯一授权 blocker 且零副作用。
 - 2026-07-27：T3-D4-C2 matching 授权闭环完成；plugin `44a7e9a` 修复段落还原并同 payload 认领唯一状态，正文、幂等、feedback、`1h` report、delete、deleted receipt 与无缓存远端 404 全部通过；plugin `7cc60a5` 追加自包含 MCP bundle 与安装缓存握手。C127 转 94%，下一步 T4。
 - 2026-07-28：C127 T4 完成三窗口确定性计划、跨渠道标准报告、FAQ-only GitHub Issue 回复边界与 Bug Issue 最小化分流；plugin 51/252、coverage 和安全模块 100% 门槛全绿，全程零真实反馈写入。C127 转 97%，下一步 T5。
+- 2026-07-28：C127 T5 完成 12 个 Owner 辅助渠道的自动内容包、prepare/confirm 交接、官方 URL 校验、幂等 receipt 与跟进计划接线；先红后绿，未调用平台 adapter、未执行真实发布。C127 转 99%，下一步 T6 全门禁、安装与精确交付。
+- 2026-07-28：C127 T6 完成最终多渠道 receipt 预检修复、双仓库全门禁、插件安装/只读状态与精确提交；C127 verified/100%。纯 contract/docs 未部署 SPA，下一步建立 `content-studio`。

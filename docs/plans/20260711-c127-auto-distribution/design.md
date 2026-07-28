@@ -1,19 +1,20 @@
 # 设计：提示词驱动的全自动内容分发
 
-> Status: in-progress
+> Status: verified
 > Stable ID: C-20260711-127
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-28
-> Progress: 97%
+> Progress: 100%
 > Blocked by: none
-> Next action: T4 调度、标准报告、FAQ-only 与 Bug Issue 分流已完成；进入 T5 RPA/Reddit/人工桥接评审
+> Next action: 已完成；下一步建立 `content-studio` 自动内容生产仓库，再进入 C128 真实发布复盘
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
 > Related tests: TC-DOC-AUTO-127-\_、TC-AUTO-SPEC-127-\_、TC-AUTO-IDEMP-127-\_、TC-AUTO-CHANNEL-127-\_、TC-AUTO-FACTS-127-\_、TC-AUTO-RENDER-127-\_、TC-AUTO-DRYRUN-127-\_、TC-AUTO-MCP-127-\_、TC-AUTO-SETUP-127-\_、TC-AUTO-SECRET-127-\_、TC-AUTO-PROFILE-127-\_、TC-AUTO-QUEUE-127-\_、TC-AUTO-RECEIPT-127-\_、TC-AUTO-TRANSPORT-127-\_、TC-AUTO-UX-127-\_、TC-AUTO-ADAPTER-127-\_、TC-AUTO-GITHUB-127-\_、TC-AUTO-DISPATCH-127-\_、TC-AUTO-GHCLI-127-\_、TC-AUTO-GHAUTH-127-\_、TC-AUTO-ACTIVATION-127-\_、TC-AUTO-RUNTIME-127-\_、TC-AUTO-GHOBS-127-\_、TC-AUTO-GHISSUE-127-\_、TC-AUTO-GHSTORE-127-\_、TC-AUTO-GHOPS-127-\_、TC-AUTO-GHSMOKE-127-\_、TC-AUTO-WBPROC-127-\_、TC-AUTO-WBCLI-127-\_、TC-AUTO-WBADAPTER-127-\_、TC-AUTO-WBRUNTIME-127-\_、TC-AUTO-WBSMOKE-127-\_、TC-AUTO-BSKYAPI-127-\_、TC-AUTO-BSKYADAPTER-127-\_、TC-AUTO-BSKYACT-127-\_、TC-AUTO-BSKYCHANNEL-127-\_、TC-AUTO-BSKYRUNTIME-127-\_、TC-AUTO-DEVAPI-127-\_、TC-AUTO-DEVADAPTER-127-\_、TC-AUTO-DEVACT-127-\_、TC-AUTO-DEVCHANNEL-127-\_、TC-AUTO-DEVOBS-127-\_、TC-AUTO-DEVRUNTIME-127-\_、TC-AUTO-DEVSMOKE-127-\_、TC-AUTO-MASTOAPI-127-\_、TC-AUTO-MASTOADAPTER-127-\_、TC-AUTO-MASTOACT-127-\_、TC-AUTO-MASTODONCHANNEL-127-\_、TC-AUTO-MASTOOBS-127-\_、TC-AUTO-MASTORUNTIME-127-\_、TC-AUTO-MASTOSMOKE-127-\_
 > T4 tests: TC-AUTO-SCHEDULE-127-\_、TC-AUTO-REPORT-127-\_、TC-AUTO-POLICY-127-\_、TC-AUTO-FAQ-127-\_、TC-AUTO-GHREPLY-127-\_、TC-AUTO-BUGROUTE-127-\_
+> T5 tests: TC-AUTO-ASSISTED-127-01..10
 > Related requirement: requirements.md
 
 ## 设计原则
@@ -24,7 +25,7 @@
 
 > 当前实现说明：C133 已将早期单项目 MCP v1/v2 设计升级为 Project Profile 驱动的 MCP v3；本文件中的 v1/v2 段落继续作为历史设计记录，当前契约与隔离设计见 `docs/plans/20260727-c133-multi-project-marketing-ops/design.md`。
 
-4. **按 campaign 授权**：Owner 的提示词授权本次 campaign；一次性账号授权完成后，A 级渠道不逐帖审批。
+4. **按 campaign 授权**：自然语言请求先生成结构化 campaign；只有 Owner 对匹配 campaign 明确授权的指令才能打开自动写 gate。owner-assisted 渠道的最终发布始终由 Owner 在官方 UI 控制。
 5. **默认幂等和最小数据**：所有写动作带幂等键；只保存公开 ID、URL、聚合值和清洗摘要。
 
 ## 数据流
@@ -176,6 +177,24 @@ get_campaign_report(campaignId, window)
 - 验证码、设备确认、页面结构未知、重复发布风险或内容校验失败时立即停止；不启用 stealth 或自动解验证码。
 - RPA profile 与 Keychain 数据位于公开仓库之外，并由 FileVault/本机账号权限保护。
 
+T5 评审没有批准任何 production RPA adapter。平台条款、页面稳定性、challenge 与重复风险尚不足以满足失败关闭要求；因此现有 MCP 仍不存在 browser/selector/Profile 输入或浏览器控制实现。半自动诉求由下面的 Owner-assisted handoff 承担。
+
+## T5 Owner-assisted handoff
+
+`publish_campaign` 继续保持七工具 MCP v3，不增加通用浏览器工具；只增加闭合的 `execution` 判别联合：
+
+- 未传或 `{ mode: "automatic" }`：完全保持既有 API adapter 路径；
+- `{ mode: "assisted-prepare" }`：校验 renderer package 与 project policy，返回 `awaiting-owner` handoff；不调用 adapter、不写 publication receipt；
+- `{ mode: "assisted-confirm", confirmations }`：要求每个 package 恰有一个同渠道公开 URL，按固定 host/path 规则提取 post ID，再写 project-scoped receipt。
+
+Owner-assisted 渠道是掘金、V2EX、B站、知乎、Hacker News、Product Hunt、微博、X、简书、Facebook、YouTube、抖音。它们的官方 API 等级、成本、主体和审核状态保持原值；“能生成 manual package”不代表“能 API 自动发布”。
+
+确认 receipt 使用 `assisted-owner-confirmed@1.0.0`，内容 hash 和渠道幂等键与 automatic 路径共用同一算法。同键异内容、同键异 URL、同公开引用异 operation、错误域名/协议/路径、URL 内凭据或落盘结果不一致全部失败关闭。`publishedAt` 是 Owner 确认时间，因此报告携带 `confirmation-time-is-not-platform-publication-time` 限制。
+
+现有 renderer package 的 `media` 只是类型列表，没有内容 hash、资产路径或上传状态。为避免把“想要视频”误写成“视频已准备”，assisted prepare/confirm 仅接受 `media=[]`；content-studio 后续提供经过验证的 artifact reference 后再升级媒体合同。
+
+assisted receipt 是主发布 receipt，可确定性恢复 1h/48h/7d 计划。collector 只按真实接线能力工作：未实现 collector 的渠道返回 `collector-not-implemented`，仍保留 channel entry、URL 和限制，不伪造 0 或自动监测成功。V2EX/Product Hunt 的读取需要后续隐藏 credential setup；Hacker News 可后续接公开只读 collector。
+
 ## 内容生成与验证
 
 - Codex 负责生成候选内容，renderer 负责确定性包装和平台限制。
@@ -219,7 +238,7 @@ get_campaign_report(campaignId, window)
 
 `off` 是默认值。`faq-only` 只允许：致谢、已批准 FAQ、文档链接、已确认 Bug 的收集说明。模型无法高置信度分类、用户表达负面/争议、包含隐私信息或涉及法律/安全/付款时一律升级 Owner。
 
-平台硬限制优先于 campaign：V2EX、Hacker News、Product Hunt、DEV 当前禁用自动回复。微博、Bluesky、Mastodon、GitHub 和审核通过后的 Reddit 仍需各自频率与社区规则 gate；微信/B站/X 在 Owner 当前硬约束下整体禁用。
+平台硬限制优先于 campaign：owner-assisted receipt 只提供发布引用，不授予回复能力。V2EX、Hacker News、Product Hunt、DEV 及新增手动渠道当前禁用自动回复。微博、Bluesky、Mastodon、GitHub 和审核通过后的 Reddit 仍需各自频率与社区规则 gate；微信/B站/X 的 API 自动写继续禁用。
 
 ### T4 FAQ-only 与 Bug 分流
 
@@ -328,7 +347,7 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - **重复发帖**：幂等键、平台查询和本地队列并发控制三层保护。
 - **内容事实过期**：生成前读取当前 registry/文档，validator 禁止硬编码旧测试基线。
 - **账号被限制**：不以账号低价值为理由绕过平台规则或安全 gate；停用该渠道并保留其他渠道运行。
-- **费用失控**：能力 gate 只允许 `cost=free`；付费 adapter 不实现，X 固定禁用。
+- **费用失控**：能力 gate 只允许 `cost=free`；付费 adapter 不实现，X API 固定禁用，Owner 官方 UI 手动发布不产生 API credits。
 - **反馈隐私**：不长期保存原始跨平台评论；报告只保留必要引用、来源 URL 和清洗摘要。
 - **提示注入**：评论和网页内容一律视为数据；只有 Owner/Codex 生成并通过 schema 的显式调用才能触发写工具。
 
@@ -345,6 +364,8 @@ Bluesky 使用普通个人账号可创建的专用 App Password 与官方 AT Pro
 - 2026-07-27：T3-D4-C1 固定英文 Quick Sort 临时 status、UTM、幂等键与完整清理顺序；公开 dry-run 唯一 blocker 为 `EXECUTION_NOT_APPROVED`，等待 matching 授权。
 - 2026-07-27：T3-D4-C2 首次提交后因相邻 `<p>` 被还原为单换行而触发 `UNKNOWN_RESULT`；公开只读查询确认只有一条正文正确的状态，回归修复后同 payload 预查询认领该状态并落 receipt，未重复创建。正文、同 payload 幂等、feedback、`1h` report、delete 与 deleted receipt 均通过；带 cache-buster 的官方状态 API 为 404、账号状态列表为空。
 - 2026-07-28：T4 按本设计落地确定性三窗口计划、到期采集 gate、标准化 per-receipt 报告、project-scoped reply policy、GitHub Issue FAQ 固定模板与最小化 Bug Issue 分流。计划本身不等于已创建自动任务；任何真实回复或 Issue 仍须 matching Owner 授权并在写前 fresh reread。
+- 2026-07-28：T5 没有批准 production RPA；改以七工具内闭合 `automatic/assisted-prepare/assisted-confirm` 实现 Owner-assisted handoff。19 渠道登记、12 渠道 package、公开 URL/ID gate、receipt 幂等与三窗口接续先红后绿完成，媒体与未接 collector 继续失败关闭。
+- 2026-07-28：最终安全复核以 red case 复现多渠道 confirm 后项非法时遗留部分 receipt；实现两阶段 URL/冲突预检后转绿。T6 双仓库门禁、安装态、泄漏扫描与只读 status 通过，C127 verified/100%。
 - 2026-07-14：微博个人认证通过；Free 复核为 7 天只读/零写额度，官方 API 发布路径失败关闭，下一步转 Bluesky。
 - 2026-07-11：完成架构设计；将提示词视为 campaign 授权，以能力注册表、官方 adapter、幂等 receipt 和定时 collector 形成闭环。
 - 2026-07-11：按 Owner 零费用/个人主体决策收紧 gate；微信/B站/X 固定禁用，Reddit 为后备。

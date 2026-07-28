@@ -1,14 +1,14 @@
 # 实现记录：提示词驱动的全自动内容分发
 
-> Status: in-progress
+> Status: verified
 > Stable ID: C-20260711-127
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-07-11
 > Last reviewed: 2026-07-28
-> Progress: 97%
+> Progress: 100%
 > Blocked by: none
-> Next action: T4 调度、标准报告、FAQ-only 与 Bug Issue 分流已完成；进入 T5 RPA/Reddit/人工桥接评审
+> Next action: 已完成；下一步建立 `content-studio` 自动内容生产仓库，再进入 C128 真实发布复盘
 > Replaces: C-20260710-123 中“每帖人工审批”的 C127 历史约束
 > Replaced by: none
 > Related plans: C-20260710-123、C-20260710-129、C-20260711-126、C-20260711-130、C-20260711-131、C-20260727-133
@@ -28,7 +28,7 @@
 - [x] 补充审计 Header 已有分享目标微博/X，以及 DEV、Bluesky、Mastodon 三个可替代自动渠道。
 - [x] 逐项核验官方发布、指标、评论、回复、授权、准入、成本和规则。
 - [x] 建立 A/B/C/D 能力等级；原始依据集中落在 `docs/marketing/channel-automation-audit.md`。
-- [x] Owner 的提示词改为 campaign 授权；保留官方 API 优先、secret 隔离和受控 RPA 失败关闭红线。
+- [x] 自然语言提示词规范化为 campaign；最终边界收紧为只有 matching Owner 执行授权才可自动写，普通内容生成请求保持零副作用。
 - [x] 确认独立本地 `marketing-ops` MCP：凭据/浏览器 Profile 服务侧持有，Codex 只调用高层工具。
 
 ## T1 基础层
@@ -180,23 +180,29 @@
 
 ## T5 RPA 评审、Reddit 后备与人工桥接
 
-- [ ] 只有逐渠道规则评审通过且 Owner 显式启用时才实现 RPA adapter；挑战页、未知 DOM 和重复风险全部失败关闭。
-- [ ] Reddit adapter 仅在个人应用审核与目标社区授权完成后启用，不阻塞首期。
-- [ ] V2EX、Hacker News、Product Hunt 生成人工发布包，接收真实 URL 后自动采集。
-- [ ] 掘金、知乎、小红书保持禁用并输出官方能力缺失原因。
-- [ ] 微信公众号、B站因无企业主体禁用；X 因零新增费用禁用。
+- [x] RPA 评审未批准任何 production adapter；MCP 不新增 browser/selector/Profile 输入，challenge、未知 DOM 与重复风险继续失败关闭。
+- [x] Reddit 保持审核后条件 API 后备；未取得个人应用审核与目标社区授权，不启用 adapter，且不阻塞 C127。
+- [x] 渠道集合由 15 扩为 19，新增简书、Facebook、YouTube、抖音；自动 API 集合仍固定 GitHub/Bluesky/DEV/Mastodon。
+- [x] renderer 为掘金、V2EX、B站、知乎、Hacker News、Product Hunt、X、简书、Facebook、YouTube、抖音生成 `manual-package`，微博复用既有 `post`；小红书/微信公众号仍无 package。
+- [x] 七工具 MCP v3 的 `publish_campaign.execution` 增加 `automatic` 默认、`assisted-prepare` 和 `assisted-confirm`，最大 package 数扩为 20。
+- [x] prepare 保持零 adapter 调用、零 publication receipt；confirm 要求完整同渠道确认集合并以固定平台 host/path 提取 post ID。
+- [x] confirm 保存 `assisted-owner-confirmed@1.0.0` project receipt；同键异内容/URL、重复公开引用、错误协议/域/路径/URL 凭据与落盘冲突全部失败关闭。
+- [x] owner-assisted receipt 进入 1h/48h/7d 调度和标准报告；未接 collector 显式 `collector-not-implemented`，V2EX/Product Hunt 后续隐藏 read setup 不伪装为已完成。
+- [x] 当前媒体只含类型而无可验证 artifact reference，assisted 非空 media 全部失败关闭；由后续 content-studio 扩展资产合同。
+- [x] 掘金、知乎保持 API/RPA 写入禁用但可生成 Owner 辅助内容包；小红书仍不生成发布包。
+- [x] 微信公众号仍不生成发布包；B站/X 保持 API 自动写禁用但可生成 Owner 辅助内容包。
 
 ## T6 交付
 
-- [ ] 每个启用渠道至少一次低风险真实 smoke，记录公开 URL 与可用撤回结果。
-- [ ] `pnpm format`、`pnpm verify`、coverage 与需要的 L5 全绿。
-- [ ] 四文档、plan/test 三索引、marketing、roadmap 与 agent 记忆转 verified。
-- [ ] 精确提交、push；代码变更若影响站点再双轨部署，纯 contract/docs 不盲目部署 SPA。
-- [ ] C128 以真实 campaign 开始 48h/7d 发布复盘。
+- [x] 四个自动 adapter 均已有历史真实闭环；T5/T6 不新增或执行真实渠道写入。
+- [x] `pnpm format`、双仓库 verify/coverage、主仓库 118 L5 与双 base 190 页门禁全绿。
+- [x] 四文档、plan/test 三索引、marketing、roadmap 与 agent 记忆转 verified。
+- [x] plugin `60152d3` 与主仓库功能提交 `ef8c18c` 已精确提交；纯 contract/docs 不部署无变化的 SPA。
+- [x] 先建立 `content-studio` 自动内容生产仓库，再由 C128 以真实 campaign 开始 48h/7d 发布复盘。
 
 ## 当前实际变更
 
-T0 调研和方案设计、T1 公开基础层、T2 MCP 安全运行时骨架、T3-A adapter contract/GitHub mock、T3-B GitHub CLI/显式启用 gate、T3-C GitHub 闭环、T3-D2 Bluesky 闭环与 T3-D3-C DEV 正式文章闭环已完成。`scripts/marketing/` 现包含版本化 schema/严格 validator、规范化与 SHA-256 幂等键、15 渠道能力注册表和 runtime gate、站点事实快照及对拍、渠道 renderer、示例 campaign、`pnpm marketing:dry-run`、MCP v3 contract 与 `buildPublishCampaignPayload()`。v3 的七工具均要求 `projectId`，`publish_campaign.packages` 继续直接承接公开 renderer 结果；Owner 不编辑 JSON，本地插件也不复制平台文案或 UTM 逻辑。
+T0 调研和方案设计、T1 公开基础层、T2 MCP 安全运行时骨架、T3-A adapter contract/GitHub mock、T3-B GitHub CLI/显式启用 gate、T3-C GitHub 闭环、T3-D2 Bluesky 闭环、T3-D3-C DEV 正式文章闭环、T4 安全跟进、T5 Owner 辅助交接与 T6 交付均已完成。`scripts/marketing/` 现包含版本化 schema/严格 validator、规范化与 SHA-256 幂等键、19 渠道能力注册表和 runtime gate、站点事实快照及对拍、渠道 renderer、示例 campaign、`pnpm marketing:dry-run`、MCP v3 contract、`buildPublishCampaignPayload()` 与 `buildAssistedPublishCampaignPayload()`。v3 的七工具均要求 `projectId`，`publish_campaign.packages` 继续直接承接公开 renderer 结果；Owner 不编辑 JSON，本地插件也不复制平台文案或 UTM 逻辑。
 
 独立 personal plugin 已在本机 `/Users/zhangxu/plugins/marketing-ops` 建立并安装/enabled，远端为公开仓库 `IllegalCreed/marketing-ops`；T2 骨架由本地提交 `a53f411` 固定，T3-A 由本地提交 `ba6d4c3` 固定。它通过 stdio 暴露精确七个高层 MCP 工具，提供一次性 `setup`、只读 `status/doctor`、macOS Keychain helper、每渠道独立 Profile、campaign 锁、0600 原子 receipt 存储与输出脱敏；凭据只经子进程 stdin/隐藏输入进入 Keychain，不进入 argv、env、JSON、日志或 MCP 输出。
 
@@ -210,7 +216,7 @@ personal plugin 的 T3-C 新增 Release detail/reactions、14 天仓库 traffic�
 
 本机现有 GitHub CLI 账号 `IllegalCreed` 与目标仓库权限为 ready；Owner 已明确授权固定 campaign 并完成 `setup github`，非秘密 activation 保持 enabled。唯一真实 smoke 创建 Release `352517542`，读取 status、零条反馈与明确不可归因的仓库级报告后，经 MCP 删除 Release 和 owned tag；receipt 为 deleted，Release/tag 独立复查均不存在。全过程未读取聊天凭据，未创建评论、回复或 Issue。
 
-Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke，临时记录已清理。DEV 已完成工程 adapter、collector、公开 durable campaign preflight/setup 与固定正式文章 smoke；receipt `4146005` published，文章长期公开，但当前 key 为 reauth-required。Mastodon 真实闭环已完成并清理。T4 已补齐 1h/48h/7d 确定性计划、标准报告和反馈安全分流；计划输出不代表已经创建 Codex 自动任务，T5/T6 未完成前仍不能表述为“全自动系统已经可用”。
+Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke，临时记录已清理。DEV 已完成工程 adapter、collector、公开 durable campaign preflight/setup 与固定正式文章 smoke；receipt `4146005` published，文章长期公开。Mastodon 真实闭环已完成并清理。T4 已补齐 1h/48h/7d 确定性计划、标准报告和反馈安全分流；T5 已补齐 owner-assisted 内容包与确认 receipt。2026-07-28 最终只读状态为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required；历史闭环不等于当前可写，后续写入需重新隐藏 setup 和 matching campaign 授权。
 
 ## 验证记录
 
@@ -298,3 +304,5 @@ Bluesky 已完成隐藏 setup、身份对拍、安全删除和固定真实 smoke
 - 2026-07-27：T3-D4-C1 零副作用预案已冻结；固定 campaign、renderer 正文、UTM、幂等键、授权 blocker 与 publish/read/幂等/反馈/报告/delete/远端复查顺序，C127 保持 92%，等待 matching 授权。
 - 2026-07-27：T3-D4-C2 matching 授权闭环完成；plugin `44a7e9a` 修复段落还原后同 payload 安全认领唯一状态并完成读取、幂等、反馈、`1h` 报告、删除与远端不存在复查。安装审计随后发现 Codex 缓存不保留 pnpm 依赖符号链接，plugin `7cc60a5` 将 MCP server 打包为自包含 bundle；无 `node_modules` 隔离 STDIO 与最终安装缓存七工具握手均通过。C127 转 94%，下一步 T4。
 - 2026-07-28：T4 先红后绿完成三窗口计划、跨渠道标准报告、FAQ-only GitHub Issue 回复边界与 Bug Issue 安全分流；plugin 51 文件 / 252 用例与 coverage 全绿，三个高风险模块执行 100% 门槛。全部写路径使用 fake client 验证，未执行真实回复或建 Issue。C127 转 97%，下一步 T5。
+- 2026-07-28：T5 先记录主仓库 6 个失败与 plugin 5 个失败，再实现 19 渠道、12 渠道 owner-assisted renderer、prepare/confirm、公开 URL/ID 校验、确认 receipt 和报告接续。最终安全复核另以 1 个 red case 复现多渠道部分 receipt，再以前置全量引用/冲突预检修复。plugin 53 文件 / 263 用例、coverage 全绿，`assisted-publication.ts` 四项 100%；零浏览器/RPA、零真实站外写入，C127 转 99%，下一步 T6。
+- 2026-07-28：T6 通过。plugin `60152d3`、主仓库 `ef8c18c`；插件 verify/coverage、Gitleaks、安装态 `0.1.0+codex.20260728231229` 与只读 `channels_status` 通过。主仓库 format/lint/type-check、300/2141 Vitest、coverage 95.49/86.32/92.03/95.82、118 L5 和 production/selfhost 各 190 页通过。纯 contract/docs 未部署 SPA，C127 转 verified/100%。
