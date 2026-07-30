@@ -1,10 +1,11 @@
 # 测试用例：撤销第三方分析接入
 
-> Status: verified
+> Status: superseded
 > Stable ID: C-20260710-129
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-30
+> Replaced by: C-20260730-135
 > Requirements: ./requirements.md
 > Design: ./design.md
 > Implementation: ./implementation.md
@@ -27,3 +28,4 @@
 
 - 2026-07-10：创建 3 个撤销边界 Case。
 - 2026-07-10：红测准确命中环境与运行时残留；删除接线并保留 UTM 后 3/3，完整门禁通过。
+- 2026-07-30：01..02 因 C135 恢复 consent-gated GA4 page_view 转 superseded；03 的 UTM 能力由 C135 回归继续守护。

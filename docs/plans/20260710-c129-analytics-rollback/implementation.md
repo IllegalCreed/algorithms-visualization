@@ -1,10 +1,11 @@
 # 实现：撤销第三方分析接入
 
-> Status: verified
+> Status: superseded
 > Stable ID: C-20260710-129
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-30
+> Replaced by: C-20260730-135
 > Requirements: ./requirements.md
 > Design: ./design.md
 > Test cases: ./test-cases.md
@@ -34,7 +35,11 @@
 | coverage                  | statements 96.37%、branches 95.68%、functions 94.89%、lines 96.88%   |
 | Playwright                | 103 files / 110 tests 通过                                           |
 | production/selfhost build | 两套各 95 页通过；产物扫描无 Umami/Plausible/website ID/privacy page |
-| `pnpm marketing:link`     | 生成 HTTPS UTM 链接通过                                              |
+
+## 后续影响
+
+- 2026-07-30：C135 恢复一个更窄的、同意后才加载的 GA4 标准页面浏览实现；本文件继续准确记录 2026-07-10 删除 Umami 与交互事件的历史事实。
+  | `pnpm marketing:link` | 生成 HTTPS UTM 链接通过 |
 
 ## 变更历史
 

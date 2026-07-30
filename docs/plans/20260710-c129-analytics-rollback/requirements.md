@@ -1,16 +1,16 @@
 # 需求：撤销第三方分析接入
 
-> Status: verified
+> Status: superseded
 > Stable ID: C-20260710-129
 > Type: refactor
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-30
 > Progress: 100%
 > Blocked by: none
-> Next action: 已完成；增长主线进入 C126 `/en` 十页试点
+> Next action: 当前页面浏览统计边界改读 C-20260730-135
 > Replaces: C-20260710-125
-> Replaced by: none
+> Replaced by: C-20260730-135
 > Related plans: C-20260710-123、C-20260710-124、C-20260710-125
 > Related tests: TC-ANL-ROLLBACK-129-\_
 
@@ -33,3 +33,4 @@ C125 已实现但未激活 Umami Cloud。Owner 确认 `cloud.umami.is` 无法稳
 
 - 2026-07-10：Owner 明确撤销第三方分析；创建 C129，保留 UTM、移除 tracker。
 - 2026-07-10：282/2041 Vitest、110/110 Playwright、coverage 与双 base 95 页通过；状态转 verified。
+- 2026-07-30：Owner 选择零新增费用的独立 GA4 property；C135 以“basic consent 后仅 page_view”替代零 tracker 结论，C129 保留为历史撤销记录。

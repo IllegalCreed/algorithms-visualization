@@ -1,10 +1,11 @@
 # 设计：撤销第三方分析接入
 
-> Status: verified
+> Status: superseded
 > Stable ID: C-20260710-129
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-10
+> Last reviewed: 2026-07-30
+> Replaced by: C-20260730-135
 > Requirements: ./requirements.md
 > Implementation: ./implementation.md
 > Test cases: ./test-cases.md
@@ -27,6 +28,8 @@
 ## 未来方向
 
 若宣传产生稳定流量，另立计划评审 Nginx 专用 `204` endpoint + 白名单 JSON access log + 48h/7d 聚合脚本。该方向不得在本次撤销中偷偷落地，也不得记录 IP、完整 referrer 或用户自由文本。
+
+> 2026-07-30 更新：Owner 已选择 C135 的独立 GA4 property + basic consent + 仅标准 `page_view`，本节不再是当前实现方向。
 
 ## 风险与回滚
 
