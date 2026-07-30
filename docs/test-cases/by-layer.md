@@ -169,12 +169,22 @@
 | L5    | TC-E2E-I18N-126-01..04      | 深链 SEO、切换、搜索/播放器与 900px 响应式        | `e2e/i18n.e2e.ts`                                  |
 | docs  | TC-DOC-I18N-126-01          | plan、增长事实源、测试索引与 agent 记忆一致       | C126 四文档与全局索引                              |
 
-## 2026-07-10 第三方分析撤销增量（C-20260710-129）
+## 2026-07-30 同意后 GA4 页面浏览增量（C-20260730-135）
 
-| 层级 | Case ID                    | 标题                                         | 自动化路径                       |
-| ---- | -------------------------- | -------------------------------------------- | -------------------------------- |
-| L3   | TC-ANL-ROLLBACK-129-01..02 | 双环境无分析配置，应用与交互不加载或发送统计 | `src/analytics/rollback.spec.ts` |
-| L3   | TC-ANL-ROLLBACK-129-03     | 保留 UTM 纯函数与 marketing:link             | `src/analytics/rollback.spec.ts` |
+| 层级 | Case ID               | 标题                                                | 自动化/验证路径                           |
+| ---- | --------------------- | --------------------------------------------------- | ----------------------------------------- |
+| L3   | TC-ANL-GA4-135-01..06 | gate、consent、脚本单例、URL 清洗、SPA 与停发       | `src/analytics/*.spec.ts`                 |
+| L3   | TC-ANL-GA4-135-09..10 | 双环境公开 ID、首路由就绪与核心交互零自定义事件边界 | `src/analytics/boundary.spec.ts`          |
+| L4   | TC-ANL-GA4-135-07..08 | 中英文同意 UI、选择与重新打开设置                   | `src/components/AnalyticsConsent.spec.ts` |
+| L5   | TC-E2E-ANL-135-01     | 开发态无 Google 请求且同意 UI 不阻塞导航            | `e2e/analytics-consent.e2e.ts`            |
+| docs | TC-DOC-ANL-135-01     | C129 与 C135 替代关系                               | `src/analytics/boundary.spec.ts`          |
+
+## 2026-07-10 第三方分析撤销增量（C-20260710-129，superseded）
+
+| 层级 | Case ID                    | 标题                                | 自动化路径                       |
+| ---- | -------------------------- | ----------------------------------- | -------------------------------- |
+| L3   | TC-ANL-ROLLBACK-129-01..02 | 历史零 tracker 边界，已由 C135 替代 | `src/analytics/boundary.spec.ts` |
+| L3   | TC-ANL-ROLLBACK-129-03     | 保留 UTM 纯函数与 marketing:link    | `src/analytics/boundary.spec.ts` |
 
 ## 2026-07-10 分析与渠道归因历史增量（C-20260710-125，superseded）
 

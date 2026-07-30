@@ -183,12 +183,23 @@
 
 ---
 
-## 2026-07-10 第三方分析撤销增量（C-20260710-129）
+## 2026-07-30 同意后 GA4 页面浏览增量（C-20260730-135）
 
-| 模块                          | Case ID                    | 标题                                         | 层级 | 自动化路径                       |
-| ----------------------------- | -------------------------- | -------------------------------------------- | ---- | -------------------------------- |
-| analytics / rollback          | TC-ANL-ROLLBACK-129-01..02 | 双环境无分析配置，应用与交互不加载或发送统计 | L3   | `src/analytics/rollback.spec.ts` |
-| marketing / attribution links | TC-ANL-ROLLBACK-129-03     | 保留 UTM 纯函数与 marketing:link             | L3   | `src/analytics/rollback.spec.ts` |
+| 模块                      | Case ID               | 标题                                            | 层级 | 自动化路径                                |
+| ------------------------- | --------------------- | ----------------------------------------------- | ---- | ----------------------------------------- |
+| analytics / gate + client | TC-ANL-GA4-135-01..03 | production/ID/consent gate 与脚本单例           | L3   | `src/analytics/googleAnalytics.spec.ts`   |
+| analytics / privacy       | TC-ANL-GA4-135-04..06 | URL 清洗、SPA、撤回与存储失败关闭               | L3   | `src/analytics/*.spec.ts`                 |
+| analytics / consent UI    | TC-ANL-GA4-135-07..08 | 中英文提示、选择和重新打开隐私设置              | L4   | `src/components/AnalyticsConsent.spec.ts` |
+| analytics / configuration | TC-ANL-GA4-135-09..10 | 双环境公开 ID、首路由就绪与核心交互零自定义事件 | L3   | `src/analytics/boundary.spec.ts`          |
+| analytics / browser       | TC-E2E-ANL-135-01     | 开发态零 Google 请求且导航正常                  | L5   | `e2e/analytics-consent.e2e.ts`            |
+| marketing / plan history  | TC-DOC-ANL-135-01     | C129 与 C135 替代关系                           | docs | `src/analytics/boundary.spec.ts`          |
+
+## 2026-07-10 第三方分析撤销增量（C-20260710-129，superseded）
+
+| 模块                          | Case ID                    | 标题                                | 层级 | 自动化路径                       |
+| ----------------------------- | -------------------------- | ----------------------------------- | ---- | -------------------------------- |
+| analytics / rollback          | TC-ANL-ROLLBACK-129-01..02 | 历史零 tracker 边界，已由 C135 替代 | L3   | `src/analytics/boundary.spec.ts` |
+| marketing / attribution links | TC-ANL-ROLLBACK-129-03     | 保留 UTM 纯函数与 marketing:link    | L3   | `src/analytics/boundary.spec.ts` |
 
 ---
 

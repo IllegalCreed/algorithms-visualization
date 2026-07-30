@@ -6,9 +6,18 @@
 > Last reviewed: 2026-07-10
 > Plan: C-20260710-125
 > Replaced by: C-20260710-129
-> Production analytics: withdrawn; no third-party tracker is configured
+> Production analytics: C135 verified on `algo.illegalscreed.cn` and `illegalscreed.cn`
 
-> **历史记录，禁止继续执行激活清单。** C129 已删除 Umami 配置、transport、事件、隐私入口与专用 L5；当前只保留下面的 UTM 命名规范和 `pnpm marketing:link`。
+> **C125 的 Umami 激活清单仍是历史记录，禁止执行。** 当前实现改读 C135：未同意不加载 Google tag，同意后只发送清洗 URL 的标准 `page_view`；UTM 命名规范和 `pnpm marketing:link` 继续有效。
+
+## C135 当前执行边界
+
+- 算法站使用独立 GA4 property，不与个人站、问答站或 Type Pal 混合。
+- GA4 后台 Enhanced Measurement 已关闭；代码不发送搜索、算法输入、播放、测验、分享或其他自定义事件。
+- 采用 basic consent：`unset` / `denied` 均不加载 `gtag.js`，只有 `granted` 才初始化。
+- `page_location` 只保留 pathname 与合法的四字段 UTM，任意其他 query/hash 全部丢弃。
+- production 与 selfhost 使用同一公开 Measurement ID；development 无 ID 且不产生网络副作用。
+- 本地实现与全门禁已完成，尚未提交或部署；当前实现、测试与回滚见 `docs/plans/20260730-c135-consent-ga4-pageviews/`。
 
 ## C125 历史决策（已撤销）
 
@@ -138,3 +147,4 @@ https://algo.illegalscreed.cn/?utm_source=c125-test&utm_medium=qa&utm_campaign=a
 
 - 2026-07-10：创建。记录 Cloud Hobby 激活、UTM、事件、48h/7d 与隐私/故障口径；生产仍等待 website ID 和 retention 确认。
 - 2026-07-10：C129 撤销第三方分析与激活路线；本文转为历史记录，仅 UTM 规范继续有效。
+- 2026-07-30：C135 恢复更窄的独立 GA4 page_view；basic consent、URL 清洗与零自定义事件成为当前边界，C125 Umami 清单仍禁止执行。

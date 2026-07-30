@@ -1,7 +1,7 @@
 # 项目概览
 
 > Status: active
-> Last reviewed: 2026-07-28
+> Last reviewed: 2026-07-30
 > Owner: IllegalCreed
 
 ## 项目简介
@@ -10,38 +10,38 @@
 
 ## 当前事实
 
-| 项       | 当前值                                                                                                                                          |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                             |
-| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                                   |
-| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                       |
-| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项        |
-| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换        |
-| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                |
-| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）        |
-| 测试     | Vitest L3/L4：300 个测试文件、2141 个用例在 2026-07-28 本地全绿；Playwright L5：104 个文件、118 个用例全绿；coverage 与双 base 构建门禁通过     |
-| 当前阶段 | C134 与 C127 均 verified；`content-studio` V0.1 内容/视频计划编译器已公开交付，下一步实现通用 Playwright 录制器并接 FFmpeg                      |
-| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已双轨上线；无站内 tracker；C127/C133 分发能力已交付，当前只读状态为 GitHub ready、其余自动渠道需按需重新接入 |
-| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`          |
+| 项       | 当前值                                                                                                                                   |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                      |
+| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                            |
+| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                |
+| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项 |
+| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换 |
+| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                         |
+| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动） |
+| 测试     | 2026-07-30：Vitest L3/L4 303 个文件、2156 个用例全绿；Playwright L5 105 个文件、119 个用例全绿；coverage 与双 base 190 页构建门禁通过    |
+| 当前阶段 | C135 已 verified 并在算法站与个人站自有域上线；`content-studio` V0.1 后续实现通用 Playwright 录制器并接 FFmpeg                           |
+| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已上线；C135 仅在同意后统计清洗页面浏览；C127/C133 渠道写入仍需 matching campaign 授权                 |
+| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`   |
 
 ## 模块地图
 
-| 模块         | 说明                                                                                           | 代码位置                                                                         |
-| ------------ | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| 布局外壳     | 顶层 Master + Header；Home/Docs/About 路由                                                     | `src/views/Master`、`src/views/Home`、`src/views/Docs`                           |
-| 内容页       | 中文数据结构/算法文章与完整 `/en` 对应目录                                                     | `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}`、`src/views/English` |
-| 播放器       | AlgorithmPlayer、播放控制、代码高亮、变量面板、自定义输入、测验卡                              | `src/components/player`                                                          |
-| 可视化轨道   | Bars/Graph/Matrix/Board/Maze/Kmp/Sieve/Gcd/Power/Hull/Network 等可插拔轨道组件                 | `src/components`                                                                 |
-| 算法模块     | oracle、步骤构建、四语言 sources 与 lineMap                                                    | `src/algorithms`                                                                 |
-| 产品数据资产 | 首页/菜单分类、复杂度速查、学习路径                                                            | `src/views/Home/Main/hooks.ts`、`src/views/Docs/Menu/hooks.ts`、`src/data`       |
-| 多语言目录   | 95 组 typed 页面映射、94 个静态内容 loader、15 个共享 Viz locale 与 77 个英文算法 adapter      | `src/i18n`、`src/views/English/pages.ts`                                         |
-| SEO/静态产物 | 190 页 registry、route head/JSON-LD/95 组 hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁     | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
-| 广告接入     | 公开 publisher 常量、build-only AdSense head、根级 ads.txt 与双语隐私入口                      | `src/monetization`、`vite.config.ts`、`public/ads.txt`、`src/views/Home/Footer`  |
-| 渠道链接     | 供应商无关的 UTM 校验、链接生成与 CLI；无行为分析 tracker、会话归因或交互事件                  | `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`                      |
-| 宣传规划     | CampaignSpec、19 渠道能力/runtime gate、MCP v3 bridge、事实快照、renderer 与零副作用 dry-run   | `scripts/marketing`                                                              |
-| 状态         | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                              | `src/store`                                                                      |
-| 部署与门禁   | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify` | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`                  |
-| 分层文档     | 需求/设计/实现/测试用例索引，记录每次复杂变更的过程和验证结果                                  | `docs`                                                                           |
+| 模块           | 说明                                                                                                | 代码位置                                                                         |
+| -------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 布局外壳       | 顶层 Master + Header；Home/Docs/About 路由                                                          | `src/views/Master`、`src/views/Home`、`src/views/Docs`                           |
+| 内容页         | 中文数据结构/算法文章与完整 `/en` 对应目录                                                          | `src/views/Article/{DataStructure,SortAlgorithm,Algorithm}`、`src/views/English` |
+| 播放器         | AlgorithmPlayer、播放控制、代码高亮、变量面板、自定义输入、测验卡                                   | `src/components/player`                                                          |
+| 可视化轨道     | Bars/Graph/Matrix/Board/Maze/Kmp/Sieve/Gcd/Power/Hull/Network 等可插拔轨道组件                      | `src/components`                                                                 |
+| 算法模块       | oracle、步骤构建、四语言 sources 与 lineMap                                                         | `src/algorithms`                                                                 |
+| 产品数据资产   | 首页/菜单分类、复杂度速查、学习路径                                                                 | `src/views/Home/Main/hooks.ts`、`src/views/Docs/Menu/hooks.ts`、`src/data`       |
+| 多语言目录     | 95 组 typed 页面映射、94 个静态内容 loader、15 个共享 Viz locale 与 77 个英文算法 adapter           | `src/i18n`、`src/views/English/pages.ts`                                         |
+| SEO/静态产物   | 190 页 registry、route head/JSON-LD/95 组 hreflang、Playwright 预渲染、JSDOM/HTTP 产物门禁          | `src/seo`、`scripts/prerender.mjs`、`scripts/verify-seo.mjs`                     |
+| 广告接入       | 公开 publisher 常量、build-only AdSense head、根级 ads.txt 与双语隐私入口                           | `src/monetization`、`vite.config.ts`、`public/ads.txt`、`src/views/Home/Footer`  |
+| 分析与渠道链接 | basic consent 后的 GA4 标准 page_view、URL 清洗、UTM 校验与链接 CLI；无搜索/输入/播放/测验/分享事件 | `src/analytics`、`src/components/AnalyticsConsent.vue`                           |
+| 宣传规划       | CampaignSpec、19 渠道能力/runtime gate、MCP v3 bridge、事实快照、renderer 与零副作用 dry-run        | `scripts/marketing`                                                              |
+| 状态           | Pinia system store（暗色模式、Header 阴影、搜索面板、标准配色等）                                   | `src/store`                                                                      |
+| 部署与门禁     | Vite 配置、GitHub Pages workflow、自有域名部署脚本、Vitest/Playwright 配置、本地 `pnpm verify`      | `vite.config.ts`、`.github/workflows`、`scripts`、`*.config.ts`                  |
+| 分层文档       | 需求/设计/实现/测试用例索引，记录每次复杂变更的过程和验证结果                                       | `docs`                                                                           |
 
 ## 边界
 

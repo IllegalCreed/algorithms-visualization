@@ -31,7 +31,7 @@
 | llms.txt         | 已有   | 构建生成 95 个中文页与 95 个 English catalog 页的标题、描述和 canonical                  | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
 | 路由级 SEO       | 已有   | 190 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；95 组页面双向 hreflang | C131 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
 | 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
-| 分析与归因       | 已撤销 | C129 已删除 tracker、会话归因、交互事件、隐私页与 analytics L5；保留 UTM 纯函数和 CLI    | 当前零第三方统计成本；稳定流量出现后再单独立项评审测量方案                           |
+| 分析与归因       | 已上线 | C135 已在算法站与个人站自有域完成发布和同意前零 Google 请求验证                          | 零新增费用；未同意不加载，且不恢复搜索/输入/播放/测验/分享事件                       |
 | 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核     |
 | 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
 | 内容生产自动化   | 进行中 | C127 已完成；`content-studio` V0.1 可确定性生成 19 渠道内容包和三画幅视频计划            | 下一步实现通用 Playwright 录制器、FFmpeg 合成及 marketing-ops 资产交接               |
@@ -39,18 +39,19 @@
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（verified）` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `content-studio V0.1 编译器（verified）` -> `V0.2 录制与合成（current）` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM（superseded）` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（verified）` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `content-studio V0.1 编译器（verified）` -> `C135 consent-gated GA4 page_view（verified）` -> `V0.2 录制与合成` -> `C128 发布与复盘`
 
 顺序约束：
 
 1. C124 先让页面具备可靠的可发现性与可引用语义。
-2. C125 完成方案评审但未激活生产统计；C129 在流量/收入验证前撤销第三方成本，只保留 UTM。
+2. C125 完成方案评审但未激活生产统计；C129 曾撤销 Umami 与事件；C135 现以零新增费用的 GA4、basic consent 和仅 page_view 替代零 tracker 结论。
 3. C126 先用十页验证英文信息架构与翻译质量，再决定是否扩到 92 个条目。
 4. C130 已把十页试点的六个硬编码同步点收束为 typed catalog，并分四批新增二十个英文算法页；本地 30/125 已全绿。
 5. C131 已将剩余 65 个中文内容页补齐英文；当前为 95 组页面对、190 个静态入口，仍不新增第三语言。
 6. C127 T1-T6 已完成并转 verified/100%；C133 已补齐独立公开源码仓库、Project Profile、MCP v3 与跨项目隔离，secret/runtime state 仍仅留本机。微博 API plugin `263fd3f` 因 Free 零写额度保持 disabled；T5 将其与另外 11 个无当前自动 adapter 的渠道收束为 Owner 辅助发布交接。`content-studio` V0.1 已完成，当前推进通用录制与合成。
-7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口，不恢复行为分析。
-8. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
+7. C134 是审核问题触发的已完成插单，不改变 C127 完成度或 C128 顺序；它只建立广告技术与合规入口。
+8. C135 只恢复标准页面浏览，任何自定义行为事件仍需单独 plan；三个产品 property 独立，不混合报表。
+9. C128 按“首批自动 / 条件自动 / 人工发布后监测”分批，不再假定原国内/海外清单都能自动发布。
 
 ## 阶段看板
 
@@ -59,7 +60,8 @@
 | C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                               | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
 | C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物           | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
 | C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因                   | 未激活生产统计；由 C129 撤销                                        | C124                           |
-| C129 撤销第三方分析接入   | verified    | 删除行为分析 tracker 与事件，保留零成本 UTM 工具             | 运行时/产物零行为分析 tracker；UTM CLI、全门禁和双 base 通过        | C125；当前 plan C-20260710-129 |
+| C129 撤销第三方分析接入   | superseded  | 历史上删除 Umami 与事件，保留零成本 UTM 工具                 | 2026-07-10 退出条件曾通过；当前由 C135 替代                         | C125；历史 plan C-20260710-129 |
+| C135 同意后 GA4 页面浏览  | verified    | 独立 property、basic consent、URL 清洗与仅标准 page_view     | 自有域已上线；首页/隐私页 200，同意前 script 与 Google 请求均为 0   | C129                           |
 | C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                     | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
 | C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页                   | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
 | C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                             | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
@@ -101,27 +103,28 @@
 - [ ] 检查线上 `robots.txt` 对 OAI-SearchBot/GPTBot/通用 crawler 的最终策略与仓库一致。
 - [ ] 首次提交后在 48 小时和 7 天记录覆盖变化；IndexNow 暂不启用，出现高频 URL 更新需求时再立项。
 
-## C125 / C129 分析路线结论
+## C125 / C129 / C135 分析路线结论
 
 ### 当前生效决策
 
-- C125 曾完成 GA4/Plausible/Umami 评审和未激活的 provider-neutral 前端实现；生产环境从未配置 website ID，也未发送统计数据。
-- Owner 确认项目尚未验证流量与收入，不接受先承担第三方订阅或额外数据库运维成本。C129 因此删除 Umami 配置、transport、会话归因、事件、隐私页和 analytics L5。
-- 当前只保留 `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts`、`pnpm marketing:link` 与发布草稿中的 UTM 链接。
-- C125 四文档与 `analytics-playbook.md` 作为历史记录保留，当前实现与测试入口以 `docs/plans/20260710-c129-analytics-rollback/` 为准。
+- C125 曾完成 GA4/Plausible/Umami 评审和未激活的 provider-neutral 前端实现；C129 因成本与可用性删除 Umami、会话归因、交互事件和 analytics L5。
+- 2026-07-30 Owner 为个人站、算法站和 Type Pal 分别建立独立 GA4 property；C135 使用无需新增订阅或数据库的算法站属性。
+- 本地实现只在 production/selfhost、Measurement ID 合法且访客明确同意后加载 Google tag；只发送清洗 URL 的标准 `page_view`，尚未部署。
+- `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts` 与 `pnpm marketing:link` 继续有效。C125/C129 作为历史记录保留，当前入口为 `docs/plans/20260730-c135-consent-ga4-pageviews/`。
 
 ### 当前边界
 
-- 不加载第三方行为分析 tracker，不在前端建立 page view watcher，不发送搜索、播放、输入、测验或分享事件；C134 的 AdSense loader 是单独批准的广告能力，不恢复这些事件。
+- 未同意或拒绝时不加载第三方分析；同意后只发送标准 page_view，不发送搜索、播放、输入、测验或分享事件。C134 的 AdSense loader 仍是独立广告能力。
 - UTM 值继续使用小写 ASCII、最长 64 的统一规则；不得放入邮箱、自由文本或用户输入。
 - 冷启动复盘明确区分站内不可观测行为与渠道可见指标，不把 UTM 本身误写成已完成归因。
-- 只有出现稳定流量、明确指标问题和可接受预算后，才新建独立 plan 评审 Nginx 最小日志、第三方服务或其他方案。
+- 任何自定义事件、Nginx 最小日志或额外第三方服务仍需新建独立 plan，不从 C135 扩张。
 
-### C129 退出条件
+### C135 退出条件
 
-- production/selfhost 运行时和产物不含 tracker/provider/website ID。
-- launch-posts 链接、UTM 纯函数与 CLI 继续可用。
-- 282/2041 Vitest、110/110 Playwright、coverage 和双 base 95 页门禁通过。
+- 默认/拒绝零加载，同意后脚本单例与 SPA pathname page_view 可验证。
+- 任意 query/hash、搜索、输入、播放、测验和分享数据不进入 Analytics payload。
+- launch-posts、UTM 纯函数与 CLI 继续可用。
+- 全量 Vitest、Playwright、coverage、双 base 已通过；算法站与个人站自有域已完成上线验证。
 
 ## C126 `/en` 多语言十页试点
 
@@ -250,7 +253,7 @@
 
 | 输入                                        | 最晚需要阶段 | 说明                                                                                                    |
 | ------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
-| 分析工具选择与属性 ID                       | deferred     | C129 已撤销；稳定流量出现并重新立项前不注册、不付费、不提供属性 ID                                      |
+| 分析工具选择与属性 ID                       | 已完成       | C135 已选独立 GA4 property；公开 ID 入 production/selfhost，账号凭据不入仓库                            |
 | Google Search Console / Bing Webmaster 权限 | C124 发布后  | 完成域名验证、sitemap 提交与覆盖报告查看                                                                |
 | GPTBot 训练策略                             | 已完成       | 当前为 Disallow；OAI-SearchBot 保持 Allow                                                               |
 | 英文术语与品牌口吻确认                      | 已完成       | C131 已按 style guide 完成正文、互动 copy、播放器字幕和 SEO 文案 QA；当前无额外 Owner 输入              |
@@ -264,20 +267,20 @@
 
 ## 官方依据与适用边界
 
-| 主题              | 官方资料                                                                                                                                                                                  | 本项目采用的边界                                                                                 |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| JavaScript SEO    | [Google JavaScript SEO basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)                                                              | Google 可渲染 JavaScript，但渲染可能排队；不能由此推断所有爬虫都能可靠读取 SPA                   |
-| 多语言与 hreflang | [Google localized versions](https://developers.google.com/search/docs/specialty/international/localized-versions)                                                                         | alternate 必须自引用、双向、完整 URL；项目优先选一种维护面最小的声明方式                         |
-| 结构化数据        | [Google structured data policies](https://developers.google.com/search/docs/appearance/structured-data/sd-policies)                                                                       | 使用 JSON-LD 描述可见内容，测试语法；不承诺富结果或排名                                          |
-| OpenAI 搜索爬虫   | [OpenAI publishers and developers FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)                                                                        | OAI-SearchBot 管搜索可见性，GPTBot 训练选择独立；ChatGPT 推荐流量可观察 `utm_source=chatgpt.com` |
-| GA4 Cookie/同意   | [GA4 Cookie usage](https://support.google.com/analytics/answer/11397207)、[Consent types](https://support.google.com/analytics/answer/12334711)                                           | 默认 web tag 使用第一方 Cookie；本期不引入 GA4 consent 与广告能力                                |
-| Plausible 分析    | [Plausible data policy](https://plausible.io/data-policy)、[custom events](https://plausible.io/docs/custom-props/for-custom-events)                                                      | 历史评审备选；当前不接入，未来采用前重新核价与核实能力                                           |
-| Umami 分析        | [Cloud FAQ](https://docs.umami.is/docs/cloud/faq)、[tracker functions](https://docs.umami.is/docs/tracker-functions)、[sessions](https://docs.umami.is/docs/sessions)                     | C125 历史评审对象；C129 已撤销接入，不再等待账号或 retention                                     |
-| AdSense 站点接入  | [Add a site](https://support.google.com/adsense/answer/12169212)、[ads.txt](https://support.google.com/adsense/answer/7679060)、[CMP](https://support.google.com/adsense/answer/13554116) | C134 仅提交公开 publisher 信息和生产 loader；付款、同意消息与审核仍在 Google 后台完成            |
-| 渠道自动化能力    | [`channel-automation-audit.md`](./channel-automation-audit.md)                                                                                                                            | 逐平台维护官方发布、监测、回复、授权、成本和失败关闭边界                                         |
-| GitHub 定时工作流 | [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)                                                                      | 仅保留为历史/后续兜底评审；当前本地 MCP scheduler 不把渠道凭据交给 Actions，也不依赖公网回连     |
-| URL 更新通知      | [Bing IndexNow](https://www.bing.com/webmasters/help/indexnow-0z209wby)                                                                                                                   | 仅作变更通知加速，保留 sitemap 和正常抓取路径                                                    |
-| llms.txt          | [llms.txt proposal](https://llmstxt.org/)                                                                                                                                                 | 视为实验性机器说明文件，不当作标准或收录保证                                                     |
+| 主题              | 官方资料                                                                                                                                                                                                               | 本项目采用的边界                                                                                 |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| JavaScript SEO    | [Google JavaScript SEO basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)                                                                                           | Google 可渲染 JavaScript，但渲染可能排队；不能由此推断所有爬虫都能可靠读取 SPA                   |
+| 多语言与 hreflang | [Google localized versions](https://developers.google.com/search/docs/specialty/international/localized-versions)                                                                                                      | alternate 必须自引用、双向、完整 URL；项目优先选一种维护面最小的声明方式                         |
+| 结构化数据        | [Google structured data policies](https://developers.google.com/search/docs/appearance/structured-data/sd-policies)                                                                                                    | 使用 JSON-LD 描述可见内容，测试语法；不承诺富结果或排名                                          |
+| OpenAI 搜索爬虫   | [OpenAI publishers and developers FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)                                                                                                     | OAI-SearchBot 管搜索可见性，GPTBot 训练选择独立；ChatGPT 推荐流量可观察 `utm_source=chatgpt.com` |
+| GA4 Cookie/同意   | [GA4 Cookie usage](https://support.google.com/analytics/answer/11397207)、[Consent setup](https://support.google.com/analytics/answer/14183469)、[Consent types](https://support.google.com/analytics/answer/12334711) | C135 采用 basic consent：未同意不加载；独立 property + web stream；仅标准 page_view              |
+| Plausible 分析    | [Plausible data policy](https://plausible.io/data-policy)、[custom events](https://plausible.io/docs/custom-props/for-custom-events)                                                                                   | 历史评审备选；当前不接入，未来采用前重新核价与核实能力                                           |
+| Umami 分析        | [Cloud FAQ](https://docs.umami.is/docs/cloud/faq)、[tracker functions](https://docs.umami.is/docs/tracker-functions)、[sessions](https://docs.umami.is/docs/sessions)                                                  | C125 历史评审对象；C129 已撤销接入，不再等待账号或 retention                                     |
+| AdSense 站点接入  | [Add a site](https://support.google.com/adsense/answer/12169212)、[ads.txt](https://support.google.com/adsense/answer/7679060)、[CMP](https://support.google.com/adsense/answer/13554116)                              | C134 仅提交公开 publisher 信息和生产 loader；付款、同意消息与审核仍在 Google 后台完成            |
+| 渠道自动化能力    | [`channel-automation-audit.md`](./channel-automation-audit.md)                                                                                                                                                         | 逐平台维护官方发布、监测、回复、授权、成本和失败关闭边界                                         |
+| GitHub 定时工作流 | [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)                                                                                                   | 仅保留为历史/后续兜底评审；当前本地 MCP scheduler 不把渠道凭据交给 Actions，也不依赖公网回连     |
+| URL 更新通知      | [Bing IndexNow](https://www.bing.com/webmasters/help/indexnow-0z209wby)                                                                                                                                                | 仅作变更通知加速，保留 sitemap 和正常抓取路径                                                    |
+| llms.txt          | [llms.txt proposal](https://llmstxt.org/)                                                                                                                                                                              | 视为实验性机器说明文件，不当作标准或收录保证                                                     |
 
 ## 变更历史
 
@@ -322,3 +325,4 @@
 - 2026-07-28：C127 T5 完成 12 个 Owner 辅助渠道的自动内容包、prepare/confirm 交接、官方 URL 校验、幂等 receipt 与跟进计划接线；先红后绿，未调用平台 adapter、未执行真实发布。C127 转 99%，下一步 T6 全门禁、安装与精确交付。
 - 2026-07-28：C127 T6 完成最终多渠道 receipt 预检修复、双仓库全门禁、插件安装/只读状态与精确提交；C127 verified/100%。纯 contract/docs 未部署 SPA，下一步建立 `content-studio`。
 - 2026-07-28：公开 `IllegalCreed/content-studio` V0.1 提交 `da426e6`：版本化项目/活动契约、19 渠道内容策略、三类文案、语义 capture flow、三画幅视频计划与安全 CLI 完成；Algorithm Visualizer 示例生成 12 个渠道包和 1 个视频计划，8 文件/20 用例、coverage 95.00%/90.27%/98.59%/94.87% 与 Node 22/24/26 × Ubuntu/Windows CI 全绿。下一步 V0.2 通用 Playwright 录制器；零站外写入。
+- 2026-07-30：Owner 为个人站、算法站和 Type Pal 建立三个独立 GA4 property；C135 以 basic consent、清洗 page_view 和 Enhanced Measurement 关闭替代 C129 零 tracker 当前结论，搜索/输入/播放/测验/分享事件继续禁止。
