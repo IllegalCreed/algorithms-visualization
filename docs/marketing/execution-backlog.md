@@ -3,7 +3,7 @@
 > Status: active
 > Owner: IllegalCreed
 > Created: 2026-07-10
-> Last reviewed: 2026-07-28
+> Last reviewed: 2026-08-02
 > Current plan: C-20260711-127 提示词驱动的全自动内容分发（verified/100%）
 > Completed plan: C-20260727-134 AdSense 主域审核与算法站接入（verified）
 > Next action: 推进 `content-studio` V0.2 通用 Playwright 录制器，再接 FFmpeg 合成与 marketing-ops 资产交接
@@ -22,24 +22,24 @@
 
 ## 当前基线审计
 
-| 能力             | 状态   | 仓库事实                                                                                 | 结论                                                                                 |
-| ---------------- | ------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| 全局元数据       | 已有   | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD         | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                               |
-| 分享卡           | 已有   | `public/og-cover.png`，C-118 已产出国内首发文案                                          | 发布素材可用，仍需用渠道数据验证效果                                                 |
-| robots           | 已有   | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap     | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                             |
-| sitemap          | 已有   | C131 构建从中英首页真实链接动态发现 190 个尾斜杠 canonical URL                           | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                 |
-| llms.txt         | 已有   | 构建生成 95 个中文页与 95 个 English catalog 页的标题、描述和 canonical                  | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                   |
-| 路由级 SEO       | 已有   | 190 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；95 组页面双向 hreflang | C131 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                               |
-| 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链  | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证 |
-| 分析与归因       | 已上线 | C135 已在算法站与个人站自有域完成发布和同意前零 Google 请求验证                          | 零新增费用；未同意不加载，且不恢复搜索/输入/播放/测验/分享事件                       |
-| 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader              | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核     |
-| 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home        | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                               |
-| 内容生产自动化   | 进行中 | C127 已完成；`content-studio` V0.1 可确定性生成 19 渠道内容包和三画幅视频计划            | 下一步实现通用 Playwright 录制器、FFmpeg 合成及 marketing-ops 资产交接               |
-| 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策               |
+| 能力             | 状态   | 仓库事实                                                                                                                                                           | 结论                                                                                                  |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| 全局元数据       | 已有   | `index.html` 有中文 root fallback title/description/canonical/OG/Twitter/JSON-LD                                                                                   | 无脚本或初始化前仍有首页语义；运行时由 route head 覆盖                                                |
+| 分享卡           | 已有   | `public/og-cover.png`，C-118 已产出国内首发文案                                                                                                                    | 发布素材可用，仍需用渠道数据验证效果                                                                  |
+| robots           | 已有   | `public/robots.txt` 分开允许 OAI-SearchBot、禁止 GPTBot，并保留通用 Allow 与 sitemap                                                                               | 搜索发现与训练抓取已按保守策略分开；后续改策略需单独评审                                              |
+| sitemap          | 已有   | C131 构建从中英首页真实链接动态发现 190 个尾斜杠 canonical URL                                                                                                     | 不再维护 `public/sitemap.xml` 手工清单；build 漏页或集合不一致会失败                                  |
+| llms.txt         | 已有   | 构建生成 95 个中文页与 95 个 English catalog 页的标题、描述和 canonical                                                                                            | 作为实验性机器导航保留，不是搜索排名或 AI 引用保证                                                    |
+| 路由级 SEO       | 已有   | 190 页唯一 title/description/canonical/OG/Twitter/robots/JSON-LD；95 组页面双向 hreflang                                                                           | C131 双 base、Pages/selfhost 上线与代表 URL 抽查均通过                                                |
+| 首屏机器可读内容 | 已有   | Playwright 构建后预渲染 190 页；JSDOM 与本地 HTTP 逐页验证正文、语言、head、base 与内链                                                                            | canonical/sitemap/静态内链统一指向尾斜杠目录入口；仍不把技术地基描述为收录或排名保证                  |
+| 分析与归因       | 修复中 | C135 已发布；C136 已实现标签失败重试；个人站 hydration 已部署；终端/无扩展浏览器可达 Google，但 Owner 实际 Chrome 以 `ERR_BLOCKED_BY_CLIENT` 拦截 GA4/AdSense 资源 | 未同意不加载；先解除客户端拦截并重新同意，再观察 Realtime；不恢复行为事件；之后决定其余三站 C136 发布 |
+| 广告审核准备     | 已完成 | C134 完成主域 account meta/ads.txt/信任页与算法站 build-only AdSense loader                                                                                        | 技术入口与隐私链接已上线；后台 CMP、Auto ads、付款资料与重新送审已完成，等待审核                      |
+| 站点多语言       | 已完成 | `/en` 已与 95 个中文索引页全量对齐：15 个互动页、77 个播放器页、2 个工具页与 Home                                                                                  | 95 组 hreflang 与 190 页双轨产物已验证；不新增第三语言                                                |
+| 内容生产自动化   | 进行中 | C127 已完成；`content-studio` V0.1 可确定性生成 19 渠道内容包和三画幅视频计划                                                                                      | 下一步实现通用 Playwright 录制器、FFmpeg 合成及 marketing-ops 资产交接                                |
+| 发布复盘         | 缺失   | 尚无 48 小时/7 天发布数据                                                                                                                                          | C128 先用渠道原生指标、UTM、实际发布 URL、评论与投入时间形成下一轮决策                                |
 
 ## 固定执行顺序
 
-`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM（superseded）` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（verified）` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `content-studio V0.1 编译器（verified）` -> `C135 consent-gated GA4 page_view（verified）` -> `V0.2 录制与合成` -> `C128 发布与复盘`
+`C124 SEO/GEO` -> `C125 分析尝试（superseded）` -> `C129 撤销 tracker/保留 UTM（superseded）` -> `C126 英文试点` -> `C130 英文 30 页扩容` -> `C131 英文全量对齐（verified）` -> `C127 内容与分发自动化（verified）` -> `C133 多项目通用化（verified）` -> `C134 AdSense 技术准备（verified）` -> `content-studio V0.1 编译器（verified）` -> `C135 consent-gated GA4 page_view（verified）` -> `C136 GA4 loader resilience（verified code; ops pending）` -> `V0.2 录制与合成` -> `C128 发布与复盘`
 
 顺序约束：
 
@@ -55,21 +55,22 @@
 
 ## 阶段看板
 
-| 阶段                      | 状态        | 目标                                                         | 退出条件                                                            | 主要依赖                       |
-| ------------------------- | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------ |
-| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                               | 当前基线、C124-C131、Owner 输入和测试索引全部落档                   | C117、C118、C119-C122          |
-| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物           | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪  | C123                           |
-| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因                   | 未激活生产统计；由 C129 撤销                                        | C124                           |
-| C129 撤销第三方分析接入   | superseded  | 历史上删除 Umami 与事件，保留零成本 UTM 工具                 | 2026-07-10 退出条件曾通过；当前由 C135 替代                         | C125；历史 plan C-20260710-129 |
-| C135 同意后 GA4 页面浏览  | verified    | 独立 property、basic consent、URL 清洗与仅标准 page_view     | 自有域已上线；首页/隐私页 200，同意前 script 与 Google 请求均为 0   | C129                           |
-| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                     | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过 | C124、C129                     |
-| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页                   | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过           | C126                           |
-| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                             | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线            | 已完成                         |
-| C127 提示词驱动全自动分发 | verified    | 四渠道真实闭环、T4 安全跟进、T5 Owner 辅助发布与 T6 交付完成 | 首批 live adapter、幂等发布、确定性跟进与 Owner 辅助交接可验证      | 已完成                         |
-| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                               | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过     | 已完成                         |
-| C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告                   | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                    | 已完成；后台动作由 Owner 完成  |
-| Studio 跨项目内容生产     | in-progress | 自动生成平台原生内容、项目演示视频及发布资产                 | 通用录制器、三画幅合成、字幕/旁白与 marketing-ops 资产交接通过      | V0.1 verified；V0.2 current    |
-| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                             | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作              | C131/C127                      |
+| 阶段                      | 状态        | 目标                                                                           | 退出条件                                                                                                                                           | 主要依赖                       |
+| ------------------------- | ----------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| C123 增长执行审计与编排   | verified    | 统一事实、顺序、边界与历史状态                                                 | 当前基线、C124-C131、Owner 输入和测试索引全部落档                                                                                                  | C117、C118、C119-C122          |
+| C124 SEO/GEO 技术地基重建 | verified    | 让每个可索引页面具备唯一语义和可验证的机器可读产物                             | 双域产物检查通过；路由/meta/sitemap 同步守护；搜索平台提交清单就绪                                                                                 | C123                           |
+| C125 分析、事件与渠道归因 | superseded  | 历史方案：第三方 page view、事件与会话归因                                     | 未激活生产统计；由 C129 撤销                                                                                                                       | C124                           |
+| C129 撤销第三方分析接入   | superseded  | 历史上删除 Umami 与事件，保留零成本 UTM 工具                                   | 2026-07-10 退出条件曾通过；当前由 C135 替代                                                                                                        | C125；历史 plan C-20260710-129 |
+| C135 同意后 GA4 页面浏览  | verified    | 独立 property、basic consent、URL 清洗与仅标准 page_view                       | 自有域已上线；首页/隐私页 200，同意前 script 与 Google 请求均为 0                                                                                  | C129                           |
+| C136 GA4 标签失败重试     | verified    | 四站失败节点清理、官方 arguments 队列、重试不重复当前页及个人站 hydration 修复 | 四站均已部署并受控验证 `gtag.js` 200 / `g/collect` 204；Owner 已在四站 Realtime 看到活跃用户；Quiz 仅前端、Type Pal 仅第一阶段；Baidu 不在本轮范围 | C135                           |
+| C126 `/en` 多语言十页试点 | verified    | 验证英文 UI、文章、搜索与国际 SEO 全链路                                       | 十页双语内容、切换、canonical/hreflang/sitemap、桌面/窄视口测试通过                                                                                | C124、C129                     |
+| C130 英文目录扩展到 30 页 | verified    | 收束 locale catalog 并新增二十个英文算法页                                     | 30 英文/125 总页、全门禁、Pages/selfhost 与线上抽查均通过                                                                                          | C126                           |
+| C131 英文目录全量对齐     | verified    | 补齐 15 个互动页与 50 个播放器页                                               | 95 英文/190 总页、77 adapter、95 组 alternate 与双轨上线                                                                                           | 已完成                         |
+| C127 提示词驱动全自动分发 | verified    | 四渠道真实闭环、T4 安全跟进、T5 Owner 辅助发布与 T6 交付完成                   | 首批 live adapter、幂等发布、确定性跟进与 Owner 辅助交接可验证                                                                                     | 已完成                         |
+| C133 多项目隔离与通用化   | verified    | 一套本地发布器安全服务多个项目                                                 | 公开源码仓库、Project Profile、MCP v3、跨项目隔离与迁移门禁通过                                                                                    | 已完成                         |
+| C134 AdSense 技术准备     | verified    | 修复主域审核入口并让算法站仅在生产加载广告                                     | 双仓库门禁、双自托管、Pages 与 14 项线上复查通过                                                                                                   | 已完成；后台动作由 Owner 完成  |
+| Studio 跨项目内容生产     | in-progress | 自动生成平台原生内容、项目演示视频及发布资产                                   | 通用录制器、三画幅合成、字幕/旁白与 marketing-ops 资产交接通过                                                                                     | V0.1 verified；V0.2 current    |
+| C128 发布、监测与迭代     | planned     | 用真实 campaign 证据决定渠道投入                                               | 每批次有 48h/7d 报告、渠道判断、观测限制与明确后续动作                                                                                             | C131/C127                      |
 
 ## C124 SEO/GEO 技术地基重建
 
@@ -109,7 +110,7 @@
 
 - C125 曾完成 GA4/Plausible/Umami 评审和未激活的 provider-neutral 前端实现；C129 因成本与可用性删除 Umami、会话归因、交互事件和 analytics L5。
 - 2026-07-30 Owner 为个人站、算法站和 Type Pal 分别建立独立 GA4 property；C135 使用无需新增订阅或数据库的算法站属性。
-- 本地实现只在 production/selfhost、Measurement ID 合法且访客明确同意后加载 Google tag；只发送清洗 URL 的标准 `page_view`，尚未部署。
+- 本地实现只在 production/selfhost、Measurement ID 合法且访客明确同意后加载 Google tag；只发送清洗 URL 的标准 `page_view`。个人站、算法站、Quiz、Type Pal 第一阶段的 C136 修复均已部署；Quiz 未重部署后端，Type Pal 未触碰第二阶段。
 - `src/analytics/utm.ts`、`scripts/generate-campaign-link.ts` 与 `pnpm marketing:link` 继续有效。C125/C129 作为历史记录保留，当前入口为 `docs/plans/20260730-c135-consent-ga4-pageviews/`。
 
 ### 当前边界
@@ -118,6 +119,10 @@
 - UTM 值继续使用小写 ASCII、最长 64 的统一规则；不得放入邮箱、自由文本或用户输入。
 - 冷启动复盘明确区分站内不可观测行为与渠道可见指标，不把 UTM 本身误写成已完成归因。
 - 任何自定义事件、Nginx 最小日志或额外第三方服务仍需新建独立 plan，不从 C135 扩张。
+- 2026-08-01 C136 生产诊断确认三个站的公开 ID 与 `page_view` 队列接线正确；已保存 Google 域名前置规则，启用 Clash 系统代理与 ZeroOmega `PROXY 127.0.0.1:7897`，并将「苏菲家宽」先后切换至香港家宽hy2、韩国节点自动选择。7897 下百度 HTTP 200，但 Google tag 与 `g/collect` 均为 TLS `SSL_ERROR_SYSCALL`、Realtime 仍为 0；当前需要继续排查 Google 出口/规则/DNS，而不是继续改站点埋点代码。
+- 2026-08-01 C136 代理订阅更新后，Owner 启用 Clash TUN 并将 ZeroOmega 切换为 Direct；算法站与 Quiz 同意后 Google tag 请求为 200、控制台无当前错误，同机不显式指定 HTTP 代理的 collect 返回 204。网络传输层已恢复，但算法站与个人站 GA4 首页当前仍为 0，四站 Realtime 与 C136 代码发布仍待验证。
+- 2026-08-01 C134/C136 交叉复核：Owner 补齐 AdSense 代理路径后，全新 Chromium 通过 7897 访问算法站时 AdSense 无 request failure；此前 `pagead2.googlesyndication.com` 的 `ERR_CONNECTION_CLOSED` 确认为代理出口问题，不需要改 GA4 或站点渲染代码。
+- 2026-08-02 C136 收尾：算法站 selfhost、Quiz app、Type Pal 第一阶段 app 均已完成部署；个人站保持已部署版本。四站受控 Chromium 在 granted 后均获得标准 `page_view` 的 `g/collect` 204，Owner 现场 GA4 已观察到四站 Realtime 活跃用户；Home 顶部初始化 banner 可能滞后，不覆盖 Realtime 成功信号。
 
 ### C135 退出条件
 
@@ -326,3 +331,4 @@
 - 2026-07-28：C127 T6 完成最终多渠道 receipt 预检修复、双仓库全门禁、插件安装/只读状态与精确提交；C127 verified/100%。纯 contract/docs 未部署 SPA，下一步建立 `content-studio`。
 - 2026-07-28：公开 `IllegalCreed/content-studio` V0.1 提交 `da426e6`：版本化项目/活动契约、19 渠道内容策略、三类文案、语义 capture flow、三画幅视频计划与安全 CLI 完成；Algorithm Visualizer 示例生成 12 个渠道包和 1 个视频计划，8 文件/20 用例、coverage 95.00%/90.27%/98.59%/94.87% 与 Node 22/24/26 × Ubuntu/Windows CI 全绿。下一步 V0.2 通用 Playwright 录制器；零站外写入。
 - 2026-07-30：Owner 为个人站、算法站和 Type Pal 建立三个独立 GA4 property；C135 以 basic consent、清洗 page_view 和 Enhanced Measurement 关闭替代 C129 零 tracker 当前结论，搜索/输入/播放/测验/分享事件继续禁止。
+- 2026-08-01：Owner 反馈三站 GA4 无数据；C136 完成 Measurement ID/队列/网络分层诊断与失败重试实现，长期可达性另开 ops 决策。

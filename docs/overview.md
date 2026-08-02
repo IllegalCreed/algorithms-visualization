@@ -1,7 +1,7 @@
 # 项目概览
 
 > Status: active
-> Last reviewed: 2026-07-30
+> Last reviewed: 2026-08-02
 > Owner: IllegalCreed
 
 ## 项目简介
@@ -10,19 +10,19 @@
 
 ## 当前事实
 
-| 项       | 当前值                                                                                                                                   |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                      |
-| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                            |
-| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                |
-| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项 |
-| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换 |
-| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                         |
-| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动） |
-| 测试     | 2026-07-30：Vitest L3/L4 303 个文件、2156 个用例全绿；Playwright L5 105 个文件、119 个用例全绿；coverage 与双 base 190 页构建门禁通过    |
-| 当前阶段 | C135 已 verified 并在算法站与个人站自有域上线；`content-studio` V0.1 后续实现通用 Playwright 录制器并接 FFmpeg                           |
-| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已上线；C135 仅在同意后统计清洗页面浏览；C127/C133 渠道写入仍需 matching campaign 授权                 |
-| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`   |
+| 项       | 当前值                                                                                                                                                                                                                                |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 形态     | 纯前端 SPA（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Less）                                                                                                                                                                   |
+| 包管理器 | pnpm（`packageManager` 锁定在 `package.json`；见 `docs/plans/20260618-c001-deps-and-gates/`）                                                                                                                                         |
+| 主要用户 | 学习数据结构、算法、面试/竞赛入门知识的人                                                                                                                                                                                             |
+| 内容规模 | 中英文各 95 个索引页；每种语言均为 Home、2 个工具页、15 个数据结构页与 77 个算法页；首页为 9 大类 92 个学习条目，Docs 侧栏为 10 组 94 项                                                                                              |
+| 核心能力 | 分类导航、文章页、AlgorithmPlayer 多轨动画、四语言代码高亮、自定义输入、播放控制、测验模式、全站搜索、复杂度速查、学习路径、中英显式切换                                                                                              |
+| 算法引擎 | `src/algorithms` 下 77 个 `*.module.ts`，大多遵循 oracle / module / sources 三件套；播放器按可选轨道渲染对应视图                                                                                                                      |
+| 部署     | GitHub Pages（`/algorithms-visualization/`，`main` push 自动部署）+ 自有域名 `https://algo.illegalscreed.cn`（`scripts/deploy.sh` 手动）                                                                                              |
+| 测试     | 2026-07-30：Vitest L3/L4 303 个文件、2156 个用例全绿；Playwright L5 105 个文件、119 个用例全绿；coverage 与双 base 190 页构建门禁通过                                                                                                 |
+| 当前阶段 | C136 四站 GA4 标签失败后的安全重试与个人站 hydration 修复已验证并部署；个人站、算法站、Quiz、Type Pal 第一阶段均已在自有域上线；`content-studio` V0.1 后续实现通用 Playwright 录制器并接 FFmpeg                                       |
+| 增长现状 | 95 中文 + 95 英文与 190 页静态产物已上线；C135/C136 仍只允许同意后的清洗页面浏览；四站受控验证均得到 `g/collect` 204，Owner 已在四站 Realtime 看到活跃用户；Home 顶部初始化 banner 可能滞后，Baidu 统计不在本轮范围；渠道写入仍需授权 |
+| 主要入口 | `AGENTS.md` / `CLAUDE.md`、`docs/roadmap.md`、`docs/marketing/execution-backlog.md`、`docs/plans/index.md`、`docs/test-cases/index.md`                                                                                                |
 
 ## 模块地图
 

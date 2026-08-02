@@ -194,6 +194,14 @@
 | analytics / browser       | TC-E2E-ANL-135-01     | 开发态零 Google 请求且导航正常                  | L5   | `e2e/analytics-consent.e2e.ts`            |
 | marketing / plan history  | TC-DOC-ANL-135-01     | C129 与 C135 替代关系                           | docs | `src/analytics/boundary.spec.ts`          |
 
+## 2026-08-01 GA4 标签加载韧性修复（C-20260801-136）
+
+| 模块                   | Case ID                 | 标题                                    | 层级 | 自动化路径                                       |
+| ---------------------- | ----------------------- | --------------------------------------- | ---- | ------------------------------------------------ |
+| analytics / resilience | TC-ANL-GA4-136-01..02   | 失败 script 安全重试与官方命令队列形态  | L3   | `src/analytics/googleAnalytics.spec.ts`          |
+| analytics / resilience | TC-ANL-GA4-136-03..04   | Quiz 失败 script 重试与官方命令队列形态 | L3   | `quiz/apps/quiz-app/.../googleAnalytics.spec.ts` |
+| analytics / hydration  | TC-ANL-HYDRATION-136-01 | 个人站同意 UI mounted 前空树            | L4   | `personal/.vitepress/theme/privacy.spec.ts`      |
+
 ## 2026-07-10 第三方分析撤销增量（C-20260710-129，superseded）
 
 | 模块                          | Case ID                    | 标题                                | 层级 | 自动化路径                       |

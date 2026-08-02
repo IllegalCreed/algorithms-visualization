@@ -62,9 +62,9 @@ function createHarness(options?: {
 }
 
 function dataLayerEvents(): unknown[][] {
-  return ((window as unknown as { dataLayer?: unknown[][] }).dataLayer ?? []).filter(
-    (entry) => entry[0] === 'event',
-  );
+  return ((window as unknown as { dataLayer?: Array<ArrayLike<unknown>> }).dataLayer ?? [])
+    .map((entry) => Array.from(entry))
+    .filter((entry) => entry[0] === 'event');
 }
 
 describe('minimal Google Analytics page views', () => {
@@ -126,6 +126,33 @@ describe('minimal Google Analytics page views', () => {
       'page_view',
       expect.objectContaining({ page_path: '/docs/quick-sort' }),
     );
+  });
+
+  it('TC-ANL-GA4-136-01: 标签加载失败后可重试且不重复排队当前页', () => {
+    const harness = createHarness();
+
+    harness.grant();
+    const failedScript = document.querySelector<HTMLScriptElement>(
+      'script[data-ga4-measurement-id]',
+    );
+    failedScript?.dispatchEvent(new Event('error'));
+    harness.grant();
+
+    const retryScript = document.querySelector<HTMLScriptElement>(
+      'script[data-ga4-measurement-id]',
+    );
+    expect(retryScript).not.toBe(failedScript);
+    expect(document.querySelectorAll('script[data-ga4-measurement-id]')).toHaveLength(1);
+    expect(dataLayerEvents()).toHaveLength(1);
+  });
+
+  it('TC-ANL-GA4-136-02: 内建 gtag 使用官方 arguments 命令形态', () => {
+    createHarness({ consent: 'granted' });
+
+    const commands = (window as unknown as { dataLayer?: Array<ArrayLike<unknown>> }).dataLayer;
+    expect(commands).toBeDefined();
+    expect(Array.isArray(commands?.[0])).toBe(false);
+    expect(Array.from(commands?.[1] ?? []).slice(0, 2)).toEqual(['config', 'G-TEST12345']);
   });
 
   it('TC-ANL-GA4-135-04: 页面位置丢弃自由 query/hash，只保留合法 UTM', () => {
