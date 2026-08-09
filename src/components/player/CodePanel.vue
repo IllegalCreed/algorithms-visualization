@@ -1,6 +1,6 @@
 <!-- src/components/player/CodePanel.vue -->
 <script setup lang="ts">
-import { ref, computed, shallowRef, watchEffect } from 'vue';
+import { computed, nextTick, ref, shallowRef, watch, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useSystemStore } from '@/store/modules/system';
 import type { Lang, LangSource } from './types';
@@ -16,6 +16,7 @@ const activeLine = computed(() => activeSource.value.lineMap[props.point]);
 
 const { isDarkMode } = storeToRefs(useSystemStore());
 const lines = shallowRef<HlLines | null>(null);
+const codeEl = ref<HTMLElement | null>(null);
 
 watchEffect(async () => {
   const src = activeSource.value;
@@ -28,6 +29,16 @@ watchEffect(async () => {
 });
 
 const plainLines = computed(() => activeSource.value.code.split('\n'));
+
+watch([activeLine, lines], async () => {
+  await nextTick();
+  const line = activeLine.value;
+  if (line == null) return;
+  const activeEl = codeEl.value?.querySelector<HTMLElement>(`.code-line[data-line="${line}"]`);
+  if (typeof activeEl?.scrollIntoView === 'function') {
+    activeEl.scrollIntoView({ block: 'nearest' });
+  }
+});
 </script>
 <template>
   <div class="code-panel" :class="{ dark: isDarkMode }">
@@ -42,12 +53,13 @@ const plainLines = computed(() => activeSource.value.code.split('\n'));
         {{ s.label }}
       </button>
     </div>
-    <div class="code">
+    <div ref="codeEl" class="code">
       <template v-if="lines">
         <div
           v-for="(line, i) in lines"
           :key="i"
           class="code-line"
+          :data-line="i + 1"
           :class="{ 'is-active': i + 1 === activeLine }"
         >
           <span class="ln">{{ i + 1 }}</span
@@ -61,6 +73,7 @@ const plainLines = computed(() => activeSource.value.code.split('\n'));
           v-for="(line, i) in plainLines"
           :key="i"
           class="code-line"
+          :data-line="i + 1"
           :class="{ 'is-active': i + 1 === activeLine }"
         >
           <span class="ln">{{ i + 1 }}</span
@@ -96,7 +109,8 @@ const plainLines = computed(() => activeSource.value.code.split('\n'));
   padding: 8px 0;
   font-size: 13px;
   line-height: 1.6;
-  overflow-x: auto; /* 长行横向滚动，不被外层圆角裁掉（C-042 真机自检发现的缺陷修复） */
+  max-height: 48vh;
+  overflow: auto; /* 长行横向滚动，不被外层圆角裁掉（C-042 真机自检发现的缺陷修复） */
 }
 .code-line {
   display: block;

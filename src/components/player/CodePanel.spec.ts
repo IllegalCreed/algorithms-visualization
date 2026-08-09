@@ -41,4 +41,20 @@ describe('CodePanel', () => {
     await flushPromises();
     expect(w.findAll('.code-line')[6].classes()).toContain('is-active'); // Python 第 7 行
   });
+
+  it('TC-PLAYER-LAYOUT-137-03 标记当前代码行并在步骤变化时请求容器内滚动', async () => {
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+      configurable: true,
+      value: scrollIntoView,
+    });
+    const w = mountIt('compare');
+    await flushPromises();
+    expect(w.find('.code-line.is-active').attributes('data-line')).toBe('5');
+
+    await w.setProps({ point: 'done' });
+    await flushPromises();
+    expect(w.find('.code-line.is-active').attributes('data-line')).toBe('10');
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: 'nearest' });
+  });
 });

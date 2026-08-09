@@ -9,6 +9,14 @@
 
 ---
 
+## 2026-08-09 算法播放器同屏布局（C-20260809-137）
+
+| 模块             | Case ID                     | 标题                                 | 层级 | 自动化路径                                      |
+| ---------------- | --------------------------- | ------------------------------------ | ---- | ----------------------------------------------- |
+| player / stage   | TC-PLAYER-LAYOUT-137-01..02 | 舞台分区与可视化/代码步骤同步        | L4   | `src/components/player/AlgorithmPlayer.spec.ts` |
+| player / code    | TC-PLAYER-LAYOUT-137-03     | 当前执行行在代码容器内自动滚动       | L4   | `src/components/player/CodePanel.spec.ts`       |
+| player / browser | TC-PLAYER-LAYOUT-137-04..05 | Dijkstra 桌面双栏与 900px 响应式布局 | L5   | `e2e/dijkstra.e2e.ts`                           |
+
 ## 2026-07-27 AdSense 主域审核与算法站接入（C-20260727-134）
 
 | 模块                               | Case ID                 | 标题                                                  | 层级   | 自动化路径                             |

@@ -130,7 +130,7 @@ function restoreInput(): void {
 }
 </script>
 <template>
-  <div class="algo-player column center">
+  <div class="algo-player column">
     <InputBar
       v-if="props.module.inputSpec"
       :spec="props.module.inputSpec"
@@ -139,55 +139,59 @@ function restoreInput(): void {
       @apply="applyInput"
       @restore="restoreInput"
     />
-    <TreeView
-      v-if="current.tree"
-      :array="current.array"
-      :emphasis="current.emphasis"
-      :heap-size="current.tree.heapSize"
-    />
-    <BarsView
-      v-if="current.array.length"
-      :array="current.array"
-      :pointers="current.pointers"
-      :emphasis="current.emphasis"
-    />
-    <GraphView v-if="current.graph" :graph="current.graph" />
-    <MatrixView v-if="current.matrix" :matrix="current.matrix" />
-    <BoardView v-if="current.board" :board="current.board" />
-    <DecisionTreeView v-if="current.decisionTree" :decision-tree="current.decisionTree" />
-    <MazeView v-if="current.maze" :maze="current.maze" />
-    <KmpView v-if="current.kmp" :kmp="current.kmp" :locale="props.locale" />
-    <ManacherView v-if="current.manacher" :manacher="current.manacher" :locale="props.locale" />
-    <SudokuView v-if="current.sudoku" :sudoku="current.sudoku" />
-    <SuffixArrayView
-      v-if="current.suffixArray"
-      :suffix-array="current.suffixArray"
-      :locale="props.locale"
-    />
-    <SieveView v-if="current.sieve" :sieve="current.sieve" />
-    <GcdView v-if="current.gcd" :gcd="current.gcd" />
-    <PowerView v-if="current.power" :power="current.power" :locale="props.locale" />
-    <HullView v-if="current.hull" :hull="current.hull" />
-    <NetworkView v-if="current.network" :network="current.network" />
-    <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
-    <StackView v-if="current.stack" :stack="current.stack" :locale="props.locale" />
-    <CountView v-if="current.count" :count="current.count" />
-    <BucketView v-if="current.bucket" :bucket="current.bucket" />
-    <p class="caption">{{ current.caption }}</p>
-    <QuizCard
-      v-if="activeQuizVisible && current.quiz"
-      :quiz="current.quiz"
-      :locale="props.locale"
-      @answered="onQuizAnswered"
-      @resume="onQuizResume"
-    />
-    <p v-if="atEnd && quizTotal > 0" class="quiz-score">
-      {{ props.locale === 'en' ? 'Quiz score:' : '📊 本页测验：' }} {{ quizCorrect }} /
-      {{ quizTotal }}
-    </p>
-    <div class="middle row">
-      <CodePanel class="code-pane" :sources="props.module.sources" :point="current.point" />
-      <VariablePanel class="var-pane" :vars="current.vars" :prev="prevVars" />
+    <div class="player-stage">
+      <section class="visual-pane">
+        <TreeView
+          v-if="current.tree"
+          :array="current.array"
+          :emphasis="current.emphasis"
+          :heap-size="current.tree.heapSize"
+        />
+        <BarsView
+          v-if="current.array.length"
+          :array="current.array"
+          :pointers="current.pointers"
+          :emphasis="current.emphasis"
+        />
+        <GraphView v-if="current.graph" :graph="current.graph" />
+        <MatrixView v-if="current.matrix" :matrix="current.matrix" />
+        <BoardView v-if="current.board" :board="current.board" />
+        <DecisionTreeView v-if="current.decisionTree" :decision-tree="current.decisionTree" />
+        <MazeView v-if="current.maze" :maze="current.maze" />
+        <KmpView v-if="current.kmp" :kmp="current.kmp" :locale="props.locale" />
+        <ManacherView v-if="current.manacher" :manacher="current.manacher" :locale="props.locale" />
+        <SudokuView v-if="current.sudoku" :sudoku="current.sudoku" />
+        <SuffixArrayView
+          v-if="current.suffixArray"
+          :suffix-array="current.suffixArray"
+          :locale="props.locale"
+        />
+        <SieveView v-if="current.sieve" :sieve="current.sieve" />
+        <GcdView v-if="current.gcd" :gcd="current.gcd" />
+        <PowerView v-if="current.power" :power="current.power" :locale="props.locale" />
+        <HullView v-if="current.hull" :hull="current.hull" />
+        <NetworkView v-if="current.network" :network="current.network" />
+        <AuxView v-if="current.aux" :aux="current.aux" :main-array="current.array" />
+        <StackView v-if="current.stack" :stack="current.stack" :locale="props.locale" />
+        <CountView v-if="current.count" :count="current.count" />
+        <BucketView v-if="current.bucket" :bucket="current.bucket" />
+        <p class="caption">{{ current.caption }}</p>
+        <QuizCard
+          v-if="activeQuizVisible && current.quiz"
+          :quiz="current.quiz"
+          :locale="props.locale"
+          @answered="onQuizAnswered"
+          @resume="onQuizResume"
+        />
+        <p v-if="atEnd && quizTotal > 0" class="quiz-score">
+          {{ props.locale === 'en' ? 'Quiz score:' : '📊 本页测验：' }} {{ quizCorrect }} /
+          {{ quizTotal }}
+        </p>
+      </section>
+      <aside class="inspector-pane">
+        <CodePanel class="code-pane" :sources="props.module.sources" :point="current.point" />
+        <VariablePanel class="var-pane" :vars="current.vars" :prev="prevVars" />
+      </aside>
     </div>
     <TransportControls
       :is-playing="isPlaying"
@@ -213,6 +217,35 @@ function restoreInput(): void {
 .algo-player {
   gap: 16px;
   width: 100%;
+  align-items: stretch;
+}
+.player-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr);
+  gap: 16px;
+  width: 100%;
+  align-items: start;
+}
+.visual-pane {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+.inspector-pane {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  max-height: calc(100vh - 140px);
+  flex-direction: column;
+  align-self: start;
+  gap: 16px;
+  position: sticky;
+  top: 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .caption {
   font-weight: bold;
@@ -224,22 +257,28 @@ function restoreInput(): void {
   font-size: 15px;
   color: #1f5e3a;
 }
-.middle {
-  gap: 16px;
-  width: 100%;
-  align-items: stretch;
-}
 .code-pane {
-  flex: 2;
   min-width: 0;
+  width: 100%;
 }
 .var-pane {
-  flex: 1;
-  min-width: 160px;
+  min-width: 0;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
 }
-@media (max-width: @screen-max-width) {
-  .middle {
-    flex-direction: column;
+@media (max-width: 1179px) {
+  .player-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .inspector-pane {
+    max-height: none;
+    position: static;
+    overflow: visible;
+  }
+  .var-pane {
+    max-height: none;
+    overflow: visible;
   }
 }
 </style>

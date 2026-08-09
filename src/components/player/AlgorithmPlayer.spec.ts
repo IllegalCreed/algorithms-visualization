@@ -49,6 +49,16 @@ describe('AlgorithmPlayer', () => {
     expect(w.findComponent(TransportControls).exists()).toBe(true);
   });
 
+  it('TC-PLAYER-LAYOUT-137-01 视觉轨与代码/变量检查区分属播放器舞台两侧', async () => {
+    const w = mountIt();
+    await flushPromises();
+    expect(w.find('.player-stage').exists()).toBe(true);
+    expect(w.find('.visual-pane .bars-view').exists()).toBe(true);
+    expect(w.find('.visual-pane .code-panel').exists()).toBe(false);
+    expect(w.find('.inspector-pane .code-panel').exists()).toBe(true);
+    expect(w.find('.inspector-pane .var-panel').exists()).toBe(true);
+  });
+
   it('默认停在第 0 步，点下一步推进到第 2 步', async () => {
     const w = mountIt();
     await flushPromises();

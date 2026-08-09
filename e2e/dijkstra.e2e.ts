@@ -34,3 +34,41 @@ test('TC-E2E-DIJKSTRA-01 Dijkstra 全模板：正文 + 图轨 6 点 9 边/拖到
   await expect(page.locator('.graph-edge.tree')).toHaveCount(5);
   await expect(page.locator('.caption')).toContainText('最短');
 });
+
+test('TC-PLAYER-LAYOUT-137-04 桌面视口可视化与代码同屏且文章使用可用宽度', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/docs/dijkstra');
+
+  const stage = page.locator('.player-stage');
+  await expect(stage).toBeVisible();
+  await expect(stage.locator('.visual-pane .graph-view')).toBeVisible();
+  await expect(stage.locator('.inspector-pane .code-panel')).toBeVisible();
+
+  const layout = await stage.evaluate((el) => {
+    const style = getComputedStyle(el);
+    const article = el.closest('.article');
+    return {
+      columns: style.gridTemplateColumns.trim().split(/\s+/).length,
+      stageWidth: el.getBoundingClientRect().width,
+      articleWidth: article?.getBoundingClientRect().width ?? 0,
+      documentWidth: document.documentElement.scrollWidth,
+      viewportWidth: window.innerWidth,
+    };
+  });
+  expect(layout.columns).toBe(2);
+  expect(layout.articleWidth).toBeGreaterThan(720);
+  expect(layout.documentWidth).toBeLessThanOrEqual(layout.viewportWidth);
+});
+
+test('TC-PLAYER-LAYOUT-137-05 900px 视口退回单列且不横向溢出', async ({ page }) => {
+  await page.setViewportSize({ width: 900, height: 900 });
+  await page.goto('/docs/dijkstra');
+
+  const stage = page.locator('.player-stage');
+  await expect(stage).toBeVisible();
+  const columns = await stage.evaluate((el) => getComputedStyle(el).gridTemplateColumns.trim());
+  expect(columns.split(/\s+/)).toHaveLength(1);
+  await expect(stage.locator('.visual-pane .graph-view')).toBeVisible();
+  await expect(stage.locator('.inspector-pane .code-panel')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(900);
+});

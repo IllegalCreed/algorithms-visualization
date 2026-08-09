@@ -52,3 +52,10 @@
   .neumorphism-pressed(2px, 6px);
 }
 </style>
+<style lang="less">
+/* 播放器页需要同时容纳可视化与检查区；普通知识页仍保持 720px 阅读宽度。 */
+.article:has(.algo-player) {
+  width: calc(100vw - @slider-width - 40px);
+  max-width: 1080px;
+}
+</style>
