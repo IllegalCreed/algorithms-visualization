@@ -1,14 +1,14 @@
 # 实现记录：算法播放器可视化与代码同屏布局
 
-> Status: in-progress
+> Status: verified
 > Stable ID: C-20260809-137
 > Type: feature
 > Owner: IllegalCreed
 > Created: 2026-08-09
 > Last reviewed: 2026-08-09
-> Progress: 10%
+> Progress: 100%
 > Blocked by: none
-> Next action: 完成共享组件实现并运行门禁
+> Next action: 无；C137 已提交、推送并完成双轨部署
 > Replaces: none
 > Replaced by: none
 > Related plans: C-20260619-006, C-20260705-116
@@ -24,11 +24,18 @@
 
 ## 变更清单
 
-待实现。
+- `AlgorithmPlayer` 新增 `.player-stage`、`.visual-pane`、`.inspector-pane`，桌面 Grid 双栏，1179px 以下自动单列；代码/变量仍由同一个 `current` 驱动。
+- `Article` 通过 `.article:has(.algo-player)` 只放宽播放器页，上限 1080px，77 个算法页面无需逐页改模板。
+- `CodePanel` 给代码行增加 `data-line`，步骤变化后在代码容器内滚动当前执行行；代码区支持垂直/水平滚动。
+- 新增 L4 外壳与代码行回归，以及 Dijkstra 1440px/900px L5 布局用例。
 
 ## 红绿证据
 
-待补：先记录旧实现下的失败用例，再记录实现后的定向/全量结果。
+红灯：旧实现执行新增 L4 用例时，`.player-stage` 不存在、代码行没有 `data-line`，共 2 个定向断言失败。
+
+绿灯：定向 3 文件/65 用例、全量 303 文件/2160 用例、Playwright 121/121 全绿；production `build-only` 与 selfhost build 均完成 190 页 SEO 门禁。真实浏览器测量：1440px 文章 1080px、Grid 两列 575.812px/472.188px；1200px 文章 860px、两列 454.938px/373.062px；900px 单列且文档滚动宽度等于视口。
+
+部署：提交 `e2ca1a3` 已推送；GitHub Pages run `31295217255` success（head SHA 与提交一致）；`./scripts/deploy.sh` 完成自有域原子切换；两个 Dijkstra 目标 URL 均 HTTP 200 且预渲染 HTML 含三个布局容器。
 
 ## 回滚
 
