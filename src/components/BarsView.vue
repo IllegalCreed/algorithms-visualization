@@ -20,6 +20,14 @@ const max = computed(() => Math.max(...props.array.map((t) => t[1])));
 
 // 指针轨道与柱子行同宽，保证二者左原点重合，箭头才能对齐到对应柱子
 const vizWidth = computed(() => props.array.length * props.slotWidth);
+const vizStyle = computed(() => ({ width: `${vizWidth.value}px`, maxWidth: '100%' }));
+const slotStyle = computed(() => {
+  const count = Math.max(props.array.length, 1);
+  return {
+    width: `calc(100% / ${count})`,
+    flexBasis: `calc(100% / ${count})`,
+  };
+});
 
 function percent(v: number): number {
   const span = max.value - min.value;
@@ -52,27 +60,33 @@ function stateOf(
 </script>
 <template>
   <div class="bars-view column center">
-    <TransitionGroup name="bars" tag="div" class="row bars">
+    <TransitionGroup name="bars" tag="div" class="row bars" :style="vizStyle">
       <BarComp
         v-for="(item, index) in props.array"
         :key="item[0]"
         :value="item[1]"
         :percent="percent(item[1])"
         :state="stateOf(index)"
-        :style="{ width: props.slotWidth + 'px' }"
+        :style="slotStyle"
       />
     </TransitionGroup>
     <ArrowTrackComp
       :data="props.pointers"
       :slot-width="props.slotWidth"
-      :style="{ width: vizWidth + 'px' }"
+      :slot-count="props.array.length"
+      :style="vizStyle"
     />
   </div>
 </template>
 <style scoped lang="less">
+.bars-view {
+  width: 100%;
+  min-width: 0;
+}
 .bars {
   align-items: flex-end;
   min-height: 180px;
+  max-width: 100%;
 }
 /* FLIP：交换时柱子平滑移动 */
 .bars-move {

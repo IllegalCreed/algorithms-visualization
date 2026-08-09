@@ -25,6 +25,7 @@ defineProps<{
 <style scoped lang="less">
 .bar-cell {
   justify-content: flex-end;
+  min-width: 0;
 }
 .val {
   font-weight: bold;
@@ -32,7 +33,7 @@ defineProps<{
   margin-bottom: 4px;
 }
 .bar {
-  width: 40px;
+  width: min(40px, calc(100% - 8px));
   border-radius: 8px;
   background-color: #8bd3a0;
   transition:

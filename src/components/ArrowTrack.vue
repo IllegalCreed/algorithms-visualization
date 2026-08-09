@@ -7,12 +7,19 @@ const props = withDefaults(
   defineProps<{
     data: Array<Pointer>;
     slotWidth?: number;
+    slotCount?: number;
   }>(),
   { slotWidth: 60 },
 );
 
-function genOffect(index: number): number {
-  return index * props.slotWidth;
+function arrowStyle(index: number): Record<string, string> {
+  if (props.slotCount && props.slotCount > 0) {
+    return {
+      width: `calc(100% / ${props.slotCount})`,
+      transform: `translateX(${index * 100}%)`,
+    };
+  }
+  return { transform: `translateX(${index * props.slotWidth}px)` };
 }
 
 const colors = useSystemStore().colors;
@@ -24,7 +31,7 @@ const colors = useSystemStore().colors;
       v-for="item in props.data"
       :key="item.id"
       :color="colors[Number(item.id)]"
-      :style="{ transform: 'translateX(' + genOffect(item.index) + 'px)' }"
+      :style="arrowStyle(item.index)"
     ></ArrowComp>
   </div>
 </template>

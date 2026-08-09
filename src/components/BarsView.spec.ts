@@ -59,11 +59,23 @@ describe('BarsView', () => {
     expect(w.findComponent(ArrowTrack).props('slotWidth')).toBe(50);
   });
 
-  it('指针轨道宽度 = array.length × slotWidth（与柱子行同原点，箭头才对齐）', () => {
+  it('指针轨道首选宽度 = array.length × slotWidth，且不超过父宽', () => {
     const w = mountIt(base); // 3 元素 × 默认 60 = 180
     expect(w.findComponent(ArrowTrack).attributes('style')).toContain('width: 180px');
+    expect(w.findComponent(ArrowTrack).attributes('style')).toContain('max-width: 100%');
     const w2 = mountIt({ ...base, slotWidth: 50 }); // 3 × 50 = 150
     expect(w2.findComponent(ArrowTrack).attributes('style')).toContain('width: 150px');
+    expect(w2.findComponent(ArrowTrack).attributes('style')).toContain('max-width: 100%');
+  });
+
+  it('TC-PLAYER-GRID-139-02 柱轨受父宽约束且箭头共享百分比槽位', () => {
+    const w = mountIt(base);
+    const track = w.findComponent(ArrowTrack);
+
+    expect(track.props('slotCount')).toBe(3);
+    expect(track.attributes('style')).toContain('width: 180px');
+    expect(track.attributes('style')).toContain('max-width: 100%');
+    expect(w.findAllComponents(Bar)[0].attributes('style')).toContain('flex-basis: calc(33.3333%)');
   });
 
   it('TC-VIZ-BARSVIEW-06 minIndex 指向的 Bar 进入 min 态', () => {

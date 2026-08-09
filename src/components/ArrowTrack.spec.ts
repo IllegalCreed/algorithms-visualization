@@ -31,4 +31,17 @@ describe('ArrowTrack', () => {
     const arrow = w.findAllComponents(Arrow)[0];
     expect(arrow.attributes('style')).toContain('translateX(100px)'); // 2 * 50
   });
+
+  it('TC-PLAYER-GRID-139-02 slotCount 模式按百分比槽宽定位', () => {
+    const w = mount(ArrowTrack, {
+      props: {
+        data: [{ id: '0', index: 2 }],
+        slotCount: 4,
+      },
+      global: { plugins: [createPinia()] },
+    });
+    const arrow = w.findComponent(Arrow);
+    expect(arrow.attributes('style')).toContain('width: calc(25%)');
+    expect(arrow.attributes('style')).toContain('translateX(200%)');
+  });
 });

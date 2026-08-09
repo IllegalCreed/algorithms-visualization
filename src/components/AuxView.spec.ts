@@ -56,7 +56,8 @@ describe('AuxView', () => {
     };
     const arrow = mountIt(aux).find('.arrow');
     expect(arrow.exists()).toBe(true);
-    expect(arrow.attributes('style')).toContain('translateX(60px)'); // index 1 * slotWidth 60
+    expect(arrow.attributes('style')).toContain('width: calc(50%)');
+    expect(arrow.attributes('style')).toContain('translateX(100%)');
   });
 
   it('TC-VIZ-AUXVIEW-04 无 pointer 时不渲染箭头', () => {

@@ -17,6 +17,14 @@ const props = withDefaults(
 const min = computed(() => Math.min(...props.mainArray.map((t) => t[1])));
 const max = computed(() => Math.max(...props.mainArray.map((t) => t[1])));
 const vizWidth = computed(() => props.aux.array.length * props.slotWidth);
+const vizStyle = computed(() => ({ width: `${vizWidth.value}px`, maxWidth: '100%' }));
+const slotStyle = computed(() => {
+  const count = Math.max(props.aux.array.length, 1);
+  return {
+    width: `calc(100% / ${count})`,
+    flexBasis: `calc(100% / ${count})`,
+  };
+});
 const filledSet = computed(() => new Set(props.aux.filled));
 const pointers = computed(() =>
   props.aux.pointer === undefined ? [] : [{ id: '2', index: props.aux.pointer }],
@@ -33,26 +41,32 @@ function stateOf(index: number): 'sorted' | 'empty' {
 </script>
 <template>
   <div class="aux-view column center">
-    <div class="row bars">
+    <div class="row bars" :style="vizStyle">
       <BarComp
         v-for="(item, index) in props.aux.array"
         :key="item[0]"
         :value="item[1]"
         :percent="stateOf(index) === 'empty' ? 0 : percent(item[1])"
         :state="stateOf(index)"
-        :style="{ width: props.slotWidth + 'px' }"
+        :style="slotStyle"
       />
     </div>
     <ArrowTrackComp
       :data="pointers"
       :slot-width="props.slotWidth"
-      :style="{ width: vizWidth + 'px' }"
+      :slot-count="props.aux.array.length"
+      :style="vizStyle"
     />
   </div>
 </template>
 <style scoped lang="less">
+.aux-view {
+  width: 100%;
+  min-width: 0;
+}
 .bars {
   align-items: flex-end;
   min-height: 180px;
+  max-width: 100%;
 }
 </style>

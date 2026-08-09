@@ -175,6 +175,8 @@ function restoreInput(): void {
         <StackView v-if="current.stack" :stack="current.stack" :locale="props.locale" />
         <CountView v-if="current.count" :count="current.count" />
         <BucketView v-if="current.bucket" :bucket="current.bucket" />
+      </section>
+      <section class="explanation-pane" aria-live="polite">
         <p class="caption">{{ current.caption }}</p>
         <QuizCard
           v-if="activeQuizVisible && current.quiz"
@@ -222,23 +224,47 @@ function restoreInput(): void {
 .player-stage {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr);
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    'visual inspector'
+    'explanation inspector';
   gap: 16px;
   width: 100%;
   align-items: start;
 }
 .visual-pane {
+  grid-area: visual;
   display: flex;
+  align-self: stretch;
   min-width: 0;
   width: 100%;
   flex-direction: column;
   align-items: stretch;
   gap: 16px;
+  padding: 12px;
+  border-radius: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  .neumorphism-flat(4px, 12px);
 }
-.inspector-pane {
+.explanation-pane {
+  grid-area: explanation;
   display: flex;
+  align-self: stretch;
   min-width: 0;
   width: 100%;
   flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  .neumorphism-flat(4px, 12px);
+}
+.inspector-pane {
+  grid-area: inspector;
+  display: grid;
+  grid-template-rows: subgrid;
+  min-width: 0;
+  width: 100%;
   align-self: start;
   gap: 16px;
   position: sticky;
@@ -247,6 +273,7 @@ function restoreInput(): void {
   overflow: visible;
 }
 .caption {
+  margin: 0;
   font-weight: bold;
   font-size: 16px;
   min-height: 24px;
@@ -269,8 +296,14 @@ function restoreInput(): void {
 @media (max-width: 1179px) {
   .player-stage {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      'visual'
+      'explanation'
+      'inspector';
   }
   .inspector-pane {
+    grid-template-rows: auto auto;
     position: static;
     overflow: visible;
   }

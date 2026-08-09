@@ -59,6 +59,17 @@ describe('AlgorithmPlayer', () => {
     expect(w.find('.inspector-pane .var-panel').exists()).toBe(true);
   });
 
+  it('TC-PLAYER-GRID-139-01 字幕与视觉轨拆为独立说明面板', async () => {
+    const w = mountIt();
+    await flushPromises();
+
+    expect(w.find('.visual-pane .bars-view').exists()).toBe(true);
+    expect(w.find('.visual-pane .caption').exists()).toBe(false);
+    expect(w.find('.explanation-pane .caption').exists()).toBe(true);
+    expect(w.find('.inspector-pane .code-panel').exists()).toBe(true);
+    expect(w.find('.inspector-pane .var-panel').exists()).toBe(true);
+  });
+
   it('默认停在第 0 步，点下一步推进到第 2 步', async () => {
     const w = mountIt();
     await flushPromises();
