@@ -31,10 +31,16 @@
 
 > 2026-08-09 登记 C138 两个播放器阴影回归 Case：桌面检查区不再以 overflow 滚动边界裁剪代码/变量卡片，窄屏仍保持单列无横溢出。
 
+> 2026-08-09 登记并验证 C139 四个播放器四面板/防重叠 Case：说明面板独立、柱轨与箭头百分比槽位、1440px 桌面几何边界及 900px 单列顺序；303/2163 Vitest、125/125 Playwright 与双 base 190 页构建门禁全绿。
+
 ## All Cases
 
 | Case ID                                         | 标题                                                                                       | 所属功能 / 模块                    | Owner Plan     | 层级   | 自动化路径                                                    | 状态       | 最后验证   |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- | -------------- | ------ | ------------------------------------------------------------- | ---------- | ---------- |
+| TC-PLAYER-GRID-139-01                           | 字幕与视觉轨拆为独立说明面板                                                               | player / stage                     | C-20260809-139 | L4     | `src/components/player/AlgorithmPlayer.spec.ts`               | active     | 2026-08-09 |
+| TC-PLAYER-GRID-139-02                           | 柱轨与箭头按父宽等比例共享槽位                                                             | player / bars                      | C-20260809-139 | L4     | BarsView / ArrowTrack specs                                   | active     | 2026-08-09 |
+| TC-PLAYER-GRID-139-03                           | 二分答案桌面柱轨不侵入代码面板                                                             | player / browser                   | C-20260809-139 | L5     | `e2e/binary-answer.e2e.ts`                                    | active     | 2026-08-09 |
+| TC-PLAYER-GRID-139-04                           | 四面板窄屏按阅读顺序单列且不横溢                                                           | player / browser                   | C-20260809-139 | L5     | `e2e/binary-answer.e2e.ts`                                    | active     | 2026-08-09 |
 | TC-PLAYER-LAYOUT-137-01                         | 播放器舞台分离视觉区与检查区                                                               | player / layout                    | C-20260809-137 | L4     | `src/components/player/AlgorithmPlayer.spec.ts`               | active     | 2026-08-09 |
 | TC-PLAYER-LAYOUT-137-02                         | 可视化、代码高亮与变量共享当前步骤                                                         | player / sync                      | C-20260809-137 | L4     | `src/components/player/AlgorithmPlayer.spec.ts`               | active     | 2026-08-09 |
 | TC-PLAYER-LAYOUT-137-03                         | 长代码在检查区内滚动到当前执行行                                                           | player / code                      | C-20260809-137 | L4     | `src/components/player/CodePanel.spec.ts`                     | active     | 2026-08-09 |

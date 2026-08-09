@@ -1,7 +1,7 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-07-28
+> Last reviewed: 2026-08-09
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
@@ -13,6 +13,14 @@
 | -------------------------- | ----------------------- | -------------------------- | ---- | --------------------- |
 | player / visual-regression | TC-PLAYER-SHADOW-138-01 | 桌面检查区不裁剪卡片外阴影 | L5   | `e2e/dijkstra.e2e.ts` |
 | player / browser           | TC-PLAYER-SHADOW-138-02 | 窄屏单列且无横向溢出       | L5   | `e2e/dijkstra.e2e.ts` |
+
+## 2026-08-09 算法播放器四面板网格与防重叠（C-20260809-139）
+
+| 模块             | Case ID                   | 标题                           | 层级 | 自动化路径                                                             |
+| ---------------- | ------------------------- | ------------------------------ | ---- | ---------------------------------------------------------------------- |
+| player / stage   | TC-PLAYER-GRID-139-01     | 字幕与视觉轨拆为独立说明面板   | L4   | `src/components/player/AlgorithmPlayer.spec.ts`                        |
+| viz / bars       | TC-PLAYER-GRID-139-02     | 柱轨与箭头按父宽等比例共享槽位 | L4   | `src/components/BarsView.spec.ts`、`src/components/ArrowTrack.spec.ts` |
+| player / browser | TC-PLAYER-GRID-139-03..04 | 桌面几何不重叠与窄屏阅读顺序   | L5   | `e2e/binary-answer.e2e.ts`                                             |
 
 ---
 
