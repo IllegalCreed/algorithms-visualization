@@ -6,7 +6,7 @@
 
 ## 当前阶段
 
-项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成发布；C135 已在算法站与个人站自有域上线独立 GA4 property、basic consent 和仅标准页面浏览。C136 的四站标签韧性代码已验证并部署：个人站、算法站、Quiz、Type Pal 第一阶段均已收到受控 `g/collect` 204，Owner 已在四站 Realtime 看到活跃用户；Home 顶部初始化 banner 的延迟不再作为链路失败判据。C137 已将共享 `AlgorithmPlayer` 改为桌面可视化/代码变量双栏、窄屏单列，并完成两条线上线验证。C133 已把独立 `marketing-ops` 收束为 MCP v3 多项目工具并公开源码；C134 已完成主域 AdSense 审核入口和算法站 production-only 广告接入；C127 宣传自动化已 verified/100%。独立公开仓库 `IllegalCreed/content-studio` V0.1 已完成跨项目内容与视频计划编译器；下一步实现通用 Playwright 录制器。
+项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成发布；C135 已在算法站与个人站自有域上线独立 GA4 property、basic consent 和仅标准页面浏览。C136 的四站标签韧性代码已验证并部署：个人站、算法站、Quiz、Type Pal 第一阶段均已收到受控 `g/collect` 204，Owner 已在四站 Realtime 看到活跃用户；Home 顶部初始化 banner 的延迟不再作为链路失败判据。C137 已将共享 `AlgorithmPlayer` 改为桌面可视化/代码变量双栏、窄屏单列，并完成两条线上线验证；C138 已修复并部署双栏检查区 overflow 对代码/变量拟物阴影的裁剪。C133 已把独立 `marketing-ops` 收束为 MCP v3 多项目工具并公开源码；C134 已完成主域 AdSense 审核入口和算法站 production-only 广告接入；C127 宣传自动化已 verified/100%。独立公开仓库 `IllegalCreed/content-studio` V0.1 已完成跨项目内容与视频计划编译器；下一步实现通用 Playwright 录制器。
 
 当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 verified/100%。微博零费用 API 发布路径已关闭；Bluesky 和 Mastodon 真实 smoke 均已完成并清理；DEV 正式文章长期公开。T4 已建立确定性 1h/48h/7d 计划、标准报告、FAQ-only 与 Bug Issue 失败关闭分流；T5 已把 Facebook、X、知乎、掘金、简书、B站、YouTube、抖音等 12 个渠道收束为 Owner 辅助发布交接，内容包自动生成、登录/挑战/最终发布由 Owner 在官方 UI 完成，确认 URL 后才落 receipt。最终只读状态为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required；历史闭环不代表当前写授权，后续写入仍需重新接入和 matching campaign 授权。C135 只统计用户同意后的页面浏览，不恢复交互事件。
 
@@ -26,18 +26,18 @@
 
 ## 维护队列
 
-| 优先级 | 方向                 | 状态     | 下一步                                                                                                                     |
-| ------ | -------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
-| P0     | 保持门禁与线上可用   | ongoing  | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                          |
-| P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                           |
-| P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                    |
-| P1     | 低风险维护修复       | ongoing  | C137 已完成播放器同屏布局；继续处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归              |
-| P1     | 宣传自动化           | ongoing  | C127/C133 与 `content-studio` V0.1 已完成；下一步为通用录制器、FFmpeg 合成和 marketing-ops 资产交接                        |
-| P1     | AdSense 审核准备     | verified | C134 已完成主域 account meta/ads.txt/信任页与算法站 production loader；后台 CMP、Auto ads、付款资料及重新送审由 Owner 完成 |
-| P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁  |
-| P2     | 免费索引与需求信号   | verified | 190 页 sitemap 已稳定；C135 自有域上线 consent-gated page_view，仍不引入交互事件                                           |
-| P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131              |
-| P3     | 新算法或新交互       | parked   | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进          |
+| 优先级 | 方向                 | 状态     | 下一步                                                                                                                           |
+| ------ | -------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| P0     | 保持门禁与线上可用   | ongoing  | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                                |
+| P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                                 |
+| P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                          |
+| P1     | 低风险维护修复       | ongoing  | C137/C138 已完成播放器同屏布局与阴影裁剪修复；继续处理不改变算法语义的小问题：可访问性、导航语义、搜索召回、文档事实、测试防回归 |
+| P1     | 宣传自动化           | ongoing  | C127/C133 与 `content-studio` V0.1 已完成；下一步为通用录制器、FFmpeg 合成和 marketing-ops 资产交接                              |
+| P1     | AdSense 审核准备     | verified | C134 已完成主域 account meta/ads.txt/信任页与算法站 production loader；后台 CMP、Auto ads、付款资料及重新送审由 Owner 完成       |
+| P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁        |
+| P2     | 免费索引与需求信号   | verified | 190 页 sitemap 已稳定；C135 自有域上线 consent-gated page_view，仍不引入交互事件                                                 |
+| P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131                    |
+| P3     | 新算法或新交互       | parked   | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进                |
 
 ## 近期决策记录
 
@@ -48,6 +48,8 @@
 | 2026-08-01 | C136 verified：四站补标签失败后的安全重试与官方 arguments 队列；个人站 hydration 修复已部署；Owner 补齐代理后全新 Chromium 的算法站 GA4/AdSense 无失败，首页 Realtime 仍待观察                     |
 | 2026-08-02 | C136 生产收尾：个人站、算法站、Quiz、Type Pal 第一阶段均已部署；四站受控浏览器 `gtag.js` 200 / `g/collect` 204，Owner GA4 已看到四站 Realtime 活跃用户；Quiz 未重部署后端，Type Pal 未触碰第二阶段 |
 | 2026-08-09 | C137 verified：AlgorithmPlayer 共享舞台在 1440px/1200px 双栏、900px 单列；303/2160 Vitest、121/121 Playwright、production/selfhost 190 页门禁全绿；Pages run `31295217255` 与自有域双轨发布完成    |
+| 2026-08-09 | C138 建立：用户截图复现右侧检查区阴影裁剪；根因是 `.inspector-pane` 的 `overflow-y: auto` 计算为双轴 auto，先写 L5 fail 用例再做共享 CSS 最小修复                                                  |
+| 2026-08-09 | C138 verified：移除共享检查区滚动裁剪，303/2160 Vitest、123/123 Playwright、production/selfhost 190 页门禁全绿；Pages run `31296824236` 与自有域双轨发布完成                                       |
 | 2026-07-28 | 公开 `IllegalCreed/content-studio` V0.1：19 渠道确定性内容编译、语义视频计划与安全 CLI 完成；8/20、coverage 与六平台 Node CI 全绿，下一步录制器                                                    |
 | 2026-07-28 | C127 verified/100%：plugin `60152d3`、主仓库 `ef8c18c`；53/263、300/2141、coverage、118 L5、双 base、安装态与泄漏扫描全绿；零真实渠道写入                                                          |
 | 2026-07-28 | C127 T5：新增 12 渠道 Owner 辅助发布交接，自动生成内容包；官方 UI 登录/挑战/最终发布由 Owner 控制，确认 URL 后才保存 receipt；零真实渠道写入，C127 99%                                             |

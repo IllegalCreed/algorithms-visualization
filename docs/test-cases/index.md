@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-07-28
+> Last reviewed: 2026-08-09
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -29,6 +29,8 @@
 
 > 2026-08-09 登记 C137 五个播放器布局 Case：共享 AlgorithmPlayer 舞台、步骤同步、代码行滚动，以及 Dijkstra 在桌面双栏和 900px 窄屏的 L5 响应式验证。
 
+> 2026-08-09 登记 C138 两个播放器阴影回归 Case：桌面检查区不再以 overflow 滚动边界裁剪代码/变量卡片，窄屏仍保持单列无横溢出。
+
 ## All Cases
 
 | Case ID                                         | 标题                                                                                       | 所属功能 / 模块                    | Owner Plan     | 层级   | 自动化路径                                                    | 状态       | 最后验证   |
@@ -38,6 +40,8 @@
 | TC-PLAYER-LAYOUT-137-03                         | 长代码在检查区内滚动到当前执行行                                                           | player / code                      | C-20260809-137 | L4     | `src/components/player/CodePanel.spec.ts`                     | active     | 2026-08-09 |
 | TC-PLAYER-LAYOUT-137-04                         | Dijkstra 桌面视口图轨与代码同屏、文章放宽                                                  | player / browser                   | C-20260809-137 | L5     | `e2e/dijkstra.e2e.ts`                                         | active     | 2026-08-09 |
 | TC-PLAYER-LAYOUT-137-05                         | 900px 视口退回单列且无横向溢出                                                             | player / browser                   | C-20260809-137 | L5     | `e2e/dijkstra.e2e.ts`                                         | active     | 2026-08-09 |
+| TC-PLAYER-SHADOW-138-01                         | 桌面检查区不裁剪代码/变量卡片外阴影                                                        | player / visual-regression         | C-20260809-138 | L5     | `e2e/dijkstra.e2e.ts`                                         | active     | 2026-08-09 |
+| TC-PLAYER-SHADOW-138-02                         | 窄屏仍单列且无横向溢出                                                                     | player / browser                   | C-20260809-138 | L5     | `e2e/dijkstra.e2e.ts`                                         | active     | 2026-08-09 |
 | TC-ADS-ROOT-134-01..04                          | 主域 ads.txt/robots/account meta、真实首页、信任页与示例清理                               | monetization / personal site       | C-20260727-134 | build  | personal: `scripts/verify-adsense-readiness.mjs`              | active     | 2026-07-27 |
 | TC-ADS-ALGO-134-01..03                          | publisher 常量、build-only head 与预渲染 Google 请求隔离                                   | monetization / build integration   | C-20260727-134 | L3     | `src/monetization/adsense.spec.ts`                            | active     | 2026-07-27 |
 | TC-ADS-ALGO-134-04                              | Footer 中英文隐私链接、文本、target 与 rel                                                 | monetization / privacy navigation  | C-20260727-134 | L4     | `src/views/Home/Footer/Footer.spec.ts`                        | active     | 2026-07-27 |
