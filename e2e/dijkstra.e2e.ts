@@ -60,6 +60,21 @@ test('TC-PLAYER-LAYOUT-137-04 桌面视口可视化与代码同屏且文章使�
   expect(layout.documentWidth).toBeLessThanOrEqual(layout.viewportWidth);
 });
 
+test('TC-PLAYER-SHADOW-138-01 桌面检查区不裁剪代码与变量卡片阴影', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/docs/dijkstra');
+
+  const inspector = page.locator('.inspector-pane');
+  await expect(inspector.locator('.code-panel')).toBeVisible();
+  await expect(inspector.locator('.var-panel')).toBeVisible();
+
+  const overflow = await inspector.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return { overflowX: style.overflowX, overflowY: style.overflowY };
+  });
+  expect(overflow).toEqual({ overflowX: 'visible', overflowY: 'visible' });
+});
+
 test('TC-PLAYER-LAYOUT-137-05 900px 视口退回单列且不横向溢出', async ({ page }) => {
   await page.setViewportSize({ width: 900, height: 900 });
   await page.goto('/docs/dijkstra');
@@ -70,5 +85,21 @@ test('TC-PLAYER-LAYOUT-137-05 900px 视口退回单列且不横向溢出', async
   expect(columns.split(/\s+/)).toHaveLength(1);
   await expect(stage.locator('.visual-pane .graph-view')).toBeVisible();
   await expect(stage.locator('.inspector-pane .code-panel')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(900);
+});
+
+test('TC-PLAYER-SHADOW-138-02 窄屏检查区阴影不被共享容器裁剪', async ({ page }) => {
+  await page.setViewportSize({ width: 900, height: 900 });
+  await page.goto('/docs/dijkstra');
+
+  const inspector = page.locator('.inspector-pane');
+  await expect(inspector.locator('.code-panel')).toBeVisible();
+  await expect(inspector.locator('.var-panel')).toBeVisible();
+
+  const overflow = await inspector.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return { overflowX: style.overflowX, overflowY: style.overflowY };
+  });
+  expect(overflow).toEqual({ overflowX: 'visible', overflowY: 'visible' });
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(900);
 });

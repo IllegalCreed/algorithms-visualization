@@ -238,14 +238,13 @@ function restoreInput(): void {
   display: flex;
   min-width: 0;
   width: 100%;
-  max-height: calc(100vh - 140px);
   flex-direction: column;
   align-self: start;
   gap: 16px;
   position: sticky;
   top: 16px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  // 代码/变量卡片的拟物阴影必须能绘制到自身边界之外；滚动由代码区和页面承担。
+  overflow: visible;
 }
 .caption {
   font-weight: bold;
@@ -272,7 +271,6 @@ function restoreInput(): void {
     grid-template-columns: minmax(0, 1fr);
   }
   .inspector-pane {
-    max-height: none;
     position: static;
     overflow: visible;
   }
