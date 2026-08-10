@@ -57,6 +57,30 @@ test('TC-RESPONSIVE-140-01 中文与英文首页在手机宽度无横向溢出�
   }
 });
 
+test('TC-HEADER-141-01 滚动内容不能覆盖固定 Header', async ({ page }) => {
+  await page.goto('/docs/queue');
+  const playground = page.locator('.playground').first();
+  await expect(playground).toBeVisible();
+
+  await playground.evaluate((element) => {
+    const top = element.getBoundingClientRect().top + window.scrollY - 20;
+    window.scrollTo({ top, left: 0, behavior: 'auto' });
+  });
+
+  const tagPoint = await playground.locator('.tag').evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+  });
+  await expect
+    .poll(() =>
+      page.evaluate(
+        ({ x, y }) => Boolean(document.elementFromPoint(x, y)?.closest('#header')),
+        tagPoint,
+      ),
+    )
+    .toBe(true);
+});
+
 test('TC-RESPONSIVE-140-02 文档侧栏在手机变为抽屉，文章和播放器使用完整可用宽度', async ({
   page,
 }) => {

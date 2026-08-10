@@ -270,6 +270,9 @@ onBeforeUnmount(() => {
   width: 100vw;
   height: 100px;
   min-width: @screen-min-width;
+  // Keep the fixed shell above scrolled article decorations, while the
+  // higher modal layers (consent, drawers, search) remain above the header.
+  z-index: 1000;
   background-color: @neumorphis-background;
   .fixed-top();
   .center();
