@@ -375,8 +375,9 @@ function onSpeed(e: Event) {
   }
 
   .ctl {
-    width: 100%;
+    width: 44px;
     min-width: 44px;
+    justify-self: center;
   }
 
   .ctl-loop {
@@ -387,8 +388,10 @@ function onSpeed(e: Event) {
   .speed {
     grid-column: 1 / span 2;
     grid-row: 2;
-    width: 100%;
+    width: 96px;
+    max-width: 100%;
     min-width: 0;
+    justify-self: center;
   }
 
   .counter {

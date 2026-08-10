@@ -50,7 +50,7 @@ const onReset = () => {
       </button>
       <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
-    <div class="lane-wrap">
+    <div class="lane-wrap" :class="{ 'is-empty': !q.items.value.length }">
       <!-- 车道：队首在左、队尾在右；定宽（空/满一致）、左对齐 -->
       <div class="lane">
         <span v-if="!q.items.value.length" class="empty-hint">
@@ -110,6 +110,14 @@ const onReset = () => {
   min-height: 96px;
   padding: 12px;
   .neumorphism-pressed(4px, 12px);
+}
+@media (max-width: @mobile-max-width) {
+  // 空队列没有需要保持的固定画布，窄屏应完整铺满可用宽度；有元素时
+  // 仍保留稳定车道并由外层 lane-wrap 提供横向滚动。
+  .lane-wrap.is-empty .lane {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 .empty-hint {
   position: absolute;

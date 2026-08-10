@@ -81,6 +81,133 @@ test('TC-HEADER-141-01 滚动内容不能覆盖固定 Header', async ({ page }) 
     .toBe(true);
 });
 
+test('TC-PLAYER-142-01 播放器控制按钮保持方形且不被网格拉伸', async ({ page }) => {
+  for (const viewport of [
+    { width: 770, height: 404 },
+    { width: 844, height: 390 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/docs/binary-answer');
+    const transport = page.locator('.transport');
+    await expect(transport).toBeVisible();
+
+    const geometry = await transport.evaluate((element) => ({
+      controls: [...element.querySelectorAll<HTMLButtonElement>('.ctl')].map((control) => {
+        const rect = control.getBoundingClientRect();
+        return { width: rect.width, height: rect.height };
+      }),
+      speed: (() => {
+        const rect = element.querySelector<HTMLSelectElement>('.speed')?.getBoundingClientRect();
+        return rect ? { width: rect.width, height: rect.height } : null;
+      })(),
+    }));
+
+    expect(geometry.controls).toHaveLength(5);
+    for (const control of geometry.controls) {
+      expect(control.width).toBeGreaterThanOrEqual(44);
+      expect(control.height).toBeGreaterThanOrEqual(44);
+      expect(Math.abs(control.width - control.height)).toBeLessThanOrEqual(1);
+    }
+    expect(geometry.speed).not.toBeNull();
+    expect(geometry.speed!.height).toBeGreaterThanOrEqual(44);
+    expect(geometry.speed!.width).toBeLessThanOrEqual(120);
+  }
+});
+
+test('TC-VIZ-142-02 窄屏空队列完整显示，非空车道在组件内滚动', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/docs/queue');
+
+  const laneWrap = page.locator('.queue-viz .lane-wrap').first();
+  const lane = laneWrap.locator('.lane');
+  await expect(laneWrap).toBeVisible();
+  await expect(laneWrap.locator('.empty-hint')).toBeVisible();
+
+  const emptyGeometry = await laneWrap.evaluate((element) => {
+    const wrapper = element.getBoundingClientRect();
+    const canvas = element.querySelector<HTMLElement>('.lane')!.getBoundingClientRect();
+    const hint = element.querySelector<HTMLElement>('.empty-hint')!.getBoundingClientRect();
+    return {
+      wrapper: { left: wrapper.left, right: wrapper.right, width: wrapper.width },
+      canvas: { left: canvas.left, right: canvas.right, width: canvas.width },
+      hintCenter: hint.left + hint.width / 2,
+      wrapperCenter: wrapper.left + wrapper.width / 2,
+    };
+  });
+  expect(emptyGeometry.canvas.width).toBeLessThanOrEqual(emptyGeometry.wrapper.width + 1);
+  expect(emptyGeometry.canvas.left).toBeGreaterThanOrEqual(emptyGeometry.wrapper.left - 1);
+  expect(emptyGeometry.canvas.right).toBeLessThanOrEqual(emptyGeometry.wrapper.right + 1);
+  expect(Math.abs(emptyGeometry.hintCenter - emptyGeometry.wrapperCenter)).toBeLessThanOrEqual(2);
+
+  await page.locator('.queue-viz .btn').first().click();
+  await expect(lane.locator('.qitem')).toHaveCount(1);
+  const fullGeometry = await laneWrap.evaluate((element) => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+    left: element.getBoundingClientRect().left,
+    right: element.getBoundingClientRect().right,
+  }));
+  expect(fullGeometry.scrollWidth).toBeGreaterThan(fullGeometry.clientWidth);
+  expect(fullGeometry.left).toBeGreaterThanOrEqual(0);
+  expect(fullGeometry.right).toBeLessThanOrEqual(390);
+  await laneWrap.evaluate((element) => element.scrollTo({ left: element.scrollWidth }));
+  await expect.poll(() => laneWrap.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  await expectNoPageOverflow(page);
+});
+
+test('TC-VIZ-142-03 桶与计数轨保持单行，窄屏只滚动组件内部', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/docs/counting-sort');
+  const countView = page.locator('.count-view');
+  await expect(countView).toBeVisible();
+  const countGeometry = await countView.evaluate((element) => {
+    const root = element.getBoundingClientRect();
+    const buckets = [...element.querySelectorAll<HTMLElement>('.count-bucket')].map((bucket) => {
+      const rect = bucket.getBoundingClientRect();
+      return { top: rect.top, left: rect.left, right: rect.right };
+    });
+    return {
+      root: { left: root.left, right: root.right, width: root.width },
+      tops: buckets.map(({ top }) => top),
+      scrollWidth: element.scrollWidth,
+      clientWidth: element.clientWidth,
+    };
+  });
+  expect(new Set(countGeometry.tops).size).toBe(1);
+  expect(countGeometry.scrollWidth).toBeGreaterThan(countGeometry.clientWidth);
+  expect(countGeometry.root.left).toBeGreaterThanOrEqual(0);
+  expect(countGeometry.root.right).toBeLessThanOrEqual(390);
+  await countView.evaluate((element) => element.scrollTo({ left: element.scrollWidth }));
+  await expect.poll(() => countView.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  await expectNoPageOverflow(page);
+
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/docs/bucket-sort');
+  const bucketView = page.locator('.bucket-view');
+  await expect(bucketView).toBeVisible();
+  const bucketGeometry = await bucketView.evaluate((element) => {
+    const root = element.getBoundingClientRect();
+    const buckets = [...element.querySelectorAll<HTMLElement>('.bucket-col')].map((bucket) => {
+      const rect = bucket.getBoundingClientRect();
+      return { top: rect.top, left: rect.left, right: rect.right };
+    });
+    return {
+      root: { left: root.left, right: root.right, width: root.width },
+      tops: buckets.map(({ top }) => top),
+      scrollWidth: element.scrollWidth,
+      clientWidth: element.clientWidth,
+    };
+  });
+  expect(new Set(bucketGeometry.tops).size).toBe(1);
+  expect(bucketGeometry.scrollWidth).toBeGreaterThan(bucketGeometry.clientWidth);
+  expect(bucketGeometry.root.left).toBeGreaterThanOrEqual(0);
+  expect(bucketGeometry.root.right).toBeLessThanOrEqual(320);
+  await bucketView.evaluate((element) => element.scrollTo({ left: element.scrollWidth }));
+  await expect.poll(() => bucketView.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  await expectNoPageOverflow(page);
+});
+
 test('TC-RESPONSIVE-140-02 文档侧栏在手机变为抽屉，文章和播放器使用完整可用宽度', async ({
   page,
 }) => {

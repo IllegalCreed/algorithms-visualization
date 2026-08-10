@@ -31,12 +31,21 @@ const bucketsView = computed(() =>
 </template>
 <style scoped lang="less">
 .bucket-view {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   gap: 14px;
   align-items: flex-end;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: safe center;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  box-sizing: border-box;
+  padding: 6px;
   min-height: 200px;
 }
 .bucket-col {
+  flex: 0 0 auto;
   gap: 8px;
 }
 /* 「桶」：内凹容器，元素自上而下排列 */

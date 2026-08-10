@@ -32,12 +32,21 @@ const bucketsView = computed(() =>
 </template>
 <style scoped lang="less">
 .count-view {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   gap: 14px;
   align-items: flex-end;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: safe center;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  box-sizing: border-box;
+  padding: 6px;
   min-height: 190px;
 }
 .count-bucket {
+  flex: 0 0 auto;
   gap: 6px;
 }
 .count-num {

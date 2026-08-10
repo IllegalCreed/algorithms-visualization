@@ -58,7 +58,7 @@ const onReset = () => {
       </button>
       <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
-    <div class="lane-wrap">
+    <div class="lane-wrap" :class="{ 'is-empty': !d.items.value.length }">
       <!-- 车道：队头在左、队尾在右；定宽（空/满一致） -->
       <div class="lane">
         <span v-if="!d.items.value.length" class="empty-hint">
@@ -118,6 +118,12 @@ const onReset = () => {
   min-height: 96px;
   padding: 12px;
   .neumorphism-pressed(4px, 12px);
+}
+@media (max-width: @mobile-max-width) {
+  .lane-wrap.is-empty .lane {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 .empty-hint {
   position: absolute;
