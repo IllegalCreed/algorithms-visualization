@@ -84,6 +84,10 @@ function assertLocalAssetBase(document, base, pagePath) {
 
   for (const element of elements) {
     const value = element.getAttribute('src') ?? element.getAttribute('href') ?? '';
+    assert.ok(
+      !/^https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?\//.test(value),
+      `${pagePath} 静态资源残留预览服务器地址: ${value}`,
+    );
     if (!value || /^(?:https?:|data:|blob:)/.test(value)) continue;
 
     assert.ok(value.startsWith('/'), `${pagePath} 本地资源不是绝对路径: ${value}`);

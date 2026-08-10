@@ -168,6 +168,43 @@ async function normalizeStaticRouteLinks(page, base) {
   }, base);
 }
 
+/**
+ * Vite's runtime preload helper resolves dynamically discovered chunks against
+ * the preview origin.  Those links are useful while prerendering, but the
+ * serialized HTML is later served from Pages/self-host and must never retain
+ * the ephemeral preview host (or its port).  Keep the generated base while
+ * converting same-origin asset links back to site-relative URLs.
+ */
+async function normalizePreviewAssetLinks(page, previewOrigin, base) {
+  await page.evaluate(
+    ({ origin, routeBase }) => {
+      const preview = new URL(origin).origin;
+      const prefix = routeBase === '/' ? '' : routeBase.replace(/\/$/, '');
+      const selectors = [
+        'script[src]',
+        'link[rel="stylesheet"][href]',
+        'link[rel="modulepreload"][href]',
+      ];
+
+      for (const element of document.querySelectorAll(selectors.join(','))) {
+        const attribute = element.hasAttribute('src') ? 'src' : 'href';
+        const value = element.getAttribute(attribute);
+        if (!value) continue;
+
+        const url = new URL(value, window.location.href);
+        if (url.origin !== preview) continue;
+
+        const assetsIndex = url.pathname.lastIndexOf('/assets/');
+        if (assetsIndex < 0) continue;
+
+        const assetPath = url.pathname.slice(assetsIndex);
+        element.setAttribute(attribute, `${prefix}${assetPath}${url.search}${url.hash}`);
+      }
+    },
+    { origin: previewOrigin, routeBase: base },
+  );
+}
+
 async function readRenderedMetadata(page) {
   return page.evaluate(() => ({
     name: document.documentElement.dataset.seoReady ?? '',
@@ -219,6 +256,7 @@ async function renderTask(context, origin, base, mode, task) {
     assert.deepEqual(errors, [], `${task.path} 浏览器错误:\n${errors.join('\n')}`);
 
     await normalizeStaticRouteLinks(page, base);
+    await normalizePreviewAssetLinks(page, origin, base);
 
     const outputPath = outputPathFor(task.path);
     const absoluteOutputPath = resolve(DIST_DIR, outputPath);
