@@ -15,6 +15,17 @@
 | ---- | ---------------- | --------------------------- | ------------------------------ |
 | L5   | TC-HEADER-141-01 | 滚动内容不能覆盖固定 Header | `e2e/responsive.mobile.e2e.ts` |
 
+## 2026-08-10 播放器控件与可视化轨道窄屏修复（C-20260810-142）
+
+当前实现为 verified/100%；L5 三条几何用例、build 资源地址门禁、全量浏览器与双 base 产物均通过。提交 `de8da04`、`3ef748a`，Pages run `31358485357`。
+
+| 层级  | Case ID          | 标题                                | 自动化路径                     |
+| ----- | ---------------- | ----------------------------------- | ------------------------------ |
+| L5    | TC-PLAYER-142-01 | 播放器控件保持方形且不被 grid 拉伸  | `e2e/responsive.mobile.e2e.ts` |
+| L5    | TC-VIZ-142-02    | 空队列完整显示、非空车道可内部滚动  | `e2e/responsive.mobile.e2e.ts` |
+| L5    | TC-VIZ-142-03    | 桶与计数轨保持单行并可内部横滚      | `e2e/responsive.mobile.e2e.ts` |
+| build | TC-BUILD-142-04  | 预渲染静态资源不残留 preview origin | `scripts/verify-seo.mjs`       |
+
 ## 2026-08-10 全站响应式、可访问性与工程性能加固（C-20260810-140）
 
 当前实现为 verified/100%；304/2178 Vitest、125/125 Desktop、5/5 mobile 与双 base 190 页构建全绿。提交 `fcd3873`、Pages deployment `5825382051`、自有域部署及 Nginx 安全头线上检查均完成。
