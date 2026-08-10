@@ -81,7 +81,7 @@ const onReset = () => {
         </TransitionGroup>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

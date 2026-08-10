@@ -200,7 +200,10 @@ function onSpeed(e: Event) {
       :style="{ '--fill': fillPercent + '%' }"
       @input="onSeek"
     />
-    <span class="counter">{{ index + 1 }} / {{ total }}</span>
+    <!-- The caption is the single live region for step changes. The range's
+         aria-valuetext still exposes this progress to assistive technology;
+         keeping the visual counter passive avoids duplicate announcements. -->
+    <span class="counter" aria-hidden="true">{{ index + 1 }} / {{ total }}</span>
   </div>
 </template>
 <style scoped lang="less">
@@ -208,18 +211,23 @@ function onSpeed(e: Event) {
   gap: 10px;
   padding: 10px 16px;
   border-radius: 12px;
+  flex-wrap: wrap;
+  min-width: 0;
   .neumorphism-flat(4px, 12px);
 }
 .ctl {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   color: @font-color;
+  touch-action: manipulation;
   .neumorphism-btn(3px, 50%);
 }
 .ctl .icon {
@@ -245,7 +253,7 @@ function onSpeed(e: Event) {
 .speed {
   appearance: none;
   -webkit-appearance: none;
-  height: 32px;
+  min-height: 44px;
   padding: 0 28px 0 12px;
   border: none;
   border-radius: 9px;
@@ -259,6 +267,7 @@ function onSpeed(e: Event) {
     3px 3px 6px darken(@neumorphis-background, 15%),
     -3px -3px 6px lighten(@neumorphis-background, 15%);
   cursor: pointer;
+  touch-action: manipulation;
 }
 .speed:active,
 .speed:focus-visible {
@@ -273,11 +282,12 @@ function onSpeed(e: Event) {
 .scrub {
   flex: 1;
   min-width: 120px;
-  height: 18px;
+  height: 44px;
   appearance: none;
   -webkit-appearance: none;
   background: transparent;
   cursor: pointer;
+  touch-action: manipulation;
 }
 .scrub:focus-visible {
   outline: 2px solid #8bd3a0;
@@ -347,5 +357,52 @@ function onSpeed(e: Event) {
   font-size: 13px;
   min-width: 60px;
   text-align: right;
+}
+
+/* 手机端把主控件、速度/计数和进度条分成可触控的三行，避免 390px
+ * 视口下 range 被挤成不可操作的细缝。显式 grid 列也让最后一个循环按钮
+ * 保持在主操作行，而不会因 DOM 顺序落到第二行。 */
+@media (max-width: @mobile-max-width) {
+  .transport {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    padding-top: 12px;
+    padding-right: calc(12px + env(safe-area-inset-right));
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    padding-left: calc(12px + env(safe-area-inset-left));
+    align-items: center;
+  }
+
+  .ctl {
+    width: 100%;
+    min-width: 44px;
+  }
+
+  .ctl-loop {
+    grid-column: 5;
+    grid-row: 1;
+  }
+
+  .speed {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .counter {
+    grid-column: 4 / span 2;
+    grid-row: 2;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .scrub {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: 100%;
+    min-width: 0;
+  }
 }
 </style>

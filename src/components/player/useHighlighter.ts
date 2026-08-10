@@ -38,6 +38,15 @@ export interface HlToken {
 export type HlLines = HlToken[][];
 
 const cache = new Map<string, HlLines>();
+const MAX_CACHE_ENTRIES = 128;
+
+function cacheLines(key: string, lines: HlLines): void {
+  if (cache.size >= MAX_CACHE_ENTRIES) {
+    const oldest = cache.keys().next().value;
+    if (oldest) cache.delete(oldest);
+  }
+  cache.set(key, lines);
+}
 
 export async function highlightToLines(code: string, lang: Lang, dark: boolean): Promise<HlLines> {
   const key = `${lang}|${dark ? 'd' : 'l'}|${code}`;
@@ -51,6 +60,6 @@ export async function highlightToLines(code: string, lang: Lang, dark: boolean):
   const lines: HlLines = tokens.map((line) =>
     line.map((t) => ({ content: t.content, color: t.color })),
   );
-  cache.set(key, lines);
+  cacheLines(key, lines);
   return lines;
 }

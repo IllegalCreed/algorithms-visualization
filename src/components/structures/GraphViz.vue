@@ -122,7 +122,12 @@ onUnmounted(clearTimers);
                 current: current === v.id,
               }"
               :transform="`translate(${v.x},${v.y})`"
+              role="button"
+              tabindex="0"
+              :aria-label="english ? `Select start vertex ${v.label}` : `选择起点 ${v.label}`"
               @click="onPick(v.id)"
+              @keydown.enter.prevent="onPick(v.id)"
+              @keydown.space.prevent="onPick(v.id)"
             >
               <circle r="20" />
               <text>{{ v.label }}</text>
@@ -149,7 +154,7 @@ onUnmounted(clearTimers);
         <span v-for="(i, k) in frontier" :key="k" class="slot">{{ g.labelOf(i) }}</span>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

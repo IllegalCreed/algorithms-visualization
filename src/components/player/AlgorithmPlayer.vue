@@ -1,6 +1,16 @@
 <!-- src/components/player/AlgorithmPlayer.vue -->
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref, shallowRef, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  shallowRef,
+  useId,
+  watch,
+} from 'vue';
 import type { AlgorithmModule } from './types';
 import { usePlayer } from './usePlayer';
 import { clearInputFromUrl, readInputFromUrl, writeInputToUrl } from './inputSpec';
@@ -34,6 +44,83 @@ import type { SiteLocale } from '@/i18n/catalog';
 const props = withDefaults(defineProps<{ module: AlgorithmModule; locale?: SiteLocale }>(), {
   locale: 'zh-CN',
 });
+const paneLabels = computed(() =>
+  props.locale === 'en'
+    ? {
+        visual: 'Visualization',
+        explanation: 'Step explanation',
+        inspector: 'Code and variables',
+      }
+    : {
+        visual: '可视化',
+        explanation: '步骤说明',
+        inspector: '代码与变量',
+      },
+);
+const inspectorTab = ref<'code' | 'vars'>('code');
+const inspectorPaneRef = ref<HTMLElement | null>(null);
+const inspectorMediaQuery = '(max-width: 899px)';
+const isMobileInspector = ref(
+  typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+    ? window.matchMedia(inspectorMediaQuery).matches
+    : false,
+);
+let inspectorMedia: MediaQueryList | undefined;
+const inspectorId = `inspector-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+const inspectorLabels = computed(() =>
+  props.locale === 'en'
+    ? { list: 'Inspector panels', code: 'Code', vars: 'Variables' }
+    : { list: '检查面板', code: '代码', vars: '变量' },
+);
+
+function onInspectorTabKeydown(event: KeyboardEvent, tab: 'code' | 'vars'): void {
+  if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+  const tabs = Array.from(
+    (event.currentTarget as HTMLElement).parentElement?.querySelectorAll<HTMLButtonElement>(
+      '[role="tab"]',
+    ) ?? [],
+  );
+  if (tabs.length < 2) return;
+  const currentIndex = tab === 'code' ? 0 : 1;
+  const nextIndex =
+    event.key === 'Home'
+      ? 0
+      : event.key === 'End'
+        ? tabs.length - 1
+        : (currentIndex + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+  const nextTab = nextIndex === 0 ? 'code' : 'vars';
+  event.preventDefault();
+  inspectorTab.value = nextTab;
+  tabs[nextIndex]?.focus();
+}
+
+function syncInspectorMode(matches: boolean): void {
+  const activeElement =
+    document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  const focusedTabWillDisappear =
+    isMobileInspector.value && !matches && !!activeElement?.closest('.inspector-tabs');
+  const focusedDesktopPanel =
+    !isMobileInspector.value && matches
+      ? activeElement?.closest<HTMLElement>('.code-pane, .var-pane')
+      : null;
+  const mobilePanelToFocus = focusedDesktopPanel?.classList.contains('var-pane') ? 'vars' : 'code';
+  if (focusedDesktopPanel) inspectorTab.value = mobilePanelToFocus;
+  isMobileInspector.value = matches;
+  if (!focusedTabWillDisappear && !focusedDesktopPanel) return;
+
+  void nextTick(() => {
+    if (matches) {
+      document.getElementById(`${inspectorId}-tab-${mobilePanelToFocus}`)?.focus();
+    } else {
+      const selector = inspectorTab.value === 'code' ? '.code-pane' : '.var-pane';
+      inspectorPaneRef.value?.querySelector<HTMLElement>(selector)?.focus();
+    }
+  });
+}
+
+function onInspectorMediaChange(event: MediaQueryListEvent): void {
+  syncInspectorMode(event.matches);
+}
 
 // C-110 自定义输入：模块声明 inputSpec 时支持 ?input= 初始化与运行时重建；不声明 = 固定剧本（旧路径全等）
 const input = shallowRef(readInputFromUrl(props.module.inputSpec) ?? props.module.initialInput());
@@ -57,26 +144,64 @@ const {
   toggleLoop,
 } = usePlayer(steps);
 
-// C-111 键盘快捷键：→/←/空格；输入控件聚焦时不抢（InputBar 打字优先）；题卡可见时不响应（C-112 防绕题）
+// C-111/C-140 键盘快捷键：→/←/空格；交互控件聚焦时完全交给控件自己的
+// keyboard interaction，避免按钮上的 Space 同时触发原生 click 和播放器全局切换。
+function isInteractiveKeyboardTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement) && !(target instanceof SVGElement)) return false;
+  const element = target as HTMLElement;
+  if (element.isContentEditable || element.closest('[contenteditable="true"]')) return true;
+  return !!element.closest(
+    [
+      'button',
+      'a[href]',
+      'input',
+      'textarea',
+      'select',
+      'option',
+      '[role="button"]',
+      '[role="link"]',
+      '[role="checkbox"]',
+      '[role="radio"]',
+      '[role="switch"]',
+      '[role="tab"]',
+      '[role="tabpanel"]',
+      '[role="combobox"]',
+      '[role="slider"]',
+      '[role="spinbutton"]',
+      '[role="textbox"]',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(','),
+  );
+}
+
 function onKeydown(e: KeyboardEvent): void {
   if (activeQuizVisible.value) return;
-  const t = e.target as HTMLElement | null;
-  const tag = t?.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (isInteractiveKeyboardTarget(e.target)) return;
+  if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
   if (e.key === 'ArrowRight') {
     e.preventDefault();
     stepForward();
   } else if (e.key === 'ArrowLeft') {
     e.preventDefault();
     stepBackward();
-  } else if (e.key === ' ') {
+  } else if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
     e.preventDefault(); // 防页面滚动
     if (isPlaying.value) pause();
     else play();
   }
 }
-onMounted(() => window.addEventListener('keydown', onKeydown));
-onUnmounted(() => window.removeEventListener('keydown', onKeydown));
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown);
+  if (typeof window.matchMedia === 'function') {
+    inspectorMedia = window.matchMedia(inspectorMediaQuery);
+    syncInspectorMode(inspectorMedia.matches);
+    inspectorMedia.addEventListener('change', onInspectorMediaChange);
+  }
+});
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeydown);
+  inspectorMedia?.removeEventListener('change', onInspectorMediaChange);
+});
 
 const prevVars = computed(() => steps.value[index.value - 1]?.vars);
 const inputText = computed(() => input.value.join(', '));
@@ -140,7 +265,7 @@ function restoreInput(): void {
       @restore="restoreInput"
     />
     <div class="player-stage">
-      <section class="visual-pane">
+      <section class="visual-pane" :aria-label="paneLabels.visual">
         <TreeView
           v-if="current.tree"
           :array="current.array"
@@ -176,8 +301,10 @@ function restoreInput(): void {
         <CountView v-if="current.count" :count="current.count" />
         <BucketView v-if="current.bucket" :bucket="current.bucket" />
       </section>
-      <section class="explanation-pane" aria-live="polite">
-        <p class="caption">{{ current.caption }}</p>
+      <section class="explanation-pane" :aria-label="paneLabels.explanation">
+        <p class="caption" role="status" aria-live="polite" aria-atomic="true">
+          {{ current.caption }}
+        </p>
         <QuizCard
           v-if="activeQuizVisible && current.quiz"
           :quiz="current.quiz"
@@ -190,9 +317,64 @@ function restoreInput(): void {
           {{ quizTotal }}
         </p>
       </section>
-      <aside class="inspector-pane">
-        <CodePanel class="code-pane" :sources="props.module.sources" :point="current.point" />
-        <VariablePanel class="var-pane" :vars="current.vars" :prev="prevVars" />
+      <aside ref="inspectorPaneRef" class="inspector-pane" :aria-label="paneLabels.inspector">
+        <div
+          v-if="isMobileInspector"
+          class="inspector-tabs"
+          role="tablist"
+          :aria-label="inspectorLabels.list"
+        >
+          <button
+            type="button"
+            class="inspector-tab"
+            role="tab"
+            :id="`${inspectorId}-tab-code`"
+            :aria-selected="inspectorTab === 'code'"
+            :aria-controls="`${inspectorId}-code`"
+            :tabindex="inspectorTab === 'code' ? 0 : -1"
+            @click="inspectorTab = 'code'"
+            @keydown="onInspectorTabKeydown($event, 'code')"
+          >
+            {{ inspectorLabels.code }}
+          </button>
+          <button
+            type="button"
+            class="inspector-tab"
+            role="tab"
+            :id="`${inspectorId}-tab-vars`"
+            :aria-selected="inspectorTab === 'vars'"
+            :aria-controls="`${inspectorId}-vars`"
+            :tabindex="inspectorTab === 'vars' ? 0 : -1"
+            @click="inspectorTab = 'vars'"
+            @keydown="onInspectorTabKeydown($event, 'vars')"
+          >
+            {{ inspectorLabels.vars }}
+          </button>
+        </div>
+        <CodePanel
+          class="code-pane"
+          :class="{ 'mobile-panel-off': isMobileInspector && inspectorTab !== 'code' }"
+          :id="`${inspectorId}-code`"
+          :role="isMobileInspector ? 'tabpanel' : 'region'"
+          :aria-labelledby="isMobileInspector ? `${inspectorId}-tab-code` : undefined"
+          :aria-label="!isMobileInspector ? inspectorLabels.code : undefined"
+          :tabindex="!isMobileInspector ? -1 : undefined"
+          :sources="props.module.sources"
+          :point="current.point"
+          :locale="props.locale"
+        />
+        <VariablePanel
+          class="var-pane"
+          :class="{ 'mobile-panel-off': isMobileInspector && inspectorTab !== 'vars' }"
+          :id="`${inspectorId}-vars`"
+          :role="isMobileInspector ? 'tabpanel' : 'region'"
+          :aria-labelledby="isMobileInspector ? `${inspectorId}-tab-vars` : undefined"
+          :aria-label="!isMobileInspector ? inspectorLabels.vars : undefined"
+          :tabindex="!isMobileInspector ? -1 : undefined"
+          :vars="current.vars"
+          :prev="prevVars"
+          :locale="props.locale"
+        />
       </aside>
     </div>
     <TransportControls
@@ -272,6 +454,9 @@ function restoreInput(): void {
   // 代码/变量卡片的拟物阴影必须能绘制到自身边界之外；滚动由代码区和页面承担。
   overflow: visible;
 }
+.inspector-tabs {
+  display: none;
+}
 .caption {
   margin: 0;
   font-weight: bold;
@@ -310,6 +495,65 @@ function restoreInput(): void {
   .var-pane {
     max-height: none;
     overflow: visible;
+  }
+}
+
+@media (max-width: @mobile-max-width) {
+  .algo-player,
+  .player-stage,
+  .inspector-pane {
+    gap: 12px;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .visual-pane {
+    max-width: 100%;
+    padding: 10px 8px;
+    overscroll-behavior-inline: contain;
+  }
+
+  .explanation-pane {
+    padding: 14px 12px;
+  }
+
+  .inspector-pane {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inspector-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+    border-radius: 10px;
+    .neumorphism-concave(2px, 10px);
+  }
+
+  .inspector-tab {
+    flex: 1 1 0;
+    min-height: 44px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: @font-color;
+    font: inherit;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .inspector-tab[aria-selected='true'] {
+    .neumorphism-pressed(2px, 8px);
+    font-weight: bold;
+  }
+
+  .mobile-panel-off {
+    display: none;
+  }
+
+  .caption {
+    font-size: 15px;
+    line-height: 1.55;
   }
 }
 </style>

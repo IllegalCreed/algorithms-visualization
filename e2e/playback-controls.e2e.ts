@@ -34,6 +34,9 @@ test('TC-E2E-CTRL-01 播放控制增强：键盘三键 + 3× + 播完循环回�
   }, max!);
   const total = Number(max) + 1;
   await expect(page.locator('.counter')).toContainText(`${total} / ${total}`);
+  // The loop control retains focus after being clicked; move focus to the
+  // article before using the player-wide Space shortcut.
+  await page.locator('.caption').click();
   await page.keyboard.press(' '); // 末步 + 循环开 → 从头播
   await expect(page.locator('.counter')).not.toContainText(`${total} / ${total}`, {
     timeout: 3000,

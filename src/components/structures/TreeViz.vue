@@ -135,7 +135,14 @@ onUnmounted(clearTimers);
 <template>
   <div class="tree-viz column center">
     <div class="toolbar row-wrap">
-      <input class="val-input" v-model.number="val" type="number" min="1" max="99" />
+      <input
+        class="val-input"
+        v-model.number="val"
+        type="number"
+        min="1"
+        max="99"
+        :aria-label="english ? 'Value' : '值'"
+      />
       <button class="btn" @click="onInsert">{{ english ? 'Insert' : '插入' }}</button>
       <button class="btn" @click="onSearch">{{ english ? 'Search' : '查找' }}</button>
       <button class="btn" @click="onInorder">{{ english ? 'Inorder' : '中序遍历' }}</button>
@@ -177,7 +184,7 @@ onUnmounted(clearTimers);
         </div>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

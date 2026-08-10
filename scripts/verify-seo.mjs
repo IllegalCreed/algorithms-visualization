@@ -50,6 +50,29 @@ async function readText(relativePath) {
   return readFile(resolve(DIST_DIR, relativePath), 'utf8');
 }
 
+async function verifyParentRedirect(relativePath, targetPath, base) {
+  const html = await readText(relativePath);
+  const dom = new JSDOM(html);
+  const { document } = dom.window;
+  const expectedTarget =
+    base === '/' ? `${targetPath}/` : `${base.replace(/\/$/, '')}${targetPath}/`;
+  assert.equal(
+    document.querySelector('meta[name="robots"]')?.getAttribute('content'),
+    'noindex,follow',
+    `${relativePath} 必须 noindex`,
+  );
+  assert.equal(
+    document.querySelector('link[rel="canonical"]')?.getAttribute('href'),
+    canonicalFor(targetPath),
+    `${relativePath} canonical 错误`,
+  );
+  assert.equal(
+    document.querySelector('meta[http-equiv="refresh"]')?.getAttribute('content'),
+    `0;url=${expectedTarget}`,
+    `${relativePath} redirect 错误`,
+  );
+}
+
 function assertUnique(values, label) {
   assert.equal(new Set(values).size, values.length, `${label} 存在重复项`);
 }
@@ -256,6 +279,9 @@ async function main() {
     assert.equal(page.canonical, canonicalFor(page.path));
     await verifyPage(page, expectedBase, localizedSlugs);
   }
+
+  await verifyParentRedirect('docs/index.html', '/docs/complexity', expectedBase);
+  await verifyParentRedirect('en/docs/index.html', '/en/docs/complexity', expectedBase);
 
   console.log(`[verify-seo] ${mode}: ${manifest.pages.length} pages verified (${expectedBase})`);
 }

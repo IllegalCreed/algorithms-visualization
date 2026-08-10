@@ -16,7 +16,7 @@ useControlHeaderShadow();
 <style lang="less">
 #home {
   background-color: @neumorphis-background;
-  min-width: @screen-min-width;
+  min-width: 0;
   .column-stretch();
 }
 </style>

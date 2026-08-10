@@ -68,7 +68,12 @@ const onReset = () => {
   <div class="bloom-viz column center">
     <div class="toolbar row-wrap">
       <label class="lab">{{ english ? 'Value' : '值' }}</label>
-      <input class="val-input in-a" v-model.number="a" type="number" />
+      <input
+        class="val-input in-a"
+        v-model.number="a"
+        type="number"
+        :aria-label="english ? 'Value' : '值'"
+      />
       <button class="btn" @click="onAdd">{{ english ? 'Add' : '加入' }}</button>
       <button class="btn" @click="onQuery">{{ english ? 'Query' : '查询' }}</button>
       <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
@@ -89,7 +94,9 @@ const onReset = () => {
         </div>
       </div>
     </div>
-    <p class="status" :class="{ warn: isFalsePositive }">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite" :class="{ warn: isFalsePositive }">
+      {{ status }}
+    </p>
   </div>
 </template>
 

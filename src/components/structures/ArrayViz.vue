@@ -120,7 +120,12 @@ onUnmounted(() => clearTimeout(timer));
               class="cell"
               :class="{ 'is-selected': i === a.selected.value, flash: it[0] === flashId }"
               :data-i="i"
+              role="button"
+              tabindex="0"
+              :aria-label="english ? `Select ${it[1]}` : `选择 ${it[1]}`"
               @click="onSelect(i)"
+              @keydown.enter.prevent="onSelect(i)"
+              @keydown.space.prevent="onSelect(i)"
             >
               {{ it[1] }}
             </div>
@@ -139,7 +144,7 @@ onUnmounted(() => clearTimeout(timer));
         </div>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

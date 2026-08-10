@@ -2,7 +2,7 @@
 import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
-import { englishBinaryBoundsModule } from '@/i18n/englishAlgorithmModules';
+import { englishBinaryBoundsModule } from '@/i18n/en/modules/binary-bounds';
 </script>
 
 <template>

@@ -118,9 +118,19 @@ const onReset = () => {
   <div class="b-tree-viz column center">
     <div class="toolbar row-wrap">
       <label class="lab">a</label>
-      <input class="val-input in-a" v-model.number="a" type="number" />
+      <input
+        class="val-input in-a"
+        v-model.number="a"
+        type="number"
+        :aria-label="english ? 'Start value' : '起始值'"
+      />
       <label class="lab">b</label>
-      <input class="val-input in-b" v-model.number="b" type="number" />
+      <input
+        class="val-input in-b"
+        v-model.number="b"
+        type="number"
+        :aria-label="english ? 'End value' : '结束值'"
+      />
       <button class="btn" @click="onSearch">{{ english ? 'Search' : '查找' }}</button>
       <button class="btn" @click="onRange">{{ english ? 'Range scan' : '范围查' }}</button>
       <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
@@ -181,7 +191,7 @@ const onReset = () => {
         </svg>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

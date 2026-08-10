@@ -169,7 +169,17 @@ onUnmounted(() => {
               :data-i="i"
             >
               <!-- 值盒（点选）+ 该节点的 next 箭头（挂节点、随 FLIP 走，不手算坐标） -->
-              <div class="box" @click="onSelect(i)">{{ it[1] }}</div>
+              <div
+                class="box"
+                role="button"
+                tabindex="0"
+                :aria-label="english ? `Select ${it[1]}` : `选择 ${it[1]}`"
+                @click="onSelect(i)"
+                @keydown.enter.prevent="onSelect(i)"
+                @keydown.space.prevent="onSelect(i)"
+              >
+                {{ it[1] }}
+              </div>
               <span class="arrow" :class="{ rewired: rewired.includes(i) }">→</span>
             </div>
           </TransitionGroup>
@@ -177,7 +187,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

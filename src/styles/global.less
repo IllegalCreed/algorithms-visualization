@@ -1,0 +1,61 @@
+// Shared selectors are emitted exactly once. Component Less blocks import
+// common.less in reference mode for the same mixins without duplicating CSS.
+@import './layout.less';
+@import './neumorphism.less';
+
+.btn {
+  cursor: pointer;
+  user-select: none;
+}
+
+// Keep keyboard focus visible even on the soft neumorphic surfaces.
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid @font-highlight-color;
+  outline-offset: 3px;
+}
+
+// Respect the platform preference without requiring every visual track to
+// duplicate the same media query.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .btn,
+  button,
+  [role='button'] {
+    border: 1px solid ButtonText;
+    forced-color-adjust: auto;
+  }
+}
+
+// Structure demos intentionally keep a stable drawing canvas so tree/graph
+// coordinates do not move between steps. On phones, make that canvas locally
+// scrollable from its leading edge; centered overflow would make the first
+// nodes impossible to reach because #right clips page-level overflow.
+@media (max-width: @mobile-max-width) {
+  #right .article .lane-wrap,
+  #right .article .array-wrap {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #right .article .lane-wrap > .lane,
+  #right .article .array-wrap > * {
+    flex: 0 0 auto;
+    margin-inline: auto;
+  }
+}

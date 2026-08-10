@@ -51,11 +51,36 @@
   margin: 0 1px;
   .neumorphism-pressed(2px, 6px);
 }
+
+@media (max-width: @mobile-max-width) {
+  .article {
+    width: 100%;
+    max-width: none;
+    padding: 16px 16px 64px;
+    overflow-wrap: anywhere;
+  }
+
+  .article :slotted(h1) {
+    font-size: clamp(26px, 8vw, 32px);
+    line-height: 1.25;
+  }
+
+  .article :slotted(h2) {
+    margin-top: 32px;
+  }
+}
 </style>
 <style lang="less">
 /* 播放器页需要同时容纳可视化与检查区；普通知识页仍保持 720px 阅读宽度。 */
 .article:has(.algo-player) {
   width: calc(100vw - @slider-width - 40px);
   max-width: 1080px;
+}
+
+@media (max-width: @mobile-max-width) {
+  .article:has(.algo-player) {
+    width: 100%;
+    max-width: none;
+  }
 }
 </style>

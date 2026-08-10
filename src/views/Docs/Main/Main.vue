@@ -8,4 +8,10 @@
 .main {
   padding: 20px;
 }
+
+@media (max-width: @mobile-max-width) {
+  .main {
+    padding: 0;
+  }
+}
 </style>

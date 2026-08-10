@@ -1,14 +1,22 @@
 <!-- src/components/player/CodePanel.vue -->
 <script setup lang="ts">
-import { computed, nextTick, ref, shallowRef, watch, watchEffect } from 'vue';
+import { computed, nextTick, ref, shallowRef, useId, watch, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useSystemStore } from '@/store/modules/system';
 import type { Lang, LangSource } from './types';
 import { highlightToLines, type HlLines } from './useHighlighter';
+import type { SiteLocale } from '@/i18n/catalog';
 
-const props = defineProps<{ sources: LangSource[]; point: string }>();
+const props = withDefaults(
+  defineProps<{ sources: LangSource[]; point: string; locale?: SiteLocale }>(),
+  { locale: 'zh-CN' },
+);
 
 const activeLang = ref<Lang>(props.sources[0].lang);
+const idSeed = useId().replace(/[^a-zA-Z0-9_-]/g, '');
+const tablistLabel = computed(() => (props.locale === 'en' ? 'Code language' : '代码语言'));
+const codePanelId = `code-panel-${idSeed}`;
+const tabRefs = new Map<Lang, HTMLElement>();
 const activeSource = computed(
   () => props.sources.find((s) => s.lang === activeLang.value) ?? props.sources[0],
 );
@@ -17,6 +25,53 @@ const activeLine = computed(() => activeSource.value.lineMap[props.point]);
 const { isDarkMode } = storeToRefs(useSystemStore());
 const lines = shallowRef<HlLines | null>(null);
 const codeEl = ref<HTMLElement | null>(null);
+let hasInitialCodePainted = false;
+
+function tabId(lang: Lang): string {
+  return `${codePanelId}-tab-${lang}`;
+}
+
+function setTabRef(lang: Lang, element: unknown): void {
+  if (element instanceof HTMLElement) tabRefs.set(lang, element);
+  else tabRefs.delete(lang);
+}
+
+function selectLanguage(lang: Lang, moveFocus = false): void {
+  activeLang.value = lang;
+  if (moveFocus) {
+    void nextTick(() => tabRefs.get(lang)?.focus());
+  }
+}
+
+function onTabKeydown(event: KeyboardEvent, lang: Lang): void {
+  const currentIndex = props.sources.findIndex((source) => source.lang === lang);
+  if (currentIndex < 0 || props.sources.length < 2) return;
+
+  let nextIndex = currentIndex;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+    nextIndex = (currentIndex + 1) % props.sources.length;
+  } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+    nextIndex = (currentIndex - 1 + props.sources.length) % props.sources.length;
+  } else if (event.key === 'Home') {
+    nextIndex = 0;
+  } else if (event.key === 'End') {
+    nextIndex = props.sources.length - 1;
+  } else {
+    return;
+  }
+
+  event.preventDefault();
+  selectLanguage(props.sources[nextIndex].lang, true);
+}
+
+watch(
+  () => props.sources,
+  (sources) => {
+    if (!sources.some((source) => source.lang === activeLang.value) && sources[0]) {
+      activeLang.value = sources[0].lang;
+    }
+  },
+);
 
 watchEffect(async () => {
   const src = activeSource.value;
@@ -32,28 +87,64 @@ const plainLines = computed(() => activeSource.value.code.split('\n'));
 
 watch([activeLine, lines], async () => {
   await nextTick();
+  // Do not scroll the article on first highlight.  On mobile the code panel is
+  // below the heading; an initial scrollIntoView would move the page before the
+  // reader sees the article title. Subsequent step/language changes still track
+  // the active line inside the code container.
+  if (!hasInitialCodePainted) {
+    hasInitialCodePainted = true;
+    return;
+  }
   const line = activeLine.value;
   if (line == null) return;
-  const activeEl = codeEl.value?.querySelector<HTMLElement>(`.code-line[data-line="${line}"]`);
-  if (typeof activeEl?.scrollIntoView === 'function') {
-    activeEl.scrollIntoView({ block: 'nearest' });
+  const container = codeEl.value;
+  const activeEl = container?.querySelector<HTMLElement>(`.code-line[data-line="${line}"]`);
+  if (!container || !activeEl) return;
+
+  // Do not call Element.scrollIntoView here.  The code panel lives inside a
+  // long article, so browsers are allowed to scroll the article (and on
+  // mobile even the whole page) when that API is used.  Adjust only the code
+  // pane's own scroll offsets; the reader stays at the current explanation.
+  const containerRect = container.getBoundingClientRect();
+  const lineRect = activeEl.getBoundingClientRect();
+  const top = containerRect.top + 4;
+  const bottom = containerRect.bottom - 4;
+  if (lineRect.top < top) {
+    container.scrollTop -= top - lineRect.top;
+  } else if (lineRect.bottom > bottom) {
+    container.scrollTop += lineRect.bottom - bottom;
   }
 });
 </script>
 <template>
   <div class="code-panel" :class="{ dark: isDarkMode }">
-    <div class="tabs row">
+    <div class="tabs row" role="tablist" aria-orientation="horizontal" :aria-label="tablistLabel">
       <button
         v-for="s in props.sources"
         :key="s.lang"
+        :ref="(element) => setTabRef(s.lang, element)"
+        type="button"
         class="tab"
         :class="{ on: s.lang === activeLang }"
-        @click="activeLang = s.lang"
+        role="tab"
+        :id="tabId(s.lang)"
+        :aria-selected="s.lang === activeLang"
+        :aria-controls="codePanelId"
+        :tabindex="s.lang === activeLang ? 0 : -1"
+        @click="selectLanguage(s.lang)"
+        @keydown="onTabKeydown($event, s.lang)"
       >
         {{ s.label }}
       </button>
     </div>
-    <div ref="codeEl" class="code">
+    <div
+      :id="codePanelId"
+      ref="codeEl"
+      class="code"
+      role="tabpanel"
+      tabindex="0"
+      :aria-labelledby="tabId(activeLang)"
+    >
       <template v-if="lines">
         <div
           v-for="(line, i) in lines"
@@ -93,8 +184,12 @@ watch([activeLine, lines], async () => {
 .tabs {
   gap: 4px;
   padding: 6px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
 }
 .tab {
+  flex: 0 0 auto;
+  min-height: 36px;
   border: none;
   background: transparent;
   padding: 4px 10px;
@@ -102,6 +197,7 @@ watch([activeLine, lines], async () => {
   cursor: pointer;
   font-size: 13px;
 }
+
 .tab.on {
   .neumorphism-pressed(2px, 8px);
 }
@@ -129,5 +225,29 @@ watch([activeLine, lines], async () => {
   text-align: right;
   opacity: 0.4;
   user-select: none;
+}
+
+@media (max-width: @mobile-max-width) {
+  .tabs {
+    padding: 6px 4px;
+  }
+
+  .tab {
+    min-height: 44px;
+    padding: 6px 12px;
+  }
+
+  .code {
+    max-height: 52vh;
+    font-size: 12px;
+  }
+
+  .code-line {
+    padding: 0 8px;
+  }
+
+  .ln {
+    margin-right: 8px;
+  }
 }
 </style>

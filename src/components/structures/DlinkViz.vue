@@ -117,7 +117,17 @@ onUnmounted(clearTimers);
               <span v-if="i === 0" class="danchor head">head</span>
               <span v-if="i === d.items.value.length - 1" class="danchor tail">tail</span>
               <!-- 值盒（点选）+ 指向下一个的双箭头（挂节点，随 FLIP 走，不手算坐标） -->
-              <div class="box" @click="onSelect(i)">{{ it[1] }}</div>
+              <div
+                class="box"
+                role="button"
+                tabindex="0"
+                :aria-label="english ? `Select ${it[1]}` : `选择 ${it[1]}`"
+                @click="onSelect(i)"
+                @keydown.enter.prevent="onSelect(i)"
+                @keydown.space.prevent="onSelect(i)"
+              >
+                {{ it[1] }}
+              </div>
               <span class="conn" :class="{ rewired: rewired.includes(i) }">
                 <i class="nx">→</i><i class="pv">←</i>
               </span>
@@ -127,7 +137,7 @@ onUnmounted(clearTimers);
         </div>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

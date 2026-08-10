@@ -46,4 +46,33 @@
     .neumorphism-btn(3px, 10px);
   }
 }
+
+@media (max-width: @mobile-max-width) {
+  .splash {
+    min-height: 680px;
+    height: 100dvh;
+    padding: 88px 18px 40px;
+
+    h1 {
+      font-size: clamp(38px, 12vw, 54px);
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: clamp(42px, 13vw, 62px);
+      line-height: 1.15;
+    }
+
+    span {
+      margin-bottom: 36px;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    #start-btn {
+      min-height: 48px;
+      padding: 12px 26px;
+    }
+  }
+}
 </style>

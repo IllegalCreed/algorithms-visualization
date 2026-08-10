@@ -103,8 +103,22 @@ onUnmounted(clearTimers);
 <template>
   <div class="union-find-viz column center">
     <div class="toolbar row-wrap">
-      <input class="val-input" v-model.number="valA" type="number" min="0" :max="UF_SIZE - 1" />
-      <input class="val-input" v-model.number="valB" type="number" min="0" :max="UF_SIZE - 1" />
+      <input
+        class="val-input"
+        v-model.number="valA"
+        type="number"
+        min="0"
+        :max="UF_SIZE - 1"
+        :aria-label="english ? 'First node' : '第一个节点'"
+      />
+      <input
+        class="val-input"
+        v-model.number="valB"
+        type="number"
+        min="0"
+        :max="UF_SIZE - 1"
+        :aria-label="english ? 'Second node' : '第二个节点'"
+      />
       <button class="btn" @click="onUnion">{{ english ? 'Union' : '合并' }}</button>
       <button class="btn" @click="onFind">{{ english ? 'Find root' : '查根' }}</button>
       <button class="btn" @click="onConnected">{{ english ? 'Connected?' : '连通?' }}</button>
@@ -146,7 +160,7 @@ onUnmounted(clearTimers);
       {{ english ? 'Current components:' : '当前' }} <b>{{ uf.groupCount.value }}</b>
       {{ english ? '' : '个组（连通分量）' }}
     </p>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

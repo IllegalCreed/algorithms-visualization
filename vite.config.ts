@@ -5,7 +5,7 @@ import {
   ADSENSE_ACCOUNT_META_NAME,
   ADSENSE_CLIENT_ID,
   ADSENSE_SCRIPT_URL,
-} from './src/monetization/adsense';
+} from './src/monetization/adsense.ts';
 
 function adsenseHeadPlugin(): Plugin {
   let isBuild = false;

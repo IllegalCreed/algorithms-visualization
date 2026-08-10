@@ -89,7 +89,12 @@ onUnmounted(clearTimers);
 <template>
   <div class="skip-list-viz column center">
     <div class="toolbar row-wrap">
-      <input class="val-input" v-model.number="target" type="number" />
+      <input
+        class="val-input"
+        v-model.number="target"
+        type="number"
+        :aria-label="english ? 'Target value' : '目标值'"
+      />
       <button class="btn" :disabled="busy" @click="onSearch">
         {{ english ? 'Search' : '查找' }}
       </button>
@@ -124,7 +129,7 @@ onUnmounted(clearTimers);
         </svg>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

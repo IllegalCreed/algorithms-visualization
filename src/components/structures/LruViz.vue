@@ -52,8 +52,22 @@ const onReset = () => {
 <template>
   <div class="lru-viz column center">
     <div class="toolbar row-wrap">
-      <input class="val-input" v-model.number="keyVal" type="number" min="1" max="99" />
-      <input class="val-input" v-model.number="valVal" type="number" min="1" max="999" />
+      <input
+        class="val-input"
+        v-model.number="keyVal"
+        type="number"
+        min="1"
+        max="99"
+        :aria-label="english ? 'Key' : '键'"
+      />
+      <input
+        class="val-input"
+        v-model.number="valVal"
+        type="number"
+        min="1"
+        max="999"
+        :aria-label="english ? 'Value' : '值'"
+      />
       <button class="btn" @click="onGet">get</button>
       <button class="btn" @click="onPut">put</button>
       <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
@@ -86,7 +100,7 @@ const onReset = () => {
       {{ english ? 'Capacity' : '容量' }}
       <b :class="{ full: lru.size.value === lru.capacity }">{{ lru.size.value }}/{{ LRU_CAP }}</b>
     </p>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

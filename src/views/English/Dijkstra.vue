@@ -2,7 +2,7 @@
 import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
-import { englishDijkstraModule } from '@/i18n/englishAlgorithmModules';
+import { englishDijkstraModule } from '@/i18n/en/modules/dijkstra';
 </script>
 
 <template>

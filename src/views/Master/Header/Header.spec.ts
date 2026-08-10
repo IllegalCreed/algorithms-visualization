@@ -57,9 +57,10 @@ describe('Master/Header 组件', () => {
     expect(w.find('#logo span').text()).toBe('V');
   });
 
-  it('TC-VIEW-HEADER-04: 渲染 h1 标题「算法可视化」', () => {
+  it('TC-VIEW-HEADER-04: 渲染非文档主标题的站点名称「算法可视化」', () => {
     const w = mountIt();
-    expect(w.find('h1').text()).toBe('算法可视化');
+    expect(w.find('.site-title').text()).toBe('算法可视化');
+    expect(w.find('h1').exists()).toBe(false);
   });
 
   it('TC-VIEW-HEADER-05: logo 是指向 home 路由的 RouterLink', () => {
@@ -98,7 +99,7 @@ describe('Master/Header 组件', () => {
   it('TC-VIEW-HEADER-09: 搜索按钮紧跟标题并位于弹性空白前', () => {
     const w = mountIt();
     const children = Array.from(w.find('#main').element.children);
-    const titleIndex = children.findIndex((element) => element.tagName === 'H1');
+    const titleIndex = children.findIndex((element) => element.classList.contains('site-title'));
     const searchIndex = children.findIndex((element) => element.classList.contains('search-btn'));
     const blankIndex = children.findIndex((element) => element.classList.contains('blank'));
 
@@ -113,7 +114,7 @@ describe('Master/Header 组件', () => {
     mockRoute.query = { input: '9,5,1' };
 
     const w = mountIt();
-    expect(w.find('h1').text()).toBe('Algorithm Visualizer');
+    expect(w.find('.site-title').text()).toBe('Algorithm Visualizer');
     expect(w.find('#logo').attributes('aria-label')).toBe('Home');
     expect(w.find('.search-btn').attributes('aria-label')).toContain('Search algorithms');
     expect(w.findAll('.locale-option')).toHaveLength(2);

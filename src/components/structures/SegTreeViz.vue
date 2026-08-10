@@ -96,9 +96,19 @@ const onReset = () => {
   <div class="seg-tree-viz column center">
     <div class="toolbar row-wrap">
       <label class="lab">a</label>
-      <input class="val-input in-a" v-model.number="a" type="number" />
+      <input
+        class="val-input in-a"
+        v-model.number="a"
+        type="number"
+        :aria-label="english ? 'Left bound' : '左边界'"
+      />
       <label class="lab">b</label>
-      <input class="val-input in-b" v-model.number="b" type="number" />
+      <input
+        class="val-input in-b"
+        v-model.number="b"
+        type="number"
+        :aria-label="english ? 'Right bound' : '右边界'"
+      />
       <button class="btn" @click="onRange">{{ english ? 'Range sum' : '区间和' }}</button>
       <button class="btn" @click="onUpdate">{{ english ? 'Update' : '更新' }}</button>
       <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
@@ -132,7 +142,7 @@ const onReset = () => {
         </svg>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

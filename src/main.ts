@@ -4,6 +4,7 @@ import { readAnalyticsConsent, subscribeAnalyticsConsent } from './analytics/con
 import { startGoogleAnalytics } from './analytics/googleAnalytics';
 import router from './router';
 import pinia from './store';
+import './styles/global.less';
 
 const app = createApp(App);
 

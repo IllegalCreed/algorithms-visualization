@@ -8,7 +8,13 @@ import { useSystemStore } from '@/store/modules/system';
 import { useCategoryData } from '@/views/Home/Main/hooks';
 
 const push = vi.fn();
-const mockRoute = vi.hoisted(() => ({ path: '/', name: 'home', query: {} }));
+const mockRoute = vi.hoisted(() => ({
+  path: '/',
+  name: 'home',
+  query: {},
+  hash: '',
+  fullPath: '/',
+}));
 vi.mock('vue-router', () => ({
   useRouter: () => ({ push }),
   useRoute: () => mockRoute,
@@ -25,6 +31,9 @@ describe('SearchPalette 全站搜索', () => {
     push.mockClear();
     mockRoute.path = '/';
     mockRoute.name = 'home';
+    mockRoute.query = {};
+    mockRoute.hash = '';
+    mockRoute.fullPath = '/';
   });
 
   it('TC-VIZ-SEARCH-01 store 开关控制面板显隐 + 打开渲染输入框', async () => {
@@ -125,10 +134,17 @@ describe('SearchPalette 全站搜索', () => {
     expect(w.findAll('.sp-item')[1].classes()).toContain('sp-active');
     await w.find('.sp-input').trigger('keydown', { key: 'ArrowUp' });
     expect(w.findAll('.sp-item')[0].classes()).toContain('sp-active');
-    await w.find('.sp-input').trigger('keydown', { key: 'Enter' });
+    const enter = new KeyboardEvent('keydown', {
+      key: 'Enter',
+      bubbles: true,
+      cancelable: true,
+    });
+    w.find('.sp-input').element.dispatchEvent(enter);
+    await flushPromises();
     expect(push).toHaveBeenCalledTimes(1);
     expect(String(push.mock.calls[0][0])).toMatch(/^\/docs\//);
     expect(store.isSearchOpen).toBe(false);
+    expect(enter.defaultPrevented).toBe(true);
   });
 
   it('TC-VIZ-SEARCH-04 Esc 关闭；点遮罩关闭', async () => {
@@ -142,6 +158,56 @@ describe('SearchPalette 全站搜索', () => {
     await flushPromises();
     await w.find('.search-overlay').trigger('click');
     expect(store.isSearchOpen).toBe(false);
+  });
+
+  it('TC-RESPONSIVE-140-06 Tab 在 dialog 内循环，Escape 关闭并恢复触发点焦点', async () => {
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.id = 'search-trigger-test';
+    document.body.appendChild(trigger);
+    trigger.focus();
+
+    const w = mount(SearchPalette, {
+      attachTo: document.body,
+      global: { plugins: [createPinia()], stubs: { Teleport: true } },
+    });
+    const store = useSystemStore();
+    store.openSearch();
+    await flushPromises();
+
+    const input = w.find('.sp-input').element as HTMLInputElement;
+    const close = w.find('.sp-close').element as HTMLButtonElement;
+    expect(document.activeElement).toBe(input);
+
+    const shortcuts = w.findAll('.sp-shortcut');
+    const last = shortcuts[shortcuts.length - 1].element as HTMLButtonElement;
+    last.focus();
+    const forward = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+    last.dispatchEvent(forward);
+    await w.vm.$nextTick();
+    expect(forward.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(close);
+
+    close.focus();
+    const backward = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    close.dispatchEvent(backward);
+    await w.vm.$nextTick();
+    expect(backward.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(last);
+
+    const escape = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+    input.dispatchEvent(escape);
+    await flushPromises();
+    expect(store.isSearchOpen).toBe(false);
+    expect(document.activeElement).toBe(trigger);
+
+    w.unmount();
+    trigger.remove();
   });
 
   it('TC-VIZ-SEARCH-05 空查询显示提示行', async () => {
@@ -211,4 +277,44 @@ describe('SearchPalette 全站搜索', () => {
     expect(push).toHaveBeenCalledWith('/en/docs/quick-sort');
     expect(store.isSearchOpen).toBe(false);
   });
+
+  it.each(['/docs/bubble-sort', '/docs/bubble-sort/'])(
+    'TC-RESPONSIVE-140-06 同页搜索保留 query/hash 且不重复导航（%s）',
+    async (path) => {
+      const currentQuery = { input: '9,8,7' };
+      const currentHash = '#step-3';
+      const currentFullPath = `${path}?input=9,8,7${currentHash}`;
+      mockRoute.path = path;
+      mockRoute.name = 'bubble-sort';
+      mockRoute.query = currentQuery;
+      mockRoute.hash = currentHash;
+      mockRoute.fullPath = currentFullPath;
+      const w = mount(SearchPalette, {
+        attachTo: document.body,
+        global: { plugins: [createPinia()], stubs: { Teleport: true } },
+      });
+      const trigger = document.createElement('button');
+      trigger.className = 'search-btn';
+      document.body.appendChild(trigger);
+      const article = document.createElement('main');
+      article.innerHTML = '<article class="article"><h1>冒泡排序</h1></article>';
+      document.body.appendChild(article);
+      trigger.focus();
+      const store = useSystemStore();
+      store.openSearch();
+      await flushPromises();
+      await w.find('.sp-input').setValue('冒泡排序');
+      await w.findAll('.sp-item')[0].trigger('click');
+      await flushPromises();
+      expect(store.isSearchOpen).toBe(false);
+      expect(push).not.toHaveBeenCalled();
+      expect(mockRoute.query).toBe(currentQuery);
+      expect(mockRoute.hash).toBe(currentHash);
+      expect(mockRoute.fullPath).toBe(currentFullPath);
+      expect(document.querySelector('.article h1')).toBe(document.activeElement);
+      w.unmount();
+      trigger.remove();
+      article.remove();
+    },
+  );
 });

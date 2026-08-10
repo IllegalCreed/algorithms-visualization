@@ -121,7 +121,7 @@ function choose(nextConsent: Exclude<AnalyticsConsent, 'unset'>) {
   gap: 10px;
 
   button {
-    min-height: 38px;
+    min-height: 44px;
     padding: 0 16px;
     color: inherit;
     background: transparent;
@@ -141,7 +141,8 @@ function choose(nextConsent: Exclude<AnalyticsConsent, 'unset'>) {
   z-index: 1100;
   right: 14px;
   bottom: 14px;
-  padding: 7px 10px;
+  min-height: 44px;
+  padding: 7px 12px;
   color: @font-color;
   background: fade(@neumorphis-background, 92%);
   border: 1px solid fade(@font-color, 22%);
@@ -151,12 +152,42 @@ function choose(nextConsent: Exclude<AnalyticsConsent, 'unset'>) {
 
 @media (max-width: 720px) {
   .analytics-consent {
+    right: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    left: 10px;
+    max-height: calc(100dvh - 20px);
+    padding: 14px;
+    overflow-y: auto;
     align-items: stretch;
     flex-direction: column;
+    gap: 12px;
   }
 
   .analytics-consent__actions {
-    justify-content: flex-end;
+    justify-content: stretch;
+
+    button {
+      flex: 1;
+    }
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .analytics-consent {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 12px;
+  }
+
+  .analytics-consent__copy {
+    gap: 2px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .analytics-consent__actions {
+    flex: 0 0 auto;
   }
 }
 </style>

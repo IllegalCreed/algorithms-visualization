@@ -2,7 +2,7 @@
 import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
-import { englishMazeModule } from '@/i18n/englishAlgorithmModules';
+import { englishMazeModule } from '@/i18n/en/modules/maze';
 </script>
 
 <template>

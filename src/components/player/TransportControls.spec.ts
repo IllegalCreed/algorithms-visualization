@@ -101,4 +101,12 @@ describe('TransportControls', () => {
     const w = mountIt({ isPlaying: true });
     expect(w.find('.play').attributes('aria-label')).toBe('暂停');
   });
+
+  it('TC-RESPONSIVE-140-05 进度计数为视觉提示且按钮保持 button 类型', () => {
+    const w = mountIt();
+    expect(w.find('.counter').attributes('aria-hidden')).toBe('true');
+    expect(w.findAll('button').every((button) => button.attributes('type') === 'button')).toBe(
+      true,
+    );
+  });
 });

@@ -1,12 +1,11 @@
-@import './layout.less';
+// Load mixins and variables into component-scoped Less without emitting the
+// shared utility selectors in every SFC. The selectors themselves live in
+// global.less, which is imported once from main.ts.
+@import (reference) './layout.less';
 @import './color.less';
-@import './neumorphism.less';
+@import (reference) './neumorphism.less';
 
 @screen-max-width: 1400px;
 @screen-min-width: 600px;
+@mobile-max-width: 899px;
 @slider-width: 300px;
-
-.btn {
-  cursor: pointer;
-  user-select: none;
-}

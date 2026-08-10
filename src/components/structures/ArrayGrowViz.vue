@@ -72,7 +72,7 @@ onUnmounted(() => clearTimeout(timer));
       <b class="amort">{{ g.amortized.value.toFixed(1) }}</b>
       {{ english ? 'operations/append (about O(1))' : '次/append（≈ O(1)）' }}
     </p>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

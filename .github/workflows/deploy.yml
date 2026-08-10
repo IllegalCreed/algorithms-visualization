@@ -40,18 +40,22 @@ jobs:
         uses: actions/configure-pages@v6
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Dependency security audit
+        run: pnpm audit
       - name: Format check
         run: pnpm format:check
       - name: Lint
         run: pnpm lint:check
       - name: Type check
         run: pnpm type-check
-      - name: Unit tests
-        run: pnpm test:unit:run
+      - name: Unit tests and coverage
+        run: pnpm coverage
       - name: Install Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Build
         run: pnpm build-only
+      - name: Browser tests (desktop + mobile)
+        run: pnpm test:e2e
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:

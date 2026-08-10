@@ -19,4 +19,10 @@ useMenuSelect();
 #menu {
   padding: 30px;
 }
+
+@media (max-width: @mobile-max-width) {
+  #menu {
+    padding: 12px 16px 48px;
+  }
+}
 </style>

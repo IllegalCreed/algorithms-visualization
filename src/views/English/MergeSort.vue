@@ -2,7 +2,7 @@
 import Article from '@/components/article/Article.vue';
 import Callout from '@/components/article/Callout.vue';
 import AlgorithmPlayer from '@/components/player/AlgorithmPlayer.vue';
-import { englishMergeSortModule } from '@/i18n/englishAlgorithmModules';
+import { englishMergeSortModule } from '@/i18n/en/modules/merge-sort';
 </script>
 
 <template>

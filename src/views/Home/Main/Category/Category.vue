@@ -32,13 +32,31 @@ const props = defineProps<{
   padding: 30px;
   width: 100%;
   max-width: @screen-max-width;
-  min-width: @screen-min-width;
+  min-width: 0;
   align-self: center;
   justify-content: center;
   .row-wrap();
 
   .item {
     margin: 15px 20px;
+  }
+}
+
+@media (max-width: @mobile-max-width) {
+  .category {
+    padding: 0 18px;
+    margin-bottom: 22px;
+    text-align: center;
+  }
+
+  .item-container {
+    gap: 12px;
+    padding: 8px 14px;
+    margin-bottom: 64px;
+
+    .item {
+      margin: 0;
+    }
   }
 }
 </style>

@@ -1,4 +1,4 @@
-import { useCategoryData } from '@/views/Home/Main/hooks';
+import { useCategoryData as useMenuCategoryData } from '@/views/Docs/Menu/hooks';
 import {
   ENGLISH_PAGES,
   ENGLISH_SITE_NAME,
@@ -90,19 +90,21 @@ const featurePages: SeoPage[] = [
   }),
 ];
 
-const catalogPages: SeoPage[] = useCategoryData().flatMap((category) =>
-  category.children.map((item) =>
-    createIndexablePage({
-      name: item.url,
-      path: `/docs/${item.url}`,
-      heading: item.title,
-      title: `${item.title}可视化 | ${SITE_NAME}`,
-      description: item.desc,
-      category: category.title,
-      locale: 'zh-CN',
-    }),
-  ),
-);
+const catalogPages: SeoPage[] = useMenuCategoryData()
+  .slice(1)
+  .flatMap((category) =>
+    category.children.map((item) =>
+      createIndexablePage({
+        name: item.url,
+        path: `/docs/${item.url}`,
+        heading: item.title,
+        title: `${item.title}可视化 | ${SITE_NAME}`,
+        description: `${item.title}交互式可视化：通过逐步动画、四语言代码同步高亮和状态说明理解核心过程。`,
+        category: category.title,
+        locale: 'zh-CN',
+      }),
+    ),
+  );
 
 const englishPages = ENGLISH_PAGES.map((page) =>
   createIndexablePage({

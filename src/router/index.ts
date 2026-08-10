@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import Master from '../views/Master/Master.vue';
-import Home from '../views/Home/Home.vue';
 import Docs from '../views/Docs/Docs.vue';
-import About from '../views/About/About.vue';
 import { englishContentRoutes } from '../views/English/pages';
 
 const routes: RouteRecordRaw[] = [
@@ -13,12 +11,13 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'home',
-        component: Home,
+        component: () => import('../views/Home/Home.vue'),
       },
       {
         path: '/docs',
         name: 'docs',
         component: Docs,
+        redirect: '/docs/complexity',
         children: [
           {
             path: '/docs/complexity',
@@ -501,6 +500,7 @@ const routes: RouteRecordRaw[] = [
         path: '/en/docs',
         name: 'en-docs',
         component: Docs,
+        redirect: '/en/docs/complexity',
         children: [...englishContentRoutes],
       },
     ],
@@ -508,13 +508,22 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/about',
     name: 'about',
-    component: About,
+    component: () => import('../views/About/About.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes,
+  scrollBehavior(to, _from, savedPosition) {
+    if (savedPosition) return savedPosition;
+    if (to.hash) return { el: to.hash, behavior: 'smooth' };
+    return { top: 0, left: 0 };
+  },
 });
 
 export default router;

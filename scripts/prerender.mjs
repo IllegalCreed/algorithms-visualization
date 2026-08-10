@@ -34,6 +34,35 @@ function canonicalFor(path) {
   return new URL(canonicalPath, `${SITE_ORIGIN}/`).toString();
 }
 
+function buildRedirectDocument({ lang, targetPath, base }) {
+  const target = routeWithBase(`${targetPath.replace(/\/+$/, '')}/`, base);
+  return [
+    '<!doctype html>',
+    `<html lang="${lang}">`,
+    '  <head>',
+    '    <meta charset="UTF-8" />',
+    '    <meta name="robots" content="noindex,follow" />',
+    `    <link rel="canonical" href="${canonicalFor(targetPath)}" />`,
+    `    <meta http-equiv="refresh" content="0;url=${target}" />`,
+    '    <title>Redirecting…</title>',
+    '  </head>',
+    `  <body><a href="${target}">Continue</a></body>`,
+    '</html>',
+    '',
+  ].join('\n');
+}
+
+async function writeParentRedirects(base) {
+  await writeFile(
+    resolve(DIST_DIR, 'docs/index.html'),
+    buildRedirectDocument({ lang: 'zh-CN', targetPath: '/docs/complexity', base }),
+  );
+  await writeFile(
+    resolve(DIST_DIR, 'en/docs/index.html'),
+    buildRedirectDocument({ lang: 'en', targetPath: '/en/docs/complexity', base }),
+  );
+}
+
 function escapeXml(value) {
   return value
     .replaceAll('&', '&amp;')
@@ -428,6 +457,7 @@ async function main() {
     );
     await writeFile(resolve(DIST_DIR, 'sitemap.xml'), buildSitemap(pages));
     await writeFile(resolve(DIST_DIR, 'llms.txt'), buildLlms(pages));
+    await writeParentRedirects(base);
 
     const elapsedSeconds = ((Date.now() - startedAt) / 1000).toFixed(1);
     console.log(

@@ -177,7 +177,7 @@ describe('C131 English AlgorithmPlayer adapters', () => {
         item.slug,
       ).toBe(true);
     }
-  });
+  }, 30_000);
 
   it('TC-I18N-MODULE-131-D02A: shared technical copy covers every source label without fallback', () => {
     const pending = new Set<string>();

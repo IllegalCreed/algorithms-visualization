@@ -99,7 +99,13 @@ onUnmounted(clearTimers);
 <template>
   <div class="trie-viz column center">
     <div class="toolbar row-wrap">
-      <input class="val-input" v-model="word" type="text" maxlength="6" />
+      <input
+        class="val-input"
+        v-model="word"
+        type="text"
+        maxlength="6"
+        :aria-label="english ? 'Word' : '单词'"
+      />
       <button class="btn" :disabled="busy" @click="onSearch">
         {{ english ? 'Exact search' : '查找' }}
       </button>
@@ -142,7 +148,7 @@ onUnmounted(clearTimers);
         </svg>
       </div>
     </div>
-    <p class="status">{{ status }}</p>
+    <p class="status" role="status" aria-live="polite">{{ status }}</p>
   </div>
 </template>
 

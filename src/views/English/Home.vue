@@ -46,7 +46,7 @@ useControlHeaderShadow();
 
 <style scoped lang="less">
 #english-home {
-  min-width: @screen-min-width;
+  min-width: 0;
   background-color: @neumorphis-background;
   .column-stretch();
 }
@@ -128,12 +128,36 @@ useControlHeaderShadow();
 }
 
 @media (max-width: 760px) {
-  .english-splash h1 {
-    font-size: 46px;
+  .english-splash {
+    min-height: 720px;
+    padding: 110px 18px 52px;
+
+    h1 {
+      font-size: clamp(38px, 12vw, 50px);
+      line-height: 1.1;
+    }
   }
 
   .english-splash .lead {
     font-size: 17px;
+  }
+
+  .splash-actions {
+    width: min(100%, 340px);
+    flex-direction: column;
+
+    a {
+      min-height: 48px;
+    }
+  }
+
+  .english-catalog {
+    margin-bottom: 38px;
+    padding: 0 18px;
+
+    h2 {
+      font-size: 25px;
+    }
   }
 }
 </style>

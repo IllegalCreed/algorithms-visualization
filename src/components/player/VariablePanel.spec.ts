@@ -14,6 +14,9 @@ describe('VariablePanel', () => {
     expect(w.findAll('.var-row')).toHaveLength(2);
     expect(w.text()).toContain('j');
     expect(w.text()).toContain('9');
+    expect(w.find('dl').attributes('aria-label')).toBe('变量');
+    expect(w.findAll('dt')).toHaveLength(2);
+    expect(w.findAll('dd')).toHaveLength(2);
   });
 
   it('与上一步比较，变化的行加 changed', () => {

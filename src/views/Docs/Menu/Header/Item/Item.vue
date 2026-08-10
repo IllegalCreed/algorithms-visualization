@@ -18,7 +18,9 @@ const currentSelectMenuItemKey = inject('currentSelectMenuItemKey');
 </template>
 <style scoped lang="less">
 .item {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   margin-left: 30px;
   font-size: 18px;
   color: inherit;

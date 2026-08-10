@@ -33,6 +33,10 @@ vi.mock('./useHighlighter', () => ({
   highlightToLines: vi.fn(async (code: string) => code.split('\n').map((l) => [{ content: l }])),
 }));
 
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
 const mountIt = () =>
   mount(AlgorithmPlayer, {
     props: { module: bubbleSortModule },
@@ -57,6 +61,9 @@ describe('AlgorithmPlayer', () => {
     expect(w.find('.visual-pane .code-panel').exists()).toBe(false);
     expect(w.find('.inspector-pane .code-panel').exists()).toBe(true);
     expect(w.find('.inspector-pane .var-panel').exists()).toBe(true);
+    expect(w.find('.inspector-tabs').exists()).toBe(false);
+    expect(w.find('.code-pane').attributes('role')).toBe('region');
+    expect(w.find('.var-pane').attributes('role')).toBe('region');
   });
 
   it('TC-PLAYER-GRID-139-01 字幕与视觉轨拆为独立说明面板', async () => {
@@ -68,6 +75,41 @@ describe('AlgorithmPlayer', () => {
     expect(w.find('.explanation-pane .caption').exists()).toBe(true);
     expect(w.find('.inspector-pane .code-panel').exists()).toBe(true);
     expect(w.find('.inspector-pane .var-panel').exists()).toBe(true);
+  });
+
+  it('TC-RESPONSIVE-140-03 检查区提供代码/变量移动端面板语义', async () => {
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn(() => ({
+        matches: true,
+        media: '(max-width: 899px)',
+        onchange: null,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    );
+    const w = mountIt();
+    await flushPromises();
+    const tabs = w.findAll('.inspector-tab');
+    expect(tabs).toHaveLength(2);
+    expect(tabs[0].attributes('role')).toBe('tab');
+    expect(tabs[0].attributes('aria-selected')).toBe('true');
+    expect(tabs[0].attributes('tabindex')).toBe('0');
+    expect(tabs[1].attributes('tabindex')).toBe('-1');
+    expect(w.find('.inspector-tabs').attributes('role')).toBe('tablist');
+    expect(w.find('.code-pane').attributes('role')).toBe('tabpanel');
+    expect(w.find('.var-pane').attributes('role')).toBe('tabpanel');
+    await tabs[1].trigger('click');
+    expect(tabs[1].attributes('aria-selected')).toBe('true');
+    expect(tabs[1].attributes('tabindex')).toBe('0');
+    expect(w.find('.code-pane').classes()).toContain('mobile-panel-off');
+    expect(w.find('.var-pane').classes()).not.toContain('mobile-panel-off');
+
+    await tabs[1].trigger('keydown', { key: 'ArrowLeft' });
+    expect(tabs[0].attributes('aria-selected')).toBe('true');
   });
 
   it('默认停在第 0 步，点下一步推进到第 2 步', async () => {
@@ -1105,6 +1147,57 @@ describe('AlgorithmPlayer', () => {
       const input = w.find('input.ib-text').element as HTMLInputElement;
       key('ArrowRight', input); // target 是 input → 守卫拦截
       await flushPromises();
+      expect(w.find('.counter').text()).toContain('1 / ');
+      w.unmount();
+    });
+
+    it('TC-RESPONSIVE-140-05 控制按钮获得焦点时按 Space 不应被全局快捷键劫持', async () => {
+      const w = mount(AlgorithmPlayer, {
+        props: { module: bubbleSortModule },
+        attachTo: document.body,
+        global: { plugins: [createPinia()] },
+      });
+      await flushPromises();
+      const playButton = w.find('.play').element as HTMLButtonElement;
+      const ev = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true });
+
+      // 浏览器会在按钮上为 Space 触发自己的 click；全局播放器快捷键不能再抢先
+      // preventDefault/toggle，否则一次按键会变成两次播放状态切换。
+      playButton.dispatchEvent(ev);
+      await w.vm.$nextTick();
+
+      expect(ev.defaultPrevented).toBe(false);
+      expect(w.find('.play svg polygon').exists()).toBe(true);
+      w.unmount();
+    });
+
+    it('TC-RESPONSIVE-140-05 代码滚动区与带修饰键方向键不触发播放器', async () => {
+      const w = mount(AlgorithmPlayer, {
+        props: { module: bubbleSortModule },
+        attachTo: document.body,
+        global: { plugins: [createPinia()] },
+      });
+      await flushPromises();
+
+      const codePanel = w.find('[role="tabpanel"]').element as HTMLElement;
+      const panelArrow = new KeyboardEvent('keydown', {
+        key: 'ArrowRight',
+        bubbles: true,
+        cancelable: true,
+      });
+      codePanel.dispatchEvent(panelArrow);
+
+      const browserBack = new KeyboardEvent('keydown', {
+        key: 'ArrowLeft',
+        altKey: true,
+        bubbles: true,
+        cancelable: true,
+      });
+      window.dispatchEvent(browserBack);
+      await w.vm.$nextTick();
+
+      expect(panelArrow.defaultPrevented).toBe(false);
+      expect(browserBack.defaultPrevented).toBe(false);
       expect(w.find('.counter').text()).toContain('1 / ');
       w.unmount();
     });

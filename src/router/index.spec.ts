@@ -29,4 +29,14 @@ describe('router article route coverage', () => {
       expect(routeMap.get(slug)).toBe(`/docs/${slug}`);
     }
   });
+
+  it('TC-RESPONSIVE-140-09: 文档壳直达入口有默认文章，未知深链不会渲染空白 RouterView', () => {
+    const docs = router.getRoutes().find((route) => route.name === 'docs');
+    const enDocs = router.getRoutes().find((route) => route.name === 'en-docs');
+    const notFound = router.getRoutes().find((route) => route.path === '/:pathMatch(.*)*');
+
+    expect(docs?.redirect).toBe('/docs/complexity');
+    expect(enDocs?.redirect).toBe('/en/docs/complexity');
+    expect(notFound?.redirect).toBe('/');
+  });
 });
