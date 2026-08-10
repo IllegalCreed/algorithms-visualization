@@ -1,12 +1,12 @@
 # 项目路线图
 
 > Status: active
-> Last reviewed: 2026-08-09
+> Last reviewed: 2026-08-10
 > Owner: IllegalCreed
 
 ## 当前阶段
 
-项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成发布；C135 已在算法站与个人站自有域上线独立 GA4 property、basic consent 和仅标准页面浏览。C136 的四站标签韧性代码已验证并部署：个人站、算法站、Quiz、Type Pal 第一阶段均已收到受控 `g/collect` 204，Owner 已在四站 Realtime 看到活跃用户；Home 顶部初始化 banner 的延迟不再作为链路失败判据。C137 已将共享 `AlgorithmPlayer` 改为桌面可视化/代码变量双栏、窄屏单列；C138 已修复双栏检查区阴影裁剪；C139 在此基础上进一步拆出“可视化/代码、说明/变量”四面板网格并修复固定柱轨侵入代码面板，已完成双轨上线。C133 已把独立 `marketing-ops` 收束为 MCP v3 多项目工具并公开源码；C134 已完成主域 AdSense 审核入口和算法站 production-only 广告接入；C127 宣传自动化已 verified/100%。独立公开仓库 `IllegalCreed/content-studio` V0.1 已完成跨项目内容与视频计划编译器；下一步实现通用 Playwright 录制器。
+项目已完成 M0-M12 主线，处于 **1.0 封版后的增长执行与维护期**。C124 SEO/GEO、C126 `/en` 试点、C130 英文 30 页扩容和 C131 英文全量对齐均已完成发布；C135 已在算法站与个人站自有域上线独立 GA4 property、basic consent 和仅标准页面浏览。C136 的四站标签韧性代码已验证并部署：个人站、算法站、Quiz、Type Pal 第一阶段均已收到受控 `g/collect` 204，Owner 已在四站 Realtime 看到活跃用户；Home 顶部初始化 banner 的延迟不再作为链路失败判据。C137 已将共享 `AlgorithmPlayer` 改为桌面可视化/代码变量双栏、窄屏单列；C138 已修复双栏检查区阴影裁剪；C139 在此基础上进一步拆出“可视化/代码、说明/变量”四面板网格并修复固定柱轨侵入代码面板，已完成双轨上线。C140 已完成共享手机壳、Header/Docs Sheet、播放器窄屏检查区、焦点/滚动与搜索互斥、结构语义、结构轨横滚、英文拆包、CSS 单次输出和 CI 门禁加固，状态为 verified/100%；提交 `fcd3873` 已推送，Pages deployment `5825382051` 与自有域部署均成功，自托管 Nginx 安全头已安装。C133 已把独立 `marketing-ops` 收束为 MCP v3 多项目工具并公开源码；C134 已完成主域 AdSense 审核入口和算法站 production-only 广告接入；C127 宣传自动化已 verified/100%。独立公开仓库 `IllegalCreed/content-studio` V0.1 已完成跨项目内容与视频计划编译器；下一步实现通用 Playwright 录制器。
 
 当前不继续铺中文算法页或第三语言。中英文已各有 95 个索引页，共 190 个静态入口；C127 为 verified/100%。微博零费用 API 发布路径已关闭；Bluesky 和 Mastodon 真实 smoke 均已完成并清理；DEV 正式文章长期公开。T4 已建立确定性 1h/48h/7d 计划、标准报告、FAQ-only 与 Bug Issue 失败关闭分流；T5 已把 Facebook、X、知乎、掘金、简书、B站、YouTube、抖音等 12 个渠道收束为 Owner 辅助发布交接，内容包自动生成、登录/挑战/最终发布由 Owner 在官方 UI 完成，确认 URL 后才落 receipt。最终只读状态为 GitHub ready、微博 blocked、Bluesky/DEV/Mastodon reauth-required；历史闭环不代表当前写授权，后续写入仍需重新接入和 matching campaign 授权。C135 只统计用户同意后的页面浏览，不恢复交互事件。
 
@@ -14,15 +14,15 @@
 
 ## 当前事实
 
-| 项目     | 当前事实                                                                                                                                       |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 产品范围 | 纯前端算法可视化 SPA，Vue 3 + TypeScript + Vite + Pinia + Less，部署到 GitHub Pages 与自有域名                                                 |
-| 内容规模 | 首页九大类、92 个学习条目；中英文 Docs 侧栏十组、94 个入口；`src/algorithms` 下 77 个 `*.module.ts`；互动页、播放器页和功能页并存              |
-| 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化        |
-| 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                |
-| 测试基线 | 2026-08-09 本地现状：303 个 Vitest 文件 / 2163 条 L3/L4 用例通过；全量 Playwright 125 条通过                                                   |
-| 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布 |
-| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；`marketing-ops` MCP v3 与 `content-studio` V0.1 已公开；C134 广告技术入口已上线                 |
+| 项目     | 当前事实                                                                                                                                                |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 产品范围 | 纯前端算法可视化 SPA，Vue 3 + TypeScript + Vite + Pinia + Less，部署到 GitHub Pages 与自有域名                                                          |
+| 内容规模 | 首页九大类、92 个学习条目；中英文 Docs 侧栏十组、94 个入口；`src/algorithms` 下 77 个 `*.module.ts`；互动页、播放器页和功能页并存                       |
+| 主力架构 | `AlgorithmPlayer` + `src/algorithms/<name>.{ts,module.ts,sources.ts}`，可插拔轨负责数组、图、矩阵、树、迷宫、字符串、数论、几何等可视化                 |
+| 文档状态 | `docs/` 分层文档体系已建立；M9-M12 完结清单已收束；本文件只记录维护期方向，历史计划明细看 `docs/plans/index.md`                                         |
+| 测试基线 | 2026-08-10 C140：304 个 Vitest 文件 / 2178 条 L3/L4 用例通过；coverage 93.25/84.89/90.31/93.69%，Desktop 125/125、mobile 5/5，双 base 各 190 页构建通过 |
+| 部署基线 | 双轨部署：GitHub Pages 自动部署 `/algorithms-visualization/`，自有域名 `https://algo.illegalscreed.cn` 由 `./scripts/deploy.sh` 手动自托管发布          |
+| 增长基线 | 95 中文 + 95 英文及 95 组 hreflang 已双轨上线；`marketing-ops` MCP v3 与 `content-studio` V0.1 已公开；C134 广告技术入口已上线                          |
 
 ## 维护队列
 
@@ -31,75 +31,76 @@
 | P0     | 保持门禁与线上可用   | ongoing  | C-122 已提供 `pnpm verify` 本地复现 Pages build job；发版必须完成 GitHub Pages 与自有域名双轨验证                          |
 | P0     | SEO/GEO 技术地基     | verified | C131 已将 route head、JSON-LD、95 组 hreflang、预渲染和双 base 产物门禁扩到 190 页并完成双轨抽查                           |
 | P1     | 多语言内容扩容       | verified | C131 已补齐 15 个互动页和 50 个播放器页，完成 95 组页面对、77 adapter 与 190 页双轨产物                                    |
-| P1     | 低风险维护修复       | ongoing  | C137-C139 已完成播放器同屏、阴影、四面板与防重叠修复；继续处理可访问性、导航、搜索、文档和回归测试                         |
+| P1     | 低风险维护修复       | verified | C137-C140 已完成并双轨上线；后续仅观察真实 Safari/触控和 CSP Report-Only                                                   |
 | P1     | 宣传自动化           | ongoing  | C127/C133 与 `content-studio` V0.1 已完成；下一步为通用录制器、FFmpeg 合成和 marketing-ops 资产交接                        |
 | P1     | AdSense 审核准备     | verified | C134 已完成主域 account meta/ads.txt/信任页与算法站 production loader；后台 CMP、Auto ads、付款资料及重新送审由 Owner 完成 |
-| P2     | CI / 测试自动化增强  | partial  | C-121 已把 Vitest 单元/组件测试与项目范围格式检查纳入 Pages build job；Playwright e2e 与 coverage 仍保留为本地/发版前门禁  |
+| P2     | CI / 测试自动化增强  | verified | C140 已进入 CI：依赖 audit、coverage、桌面与移动端 Playwright、双 base/SEO/bundle 门禁均随 Pages run `31349979371` 执行    |
 | P2     | 免费索引与需求信号   | verified | 190 页 sitemap 已稳定；C135 自有域上线 consent-gated page_view，仍不引入交互事件                                           |
-| P2     | 性能与无障碍继续打磨 | idea     | 可跟踪 Lighthouse、键盘、色彩与 Shiki；当前全站显式最小宽度 600px，若支持 390px 需独立响应式计划，不混入 C131              |
+| P2     | 性能与无障碍继续打磨 | verified | C140 已完成 320–390px 共享响应式壳、焦点/键盘/live 语义、英文直接拆包、CSS 单次输出与 bundle 预算；WebKit/真实触控留作后续 |
 | P3     | 新算法或新交互       | parked   | 1.0 封版后不主动铺新页；除非营销反馈、用户需求或 completion backlog 重新评审出明确价值，再按四文档 + TDD 流程推进          |
 
 ## 近期决策记录
 
-| 日期       | 记录                                                                                                                                                                                               |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-07-30 | C135 建立：三个产品使用独立 GA4 property；算法站采用 basic consent、清洗 URL 与仅标准 page_view，Enhanced Measurement 已在后台关闭                                                                 |
-| 2026-07-30 | C135 verified：算法站与个人站自有域完成发布；真浏览器验证未同意时 Google script 和网络资源均为 0                                                                                                   |
-| 2026-08-01 | C136 verified：四站补标签失败后的安全重试与官方 arguments 队列；个人站 hydration 修复已部署；Owner 补齐代理后全新 Chromium 的算法站 GA4/AdSense 无失败，首页 Realtime 仍待观察                     |
-| 2026-08-02 | C136 生产收尾：个人站、算法站、Quiz、Type Pal 第一阶段均已部署；四站受控浏览器 `gtag.js` 200 / `g/collect` 204，Owner GA4 已看到四站 Realtime 活跃用户；Quiz 未重部署后端，Type Pal 未触碰第二阶段 |
-| 2026-08-09 | C137 verified：AlgorithmPlayer 共享舞台在 1440px/1200px 双栏、900px 单列；303/2160 Vitest、121/121 Playwright、production/selfhost 190 页门禁全绿；Pages run `31295217255` 与自有域双轨发布完成    |
-| 2026-08-09 | C138 建立：用户截图复现右侧检查区阴影裁剪；根因是 `.inspector-pane` 的 `overflow-y: auto` 计算为双轴 auto，先写 L5 fail 用例再做共享 CSS 最小修复                                                  |
-| 2026-08-09 | C138 verified：移除共享检查区滚动裁剪，303/2160 Vitest、123/123 Playwright、production/selfhost 190 页门禁全绿；Pages run `31296824236` 与自有域双轨发布完成                                       |
-| 2026-08-09 | C139 verified：四面板 Grid 与响应式柱轨完成；303/2163 Vitest、125/125 Playwright、双 base 190 页全绿；提交 `6547802`，自有域与 Pages run `31309597186` 均成功                                      |
-| 2026-07-28 | 公开 `IllegalCreed/content-studio` V0.1：19 渠道确定性内容编译、语义视频计划与安全 CLI 完成；8/20、coverage 与六平台 Node CI 全绿，下一步录制器                                                    |
-| 2026-07-28 | C127 verified/100%：plugin `60152d3`、主仓库 `ef8c18c`；53/263、300/2141、coverage、118 L5、双 base、安装态与泄漏扫描全绿；零真实渠道写入                                                          |
-| 2026-07-28 | C127 T5：新增 12 渠道 Owner 辅助发布交接，自动生成内容包；官方 UI 登录/挑战/最终发布由 Owner 控制，确认 URL 后才保存 receipt；零真实渠道写入，C127 99%                                             |
-| 2026-07-28 | C127 T4：确定性 1h/48h/7d 计划、标准报告、project-scoped policy、FAQ-only GitHub 回复与最小化 Bug Issue 分流完成；零真实写入，C127 97%                                                             |
-| 2026-07-27 | C127 T3-D4-C2：Mastodon 段落还原缺陷先红后绿，同 payload 认领唯一状态；正文、幂等、反馈、`1h` 报告、删除、deleted receipt 与无缓存 404 全通过，C127 94%                                            |
-| 2026-07-27 | C127 T3-D4-C1：固定 Mastodon 英文临时 status、UTM、幂等键与清理顺序；dry-run 唯一授权 blocker、零副作用，等待 matching 授权                                                                        |
-| 2026-07-27 | C134 verified：个人站 `5f6c4f1` / Pages `30247775040` 与算法站 `1a50864` / Pages `30247774849` 已上线；300/2136 Vitest、118 L5 与线上断言全绿                                                      |
-| 2026-07-27 | C127 T3-D4-B：旧 Mastodon token 经官方 regenerate 失效；修复本地 acct 补全与隐藏 CLI 退出，替代 token 进入 Keychain，status/doctor ready/enabled                                                   |
-| 2026-07-27 | C133 verified：`marketing-ops` MCP v3 多项目隔离完成；Owner 后续将其源码仓库改为公开，secret/runtime state 仍仅留本机；plugin 44/223、公开 299/2132 全绿                                           |
-| 2026-07-15 | C127 T3-D3-C：DEV 正式文章完成 publish、正文对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开                                                            |
-| 2026-07-15 | C127 T3-D3-B：DEV 隐藏 setup 与只读身份对拍完成，status/doctor ready/enabled；key 仅在 Keychain，尚无 receipt/文章，等待 matching 授权                                                             |
-| 2026-07-15 | C127 T3-D3-A：DEV 固定 Forem v1、英文 durable article、Keychain/activation 与 collector 完成；plugin 35/178 全绿，未 setup/写入，C127 90%                                                          |
-| 2026-07-14 | C127 T3-D2-B 完成：Owner 授权的 Bluesky publish/read/幂等/delete smoke 已清理；receipt deleted、远端 record 不存在，C127 87%，下一步 DEV                                                           |
-| 2026-07-14 | C127 T3-D2-A：plugin `2107843`；官方 SDK、英文文本、Keychain/activation 与惰性 runtime 完成，29/140 全绿；账号未接入、零写入，C127 85%                                                             |
-| 2026-07-14 | C127 T3-D1-B：微博个人认证已通过；官方 Free 复核为 0 元/7 天、5 读/小时、0 写/小时，未领取试用，plugin `263fd3f` 继续失败关闭                                                                      |
-| 2026-07-12 | C127 T3-D1-B：微博固定版本与 device OAuth 完成；plugin `088229d` 修复真实 null subscription，个人开发者认证审核中，adapter disabled                                                                |
-| 2026-07-11 | C127 T3-D1-A：plugin `3858b56`；官方微博 CLI 固定无写边界、health 与 fake adapter contract 完成，25/111、coverage、verify 全绿，零登录/写入                                                        |
-| 2026-07-11 | C127 T3-C 授权 smoke：Release `352517542` 完成 create/read/report/delete；receipt deleted，Release/tag 双侧复查不存在，GitHub 保持 enabled                                                         |
-| 2026-07-11 | C132 补齐中文 Docs 侧栏“学习工具”两项；首页仍为 9 类/92 项，双语侧栏为 10 组/94 项；2131 Vitest、118 L5、190 页构建与 720/900/1440 视觉全绿                                                        |
-| 2026-07-11 | C127 T3-C：plugin `60feaff`；GitHub collector、MCP 查询撤回与 Release/tag 清理完成；目标均不存在、零写入                                                                                           |
-| 2026-07-11 | C127 T3-B：plugin `98a9dfc`；固定 GitHub CLI、只读健康、0600 activation 与惰性 runtime 完成；health ready 但 adapter disabled、零写入                                                              |
-| 2026-07-11 | C127 T3-A：main `98f8deb` / plugin `ba6d4c3`；MCP v2、GitHub typed fake 与 dispatch 完成；仍无 live client/真实写入                                                                                |
-| 2026-07-11 | C-20260711-127：T2 完成七工具 contract 与本地 `marketing-ops` personal plugin 安全骨架；20 Case、coverage、stdio smoke 和 validator 通过                                                           |
-| 2026-07-11 | C-20260711-131：功能提交 `592d27d`、Pages run `29145907250` 与 selfhost 双轨上线；95 中文 + 95 英文、190 URL、297/2118 Vitest、117 L5 全绿                                                         |
-| 2026-07-11 | Owner 决定在 C127 前完成全部英文翻译；建立 C131，目标 15 个互动页 + 50 个播放器页、95 组页面对与 190 个静态入口                                                                                    |
-| 2026-07-11 | 提交 `8d07b8b` 按 Owner 宽屏截图反馈将 Header 搜索入口前移到标题后；新增 DOM 顺序回归，1600px/900px 无重叠，功能与快捷键不变                                                                       |
-| 2026-07-11 | C-20260711-127：T1 提交 `41324d9` 完成 schema/15 渠道 gate/幂等/事实/renderer/dry-run；291/2092 Vitest、coverage、115 L5 与 verify 全绿                                                            |
-| 2026-07-11 | C-20260711-130：功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 双轨上线/125 URL 抽查通过；状态转 verified，下一阶段 C127 T1                                                               |
-| 2026-07-11 | C-20260711-130：typed catalog、29 个内容路由、27 个 adapter、30 页英文目录与 125 页双 base 产物完成；286/2073 Vitest、104/115 L5 全绿                                                              |
-| 2026-07-11 | C-20260711-130：审计十页英文试点的六个硬编码同步点，提出 typed locale catalog + 二十算法页、总计 125 页的 draft                                                                                    |
-| 2026-07-11 | Owner 批准 C130；状态转 implementing，按 10/105 无行为迁移后四批扩容进入 TDD                                                                                                                       |
-| 2026-07-11 | C127 独立 `marketing-ops` MCP/RPA 隔离设计批准并后置；凭据/Profile 服务侧持有，Codex 只调用高层工具                                                                                                |
-| 2026-07-11 | C127 Owner 约束：零新增费用、无企业主体；首期五个免费个人 API 候选，Reddit 后备；当时微信/B站/X API 禁用，T5 后允许 Owner 辅助发布交接                                                             |
-| 2026-07-11 | C-20260711-127：完成 15 渠道官方能力审计；提示词作为 campaign 授权，首批自动渠道为 GitHub、微博、Bluesky、DEV、Mastodon，代码尚未实现                                                              |
-| 2026-07-16 | C127 T3-D4-A：Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke                                                                                       |
-| 2026-07-11 | C-20260711-126：`/en` 十页试点、105 页 registry/预渲染、双向 hreflang 与英文共享 UI 完成；284/2055 Vitest、104/114 L5、双轨上线均通过                                                              |
-| 2026-07-10 | C-20260710-123：完成增长资产全面审计，C-034 标记 deprecated；建立 C124-C128 顺序、退出条件、Owner 输入和自动发布红线                                                                               |
-| 2026-07-10 | C-20260710-124：正式接管 C-034，选择现有 catalog 驱动 route head、Playwright post-build prerender 与 JSDOM 产物门禁，进入 TDD                                                                      |
-| 2026-07-10 | C-20260710-124：本地实现与门禁完成；审计修正无尾斜杠 canonical 命中首页 fallback 的问题，改为尾斜杠静态入口并增加 95 URL HTTP 验证                                                                 |
-| 2026-07-10 | C-20260710-124：功能提交 `c98dcaa`，Pages run `29065426100` 与 selfhost 双轨上线核验通过，状态转 verified；下一阶段 C125                                                                           |
-| 2026-07-10 | C-20260710-125：四文档建立并进入 TDD；选择 provider-neutral 前端事件层，先评审 Umami 自托管，并在远端变更前做只读资源/隔离审计                                                                     |
-| 2026-07-10 | C-20260710-125：T1-T3 定向全绿；服务器仅 1.8 GiB RAM 且已有多服务，否决同机 Umami/PostgreSQL，生产候选转 Umami Cloud Hobby                                                                         |
-| 2026-07-10 | C-20260710-129：Owner 决定收入/流量验证前不承担第三方分析成本；撤销 C125 tracker、事件、隐私页和 analytics L5，仅保留 UTM 生成能力                                                                 |
-| 2026-07-09 | C-20260709-120：路线图从 2026-06-29 的历史长表刷新为维护期工作台，避免把 C-034 等旧状态继续当作当前待办                                                                                            |
-| 2026-07-09 | C-20260709-121：Pages build job 增加 `pnpm test:unit:run`，`format:check` 从 src-only 扩展到项目文档、e2e、public、workflow 与根配置                                                               |
-| 2026-07-09 | C-20260709-122：新增 `pnpm verify` 本地一键门禁，串起格式、lint、类型、全量 Vitest 与 build-only                                                                                                   |
-| 2026-07-09 | C-20260709-119：完成维护期搜索召回、基础可访问性、导航语义与 slug/router 对齐测试；全量门禁、coverage、e2e 已通过                                                                                  |
-| 2026-07-05 | C-20260705-118：M12 营销启动包完成，OG 分享卡与发布物料落档；M9-M12 全部收束，项目进入 1.0 封版后的营销执行与维护期                                                                                |
-| 2026-07-05 | C-20260705-117 / C-118 已纠偏 C-034：robots/sitemap/llms 已补齐，prerender、routing meta、JSON-LD 当时未实现；C124 后 C034 已 superseded                                                           |
+| 日期       | 记录                                                                                                                                                                                                                                                                 |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-10 | C140 verified/100%：移动壳、无障碍、路由/搜索/播放器语义、结构轨横滚、英文拆包、CSS 与 CI 加固已落地；提交 `fcd3873`、Pages run `31349979371` / deployment `5825382051`、自有域 190 页原子部署均成功；Nginx 安全头已安装并通过线上 header、`nginx -t` 与 reload 验证 |
+| 2026-07-30 | C135 建立：三个产品使用独立 GA4 property；算法站采用 basic consent、清洗 URL 与仅标准 page_view，Enhanced Measurement 已在后台关闭                                                                                                                                   |
+| 2026-07-30 | C135 verified：算法站与个人站自有域完成发布；真浏览器验证未同意时 Google script 和网络资源均为 0                                                                                                                                                                     |
+| 2026-08-01 | C136 verified：四站补标签失败后的安全重试与官方 arguments 队列；个人站 hydration 修复已部署；Owner 补齐代理后全新 Chromium 的算法站 GA4/AdSense 无失败，首页 Realtime 仍待观察                                                                                       |
+| 2026-08-02 | C136 生产收尾：个人站、算法站、Quiz、Type Pal 第一阶段均已部署；四站受控浏览器 `gtag.js` 200 / `g/collect` 204，Owner GA4 已看到四站 Realtime 活跃用户；Quiz 未重部署后端，Type Pal 未触碰第二阶段                                                                   |
+| 2026-08-09 | C137 verified：AlgorithmPlayer 共享舞台在 1440px/1200px 双栏、900px 单列；303/2160 Vitest、121/121 Playwright、production/selfhost 190 页门禁全绿；Pages run `31295217255` 与自有域双轨发布完成                                                                      |
+| 2026-08-09 | C138 建立：用户截图复现右侧检查区阴影裁剪；根因是 `.inspector-pane` 的 `overflow-y: auto` 计算为双轴 auto，先写 L5 fail 用例再做共享 CSS 最小修复                                                                                                                    |
+| 2026-08-09 | C138 verified：移除共享检查区滚动裁剪，303/2160 Vitest、123/123 Playwright、production/selfhost 190 页门禁全绿；Pages run `31296824236` 与自有域双轨发布完成                                                                                                         |
+| 2026-08-09 | C139 verified：四面板 Grid 与响应式柱轨完成；303/2163 Vitest、125/125 Playwright、双 base 190 页全绿；提交 `6547802`，自有域与 Pages run `31309597186` 均成功                                                                                                        |
+| 2026-07-28 | 公开 `IllegalCreed/content-studio` V0.1：19 渠道确定性内容编译、语义视频计划与安全 CLI 完成；8/20、coverage 与六平台 Node CI 全绿，下一步录制器                                                                                                                      |
+| 2026-07-28 | C127 verified/100%：plugin `60152d3`、主仓库 `ef8c18c`；53/263、300/2141、coverage、118 L5、双 base、安装态与泄漏扫描全绿；零真实渠道写入                                                                                                                            |
+| 2026-07-28 | C127 T5：新增 12 渠道 Owner 辅助发布交接，自动生成内容包；官方 UI 登录/挑战/最终发布由 Owner 控制，确认 URL 后才保存 receipt；零真实渠道写入，C127 99%                                                                                                               |
+| 2026-07-28 | C127 T4：确定性 1h/48h/7d 计划、标准报告、project-scoped policy、FAQ-only GitHub 回复与最小化 Bug Issue 分流完成；零真实写入，C127 97%                                                                                                                               |
+| 2026-07-27 | C127 T3-D4-C2：Mastodon 段落还原缺陷先红后绿，同 payload 认领唯一状态；正文、幂等、反馈、`1h` 报告、删除、deleted receipt 与无缓存 404 全通过，C127 94%                                                                                                              |
+| 2026-07-27 | C127 T3-D4-C1：固定 Mastodon 英文临时 status、UTM、幂等键与清理顺序；dry-run 唯一授权 blocker、零副作用，等待 matching 授权                                                                                                                                          |
+| 2026-07-27 | C134 verified：个人站 `5f6c4f1` / Pages `30247775040` 与算法站 `1a50864` / Pages `30247774849` 已上线；300/2136 Vitest、118 L5 与线上断言全绿                                                                                                                        |
+| 2026-07-27 | C127 T3-D4-B：旧 Mastodon token 经官方 regenerate 失效；修复本地 acct 补全与隐藏 CLI 退出，替代 token 进入 Keychain，status/doctor ready/enabled                                                                                                                     |
+| 2026-07-27 | C133 verified：`marketing-ops` MCP v3 多项目隔离完成；Owner 后续将其源码仓库改为公开，secret/runtime state 仍仅留本机；plugin 44/223、公开 299/2132 全绿                                                                                                             |
+| 2026-07-15 | C127 T3-D3-C：DEV 正式文章完成 publish、正文对拍、同 receipt 幂等复放与 feedback/`1h` report；receipt `4146005` published，文章长期公开                                                                                                                              |
+| 2026-07-15 | C127 T3-D3-B：DEV 隐藏 setup 与只读身份对拍完成，status/doctor ready/enabled；key 仅在 Keychain，尚无 receipt/文章，等待 matching 授权                                                                                                                               |
+| 2026-07-15 | C127 T3-D3-A：DEV 固定 Forem v1、英文 durable article、Keychain/activation 与 collector 完成；plugin 35/178 全绿，未 setup/写入，C127 90%                                                                                                                            |
+| 2026-07-14 | C127 T3-D2-B 完成：Owner 授权的 Bluesky publish/read/幂等/delete smoke 已清理；receipt deleted、远端 record 不存在，C127 87%，下一步 DEV                                                                                                                             |
+| 2026-07-14 | C127 T3-D2-A：plugin `2107843`；官方 SDK、英文文本、Keychain/activation 与惰性 runtime 完成，29/140 全绿；账号未接入、零写入，C127 85%                                                                                                                               |
+| 2026-07-14 | C127 T3-D1-B：微博个人认证已通过；官方 Free 复核为 0 元/7 天、5 读/小时、0 写/小时，未领取试用，plugin `263fd3f` 继续失败关闭                                                                                                                                        |
+| 2026-07-12 | C127 T3-D1-B：微博固定版本与 device OAuth 完成；plugin `088229d` 修复真实 null subscription，个人开发者认证审核中，adapter disabled                                                                                                                                  |
+| 2026-07-11 | C127 T3-D1-A：plugin `3858b56`；官方微博 CLI 固定无写边界、health 与 fake adapter contract 完成，25/111、coverage、verify 全绿，零登录/写入                                                                                                                          |
+| 2026-07-11 | C127 T3-C 授权 smoke：Release `352517542` 完成 create/read/report/delete；receipt deleted，Release/tag 双侧复查不存在，GitHub 保持 enabled                                                                                                                           |
+| 2026-07-11 | C132 补齐中文 Docs 侧栏“学习工具”两项；首页仍为 9 类/92 项，双语侧栏为 10 组/94 项；2131 Vitest、118 L5、190 页构建与 720/900/1440 视觉全绿                                                                                                                          |
+| 2026-07-11 | C127 T3-C：plugin `60feaff`；GitHub collector、MCP 查询撤回与 Release/tag 清理完成；目标均不存在、零写入                                                                                                                                                             |
+| 2026-07-11 | C127 T3-B：plugin `98a9dfc`；固定 GitHub CLI、只读健康、0600 activation 与惰性 runtime 完成；health ready 但 adapter disabled、零写入                                                                                                                                |
+| 2026-07-11 | C127 T3-A：main `98f8deb` / plugin `ba6d4c3`；MCP v2、GitHub typed fake 与 dispatch 完成；仍无 live client/真实写入                                                                                                                                                  |
+| 2026-07-11 | C-20260711-127：T2 完成七工具 contract 与本地 `marketing-ops` personal plugin 安全骨架；20 Case、coverage、stdio smoke 和 validator 通过                                                                                                                             |
+| 2026-07-11 | C-20260711-131：功能提交 `592d27d`、Pages run `29145907250` 与 selfhost 双轨上线；95 中文 + 95 英文、190 URL、297/2118 Vitest、117 L5 全绿                                                                                                                           |
+| 2026-07-11 | Owner 决定在 C127 前完成全部英文翻译；建立 C131，目标 15 个互动页 + 50 个播放器页、95 组页面对与 190 个静态入口                                                                                                                                                      |
+| 2026-07-11 | 提交 `8d07b8b` 按 Owner 宽屏截图反馈将 Header 搜索入口前移到标题后；新增 DOM 顺序回归，1600px/900px 无重叠，功能与快捷键不变                                                                                                                                         |
+| 2026-07-11 | C-20260711-127：T1 提交 `41324d9` 完成 schema/15 渠道 gate/幂等/事实/renderer/dry-run；291/2092 Vitest、coverage、115 L5 与 verify 全绿                                                                                                                              |
+| 2026-07-11 | C-20260711-130：功能提交 `5dca6c4`、Pages run `29136875578` 与 selfhost 双轨上线/125 URL 抽查通过；状态转 verified，下一阶段 C127 T1                                                                                                                                 |
+| 2026-07-11 | C-20260711-130：typed catalog、29 个内容路由、27 个 adapter、30 页英文目录与 125 页双 base 产物完成；286/2073 Vitest、104/115 L5 全绿                                                                                                                                |
+| 2026-07-11 | C-20260711-130：审计十页英文试点的六个硬编码同步点，提出 typed locale catalog + 二十算法页、总计 125 页的 draft                                                                                                                                                      |
+| 2026-07-11 | Owner 批准 C130；状态转 implementing，按 10/105 无行为迁移后四批扩容进入 TDD                                                                                                                                                                                         |
+| 2026-07-11 | C127 独立 `marketing-ops` MCP/RPA 隔离设计批准并后置；凭据/Profile 服务侧持有，Codex 只调用高层工具                                                                                                                                                                  |
+| 2026-07-11 | C127 Owner 约束：零新增费用、无企业主体；首期五个免费个人 API 候选，Reddit 后备；当时微信/B站/X API 禁用，T5 后允许 Owner 辅助发布交接                                                                                                                               |
+| 2026-07-11 | C-20260711-127：完成 15 渠道官方能力审计；提示词作为 campaign 授权，首批自动渠道为 GitHub、微博、Bluesky、DEV、Mastodon，代码尚未实现                                                                                                                                |
+| 2026-07-16 | C127 T3-D4-A：Mastodon statuses/notifications adapter 工程完成并通过本地 verify；下一步 setup/identity smoke                                                                                                                                                         |
+| 2026-07-11 | C-20260711-126：`/en` 十页试点、105 页 registry/预渲染、双向 hreflang 与英文共享 UI 完成；284/2055 Vitest、104/114 L5、双轨上线均通过                                                                                                                                |
+| 2026-07-10 | C-20260710-123：完成增长资产全面审计，C-034 标记 deprecated；建立 C124-C128 顺序、退出条件、Owner 输入和自动发布红线                                                                                                                                                 |
+| 2026-07-10 | C-20260710-124：正式接管 C-034，选择现有 catalog 驱动 route head、Playwright post-build prerender 与 JSDOM 产物门禁，进入 TDD                                                                                                                                        |
+| 2026-07-10 | C-20260710-124：本地实现与门禁完成；审计修正无尾斜杠 canonical 命中首页 fallback 的问题，改为尾斜杠静态入口并增加 95 URL HTTP 验证                                                                                                                                   |
+| 2026-07-10 | C-20260710-124：功能提交 `c98dcaa`，Pages run `29065426100` 与 selfhost 双轨上线核验通过，状态转 verified；下一阶段 C125                                                                                                                                             |
+| 2026-07-10 | C-20260710-125：四文档建立并进入 TDD；选择 provider-neutral 前端事件层，先评审 Umami 自托管，并在远端变更前做只读资源/隔离审计                                                                                                                                       |
+| 2026-07-10 | C-20260710-125：T1-T3 定向全绿；服务器仅 1.8 GiB RAM 且已有多服务，否决同机 Umami/PostgreSQL，生产候选转 Umami Cloud Hobby                                                                                                                                           |
+| 2026-07-10 | C-20260710-129：Owner 决定收入/流量验证前不承担第三方分析成本；撤销 C125 tracker、事件、隐私页和 analytics L5，仅保留 UTM 生成能力                                                                                                                                   |
+| 2026-07-09 | C-20260709-120：路线图从 2026-06-29 的历史长表刷新为维护期工作台，避免把 C-034 等旧状态继续当作当前待办                                                                                                                                                              |
+| 2026-07-09 | C-20260709-121：Pages build job 增加 `pnpm test:unit:run`，`format:check` 从 src-only 扩展到项目文档、e2e、public、workflow 与根配置                                                                                                                                 |
+| 2026-07-09 | C-20260709-122：新增 `pnpm verify` 本地一键门禁，串起格式、lint、类型、全量 Vitest 与 build-only                                                                                                                                                                     |
+| 2026-07-09 | C-20260709-119：完成维护期搜索召回、基础可访问性、导航语义与 slug/router 对齐测试；全量门禁、coverage、e2e 已通过                                                                                                                                                    |
+| 2026-07-05 | C-20260705-118：M12 营销启动包完成，OG 分享卡与发布物料落档；M9-M12 全部收束，项目进入 1.0 封版后的营销执行与维护期                                                                                                                                                  |
+| 2026-07-05 | C-20260705-117 / C-118 已纠偏 C-034：robots/sitemap/llms 已补齐，prerender、routing meta、JSON-LD 当时未实现；C124 后 C034 已 superseded                                                                                                                             |
 
 ## 线上地址
 

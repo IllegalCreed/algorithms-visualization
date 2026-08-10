@@ -1,7 +1,7 @@
 # 全局测试用例索引
 
 > Status: active
-> Last reviewed: 2026-08-09
+> Last reviewed: 2026-08-10
 > Owner: IllegalCreed
 
 ## 使用说明
@@ -33,10 +33,22 @@
 
 > 2026-08-09 登记并验证 C139 四个播放器四面板/防重叠 Case：说明面板独立、柱轨与箭头百分比槽位、1440px 桌面几何边界及 900px 单列顺序；303/2163 Vitest、125/125 Playwright 与双 base 190 页构建门禁全绿。
 
+> 2026-08-10 登记并验证 C140 九个全站响应式加固 Case：覆盖手机首页/Header/Docs Sheet、播放器单列与控件、路由滚动和焦点、播放器快捷键、搜索 dialog、结构语义、英文拆包与 CSS 预算，以及默认路由/静态入口。304/2178 Vitest、93.25/84.89/90.31/93.69 coverage、125/125 Desktop、5/5 mobile、双 base 190 页构建全绿；提交 `fcd3873`、Pages deployment `5825382051`、自有域原子部署与 Nginx 安全头线上检查均完成。
+
 ## All Cases
 
+<!-- prettier-ignore -->
 | Case ID                                         | 标题                                                                                       | 所属功能 / 模块                    | Owner Plan     | 层级   | 自动化路径                                                    | 状态       | 最后验证   |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- | -------------- | ------ | ------------------------------------------------------------- | ---------- | ---------- |
+| TC-RESPONSIVE-140-01 | 中英文首页手机布局、菜单 Sheet 与无横向溢出 | home / responsive browser | C-20260810-140 | L5 | `e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-02 | Docs 抽屉、目录/语言/外链、结构画布横滚与完整正文宽度 | docs / mobile drawer | C-20260810-140 | L4/L5 | `src/views/Docs/hooks.spec.ts`、`e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-03 | 手机播放器单列、代码/变量 tab、双向断点与 44px 控件 | player / mobile layout | C-20260810-140 | L4/L5 | player specs、`e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-04 | 文档路由切换及首次进入重置滚动并聚焦新标题 | docs / route focus | C-20260810-140 | L4/L5 | `src/views/Docs/hooks.spec.ts`、`e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-05 | 播放器交互目标与修饰键不触发全局 Space/方向键快捷键 | player / keyboard | C-20260810-140 | L4/L5 | `AlgorithmPlayer.spec.ts`、`e2e/playback-controls.e2e.ts` | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-06 | 搜索 dialog 互斥、Tab/Escape、同页 query/hash 与跨路由焦点 | search / accessibility | C-20260810-140 | L4/L5 | `SearchPalette.spec.ts`、search/mobile e2e | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-07 | 结构输入、live region 与非原生点击目标键盘等价操作 | structures / accessibility | C-20260810-140 | L3/L4 | `src/components/structures/accessibility.spec.ts` | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-08 | 英文直接拆包、模块预加载、入口 gzip 与 CSS 单次输出预算 | i18n / bundle / CSS | C-20260810-140 | build | `scripts/verify-bundle.mjs` | verified | 2026-08-10 |
+| TC-RESPONSIVE-140-09 | `/docs`、`/en/docs` 默认 child、catch-all 与目录式静态入口 | routing / SEO artifacts | C-20260810-140 | L3/build | `src/router/index.spec.ts`、SEO/prerender scripts | verified | 2026-08-10 |
 | TC-PLAYER-GRID-139-01                           | 字幕与视觉轨拆为独立说明面板                                                               | player / stage                     | C-20260809-139 | L4     | `src/components/player/AlgorithmPlayer.spec.ts`               | active     | 2026-08-09 |
 | TC-PLAYER-GRID-139-02                           | 柱轨与箭头按父宽等比例共享槽位                                                             | player / bars                      | C-20260809-139 | L4     | BarsView / ArrowTrack specs                                   | active     | 2026-08-09 |
 | TC-PLAYER-GRID-139-03                           | 二分答案桌面柱轨不侵入代码面板                                                             | player / browser                   | C-20260809-139 | L5     | `e2e/binary-answer.e2e.ts`                                    | active     | 2026-08-09 |

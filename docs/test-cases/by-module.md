@@ -1,11 +1,27 @@
 # 测试用例模块视图
 
 > Status: active
-> Last reviewed: 2026-08-09
+> Last reviewed: 2026-08-10
 > Owner: IllegalCreed
 
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供模块视角，便于按功能域评审覆盖度。
+
+## 2026-08-10 全站响应式、可访问性与工程性能加固（C-20260810-140）
+
+当前实现为 verified/100%；304/2178 Vitest、125/125 Desktop、5/5 mobile 与双 base 190 页构建全绿。提交 `fcd3873`、Pages deployment `5825382051`、自有域部署及 Nginx 安全头线上检查均完成。
+
+| 模块                       | Case ID              | 标题                                               | 层级     | 自动化路径                                           |
+| -------------------------- | -------------------- | -------------------------------------------------- | -------- | ---------------------------------------------------- |
+| home / responsive browser  | TC-RESPONSIVE-140-01 | 手机首页/Header Sheet 与无横向溢出                 | L5       | `e2e/responsive.mobile.e2e.ts`                       |
+| docs / mobile drawer       | TC-RESPONSIVE-140-02 | Docs 抽屉、焦点守卫与完整正文宽度                  | L4/L5    | Docs hooks spec、`e2e/responsive.mobile.e2e.ts`      |
+| player / mobile layout     | TC-RESPONSIVE-140-03 | 手机播放器单列、检查区 tab 与 44px 控件            | L4/L5    | player specs、`e2e/responsive.mobile.e2e.ts`         |
+| docs / route focus         | TC-RESPONSIVE-140-04 | 文档路由滚动重置与标题焦点                         | L4/L5    | Docs hooks spec、`e2e/responsive.mobile.e2e.ts`      |
+| player / keyboard          | TC-RESPONSIVE-140-05 | 交互目标与修饰键退出播放器全局快捷键               | L4/L5    | AlgorithmPlayer spec、`e2e/playback-controls.e2e.ts` |
+| search / accessibility     | TC-RESPONSIVE-140-06 | 搜索 dialog 互斥、焦点循环/恢复与 Enter 守卫       | L4/L5    | SearchPalette spec、search/mobile e2e                |
+| structures / accessibility | TC-RESPONSIVE-140-07 | 结构输入、live region 与键盘等价操作               | L3/L4    | `src/components/structures/accessibility.spec.ts`    |
+| i18n / bundle / CSS        | TC-RESPONSIVE-140-08 | 英文拆包、modulepreload、入口 gzip 与 CSS 输出预算 | build    | `scripts/verify-bundle.mjs`                          |
+| routing / SEO artifacts    | TC-RESPONSIVE-140-09 | 默认 child、catch-all 与目录式静态入口             | L3/build | `src/router/index.spec.ts`、SEO/prerender scripts    |
 
 ## 2026-08-09 算法播放器阴影裁剪修复（C-20260809-138）
 
