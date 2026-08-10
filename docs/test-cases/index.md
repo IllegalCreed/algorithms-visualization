@@ -38,12 +38,17 @@
 > 2026-08-10 登记并验证 C141 一个 Header 层叠回归 Case：固定 Header 基础层级高于滚动文章装饰层、低于 consent/抽屉/搜索模态层；targeted 1/1、mobile 6/6、全局 304/2178 单测与双轨部署全绿。提交 `3c3d2e2`，Pages run `31351907649`。
 
 > 2026-08-10 登记并验证 C142 四个回归 Case：播放器控件尺寸、空队列边界、桶/计数轨单行内部横滚，以及预渲染静态资源不残留 preview origin；基线几何断言先红，修复后 targeted 3/3、mobile 9/9、相关结构 E2E 4/4、播放器定向单测 76/76 与双 base 静态资源门禁全绿。提交 `de8da04`、`3ef748a`，Pages run `31358485357`。
+>
+> 2026-08-10 登记并验证 C143 三个回归 Case：手机播放器倍率/步数的对称次级控制区、数组短内容自适应与满载局部横滚、以及自托管 CSP Report-Only 移除后的安全头/控制台冒烟。两条 L5 几何 Case 先红后绿；304/2178 单测、coverage、136/136 E2E、双 base 与双轨线上复核全绿，提交 `1a6fb1b`、Pages workflow `31361592140`。
 
 ## All Cases
 
 <!-- prettier-ignore -->
 | Case ID                                         | 标题                                                                                       | 所属功能 / 模块                    | Owner Plan     | 层级   | 自动化路径                                                    | 状态       | 最后验证   |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- | -------------- | ------ | ------------------------------------------------------------- | ---------- | ---------- |
+| TC-PLAYER-143-01 | 移动倍率与计数双列重心对齐 | player / controls | C-20260810-143 | L5 | `e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
+| TC-VIZ-143-02 | 数组短内容完整、满载内部横滚 | structures / array | C-20260810-143 | L5 | `e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
+| TC-OPS-143-03 | 自托管安全头与控制台冒烟 | infra / security headers | C-20260810-143 | ops/manual | manual + deployment log | verified | 2026-08-10 |
 | TC-PLAYER-142-01 | 播放器控件保持方形且不被 grid 拉伸 | player / controls | C-20260810-142 | L5 | `e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
 | TC-VIZ-142-02 | 空队列完整显示、非空车道可内部滚动 | structures / queue | C-20260810-142 | L5 | `e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |
 | TC-VIZ-142-03 | 桶与计数轨保持单行并可内部横滚 | structures / bucket tracks | C-20260810-142 | L5 | `e2e/responsive.mobile.e2e.ts` | verified | 2026-08-10 |

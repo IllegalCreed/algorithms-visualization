@@ -48,6 +48,11 @@
 - `scripts/nginx/algo-security-headers.conf` 是仓库管理的自托管片段。HSTS、nosniff、Referrer-Policy、Permissions-Policy 与 frame 保护为强制模式；AdSense/GA4 相关 CSP 先使用 Report-Only，必须经浏览器冒烟后再转强制。
 - GitHub Pages 不支持由本仓库配置自定义响应头，因此 Pages 镜像无法从应用代码补上这些 header。自有域在明确授权的发版中安装该片段，并需在已有 `assets` location 内再次 include（该 location 自己声明了 `add_header`，会中断 nginx 的父级继承）。
 
+### C143 对 CSP Report-Only 的后续处置
+
+- C140 的 CSP Report-Only 是当时为 AdSense/GA4 兼容性留下的历史基线。其后续处置已由 C143 取代：该静态白名单没有 `report-uri`/`report-to`，既不拦截也不能形成有效遥测，并会被 AdSense 动态域名持续触发无操作价值的控制台记录。
+- C143 当前为 in-progress/70%，计划仅移除此 Report-Only header，保留 C140 已验证的 HSTS、nosniff、Referrer-Policy、Permissions-Policy 与 X-Frame-Options；待该计划的 Nginx、双轨部署和线上冒烟证据完成后再更新为最终事实。
+
 ## 与设计偏差
 
 1. 设计稿曾要求手机代码/变量使用 accordion；实际采用 segmented tabs，原因是保留两个面板状态和代码高亮缓存，同时减少长页面高度，已由 `TC-RESPONSIVE-140-03` 覆盖。

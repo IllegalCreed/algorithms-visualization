@@ -7,6 +7,16 @@
 同一 Case ID 的事实字段（owner plan、层级、自动化路径、状态、最后验证）见 `index.md`。
 本文件仅提供模块视角，便于按功能域评审覆盖度。
 
+## 2026-08-10 移动播放器、数组画布与 CSP 收口（C-20260810-143）
+
+当前实现已 verified/100%；播放器和数组的 L5 几何断言先红后绿，安全头/控制台 ops 冒烟、双 base 构建与双轨发布均已完成。
+
+| 模块                     | Case ID          | 标题                         | 层级       | 自动化路径                     |
+| ------------------------ | ---------------- | ---------------------------- | ---------- | ------------------------------ |
+| player / controls        | TC-PLAYER-143-01 | 移动倍率与计数双列重心对齐   | L5         | `e2e/responsive.mobile.e2e.ts` |
+| structures / array       | TC-VIZ-143-02    | 数组短内容完整、满载内部横滚 | L5         | `e2e/responsive.mobile.e2e.ts` |
+| infra / security headers | TC-OPS-143-03    | 自托管安全头与控制台冒烟     | ops/manual | manual + deployment log        |
+
 ## 2026-08-10 固定 Header 层叠修复（C-20260810-141）
 
 | 模块              | Case ID          | 标题                        | 层级 | 自动化路径                     |
