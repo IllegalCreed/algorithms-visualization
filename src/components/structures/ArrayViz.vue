@@ -107,7 +107,7 @@ onUnmounted(() => clearTimeout(timer));
       <button class="btn" @click="onReset">{{ english ? 'Reset' : '重置' }}</button>
     </div>
     <div class="lane-wrap">
-      <!-- 车道：定宽（空/满一致）；值行贴合排（连续内存），下标行固定不随值走 -->
+      <!-- 车道：桌面定宽，手机按内容自适应；值行贴合排（连续内存），下标行固定不随值走 -->
       <div class="lane">
         <span v-if="!a.items.value.length" class="empty-hint">
           {{ english ? 'Array is empty' : '数组为空' }}
@@ -181,6 +181,14 @@ onUnmounted(() => clearTimeout(timer));
   min-height: 96px;
   padding: 14px;
   .neumorphism-pressed(4px, 12px);
+}
+@media (max-width: @mobile-max-width) {
+  // 手机上按实际元素宽度增长：初始 4 格完整铺满面板，只有达到
+  // 真正放不下的容量时才由 lane-wrap 提供局部横向滚动。
+  .lane {
+    width: max-content;
+    min-width: 100%;
+  }
 }
 .empty-hint {
   position: absolute;

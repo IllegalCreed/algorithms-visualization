@@ -115,6 +115,44 @@ test('TC-PLAYER-142-01 播放器控制按钮保持方形且不被网格拉伸', 
   }
 });
 
+test('TC-PLAYER-143-01 移动端倍率与进度计数按双列重心对齐', async ({ page }) => {
+  for (const viewport of [
+    { width: 320, height: 800 },
+    { width: 390, height: 844 },
+    { width: 430, height: 844 },
+    { width: 844, height: 390 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/docs/binary-answer');
+    const geometry = await page.locator('.transport').evaluate((element) => {
+      const transport = element.getBoundingClientRect();
+      const rect = (selector: string) => {
+        const node = element.querySelector<HTMLElement>(selector);
+        if (!node) return null;
+        const value = node.getBoundingClientRect();
+        return { left: value.left, right: value.right, width: value.width };
+      };
+      return {
+        transport: { left: transport.left, right: transport.right },
+        speed: rect('.speed'),
+        counter: rect('.counter'),
+        speedAlign: getComputedStyle(element.querySelector('.speed')!).textAlign,
+        counterAlign: getComputedStyle(element.querySelector('.counter')!).textAlign,
+      };
+    });
+
+    expect(geometry.speed).not.toBeNull();
+    expect(geometry.counter).not.toBeNull();
+    expect(Math.abs(geometry.speed!.width - geometry.counter!.width)).toBeLessThanOrEqual(1);
+    expect(geometry.speedAlign).toBe('center');
+    expect(geometry.counterAlign).toBe('center');
+
+    const leftInset = geometry.speed!.left - geometry.transport.left;
+    const rightInset = geometry.transport.right - geometry.counter!.right;
+    expect(Math.abs(leftInset - rightInset)).toBeLessThanOrEqual(4);
+  }
+});
+
 test('TC-VIZ-142-02 窄屏空队列完整显示，非空车道在组件内滚动', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/docs/queue');
@@ -154,6 +192,47 @@ test('TC-VIZ-142-02 窄屏空队列完整显示，非空车道在组件内滚动
   await laneWrap.evaluate((element) => element.scrollTo({ left: element.scrollWidth }));
   await expect.poll(() => laneWrap.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
   await expectNoPageOverflow(page);
+});
+
+test('TC-VIZ-143-02 数组画布按内容自适应，满载后才启用组件内横滚', async ({ page }) => {
+  for (const viewport of [
+    { width: 320, height: 800 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/docs/array');
+    const laneWrap = page.locator('.array-viz .lane-wrap').first();
+    await expect(laneWrap).toBeVisible();
+
+    const initial = await laneWrap.evaluate((element) => {
+      const wrapper = element.getBoundingClientRect();
+      const lane = element.querySelector<HTMLElement>('.lane')!.getBoundingClientRect();
+      return {
+        wrapper: { left: wrapper.left, right: wrapper.right, width: wrapper.width },
+        lane: { left: lane.left, right: lane.right, width: lane.width },
+      };
+    });
+    expect(initial.lane.width).toBeLessThanOrEqual(initial.wrapper.width + 1);
+    expect(initial.lane.left).toBeGreaterThanOrEqual(initial.wrapper.left - 1);
+    expect(initial.lane.right).toBeLessThanOrEqual(initial.wrapper.right + 1);
+
+    const append = page.locator('.array-viz').getByRole('button', { name: '尾部追加' });
+    for (let i = 0; i < 4; i += 1) await append.click();
+    await expect(laneWrap.locator('.cell')).toHaveCount(8);
+    await expect
+      .poll(() => laneWrap.evaluate((element) => element.scrollWidth))
+      .toBeGreaterThan(await laneWrap.evaluate((element) => element.clientWidth));
+
+    await laneWrap.evaluate((element) => element.scrollTo({ left: element.scrollWidth }));
+    await expect.poll(() => laneWrap.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+    const end = await laneWrap.evaluate((element) => {
+      const wrapper = element.getBoundingClientRect();
+      const last = element.querySelector<HTMLElement>('.cell:last-child')!.getBoundingClientRect();
+      return { wrapperRight: wrapper.right, lastRight: last.right };
+    });
+    expect(end.lastRight).toBeLessThanOrEqual(end.wrapperRight + 1);
+    await expectNoPageOverflow(page);
+  }
 });
 
 test('TC-VIZ-142-03 桶与计数轨保持单行，窄屏只滚动组件内部', async ({ page }) => {
@@ -264,8 +343,9 @@ test('TC-RESPONSIVE-140-02 文档侧栏在手机变为抽屉，文章和播放�
   await expect(page.locator('#mobile-menu-trigger')).toHaveAttribute('aria-expanded', 'false');
   await expect.poll(() => page.evaluate(() => document.body.style.overflow)).not.toBe('hidden');
 
-  // Fixed-width structure tracks must start at the readable edge and scroll
-  // inside their own wrapper instead of being symmetrically clipped.
+  // The short initial array should fit its panel without presenting a clipped
+  // fixed-width canvas. TC-VIZ-143-02 separately covers the full-capacity
+  // overflow path.
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/docs/array');
   const structureTrack = page.locator('.array-viz .lane-wrap');
@@ -283,11 +363,7 @@ test('TC-RESPONSIVE-140-02 文档侧栏在手机变为抽屉，文章和播放�
   expect(trackGeometry.wrapperLeft).toBeGreaterThanOrEqual(0);
   expect(trackGeometry.wrapperRight).toBeLessThanOrEqual(320);
   expect(trackGeometry.firstCellLeft).toBeGreaterThanOrEqual(trackGeometry.wrapperLeft);
-  expect(trackGeometry.scrollWidth).toBeGreaterThan(trackGeometry.clientWidth);
-  await structureTrack.evaluate((element) => element.scrollTo({ left: element.scrollWidth }));
-  await expect
-    .poll(() => structureTrack.evaluate((element) => element.scrollLeft))
-    .toBeGreaterThan(0);
+  expect(trackGeometry.scrollWidth).toBeLessThanOrEqual(trackGeometry.clientWidth + 1);
   await expectNoPageOverflow(page);
 
   for (const path of [

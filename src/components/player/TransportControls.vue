@@ -388,10 +388,15 @@ function onSpeed(e: Event) {
   .speed {
     grid-column: 1 / span 2;
     grid-row: 2;
-    width: 96px;
-    max-width: 100%;
+    /* Keep the secondary controls on the same visual grid as the actions:
+     * they each occupy the centre of a two-button group instead of making
+     * the counter stretch to the edge while the select stays narrow. */
+    width: 100%;
+    max-width: 120px;
     min-width: 0;
     justify-self: center;
+    padding-inline: 28px;
+    text-align: center;
   }
 
   .counter {
@@ -399,6 +404,10 @@ function onSpeed(e: Event) {
     grid-row: 2;
     min-width: 0;
     width: 100%;
+    max-width: 120px;
+    justify-self: center;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
   }
 
   .scrub {
